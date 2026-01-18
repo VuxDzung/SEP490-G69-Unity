@@ -20,6 +20,7 @@ namespace SEP490G69
                 IGameContext _context = context.GetComponent<IGameContext>();
                 if (context == null) continue;
                 _gameContextList.Add(_context);
+                _context.SetManager(this);
             }
         }
 
@@ -48,7 +49,7 @@ namespace SEP490G69
             }
             return default(T);
         }
-        public bool TryGetContext<T>(out T context) where T : ISceneContext
+        public bool TryGetSceneContext<T>(out T context) where T : ISceneContext
         {
             foreach (var c in _sceneContextList)
             {
@@ -60,6 +61,17 @@ namespace SEP490G69
             }
             context = default(T);
             return false;
+        }
+        public T GetGameContext<T>() where T : IGameContext
+        {
+            foreach (var context in _gameContextList)
+            {
+                if (context.GetType() == typeof(T))
+                {
+                    return (T)context;
+                }
+            }
+            return default(T);
         }
     }
 }

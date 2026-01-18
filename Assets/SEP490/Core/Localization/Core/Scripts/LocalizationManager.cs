@@ -19,7 +19,12 @@ namespace SEP490G69.Addons.Localization
 
 		public ELocalizeLanguageType CurrentLanguage => currentLanguage;
 
-		private void Awake()
+        public void SetManager(ContextManager manager)
+        {
+            
+        }
+
+        private void Awake()
 		{
 			if (config == null)
 			{
@@ -48,6 +53,11 @@ namespace SEP490G69.Addons.Localization
 			});
 		}
 
+		public string GetText(string category, string textId)
+		{
+			return GetText(category, textId, CurrentLanguage);
+		}
+
 		public string GetText(string category, string elementId, ELocalizeLanguageType languageType)
 		{
 			string id = string.Format(LOCALIZED_TEXT_LIST_ID, category, elementId);
@@ -70,5 +80,5 @@ namespace SEP490G69.Addons.Localization
 			}
 			return null;
 		}
-	}
+    }
 }

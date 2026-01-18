@@ -6,7 +6,8 @@ namespace SEP490G69
     public class GameContextConfigSO : ScriptableObject
     {
         [SerializeField] private GameObject[] m_GameContexts;
-
+        [SerializeField] private ScriptableObject[] m_DataConfig;
         public GameObject[] GameContexts => m_GameContexts;
+        public ScriptableObject[] DataConfig => m_DataConfig;
     }
 }

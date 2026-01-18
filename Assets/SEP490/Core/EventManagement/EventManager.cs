@@ -2,18 +2,10 @@ namespace SEP490G69
 {
     using System.Collections.Generic;
     using System;
+    using UnityEngine;
 
-    public class EventManager 
+    public class EventManager : MonoBehaviour, IGameContext
     {
-        private static EventManager _instance;
-        public static EventManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = new EventManager();
-                return _instance;
-            }
-        }
 
         private readonly Dictionary<Type, List<Delegate>> _subscribers = new Dictionary<Type, List<Delegate>>();
 
@@ -66,6 +58,11 @@ namespace SEP490G69
         public void ClearAll()
         {
             _subscribers.Clear();
+        }
+
+        public void SetManager(ContextManager manager)
+        {
+            
         }
     }
 }

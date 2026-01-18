@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da9614fb1db3cc4bac89f0a40f64b8c, type: 3}
-  m_Name: GameContextConfig
+  m_Script: {fileID: 11500000, guid: e5a29dbd38d77b440adcdf7bb8ccef2e, type: 3}
+  m_Name: CharacterData_0001
   m_EditorClassIdentifier: 
-  m_GameContexts:
-  - {fileID: 8056650187304678847, guid: eb9fe5707823a0941b893a38daffac12, type: 3}
-  m_DataConfig:
-  - {fileID: 11400000, guid: 16ddc8f60c94f4e4c97cc1a738507a90, type: 2}
+  m_CharacterID: ch_0001
+  m_CharacterName: Umbra
+  m_CharacterDescription: Darknest
+  m_Avatar: {fileID: 0}

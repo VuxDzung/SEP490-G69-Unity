@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da9614fb1db3cc4bac89f0a40f64b8c, type: 3}
-  m_Name: GameContextConfig
+  m_Script: {fileID: 11500000, guid: c99ea60cd3cabba42a2c52ecb7058d8d, type: 3}
+  m_Name: DialogTreeConfig
   m_EditorClassIdentifier: 
-  m_GameContexts:
-  - {fileID: 8056650187304678847, guid: eb9fe5707823a0941b893a38daffac12, type: 3}
-  m_DataConfig:
-  - {fileID: 11400000, guid: 16ddc8f60c94f4e4c97cc1a738507a90, type: 2}
+  m_Trees:
+  - {fileID: 11400000, guid: 16bf34f19e8c81e4b82570fbe91f2c84, type: 2}

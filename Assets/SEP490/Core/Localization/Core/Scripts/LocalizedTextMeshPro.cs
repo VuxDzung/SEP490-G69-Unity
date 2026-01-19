@@ -9,26 +9,31 @@ namespace SEP490G69.Addons.Localization
         [SerializeField] private string elementId;
         [SerializeField] private TextMeshProUGUI tmp;
 
-        private EventManager eventManager;
-        private LocalizationManager localizationManager;
+        private EventManager _eventManager;
+        private LocalizationManager _localizationManager;
 
         private void Awake()
         {
-            if (tmp == null) tmp = GetComponent<TextMeshProUGUI>();
+            if (tmp == null) 
+                tmp = GetComponent<TextMeshProUGUI>();
+            if (_eventManager == null) 
+                _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+            if (_localizationManager == null) 
+                _localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
         }
 
         private void OnEnable()
         {
-            eventManager.Subscribe<ChangeLanguageEvent>(OnLanguageChanged);
+            _eventManager.Subscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }
         private void OnDisable()
         {
-            eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);
+            _eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }
 
         private void OnLanguageChanged(ChangeLanguageEvent ev)
         {
-            string text = localizationManager.GetText(category, elementId, ev.LanguageType);
+            string text = _localizationManager.GetText(category, elementId, ev.LanguageType);
             if (text != null)
             {
                 tmp.text = text;

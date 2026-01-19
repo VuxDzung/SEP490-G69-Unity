@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8837258f31db4d4fb7ffb27f78ef6c5, type: 3}
+  m_Name: dlg_0001_0007
+  m_EditorClassIdentifier: 
+  m_NodeID: dlg_0007
+  m_SpeakerID: ch_0001
+  m_DialogID: 
+  m_NextNode: {fileID: 0}
+  m_Receiver: TestController
+  m_Action: Branch2
+  m_Parameters:
+  - m_ParameterName: Log
+    m_ParameterType: 0
+    m_Value: End branch 2

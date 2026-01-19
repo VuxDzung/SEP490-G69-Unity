@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: GameContextConfig
   m_EditorClassIdentifier: 
   m_GameContexts:
+  - {fileID: 6677894738061982641, guid: 20d6650a1947ed249bf7b150c446f93c, type: 3}
   - {fileID: 8056650187304678847, guid: eb9fe5707823a0941b893a38daffac12, type: 3}
+  - {fileID: 2241787395810003501, guid: b41cd1ea696bf434ab18bae0574d469e, type: 3}
+  - {fileID: 6645205036589243465, guid: b603bbc1b83bce842974c10fb8b975a7, type: 3}
   m_DataConfig:
   - {fileID: 11400000, guid: 16ddc8f60c94f4e4c97cc1a738507a90, type: 2}
+  - {fileID: 11400000, guid: 13a0b1c643c630640bcc9aa476d29b7f, type: 2}

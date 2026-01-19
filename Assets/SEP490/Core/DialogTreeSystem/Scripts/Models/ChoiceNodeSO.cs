@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using System.Linq;
     using UnityEngine;
 
     [CreateAssetMenu(
@@ -10,6 +11,11 @@ namespace SEP490G69
         [SerializeField] private DialogChoiceData[] m_Choices;
 
         public DialogChoiceData[] Choices => m_Choices;
+
+        public DialogChoiceData GetChoice(string choiceId)
+        {
+            return m_Choices.FirstOrDefault(c => c.ChoiceID.Equals(choiceId));
+        }
     }
 
     [System.Serializable]

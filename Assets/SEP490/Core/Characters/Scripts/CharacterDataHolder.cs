@@ -1,18 +1,27 @@
 namespace SEP490G69
 {
+    using SEP490G69.Addons.Localization;
     using UnityEngine;
 
     public class CharacterDataHolder 
     {
-        public CharacterData Data {  get; private set; }
-        public CharacterDataSO SO { get; private set; }
+        private CharacterData _data;
+        private CharacterDataSO _so;
 
-        public CharacterDataHolder(CharacterData data, CharacterDataSO sO)
+        private LocalizationManager _localization;
+
+        public CharacterDataHolder(CharacterData data, CharacterDataSO sO, LocalizationManager localization)
         {
-            Data = data;
-            SO = sO;
+            _data = data;
+            _so = sO;
+            _localization = localization;
         }
 
+        public string GetCharacterDescription()
+        {
+            if (_localization == null) return string.Empty;
 
+            return _localization.GetText(GameConstants.LOCALIZE_CATEGORY_CHARACTER_DESCS, _so.CharacterID);
+        }
     }
 }

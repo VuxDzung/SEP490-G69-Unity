@@ -1,12 +1,58 @@
 namespace SEP490G69
 {
-    using UnityEngine;
-
     public class GameConstants 
     {
+        #region UI Frame Id
+        /// <summary>
+        /// Frame id for dialog UI frame.
+        /// </summary>
         public const string FRAME_ID_DIALOG = "Frame.Dialog";
 
-        public const string LOCALIZE_CATEGORY_DIALOG = "Dialog";
-        public const string LOCALIZE_CATEGORY_DIALOG_CHOICE = "DialogChoice";
+        #endregion
+
+        #region Localization categories
+
+        /// <summary>
+        /// Localize category for button's texts.
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_BUTTON_TEXT = "UIButtonText";
+
+        /// <summary>
+        /// Localize category for dialogs
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_DIALOG = "Dialogs";
+
+        /// <summary>
+        /// Localize category for dialog' choices.
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_DIALOG_CHOICE = "DialogChoices";
+        
+        /// <summary>
+        /// Localize category for item's name
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_ITEM_NAMES = "ItemNames";
+
+        /// <summary>
+        /// Localize category for item's description
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_ITEM_DESC = "ItemDescs";
+
+        /// <summary>
+        /// Localize category for character's descriptions.
+        /// </summary>
+        public const string LOCALIZE_CATEGORY_CHARACTER_DESCS = "CharacterDescs";
+        #endregion
+
+        #region Currencies id
+        /// <summary>
+        /// Id for gold currency
+        /// </summary>
+        public const string MONEY_ID_GOLD = "gold";
+
+        /// <summary>
+        /// Id for gem currency
+        /// </summary>
+        public const string MONEY_ID_GEM = "gem";
+        #endregion
     }
 }

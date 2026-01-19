@@ -33,7 +33,10 @@ namespace SEP490G69
                 frameUI.gameObject.SetActive(false);
                 frameUI.SetManager(this);
             }
+        }
 
+        private void Start()
+        {
             if (!string.IsNullOrEmpty(starterFrameId))
             {
                 ShowFrame(starterFrameId);

@@ -14,6 +14,7 @@
 
     public class GameDialogManager : MonoBehaviour, IGameContext
     {
+        [SerializeField] private float m_AutoDeltaTime = 0.5f;
         [SerializeField] private DialogTreeConfigSO m_Config;
 
         /// <summary>
@@ -27,9 +28,54 @@
         private bool _auto;
         private Coroutine _autoCoroutine;
 
+        private void OnDisable()
+        {
+            _eventManager.Unsubscribe<NextDialogEvent>(DispatchNextEvent);
+            _eventManager.Unsubscribe<AutoPlayDialogEvent>(DispatchAutoEvent);
+            _eventManager.Unsubscribe<SkipDialogEvent>(DispatchSkipEvent);
+            _eventManager.Unsubscribe<SelectChoice>(DispatchChoiceSelectionEvent);
+        }
+
         public void SetManager(ContextManager manager)
         {
-            _eventManager = manager.GetGameContext<EventManager>();
+            _eventManager = manager.ResolveGameContext<EventManager>();
+
+            if (manager == null) return;
+
+            _eventManager.Subscribe<NextDialogEvent>(DispatchNextEvent);
+            _eventManager.Subscribe<AutoPlayDialogEvent>(DispatchAutoEvent);
+            _eventManager.Subscribe<SkipDialogEvent>(DispatchSkipEvent);
+            _eventManager.Subscribe<SelectChoice>(DispatchChoiceSelectionEvent);
+        }
+
+        private void DispatchNextEvent(NextDialogEvent nextEvent)
+        {
+            Next();
+        }
+        private void DispatchAutoEvent(AutoPlayDialogEvent autoEvent)
+        {
+            ToggleAuto();
+        }
+        private void DispatchSkipEvent(SkipDialogEvent skipEvent)
+        {
+            Skip();
+        }
+        private void DispatchChoiceSelectionEvent(SelectChoice choiceEvent)
+        {
+            string choiceID = choiceEvent.ChoiceID;
+
+            // Select choice event.
+            SelectChoice(choiceID);
+        }
+
+        public void SelectChoice(string choiceID)
+        {
+            if (_currentNode is ChoiceNodeSO choiceNode)
+            {
+                BaseDialogNodeSO nextNode = choiceNode.GetChoice(choiceID)?.NextNode;
+                _currentNode = nextNode;
+                RenderNode(_currentNode);
+            }
         }
 
         /// <summary>
@@ -131,7 +177,7 @@
         {
             while (_auto)
             {
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(m_AutoDeltaTime);
                 Next();
             }
         }

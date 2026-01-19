@@ -13,7 +13,7 @@ namespace SEP490G69.Addons.Localization
 		private Dictionary<string, TextConfigSO> textConfigLookUp = new Dictionary<string, TextConfigSO>();
 		private Dictionary<string, TextDataSettings> localizedTextLookUp = new Dictionary<string, TextDataSettings>();
 
-		private ELocalizeLanguageType currentLanguage;
+		[SerializeField] private ELocalizeLanguageType currentLanguage;
 
 		private EventManager eventManager;
 

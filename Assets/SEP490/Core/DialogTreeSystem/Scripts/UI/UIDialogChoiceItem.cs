@@ -21,8 +21,8 @@ namespace SEP490G69
 
         public void Spawn()
         {
-            if (_eventManager == null) _eventManager = ContextManager.Singleton.GetGameContext<EventManager>();
-            if (_localizationManager == null) _localizationManager = ContextManager.Singleton.GetGameContext<LocalizationManager>();
+            if (_eventManager == null) _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+            if (_localizationManager == null) _localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
 
             m_Button.onClick.AddListener(OnClick);
         }

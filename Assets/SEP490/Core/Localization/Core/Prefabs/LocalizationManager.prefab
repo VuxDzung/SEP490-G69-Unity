@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 9114f44a9db05b34e9fe77e07ea0d44d, type: 2}
+  currentLanguage: 0

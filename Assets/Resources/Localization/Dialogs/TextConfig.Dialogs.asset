@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.Dialogs
+  m_EditorClassIdentifier: 
+  category: Dialogs
+  textDataList:
+  - id: dlg_0001
+    textList:
+    - language: 0
+      text: Hello
+    - language: 1
+      text: "Xin ch\xE0o"
+  - id: dlg_0002
+    textList:
+    - language: 0
+      text: What do you need?
+    - language: 1
+      text: "B\u1EA1n c\u1EA7n g\xEC?"
+  - id: dlg_0003
+    textList:
+    - language: 0
+      text: Select an answer
+    - language: 1
+      text: "H\xE3y ch\u1ECDn m\u1ED9t c\xE2u tr\u1EA3 l\u1EDDi"
+  - id: dlg_0004
+    textList:
+    - language: 0
+      text: Welcome <USER_NAME>
+    - language: 1
+      text: "Ch\xE0o m\u1EEBng b\u1EA1n <USER_NAME>"
+  - id: dlg_0006
+    textList:
+    - language: 0
+      text: I'm Umbra
+    - language: 1
+      text: "T\xF4i l\xE0 Umbra"

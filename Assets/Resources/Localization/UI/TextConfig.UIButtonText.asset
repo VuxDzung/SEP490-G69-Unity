@@ -18,23 +18,41 @@ MonoBehaviour:
     textList:
     - language: 0
       text: Start
-    - language: 0
+    - language: 1
       text: "B\u1EAFt \u0111\u1EA7u"
   - id: btn_settings
     textList:
     - language: 0
       text: Settings
-    - language: 0
+    - language: 1
       text: "C\xE0i \u0111\u1EB7t"
   - id: btn_quit
     textList:
     - language: 0
       text: Quit
-    - language: 0
+    - language: 1
       text: "Tho\xE1t"
   - id: btn_back
     textList:
     - language: 0
       text: Back
-    - language: 0
+    - language: 1
       text: "Quay l\u1EA1i"
+  - id: btn_next
+    textList:
+    - language: 0
+      text: Next
+    - language: 1
+      text: "Ti\u1EBFp"
+  - id: btn_auto
+    textList:
+    - language: 0
+      text: Auto
+    - language: 1
+      text: "T\u1EF1 \u0111\u1ED9ng"
+  - id: btn_skip
+    textList:
+    - language: 0
+      text: Skip
+    - language: 1
+      text: Tua

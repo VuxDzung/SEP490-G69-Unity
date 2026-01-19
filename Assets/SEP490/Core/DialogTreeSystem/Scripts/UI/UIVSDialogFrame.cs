@@ -1,5 +1,6 @@
-namespace SEP490G69
+﻿namespace SEP490G69
 {
+    using System.Collections;
     using SEP490G69.Addons.Localization;
     using TMPro;
     using UnityEngine;
@@ -14,26 +15,61 @@ namespace SEP490G69
         [SerializeField] private Button m_AutoBtn;
         [SerializeField] private Button m_SkipBtn;
         [SerializeField] private GameObject m_ChoiceRoot;
+        [SerializeField] private GameObject m_ChoiceContainer;
         [SerializeField] private Transform m_ChoicePrefab;
+
+        [SerializeField] private float m_CharInterval = 0.03f;
 
         private LocalizationManager _localization;
         private CharacterConfigSO _characterConfig;
+        private EventManager _eventManager;
+
+        private Coroutine _typingCoroutine;
+        private string _fullDialogText;
+        private bool _isTyping;
+        private bool _autoMode;
 
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            if (_localization == null) _localization = ContextManager.Singleton.GetGameContext<LocalizationManager>();
+            if (_eventManager ==null) _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+            if (_localization == null) _localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+            if (_characterConfig == null) _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
+            _eventManager.Subscribe<SelectChoice>(DispatchChoiceSelection);
+            m_NextBtn.onClick.AddListener(Next);
+            m_AutoBtn.onClick.AddListener(Auto);
+            m_SkipBtn.onClick.AddListener(Skip);
         }
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
+            m_NextBtn.onClick.RemoveListener(Next);
+            m_AutoBtn.onClick.RemoveListener(Auto);
+            m_SkipBtn.onClick.RemoveListener(Skip);
+            _eventManager.Unsubscribe<SelectChoice>(DispatchChoiceSelection);
+            ClearChoices();
         }
 
         public UIVSDialogFrame RenderDialog(string speakerID, string dialogID)
         {
             string dialog = _localization.GetText(GameConstants.LOCALIZE_CATEGORY_DIALOG, dialogID);
-            string characterName = _characterConfig.GetCharacter(speakerID).CharacterName;
-            m_Image.sprite = _characterConfig.GetCharacter(speakerID).Avatar;
+
+            if (dialog.Contains("<USER_NAME>"))
+            {
+                string playerName = "Player 1";
+                dialog = dialog.Replace("<USER_NAME>", playerName);
+            }
+
+            var character = _characterConfig.GetCharacter(speakerID);
+            m_SpeakerNameTmp.text = character.CharacterName;
+            m_Image.sprite = character.Avatar;
+
+            _fullDialogText = dialog;
+
+            if (_typingCoroutine != null)
+                StopCoroutine(_typingCoroutine);
+
+            _typingCoroutine = StartCoroutine(TypeText(dialog));
 
             return this;
         }
@@ -45,7 +81,7 @@ namespace SEP490G69
 
             foreach (var choiceData in choices)
             {
-                var item = Spawn("Choices", m_ChoicePrefab, m_ChoiceRoot.transform);
+                var item = Spawn("Choices", m_ChoicePrefab, m_ChoiceContainer.transform);
                 UIDialogChoiceItem choice = item.GetComponent<UIDialogChoiceItem>();
                 if (choice != null)
                 {
@@ -60,6 +96,50 @@ namespace SEP490G69
         {
             DespawnAll("Choices");
             m_ChoiceRoot.SetActive(false);
+        }
+
+        private void Next()
+        {
+            _eventManager.Publish(new NextDialogEvent());
+        }
+        private void Auto()
+        {
+            _eventManager.Publish(new AutoPlayDialogEvent());
+        }
+        private void Skip()
+        {
+            _eventManager.Publish(new SkipDialogEvent());
+        }
+
+        private void DispatchChoiceSelection(SelectChoice selectChoice)
+        {
+            ClearChoices();
+        }
+
+        private IEnumerator TypeText(string dialog)
+        {
+            _isTyping = true;
+            m_DialogTmp.text = string.Empty;
+
+            for (int i = 0; i < dialog.Length; i++)
+            {
+                m_DialogTmp.text += dialog[i];
+                yield return new WaitForSeconds(m_CharInterval);
+            }
+
+            FinishTyping();
+        }
+
+        private void FinishTyping()
+        {
+            _isTyping = false;
+            m_DialogTmp.text = _fullDialogText;
+
+            // Nếu đang auto -> tự next
+            if (_autoMode)
+            {
+                _eventManager.Publish(new NextDialogEvent());
+            }
         }
     }
 }

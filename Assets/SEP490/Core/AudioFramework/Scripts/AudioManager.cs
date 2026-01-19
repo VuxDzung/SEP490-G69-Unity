@@ -2,26 +2,21 @@ namespace SEP490G69
 {
     using UnityEngine;
 
-    public class AudioManager : GlobalSingleton<AudioManager>
+    public class AudioManager : MonoBehaviour, IGameContext
     {
         [SerializeField] private AudioSource m_BgSource;
         [SerializeField] private AudioSource m_AudioSource;
 
-        protected override void CreateNewInstance()
+        public void PlaySFX(AudioClip clip)
         {
-            AddAudioInstances();
-        }
-
-        public static void PlaySFX(AudioClip clip)
-        {
-            Singleton.m_AudioSource.PlayOneShot(clip, 1);
+            m_AudioSource.PlayOneShot(clip, 1);
         }
 
         public void SetBG(AudioClip clip, bool repeat = true)
         {
-            Singleton.m_BgSource.clip = clip;
-            Singleton.m_BgSource.loop = repeat;
-            Singleton.m_BgSource.Play();
+            m_BgSource.clip = clip;
+            m_BgSource.loop = repeat;
+            m_BgSource.Play();
         }
 
         private void AddAudioInstances()
@@ -42,6 +37,11 @@ namespace SEP490G69
         public void SetSFXVolume(float volume)
         {
             if (m_AudioSource != null) m_AudioSource.volume = volume;
+        }
+
+        public void SetManager(ContextManager manager)
+        {
+            
         }
     }
 }

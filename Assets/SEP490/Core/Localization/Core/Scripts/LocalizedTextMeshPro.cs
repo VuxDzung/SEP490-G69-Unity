@@ -26,6 +26,16 @@ namespace SEP490G69.Addons.Localization
         {
             _eventManager.Subscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }
+
+        private void Start()
+        {
+            string text = _localizationManager.GetText(category, elementId);
+            if (text != null)
+            {
+                tmp.text = text;
+            }
+        }
+
         private void OnDisable()
         {
             _eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);

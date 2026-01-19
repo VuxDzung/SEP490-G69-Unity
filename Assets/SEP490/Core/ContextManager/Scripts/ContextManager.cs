@@ -22,7 +22,7 @@ namespace SEP490G69
                 IGameContext _context = contextGO.GetComponent<IGameContext>();
 
                 if (_context == null) continue;
-
+                contextGO.name = $"[Context] {context.name}";
                 _gameContextList.Add(_context);
                 _context.SetManager(this);
             }

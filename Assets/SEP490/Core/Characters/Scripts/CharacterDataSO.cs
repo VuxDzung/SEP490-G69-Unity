@@ -9,6 +9,8 @@ namespace SEP490G69
         [SerializeField] private string m_CharacterDescription;
         [SerializeField] private Sprite m_Avatar;
 
+        [SerializeField] private StatusDataSO[] m_StatusArray;
+
         public string CharacterID => m_CharacterID;
         public string CharacterName => m_CharacterName;
         public string CharacterDescription => m_CharacterDescription;

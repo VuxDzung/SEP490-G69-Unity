@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9296487f3a387184ca951ff997e655d3, type: 3}
-  m_Name: LocalizedConfig
+  m_Script: {fileID: 11500000, guid: 9b3c1b4c2e1d8a744815d331152161b5, type: 3}
+  m_Name: CH_0001_Status_INT
   m_EditorClassIdentifier: 
-  configList:
-  - {fileID: 11400000, guid: cb60530edca51d24180b34384abafa79, type: 2}
-  - {fileID: 11400000, guid: 469546e2032de4945b1efd42f1767a50, type: 2}
+  m_StatusType: 2
+  m_BaseValue: 100

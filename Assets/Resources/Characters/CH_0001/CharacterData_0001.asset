@@ -16,3 +16,7 @@ MonoBehaviour:
   m_CharacterName: Umbra
   m_CharacterDescription: Darknest
   m_Avatar: {fileID: 0}
+  m_StatusArray:
+  - {fileID: 11400000, guid: a3e954249667827409983e2e77284c73, type: 2}
+  - {fileID: 11400000, guid: 405911a6d49fab94e9b14796bd7d9632, type: 2}
+  - {fileID: 11400000, guid: bf96195939f150748b4846ea3e96da44, type: 2}

@@ -26,3 +26,9 @@ MonoBehaviour:
   - m_ParameterName: inFadeTime
     m_ParameterType: 2
     m_Value: 2
+  - m_ParameterName: onFadeInCompleted
+    m_ParameterType: 0
+    m_Value: StartDialogTree
+  - m_ParameterName: dialogTreeId
+    m_ParameterType: 0
+    m_Value: dlt_test_02

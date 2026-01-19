@@ -17,6 +17,7 @@
         [SerializeField] private GameObject m_ChoiceRoot;
         [SerializeField] private GameObject m_ChoiceContainer;
         [SerializeField] private Transform m_ChoicePrefab;
+        [SerializeField] private Image m_BgImage;
 
         [SerializeField] private float m_CharInterval = 0.03f;
 
@@ -50,9 +51,20 @@
             ClearChoices();
         }
 
-        public UIVSDialogFrame RenderDialog(string speakerID, string dialogID)
+        public UIVSDialogFrame RenderDialog(string speakerID, string dialogID, Sprite bgSprite)
         {
             string dialog = _localization.GetText(GameConstants.LOCALIZE_CATEGORY_DIALOG, dialogID);
+
+            if (bgSprite != null)
+            {
+                m_BgImage.sprite = bgSprite;
+                m_BgImage.enabled = true;
+            }
+            else
+            {
+                m_BgImage.sprite = null;
+                m_BgImage.enabled = false;
+            }
 
             if (dialog.Contains("<USER_NAME>"))
             {
@@ -70,6 +82,8 @@
                 StopCoroutine(_typingCoroutine);
 
             _typingCoroutine = StartCoroutine(TypeText(dialog));
+
+
 
             return this;
         }

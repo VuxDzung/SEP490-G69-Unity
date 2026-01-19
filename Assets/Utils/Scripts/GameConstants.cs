@@ -54,5 +54,16 @@ namespace SEP490G69
         /// </summary>
         public const string MONEY_ID_GEM = "gem";
         #endregion
+
+        #region Narrative Actions
+        public const string ACTION_FADE_IN = "FADE_IN";
+        public const string ACTION_FADE_OUT = "FADE_OUT";
+        public const string ACTION_FADE_IN_2_OUT = "FADE_IN_2_OUT";
+        #endregion
+
+        #region Narrative Event parameters
+        public const string PARAM_FADE_TIME = "fadeTime";
+        public const string PARAM_IN_FADE_TIME = "inFadeTime";
+        #endregion
     }
 }

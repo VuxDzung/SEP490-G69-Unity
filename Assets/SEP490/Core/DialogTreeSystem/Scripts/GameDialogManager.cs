@@ -1,9 +1,8 @@
 ﻿namespace SEP490G69
 {
-    using SEP490G69.Addons.Localization;
     using System.Collections;
-    using UnityEditor.Localization.Editor;
     using UnityEngine;
+    using UnityEngine.UIElements;
 
     public class DialogEvent : IEvent
     {
@@ -16,6 +15,8 @@
     {
         [SerializeField] private float m_AutoDeltaTime = 0.5f;
         [SerializeField] private DialogTreeConfigSO m_Config;
+
+        private NarrativeEventDispatcher _eventDispatcher;
 
         /// <summary>
         /// A reference of EventManager use to publish, listen to event(s).
@@ -41,6 +42,14 @@
             _eventManager = manager.ResolveGameContext<EventManager>();
 
             if (manager == null) return;
+
+            _eventDispatcher = new NarrativeEventDispatcher(new INarrativeActionHandler[]
+            {
+                new FadeInHandler(manager),
+                new FadeIn2OutHandler(manager),
+                //new FadeOutHandler(dialogManager),
+                // new PlayCutsceneHandler(...)
+            });
 
             _eventManager.Subscribe<NextDialogEvent>(DispatchNextEvent);
             _eventManager.Subscribe<AutoPlayDialogEvent>(DispatchAutoEvent);
@@ -190,12 +199,14 @@
         {
             while (_currentNode is EventNodeSO eventNode)
             {
-                _eventManager.Publish(new DialogEvent
+                DialogEvent _event = new DialogEvent
                 {
                     Receiver = eventNode.Receiver,
                     Action = eventNode.Action,
                     Parameters = eventNode.Parameters
-                });
+                };
+                _eventManager.Publish(_event);
+                _eventDispatcher.Dispatch(_event);
 
                 _currentNode = eventNode.NextNode;
 
@@ -223,7 +234,7 @@
 
             UIVSDialogFrame frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_DIALOG)
                                    .AsFrame<UIVSDialogFrame>()
-                                   .RenderDialog(node.SpeakerID, node.DialogID);
+                                   .RenderDialog(node.SpeakerID, node.DialogID, node.BackgroundImage);
 
             if (node is ChoiceNodeSO choiceNode)
             {

@@ -15,10 +15,14 @@ MonoBehaviour:
   m_NodeID: dlg_0005
   m_SpeakerID: ch_0001
   m_DialogID: 
+  m_BgImage: {fileID: 0}
   m_NextNode: {fileID: 0}
-  m_Receiver: TestController
-  m_Action: Branch1
+  m_Receiver: 
+  m_Action: FADE_IN_2_OUT
   m_Parameters:
-  - m_ParameterName: Log
-    m_ParameterType: 0
-    m_Value: End branch 1
+  - m_ParameterName: fadeTime
+    m_ParameterType: 2
+    m_Value: 1
+  - m_ParameterName: inFadeTime
+    m_ParameterType: 2
+    m_Value: 2

@@ -28,14 +28,39 @@ namespace SEP490G69
             confirmPWTmp.text = string.Empty;
         }
 
-        public void OnRegisterClicked()
+        public async void OnRegisterClicked()
         {
+            string email = emailTmp.text;
+            string password = passwordTmp.text;
+            string confirmPW = confirmPWTmp.text;
 
+            if (string.IsNullOrEmpty(email))
+            {
+                // Error here.
+                return;
+            }
+
+            if (confirmPW.Equals(password))
+            {
+                AuthResult result = await CloudAuthManager.Singleton.RegisterWithEmail(email, password);
+                if (result.IsSuccess)
+                {
+                    // Go to game/menu scene.
+                }
+                else
+                {
+                    // Error here.
+                }
+            }
+            else
+            {
+                // Error here.
+            }
         }
 
         public void BackToLoginNav()
         {
-            UIManager.ShowFrame("Frame.Login");
+            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
     }
 }

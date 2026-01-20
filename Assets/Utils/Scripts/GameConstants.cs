@@ -7,6 +7,8 @@ namespace SEP490G69
         /// Frame id for dialog UI frame.
         /// </summary>
         public const string FRAME_ID_DIALOG = "Frame.Dialog";
+        public const string FRAME_ID_LOGIN = "Frame.Login";
+        public const string FRAME_ID_REGISTER = "Frame.Register";
 
         #endregion
 

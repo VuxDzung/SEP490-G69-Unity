@@ -21,12 +21,14 @@
             base.OnFrameShown();
             loginBtn.onClick.AddListener(OnLoginClicked);
             ggLoginBtn.onClick.AddListener(OnGoogleLoginClicked);
+            registerNavBtn.onClick.AddListener(Go2Register);
         }
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
             loginBtn.onClick.RemoveListener(OnLoginClicked);
             ggLoginBtn.onClick.RemoveListener(OnGoogleLoginClicked);
+            registerNavBtn.onClick.RemoveListener(Go2Register);
         }
 
         public async void OnLoginClicked()
@@ -63,6 +65,10 @@
         {
             // SceneManager.LoadScene("MainMenu");
             Debug.Log("[UI] Login success");
+        }
+        private void Go2Register()
+        {
+            UIManager.ShowFrame(GameConstants.FRAME_ID_REGISTER);
         }
     }
 }

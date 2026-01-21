@@ -653,7 +653,7 @@ MonoBehaviour:
   m_ChoiceContainer: {fileID: 2270099667247464532}
   m_ChoicePrefab: {fileID: 3521277524669534743, guid: 297914a21c280a4439180bbc3d138805, type: 3}
   m_BgImage: {fileID: 4142121595724593529}
-  m_CharInterval: 0.03
+  m_CharInterval: 0.05
 --- !u!222 &3979317264885117849
 CanvasRenderer:
   m_ObjectHideFlags: 0

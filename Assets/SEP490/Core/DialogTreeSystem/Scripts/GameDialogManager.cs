@@ -98,7 +98,7 @@
 
             if (_currentTree == null)
             {
-                Debug.LogError($"DialogTree not found: {treeId}");
+                LoggerUtils.Logging("DIALOG_MANAGER_ERROR", $"Dialog tree {treeId} is missing", TextColor.Red);
                 return;
             }
 

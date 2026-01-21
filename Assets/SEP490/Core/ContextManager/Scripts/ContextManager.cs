@@ -4,6 +4,7 @@ namespace SEP490G69
     using System.Collections;
     using UnityEngine;
 
+    [DefaultExecutionOrder(-1000)]
     public class ContextManager : GlobalSingleton<ContextManager>
     {
         [SerializeField] private GameContextConfigSO m_GameContextConfig;

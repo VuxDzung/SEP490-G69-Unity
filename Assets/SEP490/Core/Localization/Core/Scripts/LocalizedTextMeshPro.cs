@@ -12,31 +12,28 @@ namespace SEP490G69.Addons.Localization
         private EventManager _eventManager;
         private LocalizationManager _localizationManager;
 
-        private void Awake()
-        {
-            if (tmp == null) 
-                tmp = GetComponent<TextMeshProUGUI>();
-            if (_eventManager == null) 
-                _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
-            if (_localizationManager == null) 
-                _localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
-        }
-
         private void OnEnable()
         {
-            _eventManager.Subscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }
 
         private void Start()
         {
+            if (tmp == null)
+                tmp = GetComponent<TextMeshProUGUI>();
+            if (_eventManager == null)
+                _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+            if (_localizationManager == null)
+                _localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+
+            _eventManager.Subscribe<ChangeLanguageEvent>(OnLanguageChanged);
+
             string text = _localizationManager.GetText(category, elementId);
             if (text != null)
             {
                 tmp.text = text;
             }
         }
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             _eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }

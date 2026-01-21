@@ -7,9 +7,8 @@ namespace SEP490G69
     public class GameUIManager : GlobalSingleton<GameUIManager>
     {
         #region Serialize Fields
-        [SerializeField] private string starterFrameId;
         [SerializeField] private Transform frameContainer;
-        [SerializeField] private List<GameUIFrame> framePrefabList;
+        [SerializeField] private FramesConfigSO m_Config;
         #endregion
 
         #region Private fields
@@ -26,7 +25,7 @@ namespace SEP490G69
         protected override void CreateNewInstance()
         {
             base.CreateNewInstance();
-            foreach (var frame in framePrefabList)
+            foreach (var frame in m_Config.Frames)
             {
                 GameUIFrame frameUI = Instantiate(frame, frameContainer);
                 frameUILookUp.Add(frame.FrameId, frameUI);
@@ -37,9 +36,9 @@ namespace SEP490G69
 
         private void Start()
         {
-            if (!string.IsNullOrEmpty(starterFrameId))
+            if (!string.IsNullOrEmpty(m_Config.StarterFrameId))
             {
-                ShowFrame(starterFrameId);
+                ShowFrame(m_Config.StarterFrameId);
             }
         }
 

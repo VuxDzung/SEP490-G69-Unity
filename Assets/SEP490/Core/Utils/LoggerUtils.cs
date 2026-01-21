@@ -15,7 +15,7 @@ namespace SEP490G69
     {
         public static void Logging(string title, string message = "", TextColor titleColor = TextColor.Green, TextColor msgColor = TextColor.White)
         {
-            Debug.Log($"<color={GetColor(titleColor)}>-----[{title}]-----</color>\n<color={GetColor(msgColor)}>{message}</color>");
+            Debug.Log($"<color={GetColor(titleColor)}>{title}</color>\n<color={GetColor(msgColor)}>{message}</color>");
         }
 
         private static string GetColor(TextColor color)

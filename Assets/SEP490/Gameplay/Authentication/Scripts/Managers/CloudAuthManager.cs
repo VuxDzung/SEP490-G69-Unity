@@ -5,18 +5,17 @@
     using Unity.Services.Core;
     using UnityEngine;
 
-    public class CloudAuthManager : GlobalSingleton<CloudAuthManager>
+    public class CloudAuthManager : MonoBehaviour, IGameContext
     {
         public bool IsInitialized { get; private set; }
         public bool IsSignedIn => AuthenticationService.Instance.IsSignedIn;
         public string PlayerId => AuthenticationService.Instance.PlayerId;
 
-        protected override void CreateNewInstance()
-        {
-            base.CreateNewInstance();
-        }
-
         #region Initialize
+        public void SetManager(ContextManager manager)
+        {
+            
+        }
 
         public async Task InitializeAsync()
         {
@@ -61,19 +60,19 @@
 
         #endregion
 
-        #region Email / Password
+        #region Username / Password
 
         /// <summary>
         /// Register new account
         /// </summary>
-        public async Task<AuthResult> RegisterWithEmail(
-            string email,
+        public async Task<AuthResult> RegisterWithUsername(
+            string username,
             string password,
             string displayName = null)
         {
             try
             {
-                await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(email, password);
+                await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
 
                 if (!string.IsNullOrEmpty(displayName))
                 {
@@ -91,13 +90,13 @@
         /// <summary>
         /// Login existing account
         /// </summary>
-        public async Task<AuthResult> LoginWithEmail(
-            string email,
+        public async Task<AuthResult> LoginWithUsername(
+            string username,
             string password)
         {
             try
             {
-                await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(email, password);
+                await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
 
                 return AuthResult.Success();
             }
@@ -151,13 +150,16 @@
 
         #endregion
 
+        #region Open ID
+
+        #endregion
+
         #region Logout
 
-        public void SignOut()
+        public virtual void SignOut()
         {
             AuthenticationService.Instance.SignOut();
         }
-
         #endregion
     }
 

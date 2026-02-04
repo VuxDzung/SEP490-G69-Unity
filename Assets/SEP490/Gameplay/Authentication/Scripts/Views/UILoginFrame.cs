@@ -16,9 +16,12 @@
         [SerializeField] private Button registerNavBtn;
         [SerializeField] private Button ggLoginBtn;
 
+        private CloudAuthManager _authManager;
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
+            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<CloudAuthManager>();
             loginBtn.onClick.AddListener(OnLoginClicked);
             ggLoginBtn.onClick.AddListener(OnGoogleLoginClicked);
             registerNavBtn.onClick.AddListener(Go2Register);
@@ -35,7 +38,7 @@
         {
             messageText.text = "Logging in...";
 
-            var result = await CloudAuthManager.Singleton.LoginWithEmail(emailInput.text, passwordInput.text);
+            var result = await _authManager.LoginWithUsername(emailInput.text, passwordInput.text);
 
             if (result.IsSuccess)
             {

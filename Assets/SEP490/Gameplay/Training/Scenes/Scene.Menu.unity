@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 22232097179334772, guid: cfacadcce595a2a43b515c687c273b86, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1802194758603469851, guid: cfacadcce595a2a43b515c687c273b86, type: 3}
       propertyPath: m_Name
       value: GameUIManager.Menu
@@ -611,6 +615,10 @@ PrefabInstance:
     - target: {fileID: 101751444706984798, guid: f52867a2d1e955b40abdd8d34a7e4738, type: 3}
       propertyPath: m_Name
       value: FadingController
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141889048761566532, guid: f52867a2d1e955b40abdd8d34a7e4738, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6778835156251972679, guid: f52867a2d1e955b40abdd8d34a7e4738, type: 3}
       propertyPath: dontDestroyOnLoad

@@ -12,9 +12,12 @@ namespace SEP490G69
         [SerializeField] private Button registerBtn;
         [SerializeField] private Button loginNavBtn;
 
+        private CloudAuthManager _authManager;
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
+            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<CloudAuthManager>();
             registerBtn.onClick.AddListener(OnRegisterClicked);
             loginNavBtn.onClick.AddListener(BackToLoginNav);
         }
@@ -42,7 +45,7 @@ namespace SEP490G69
 
             if (confirmPW.Equals(password))
             {
-                AuthResult result = await CloudAuthManager.Singleton.RegisterWithEmail(email, password);
+                AuthResult result = await _authManager.RegisterWithUsername(email, password);
                 if (result.IsSuccess)
                 {
                     // Go to game/menu scene.

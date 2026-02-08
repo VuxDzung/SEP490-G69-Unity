@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
+  m_Name: FramesConfig_TitleScene
+  m_EditorClassIdentifier: 
+  m_StarterFrameId: Frame.Title
+  m_Frames:
+  - {fileID: 7484390495493514148, guid: 08dc45ec7728b6447b62059b55a9e6a9, type: 3}
+  - {fileID: 3148858894042659807, guid: 2ee935ef7b4b8044b8225a11cd901e4c, type: 3}
+  - {fileID: 5680165697444436085, guid: b5369c3fd28db304cac7f93e55f84d8a, type: 3}

@@ -9,6 +9,9 @@ namespace SEP490G69
         public const string FRAME_ID_DIALOG = "Frame.Dialog";
         public const string FRAME_ID_LOGIN = "Frame.Login";
         public const string FRAME_ID_REGISTER = "Frame.Register";
+        public const string FRAME_ID_TITLE = "Frame.Title";
+        public const string FRAME_ID_CREDIT = "Frame.Credit";
+        public const string FRAME_ID_TITLE_SETTINGS = "Frame.TitleSettings";
 
         #endregion
 

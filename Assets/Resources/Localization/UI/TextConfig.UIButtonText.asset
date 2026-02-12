@@ -98,3 +98,39 @@ MonoBehaviour:
       text: Change password
     - language: 1
       text: "\u0110\u1ED5i m\u1EADt kh\u1EA9u"
+  - id: btn_training
+    textList:
+    - language: 0
+      text: Training
+    - language: 1
+      text: "Hu\u1EA5n luy\u1EC7n"
+  - id: btn_rest
+    textList:
+    - language: 0
+      text: Rest
+    - language: 1
+      text: "Ngh\u1EC9 ng\u01A1i"
+  - id: btn_calendar
+    textList:
+    - language: 0
+      text: Calendar
+    - language: 1
+      text: "L\u1ECBch"
+  - id: btn_deck
+    textList:
+    - language: 0
+      text: Deck
+    - language: 1
+      text: "B\u1ED9 b\xE0i"
+  - id: btn_inventory
+    textList:
+    - language: 0
+      text: Inventory
+    - language: 1
+      text: "Kho \u0111\u1ED3"
+  - id: btn_cards
+    textList:
+    - language: 0
+      text: Cards
+    - language: 1
+      text: "Th\u1EBB b\xE0i"

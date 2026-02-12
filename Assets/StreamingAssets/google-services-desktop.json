@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "849240330897",
+    "project_id": "sep490firebaseauth",
+    "storage_bucket": "sep490firebaseauth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849240330897:android:be48a497adab5aa066e530",
+        "android_client_info": {
+          "package_name": "com.sep490.dczodiaclegacy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849240330897-o0urmbo7p56lj6rvid7no4rusotjvmrg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sep490.dczodiaclegacy",
+            "certificate_hash": "13c6203b47e6debd115b2a4213e652fbe165a526"
+          }
+        },
+        {
+          "client_id": "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdCHSAU7Amkw1A3LhNF88kud1Ww5OEGBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

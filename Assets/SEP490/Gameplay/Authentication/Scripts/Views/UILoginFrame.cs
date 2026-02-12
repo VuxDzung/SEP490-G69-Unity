@@ -16,12 +16,12 @@
         [SerializeField] private Button registerNavBtn;
         [SerializeField] private Button ggLoginBtn;
 
-        private CloudAuthManager _authManager;
+        private GameAuthManager _authManager;
 
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<CloudAuthManager>();
+            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
             loginBtn.onClick.AddListener(OnLoginClicked);
             ggLoginBtn.onClick.AddListener(OnGoogleLoginClicked);
             registerNavBtn.onClick.AddListener(Go2Register);
@@ -36,32 +36,36 @@
 
         public async void OnLoginClicked()
         {
-            messageText.text = "Logging in...";
+            UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
+            bool success = await _authManager.LoginAsync(emailInput.text, passwordInput.text);
+            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
 
-            var result = await _authManager.LoginWithUsername(emailInput.text, passwordInput.text);
-
-            if (result.IsSuccess)
+            if (success)
             {
-                messageText.text = "Login successful!";
+                LoggerUtils.Logging("LOGIN_SUCCES");
                 OnLoginSuccess();
             }
             else
             {
-                messageText.text = result.Error;
+                LoggerUtils.Logging("LOGIN_FAILED", "", TextColor.Red);
             }
         }
 
         public async void OnGoogleLoginClicked()
         {
-            messageText.text = "Google login...";
+            //messageText.text = "Google login...";
+            UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
+            bool success = await _authManager.SignInWithGoogleAsync();
+            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
 
-            // TODO: Get idToken from Google SDK
-            //string googleIdToken = GoogleAuthHelper.GetIdToken();
+            if (success)
+            {
 
-            //var result = await CloudAuthManager.Instance
-            //    .LoginWithGoogle(googleIdToken);
+            }
+            else
+            {
 
-            //messageText.text = result.IsSuccess ? "Login successful!" : result.Error;
+            }
         }
 
         private void OnLoginSuccess()

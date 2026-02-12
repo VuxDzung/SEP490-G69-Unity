@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   textDataList:
+  - id: btn_apply
+    textList:
+    - language: 0
+      text: Apply
+    - language: 1
+      text: "\xC1p d\u1EE5ng"
   - id: btn_start
     textList:
     - language: 0
@@ -56,3 +62,33 @@ MonoBehaviour:
       text: Skip
     - language: 1
       text: Tua
+  - id: btn_login
+    textList:
+    - language: 0
+      text: Login
+    - language: 1
+      text: "\u0110\u0103ng nh\u1EADp"
+  - id: btn_register
+    textList:
+    - language: 0
+      text: Sign up
+    - language: 1
+      text: "\u0110\u0103ng k\xFD"
+  - id: btn_login_by_gg
+    textList:
+    - language: 0
+      text: Login by Google
+    - language: 1
+      text: "\u0110\u0103ng nh\u1EADp b\u1EB1ng Google"
+  - id: btn_confirm
+    textList:
+    - language: 0
+      text: Confirm
+    - language: 1
+      text: "X\xE1c nh\u1EADn"
+  - id: btn_cancel
+    textList:
+    - language: 0
+      text: Cancel
+    - language: 1
+      text: "H\u1EE7y"

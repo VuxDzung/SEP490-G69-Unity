@@ -12,6 +12,8 @@ namespace SEP490G69
         public const string FRAME_ID_TITLE = "Frame.Title";
         public const string FRAME_ID_CREDIT = "Frame.Credit";
         public const string FRAME_ID_TITLE_SETTINGS = "Frame.TitleSettings";
+        public const string FRAME_ID_LOADING = "Frame.Loading";
+        public const string FRAME_ID_MESSAGE_POPUP = "Frame.MessagePopup";
 
         #endregion
 
@@ -21,6 +23,8 @@ namespace SEP490G69
         /// Localize category for button's texts.
         /// </summary>
         public const string LOCALIZE_CATEGORY_BUTTON_TEXT = "UIButtonText";
+
+        public const string LOCALIZE_UI_MESSAGE = "UIMessage";
 
         /// <summary>
         /// Localize category for dialogs

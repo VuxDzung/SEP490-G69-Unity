@@ -6,18 +6,18 @@ namespace SEP490G69
 
     public class UIRegisterFrame : GameUIFrame
     {
-        [SerializeField] private TextMeshProUGUI emailTmp;
-        [SerializeField] private TextMeshProUGUI passwordTmp;
-        [SerializeField] private TextMeshProUGUI confirmPWTmp;
+        [SerializeField] private TMP_InputField emailTmp;
+        [SerializeField] private TMP_InputField passwordTmp;
+        [SerializeField] private TMP_InputField confirmPWTmp;
         [SerializeField] private Button registerBtn;
         [SerializeField] private Button loginNavBtn;
 
-        private CloudAuthManager _authManager;
+        private GameAuthManager _authManager;
 
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<CloudAuthManager>();
+            if (_authManager == null) _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
             registerBtn.onClick.AddListener(OnRegisterClicked);
             loginNavBtn.onClick.AddListener(BackToLoginNav);
         }
@@ -45,8 +45,10 @@ namespace SEP490G69
 
             if (confirmPW.Equals(password))
             {
-                AuthResult result = await _authManager.RegisterWithUsername(email, password);
-                if (result.IsSuccess)
+                UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
+                bool success = await _authManager.RegisterAsync(email, password);
+                UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
+                if (success)
                 {
                     // Go to game/menu scene.
                 }

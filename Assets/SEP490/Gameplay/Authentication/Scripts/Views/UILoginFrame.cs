@@ -9,12 +9,13 @@
         [Header("UI")]
         [SerializeField] private TMP_InputField emailInput;
         [SerializeField] private TMP_InputField passwordInput;
-        [SerializeField] private TMP_Text messageText;
 
         [Header("Buttons")]
         [SerializeField] private Button loginBtn;
+        [SerializeField] private Button forgotPWBtn;
         [SerializeField] private Button registerNavBtn;
         [SerializeField] private Button ggLoginBtn;
+        [SerializeField] private Button loginAsGuestBtn;
 
         private GameAuthManager _authManager;
 
@@ -25,14 +26,22 @@
             loginBtn.onClick.AddListener(OnLoginClicked);
             ggLoginBtn.onClick.AddListener(OnGoogleLoginClicked);
             registerNavBtn.onClick.AddListener(Go2Register);
+            forgotPWBtn.onClick.AddListener(ForgotPWNav);
+            loginAsGuestBtn.onClick.AddListener(LoginAsGuest);
+            _authManager.OnLoginByGGWindowsChanged += OnLoginByGGWindowsChanged;
         }
+
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
             loginBtn.onClick.RemoveListener(OnLoginClicked);
             ggLoginBtn.onClick.RemoveListener(OnGoogleLoginClicked);
             registerNavBtn.onClick.RemoveListener(Go2Register);
+            forgotPWBtn.onClick.RemoveListener(ForgotPWNav);
+            loginAsGuestBtn.onClick.RemoveListener(LoginAsGuest);
+            _authManager.OnLoginByGGWindowsChanged -= OnLoginByGGWindowsChanged;
         }
+
 
         public async void OnLoginClicked()
         {
@@ -51,20 +60,46 @@
             }
         }
 
+        private void ForgotPWNav()
+        {
+            UIManager.ShowFrame(GameConstants.FRAME_ID_CHANGE_PW);
+        }
+
+        private void LoginAsGuest()
+        {
+
+        }
+
         public async void OnGoogleLoginClicked()
         {
-            //messageText.text = "Google login...";
             UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
-            bool success = await _authManager.SignInWithGoogleAsync();
+#if UNITY_ANDROID
+            bool success = await _authManager.SignInWithGoogleAndroid();
             UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
 
             if (success)
+            {
+                OnLoginSuccess();
+            }
+            else
+            {
+                
+            }
+#else
+            _authManager.SignInByGoogleWindows();
+#endif
+        }
+
+        private void OnLoginByGGWindowsChanged(string result)
+        {
+            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
+            if (result.Equals("failed"))
             {
 
             }
             else
             {
-
+                OnLoginSuccess();
             }
         }
 

@@ -110,7 +110,7 @@
             });
         }
 
-        private async Task<FirebaseUser> SignInWithGoogleAsync(string tokenId)
+        public async Task<FirebaseUser> SignInWithGoogleAsync(string tokenId)
         {
             try
             {
@@ -126,9 +126,9 @@
             }
         }
 
-        public async Task<FirebaseUser> SignInGoogleWindowsAsync()
+        public void SignInGoogleWindowsAsync()
         {
-            return await _windowsAuthService.SignInWithGoogle();
+            _windowsAuthService.StartLogin();
         }
 
         public async Task<FirebaseUser> SignInGoogleAndroidAsync()

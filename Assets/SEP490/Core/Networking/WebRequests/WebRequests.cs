@@ -21,6 +21,9 @@ namespace SEP490G69.Addons.Networking
         private string _baseUrl;
         private string _jwt;
         private BackendUrlConfigSO _backendUrlConfig;
+
+        public string BaseUrl => _baseUrl;
+
         public WebRequests()
         {
             if (string.IsNullOrEmpty(_baseUrl))

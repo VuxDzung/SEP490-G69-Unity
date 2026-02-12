@@ -14,6 +14,7 @@ namespace SEP490G69
         public const string FRAME_ID_TITLE_SETTINGS = "Frame.TitleSettings";
         public const string FRAME_ID_LOADING = "Frame.Loading";
         public const string FRAME_ID_MESSAGE_POPUP = "Frame.MessagePopup";
+        public const string FRAME_ID_CHANGE_PW = "Frame.ChangePassword";
 
         #endregion
 

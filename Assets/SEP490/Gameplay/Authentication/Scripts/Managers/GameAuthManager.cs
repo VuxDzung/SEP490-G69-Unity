@@ -13,16 +13,29 @@
         private UnityAuthService unityAuth;
         private ContextManager _contextManager;
         private WebRequests _webRequests;
+        private EventManager _eventManager;
+
+        public event Action<string> OnLoginByGGWindowsChanged;
 
         private void Awake()
         {
             _webRequests = new WebRequests();
+            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
         }
 
         private void Start()
         {
             firebaseAuth = new FirebaseAuthService();
             unityAuth = new UnityAuthService();
+        }
+
+        private void OnEnable()
+        {
+            _eventManager.Subscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
+        }
+        private void OnDisable()
+        {
+            _eventManager.Unsubscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
         }
 
         public void SetManager(ContextManager manager)
@@ -82,41 +95,77 @@
             }
         }
 
-        public async Task<bool> SignInWithGoogleAsync()
+        public async Task<bool> SignInWithGoogleAndroid()
         {
-            //try
-            //{
-                // Step 1: Google + Firebase login
-#if UNITY_ANDROID
-                FirebaseUser user = await firebaseAuth.SignInGoogleAndroidAsync();
-#else
-                FirebaseUser user = await firebaseAuth.SignInGoogleWindowsAsync();
-#endif
+            FirebaseUser user = await firebaseAuth.SignInGoogleAndroidAsync();
+            if (user == null)
+                return false;
 
-                if (user == null)
-                    return false;
+            string idToken = await firebaseAuth.GetIdTokenAsync();
+            if (string.IsNullOrEmpty(idToken))
+                return false;
 
-                // Step 2: Get Firebase ID Token
-                string idToken = await firebaseAuth.GetIdTokenAsync();
-                if (string.IsNullOrEmpty(idToken))
-                    return false;
+            await unityAuth.InitializeAsync();
 
-                // Step 3: Init Unity Services
-                await unityAuth.InitializeAsync();
+            await unityAuth.SignInWithFirebaseAsync(idToken);
 
-                // Step 4: Unity OpenID login
-                await unityAuth.SignInWithFirebaseAsync(idToken);
+            // Step 5: Login/Sign up by user id.
+            bool success = await LoginToGameBackend(idToken);
 
-                // Step 5: Login/Sign up by user id.
-                bool success = await LoginToGameBackend(idToken);
+            return success;
+        }
 
-                return success;
-            //}
-            //catch (System.Exception e)
-            //{
-            //    UnityEngine.Debug.LogError($"Google SignIn Failed: {e.Message}");
-            //    return false;
-            //}
+        public void SignInByGoogleWindows()
+        {
+            firebaseAuth.SignInGoogleWindowsAsync();
+        }
+
+        private async void HandleWindowsLoginByGoogle(ReceiveTokenIdEvent ev)
+        {
+            if (ev == null)
+            {
+                OnLoginByGGWindowsChanged?.Invoke("failed");
+                return;
+            }
+
+            string googleTokenId = ev.TokenId;
+
+            if (string.IsNullOrEmpty(googleTokenId))
+            {
+                OnLoginByGGWindowsChanged?.Invoke("failed");
+                return;
+            }
+
+            FirebaseUser user = await firebaseAuth.SignInWithGoogleAsync(googleTokenId);
+
+            if (user == null)
+            {
+                OnLoginByGGWindowsChanged?.Invoke("failed");
+                return;
+            }
+
+            // Step 2: Get Firebase ID Token
+            string idToken = await firebaseAuth.GetIdTokenAsync();
+            if (string.IsNullOrEmpty(idToken))
+            {
+                OnLoginByGGWindowsChanged?.Invoke("failed");
+                return;
+            }
+
+            // Step 3: Init Unity Services
+            await unityAuth.InitializeAsync();
+
+            // Step 4: Unity OpenID login
+            await unityAuth.SignInWithFirebaseAsync(idToken);
+
+            // Step 5: Login/Sign up by user id.
+            bool success = await LoginToGameBackend(idToken);
+            if (!success) 
+            {
+                OnLoginByGGWindowsChanged?.Invoke("failed");
+                return;
+            }
+            OnLoginByGGWindowsChanged?.Invoke("success");
         }
 
         public void SendPasswordResetEmail(string email, Action onCancelled, Action onError, Action onComplete)

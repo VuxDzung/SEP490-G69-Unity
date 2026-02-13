@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
-  m_Name: FramesConfig_Menu
+  m_Name: FramesConfig_MainMenu
   m_EditorClassIdentifier: 
-  m_StarterFrameId: 
+  m_StarterFrameId: Frame.MainMenu
   m_Frames:
+  - {fileID: 3129529697927196234, guid: 67d4b24107493a64fb65e6f9a7045e99, type: 3}
   - {fileID: 8248288711004666034, guid: 7b3ead519b3980749ae95d4c00adcd5f, type: 3}

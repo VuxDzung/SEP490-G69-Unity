@@ -33,7 +33,7 @@ namespace SEP490G69.Addons.LoadScreenSystem
         /// <param name="showBG">Whether you want to display loading background or not.</param>
         public void StartLoadScene(string sceneName, bool showBG = true)
         {
-            StartLoad(sceneName, null, null, false, showBG);
+            StartLoad(sceneName, null, null, true, showBG);
         }
 
         /// <summary>

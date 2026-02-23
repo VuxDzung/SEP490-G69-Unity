@@ -17,6 +17,18 @@ namespace SEP490G69.Addons.Localization
 
 		private EventManager eventManager;
 
+		private EventManager EventManager
+		{
+			get
+			{
+				if (eventManager == null)
+				{
+					eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+				}
+				return eventManager;
+			}
+		}
+
 		public ELocalizeLanguageType CurrentLanguage => currentLanguage;
 
         public void SetManager(ContextManager manager)
@@ -47,7 +59,7 @@ namespace SEP490G69.Addons.Localization
 		public void SetLanguage(ELocalizeLanguageType language)
 		{
 			currentLanguage = language;
-			eventManager.Publish(new ChangeLanguageEvent
+            EventManager.Publish(new ChangeLanguageEvent
 			{
 				LanguageType = currentLanguage
 			});

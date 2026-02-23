@@ -3,7 +3,7 @@ namespace SEP490G69
     using System.Collections.Generic;
     using UnityEngine;
 
-    [DefaultExecutionOrder(-100)]
+    [DefaultExecutionOrder(-1000)]
     public class GameUIManager : GlobalSingleton<GameUIManager>
     {
         #region Serialize Fields
@@ -60,6 +60,7 @@ namespace SEP490G69
             {
                 GameUIFrame frame = frameUILookUp[frameId];
                 activeFrameLookUp.Add(frameId, frame);
+                frame.transform.SetAsLastSibling();
                 frame.Show();
                 return frame;
             }

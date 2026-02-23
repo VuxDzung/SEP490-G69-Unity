@@ -151,6 +151,12 @@ namespace SEP490G69.Addons.Networking
             }
         }
 
+        public async Task PutJsonByEndpointAsync(string endpointName, string json, Action<ResponsePacket> onCompleted = null)
+        {
+            string url = _backendUrlConfig.GetEndpoint(endpointName);
+            await PutJsonAsync(url, json, onCompleted);
+        }
+
         public async Task PutJsonAsync(string url, string json, Action<ResponsePacket> onCompleted = null)
         {
             string endpointUrl = _baseUrl + url;

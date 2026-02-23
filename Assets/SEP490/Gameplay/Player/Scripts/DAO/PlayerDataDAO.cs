@@ -25,10 +25,10 @@ namespace SEP490G69
             col.Insert(playerData);
         }
 
-        public void UpdatePlayer(PlayerData playerData)
+        public bool UpdatePlayer(PlayerData playerData)
         {
             var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            col.Update(playerData);
+            return col.Update(playerData);
         }
 
         public List<PlayerData> GetPlayers()
@@ -41,8 +41,7 @@ namespace SEP490G69
         public PlayerData GetPlayerById(string id)
         {
             var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            PlayerData player = col.Query().ToList().FirstOrDefault(p => p.PlayerId.Equals(id));
-            return player;
+            return col.FindById(id);
         }
     }
 }

@@ -70,7 +70,7 @@
         {
             if (_authManager.LoginByGuest())
             {
-                SceneLoader.Singleton.StartLoadScene("Scene.MainTitle");
+                OnLoginSuccess();
             }
             else
             {
@@ -115,6 +115,8 @@
         {
             // SceneManager.LoadScene("MainMenu");
             Debug.Log("[UI] Login success");
+            //UIManager.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
         }
         private void Go2Register()
         {

@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 6224395664714789665}
   - component: {fileID: 7785878094486440593}
   - component: {fileID: 8905840521667921388}
+  - component: {fileID: 2261672024638223213}
   m_Layer: 0
   m_Name: Tmp.NewPlayer
   m_TagString: Untagged
@@ -431,6 +432,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2261672024638223213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2699384730838792979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIText
+  elementId: txt_new_player
+  tmp: {fileID: 8905840521667921388}
 --- !u!1 &3027949959217480498
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +934,7 @@ GameObject:
   - component: {fileID: 3502017576886974434}
   - component: {fileID: 1612814827155831675}
   - component: {fileID: 3471187260563040556}
+  - component: {fileID: 3984005666618839732}
   m_Layer: 0
   m_Name: Tmp.WelcomeBack
   m_TagString: Untagged
@@ -1043,6 +1060,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3984005666618839732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4446469622938603115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIText
+  elementId: txt_welcome_back
+  tmp: {fileID: 3471187260563040556}
 --- !u!1 &5182057550816116953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1347,6 @@ MonoBehaviour:
   frameId: Frame.Login
   emailInput: {fileID: 7564362316894975776}
   passwordInput: {fileID: 1676401812048080617}
-  messageText: {fileID: 0}
   loginBtn: {fileID: 1902636475393890703}
   forgotPWBtn: {fileID: 2218330030296927360}
   registerNavBtn: {fileID: 7007118218788946768}

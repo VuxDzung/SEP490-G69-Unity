@@ -99,7 +99,13 @@
                 // Step 5: Register by User id at backend.
                 bool success = await LoginToGameBackend(idToken);
 
-                return success;
+                if (success)
+                {
+                    string playerId = firebaseAuth.GetUID();
+                    return TryCreateNewLocalUser(playerId, true);
+                }
+
+                return false;
             }
             catch (System.Exception e)
             {
@@ -133,21 +139,8 @@
             try
             {
                 string deviceId = UnityEngine.SystemInfo.deviceUniqueIdentifier;
-                string username = "";
-                bool isSynced = false;
-                PlayerData playerData = new PlayerData();
-                playerData.PlayerId = deviceId;
-                playerData.PlayerName = username;
-                playerData.IsSynced = isSynced;
 
-                if (_playerDataDAO.GetPlayerById(deviceId) != null)
-                {
-                    return false;
-                }
-
-                _playerDataDAO.InsertNewPlayer(playerData);
-
-                return true;
+                return TryCreateNewLocalUser(deviceId, false);
             }
             catch(System.Exception e)
             {
@@ -226,10 +219,12 @@
             return unityAuth.GetUnityPlayerId();
         }
 
-        public void LogoutAsync()
+        public void Logout()
         {
             firebaseAuth.Logout();
-            unityAuth.SignOut();
+            //unityAuth.SignOut();
+
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_AUTH);
         }
 
         public async Task<bool> LoginToGameBackend(string tokenId)
@@ -265,14 +260,73 @@
             if (success)
             {
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOADING);
+                Debug.Log("OnAutoLoginSuccess");
+                PlayerData playerData = _playerDataDAO.GetPlayerById(user.UserId);
 
-                SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+                if (playerData == null)
+                {
+                    bool _localAccSuccess = TryCreateNewLocalUser(user.UserId, true);
+                    if (!_localAccSuccess)
+                    {
+                        Debug.LogError("Failed to create new local user!");
+                        return;
+                    }
+                }
+
+                playerData = _playerDataDAO.GetPlayerById(user.UserId);
+                if (playerData != null)
+                {
+                    if (string.IsNullOrEmpty(playerData.PlayerName))
+                    {
+                        GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
+                    }
+                    else
+                    {
+                        SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+                    }
+                }
             }
         }
 
         private void FirebaseAuth_OnAutoLoginFailed(AuthErrorInfo obj)
         {
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOADING);
+            GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
+
+            string deviceId = UnityEngine.SystemInfo.deviceUniqueIdentifier;
+            PlayerData playerData = _playerDataDAO.GetPlayerById(deviceId);
+
+            if (_playerDataDAO.GetPlayerById(deviceId) != null)
+            {
+                if (string.IsNullOrEmpty(playerData.PlayerName))
+                {
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
+                }
+            }
+            else
+            {
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_LANG);
+            }
+        }
+
+        private bool TryCreateNewLocalUser(string playerId, bool isSynced)
+        {
+            string username = "";
+
+            PlayerData playerData = new PlayerData();
+            playerData.PlayerId = playerId;
+            playerData.PlayerName = username;
+            playerData.IsSynced = isSynced;
+
+            if (_playerDataDAO.GetPlayerById(playerId) != null)
+            {
+                Debug.Log($"Account existed!\nId: {playerId}");
+                return false;
+            }
+
+            _playerDataDAO.InsertNewPlayer(playerData);
+
+            return true;
         }
     }
 }

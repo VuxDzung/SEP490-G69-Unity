@@ -35,7 +35,7 @@ namespace SEP490G69.Addons.Localization
         }
         private void OnDestroy()
         {
-            _eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);
+            if (_eventManager != null) _eventManager.Unsubscribe<ChangeLanguageEvent>(OnLanguageChanged);
         }
 
         private void OnLanguageChanged(ChangeLanguageEvent ev)

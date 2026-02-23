@@ -5,11 +5,14 @@ namespace SEP490G69.Shared
     using System.Collections.Generic;
     using SEP490G69.Addons.Localization.Enums;
     using System.Linq;
+    using SEP490G69.Addons.Localization;
 
     public class SetLanguageFrame : GameUIFrame
     {
         [SerializeField] private Button m_Confirm;
         [SerializeField] private UILinearSwitcher m_LanguageSwitcher;
+
+        private LocalizationManager localizationManager;
 
         private List<ELocalizeLanguageType> _languages = new List<ELocalizeLanguageType>
         {
@@ -18,6 +21,18 @@ namespace SEP490G69.Shared
         };
 
         private int _selectedIndex = 0;
+
+        public LocalizationManager LocalizationManager
+        {
+            get
+            {
+                if (localizationManager == null)
+                {
+                    localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+                }
+                return localizationManager;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -42,12 +57,17 @@ namespace SEP490G69.Shared
 
         private void OnLanguageIndexChanged(int index)
         {
+            Debug.Log($"Index: {index}");
             _selectedIndex = index;
         }
 
         public void ConfirmLanguage()
         {
+            ELocalizeLanguageType lang = _languages[_selectedIndex];
+            LocalizationManager.SetLanguage(lang);
             // Save language index to data here.
+
+            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
     }
 }

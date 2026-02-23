@@ -50,7 +50,8 @@ namespace SEP490G69
                 UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
                 if (success)
                 {
-                    // Go to game/menu scene.
+                    // Set player name.
+                    UIManager.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
                 }
                 else
                 {

@@ -23,12 +23,15 @@
         public event Action OnAutoLoginStarted;
         public event Action<FirebaseUser> OnAutoLoginSuccess;
         public event Action<FirebaseUser> OnLoginSuccess;
+        public event Action<FirebaseUser> OnRegisterSuccess;
         public event Action OnLogout;
         public event Action OnPasswordChanged;
 
         public event Action<AuthErrorInfo> OnRegisterFailed;
         public event Action<AuthErrorInfo> OnLoginFailed;
         public event Action<AuthErrorInfo> OnAutoLoginFailed;
+
+        private AuthFlowState _flowState;
 
         public FirebaseAuthService()
         {
@@ -59,15 +62,10 @@
 
                 _initialized = true;
 
-                // Auto login start here.
-                _isAutoLoginChecking = true;
+                _flowState = AuthFlowState.AutoLogin;
                 OnAutoLoginStarted?.Invoke();
 
                 _auth.StateChanged += HandleAuthStateChanged;
-            }
-            else
-            {
-                Debug.LogError("Firebase dependencies not available");
             }
         }
 
@@ -75,12 +73,15 @@
         {
             try
             {
+                _flowState = AuthFlowState.ManualLogin;
+
                 var result = await _auth.SignInWithEmailAndPasswordAsync(email, password);
-                OnLoginSuccess?.Invoke(result.User);
                 return result.User;
             }
             catch (Exception e)
             {
+                _flowState = AuthFlowState.None;
+
                 var errorInfo = ParseFirebaseException(e);
                 OnLoginFailed?.Invoke(errorInfo);
                 return null;
@@ -91,11 +92,15 @@
         {
             try
             {
+                _flowState = AuthFlowState.Register;
+
                 var result = await _auth.CreateUserWithEmailAndPasswordAsync(email, password);
                 return result.User;
             }
             catch (Exception e)
             {
+                _flowState = AuthFlowState.None;
+
                 var errorInfo = ParseFirebaseException(e);
                 OnRegisterFailed?.Invoke(errorInfo);
                 return null;
@@ -168,6 +173,11 @@
             return _auth.CurrentUser.UserId;
         }
 
+        public FirebaseUser GetUser()
+        {
+            return _auth.CurrentUser;
+        }
+
         public void Logout()
         {
             _auth.SignOut();
@@ -175,48 +185,60 @@
 
         private void HandleAuthStateChanged(object sender, EventArgs eventArgs)
         {
-            if (!_initialized) return;
+            if (!_initialized)
+            {
+                Debug.Log("Failed to init");
+                return;
+            }
+
+            if (_auth.CurrentUser == null)
+            {
+                Debug.Log("No login session!");
+                OnAutoLoginFailed?.Invoke(new AuthErrorInfo(AuthErrorType.UserNotFound, "No login session!"));
+
+                return;
+            }
 
             if (_auth.CurrentUser == _currentUser)
+            {
+                Debug.Log("same user!");
                 return;
+            }
 
             bool signedIn = _auth.CurrentUser != null;
+            _currentUser = _auth.CurrentUser;
 
-            // ===== AUTO LOGIN FLOW =====
-            if (_isAutoLoginChecking)
+            switch (_flowState)
             {
-                _isAutoLoginChecking = false;
+                case AuthFlowState.AutoLogin:
 
-                _currentUser = _auth.CurrentUser;
+                    if (signedIn)
+                        OnAutoLoginSuccess?.Invoke(_currentUser);
+                    else
+                        OnAutoLoginFailed?.Invoke(new AuthErrorInfo(AuthErrorType.UserNotFound, "No login session!"));
+                    break;
 
-                if (signedIn)
-                {
-                    OnAutoLoginSuccess?.Invoke(_currentUser);
-                }
-                else
-                {
-                    OnAutoLoginFailed?.Invoke(
-                        new AuthErrorInfo(AuthErrorType.UserNotFound, "No login session!")
-                    );
-                }
+                case AuthFlowState.ManualLogin:
 
-                return;
+                    if (signedIn)
+                        OnLoginSuccess?.Invoke(_currentUser);
+                    break;
+
+                case AuthFlowState.Register:
+
+                    if (signedIn)
+                        OnRegisterSuccess?.Invoke(_currentUser);
+                    break;
+
+                case AuthFlowState.None:
+
+                    if (!signedIn)
+                        OnLogout?.Invoke();
+
+                    break;
             }
 
-            // ===== NORMAL FLOW (LOGIN / LOGOUT) =====
-
-            if (!signedIn && _currentUser != null)
-            {
-                _currentUser = null;
-                OnLogout?.Invoke();
-                return;
-            }
-
-            if (signedIn)
-            {
-                _currentUser = _auth.CurrentUser;
-                OnLoginSuccess?.Invoke(_currentUser);
-            }
+            _flowState = AuthFlowState.None;
         }
 
         private AuthErrorInfo ParseFirebaseException(Exception exception)
@@ -272,6 +294,14 @@
 
         // Fallback
         Unknown
+    }
+
+    public enum AuthFlowState
+    {
+        None,
+        AutoLogin,
+        ManualLogin,
+        Register
     }
 
     public class AuthErrorInfo

@@ -12,6 +12,22 @@ namespace SEP490G69.GameSessions
         [SerializeField] private Button m_CreditBtn;
         [SerializeField] private Button m_QuitBtn;
 
+        [SerializeField] private Button m_SignoutBtn;
+
+        private GameAuthManager _authManager;
+
+        private GameAuthManager AuthManager
+        {
+            get
+            {
+                if (_authManager == null)
+                {
+                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
+                }
+                return _authManager;
+            }
+        }
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -20,6 +36,7 @@ namespace SEP490G69.GameSessions
             m_SettingsBtn.onClick.AddListener(ViewSettings);
             m_CreditBtn.onClick.AddListener(ViewCredit);
             m_QuitBtn.onClick.AddListener(QuitGame);
+            m_SignoutBtn.onClick.AddListener(SignOut);
         }
         protected override void OnFrameHidden()
         {
@@ -29,6 +46,7 @@ namespace SEP490G69.GameSessions
             m_SettingsBtn.onClick.RemoveListener(ViewSettings);
             m_CreditBtn.onClick.RemoveListener(ViewCredit);
             m_QuitBtn.onClick.RemoveListener(QuitGame);
+            m_SignoutBtn.onClick.RemoveListener(SignOut);
         }
 
         public void NewGame()
@@ -54,6 +72,11 @@ namespace SEP490G69.GameSessions
             return;
 #endif
             Application.Quit();
+        }
+
+        private void SignOut()
+        {
+            AuthManager.Logout();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace SEP490G69.Addons.LoadScreenSystem
         /// </summary>
         /// <param name="preLoadTask"></param>
         /// <param name="postLoadTasks"></param>
-        public void StartLoad(List<LoadTask> preLoadTask = null, List<LoadTask> postLoadTasks = null, bool showBG = true)
+        public void StartLoadTasks(List<LoadTask> preLoadTask = null, List<LoadTask> postLoadTasks = null, bool showBG = true)
         {
             StartLoad("", preLoadTask, postLoadTasks, false, showBG);
         }
@@ -31,7 +31,7 @@ namespace SEP490G69.Addons.LoadScreenSystem
         /// </summary>
         /// <param name="sceneName">Target scene name</param>
         /// <param name="showBG">Whether you want to display loading background or not.</param>
-        public void StartLoad(string sceneName, bool showBG = true)
+        public void StartLoadScene(string sceneName, bool showBG = true)
         {
             StartLoad(sceneName, null, null, false, showBG);
         }

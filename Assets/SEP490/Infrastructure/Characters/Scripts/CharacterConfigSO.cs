@@ -8,6 +8,8 @@ namespace SEP490G69
     {
         [SerializeField] private CharacterDataSO[] m_Characters;
 
+        public CharacterDataSO[] Characters => m_Characters;
+
         public CharacterDataSO GetCharacter(string characterID)
         {
             return m_Characters.FirstOrDefault(c => c.CharacterID == characterID);

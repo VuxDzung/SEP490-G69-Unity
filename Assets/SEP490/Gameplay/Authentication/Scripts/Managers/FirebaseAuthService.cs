@@ -18,10 +18,17 @@
         private FirebaseUser _currentUser;
         private bool _initialized = false;
 
+        private bool _isAutoLoginChecking = false;
+
+        public event Action OnAutoLoginStarted;
         public event Action<FirebaseUser> OnAutoLoginSuccess;
         public event Action<FirebaseUser> OnLoginSuccess;
         public event Action OnLogout;
         public event Action OnPasswordChanged;
+
+        public event Action<AuthErrorInfo> OnRegisterFailed;
+        public event Action<AuthErrorInfo> OnLoginFailed;
+        public event Action<AuthErrorInfo> OnAutoLoginFailed;
 
         public FirebaseAuthService()
         {
@@ -49,12 +56,14 @@
             if (dependencyStatus == DependencyStatus.Available)
             {
                 _auth = FirebaseAuth.DefaultInstance;
-                _auth.StateChanged += HandleAuthStateChanged;
 
                 _initialized = true;
 
-                // Trigger initial state check (auto login)
-                HandleAuthStateChanged(this, null);
+                // Auto login start here.
+                _isAutoLoginChecking = true;
+                OnAutoLoginStarted?.Invoke();
+
+                _auth.StateChanged += HandleAuthStateChanged;
             }
             else
             {
@@ -67,10 +76,13 @@
             try
             {
                 var result = await _auth.SignInWithEmailAndPasswordAsync(email, password);
+                OnLoginSuccess?.Invoke(result.User);
                 return result.User;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
+                var errorInfo = ParseFirebaseException(e);
+                OnLoginFailed?.Invoke(errorInfo);
                 return null;
             }
         }
@@ -82,8 +94,10 @@
                 var result = await _auth.CreateUserWithEmailAndPasswordAsync(email, password);
                 return result.User;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
+                var errorInfo = ParseFirebaseException(e);
+                OnRegisterFailed?.Invoke(errorInfo);
                 return null;
             }
         }
@@ -163,28 +177,112 @@
         {
             if (!_initialized) return;
 
-            if (_auth.CurrentUser != _currentUser)
-            {
-                bool signedIn = _auth.CurrentUser != null;
+            if (_auth.CurrentUser == _currentUser)
+                return;
 
-                if (!signedIn && _currentUser != null)
-                {
-                    Debug.Log("User signed out");
-                    OnLogout?.Invoke();
-                }
+            bool signedIn = _auth.CurrentUser != null;
+
+            // ===== AUTO LOGIN FLOW =====
+            if (_isAutoLoginChecking)
+            {
+                _isAutoLoginChecking = false;
 
                 _currentUser = _auth.CurrentUser;
 
                 if (signedIn)
                 {
-                    Debug.Log("User signed in: " + _currentUser.Email);
+                    OnAutoLoginSuccess?.Invoke(_currentUser);
+                }
+                else
+                {
+                    OnAutoLoginFailed?.Invoke(
+                        new AuthErrorInfo(AuthErrorType.UserNotFound, "No login session!")
+                    );
+                }
 
-                    if (_currentUser != null)
-                    {
-                        OnAutoLoginSuccess?.Invoke(_currentUser);
-                    }
+                return;
+            }
+
+            // ===== NORMAL FLOW (LOGIN / LOGOUT) =====
+
+            if (!signedIn && _currentUser != null)
+            {
+                _currentUser = null;
+                OnLogout?.Invoke();
+                return;
+            }
+
+            if (signedIn)
+            {
+                _currentUser = _auth.CurrentUser;
+                OnLoginSuccess?.Invoke(_currentUser);
+            }
+        }
+
+        private AuthErrorInfo ParseFirebaseException(Exception exception)
+        {
+            if (exception is FirebaseException firebaseEx)
+            {
+                AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
+
+                switch (errorCode)
+                {
+                    case AuthError.InvalidEmail:
+                        return new AuthErrorInfo(AuthErrorType.InvalidEmail, "Invalid email");
+
+                    case AuthError.UserNotFound:
+                        return new AuthErrorInfo(AuthErrorType.UserNotFound, "Email does not exist");
+
+                    case AuthError.WrongPassword:
+                        return new AuthErrorInfo(AuthErrorType.WrongPassword, "Wrong password");
+
+                    case AuthError.EmailAlreadyInUse:
+                        return new AuthErrorInfo(AuthErrorType.EmailAlreadyInUse, "Email is used");
+
+                    case AuthError.WeakPassword:
+                        return new AuthErrorInfo(AuthErrorType.WeakPassword, "Password too week");
+
+                    case AuthError.NetworkRequestFailed:
+                        return new AuthErrorInfo(AuthErrorType.NetworkError, "Network connection failed");
+
+                    case AuthError.UserDisabled:
+                        return new AuthErrorInfo(AuthErrorType.UserDisabled, "Account is disabled");
+
+                    default:
+                        return new AuthErrorInfo(AuthErrorType.Unknown, firebaseEx.Message);
                 }
             }
+
+            return new AuthErrorInfo(AuthErrorType.Unknown, exception.Message);
+        }
+    }
+
+    public enum AuthErrorType
+    {
+        None,
+
+        // Common
+        InvalidEmail,
+        UserNotFound,
+        WrongPassword,
+        EmailAlreadyInUse,
+        WeakPassword,
+        NetworkError,
+        UserDisabled,
+
+        // Fallback
+        Unknown
+    }
+
+    public class AuthErrorInfo
+    {
+        public AuthErrorType ErrorType;
+        public string Message;
+
+        public AuthErrorInfo(AuthErrorType type, string message)
+        {
+            ErrorType = type;
+            Message = message;
         }
     }
 }

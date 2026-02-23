@@ -15,6 +15,15 @@ namespace SEP490G69
         public const string FRAME_ID_LOADING = "Frame.Loading";
         public const string FRAME_ID_MESSAGE_POPUP = "Frame.MessagePopup";
         public const string FRAME_ID_CHANGE_PW = "Frame.ChangePassword";
+        public const string FRAME_ID_SET_LANG = "Frame.SetLanguage";
+        public const string FRAME_ID_SET_NAME = "Frame.SetPlayerName";
+
+        #endregion
+
+        #region Scene names
+        public const string SCENE_AUTH = "Scene.Auth";
+        public const string SCENE_TITLE = "Scene.Title";
+        public const string SCENE_MAIN_MENU = "Scene.MainMenu";
 
         #endregion
 

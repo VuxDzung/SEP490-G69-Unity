@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69
 {
+    using SEP490G69.Addons.LoadScreenSystem;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -67,7 +68,14 @@
 
         private void LoginAsGuest()
         {
+            if (_authManager.LoginByGuest())
+            {
+                SceneLoader.Singleton.StartLoadScene("Scene.MainTitle");
+            }
+            else
+            {
 
+            }
         }
 
         public async void OnGoogleLoginClicked()

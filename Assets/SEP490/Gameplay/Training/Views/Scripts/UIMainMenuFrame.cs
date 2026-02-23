@@ -23,6 +23,8 @@ namespace SEP490G69.Training
             base.OnFrameShown();
 #if !UNITY_ANDROID
             m_NoAdsBtn.gameObject.SetActive(false);
+#else
+            m_NoAdsBtn.gameObject.SetActive(true);
 #endif
             m_SettingsBtn.onClick.AddListener(ShowSettingsFrame);
             m_NoAdsBtn.onClick.AddListener(PurchaseNoAds);

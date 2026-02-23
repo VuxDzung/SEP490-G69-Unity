@@ -1,8 +1,10 @@
 ﻿namespace SEP490G69
 {
     using Firebase.Auth;
+    using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Addons.Networking;
     using SEP490G69.Authentication;
+    using SEP490G69.Shared;
     using System;
     using System.Threading.Tasks;
     using UnityEngine;
@@ -17,14 +19,16 @@
 
         public event Action<string> OnLoginByGGWindowsChanged;
 
+        private PlayerDataDAO _playerDataDAO;
+
+        public FirebaseAuthService FirebaseAuthService => firebaseAuth;
+
         private void Awake()
         {
             _webRequests = new WebRequests();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
-        }
+            _playerDataDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
 
-        private void Start()
-        {
             firebaseAuth = new FirebaseAuthService();
             unityAuth = new UnityAuthService();
         }
@@ -32,10 +36,17 @@
         private void OnEnable()
         {
             _eventManager.Subscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
+            firebaseAuth.OnAutoLoginStarted += FirebaseAuth_OnAutoLoginStarted;
+            firebaseAuth.OnAutoLoginSuccess += OnAutoLoginSuccess;
+            firebaseAuth.OnAutoLoginFailed += FirebaseAuth_OnAutoLoginFailed;
         }
+
         private void OnDisable()
         {
             _eventManager.Unsubscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
+            firebaseAuth.OnAutoLoginStarted -= FirebaseAuth_OnAutoLoginStarted;
+            firebaseAuth.OnAutoLoginSuccess -= OnAutoLoginSuccess;
+            firebaseAuth.OnAutoLoginFailed -= FirebaseAuth_OnAutoLoginFailed;
         }
 
         public void SetManager(ContextManager manager)
@@ -52,8 +63,9 @@
             string idToken = await firebaseAuth.GetIdTokenAsync();
             if (string.IsNullOrEmpty(idToken)) return false;
             Debug.Log($"FirebaseTokenId: {idToken}");
-            await unityAuth.InitializeAsync();
-            await unityAuth.SignInWithFirebaseAsync(idToken);
+
+            //await unityAuth.InitializeAsync();
+            //await unityAuth.SignInWithFirebaseAsync(idToken);
 
             bool success = await LoginToGameBackend(idToken);
 
@@ -74,14 +86,15 @@
                 string idToken = await firebaseAuth.GetIdTokenAsync();
                 if (string.IsNullOrEmpty(idToken))
                     return false;
+
                 Debug.Log("Get token id success");
 
                 // Step 3: initialize unity services
-                await unityAuth.InitializeAsync();
+                //await unityAuth.InitializeAsync();
 
                 // Step 4: Sign in Unity Authentication by Firebase token
-                await unityAuth.SignInWithFirebaseAsync(idToken);
-                Debug.Log("Sign in with open id success");
+                //await unityAuth.SignInWithFirebaseAsync(idToken);
+                //Debug.Log("Sign in with open id success");
 
                 // Step 5: Register by User id at backend.
                 bool success = await LoginToGameBackend(idToken);
@@ -113,6 +126,34 @@
             bool success = await LoginToGameBackend(idToken);
 
             return success;
+        }
+
+        public bool LoginByGuest()
+        {
+            try
+            {
+                string deviceId = UnityEngine.SystemInfo.deviceUniqueIdentifier;
+                string username = "";
+                bool isSynced = false;
+                PlayerData playerData = new PlayerData();
+                playerData.PlayerId = deviceId;
+                playerData.PlayerName = username;
+                playerData.IsSynced = isSynced;
+
+                if (_playerDataDAO.GetPlayerById(deviceId) != null)
+                {
+                    return false;
+                }
+
+                _playerDataDAO.InsertNewPlayer(playerData);
+
+                return true;
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
         public void SignInByGoogleWindows()
@@ -155,8 +196,8 @@
             // Step 3: Init Unity Services
             await unityAuth.InitializeAsync();
 
-            // Step 4: Unity OpenID login
-            await unityAuth.SignInWithFirebaseAsync(idToken);
+            // Step 4: Unity OpenID login -> No longer use this.
+            //await unityAuth.SignInWithFirebaseAsync(idToken);
 
             // Step 5: Login/Sign up by user id.
             bool success = await LoginToGameBackend(idToken);
@@ -200,6 +241,38 @@
                 success = response.Result == UnityEngine.Networking.UnityWebRequest.Result.Success;
             });
             return success;
+        }
+
+        private void FirebaseAuth_OnAutoLoginStarted()
+        {
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_LOADING).AsFrame<UILoadingScreen>().SetText("Auto login...");
+        }
+
+        private async void OnAutoLoginSuccess(FirebaseUser user)
+        {
+            string idToken = await firebaseAuth.GetIdTokenAsync();
+            if (string.IsNullOrEmpty(idToken))
+            {
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOADING);
+
+                Debug.LogError("No token recevied");
+                return;
+            }
+
+            GameUIManager.Singleton.GetActiveFrame(GameConstants.FRAME_ID_LOADING).AsFrame<UILoadingScreen>().SetText("Login to backend...");
+
+            bool success = await LoginToGameBackend(idToken);
+            if (success)
+            {
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOADING);
+
+                SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+            }
+        }
+
+        private void FirebaseAuth_OnAutoLoginFailed(AuthErrorInfo obj)
+        {
+            GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOADING);
         }
     }
 }

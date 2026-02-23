@@ -8,15 +8,15 @@ namespace SEP490G69
     /// <summary>
     /// Document here: https://www.litedb.org/docs/getting-started/
     /// </summary>
-    public class PlayerDataDAO : MonoBehaviour
+    public class PlayerDataDAO 
     {
         private LiteDatabase _database;
 
         public const string PLAYER_DATA_COLLECTION = "Player";
 
-        private void Start()
+        public PlayerDataDAO(LiteDatabase database)
         {
-            _database = new LiteDatabase(Application.persistentDataPath + "/database/GameData.db");
+            _database = database;
         }
 
         public void InsertNewPlayer(PlayerData playerData)
@@ -38,10 +38,10 @@ namespace SEP490G69
             return result;
         }
 
-        public PlayerData GetPlayerById(int id)
+        public PlayerData GetPlayerById(string id)
         {
             var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            PlayerData player = col.Query().ToList().FirstOrDefault(p => p.PlayerId == id);
+            PlayerData player = col.Query().ToList().FirstOrDefault(p => p.PlayerId.Equals(id));
             return player;
         }
     }

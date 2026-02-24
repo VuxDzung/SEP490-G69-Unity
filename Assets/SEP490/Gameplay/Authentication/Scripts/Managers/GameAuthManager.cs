@@ -214,6 +214,22 @@
                 : null;
         }
 
+        public string GetUserId()
+        {
+            string userId = GetFirebaseUid();
+            if (string.IsNullOrEmpty(userId))
+            {
+                Debug.Log("No firebase cloud id. Use device id by default.");
+                userId = GetDeviceId();
+            }
+            return userId;
+        }
+
+        public string GetDeviceId()
+        {
+            return UnityEngine.SystemInfo.deviceUniqueIdentifier;
+        }
+
         public string GetUnityPlayerId()
         {
             return unityAuth.GetUnityPlayerId();

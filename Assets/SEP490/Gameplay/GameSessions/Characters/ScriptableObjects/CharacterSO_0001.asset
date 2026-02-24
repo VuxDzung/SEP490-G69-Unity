@@ -15,4 +15,5 @@ MonoBehaviour:
   m_CharacterId: ch_0001
   m_CharacterName: Sakura
   m_CharacterDescription: ch_0001_desc
-  m_Thumbnail: {fileID: 0}
+  m_Thumbnail: {fileID: 21300000, guid: 566dc8701a6adf942b56b6ce188ffdf1, type: 3}
+  m_FullBodyImg: {fileID: 21300000, guid: 78b2a391286025d40a9d89b6a3368625, type: 3}

@@ -17,6 +17,7 @@ namespace SEP490G69
         public const string FRAME_ID_CHANGE_PW = "Frame.ChangePassword";
         public const string FRAME_ID_SET_LANG = "Frame.SetLanguage";
         public const string FRAME_ID_SET_NAME = "Frame.SetPlayerName";
+        public const string FRAME_ID_CHAR_SELECT = "Frame.CharacterSelection";
 
         #endregion
 
@@ -25,6 +26,10 @@ namespace SEP490G69
         public const string SCENE_TITLE = "Scene.Title";
         public const string SCENE_MAIN_MENU = "Scene.MainMenu";
 
+        #endregion
+
+        #region Prefs keys
+        public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
         #endregion
 
         #region Localization categories

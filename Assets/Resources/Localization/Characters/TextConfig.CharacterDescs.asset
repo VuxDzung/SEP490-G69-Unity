@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: TextConfig.CharacterDescs
   m_EditorClassIdentifier: 
   category: CharacterDescs
-  textDataList: []
+  textDataList:
+  - id: ch_0001_desc
+    textList:
+    - language: 0
+      text: Description of Sakura
+    - language: 1
+      text: "M\xF4 t\u1EA3 v\u1EC1 sakura"

@@ -149,9 +149,9 @@
             }
         }
 
-        public void SignInByGoogleWindows()
+        public async void SignInByGoogle()
         {
-            firebaseAuth.SignInGoogleWindowsAsync();
+            await firebaseAuth.SignInWithGoogleAsync();
         }
 
         private async void HandleWindowsLoginByGoogle(ReceiveTokenIdEvent ev)

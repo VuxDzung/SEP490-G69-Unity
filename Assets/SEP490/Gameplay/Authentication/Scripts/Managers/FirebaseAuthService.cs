@@ -14,7 +14,6 @@
         private const string WEB_CLIENT_ID = "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com";
 
         private GoogleSignInConfiguration configuration;
-        private WindowsGoogleAuthService _windowsAuthService;
         private FirebaseUser _currentUser;
         private bool _initialized = false;
 
@@ -33,6 +32,8 @@
 
         private AuthFlowState _flowState;
 
+        private IGoogleAuthProvider _authProvider;
+
         public FirebaseAuthService()
         {
             _auth = FirebaseAuth.DefaultInstance;
@@ -46,7 +47,11 @@
             if (Application.platform == RuntimePlatform.WindowsEditor || 
                 Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                _windowsAuthService = new WindowsGoogleAuthService();
+                _authProvider = new WindowsGoogleAuthService();
+            }
+            else
+            {
+                _authProvider = new AndroidGoogleAuthProvider(WEB_CLIENT_ID);
             }
 
             InitializeFirebase();
@@ -129,6 +134,13 @@
             });
         }
 
+        public async Task<FirebaseUser> SignInWithGoogleAsync()
+        {
+            string tokenId = await _authProvider.GetIdTokenAsync();
+
+            return await SignInWithGoogleAsync(tokenId);
+        }
+
         public async Task<FirebaseUser> SignInWithGoogleAsync(string tokenId)
         {
             try
@@ -141,13 +153,9 @@
             }
             catch(System.Exception e)
             {
+                Debug.LogException(e);
                 return null;
             }
-        }
-
-        public void SignInGoogleWindowsAsync()
-        {
-            _windowsAuthService.StartLogin();
         }
 
         public async Task<FirebaseUser> SignInGoogleAndroidAsync()

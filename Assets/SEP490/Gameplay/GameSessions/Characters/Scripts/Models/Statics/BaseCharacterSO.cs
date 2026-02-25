@@ -20,6 +20,8 @@ namespace SEP490G69
         [SerializeField] private float baseEnergy;
         [SerializeField] private float baseMood;
 
+        [SerializeField] private GameObject m_Prefab;
+
         public string CharacterId => m_CharacterId;
         public string CharacterName => m_CharacterName;
         public string CharacterDescription => m_CharacterDescription;
@@ -34,5 +36,6 @@ namespace SEP490G69
         public int BaseAgi => baseAgi;
         public float BaseEnergy => baseEnergy;
         public float BaseMood => baseMood;
+        public GameObject Prefab => m_Prefab;
     }
 }

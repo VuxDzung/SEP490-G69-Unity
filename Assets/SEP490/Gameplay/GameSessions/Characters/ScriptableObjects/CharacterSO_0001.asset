@@ -17,3 +17,12 @@ MonoBehaviour:
   m_CharacterDescription: ch_0001_desc
   m_Thumbnail: {fileID: 21300000, guid: 566dc8701a6adf942b56b6ce188ffdf1, type: 3}
   m_FullBodyImg: {fileID: 21300000, guid: 78b2a391286025d40a9d89b6a3368625, type: 3}
+  baseVit: 100
+  basePow: 100
+  baseInt: 100
+  baseSta: 100
+  baseDef: 100
+  baseAgi: 100
+  baseEnergy: 100
+  baseMood: 100
+  m_Prefab: {fileID: 3921930843742639280, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}

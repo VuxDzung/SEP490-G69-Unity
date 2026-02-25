@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e10aafeb81a9dd4595dca542f079699, type: 3}
+  m_Name: TrainingEx_0001
+  m_EditorClassIdentifier: 
+  exerciseId: te_0001
+  exerciseName: te_0001_name
+  exerciseDescription: te_0001_desc
+  exerciseIcon: {fileID: 0}
+  m_SuccessModifiers:
+  - {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
+  - {fileID: 11400000, guid: 6f665ce4fd6218349b2810818d4184a9, type: 2}
+  m_FailedModifiers:
+  - {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
+  - {fileID: 11400000, guid: f68132c6c17960e47b8fe8cad04c161e, type: 2}

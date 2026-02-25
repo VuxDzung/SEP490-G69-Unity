@@ -206,6 +206,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &157979446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157979447}
+  m_Layer: 0
+  m_Name: Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &157979447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157979446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1612326924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &291789440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -800,6 +831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1612326924}
   - component: {fileID: 1612326925}
+  - component: {fileID: 1612326926}
   m_Layer: 0
   m_Name: TrainingController
   m_TagString: Untagged
@@ -819,7 +851,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 157979447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1612326925
@@ -834,6 +867,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc29b792592b1d41abe4f0c26617c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CharacterContainer: {fileID: 157979447}
+--- !u!114 &1612326926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f83dba5e2c8e3546bdebba1fd82812f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0001
+  m_TrainingType: 1
 --- !u!1001 &1869264436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -909,6 +957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2134430711}
   - component: {fileID: 2134430712}
+  - component: {fileID: 2134430713}
   m_Layer: 0
   m_Name: SpawnPools.Menu
   m_TagString: Untagged
@@ -944,6 +993,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: Choices
+  preLoadPrefabs: []
+--- !u!114 &2134430713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134430710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: Character
   preLoadPrefabs: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

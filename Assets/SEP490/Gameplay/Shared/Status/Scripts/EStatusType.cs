@@ -8,5 +8,7 @@ namespace SEP490G69
         Defense = 3,
         Speed = 4,
         Vitality = 5,
+        Energy = 6,
+        Mood = 7,
     }
 }

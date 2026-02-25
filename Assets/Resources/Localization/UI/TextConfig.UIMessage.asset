@@ -32,3 +32,56 @@ MonoBehaviour:
       text: No internet connection.
     - language: 1
       text: "Kh\xF4ng c\xF3 k\u1EBFt n\u1ED1i m\u1EA1ng."
+  - id: msg_has_active_session
+    textList:
+    - language: 0
+      text: There's an active training session. If you run a new game, the current
+        session is deleted. Do you wish to continue?
+    - language: 1
+      text: "\u0110ang c\xF3 m\u1ED9t phi\xEAn hu\u1EA5n luy\u1EC7n ch\u01B0a ho\xE0n
+        th\xE0nh. N\u1EBFu b\u1EA1n b\u1EAFt \u0111\u1EA7u hu\u1EA5n luy\u1EC7n m\u1ED9t
+        nh\xE2n v\u1EADt m\u1EDBi, b\u1EA1n s\u1EBD m\u1EA5t d\u1EEF li\u1EC7u hu\u1EA5n
+        luy\u1EC7n hi\u1EC7n t\u1EA1i. B\u1EA1n c\xF3 mu\u1ED1n ti\u1EBFp t\u1EE5c?"
+  - id: msg_fail_connect_be
+    textList:
+    - language: 0
+      text: Failed to connect to the server. Check your internet connection.
+    - language: 1
+      text: "Th\u1EA5t b\u1EA1i khi k\u1EBFt n\u1ED1i v\u1EDBi m\xE1y ch\u1EE7. H\xE3y
+        ki\u1EC3m tra k\u1EBFt n\u1ED1i m\u1EA1ng c\u1EE7a b\u1EA1n."
+  - id: msg_firebase_connect_fail
+    textList:
+    - language: 0
+      text: Failed to connect to Furebase. Check your internet connection.
+    - language: 1
+      text: "Th\u1EA5t b\u1EA1i khi k\u1EBFt n\u1ED1i v\u1EDBi Firebase. Xin h\xE3y
+        ki\u1EC3m tra l\u1EA1i k\u1EBFt n\u1ED1i c\u1EE7a b\u1EA1n."
+  - id: msg_reset_pw_email_sent
+    textList:
+    - language: 0
+      text: A reset password notification has been sent to your email. Please check
+        your email.
+    - language: 1
+      text: "M\u1ED9t th\xF4ng b\xE1o c\xE0i l\u1EA1i m\u1EADt kh\u1EA9u \u0111\xE3
+        \u0111\u01B0\u1EE3c g\u1EEDi t\u1EDBi email c\u1EE7a b\u1EA1n. H\xE3y ki\u1EC3m
+        tra email."
+  - id: msg_cancel_reset_pw
+    textList:
+    - language: 0
+      text: Reset password process has been cancelled.
+    - language: 1
+      text: "Qu\xE1 tr\xECnh \u0111\u1EB7t l\u1EA1i m\u1EADt kh\u1EA9u \u0111\xE3
+        b\u1ECB h\u1EE7y"
+  - id: msg_error_reset_pw
+    textList:
+    - language: 0
+      text: Failed to reset password
+    - language: 1
+      text: "Th\u1EA5t b\u1EA1i khi \u0111\u1EB7t l\u1EA1i m\u1EADt kh\u1EA9u."
+  - id: msg_reset_pw_success
+    textList:
+    - language: 0
+      text: Reset password successfully. Please go back to login.
+    - language: 1
+      text: "\u0110\xE3 \u0111\u1EB7t l\u1EA1i m\u1EADt kh\u1EA9u th\xE0nh c\xF4ng.
+        Xin h\xE3y quay l\u1EA1i trang \u0111\u0103ng nh\u1EADp."

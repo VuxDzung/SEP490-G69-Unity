@@ -32,12 +32,15 @@ namespace SEP490G69.Shared
             m_CancelBtn.onClick.RemoveListener(Cancel);
         }
 
-        public void SetContent(string titleId, string messageId, Action onConfirm = null, Action onCancel = null)
+        public void SetContent(string titleId, string messageId, bool hasConfirm = true, bool hasCancel = true, Action onConfirm = null, Action onCancel = null)
         {
             m_TitleTmp.text = _localizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, titleId);
             m_MessageTmp.text = _localizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, messageId);
             this.onConfirm = onConfirm;
             this.onCancel = onCancel;
+
+            m_ConfirmBtn.gameObject.SetActive(hasConfirm);
+            m_CancelBtn.gameObject.SetActive(hasCancel);
         }
 
         private void Confirm()

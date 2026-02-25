@@ -38,7 +38,7 @@ namespace SEP490G69.Authentication
 
         private void FirebaseAuthService_OnAutoLoginStarted()
         {
-            m_UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING).AsFrame<UILoadingScreen>().SetText("Auto login...");
+            LoadingHandler.Singleton.Show().SetText("Auto login...");
         }
 
         private void FirebaseAuthService_OnAutoLoginSuccess(Firebase.Auth.FirebaseUser user)
@@ -48,8 +48,7 @@ namespace SEP490G69.Authentication
 
         private void FirebaseAuthService_OnAutoLoginFailed(AuthErrorInfo info)
         {
-            m_UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
-
+            LoadingHandler.Singleton.Hide();
             m_UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
     }

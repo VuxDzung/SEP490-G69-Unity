@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StarterFrameId: Frame.Title
   m_Frames:
+  - {fileID: 8287456197134602574, guid: 3521ad8314267c94bba74ba12bab35bf, type: 3}
   - {fileID: 7484390495493514148, guid: 08dc45ec7728b6447b62059b55a9e6a9, type: 3}
   - {fileID: 3148858894042659807, guid: 2ee935ef7b4b8044b8225a11cd901e4c, type: 3}
   - {fileID: 5680165697444436085, guid: b5369c3fd28db304cac7f93e55f84d8a, type: 3}
+  - {fileID: 6180613103943249944, guid: 2b71205a02dd2c34889b7ddf82e30134, type: 3}

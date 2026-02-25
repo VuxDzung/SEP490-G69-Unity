@@ -12,11 +12,11 @@ namespace SEP490G69
         public const string FRAME_ID_TITLE = "Frame.Title";
         public const string FRAME_ID_CREDIT = "Frame.Credit";
         public const string FRAME_ID_TITLE_SETTINGS = "Frame.TitleSettings";
-        public const string FRAME_ID_LOADING = "Frame.Loading";
         public const string FRAME_ID_MESSAGE_POPUP = "Frame.MessagePopup";
         public const string FRAME_ID_CHANGE_PW = "Frame.ChangePassword";
         public const string FRAME_ID_SET_LANG = "Frame.SetLanguage";
         public const string FRAME_ID_SET_NAME = "Frame.SetPlayerName";
+        public const string FRAME_ID_CHAR_SELECT = "Frame.CharacterSelection";
 
         #endregion
 
@@ -25,6 +25,10 @@ namespace SEP490G69
         public const string SCENE_TITLE = "Scene.Title";
         public const string SCENE_MAIN_MENU = "Scene.MainMenu";
 
+        #endregion
+
+        #region Prefs keys
+        public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
         #endregion
 
         #region Localization categories
@@ -84,5 +88,7 @@ namespace SEP490G69
         public const string PARAM_FADE_TIME = "fadeTime";
         public const string PARAM_IN_FADE_TIME = "inFadeTime";
         #endregion
+
+        public const int TRAINING_STARTER_LEVEL = 1;
     }
 }

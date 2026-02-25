@@ -12,11 +12,12 @@ namespace SEP490G69.GameSessions
         private string _characterId;
         private Action<string> _callback;
 
-        public void Enable()
+        private void OnEnable()
         {
             m_BtnRef.onClick.AddListener(Select);
         }
-        public void Disable()
+
+        private void OnDisable()
         {
             m_BtnRef.onClick.RemoveListener(Select);
         }

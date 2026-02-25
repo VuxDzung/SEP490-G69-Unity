@@ -52,8 +52,11 @@ namespace SEP490G69.Shared
         public void Next()
         {
             string playerName = m_PlayerNameInput.text;
+
             if (string.IsNullOrEmpty(playerName)) return;
-            string playerId = AuthManager.GetFirebaseUid();
+
+            string playerId = AuthManager.GetUserId();
+
             if (string.IsNullOrEmpty(playerId))
             {
                 return;

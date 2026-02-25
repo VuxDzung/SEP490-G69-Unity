@@ -1,10 +1,12 @@
+using LiteDB;
+
 namespace SEP490G69.GameSessions
 {
     public class PlayerTrainingSession 
     {
+        [BsonId]
         public string SessionId { get; set; }
         public string PlayerId { get; set; }
-
         public string CharacterId { get; set; }
 
         /// <summary>

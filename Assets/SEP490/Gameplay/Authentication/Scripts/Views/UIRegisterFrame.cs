@@ -45,9 +45,10 @@ namespace SEP490G69
 
             if (confirmPW.Equals(password))
             {
-                UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
+                LoadingHandler.Singleton.Show().SetText("Signing up...");
                 bool success = await _authManager.RegisterAsync(email, password);
-                UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
+                LoadingHandler.Singleton.Hide();
+
                 if (success)
                 {
                     // Set player name.

@@ -1,5 +1,6 @@
 namespace SEP490G69.Authentication
 {
+    using SEP490G69.Shared;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -9,6 +10,20 @@ namespace SEP490G69.Authentication
         [SerializeField] private TMP_InputField m_EmailInput;
         [SerializeField] private Button m_ChangePWBtn;
         [SerializeField] private Button m_BackBtn;
+
+        private GameAuthManager _authManager;
+
+        private GameAuthManager AuthManager
+        {
+            get
+            {
+                if (_authManager == null)
+                {
+                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
+                }
+                return _authManager;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -25,7 +40,25 @@ namespace SEP490G69.Authentication
 
         private void SendEmail()
         {
+            string email = m_EmailInput.text;
 
+            _authManager.SendPasswordResetEmail(email, () => {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                         .AsFrame<UIMessagePopup>()
+                         .SetContent("title_noti", "msg_cancel_reset_pw", true, false);
+            }, () => {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                        .AsFrame<UIMessagePopup>()
+                        .SetContent("title_noti", "msg_error_reset_pw", true, false);
+            }, () => {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                         .AsFrame<UIMessagePopup>()
+                         .SetContent("title_noti", "msg_reset_pw_success", true, false);
+            });
+
+            UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                     .AsFrame<UIMessagePopup>()
+                     .SetContent("title_noti", "msg_reset_pw_email_sent", true, false);
         }
         private void Back()
         {

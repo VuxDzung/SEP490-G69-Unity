@@ -46,9 +46,9 @@
 
         public async void OnLoginClicked()
         {
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
+            LoadingHandler.Singleton.Show().SetText("Logging in...");
             bool success = await _authManager.LoginAsync(emailInput.text, passwordInput.text);
-            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
+            LoadingHandler.Singleton.Hide().SetText("Logging in...");
 
             if (success)
             {
@@ -80,27 +80,13 @@
 
         public async void OnGoogleLoginClicked()
         {
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOADING);
-#if UNITY_ANDROID
-            bool success = await _authManager.SignInWithGoogleAndroid();
-            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
-
-            if (success)
-            {
-                OnLoginSuccess();
-            }
-            else
-            {
-                
-            }
-#else
-            _authManager.SignInByGoogleWindows();
-#endif
+            LoadingHandler.Singleton.Show().SetText("Logging in...");
+            await _authManager.SignInByGoogle();
         }
 
         private void OnLoginByGGWindowsChanged(string result)
         {
-            UIManager.HideFrame(GameConstants.FRAME_ID_LOADING);
+            LoadingHandler.Singleton.Hide();
             if (result.Equals("failed"))
             {
 

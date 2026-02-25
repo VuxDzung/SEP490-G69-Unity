@@ -72,9 +72,9 @@
                 dialog = dialog.Replace("<USER_NAME>", playerName);
             }
 
-            var character = _characterConfig.GetCharacter(speakerID);
+            BaseCharacterSO character = _characterConfig.GetCharacter(speakerID);
             m_SpeakerNameTmp.text = character.CharacterName;
-            m_Image.sprite = character.Avatar;
+            m_Image.sprite = character.Thumbnail;
 
             _fullDialogText = dialog;
 

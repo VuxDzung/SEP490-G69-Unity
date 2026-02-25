@@ -18,6 +18,20 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_InventoryBtn;
         [SerializeField] private Button m_CardsBtn;
 
+        private GameTrainingController _trainingController;
+
+        private GameTrainingController TrainingController
+        {
+            get
+            {
+                if (_trainingController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
+                }
+                return _trainingController;
+            }
+        }
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -27,7 +41,7 @@ namespace SEP490G69.Training
             m_NoAdsBtn.gameObject.SetActive(true);
 #endif
             m_SettingsBtn.onClick.AddListener(ShowSettingsFrame);
-            m_NoAdsBtn.onClick.AddListener(PurchaseNoAds);
+            m_NoAdsBtn.onClick.AddListener(PurchasePremium);
             m_HallOfFameBtn.onClick.AddListener(ShowHallOfFame);
             m_ShopBtn.onClick.AddListener(ShowShop);
 
@@ -41,7 +55,7 @@ namespace SEP490G69.Training
         {
             base.OnFrameHidden();
             m_SettingsBtn.onClick.RemoveListener(ShowSettingsFrame);
-            m_NoAdsBtn.onClick.RemoveListener(PurchaseNoAds);
+            m_NoAdsBtn.onClick.RemoveListener(PurchasePremium);
             m_HallOfFameBtn.onClick.RemoveListener(ShowHallOfFame);
             m_ShopBtn.onClick.RemoveListener(ShowShop);
 
@@ -56,7 +70,7 @@ namespace SEP490G69.Training
         {
 
         }
-        private void PurchaseNoAds()
+        private void PurchasePremium()
         {
 
         }
@@ -71,7 +85,11 @@ namespace SEP490G69.Training
 
         private void ShowTrainingMenu()
         {
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_TRAINING_MENU);
 
+            TrainingController.HideMainMenuBG();
+            TrainingController.OpenTrainingMenuBG();
         }
 
         private void PerformRest()

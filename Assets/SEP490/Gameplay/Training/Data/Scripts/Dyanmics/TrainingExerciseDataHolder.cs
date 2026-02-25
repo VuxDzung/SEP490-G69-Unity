@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
@@ -13,6 +14,11 @@ namespace SEP490G69.Training
             return true;
         }
 
+        public float CalculateTrainingSuccessPercentage()
+        {
+            return 0;
+        }
+
         public StatusModifierSO GetSuccessModifierByType(EStatusType statType)
         {
             return _so.SuccessModifiers.FirstOrDefault(_so => _so.StatType == statType);
@@ -20,6 +26,15 @@ namespace SEP490G69.Training
         public StatusModifierSO GetFailedModifierByType(EStatusType statType)
         {
             return _so.FailedModifiers.FirstOrDefault(_so => _so.StatType == statType);
+        }
+
+        public List<StatusModifierSO> GetAllSuccessModifiers()
+        {
+            return _so.SuccessModifiers;
+        }
+        public List<StatusModifierSO> GetAllFailedModifiers()
+        {
+            return _so.FailedModifiers;
         }
 
         public class Builder

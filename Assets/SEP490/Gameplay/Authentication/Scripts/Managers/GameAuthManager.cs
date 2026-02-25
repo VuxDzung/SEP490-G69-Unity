@@ -113,24 +113,6 @@
             }
         }
 
-        public async Task<bool> SignInWithGoogleAndroid()
-        {
-            FirebaseUser user = await firebaseAuth.SignInGoogleAndroidAsync();
-            if (user == null)
-                return false;
-
-            string idToken = await firebaseAuth.GetIdTokenAsync();
-            if (string.IsNullOrEmpty(idToken))
-                return false;
-
-            if (m_UseUGS) await SignInToUnityAuth(idToken);
-
-            // Step 5: Login/Sign up by user id.
-            bool success = await LoginToGameBackend(idToken);
-
-            return success;
-        }
-
         public bool LoginByGuest()
         {
             try
@@ -291,7 +273,7 @@
                 return;
             }
 
-            LoadingHandler.Singleton.SetText("Login to backend...");
+            LoadingHandler.Singleton.Show().SetText("Login to backend...");
 
             bool success = await LoginToGameBackend(idToken);
             if (success)

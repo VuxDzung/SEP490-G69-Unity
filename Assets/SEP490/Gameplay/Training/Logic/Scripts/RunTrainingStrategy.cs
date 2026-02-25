@@ -2,7 +2,7 @@ namespace SEP490G69.Training
 {
     using UnityEngine;
 
-    public class BoxingTrainingStrategy : MonoBehaviour, ITrainingStrategy
+    public class RunTrainingStrategy : MonoBehaviour, ITrainingStrategy
     {
         [SerializeField] private string m_ExerciseId;
         [SerializeField] private ETrainingType m_TrainingType;
@@ -46,28 +46,14 @@ namespace SEP490G69.Training
                                   .Build();
         }
 
-        public bool StartTraining(CharacterDataHolder character)
-        {
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Energy));
-
-            if (_exerciseDataHolder.CanTrainingSuccess(character.GetEnergy(), character.GetMood()))
-            {
-                character.ApplyPowerModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Power));
-                return true;
-            }
-
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetFailedModifierByType(EStatusType.Mood));
-
-            return false;
-        }
-
-        /// <summary>
-        /// Check whether if the character are able to participate in this exercise
-        /// </summary>
-        /// <returns></returns>
         public bool CanTraining(CharacterDataHolder character)
         {
-            return false;
+            throw new System.NotImplementedException();
+        }
+
+        public bool StartTraining(CharacterDataHolder characterHolder)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

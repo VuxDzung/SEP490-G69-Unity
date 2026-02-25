@@ -3,6 +3,7 @@
     using Firebase;
     using Firebase.Auth;
     using Google;
+    using SEP490G69.Training;
     using System;
     using System.Threading.Tasks;
     using UnityEngine;
@@ -13,7 +14,6 @@
 
         private const string WEB_CLIENT_ID = "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com";
 
-        private GoogleSignInConfiguration configuration;
         private FirebaseUser _currentUser;
         private bool _initialized = false;
 
@@ -38,16 +38,10 @@
         {
             _auth = FirebaseAuth.DefaultInstance;
 
-            configuration = new GoogleSignInConfiguration
-            {
-                WebClientId = WEB_CLIENT_ID,
-                RequestIdToken = true
-            };
-
             if (Application.platform == RuntimePlatform.WindowsEditor || 
                 Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                _authProvider = new WindowsGoogleAuthService();
+                _authProvider = new WindowsGoogleAuthProvider();
             }
             else
             {
@@ -136,9 +130,16 @@
 
         public async Task<FirebaseUser> SignInWithGoogleAsync()
         {
-            string tokenId = await _authProvider.GetIdTokenAsync();
+            _flowState = AuthFlowState.ManualLogin;
 
-            return await SignInWithGoogleAsync(tokenId);
+            _authProvider.StartLogin();
+
+            string customToken = await _authProvider.GetIdTokenAsync();
+
+            if (string.IsNullOrEmpty(customToken))
+                return null;
+
+            return await SignInWithGoogleAsync(customToken);
         }
 
         public async Task<FirebaseUser> SignInWithGoogleAsync(string tokenId)
@@ -156,16 +157,6 @@
                 Debug.LogException(e);
                 return null;
             }
-        }
-
-        public async Task<FirebaseUser> SignInGoogleAndroidAsync()
-        {
-            GoogleSignIn.Configuration = configuration;
-
-            GoogleSignInUser googleUser = await GoogleSignIn.DefaultInstance.SignIn();
-            if (googleUser == null)
-                return null;
-            return await SignInWithGoogleAsync(googleUser.IdToken);
         }
         
 

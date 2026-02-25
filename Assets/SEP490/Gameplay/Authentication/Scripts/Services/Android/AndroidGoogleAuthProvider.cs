@@ -26,5 +26,10 @@ namespace SEP490G69.Authentication
 
             return user?.IdToken;
         }
+
+        public void StartLogin()
+        {
+            Debug.Log("Android does not require this step.");
+        }
     }
 }

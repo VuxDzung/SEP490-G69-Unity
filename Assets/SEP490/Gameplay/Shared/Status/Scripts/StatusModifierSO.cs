@@ -10,6 +10,10 @@ namespace SEP490G69
         [SerializeField] private EOperator m_Operator;
         [SerializeField] private float m_Value;
         [SerializeField] private float m_BonusPerLevel;
+        [Header("Random number")]
+        [SerializeField] private bool m_RandomNumber;
+        [SerializeField] private float m_Min;
+        [SerializeField] private float m_Max;
 
         [Header("Dev notation")]
         [TextArea]
@@ -24,18 +28,28 @@ namespace SEP490G69
 
         public float GetModifierValue(float targetValue)
         {
-            switch(m_Operator)
+            float value = GetRandomNumber();
+            switch (m_Operator)
             {
                 case EOperator.PercentAdd:
-                    return targetValue + targetValue * m_Value;
+                    return targetValue + targetValue * value;
                 case EOperator.PercentSub:
-                    return targetValue - targetValue * m_Value;
+                    return targetValue - targetValue * value;
                 case EOperator.FlatAdd:
-                    return targetValue + m_Value;
+                    return targetValue + value;
                 case EOperator.FlatSub:
-                    return targetValue - m_Value;
+                    return targetValue - value;
             }
             return targetValue;
+        }
+
+        public float GetRandomNumber()
+        {
+            if (m_RandomNumber)
+            {
+                return Random.Range(m_Min, m_Max);
+            }
+            return m_Value;
         }
     }
 }

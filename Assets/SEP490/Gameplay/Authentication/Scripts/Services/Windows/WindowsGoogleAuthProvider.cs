@@ -17,8 +17,6 @@
 
     public class WindowsGoogleAuthProvider : IGoogleAuthProvider
     {
-        private const string CLIENT_ID = "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com";
-        private const string REDIRECT_URI = "http://localhost:5000/";
         private const string AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 
         private string _codeVerifier;
@@ -75,7 +73,7 @@
             string url =
                 $"{AUTH_URL}?" +
                 $"client_id={clientConfig.ClientId}" +
-                $"&redirect_uri={REDIRECT_URI}" +
+                $"&redirect_uri={clientConfig.RedirectUri}" +
                 $"&response_type=code" +
                 $"&scope=openid%20email%20profile" +
                 $"&code_challenge={codeChallenge}" +
@@ -95,7 +93,7 @@
         private async Task<string> ListenForAuthorizationCode()
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add(REDIRECT_URI);
+            listener.Prefixes.Add(clientConfig.RedirectUri);
             listener.Start();
 
             var context = await listener.GetContextAsync();

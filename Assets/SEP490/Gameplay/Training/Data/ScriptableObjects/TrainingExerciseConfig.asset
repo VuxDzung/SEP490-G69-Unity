@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TrainingExerciseConfig
   m_EditorClassIdentifier: 
   m_Exercises:
+  - {fileID: 11400000, guid: 6be82ae23721e8347982f69f81c9b5aa, type: 2}
   - {fileID: 11400000, guid: 317a901707c73c14980b5d2d6edcf1f9, type: 2}
   - {fileID: 11400000, guid: ac6cc16f74da2b74b96dba4591f7699f, type: 2}

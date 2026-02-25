@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.ExerciseNames
+  m_EditorClassIdentifier: 
+  category: ExerciseNames
+  textDataList:
+  - id: te_0001_name
+    textList:
+    - language: 0
+      text: Rest
+    - language: 1
+      text: "Ngh\u1EC9 ng\u01A1i"
+  - id: te_0002_name
+    textList:
+    - language: 0
+      text: Boxing
+    - language: 1
+      text: "\u0110\u1EA5m b\u1ED1c"
+  - id: te_0003_name
+    textList:
+    - language: 0
+      text: Run
+    - language: 1
+      text: "Ch\u1EA1y b\u1ED9"

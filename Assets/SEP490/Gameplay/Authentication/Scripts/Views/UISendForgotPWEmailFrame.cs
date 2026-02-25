@@ -49,7 +49,7 @@ namespace SEP490G69.Authentication
             }, () => {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
                         .AsFrame<UIMessagePopup>()
-                        .SetContent("title_noti", "msg_error_reset_pw", true, false);
+                        .SetContent("title_noti", " ", true, false);
             }, () => {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
                          .AsFrame<UIMessagePopup>()
@@ -60,6 +60,7 @@ namespace SEP490G69.Authentication
                      .AsFrame<UIMessagePopup>()
                      .SetContent("title_noti", "msg_reset_pw_email_sent", true, false);
         }
+
         private void Back()
         {
             UIManager.HideFrame(GameConstants.FRAME_ID_CHANGE_PW);

@@ -10,5 +10,6 @@ namespace SEP490G69
         Vitality = 5,
         Energy = 6,
         Mood = 7,
+        Stamina = 8,
     }
 }

@@ -2,7 +2,7 @@ namespace SEP490G69.Training
 {
     using UnityEngine;
 
-    public class BoxingTrainingStrategy : MonoBehaviour, ITrainingStrategy
+    public class RestStrategy : MonoBehaviour, ITrainingStrategy
     {
         [SerializeField] private string m_ExerciseId;
         [SerializeField] private ETrainingType m_TrainingType;
@@ -10,8 +10,8 @@ namespace SEP490G69.Training
         private TrainingExerciseDataHolder _exerciseDataHolder;
         private TrainingExerciseDAO _trainingDAO;
 
-        public ETrainingType TrainingType => m_TrainingType;
         public string ExerciseId => m_ExerciseId;
+        public ETrainingType TrainingType => m_TrainingType;
 
         /// <summary>
         /// Get the current training exercise data of the session. 
@@ -46,28 +46,14 @@ namespace SEP490G69.Training
                                   .Build();
         }
 
-        public bool StartTraining(CharacterDataHolder character)
-        {
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Energy));
-
-            if (_exerciseDataHolder.CanTrainingSuccess(character.GetEnergy(), character.GetMood()))
-            {
-                character.ApplyPowerModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Power));
-                return true;
-            }
-
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetFailedModifierByType(EStatusType.Mood));
-
-            return false;
-        }
-
-        /// <summary>
-        /// Check whether if the character are able to participate in this exercise
-        /// </summary>
-        /// <returns></returns>
         public bool CanTraining(CharacterDataHolder character)
         {
-            return false;
+            return true;
+        }
+
+        public bool StartTraining(CharacterDataHolder characterHolder)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

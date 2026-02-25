@@ -831,7 +831,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1612326924}
   - component: {fileID: 1612326925}
+  - component: {fileID: 1612326927}
   - component: {fileID: 1612326926}
+  - component: {fileID: 1612326928}
   m_Layer: 0
   m_Name: TrainingController
   m_TagString: Untagged
@@ -880,8 +882,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f83dba5e2c8e3546bdebba1fd82812f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExerciseId: te_0001
+  m_ExerciseId: te_0002
   m_TrainingType: 1
+--- !u!114 &1612326927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf692228054b3b40af328eda78ea6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0001
+  m_TrainingType: 0
+--- !u!114 &1612326928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacdc98e5f8290c42874a064279fa1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0003
+  m_TrainingType: 2
 --- !u!1001 &1869264436
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ namespace SEP490G69
         public const string FRAME_ID_SET_LANG = "Frame.SetLanguage";
         public const string FRAME_ID_SET_NAME = "Frame.SetPlayerName";
         public const string FRAME_ID_CHAR_SELECT = "Frame.CharacterSelection";
+        public const string FRAME_ID_TRAINING_MENU = "Frame.TrainingMenu";
+        public const string FRAME_ID_MAIN_MENU = "Frame.MainMenu";
 
         #endregion
 
@@ -90,5 +92,7 @@ namespace SEP490G69
         #endregion
 
         public const int TRAINING_STARTER_LEVEL = 1;
+        public const int MAX_STAT_VALUE = 1000;
+        public const int MAX_100 = 100;
     }
 }

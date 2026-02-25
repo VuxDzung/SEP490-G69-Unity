@@ -18,6 +18,11 @@ namespace SEP490G69.Training
     public class GameTrainingController : MonoBehaviour, ISceneContext
     {
         [SerializeField] private Transform m_CharacterContainer;
+        [SerializeField] private GameObject m_MainMenuBG;
+        [SerializeField] private GameObject m_TrainingMenuBG;
+        [SerializeField] private Transform m_TrainingCharContainer;
+
+        private EventManager _eventManager;
 
         // CONFIGs
         private TrainingExerciseConfigSO _exercisesConfig;
@@ -34,6 +39,8 @@ namespace SEP490G69.Training
 
         private List<ITrainingStrategy> _exerciseList = new List<ITrainingStrategy>();
 
+        public CharacterDataHolder CharacterData => _characterHolder;
+
         private void OnEnable()
         {
             ContextManager.Singleton.AddSceneContext(this);
@@ -48,6 +55,8 @@ namespace SEP490G69.Training
             LoadConfigs();
             LoadDAOs();
             LoadExerciseStrategies();
+
+            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();    
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             if (string.IsNullOrEmpty(sessionId))
@@ -106,19 +115,50 @@ namespace SEP490G69.Training
             _characterAnimator = characterTrans.GetComponent<Animator>();
         }
 
+        public void OpenMainMenuBG()
+        {
+            m_MainMenuBG.SetActive(true);
+            _characterAnimator.transform.SetParent(m_CharacterContainer.transform, false);
+            _characterAnimator.transform.localPosition = Vector3.zero;
+        }
+        public void HideMainMenuBG()
+        {
+            m_MainMenuBG.SetActive(false);
+        }
+
+        public void OpenTrainingMenuBG()
+        {
+            m_TrainingMenuBG.SetActive(true);
+            _characterAnimator.transform.SetParent(m_TrainingCharContainer.transform, false);
+            _characterAnimator.transform.localPosition = Vector3.zero;
+        }
+        public void HideTrainingMenuBG()
+        {
+            m_TrainingMenuBG.SetActive(false);
+        }
+
         public void StartTraining(ETrainingType trainingType)
         {
             ITrainingStrategy strategy = GetExerciseByType(trainingType);
             if (strategy == null) return;
 
             strategy.StartTraining(_characterHolder);
+
+            _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
+
         public void StartTraining(string id)
         {
             ITrainingStrategy strategy = GetExerciseById(id);
             if (strategy == null) return;
 
             strategy.StartTraining(_characterHolder);
+            _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
+        }
+
+        public bool CanJoinTraining()
+        {
+            return _characterHolder.GetEnergy() > 0;
         }
 
         private ITrainingStrategy GetExerciseByType(ETrainingType trainingType)
@@ -129,5 +169,10 @@ namespace SEP490G69.Training
         {
             return _exerciseList.FirstOrDefault(ex => ex.ExerciseId.Equals(id));
         }
+    }
+
+    public class TrainingCompletedEvent : IEvent
+    {
+        
     }
 }

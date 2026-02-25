@@ -4750,7 +4750,7 @@ GameObject:
   - component: {fileID: 8828223402430333022}
   - component: {fileID: 621772538268502668}
   m_Layer: 0
-  m_Name: Slider.StatBar_Health
+  m_Name: Slider.StatBar_Mind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5940,7 +5940,7 @@ GameObject:
   - component: {fileID: 3808261428102609347}
   - component: {fileID: 4627723007896084358}
   m_Layer: 0
-  m_Name: Slider.StatBar_Health
+  m_Name: Slider.StatBar_Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6908,7 +6908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 944132805780537997}
   m_Layer: 0
-  m_Name: StatBar_Health (3)
+  m_Name: StatBar_Mind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8380,7 +8380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1587530030800052933}
   m_Layer: 0
-  m_Name: StatBar_Health (4)
+  m_Name: StatBar_Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

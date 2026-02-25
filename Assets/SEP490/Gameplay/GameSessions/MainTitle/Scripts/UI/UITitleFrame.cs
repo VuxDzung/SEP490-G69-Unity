@@ -72,7 +72,7 @@ namespace SEP490G69.GameSessions
             else
             {
                 Debug.Log("Has active session");
-                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>().SetContent("title_noti", "msg_has_active_session", () => {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>().SetContent("title_noti", "msg_has_active_session", true, true, () => {
                     // Create new session anyway.
                     if (SessionController.DeleteAllSessions())
                     {

@@ -12,7 +12,6 @@ namespace SEP490G69
         public const string FRAME_ID_TITLE = "Frame.Title";
         public const string FRAME_ID_CREDIT = "Frame.Credit";
         public const string FRAME_ID_TITLE_SETTINGS = "Frame.TitleSettings";
-        public const string FRAME_ID_LOADING = "Frame.Loading";
         public const string FRAME_ID_MESSAGE_POPUP = "Frame.MessagePopup";
         public const string FRAME_ID_CHANGE_PW = "Frame.ChangePassword";
         public const string FRAME_ID_SET_LANG = "Frame.SetLanguage";
@@ -89,5 +88,7 @@ namespace SEP490G69
         public const string PARAM_FADE_TIME = "fadeTime";
         public const string PARAM_IN_FADE_TIME = "inFadeTime";
         #endregion
+
+        public const int TRAINING_STARTER_LEVEL = 1;
     }
 }

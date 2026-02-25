@@ -171,10 +171,19 @@
 
         public async Task<string> GetIdTokenAsync()
         {
-            var user = _auth.CurrentUser;
-            if (user == null) return null;
+            try
+            {
+                var user = _auth.CurrentUser;
 
-            return await user.TokenAsync(true); // true = force refresh
+                if (user == null) return null;
+
+                return await user.TokenAsync(true); // true = force refresh
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
         public string GetUID()
         {

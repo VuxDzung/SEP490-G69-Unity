@@ -27,14 +27,17 @@ namespace SEP490G69.Training
 
             if (exerciseData == null)
             {
+                Debug.Log($"Existed data does not exist. Create new data for training exercise {exerciseSO.ExerciseId}");
                 string id = $"{sessionId}:{exerciseSO.ExerciseId}";
                 exerciseData = new SessionTrainingExercise
                 {
                     Id = id,
                     SessionId = sessionId,
                     ExerciseId = exerciseSO.ExerciseId,
-                    Level = 1,
+                    Level = GameConstants.TRAINING_STARTER_LEVEL,
                 };
+
+                _trainingDAO.InsertTrainingExercise(exerciseData);
             }
 
             _exerciseDataHolder = new TrainingExerciseDataHolder.Builder()

@@ -15,6 +15,7 @@ MonoBehaviour:
   m_StarterFrameId: Frame.Login
   m_Frames:
   - {fileID: 7648978445257796018, guid: f96f21d82819c9d45910a5a55a4f789a, type: 3}
+  - {fileID: 8287456197134602574, guid: 3521ad8314267c94bba74ba12bab35bf, type: 3}
   - {fileID: 5198237813787495800, guid: 8034f3a6fb04a86429fc5abdb585317f, type: 3}
   - {fileID: 6692803628296454497, guid: 492b1d5175f4dab4da1bda562c6b36ae, type: 3}
   - {fileID: 2874482388129376321, guid: 817b9b53f5cb85c4d8d1a9a6a322ef71, type: 3}

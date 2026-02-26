@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class BoxingTrainingStrategy :BaseTrainingStrategy
+    public class BoxingTrainingStrategy : BaseTrainingStrategy
     {
 
         public override bool StartTraining(CharacterDataHolder character)
@@ -23,7 +23,7 @@
                 var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
                 float rawEnergyGain = energyReward.Modifier.GetRawStatGain(character.GetEnergy());
                 // Energy thường không có BonusPerLevel hoặc Mood, nên cộng thẳng
-                character.AddEnergy(rawEnergyGain);
+                character.SetEnergy(rawEnergyGain);
 
                 // --- 2. CỘNG POWER TỪ FACILITY ---
                 var powerReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Power);

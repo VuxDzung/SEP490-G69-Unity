@@ -9,6 +9,28 @@ namespace SEP490G69.Training
         private TrainingExerciseSO _so;
         private SessionTrainingExercise _trainingData;
 
+        public string GetId()
+        {
+            return _so.ExerciseId;
+        }
+        public string GetName()
+        {
+            return _so.ExerciseName;
+        }
+        public Sprite GetImage()
+        {
+            return _so.ExerciseIcon;
+        }
+
+        public int GetLevel()
+        {
+            return _trainingData.Level;
+        }
+        public bool CanShowOnUI()
+        {
+            return _so.CanShowOnUI;
+        }
+
         public SessionTrainingExercise GetSessionData()
         {
             return _trainingData;

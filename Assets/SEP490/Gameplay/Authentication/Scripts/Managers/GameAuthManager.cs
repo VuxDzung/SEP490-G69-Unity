@@ -1,6 +1,7 @@
 ﻿namespace SEP490G69
 {
     using Firebase.Auth;
+    using Newtonsoft.Json;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Addons.Networking;
     using SEP490G69.Authentication;
@@ -39,7 +40,6 @@
 
         private void OnEnable()
         {
-            _eventManager.Subscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
             firebaseAuth.OnAutoLoginStarted += FirebaseAuth_OnAutoLoginStarted;
             firebaseAuth.OnAutoLoginSuccess += OnAutoLoginSuccess;
             firebaseAuth.OnAutoLoginFailed += FirebaseAuth_OnAutoLoginFailed;
@@ -47,7 +47,6 @@
 
         private void OnDisable()
         {
-            _eventManager.Unsubscribe<ReceiveTokenIdEvent>(HandleWindowsLoginByGoogle);
             firebaseAuth.OnAutoLoginStarted -= FirebaseAuth_OnAutoLoginStarted;
             firebaseAuth.OnAutoLoginSuccess -= OnAutoLoginSuccess;
             firebaseAuth.OnAutoLoginFailed -= FirebaseAuth_OnAutoLoginFailed;
@@ -70,9 +69,9 @@
 
             if (m_UseUGS) await SignInToUnityAuth(idToken);
 
-            bool success = await LoginToGameBackend(idToken);
-
-            return success;
+            var response = await LoginToGameBackend(idToken);
+            
+            return response != null;
         }
 
         public async Task<bool> RegisterAsync(string email, string password)
@@ -96,12 +95,12 @@
                 if (m_UseUGS) await SignInToUnityAuth(idToken);
 
                 // Step 5: Register by User id at backend.
-                bool success = await LoginToGameBackend(idToken);
+                var response = await LoginToGameBackend(idToken);
 
-                if (success)
+                if (response != null)
                 {
                     string playerId = firebaseAuth.GetUID();
-                    return TryCreateNewLocalUser(playerId, true) != null;
+                    return HandleAccessBEComplete(response, user);
                 }
 
                 return false;
@@ -118,7 +117,7 @@
             try
             {
                 string deviceId = GetDeviceId();
-                return TryCreateNewLocalUser(deviceId, false) != null;
+                return TryCreateNewLocalUser(deviceId, "", "", 0, false) != null;
             }
             catch(System.Exception e)
             {
@@ -141,59 +140,9 @@
 
             if (m_UseUGS) await SignInToUnityAuth(idToken);
 
-            bool success = await LoginToGameBackend(idToken);
+            var response = await LoginToGameBackend(idToken);
 
-            HandleAccessBEComplete(success, user);
-        }
-
-        private async void HandleWindowsLoginByGoogle(ReceiveTokenIdEvent ev)
-        {
-            if (ev == null)
-            {
-                OnLoginByGGWindowsChanged?.Invoke("failed");
-                return;
-            }
-
-            string googleTokenId = ev.TokenId;
-
-            if (string.IsNullOrEmpty(googleTokenId))
-            {
-                OnLoginByGGWindowsChanged?.Invoke("failed");
-                return;
-            }
-
-            FirebaseUser user = await firebaseAuth.SignInWithGoogleAsync(googleTokenId);
-
-            if (user == null)
-            {
-                OnLoginByGGWindowsChanged?.Invoke("failed");
-                return;
-            }
-
-            // Step 2: Get Firebase ID Token
-            string idToken = await firebaseAuth.GetIdTokenAsync();
-            if (string.IsNullOrEmpty(idToken))
-            {
-                OnLoginByGGWindowsChanged?.Invoke("failed");
-                return;
-            }
-
-            // Step 3: Init Unity Services
-            await unityAuth.InitializeAsync();
-
-            // Step 4: Unity OpenID login -> No longer use this.
-            //await unityAuth.SignInWithFirebaseAsync(idToken);
-
-            // Step 5: Login/Sign up by user id.
-            bool success = await LoginToGameBackend(idToken);
-            if (!success) 
-            {
-                OnLoginByGGWindowsChanged?.Invoke("failed");
-                Debug.LogError("Failed to login by google");
-                return;
-            }
-            Debug.Log("Success to login by google");
-            OnLoginByGGWindowsChanged?.Invoke("success");
+            HandleAccessBEComplete(response, user);
         }
 
         public void SendPasswordResetEmail(string email, Action onCancelled, Action onError, Action onComplete)
@@ -239,15 +188,22 @@
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_AUTH);
         }
 
-        public async Task<bool> LoginToGameBackend(string tokenId)
+        public async Task<AuthResponse> LoginToGameBackend(string tokenId)
         {
             bool success = true;
             _webRequests.SetJwt(tokenId);
+            AuthResponse _authResponse = null;
             await _webRequests.PostJsonByEndpointAsync("LoginByFirebaseToken", "", (response) =>
             {
                 success = response.Result == UnityEngine.Networking.UnityWebRequest.Result.Success;
+
+                if (success)
+                {
+                    _authResponse = JsonConvert.DeserializeObject<AuthResponse>(response.Json);
+                }
             });
-            return success;
+
+            return _authResponse;
         }
 
         public async Task SignInToUnityAuth(string tokenId)
@@ -276,14 +232,20 @@
             }
 
             LoadingHandler.Singleton.Show().SetText("Login to backend...");
-            bool success = await LoginToGameBackend(idToken);
+            var response = await LoginToGameBackend(idToken);
 
-            HandleAccessBEComplete(success, user);
+            HandleAccessBEComplete(response, user);
         }
 
-        private void HandleAccessBEComplete(bool success, FirebaseUser user)
+        /// <summary>
+        /// After receive the user data from backend and firebase, check if this is the new device or old device.
+        /// If it is the new device, 
+        /// </summary>
+        /// <param name="authResponse"></param>
+        /// <param name="user"></param>
+        private bool HandleAccessBEComplete(AuthResponse authResponse, FirebaseUser user)
         {
-            if (success)
+            if (authResponse != null)
             {
                 LoadingHandler.Singleton.Hide();
                 Debug.Log("OnAutoLoginSuccess");
@@ -291,15 +253,16 @@
 
                 if (playerData == null)
                 {
-                    PlayerData player = TryCreateNewLocalUser(user.UserId, true);
+                    PlayerData player = TryCreateNewLocalUser(user.UserId, authResponse.Data.PlayerName, user.Email, authResponse.Data.LegacyPoints, true);
                     if (player == null)
                     {
                         Debug.LogError("Failed to create new local user!");
-                        return;
+                        return false;
                     }
                 }
 
                 playerData = _playerDataDAO.GetPlayerById(user.UserId);
+
                 if (playerData != null)
                 {
                     if (string.IsNullOrEmpty(playerData.PlayerName))
@@ -310,13 +273,19 @@
                     {
                         SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
                     }
+                    PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
+                    return true;
                 }
+
+                return false;
             }
             else
             {
                 LoadingHandler.Singleton.Hide();
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>().SetContent("title_error", "msg_fail_connect_be");
                 OnLoginBEFailed?.Invoke();
+
+                return false;
             }
         }
 
@@ -341,21 +310,22 @@
             }
         }
 
-        private PlayerData TryCreateNewLocalUser(string playerId, bool isSynced)
+        private PlayerData TryCreateNewLocalUser(string playerId, string username, string playerEmail = "", int legacyPoints = 0, bool isSynced = true)
         {
             PlayerData _existedData = _playerDataDAO.GetPlayerById(playerId);
+
             if (_existedData != null)
             {
                 Debug.Log($"Account existed!\nId: {playerId}");
                 return _existedData;
             }
 
-            string username = "";
-
             PlayerData playerData = new PlayerData();
             playerData.PlayerId = playerId;
             playerData.PlayerName = username;
+            playerData.PlayerEmail = playerEmail;
             playerData.IsSynced = isSynced;
+            playerData.LegacyPoints = legacyPoints;
 
             _playerDataDAO.InsertNewPlayer(playerData);
 

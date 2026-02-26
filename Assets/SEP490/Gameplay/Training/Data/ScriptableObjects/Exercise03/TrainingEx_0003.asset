@@ -17,8 +17,12 @@ MonoBehaviour:
   exerciseDescription: te_0003_desc
   exerciseIcon: {fileID: 0}
   m_SuccessModifiers:
-  - {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
-  - {fileID: 11400000, guid: 4ae52f0ca1353dd4f8b5f225a94f886c, type: 2}
+  - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
+    BonusPerLevel: 0
+  - Modifier: {fileID: 11400000, guid: 4ae52f0ca1353dd4f8b5f225a94f886c, type: 2}
+    BonusPerLevel: 0
   m_FailedModifiers:
-  - {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
-  - {fileID: 11400000, guid: f68132c6c17960e47b8fe8cad04c161e, type: 2}
+  - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
+    BonusPerLevel: 0
+  - Modifier: {fileID: 11400000, guid: f68132c6c17960e47b8fe8cad04c161e, type: 2}
+    BonusPerLevel: 0

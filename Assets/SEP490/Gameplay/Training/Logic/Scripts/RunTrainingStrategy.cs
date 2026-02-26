@@ -23,7 +23,7 @@ namespace SEP490G69.Training
 
                 var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
                 if (energyReward.Modifier != null)
-                    character.AddEnergy(energyReward.Modifier.GetRawStatGain(currentEnergy));
+                    character.SetEnergy(energyReward.Modifier.GetRawStatGain(currentEnergy));
 
                 character.AddStamina(facilityStatGain * moodMultiplier);
                 return true;
@@ -32,11 +32,11 @@ namespace SEP490G69.Training
             {
                 var failEnergyReward = _exerciseDataHolder.GetFailedRewardByType(EStatusType.Energy);
                 if (failEnergyReward.Modifier != null)
-                    character.AddEnergy(failEnergyReward.Modifier.GetRawStatGain(currentEnergy));
+                    character.SetEnergy(failEnergyReward.Modifier.GetRawStatGain(currentEnergy));
 
                 var failMoodReward = _exerciseDataHolder.GetFailedRewardByType(EStatusType.Mood);
                 if (failMoodReward.Modifier != null)
-                    character.AddMood(failMoodReward.Modifier.GetRawStatGain(currentMood));
+                    character.SetMood(failMoodReward.Modifier.GetRawStatGain(currentMood));
 
                 character.AddStamina(facilityStatGain * 0.1f);
                 return false;

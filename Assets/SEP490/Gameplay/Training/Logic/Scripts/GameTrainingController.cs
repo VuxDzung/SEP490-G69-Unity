@@ -163,6 +163,11 @@ namespace SEP490G69.Training
             return _characterHolder.GetEnergy() > 0;
         }
 
+        public ITrainingStrategy[] GetAllTrainings()
+        {
+            return _exerciseList.ToArray();
+        }
+
         private ITrainingStrategy GetExerciseByType(ETrainingType trainingType)
         {
             return _exerciseList.FirstOrDefault(ex => ex.TrainingType == trainingType);
@@ -173,8 +178,5 @@ namespace SEP490G69.Training
         }
     }
 
-    public class TrainingCompletedEvent : IEvent
-    {
-        
-    }
+    public class TrainingCompletedEvent : IEvent { }
 }

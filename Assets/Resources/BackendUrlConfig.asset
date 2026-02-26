@@ -18,3 +18,5 @@ MonoBehaviour:
     m_EndPointUrl: api/auth/firebase-login
   - m_EndPointName: UpdatePlayerName
     m_EndPointUrl: api/playerProfiles/updatePlayerName
+  - m_EndPointName: GetPlayerName
+    m_EndPointUrl: api/playerProfiles/getPlayerName

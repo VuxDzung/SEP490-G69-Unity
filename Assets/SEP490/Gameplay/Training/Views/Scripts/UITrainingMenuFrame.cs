@@ -28,6 +28,9 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_StudyBtn;
         [SerializeField] private Button m_YogaBtn;
 
+        [SerializeField] private Transform m_ExerciseUIPrefab;
+        [SerializeField] private Transform m_Container;
+
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
         {
@@ -46,13 +49,15 @@ namespace SEP490G69.Training
             base.OnFrameShown();
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeFacilityBtn.onClick.AddListener(UpgradeFacilityNav);
-            m_BoxingBtn.onClick.AddListener(PerformBoxing);
-            m_RunBtn.onClick.AddListener(PerformRun);
-            m_DodgeBtn.onClick.AddListener(PerformDodge);
-            m_StudyBtn.onClick.AddListener(PerformStudy);
-            m_YogaBtn.onClick.AddListener(PerformYoga);
+
+            //m_BoxingBtn.onClick.AddListener(PerformBoxing);
+            //m_RunBtn.onClick.AddListener(PerformRun);
+            //m_DodgeBtn.onClick.AddListener(PerformDodge);
+            //m_StudyBtn.onClick.AddListener(PerformStudy);
+            //m_YogaBtn.onClick.AddListener(PerformYoga);
 
             LoadStats();
+            LoadExercisesUI();
         }
         protected override void OnFrameHidden()
         {
@@ -60,11 +65,40 @@ namespace SEP490G69.Training
             m_BackBtn.onClick.RemoveListener(Back);
             m_UpgradeFacilityBtn.onClick.RemoveListener(UpgradeFacilityNav);
 
-            m_BoxingBtn.onClick.RemoveListener(PerformBoxing);
-            m_RunBtn.onClick.RemoveListener(PerformRun);
-            m_DodgeBtn.onClick.RemoveListener(PerformDodge);
-            m_StudyBtn.onClick.RemoveListener(PerformStudy);
-            m_YogaBtn.onClick.RemoveListener(PerformYoga);
+            ClearAllExercisesUI();
+
+            //m_BoxingBtn.onClick.RemoveListener(PerformBoxing);
+            //m_RunBtn.onClick.RemoveListener(PerformRun);
+            //m_DodgeBtn.onClick.RemoveListener(PerformDodge);
+            //m_StudyBtn.onClick.RemoveListener(PerformStudy);
+            //m_YogaBtn.onClick.RemoveListener(PerformYoga);
+        }
+
+        private void LoadExercisesUI()
+        {
+            string poolName = "UIExercise";
+
+            foreach (var strategy in TrainingController.GetAllTrainings())
+            {
+                if (!strategy.DataHolder.CanShowOnUI()) continue;
+
+                Transform exerciseUITrans = PoolManager.Pools[poolName].Spawn(m_ExerciseUIPrefab, m_Container);
+                UIExerciseElement exerciseUI = exerciseUITrans.GetComponent<UIExerciseElement>();
+                if (exerciseUI != null)
+                {
+                    exerciseUI.SetOnClick(PerformExercise)
+                              .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(), 
+                              strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
+                }
+            }
+        }
+        private void ClearAllExercisesUI()
+        {
+            string poolName = "UIExercise";
+            if (PoolManager.Pools[poolName].Count > 0)
+            {
+                PoolManager.Pools[poolName].DespawnAll();
+            }
         }
 
         private void LoadStats()
@@ -80,7 +114,7 @@ namespace SEP490G69.Training
             SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
             SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
             SetINT(TrainingController.CharacterData.GetINT(), GameConstants.MAX_STAT_VALUE);
-            SetAgility(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetAgility(TrainingController.CharacterData.GetAgi(), GameConstants.MAX_STAT_VALUE);
             SetStamina(TrainingController.CharacterData.GetStamina(), GameConstants.MAX_STAT_VALUE);
         }
 
@@ -158,6 +192,12 @@ namespace SEP490G69.Training
         {
             if (TrainingController.CanJoinTraining())
                 TrainingController.StartTraining(ETrainingType.Yoga);
+        }
+
+        private void PerformExercise(string id)
+        {
+            if (TrainingController.CanJoinTraining())
+                TrainingController.StartTraining(id);
         }
     }
 }

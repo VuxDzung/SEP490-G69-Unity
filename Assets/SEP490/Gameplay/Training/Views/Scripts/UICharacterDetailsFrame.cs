@@ -74,7 +74,7 @@ namespace SEP490G69.Training
             SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
             SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
             SetINT(TrainingController.CharacterData.GetINT(), GameConstants.MAX_STAT_VALUE);
-            SetAgility(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetAgility(TrainingController.CharacterData.GetAgi(), GameConstants.MAX_STAT_VALUE);
             SetStamina(TrainingController.CharacterData.GetStamina(), GameConstants.MAX_STAT_VALUE);
         }
 

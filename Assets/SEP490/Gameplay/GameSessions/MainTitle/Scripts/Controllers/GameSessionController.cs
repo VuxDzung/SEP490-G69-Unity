@@ -1,5 +1,6 @@
 namespace SEP490G69.GameSessions
 {
+    using SEP490G69.PlayerProfile;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -7,7 +8,10 @@ namespace SEP490G69.GameSessions
     {
         private IGameSessionCreator _sessionCreator;
         private PlayerCharacterRepository _characterRepo;
+        private PlayerDataDAO _playerDAO;
+
         private GameAuthManager _authManager;
+        private PlayerProfileController _profileController;
 
         private CharacterConfigSO _characterConfig;
 
@@ -33,6 +37,17 @@ namespace SEP490G69.GameSessions
                 return _characterConfig;
             }
         }
+        private PlayerProfileController ProfileController
+        {
+            get
+            {
+                if (_profileController == null)
+                {
+                    _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
+                }
+                return _profileController;
+            }
+        }
 
         private void OnEnable()
         {
@@ -47,6 +62,8 @@ namespace SEP490G69.GameSessions
         {
             _sessionCreator = new SingleSessionCreator();
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
+
+            TestPlayerProfile();
         }
 
         public bool HasActiveSession()
@@ -119,6 +136,36 @@ namespace SEP490G69.GameSessions
 
 
             return _sessionCreator.TryDeleteAllSessions(playerId);
+        }
+
+        /// <summary>
+        /// Dung: Delete later.
+        /// </summary>
+        private async void TestPlayerProfile()
+        {
+            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
+
+            if (_playerDAO != null)
+            {
+                string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
+                PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+
+                if (playerData == null)
+                {
+                    Debug.LogError($"Failed to get player data with id {playerId}");
+                    return;
+                }
+                Debug.Log("==========PLAYER_PROFILE==========");
+                Debug.Log($"PlayerId: {playerData.PlayerId}");
+                Debug.Log($"PlayerName: {playerData.PlayerName}");
+                Debug.Log("==================================");
+
+                Debug.Log("==========PLAYER_CLOUD_PROFILE==========");
+                Debug.Log($"PlayerId: {playerData.PlayerId}");
+                string playerName = await ProfileController.GetCloudPlayerName(playerId);
+                Debug.Log($"PlayerName: {playerData.PlayerName}");
+                Debug.Log("==================================");
+            }
         }
     }
 }

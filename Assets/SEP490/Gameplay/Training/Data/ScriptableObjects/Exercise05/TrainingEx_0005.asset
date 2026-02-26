@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e10aafeb81a9dd4595dca542f079699, type: 3}
-  m_Name: TrainingEx_0002
+  m_Name: TrainingEx_0005
   m_EditorClassIdentifier: 
-  exerciseId: te_0002
-  exerciseName: te_0002_name
-  exerciseDescription: te_0002_desc
+  exerciseId: te_0005
+  exerciseName: te_0005_name
+  exerciseDescription: te_0005_desc
   exerciseIcon: {fileID: 0}
   m_SuccessModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
     BonusPerLevel: 0
-  - Modifier: {fileID: 11400000, guid: 6f665ce4fd6218349b2810818d4184a9, type: 2}
+  - Modifier: {fileID: 11400000, guid: ca3422e94a8d71441906f0465aac858a, type: 2}
     BonusPerLevel: 0
   m_FailedModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}

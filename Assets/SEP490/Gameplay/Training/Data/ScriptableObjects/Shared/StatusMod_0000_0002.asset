@@ -16,5 +16,7 @@ MonoBehaviour:
   m_StatType: 7
   m_Operator: 4
   m_Value: 2
-  m_BonusPerLevel: 0
-  m_Description: Training failed.
+  m_RandomNumber: 0
+  m_Min: 0
+  m_Max: 0
+  m_Description: Training failed. (Reduce mood)

@@ -16,8 +16,7 @@ MonoBehaviour:
   m_StatType: 1
   m_Operator: 3
   m_Value: 2
-  m_BonusPerLevel: 1
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: Training boxing success.
+  m_Description: Training power success.

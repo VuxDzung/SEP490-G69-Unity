@@ -32,3 +32,21 @@ MonoBehaviour:
       text: Run
     - language: 1
       text: "Ch\u1EA1y b\u1ED9"
+  - id: te_0004_name
+    textList:
+    - language: 0
+      text: Dodge
+    - language: 1
+      text: "N\xE9 \u0111\xF2n"
+  - id: te_0005_name
+    textList:
+    - language: 0
+      text: Study
+    - language: 1
+      text: "H\u1ECDc"
+  - id: te_0006_name
+    textList:
+    - language: 0
+      text: Yoga
+    - language: 1
+      text: Yoga

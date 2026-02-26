@@ -1062,6 +1062,9 @@ GameObject:
   - component: {fileID: 1612326927}
   - component: {fileID: 1612326926}
   - component: {fileID: 1612326928}
+  - component: {fileID: 1612326931}
+  - component: {fileID: 1612326930}
+  - component: {fileID: 1612326929}
   m_Layer: 0
   m_Name: TrainingController
   m_TagString: Untagged
@@ -1144,6 +1147,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExerciseId: te_0003
   m_TrainingType: 2
+--- !u!114 &1612326929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633ad85f2168bed40b88632016ccf1b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0006
+  m_TrainingType: 5
+--- !u!114 &1612326930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5eaf13075038248b19fb59077724c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0005
+  m_TrainingType: 4
+--- !u!114 &1612326931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612326923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b5e4ca372f62a4b8cea09a6d736268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExerciseId: te_0004
+  m_TrainingType: 3
 --- !u!1001 &1869264436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1220,6 +1265,7 @@ GameObject:
   - component: {fileID: 2134430711}
   - component: {fileID: 2134430712}
   - component: {fileID: 2134430713}
+  - component: {fileID: 2134430714}
   m_Layer: 0
   m_Name: SpawnPools.Menu
   m_TagString: Untagged
@@ -1269,6 +1315,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: Character
+  preLoadPrefabs: []
+--- !u!114 &2134430714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134430710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: UIExercise
   preLoadPrefabs: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

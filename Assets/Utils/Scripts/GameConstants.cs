@@ -20,6 +20,7 @@ namespace SEP490G69
         public const string FRAME_ID_TRAINING_MENU = "Frame.TrainingMenu";
         public const string FRAME_ID_MAIN_MENU = "Frame.MainMenu";
         public const string FRAME_ID_CHAR_DETAILS = "Frame.CharacterDetail";
+        public const string FRAME_ID_CALENDAR = "Frame.Calendar";
 
         #endregion
 
@@ -32,6 +33,7 @@ namespace SEP490G69
 
         #region Prefs keys
         public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
+        public const string PREF_KEY_PLAYER_ID = "PlayerId";
         #endregion
 
         #region Localization categories

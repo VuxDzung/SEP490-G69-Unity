@@ -12,6 +12,7 @@
 
         public ETrainingType TrainingType => m_TrainingType;
         public string ExerciseId => m_ExerciseId;
+        public TrainingExerciseDataHolder DataHolder => _exerciseDataHolder;
 
         /// <summary>
         /// Logic dùng chung để khởi tạo dữ liệu bài tập từ DAO

@@ -64,13 +64,13 @@ namespace SEP490G69
             return _characterSO.Prefab;
         }
 
-        public void AddEnergy(float finalGain)
+        public void SetEnergy(float finalGain)
         {
-            _characterData.CurrentEnergy += finalGain;
+            _characterData.CurrentEnergy = finalGain;
             _characterData.CurrentEnergy = Mathf.Clamp(_characterData.CurrentEnergy, 0, GameConstants.MAX_100);
         }
 
-        public void AddMood(float finalGain)
+        public void SetMood(float finalGain)
         {
             _characterData.CurrentMood += finalGain;
             _characterData.CurrentMood = Mathf.Clamp(_characterData.CurrentMood, 0, GameConstants.MAX_100);

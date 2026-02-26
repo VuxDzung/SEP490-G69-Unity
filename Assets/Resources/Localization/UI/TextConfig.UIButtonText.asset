@@ -140,3 +140,21 @@ MonoBehaviour:
       text: Change password
     - language: 1
       text: "\u0110\u1ED5i m\u1EADt kh\u1EA9u"
+  - id: btn_continue
+    textList:
+    - language: 0
+      text: Continue
+    - language: 1
+      text: "Ti\u1EBFp t\u1EE5c"
+  - id: btn_new_game
+    textList:
+    - language: 0
+      text: New Game
+    - language: 1
+      text: "Tr\xF2 ch\u01A1i m\u1EDBi"
+  - id: btn_credit
+    textList:
+    - language: 0
+      text: Credit
+    - language: 1
+      text: "Danh \u0111\u1EC1"

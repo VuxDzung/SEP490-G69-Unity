@@ -192,7 +192,8 @@ namespace SEP490G69.Training
 
         private void PerformRest()
         {
-
+            TrainingController.StartTraining(ETrainingType.Rest);
+            LoadCharacterStats();
         }
 
         private void ShowCalendar()

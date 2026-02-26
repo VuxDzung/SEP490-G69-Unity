@@ -197,7 +197,10 @@ namespace SEP490G69.Training
         private void PerformExercise(string id)
         {
             if (TrainingController.CanJoinTraining())
+            {
                 TrainingController.StartTraining(id);
+                LoadStats();
+            }
         }
     }
 }

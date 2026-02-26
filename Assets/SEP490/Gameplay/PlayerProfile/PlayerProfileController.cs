@@ -4,7 +4,6 @@ namespace SEP490G69.PlayerProfile
     using Newtonsoft.Json;
     using SEP490G69.Addons.Networking;
     using System.Threading.Tasks;
-    using System;
     using UnityEngine;
 
     public class PlayerProfileController : MonoBehaviour, IGameContext
@@ -21,6 +20,7 @@ namespace SEP490G69.PlayerProfile
         {
             _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
             _webRequests = new WebRequests();
+            _firebase = FirebaseAuth.DefaultInstance;
         }
 
         public void SetManager(ContextManager manager)

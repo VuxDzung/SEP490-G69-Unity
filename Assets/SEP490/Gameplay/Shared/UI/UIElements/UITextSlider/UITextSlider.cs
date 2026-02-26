@@ -6,8 +6,14 @@ namespace SEP490G69
 
     public class UITextSlider : MonoBehaviour
     {
+        [SerializeField] private bool m_Readonly = false;
         [SerializeField] private Slider m_Slider;
         [SerializeField] private TextMeshProUGUI m_Tmp;
+
+        private void Start()
+        {
+            m_Slider.interactable = m_Readonly;
+        }
 
         public void SetValue(float cur, float max)
         {

@@ -21,6 +21,7 @@ namespace SEP490G69
         public const string FRAME_ID_MAIN_MENU = "Frame.MainMenu";
         public const string FRAME_ID_CHAR_DETAILS = "Frame.CharacterDetail";
         public const string FRAME_ID_CALENDAR = "Frame.Calendar";
+        public const string FRAME_ID_PLAYER_PROFILE = "Frame.PlayerProfile";
 
         #endregion
 

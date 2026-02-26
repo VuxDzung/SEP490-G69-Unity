@@ -23,6 +23,7 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_InventoryBtn;
         [SerializeField] private Button m_CardsBtn;
         [SerializeField] private Button m_CharacterDetailsBtn;
+        [SerializeField] private Button m_PlayerProfileBtn;
 
         [Header("Character stats")]
         [SerializeField] private TextMeshProUGUI m_MoodTmp;
@@ -81,6 +82,8 @@ namespace SEP490G69.Training
             m_CardsBtn.onClick.AddListener(ShowCards);
             m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
 
+            if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
+
             LoadCharacterStats();
             LoadCalendarTime();
             LoadObjectives();
@@ -100,6 +103,8 @@ namespace SEP490G69.Training
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
             m_CardsBtn.onClick.RemoveListener(ShowCards);
             m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
+
+            if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
         }
 
         private void LoadCharacterStats()
@@ -208,6 +213,11 @@ namespace SEP490G69.Training
         private void ShowCards()
         {
 
+        }
+        private void ShowPlayerProfile()
+        {
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
         }
         #endregion
     }

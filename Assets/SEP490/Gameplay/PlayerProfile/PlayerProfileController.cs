@@ -75,6 +75,33 @@ namespace SEP490G69.PlayerProfile
             });
             return playerName;
         }
+
+        public string GetPlayerName(string playerId)
+        {
+            if (string.IsNullOrEmpty(playerId)) return string.Empty;
+
+            PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+            if (playerData == null)
+            {
+                return string.Empty;
+            }
+            return playerData.PlayerName;
+        }
+        public string GetPlayerEmail(string playerId)
+        {
+            if (string.IsNullOrEmpty(playerId)) return string.Empty;
+
+            PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+            if (playerData == null)
+            {
+                return string.Empty;
+            }
+            if (string.IsNullOrEmpty(playerData.PlayerEmail))
+            {
+                return _firebase.CurrentUser.Email;
+            }
+            return playerData.PlayerEmail;
+        }
     }
 
     public class UpdatePlayerNameRequest

@@ -1,73 +1,48 @@
-namespace SEP490G69.Training
+﻿namespace SEP490G69.Training
 {
     using UnityEngine;
 
-    public class BoxingTrainingStrategy : MonoBehaviour, ITrainingStrategy
+    public class BoxingTrainingStrategy :BaseTrainingStrategy
     {
-        [SerializeField] private string m_ExerciseId;
-        [SerializeField] private ETrainingType m_TrainingType;
 
-        private TrainingExerciseDataHolder _exerciseDataHolder;
-        private TrainingExerciseDAO _trainingDAO;
-
-        public ETrainingType TrainingType => m_TrainingType;
-        public string ExerciseId => m_ExerciseId;
-
-        /// <summary>
-        /// Get the current training exercise data of the session. 
-        /// If it does not exist, it means that this is the new session.
-        /// At that point, the system creates a new training exercise data for the session.
-        /// </summary>
-        /// <param name="sessionId"></param>
-        public void Initialize(TrainingExerciseDAO dao, string sessionId, TrainingExerciseSO exerciseSO)
+        public override bool StartTraining(CharacterDataHolder character)
         {
-            _trainingDAO = dao;
+            float currentEnergy = character.GetEnergy();
+            float currentMood = character.GetMood();
+            int facilityLevel = _exerciseDataHolder.GetSessionData().Level;
 
-            SessionTrainingExercise exerciseData = _trainingDAO.GetByIdAndSessionId(sessionId, exerciseSO.ExerciseId);
+            float failRate = GetFailRate(currentEnergy);
+            bool isSuccess = UnityEngine.Random.Range(0f, 100f) >= failRate;
 
-            if (exerciseData == null)
+            if (isSuccess)
             {
-                Debug.Log($"Existed data does not exist. Create new data for training exercise {exerciseSO.ExerciseId}");
-                string id = $"{sessionId}:{exerciseSO.ExerciseId}";
-                exerciseData = new SessionTrainingExercise
-                {
-                    Id = id,
-                    SessionId = sessionId,
-                    ExerciseId = exerciseSO.ExerciseId,
-                    Level = GameConstants.TRAINING_STARTER_LEVEL,
-                };
+                // Tính Mood Multiplier
+                float moodMultiplier = GetMoodEffectiveness(currentMood);
 
-                _trainingDAO.InsertTrainingExercise(exerciseData);
-            }
+                // --- 1. TRỪ ENERGY ---
+                var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
+                float rawEnergyGain = energyReward.Modifier.GetRawStatGain(character.GetEnergy());
+                // Energy thường không có BonusPerLevel hoặc Mood, nên cộng thẳng
+                character.AddEnergy(rawEnergyGain);
 
-            _exerciseDataHolder = new TrainingExerciseDataHolder.Builder()
-                                  .WithExerciseSO(exerciseSO)
-                                  .WithSessionTrainingData(exerciseData)
-                                  .Build();
-        }
+                // --- 2. CỘNG POWER TỪ FACILITY ---
+                var powerReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Power);
+                float rawPowerGain = powerReward.Modifier.GetRawStatGain(character.GetPower());
 
-        public bool StartTraining(CharacterDataHolder character)
-        {
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Energy));
+                // Công thức: Tổng Power = (Base + (Level - 1) * Bonus) * Mood
+                float facilityPowerGain = rawPowerGain + (powerReward.BonusPerLevel * (facilityLevel - 1));
+                float finalPowerGain = facilityPowerGain * moodMultiplier;
 
-            if (_exerciseDataHolder.CanTrainingSuccess(character.GetEnergy(), character.GetMood()))
-            {
-                character.ApplyPowerModifier(_exerciseDataHolder.GetSuccessModifierByType(EStatusType.Power));
+                character.AddPower(finalPowerGain);
+
                 return true;
             }
-
-            character.ApplyEnergyModifier(_exerciseDataHolder.GetFailedModifierByType(EStatusType.Mood));
-
-            return false;
-        }
-
-        /// <summary>
-        /// Check whether if the character are able to participate in this exercise
-        /// </summary>
-        /// <returns></returns>
-        public bool CanTraining(CharacterDataHolder character)
-        {
-            return false;
+            else
+            {
+                // Xử lý nhánh Fail tương tự, lấy FailedRewardByType, trừ Energy, trừ Mood...
+                // Và nhớ: finalPowerGain nhánh fail = facilityPowerGain * 0.1f;
+                return false;
+            }
         }
     }
 }

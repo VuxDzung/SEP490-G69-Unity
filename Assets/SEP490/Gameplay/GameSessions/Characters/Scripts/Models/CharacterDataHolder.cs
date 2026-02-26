@@ -64,26 +64,47 @@ namespace SEP490G69
             return _characterSO.Prefab;
         }
 
-        public void ApplyMoodModifier(StatusModifierSO modifierSO)
+        public void AddEnergy(float finalGain)
         {
-            if (modifierSO.StatType != EStatusType.Mood) return;
-
-            _characterData.CurrentMood = modifierSO.GetModifierValue(_characterData.CurrentMood);
-            _characterData.CurrentMood = Mathf.Clamp(_characterData.CurrentMood, 0, GameConstants.MAX_100);
-        }
-        public void ApplyEnergyModifier(StatusModifierSO modifierSO)
-        {
-            if (modifierSO.StatType != EStatusType.Energy) return;
-
-            _characterData.CurrentEnergy = modifierSO.GetModifierValue(_characterData.CurrentEnergy);
+            _characterData.CurrentEnergy += finalGain;
             _characterData.CurrentEnergy = Mathf.Clamp(_characterData.CurrentEnergy, 0, GameConstants.MAX_100);
         }
-        public void ApplyPowerModifier(StatusModifierSO modifierSO)
-        {
-            if (modifierSO.StatType != EStatusType.Power) return;
 
-            _characterData.CurrentPower = modifierSO.GetModifierValue(_characterData.CurrentPower);
+        public void AddMood(float finalGain)
+        {
+            _characterData.CurrentMood += finalGain;
+            _characterData.CurrentMood = Mathf.Clamp(_characterData.CurrentMood, 0, GameConstants.MAX_100);
+        }
+
+        public void AddVit(float finalGain)
+        {
+            _characterData.CurrentMaxVitality += finalGain;
+            _characterData.CurrentMaxVitality = Mathf.Clamp(_characterData.CurrentMaxVitality, 0, GameConstants.MAX_STAT_VALUE);
+        }
+        public void AddPower(float finalGain)
+        {
+            _characterData.CurrentPower += finalGain;
             _characterData.CurrentPower = Mathf.Clamp(_characterData.CurrentPower, 0, GameConstants.MAX_STAT_VALUE);
+        }
+        public void AddAgi(float finalGain)
+        {
+            _characterData.CurrentAgi += finalGain;
+            _characterData.CurrentAgi = Mathf.Clamp(_characterData.CurrentAgi, 0, GameConstants.MAX_STAT_VALUE);
+        }
+        public void AddStamina(float finalGain)
+        {
+            _characterData.CurrentStamina += finalGain;
+            _characterData.CurrentStamina = Mathf.Clamp(_characterData.CurrentStamina, 0, GameConstants.MAX_STAT_VALUE);
+        }
+        public void AddInt (float finalGain)
+        {
+            _characterData.CurrentIntelligence += finalGain;
+            _characterData.CurrentIntelligence = Mathf.Clamp(_characterData.CurrentIntelligence, 0, GameConstants.MAX_STAT_VALUE);
+        }
+        public void AddDef(float finalGain)
+        {
+            _characterData.CurrentDef += finalGain;
+            _characterData.CurrentDef = Mathf.Clamp(_characterData.CurrentDef, 0, GameConstants.MAX_STAT_VALUE);
         }
 
         public class Builder

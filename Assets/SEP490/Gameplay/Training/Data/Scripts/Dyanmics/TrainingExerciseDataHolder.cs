@@ -9,6 +9,11 @@ namespace SEP490G69.Training
         private TrainingExerciseSO _so;
         private SessionTrainingExercise _trainingData;
 
+        public SessionTrainingExercise GetSessionData()
+        {
+            return _trainingData;
+        }
+
         public bool CanTrainingSuccess(float energy, float mood)
         {
             return true;
@@ -19,20 +24,22 @@ namespace SEP490G69.Training
             return 0;
         }
 
-        public StatusModifierSO GetSuccessModifierByType(EStatusType statType)
+        public TrainingRewardConfig GetSuccessRewardByType(EStatusType statType)
         {
-            return _so.SuccessModifiers.FirstOrDefault(_so => _so.StatType == statType);
-        }
-        public StatusModifierSO GetFailedModifierByType(EStatusType statType)
-        {
-            return _so.FailedModifiers.FirstOrDefault(_so => _so.StatType == statType);
+            return _so.SuccessModifiers.FirstOrDefault(config => config.Modifier != null && config.Modifier.StatType == statType);
         }
 
-        public List<StatusModifierSO> GetAllSuccessModifiers()
+        public TrainingRewardConfig GetFailedRewardByType(EStatusType statType)
+        {
+            return _so.FailedModifiers.FirstOrDefault(config => config.Modifier != null && config.Modifier.StatType == statType);
+        }
+
+        public List<TrainingRewardConfig> GetAllSuccessModifiers()
         {
             return _so.SuccessModifiers;
         }
-        public List<StatusModifierSO> GetAllFailedModifiers()
+
+        public List<TrainingRewardConfig> GetAllFailedModifiers()
         {
             return _so.FailedModifiers;
         }

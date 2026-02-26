@@ -6,7 +6,7 @@ namespace SEP490G69.Training
         public ETrainingType TrainingType { get; }
 
         public void Initialize(TrainingExerciseDAO dao, string sessionId, TrainingExerciseSO exerciseSO);
-        public bool CanTraining(CharacterDataHolder character);
+        //public bool CanTraining(CharacterDataHolder character);
         public bool StartTraining(CharacterDataHolder characterHolder);
     }
 }

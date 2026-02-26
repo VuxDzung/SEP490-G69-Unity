@@ -9,7 +9,6 @@ namespace SEP490G69
         [SerializeField] private EStatusType m_StatType;
         [SerializeField] private EOperator m_Operator;
         [SerializeField] private float m_Value;
-        [SerializeField] private float m_BonusPerLevel;
         [Header("Random number")]
         [SerializeField] private bool m_RandomNumber;
         [SerializeField] private float m_Min;
@@ -23,10 +22,9 @@ namespace SEP490G69
         public EStatusType StatType => m_StatType;
         public EOperator Operator => m_Operator;
         public float Value => m_Value;
-        public float BonusPerLevel => m_BonusPerLevel;
         public string Description => m_Description;
 
-        public float GetModifierValue(float targetValue)
+        public float GetRawStatGain(float targetValue)
         {
             float value = GetRandomNumber();
             switch (m_Operator)

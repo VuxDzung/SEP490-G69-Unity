@@ -22,6 +22,7 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_DeckBtn;
         [SerializeField] private Button m_InventoryBtn;
         [SerializeField] private Button m_CardsBtn;
+        [SerializeField] private Button m_CharacterDetailsBtn;
 
         [Header("Character stats")]
         [SerializeField] private TextMeshProUGUI m_MoodTmp;
@@ -78,6 +79,7 @@ namespace SEP490G69.Training
             m_CalendarBtn.onClick.AddListener(ShowCalendar);
             m_DeckBtn.onClick.AddListener(ShowDeck);
             m_CardsBtn.onClick.AddListener(ShowCards);
+            m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
 
             LoadCharacterStats();
             LoadCalendarTime();
@@ -97,6 +99,7 @@ namespace SEP490G69.Training
             m_CalendarBtn.onClick.RemoveListener(ShowCalendar);
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
             m_CardsBtn.onClick.RemoveListener(ShowCards);
+            m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
         }
 
         private void LoadCharacterStats()
@@ -152,6 +155,12 @@ namespace SEP490G69.Training
         public void SetStamina(float cur, float max)
         {
             m_StaminaSlider.SetValue(cur, max);
+        }
+
+        private void ShowCharacterDetails()
+        {
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_DETAILS);
         }
 
         #region Actions

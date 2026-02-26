@@ -19,6 +19,7 @@ namespace SEP490G69
         public const string FRAME_ID_CHAR_SELECT = "Frame.CharacterSelection";
         public const string FRAME_ID_TRAINING_MENU = "Frame.TrainingMenu";
         public const string FRAME_ID_MAIN_MENU = "Frame.MainMenu";
+        public const string FRAME_ID_CHAR_DETAILS = "Frame.CharacterDetail";
 
         #endregion
 

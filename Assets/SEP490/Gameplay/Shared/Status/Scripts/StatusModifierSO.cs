@@ -24,7 +24,7 @@ namespace SEP490G69
         public float Value => m_Value;
         public string Description => m_Description;
 
-        public float GetRawStatGain(float targetValue)
+        public float GetModifiedStatus(float targetValue)
         {
             float value = GetRandomNumber();
             switch (m_Operator)

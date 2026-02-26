@@ -28,7 +28,7 @@ namespace SEP490G69.Training
             {
                 if (_trainingController == null)
                 {
-                    ContextManager.Singleton.TryResolveSceneContext(out  _trainingController);
+                    ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
                 }
                 return _trainingController;
             }
@@ -39,6 +39,7 @@ namespace SEP490G69.Training
             base.OnFrameShown();
             m_Back.onClick.AddListener(Back);
             LoadCharacterDetails(TrainingController.CharacterData);
+            LoadCharacterStats();
         }
         protected override void OnFrameHidden()
         {
@@ -66,6 +67,37 @@ namespace SEP490G69.Training
             {
                 return;
             }
+        }
+
+        private void LoadCharacterStats()
+        {
+            SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
+            SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetINT(TrainingController.CharacterData.GetINT(), GameConstants.MAX_STAT_VALUE);
+            SetAgility(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetStamina(TrainingController.CharacterData.GetStamina(), GameConstants.MAX_STAT_VALUE);
+        }
+
+
+        public void SetVitality(float cur, float max)
+        {
+            m_VitSlider.SetValue(cur, max);
+        }
+        public void SetPower(float cur, float max)
+        {
+            m_PowerSlider.SetValue(cur, max);
+        }
+        public void SetAgility(float cur, float max)
+        {
+            m_AgiSlider.SetValue(cur, max);
+        }
+        public void SetINT(float cur, float max)
+        {
+            m_INTSlider.SetValue(cur, max);
+        }
+        public void SetStamina(float cur, float max)
+        {
+            m_StaminaSlider.SetValue(cur, max);
         }
     }
 }

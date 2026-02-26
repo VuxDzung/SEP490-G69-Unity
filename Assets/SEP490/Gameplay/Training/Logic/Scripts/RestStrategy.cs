@@ -7,40 +7,43 @@ namespace SEP490G69.Training
         public override bool StartTraining(CharacterDataHolder character)
         {
 
+            float currentEnergy = character.GetEnergy();
+            float currentMood = character.GetMood();
+
             float roll = UnityEngine.Random.Range(0f, 100f);
             float energyRecovery = 0f;
-
+            float moodChange = 0f;
 
             if (roll < 10f)
             {
                 energyRecovery = 70f;
+                moodChange = 20f; 
                 Debug.Log("Rest: Great Success!");
             }
             else if (roll < 85f)
             {
                 energyRecovery = 50f;
+                moodChange = 10f;
                 Debug.Log("Rest: Normal Success!");
             }
             else if (roll < 95f)
             {
                 energyRecovery = 30f;
+                moodChange = 0f;
                 Debug.Log("Rest: Minor Success!");
             }
             else
             {
                 energyRecovery = 5f;
+                moodChange = -10f;
                 Debug.Log("Rest: Bad Rest...");
             }
 
+            float finalEnergy = currentEnergy + energyRecovery;
+            character.SetEnergy(finalEnergy);
 
-            character.SetEnergy(energyRecovery);
-
-            var moodReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Mood);
-            if (moodReward.Modifier != null)
-            {
-                float moodGain = moodReward.Modifier.GetModifiedStatus(character.GetMood());
-                character.SetMood(moodGain);
-            }
+            float finalMood = currentMood + moodChange;
+            character.SetMood(finalMood);
 
             return true;
         }

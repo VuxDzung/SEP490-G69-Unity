@@ -92,12 +92,12 @@ MonoBehaviour:
       text: Cancel
     - language: 1
       text: "H\u1EE7y"
-  - id: btn_change_pw
+  - id: btn_forgot_pw
     textList:
     - language: 0
-      text: Change password
+      text: Forgot password?
     - language: 1
-      text: "\u0110\u1ED5i m\u1EADt kh\u1EA9u"
+      text: "Qu\xEAn m\u1EADt kh\u1EA9u?"
   - id: btn_training
     textList:
     - language: 0
@@ -134,3 +134,9 @@ MonoBehaviour:
       text: Cards
     - language: 1
       text: "Th\u1EBB b\xE0i"
+  - id: btn_change_pw
+    textList:
+    - language: 0
+      text: Change password
+    - language: 1
+      text: "\u0110\u1ED5i m\u1EADt kh\u1EA9u"

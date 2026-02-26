@@ -358,8 +358,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Confirm
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ec62af91e26010a449476f65463fa313, type: 2}
-  m_sharedMaterial: {fileID: 4654684187001823227, guid: ec62af91e26010a449476f65463fa313, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -454,6 +454,14 @@ PrefabInstance:
       propertyPath: m_text
       value: English
       objectReference: {fileID: 0}
+    - target: {fileID: 760046588632931846, guid: 4b4775e5146acb24d9c1f4d0d9b543d0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 760046588632931846, guid: 4b4775e5146acb24d9c1f4d0d9b543d0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1736927525827602576, guid: 4b4775e5146acb24d9c1f4d0d9b543d0, type: 3}
       propertyPath: m_Name
       value: Field.Language

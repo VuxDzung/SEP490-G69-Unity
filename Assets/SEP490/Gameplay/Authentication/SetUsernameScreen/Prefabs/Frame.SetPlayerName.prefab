@@ -465,7 +465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: Player name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
   m_sharedMaterial: {fileID: -2777932170018748105, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
@@ -811,7 +811,7 @@ PrefabInstance:
     - target: {fileID: 6284392219304377983, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: ec62af91e26010a449476f65463fa313, type: 2}
+      objectReference: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
     - target: {fileID: 6284392219304377983, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_fontColor.b
       value: 1
@@ -827,7 +827,7 @@ PrefabInstance:
     - target: {fileID: 6284392219304377983, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 4654684187001823227, guid: ec62af91e26010a449476f65463fa313, type: 2}
+      objectReference: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
     - target: {fileID: 6284392219304377983, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295

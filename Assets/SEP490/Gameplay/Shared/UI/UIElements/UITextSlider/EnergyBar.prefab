@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06a6f55cf1006a4f98ec61aea140ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Readonly: 0
   m_Slider: {fileID: 3778677678823732445}
   m_Tmp: {fileID: 6371329565914482627}
 --- !u!1 &1391034177664037645
@@ -480,8 +481,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 60/100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ec62af91e26010a449476f65463fa313, type: 2}
-  m_sharedMaterial: {fileID: 4654684187001823227, guid: ec62af91e26010a449476f65463fa313, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

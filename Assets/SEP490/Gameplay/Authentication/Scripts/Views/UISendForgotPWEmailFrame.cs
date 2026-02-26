@@ -42,7 +42,7 @@ namespace SEP490G69.Authentication
         {
             string email = m_EmailInput.text;
 
-            _authManager.SendPasswordResetEmail(email, () => {
+            AuthManager.SendPasswordResetEmail(email, () => {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
                          .AsFrame<UIMessagePopup>()
                          .SetContent("title_noti", "msg_cancel_reset_pw", true, false);

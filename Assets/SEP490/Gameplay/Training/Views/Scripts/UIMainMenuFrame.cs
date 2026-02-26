@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -17,6 +18,17 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_DeckBtn;
         [SerializeField] private Button m_InventoryBtn;
         [SerializeField] private Button m_CardsBtn;
+
+        [Header("Character stats")]
+        [SerializeField] private TextMeshProUGUI m_MoodTmp;
+        [SerializeField] private UITextSlider m_RPSlider;
+        [SerializeField] private UITextSlider m_EnergySlider;
+
+        [SerializeField] private UITextSlider m_VitSlider;
+        [SerializeField] private UITextSlider m_PowerSlider;
+        [SerializeField] private UITextSlider m_AgiSlider;
+        [SerializeField] private UITextSlider m_INTSlider;
+        [SerializeField] private UITextSlider m_StaminaSlider;
 
         private GameTrainingController _trainingController;
 
@@ -51,6 +63,7 @@ namespace SEP490G69.Training
             m_DeckBtn.onClick.AddListener(ShowDeck);
             m_CardsBtn.onClick.AddListener(ShowCards);
         }
+
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();

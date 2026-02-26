@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GoogleClientConfig
   m_EditorClassIdentifier: 
   m_ClientId: 849240330897-ehpv9m6abrhigoc4mguovd79di4ijbll.apps.googleusercontent.com
-  m_RedirectUri: http://localhost:5000/
+  m_RedirectUri: http://127.0.0.1
+  m_Scope: openid email profile

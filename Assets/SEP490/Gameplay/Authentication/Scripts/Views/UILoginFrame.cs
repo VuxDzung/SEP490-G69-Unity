@@ -29,7 +29,6 @@
             registerNavBtn.onClick.AddListener(Go2Register);
             forgotPWBtn.onClick.AddListener(ForgotPWNav);
             loginAsGuestBtn.onClick.AddListener(LoginAsGuest);
-            _authManager.OnLoginByGGWindowsChanged += OnLoginByGGWindowsChanged;
         }
 
         protected override void OnFrameHidden()
@@ -40,7 +39,6 @@
             registerNavBtn.onClick.RemoveListener(Go2Register);
             forgotPWBtn.onClick.RemoveListener(ForgotPWNav);
             loginAsGuestBtn.onClick.RemoveListener(LoginAsGuest);
-            _authManager.OnLoginByGGWindowsChanged -= OnLoginByGGWindowsChanged;
         }
 
 
@@ -78,23 +76,10 @@
             }
         }
 
-        public async void OnGoogleLoginClicked()
+        public void OnGoogleLoginClicked()
         {
             LoadingHandler.Singleton.Show().SetText("Logging in...");
-            await _authManager.SignInByGoogle();
-        }
-
-        private void OnLoginByGGWindowsChanged(string result)
-        {
-            LoadingHandler.Singleton.Hide();
-            if (result.Equals("failed"))
-            {
-
-            }
-            else
-            {
-                OnLoginSuccess();
-            }
+            _authManager.SignInByGoogle();
         }
 
         private void OnLoginSuccess()

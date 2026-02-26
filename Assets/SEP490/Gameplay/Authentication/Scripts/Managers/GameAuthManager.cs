@@ -127,23 +127,23 @@
             }
         }
 
-        public async Task<bool> SignInByGoogle()
+        public async void SignInByGoogle()
         {
             FirebaseUser user = await firebaseAuth.SignInWithGoogleAsync();
 
             if (user == null)
-                return false;
+                return;
 
             string idToken = await firebaseAuth.GetIdTokenAsync();
 
             if (string.IsNullOrEmpty(idToken))
-                return false;
+                return;
 
             if (m_UseUGS) await SignInToUnityAuth(idToken);
 
             bool success = await LoginToGameBackend(idToken);
 
-            return success;
+            HandleAccessBEComplete(success, user);
         }
 
         private async void HandleWindowsLoginByGoogle(ReceiveTokenIdEvent ev)
@@ -189,8 +189,10 @@
             if (!success) 
             {
                 OnLoginByGGWindowsChanged?.Invoke("failed");
+                Debug.LogError("Failed to login by google");
                 return;
             }
+            Debug.Log("Success to login by google");
             OnLoginByGGWindowsChanged?.Invoke("success");
         }
 
@@ -274,8 +276,13 @@
             }
 
             LoadingHandler.Singleton.Show().SetText("Login to backend...");
-
             bool success = await LoginToGameBackend(idToken);
+
+            HandleAccessBEComplete(success, user);
+        }
+
+        private void HandleAccessBEComplete(bool success, FirebaseUser user)
+        {
             if (success)
             {
                 LoadingHandler.Singleton.Hide();

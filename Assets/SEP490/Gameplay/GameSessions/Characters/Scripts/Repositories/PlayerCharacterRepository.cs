@@ -20,6 +20,16 @@ namespace SEP490G69
 
             string id = string.Format(FORMAT_ID, sessionId, characterSO.CharacterId);
 
+            if (_dao.GetCharacter(id) != null )
+            {
+                Debug.Log($"Character {id} has already existed!");
+                if (!_dao.TryDeleteCharacter(id))
+                {
+                    Debug.LogError($"Failed to delete character {id}");
+                    return false;
+                }
+            }
+
             characterData.Id = id;
             characterData.CurrentMaxVitality = characterSO.BaseVit;
             characterData.CurrentPower = characterSO.BasePow;

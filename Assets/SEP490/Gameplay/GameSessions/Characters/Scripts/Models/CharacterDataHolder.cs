@@ -11,11 +11,19 @@ namespace SEP490G69
         {
             return _characterSO.Thumbnail;
         }
-
+        public Sprite GetFullBodyImg()
+        {
+            return _characterSO.FullBodyImg;
+        }
+        public string GetCharacterName()
+        {
+            return _characterSO.CharacterName;
+        }
         public float GetEnergy()
         {
             return _characterData.CurrentEnergy;
         }
+
         public float GetMood()
         {
             return (float)_characterData.CurrentMood;

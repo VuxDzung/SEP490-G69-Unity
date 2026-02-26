@@ -94,5 +94,26 @@ namespace SEP490G69
         public const int TRAINING_STARTER_LEVEL = 1;
         public const int MAX_STAT_VALUE = 1000;
         public const int MAX_100 = 100;
+
+        public const string MOOD_FORMAT = "Mood: {0}";
+
+        public static readonly int[] RP_CHECKPOINTS =
+        {
+            200,
+            500,
+            1000,
+        };
+
+        public static int DetermineNextRPCheckpoint(int currentPoint)
+        {
+            for (int i = 0; i < RP_CHECKPOINTS.Length; i++)
+            {
+                if (RP_CHECKPOINTS[i] > currentPoint)
+                {
+                    return RP_CHECKPOINTS[i];
+                }
+            }
+            return RP_CHECKPOINTS[RP_CHECKPOINTS.Length - 1];
+        }
     }
 }

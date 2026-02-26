@@ -17,7 +17,7 @@ namespace SEP490G69.GameSessions
         /// </summary>
         public string Status { get; set; }
 
-        public int CurrentWeek { get; set; } = 1;
+        public int CurrentWeek { get; set; } = 0;
         public int CurrentGoldAmount { get; set; } = 0;
     }
 }

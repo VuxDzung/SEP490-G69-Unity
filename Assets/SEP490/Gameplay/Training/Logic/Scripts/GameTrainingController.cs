@@ -41,22 +41,15 @@ namespace SEP490G69.Training
 
         public CharacterDataHolder CharacterData => _characterHolder;
 
-        private void OnEnable()
+        private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
-        }
-        private void OnDisable()
-        {
-            ContextManager.Singleton.RemoveSceneContext(this);
-        }
 
-        private void Start()
-        {
             LoadConfigs();
             LoadDAOs();
             LoadExerciseStrategies();
 
-            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();    
+            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             if (string.IsNullOrEmpty(sessionId))
@@ -87,7 +80,16 @@ namespace SEP490G69.Training
                 ex.Initialize(_exercisesDAO, sessionId, _so);
             });
 
+        }
+
+        private void Start()
+        {
             LoadCharacter();
+        }
+
+        private void OnDestroy()
+        {
+            ContextManager.Singleton.RemoveSceneContext(this);
         }
 
         private void LoadExerciseStrategies()

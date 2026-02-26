@@ -40,6 +40,7 @@ namespace SEP490G69
             }
             catch (System.Exception e)
             {
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -53,6 +54,7 @@ namespace SEP490G69
             }
             catch (System.Exception e)
             {
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -66,6 +68,7 @@ namespace SEP490G69
             }
             catch (System.Exception e)
             {
+                Debug.LogException(e);
                 return false;
             }
         }

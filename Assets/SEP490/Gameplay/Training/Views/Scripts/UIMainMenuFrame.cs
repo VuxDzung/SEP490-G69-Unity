@@ -1,11 +1,15 @@
 namespace SEP490G69.Training
 {
+    using SEP490G69.Calendar;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
 
     public class UIMainMenuFrame : GameUIFrame
     {
+        [SerializeField] private TextMeshProUGUI m_CalendarTimeTmp;
+        [SerializeField] private TextMeshProUGUI m_RemainTimeTmp;
+        [Header("Right vertical fields")]
         [SerializeField] private Button m_SettingsBtn;
         [SerializeField] private Button m_NoAdsBtn;
         [SerializeField] private Button m_HallOfFameBtn;
@@ -31,7 +35,6 @@ namespace SEP490G69.Training
         [SerializeField] private UITextSlider m_StaminaSlider;
 
         private GameTrainingController _trainingController;
-
         private GameTrainingController TrainingController
         {
             get
@@ -41,6 +44,19 @@ namespace SEP490G69.Training
                     ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
                 }
                 return _trainingController;
+            }
+        }
+
+        private GameCalendarController _calendarController;
+        private GameCalendarController CalendarController
+        {
+            get
+            {
+                if (_calendarController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _calendarController);
+                }
+                return _calendarController;
             }
         }
 
@@ -62,6 +78,10 @@ namespace SEP490G69.Training
             m_CalendarBtn.onClick.AddListener(ShowCalendar);
             m_DeckBtn.onClick.AddListener(ShowDeck);
             m_CardsBtn.onClick.AddListener(ShowCards);
+
+            LoadCharacterStats();
+            LoadCalendarTime();
+            LoadObjectives();
         }
 
         protected override void OnFrameHidden()
@@ -79,6 +99,62 @@ namespace SEP490G69.Training
             m_CardsBtn.onClick.RemoveListener(ShowCards);
         }
 
+        private void LoadCharacterStats()
+        {
+            SetEnergy(TrainingController.CharacterData.GetEnergy(), GameConstants.MAX_100);
+            SetRP(TrainingController.CharacterData.GetRP(), GameConstants.DetermineNextRPCheckpoint(TrainingController.CharacterData.GetRP()));
+
+            SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
+            SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetINT(TrainingController.CharacterData.GetINT(), GameConstants.MAX_STAT_VALUE);
+            SetAgility(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
+            SetStamina(TrainingController.CharacterData.GetStamina(), GameConstants.MAX_STAT_VALUE);
+        }
+        private void LoadCalendarTime()
+        {
+            m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
+            m_RemainTimeTmp.text = CalendarController.GetRemainTimeOfYear().ToString();
+        }
+        private void LoadObjectives()
+        {
+
+        }
+
+        public void SetEnergy(float cur, float max)
+        {
+            m_EnergySlider.SetValue(cur, max);
+        }
+        public void SetRP(int cur, int max)
+        {
+            m_RPSlider.SetValue(cur, max);
+        }
+        public void SetMood(string mood)
+        {
+            m_MoodTmp.text = string.Format(GameConstants.MOOD_FORMAT, mood);
+        }
+
+        public void SetVitality(float cur, float max)
+        {
+            m_VitSlider.SetValue(cur, max);
+        }
+        public void SetPower(float cur, float max)
+        {
+            m_PowerSlider.SetValue(cur, max);
+        }
+        public void SetAgility(float cur, float max)
+        {
+            m_AgiSlider.SetValue(cur, max);
+        }
+        public void SetINT(float cur, float max)
+        {
+            m_INTSlider.SetValue(cur, max);
+        }
+        public void SetStamina(float cur, float max)
+        {
+            m_StaminaSlider.SetValue(cur, max);
+        }
+
+        #region Actions
         private void ShowSettingsFrame()
         {
 
@@ -122,5 +198,6 @@ namespace SEP490G69.Training
         {
 
         }
+        #endregion
     }
 }

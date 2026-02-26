@@ -6,7 +6,6 @@ namespace SEP490G69.Training
 
     public class UITrainingMenuFrame : GameUIFrame
     {
-        public const string MOOD_FORMAT = "Mood: {0}";
         public const string FORMAT_FAIL_RATE = "Failure rate: {0}%";
 
         [SerializeField] private Button m_BackBtn;
@@ -91,7 +90,7 @@ namespace SEP490G69.Training
         }
         public void SetMood(string mood)
         {
-            m_MoodTmp.text = string.Format(MOOD_FORMAT, mood);
+            m_MoodTmp.text = string.Format(GameConstants.MOOD_FORMAT, mood);
         }
 
         public void SetFailureRate(float rate)

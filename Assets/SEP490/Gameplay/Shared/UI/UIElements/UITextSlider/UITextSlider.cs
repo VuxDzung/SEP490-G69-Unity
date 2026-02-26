@@ -11,7 +11,7 @@ namespace SEP490G69
 
         public void SetValue(float cur, float max)
         {
-            m_Slider.maxValue = max;
+            //m_Slider.maxValue = max;
             m_Slider.value = cur / max;
             m_Tmp.text = $"{cur}/{max}";
         }

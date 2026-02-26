@@ -14,7 +14,7 @@ namespace SEP490G69.Training
             bool isSuccess = UnityEngine.Random.Range(0f, 100f) >= failRate;
 
             var statReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Agi);
-            float rawStatGain = statReward.Modifier != null ? statReward.Modifier.GetRawStatGain(character.GetAgi()) : 0f;
+            float rawStatGain = statReward.Modifier != null ? statReward.Modifier.GetModifiedStatus(character.GetAgi()) : 0f;
             float facilityStatGain = rawStatGain + (statReward.BonusPerLevel * (facilityLevel - 1));
 
             if (isSuccess)
@@ -23,22 +23,22 @@ namespace SEP490G69.Training
 
                 var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
                 if (energyReward.Modifier != null)
-                    character.SetEnergy(energyReward.Modifier.GetRawStatGain(currentEnergy));
+                    character.SetEnergy(energyReward.Modifier.GetModifiedStatus(currentEnergy));
 
-                character.AddAgi(facilityStatGain * moodMultiplier);
+                character.SetAgi(facilityStatGain * moodMultiplier);
                 return true;
             }
             else
             {
                 var failEnergyReward = _exerciseDataHolder.GetFailedRewardByType(EStatusType.Energy);
                 if (failEnergyReward.Modifier != null)
-                    character.SetEnergy(failEnergyReward.Modifier.GetRawStatGain(currentEnergy));
+                    character.SetEnergy(failEnergyReward.Modifier.GetModifiedStatus(currentEnergy));
 
                 var failMoodReward = _exerciseDataHolder.GetFailedRewardByType(EStatusType.Mood);
                 if (failMoodReward.Modifier != null)
-                    character.SetMood(failMoodReward.Modifier.GetRawStatGain(currentMood));
+                    character.SetMood(failMoodReward.Modifier.GetModifiedStatus(currentMood));
 
-                character.AddAgi(facilityStatGain * 0.1f);
+                character.SetAgi(facilityStatGain * 0.1f);
                 return false;
             }
         }

@@ -21,19 +21,19 @@
 
                 // --- 1. TRỪ ENERGY ---
                 var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
-                float rawEnergyGain = energyReward.Modifier.GetRawStatGain(character.GetEnergy());
+                float rawEnergyGain = energyReward.Modifier.GetModifiedStatus(character.GetEnergy());
                 // Energy thường không có BonusPerLevel hoặc Mood, nên cộng thẳng
                 character.SetEnergy(rawEnergyGain);
 
                 // --- 2. CỘNG POWER TỪ FACILITY ---
                 var powerReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Power);
-                float rawPowerGain = powerReward.Modifier.GetRawStatGain(character.GetPower());
+                float rawPowerGain = powerReward.Modifier.GetModifiedStatus(character.GetPower());
 
                 // Công thức: Tổng Power = (Base + (Level - 1) * Bonus) * Mood
                 float facilityPowerGain = rawPowerGain + (powerReward.BonusPerLevel * (facilityLevel - 1));
                 float finalPowerGain = facilityPowerGain * moodMultiplier;
 
-                character.AddPower(finalPowerGain);
+                character.SetPower(finalPowerGain);
 
                 return true;
             }

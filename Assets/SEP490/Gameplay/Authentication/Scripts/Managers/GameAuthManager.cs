@@ -190,6 +190,8 @@
         public void Logout()
         {
             firebaseAuth.Logout();
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, "");
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, "");
             if (m_UseUGS) unityAuth.SignOut();
 
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_AUTH);

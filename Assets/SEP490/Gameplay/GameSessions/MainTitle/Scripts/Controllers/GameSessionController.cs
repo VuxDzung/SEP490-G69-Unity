@@ -138,8 +138,14 @@ namespace SEP490G69.GameSessions
 
             string playerId = AuthManager.GetUserId();
 
+            ClearAllPlayerPrefs();
 
             return _sessionCreator.TryDeleteAllSessions(playerId);
+        }
+
+        private void ClearAllPlayerPrefs()
+        {
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, "");
         }
 
         /// <summary>

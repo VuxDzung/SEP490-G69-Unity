@@ -32,3 +32,54 @@ MonoBehaviour:
       text: New here?
     - language: 1
       text: "Ng\u01B0\u1EDDi ch\u01A1i m\u1EDBi?"
+  - id: creditname
+    textList:
+    - language: 0
+      text: 'Ngo Duc Hoang
+
+
+        Vu Duc Dung
+
+
+        Nguyen Tung Duong
+
+
+        To
+        Tien Manh
+
+
+        Pham Duc Anh'
+    - language: 1
+      text: "Ng\xF4 \u0110\u1EE9c Ho\xE0ng\n\nV\u0169 \u0110\u1EE9c D\u0169ng\n\nNguy\u1EC5n
+        T\xF9ng D\u01B0\u01A1ng\n\nT\xF4 Ti\u1EBFn M\u1EA1nh\n\nPh\u1EA1m \u0110\u1EE9c
+        Anh"
+  - id: credittitle
+    textList:
+    - language: 0
+      text: 'Developed By:
+
+        Published By:'
+    - language: 1
+      text: "S\u1EA3n xu\u1EA5t v\xE0 ph\xE1t tri\u1EC3n b\u1EDFi:"
+  - id: creditjob
+    textList:
+    - language: 0
+      text: 'Programming / Game design / Sound
+
+
+        Programming / Game design
+
+
+        Programming
+        / Game design
+
+
+        Programming / Game design
+
+
+        Programming /
+        Game design'
+    - language: 1
+      text: "L\u1EADp tr\xECnh / H\xECnh \u1EA3nh / \xC2m Thanh\n\nL\u1EADp tr\xECnh
+        / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh
+        / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh"

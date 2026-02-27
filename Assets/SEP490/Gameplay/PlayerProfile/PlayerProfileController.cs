@@ -39,6 +39,11 @@ namespace SEP490G69.PlayerProfile
             playerData.PlayerName = playerName;
             _playerDAO.UpdatePlayer(playerData);
 
+            bool syncSuccess = await SyncPlayerName(playerId, playerName);
+        }
+
+        public async Task<bool> SyncPlayerName(string playerId, string playerName)
+        {
             if (WebRequests.HasInternetConnection())
             {
                 UpdatePlayerNameRequest requestModel = new UpdatePlayerNameRequest
@@ -47,17 +52,23 @@ namespace SEP490G69.PlayerProfile
                     PlayerName = playerName
                 };
                 string json = JsonConvert.SerializeObject(requestModel);
+
+                bool success = false;
                 await _webRequests.PutJsonByEndpointAsync("UpdatePlayerName", json, (response) =>
                 {
                     if (response.Result == UnityEngine.Networking.UnityWebRequest.Result.Success)
                     {
                         Debug.Log("Update player name to cloud successfully.");
+                        success = true;
                     }
                 });
+
+                return success;
             }
             else
             {
                 Debug.LogError("No internet connection!");
+                return false;
             }
         }
 
@@ -106,8 +117,8 @@ namespace SEP490G69.PlayerProfile
 
     public class UpdatePlayerNameRequest
     {
-        public string PlayerId { get; set; }
-        public string PlayerName { get; set; }
+        public string PlayerId { get; set; } = string.Empty;
+        public string PlayerName { get; set; } = string.Empty;
     }
 
     public class GetPlayerNameRequest

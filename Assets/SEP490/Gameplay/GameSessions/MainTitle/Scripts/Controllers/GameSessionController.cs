@@ -175,6 +175,21 @@ namespace SEP490G69.GameSessions
                 string playerName = await ProfileController.GetCloudPlayerName(playerId);
                 Debug.Log($"PlayerName: {playerName}");
                 Debug.Log("==================================");
+
+                if (playerName.Equals(playerData.PlayerName))
+                {
+                    return;
+                }
+                Debug.Log("Local player name does not match with cloud's player name. Sync now!");
+                bool success = await ProfileController.SyncPlayerName(playerId, playerData.PlayerName);
+                if (success)
+                {
+                    Debug.Log("Sync success");
+                }
+                else
+                {
+                    Debug.Log("Sync failed!");
+                }
             }
         }
     }

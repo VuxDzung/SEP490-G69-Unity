@@ -100,7 +100,14 @@
                 if (response != null)
                 {
                     string playerId = firebaseAuth.GetUID();
-                    return HandleAccessBEComplete(response, user);
+                    PlayerData playerData = TryCreateNewLocalUser(playerId, "", firebaseAuth.GetUser().Email, 0, true);
+                    
+                    if (playerData == null)
+                    {
+                        return false;
+                    }
+
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
                 }
 
                 return false;
@@ -249,6 +256,7 @@
             {
                 LoadingHandler.Singleton.Hide();
                 Debug.Log("OnAutoLoginSuccess");
+
                 PlayerData playerData = _playerDataDAO.GetPlayerById(user.UserId);
 
                 if (playerData == null)

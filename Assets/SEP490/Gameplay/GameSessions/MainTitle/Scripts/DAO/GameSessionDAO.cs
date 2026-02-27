@@ -2,6 +2,7 @@ namespace SEP490G69.GameSessions
 {
     using LiteDB;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class GameSessionDAO 
@@ -74,11 +75,11 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public List<PlayerTrainingSession> GetAllSessions()
+        public List<PlayerTrainingSession> GetAllSessions(string playerId)
         {
             try
             {
-                List<PlayerTrainingSession> list = _collection.Query().ToList();
+                List<PlayerTrainingSession> list = _collection.Query().ToList().Where(s => s.PlayerId.Equals(playerId)).ToList();
                 return list;
             }
             catch (System.Exception ex)

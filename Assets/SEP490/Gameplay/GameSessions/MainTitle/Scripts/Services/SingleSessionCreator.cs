@@ -18,9 +18,9 @@ namespace SEP490G69.GameSessions
             _dao = new GameSessionDAO(LocalDBInitiator.GetDatabase());
         }
 
-        public List<PlayerTrainingSession> GetAllSessions()
+        public List<PlayerTrainingSession> GetAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessionList = _dao.GetAllSessions();
+            List<PlayerTrainingSession> sessionList = _dao.GetAllSessions(playerId);
             return sessionList;
         }
 
@@ -29,7 +29,7 @@ namespace SEP490G69.GameSessions
             errorMessage = "";
             sessionId = "";
 
-            if (_dao.GetAllSessions().Count > 0)
+            if (_dao.GetAllSessions(playerId).Count > 0)
             {
                 errorMessage = "error_session_02";
                 return false;
@@ -37,7 +37,7 @@ namespace SEP490G69.GameSessions
 
             // Dung: Construct session id.
             string idPreFix = playerId;
-            string idPostFix = GetSessionIdOrder().ToString(); // May change later
+            string idPostFix = GetSessionIdOrder(playerId).ToString(); // May change later
             sessionId = string.Format(SESSION_ID_FORMAT, idPreFix, idPostFix);
 
             PlayerTrainingSession newSession = new PlayerTrainingSession();
@@ -57,7 +57,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllSessions();
+            List<PlayerTrainingSession> sessions = _dao.GetAllSessions(playerId);
 
             var playerSessions = sessions
                 .Where(s => s.PlayerId == playerId)
@@ -81,7 +81,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteSession(string playerId, string sessionId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllSessions();
+            List<PlayerTrainingSession> sessions = _dao.GetAllSessions(playerId);
 
             var session = sessions
                 .FirstOrDefault(s => s.SessionId == sessionId);
@@ -95,9 +95,9 @@ namespace SEP490G69.GameSessions
             return _dao.DeleteSession(sessionId);
         }
 
-        private int GetSessionIdOrder()
+        private int GetSessionIdOrder(string playerId)
         {
-            List<PlayerTrainingSession> sessionList = GetAllSessions();
+            List<PlayerTrainingSession> sessionList = GetAllSessions(playerId);
             List<int> orderIntList = new List<int>();
             foreach (var session in sessionList)
             {

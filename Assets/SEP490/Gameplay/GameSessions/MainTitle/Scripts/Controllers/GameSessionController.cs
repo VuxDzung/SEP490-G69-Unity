@@ -68,7 +68,9 @@ namespace SEP490G69.GameSessions
 
         public bool HasActiveSession()
         {
-            return _sessionCreator.GetAllSessions().Count > 0;
+            string playerId = AuthManager.GetUserId();
+
+            return _sessionCreator.GetAllSessions(playerId).Count > 0;
         }
 
         public bool CreateNewSession(string characterId, out string sessionId, out string error)
@@ -115,15 +117,17 @@ namespace SEP490G69.GameSessions
 
         public void ContinueSession()
         {
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                List<PlayerTrainingSession> sessions = _sessionCreator.GetAllSessions();
-                if (sessions.Count == 0) return;
-                sessionId = sessions[0].SessionId;
+            string playerId = AuthManager.GetUserId();
 
-                PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
+            List<PlayerTrainingSession> sessions = _sessionCreator.GetAllSessions(playerId);
+            if (sessions.Count == 0)
+            {
+                Debug.Log("No session available!");
+                return;
             }
+            string sessionId = sessions[0].SessionId;
+
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
         }
 
         public bool DeleteAllSessions()

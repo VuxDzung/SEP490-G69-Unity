@@ -10,6 +10,7 @@ namespace SEP490G69.GameSessions
     {
         [SerializeField] private Button m_NewGameBtn;
         [SerializeField] private Button m_ContinueBtn;
+        [SerializeField] private Button m_ProfileBtn;
         [SerializeField] private Button m_SettingsBtn;
         [SerializeField] private Button m_CreditBtn;
         [SerializeField] private Button m_QuitBtn;
@@ -51,6 +52,7 @@ namespace SEP490G69.GameSessions
             m_CreditBtn.onClick.AddListener(ViewCredit);
             m_QuitBtn.onClick.AddListener(QuitGame);
             m_SignoutBtn.onClick.AddListener(SignOut);
+            m_ProfileBtn.onClick.AddListener(ShowPlayerProfile);
         }
         protected override void OnFrameHidden()
         {
@@ -61,6 +63,7 @@ namespace SEP490G69.GameSessions
             m_CreditBtn.onClick.RemoveListener(ViewCredit);
             m_QuitBtn.onClick.RemoveListener(QuitGame);
             m_SignoutBtn.onClick.RemoveListener(SignOut);
+            m_ProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
         }
 
         public void NewGame()
@@ -123,6 +126,11 @@ namespace SEP490G69.GameSessions
         private void SignOut()
         {
             AuthManager.Logout();
+        }
+
+        private void ShowPlayerProfile()
+        {
+            UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
         }
     }
 }

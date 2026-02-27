@@ -19,7 +19,6 @@ namespace SEP490G69.PlayerProfile
         private void Awake()
         {
             _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
-            _webRequests = new WebRequests();
             _firebase = FirebaseAuth.DefaultInstance;
         }
 
@@ -27,6 +26,7 @@ namespace SEP490G69.PlayerProfile
         {
             _contextManager = manager;
             _authManager = _contextManager.ResolveGameContext<GameAuthManager>();
+            _webRequests = _contextManager.ResolveGameContext<WebRequests>();
         }
 
         public async void UpdatePlayerName(string playerId, string playerName)
@@ -63,17 +63,17 @@ namespace SEP490G69.PlayerProfile
 
         public async Task<string> GetCloudPlayerName(string playerId)
         {
-            GetPlayerNameRequest request = new GetPlayerNameRequest { PlayerId = playerId };
-            string json = JsonConvert.SerializeObject(request);
-            string playerName = "";
-            await _webRequests.GetJsonByEndpointAsync("GetPlayerName", json, (response) =>
+            GetPlayerNameResponse responseDTO = null;
+            string param = $"playerId={playerId}";
+            await _webRequests.GetEndpointByParam("GetPlayerName", param, (response) =>
             {
                 if (response.Result == UnityEngine.Networking.UnityWebRequest.Result.Success)
                 {
-                    playerName = response.Json;
+                    responseDTO = JsonConvert.DeserializeObject<GetPlayerNameResponse>(response.Json); 
                 }
             });
-            return playerName;
+
+            return responseDTO != null ? responseDTO.PlayerName : string.Empty;
         }
 
         public string GetPlayerName(string playerId)
@@ -113,5 +113,9 @@ namespace SEP490G69.PlayerProfile
     public class GetPlayerNameRequest
     {
         public string PlayerId { get; set; }
+    }
+    public class GetPlayerNameResponse
+    {
+        public string PlayerName { get; set; } = string.Empty;
     }
 }

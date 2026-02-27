@@ -173,7 +173,7 @@ namespace SEP490G69.GameSessions
                 Debug.Log("==========PLAYER_CLOUD_PROFILE==========");
                 Debug.Log($"PlayerId: {playerData.PlayerId}");
                 string playerName = await ProfileController.GetCloudPlayerName(playerId);
-                Debug.Log($"PlayerName: {playerData.PlayerName}");
+                Debug.Log($"PlayerName: {playerName}");
                 Debug.Log("==================================");
             }
         }

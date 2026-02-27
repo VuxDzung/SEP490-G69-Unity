@@ -30,8 +30,6 @@
 
         private void Awake()
         {
-            _webRequests = new WebRequests();
-            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
             _playerDataDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
 
             firebaseAuth = new FirebaseAuthService();
@@ -55,6 +53,9 @@
         public void SetManager(ContextManager manager)
         {
             _contextManager = manager;
+
+            _webRequests = _contextManager.ResolveGameContext<WebRequests>();
+            _eventManager = _contextManager.ResolveGameContext<EventManager>();
         }
 
         public async Task<bool> LoginAsync(string email, string password)
@@ -209,6 +210,7 @@
                 if (success)
                 {
                     _authResponse = JsonConvert.DeserializeObject<AuthResponse>(response.Json);
+                    _webRequests.SetJwt(_authResponse.Data.AccessToken);
                 }
             });
 

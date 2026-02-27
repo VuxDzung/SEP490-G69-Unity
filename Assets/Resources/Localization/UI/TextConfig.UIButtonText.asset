@@ -170,3 +170,15 @@ MonoBehaviour:
       text: Save game
     - language: 1
       text: "L\u01B0u ti\u1EBFn tr\xECnh"
+  - id: btn_sign_out
+    textList:
+    - language: 0
+      text: Sign out
+    - language: 1
+      text: "\u0110\u0103ng xu\u1EA5t"
+  - id: btn_player_profile
+    textList:
+    - language: 0
+      text: Profile
+    - language: 1
+      text: "H\u1ED3 s\u01A1"

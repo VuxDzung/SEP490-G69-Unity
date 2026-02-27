@@ -16,7 +16,7 @@ namespace SEP490G69.Addons.Networking
         public string ErrorMessage;
     }
 
-    public class WebRequests
+    public class WebRequests : MonoBehaviour, IGameContext
     {
         private string _baseUrl;
         private string _jwt;
@@ -24,7 +24,7 @@ namespace SEP490G69.Addons.Networking
 
         public string BaseUrl => _baseUrl;
 
-        public WebRequests()
+        private void Awake()
         {
             if (string.IsNullOrEmpty(_baseUrl))
             {
@@ -36,10 +36,6 @@ namespace SEP490G69.Addons.Networking
                 }
                 _baseUrl = _backendUrlConfig.BaseUrl;
             }
-        }
-        public WebRequests(string baseUrl)
-        {
-            _baseUrl = baseUrl;
         }
 
         public void SetJwt(string jwt)
@@ -92,6 +88,10 @@ namespace SEP490G69.Addons.Networking
             using (UnityWebRequest request = UnityWebRequest.Get(endpointUrl))
             {
                 AttachJwt(request);
+                request.SetRequestHeader("Content-Type", "application/json");
+
+                Debug.Log($"token: {_jwt}");
+
                 var operation = request.SendWebRequest();
 
                 while (!operation.isDone) await Task.Yield();
@@ -106,8 +106,12 @@ namespace SEP490G69.Addons.Networking
                     request.result == UnityWebRequest.Result.ProtocolError)
                 {
                     payload.ErrorMessage = request.error;
+                    LoggerUtils.Logging("Response", payload.ErrorMessage, TextColor.Red);
                 }
-                LoggerUtils.Logging("Response", payload.ToString());
+                else
+                {
+                    LoggerUtils.Logging("Response", payload.Json, TextColor.Green);
+                }
                 onCompleted?.Invoke(payload);
             }
         }
@@ -144,9 +148,13 @@ namespace SEP490G69.Addons.Networking
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     payload.ErrorMessage = request.error;
+                    LoggerUtils.Logging("Response", payload.ErrorMessage, TextColor.Red);
+                }
+                else
+                {
+                    LoggerUtils.Logging("Response", payload.Json, TextColor.Green);
                 }
 
-                LoggerUtils.Logging("Response", string.IsNullOrEmpty(payload.Json) ? payload.ErrorMessage : payload.Json);
                 onCompleted?.Invoke(payload);
             }
         }
@@ -181,9 +189,15 @@ namespace SEP490G69.Addons.Networking
                 };
 
                 if (request.result != UnityWebRequest.Result.Success)
+                {
                     payload.ErrorMessage = request.error;
+                    LoggerUtils.Logging("Response", payload.ErrorMessage, TextColor.Red);
+                }
+                else
+                {
+                    LoggerUtils.Logging("Response", payload.Json, TextColor.Green);
+                }
 
-                LoggerUtils.Logging("Response", payload.ToString());
                 onCompleted?.Invoke(payload);
             }
         }
@@ -197,6 +211,7 @@ namespace SEP490G69.Addons.Networking
                 request.downloadHandler = new DownloadHandlerBuffer();
 
                 AttachJwt(request);
+                request.SetRequestHeader("Content-Type", "application/json");
 
                 var operation = request.SendWebRequest();
                 while (!operation.isDone)
@@ -213,9 +228,12 @@ namespace SEP490G69.Addons.Networking
                     request.result == UnityWebRequest.Result.ProtocolError)
                 {
                     payload.ErrorMessage = request.error;
+                    LoggerUtils.Logging("Response", payload.ErrorMessage, TextColor.Red);
                 }
-
-                LoggerUtils.Logging("Response received", payload.ToString());
+                else
+                {
+                    LoggerUtils.Logging("Response", payload.Json, TextColor.Green);
+                }
                 onCompleted?.Invoke(payload);
             }
         }
@@ -261,10 +279,13 @@ namespace SEP490G69.Addons.Networking
                     request.result == UnityWebRequest.Result.DataProcessingError ||
                     request.result == UnityWebRequest.Result.ProtocolError)
                 {
-                    // Error
-                    payload.ErrorMessage = request.downloadHandler.text;
+                    payload.ErrorMessage = request.error;
+                    LoggerUtils.Logging("Response", payload.ErrorMessage, TextColor.Red);
                 }
-                LoggerUtils.Logging("Response", payload.ToString());
+                else
+                {
+                    LoggerUtils.Logging("Response", payload.Json, TextColor.Green);
+                }
                 onCompleted?.Invoke(payload);
             }
         }
@@ -276,6 +297,11 @@ namespace SEP490G69.Addons.Networking
                 return false;
             }
             return true;
+        }
+
+        public void SetManager(ContextManager manager)
+        {
+            
         }
     }
 }

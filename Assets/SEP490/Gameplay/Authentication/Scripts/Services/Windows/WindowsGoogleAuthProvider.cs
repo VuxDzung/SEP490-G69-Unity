@@ -27,7 +27,7 @@
 
         public WindowsGoogleAuthProvider()
         {
-            _webRequests = new WebRequests();
+            _webRequests = ContextManager.Singleton.ResolveGameContext<WebRequests>();
             clientConfig = Resources.Load<GoogleClientConfig>("GoogleClientConfig");
         }
 

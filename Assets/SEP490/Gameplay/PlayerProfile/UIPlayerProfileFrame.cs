@@ -18,6 +18,8 @@ namespace SEP490G69.PlayerProfile
         [SerializeField] private Button m_SignOutBtn;
         [SerializeField] private Button m_EditNameBtn;
 
+        [SerializeField] private string m_PrevFrame;
+
         private PlayerProfileController _profileController;
         private PlayerProfileController ProfileController
         {
@@ -61,7 +63,7 @@ namespace SEP490G69.PlayerProfile
         private void Back()
         {
             UIManager.HideFrame(FrameId);
-            UIManager.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+            if (!string.IsNullOrEmpty(m_PrevFrame)) UIManager.ShowFrame(m_PrevFrame);
         }
 
         private void Sync()

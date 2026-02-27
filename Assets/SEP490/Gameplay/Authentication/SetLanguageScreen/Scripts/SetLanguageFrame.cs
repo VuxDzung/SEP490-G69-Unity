@@ -13,16 +13,8 @@ namespace SEP490G69.Shared
         [SerializeField] private Button m_Confirm;
         [SerializeField] private UILinearSwitcher m_LanguageSwitcher;
 
-        private LocalizationManager localizationManager;
-
-        private List<ELocalizeLanguageType> _languages = new List<ELocalizeLanguageType>
-        {
-            ELocalizeLanguageType.English,
-            ELocalizeLanguageType.Vietnamese,
-        };
-
         private int _selectedIndex = 0;
-
+        private LocalizationManager localizationManager;
         public LocalizationManager LocalizationManager
         {
             get
@@ -54,7 +46,7 @@ namespace SEP490G69.Shared
 
         private void LoadLanguages()
         {
-            m_LanguageSwitcher.SetContents(_languages.Select(e => e.ToString()).ToArray(), _selectedIndex);
+            m_LanguageSwitcher.SetContents(GameConstants.LANGUAGES.Select(e => e.ToString()).ToArray(), _selectedIndex);
         }
         private void LoadExistedLanguage()
         {
@@ -75,10 +67,10 @@ namespace SEP490G69.Shared
 
         public void ConfirmLanguage()
         {
-            ELocalizeLanguageType lang = _languages[_selectedIndex];
+            ELocalizeLanguageType lang = GameConstants.LANGUAGES[_selectedIndex];
             LocalizationManager.SetLanguage(lang);
             // Save language index to data here.
-            PlayerPrefs.SetString("Language", _languages[_selectedIndex].ToString());
+            PlayerPrefs.SetString("Language", GameConstants.LANGUAGES[_selectedIndex].ToString());
 
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);

@@ -63,7 +63,7 @@ namespace SEP490G69.GameSessions
             _sessionCreator = new SingleSessionCreator();
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
 
-            TestPlayerProfile();
+            CheckPlayerProfile();
         }
 
         public bool HasActiveSession()
@@ -148,10 +148,7 @@ namespace SEP490G69.GameSessions
             PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, "");
         }
 
-        /// <summary>
-        /// Dung: Delete later.
-        /// </summary>
-        private async void TestPlayerProfile()
+        private async void CheckPlayerProfile()
         {
             _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
 

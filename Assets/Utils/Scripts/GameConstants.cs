@@ -1,3 +1,6 @@
+using SEP490G69.Addons.Localization.Enums;
+using System.Collections.Generic;
+
 namespace SEP490G69
 {
     public class GameConstants 
@@ -107,6 +110,12 @@ namespace SEP490G69
             200,
             500,
             1000,
+        };
+
+        public static readonly List<ELocalizeLanguageType> LANGUAGES = new List<ELocalizeLanguageType>
+        {
+            ELocalizeLanguageType.English,
+            ELocalizeLanguageType.Vietnamese,
         };
 
         public static int DetermineNextRPCheckpoint(int currentPoint)

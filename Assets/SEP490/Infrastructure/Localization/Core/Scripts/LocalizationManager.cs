@@ -1,8 +1,9 @@
 namespace SEP490G69.Addons.Localization
 {
 	using SEP490G69.Addons.Localization.Enums;
-	using System.Collections.Generic;
-	using UnityEngine;
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
 
 	public class LocalizationManager : MonoBehaviour, IGameContext
 	{
@@ -54,7 +55,9 @@ namespace SEP490G69.Addons.Localization
 					localizedTextLookUp.Add(id, textData);
 				}
 			}
-		}
+
+			LoadExistedLanguage();
+        }
 
 		public void SetLanguage(ELocalizeLanguageType language)
 		{
@@ -92,5 +95,19 @@ namespace SEP490G69.Addons.Localization
 			}
 			return null;
 		}
+
+        private void LoadExistedLanguage()
+        {
+            string langStr = PlayerPrefs.GetString("Language");
+            if (!string.IsNullOrEmpty(langStr))
+            {
+                ELocalizeLanguageType lang = Enum.Parse<ELocalizeLanguageType>(langStr);
+                SetLanguage(lang);
+            }
+            else
+            {
+                Debug.Log("No selected lang yet");
+            }
+        }
     }
 }

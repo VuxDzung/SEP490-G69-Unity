@@ -23,6 +23,7 @@ namespace SEP490G69.Shared
             _contentList.Clear();
             _contentList.AddRange(contents);    
             _currentIndex = starterIndex;
+            DisplayCurrentContent();
         }
 
         public void Enable()

@@ -171,7 +171,7 @@ namespace SEP490G69.Training
         #region Actions
         private void ShowSettingsFrame()
         {
-
+            UIManager.ShowFrame(GameConstants.FRAME_ID_IN_GAME_SETTINGS);
         }
         private void PurchasePremium()
         {

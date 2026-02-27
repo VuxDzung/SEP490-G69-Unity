@@ -158,3 +158,15 @@ MonoBehaviour:
       text: Credit
     - language: 1
       text: "Danh \u0111\u1EC1"
+  - id: btn_back_title
+    textList:
+    - language: 0
+      text: Back to title
+    - language: 1
+      text: "Quay l\u1EA1i trang ch\xEDnh"
+  - id: btn_save
+    textList:
+    - language: 0
+      text: Save game
+    - language: 1
+      text: "L\u01B0u ti\u1EBFn tr\xECnh"

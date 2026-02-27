@@ -46,7 +46,7 @@ namespace SEP490G69.GameSessions
         }
         private void Back()
         {
-            UIManager.HideFrame(GameConstants.FRAME_ID_TITLE_SETTINGS);
+            UIManager.HideFrame(FrameId);
         }
     }
 }

@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SEP490/Gameplay/GameSessions/MainTitle/Scenes/Scene.Title.unity
     guid: bd86fb152b8391a42be0dda5ebbb8a64
+  - enabled: 1
+    path: Assets/SEP490/Gameplay/Battle/Combat/Scenes/Scene.Combat.unity
+    guid: fa505351c0642784893a81ac4c8ee45c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

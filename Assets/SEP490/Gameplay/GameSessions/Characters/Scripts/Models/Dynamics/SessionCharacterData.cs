@@ -1,9 +1,10 @@
 using LiteDB;
+using System;
 
 namespace SEP490G69
 {
     [System.Serializable]
-    public class SessionCharacterData 
+    public class SessionCharacterData : ICloneable
     {
         //-----------------------------------------
         // INDENTIFIER
@@ -24,5 +25,22 @@ namespace SEP490G69
         public float CurrentEnergy { get; set; }
         public float CurrentMood { get; set; }
         public int CurrentRP { get; set; }
+
+        public object Clone()
+        {
+            return new SessionCharacterData
+            {
+                Id = Id,
+                CurrentMaxVitality = CurrentMaxVitality,
+                CurrentPower = CurrentPower,
+                CurrentIntelligence = CurrentIntelligence,
+                CurrentStamina = CurrentStamina,
+                CurrentDef = CurrentDef,
+                CurrentAgi = CurrentAgi,
+                CurrentEnergy = CurrentEnergy,
+                CurrentMood = CurrentMood,
+                CurrentRP = CurrentRP,
+            };
+        }
     }
 }

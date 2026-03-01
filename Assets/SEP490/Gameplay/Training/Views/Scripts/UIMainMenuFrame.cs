@@ -18,10 +18,9 @@ namespace SEP490G69.Training
         [Header("Actions")]
         [SerializeField] private Button m_TrainingBtn;
         [SerializeField] private Button m_RestBtn;
-        [SerializeField] private Button m_CalendarBtn;
         [SerializeField] private Button m_DeckBtn;
         [SerializeField] private Button m_InventoryBtn;
-        [SerializeField] private Button m_CardsBtn;
+        [SerializeField] private Button m_TournamentBtn;
         [SerializeField] private Button m_CharacterDetailsBtn;
         [SerializeField] private Button m_PlayerProfileBtn;
 
@@ -77,9 +76,8 @@ namespace SEP490G69.Training
 
             m_TrainingBtn.onClick.AddListener(ShowTrainingMenu);
             m_RestBtn.onClick.AddListener(PerformRest);
-            m_CalendarBtn.onClick.AddListener(ShowCalendar);
+            m_TournamentBtn.onClick.AddListener(ShowCalendar);
             m_DeckBtn.onClick.AddListener(ShowDeck);
-            m_CardsBtn.onClick.AddListener(ShowCards);
             m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
@@ -99,9 +97,8 @@ namespace SEP490G69.Training
 
             m_TrainingBtn.onClick.RemoveListener(ShowTrainingMenu);
             m_RestBtn.onClick.RemoveListener(PerformRest);
-            m_CalendarBtn.onClick.RemoveListener(ShowCalendar);
+            m_TournamentBtn.onClick.RemoveListener(ShowCalendar);
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
-            m_CardsBtn.onClick.RemoveListener(ShowCards);
             m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
@@ -207,10 +204,6 @@ namespace SEP490G69.Training
             UIManager.ShowFrame(GameConstants.FRAME_ID_CALENDAR);
         }
         private void ShowDeck()
-        {
-
-        }
-        private void ShowCards()
         {
 
         }

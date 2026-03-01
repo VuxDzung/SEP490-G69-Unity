@@ -9,6 +9,8 @@ namespace SEP490G69.Battle.Combat
 
         private PlayerCharacterRepository _characterRepo;
 
+        private SessionPlayerDeck _playerDeckData;
+
         public override void Initialize(string characterId)
         {
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
@@ -30,7 +32,7 @@ namespace SEP490G69.Battle.Combat
             }
 
             _characterData = _characterData.Clone() as SessionCharacterData;
-            BaseCharacterSO _characterSO = CharacterConfig.GetCharacter(characterId);
+            BaseCharacterSO _characterSO = CharacterConfig.GetCharacterById(characterId);
 
             if ( _characterSO == null)
             {

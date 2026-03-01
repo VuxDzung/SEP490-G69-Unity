@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using System.Linq;
     using UnityEngine;
     [CreateAssetMenu(fileName = "CharacterConfig", menuName = OrganizationConstants.NAMESPACE + "/Character config")]
     public class CharacterConfigSO : ScriptableObject
@@ -8,7 +9,7 @@ namespace SEP490G69
 
         public BaseCharacterSO[] Characters => m_Characters;
 
-        public BaseCharacterSO GetCharacter(string characterId)
+        public BaseCharacterSO GetCharacterById(string characterId)
         {
             foreach (BaseCharacterSO character in m_Characters)
             {
@@ -17,7 +18,12 @@ namespace SEP490G69
                     return character;
                 }
             }
-                return null;
+            return null;
+        }
+
+        public BaseCharacterSO[] GetCharactersByType(ECharacterType characterType)
+        {
+            return m_Characters.Where(c => c.CharacterType == characterType).ToArray();  
         }
     }
 }

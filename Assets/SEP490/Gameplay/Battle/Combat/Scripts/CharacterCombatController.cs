@@ -18,6 +18,19 @@ namespace SEP490G69.Battle.Combat
             }
         }
 
+        private CardConfigSO _cardConfig;
+        protected CardConfigSO CardConfig
+        {
+            get
+            {
+                if (_cardConfig == null)
+                {
+                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
+                }
+                return _cardConfig;
+            }
+        }
+
         public abstract void Initialize(string characterId);
 
         public virtual void ReceiveCardEffect(CardSO cardSO)

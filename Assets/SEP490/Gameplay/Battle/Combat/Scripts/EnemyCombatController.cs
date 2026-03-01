@@ -13,7 +13,7 @@ namespace SEP490G69.Battle.Combat
         /// <param name="characterId"></param>
         public override void Initialize(string characterId)
         {
-            BaseCharacterSO _characterSO = CharacterConfig.GetCharacter(characterId);
+            BaseCharacterSO _characterSO = CharacterConfig.GetCharacterById(characterId);
             SessionCharacterData _characterData = new SessionCharacterData();
             _characterData.Id = characterId;
             _characterData.CurrentMaxVitality = _characterSO.BaseVit;

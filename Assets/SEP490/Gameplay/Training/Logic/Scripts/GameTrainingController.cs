@@ -66,7 +66,7 @@ namespace SEP490G69.Training
 
             Debug.Log($"Character: {characterData.Id}");
 
-            BaseCharacterSO characterSO = _characterConfig.GetCharacter(sessionData.CharacterId);
+            BaseCharacterSO characterSO = _characterConfig.GetCharacterById(sessionData.CharacterId);
 
             _characterHolder = new CharacterDataHolder.Builder()
                                    .WithCharacterData(characterData)

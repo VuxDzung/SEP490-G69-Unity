@@ -5,12 +5,16 @@ namespace SEP490G69
     [CreateAssetMenu(fileName = "CharacterSO_", menuName = OrganizationConstants.NAMESPACE + "/Character data")]
     public class BaseCharacterSO : ScriptableObject
     {
+        [Header("General information")]
         [SerializeField] private string m_CharacterId;
         [SerializeField] private string m_CharacterName;
         [SerializeField] private string m_CharacterDescription;
         [SerializeField] private Sprite m_Thumbnail;
         [SerializeField] private Sprite m_FullBodyImg;
+        [SerializeField] private GameObject m_Prefab;
+        [SerializeField] private ECharacterType m_CharacterType;
 
+        [Header("Character stats")]
         [SerializeField] private int baseVit;
         [SerializeField] private int basePow;
         [SerializeField] private int baseInt;
@@ -20,13 +24,12 @@ namespace SEP490G69
         [SerializeField] private float baseEnergy;
         [SerializeField] private float baseMood;
 
-        [SerializeField] private GameObject m_Prefab;
-
         public string CharacterId => m_CharacterId;
         public string CharacterName => m_CharacterName;
         public string CharacterDescription => m_CharacterDescription;
         public Sprite Thumbnail => m_Thumbnail;
         public Sprite FullBodyImg => m_FullBodyImg;
+        public ECharacterType CharacterType => m_CharacterType;
 
         public int BaseVit => baseVit;
         public int BasePow => basePow;

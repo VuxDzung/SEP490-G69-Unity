@@ -85,7 +85,7 @@ namespace SEP490G69.GameSessions
 
         private void LoadCharacters()
         {
-            foreach (var characterData in CharacterConfig.Characters)
+            foreach (var characterData in CharacterConfig.GetCharactersByType(ECharacterType.Playable))
             {
                 Transform charUITrans = PoolManager.Pools["UICharacter"].Spawn(m_UICharacterPrefab, m_CharacterContainer);
                 UICharacterElement characterUI = charUITrans.GetComponent<UICharacterElement>();
@@ -116,7 +116,7 @@ namespace SEP490G69.GameSessions
             // Display character details here.
             Debug.Log($"Select {characterId}");
             _currentCharId = characterId;
-            BaseCharacterSO characterSO = CharacterConfig.GetCharacter(characterId);
+            BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(characterId);
             string charName = characterSO.CharacterName;
             string desc = LocalizeManager.GetText("CharacterDescs", characterSO.CharacterDescription);
 

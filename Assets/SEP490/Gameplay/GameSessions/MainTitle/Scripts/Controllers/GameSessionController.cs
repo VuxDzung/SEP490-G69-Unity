@@ -91,7 +91,7 @@ namespace SEP490G69.GameSessions
 
             if (_sessionCreator.TryCreateSession(playerId, characterId, out sessionId, out error))
             {
-                BaseCharacterSO characterSO = CharacterConfig.GetCharacter(characterId);
+                BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(characterId);
                 if (characterSO != null)
                 {
                     if (_characterRepo.TryCreateNewCharacter(sessionId, characterSO))

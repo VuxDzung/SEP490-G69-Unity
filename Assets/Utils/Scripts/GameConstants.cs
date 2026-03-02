@@ -26,6 +26,7 @@ namespace SEP490G69
         public const string FRAME_ID_CALENDAR = "Frame.Calendar";
         public const string FRAME_ID_PLAYER_PROFILE = "Frame.PlayerProfile";
         public const string FRAME_ID_IN_GAME_SETTINGS = "Frame.InGameSettings";
+        public const string FRAME_ID_COMBAT = "Frame.Combat";
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace SEP490G69
         public const string SCENE_AUTH = "Scene.Auth";
         public const string SCENE_TITLE = "Scene.Title";
         public const string SCENE_MAIN_MENU = "Scene.MainMenu";
+        public const string SCENE_COMBAT = "Scene.Combat";
 
         #endregion
 
@@ -74,6 +76,12 @@ namespace SEP490G69
         /// Localize category for character's descriptions.
         /// </summary>
         public const string LOCALIZE_CATEGORY_CHARACTER_DESCS = "CharacterDescs";
+
+        public const string LOCALIZE_CATEGORY_CARD_NAMES = "CardNames";
+
+        public const string LOCALIZE_CATEGORY_CARD_DESCS = "CardDescs";
+
+        public const string LOCALIZE_CATEGORY_TOOL_TIPS = "Tooltips";
         #endregion
 
         #region Currencies id
@@ -102,7 +110,7 @@ namespace SEP490G69
         public const int TRAINING_STARTER_LEVEL = 1;
         public const int MAX_STAT_VALUE = 1000;
         public const int MAX_100 = 100;
-
+        public const float BASE_FILL_SPEED = 50f;
         public const string MOOD_FORMAT = "Mood: {0}";
 
         public static readonly int[] RP_CHECKPOINTS =

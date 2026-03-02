@@ -17,7 +17,7 @@ MonoBehaviour:
   m_CharacterDescription: ch_0001_desc
   m_Thumbnail: {fileID: -6996896321737396740, guid: 51a4375edb018bf408d10c88dbd82818, type: 3}
   m_FullBodyImg: {fileID: 0}
-  m_Prefab: {fileID: 0}
+  m_Prefab: {fileID: 7588631248940926599, guid: d81d08bb21f7dc147973218529770977, type: 3}
   m_CombatPrefab: {fileID: 0}
   m_CharacterType: 0
   baseVit: 0

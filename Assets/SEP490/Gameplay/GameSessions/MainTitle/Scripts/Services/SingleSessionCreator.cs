@@ -24,7 +24,7 @@ namespace SEP490G69.GameSessions
             return sessionList;
         }
 
-        public bool TryCreateSession(string playerId, string characterId, out string sessionId, out string errorMessage)
+        public bool TryCreateSession(string playerId, string rawCharacterId, out string sessionId, out string errorMessage)
         {
             errorMessage = "";
             sessionId = "";
@@ -43,7 +43,7 @@ namespace SEP490G69.GameSessions
             PlayerTrainingSession newSession = new PlayerTrainingSession();
             newSession.SessionId = sessionId;
             newSession.PlayerId = playerId;
-            newSession.CharacterId = characterId;
+            newSession.CharacterId = rawCharacterId;
 
             if (_dao.InsertSession(newSession))
             {

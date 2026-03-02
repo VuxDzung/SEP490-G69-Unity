@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01e56bb6c5e6382419df713d38e7bbfb, type: 3}
-  m_Name: CharacterSO_0004
+  m_Name: CharacterSO_0010
   m_EditorClassIdentifier: 
   m_CharacterId: ch_0010
   m_CharacterName: Arin
   m_CharacterDescription: ch_0010_desc
-  m_Thumbnail: {fileID: 21300000, guid: 566dc8701a6adf942b56b6ce188ffdf1, type: 3}
+  m_Thumbnail: {fileID: 5236618099845456019, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
   m_FullBodyImg: {fileID: 21300000, guid: 78b2a391286025d40a9d89b6a3368625, type: 3}
-  baseVit: 100
-  basePow: 100
-  baseInt: 100
-  baseSta: 100
-  baseDef: 100
-  baseAgi: 100
+  m_Prefab: {fileID: 3921930843742639280, guid: e656ec6c77138c14bb776d29c1678b9c, type: 3}
+  m_CombatPrefab: {fileID: 3926932850371628697, guid: 6ff96e7148b33c140935aef8b9b89416, type: 3}
+  m_CharacterType: 1
+  baseVit: 20
+  basePow: 20
+  baseInt: 20
+  baseSta: 20
+  baseDef: 20
+  baseAgi: 0
   baseEnergy: 100
   baseMood: 100
-  m_Prefab: {fileID: 3921930843742639280, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}

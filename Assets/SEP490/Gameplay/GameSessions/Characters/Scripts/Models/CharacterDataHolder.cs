@@ -7,6 +7,14 @@ namespace SEP490G69
         private BaseCharacterSO _characterSO;
         private SessionCharacterData _characterData;
 
+        public string GetRawId()
+        {
+            return _characterSO.CharacterId;
+        }
+        public string GetRuntimeId()
+        {
+            return _characterData.Id;
+        }
         public Sprite GetAvatar()
         {
             return _characterSO.Thumbnail;

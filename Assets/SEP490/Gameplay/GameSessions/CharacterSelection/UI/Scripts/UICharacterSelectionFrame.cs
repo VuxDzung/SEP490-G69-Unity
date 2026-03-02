@@ -11,7 +11,6 @@ namespace SEP490G69.GameSessions
         [SerializeField] private Transform m_UICharacterPrefab;
         [SerializeField] private Transform m_CharacterContainer;
 
-        [SerializeField] private Image m_CharacterImg;
         [SerializeField] private TextMeshProUGUI m_CharacterNameTmp;
         [SerializeField] private TextMeshProUGUI m_CharacterDetailsTmp;
 
@@ -91,7 +90,7 @@ namespace SEP490G69.GameSessions
                 UICharacterElement characterUI = charUITrans.GetComponent<UICharacterElement>();
                 if (characterUI != null)
                 {
-                    characterUI.SetSelectCallback(SelectCharacter).SetContent(characterData.CharacterId, characterData.Thumbnail);
+                    characterUI.SetContent(characterData.CharacterId, characterData.Thumbnail);
                 }
             }
             BaseCharacterSO firstChar = CharacterConfig.Characters[0];
@@ -120,9 +119,10 @@ namespace SEP490G69.GameSessions
             string charName = characterSO.CharacterName;
             string desc = LocalizeManager.GetText("CharacterDescs", characterSO.CharacterDescription);
 
-            m_CharacterImg.sprite = characterSO.FullBodyImg;
+            //m_CharacterImg.sprite = characterSO.FullBodyImg;
             m_CharacterNameTmp.text = charName;
             m_CharacterDetailsTmp.text = desc;
+            CharacterSpawnHandler.Instance.SpawnCharacter(characterSO.Prefab);
         }
 
         private void ShowPrevChar()

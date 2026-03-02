@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 566dc8701a6adf942b56b6ce188ffdf1
+guid: c1598ea6129a36c4e8852be6948b610f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2578751277308991911
-    second: icon_sakura_0
+      213: 5236618099845456019
+    second: ic_sakura_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icon_sakura_0
+      name: ic_sakura_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 62
-        height: 53
+        width: 180
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 956a9e7406f663cd0800000000000000
-      internalID: -2578751277308991911
+      spriteID: 3906ba1ca643ca840800000000000000
+      internalID: 5236618099845456019
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      icon_sakura_0: -2578751277308991911
+      ic_sakura_0: 5236618099845456019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

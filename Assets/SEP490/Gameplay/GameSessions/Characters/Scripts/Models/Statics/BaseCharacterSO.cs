@@ -12,6 +12,7 @@ namespace SEP490G69
         [SerializeField] private Sprite m_Thumbnail;
         [SerializeField] private Sprite m_FullBodyImg;
         [SerializeField] private GameObject m_Prefab;
+        [SerializeField] private GameObject m_CombatPrefab;
         [SerializeField] private ECharacterType m_CharacterType;
 
         [Header("Character stats")]
@@ -39,6 +40,8 @@ namespace SEP490G69
         public int BaseAgi => baseAgi;
         public float BaseEnergy => baseEnergy;
         public float BaseMood => baseMood;
+
+        public GameObject CombatPrefab => m_CombatPrefab;
         public GameObject Prefab => m_Prefab;
     }
 }

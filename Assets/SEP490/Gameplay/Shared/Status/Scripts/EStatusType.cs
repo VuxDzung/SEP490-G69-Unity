@@ -11,5 +11,7 @@ namespace SEP490G69
         Energy = 6,
         Mood = 7,
         Stamina = 8,
+        ActionGauge = 9, // When a card has an effect like add/reduce action gauge, the action gauge is applied in the next character turn.
+        None
     }
 }

@@ -7,6 +7,11 @@ namespace SEP490G69.GameSessions
         [BsonId]
         public string SessionId { get; set; }
         public string PlayerId { get; set; }
+
+        /// <summary>
+        /// This is the raw character id
+        /// Ex: ch_0001, ch_0002, etc.
+        /// </summary>
         public string CharacterId { get; set; }
 
         /// <summary>

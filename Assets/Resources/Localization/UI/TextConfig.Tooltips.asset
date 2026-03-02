@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.Tooltips
+  m_EditorClassIdentifier: 
+  category: Tooltips
+  textDataList:
+  - id: tt_btn_training
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_btn_rest
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_btn_deck
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_btn_inventory
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_btn_tournament
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_vit
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_pow
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_agi
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_int
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_sta
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_energy
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 
+  - id: tt_bar_rp
+    textList:
+    - language: 0
+      text: 
+    - language: 1
+      text: 

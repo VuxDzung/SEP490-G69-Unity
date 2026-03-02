@@ -32,11 +32,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 969575631182741737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 333, y: 175}
-  m_SizeDelta: {x: 571.4868, y: 255.7262}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -21, y: -20}
+  m_SizeDelta: {x: 571, y: 255}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &4704060311763752165
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3232751429746405172}
   - component: {fileID: 2678258150783456759}
   - component: {fileID: 6518383314428212579}
+  - component: {fileID: 1631962420451108551}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -211,6 +212,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1631962420451108551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275260242017464945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_sign_out
+  tmp: {fileID: 8891952446185887389}
 --- !u!1 &348852795945683471
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +238,6 @@ GameObject:
   - component: {fileID: 6065661262018205098}
   - component: {fileID: 7846978464446513207}
   - component: {fileID: 2673588872245326821}
-  - component: {fileID: 1026578627474860463}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -348,21 +363,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1026578627474860463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348852795945683471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_new_game
-  tmp: {fileID: 0}
 --- !u!1 &997460416432600813
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 3391323667732926067}
   - component: {fileID: 6194932417902447482}
   - component: {fileID: 7794467205099381312}
+  - component: {fileID: 6070010727909133123}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -499,6 +500,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6070010727909133123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997460416432600813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_credit
+  tmp: {fileID: 0}
 --- !u!1 &1306113359063397800
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,17 +547,17 @@ RectTransform:
   m_Children:
   - {fileID: 5537767495955163715}
   - {fileID: 8117082718143630473}
-  - {fileID: 8518087608728646005}
-  - {fileID: 7308866668607199012}
-  - {fileID: 6758173745868431317}
   - {fileID: 5015777816917810962}
+  - {fileID: 6758173745868431317}
+  - {fileID: 7308866668607199012}
+  - {fileID: 8518087608728646005}
   m_Father: {fileID: 969575631182741737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -373.25, y: -66}
-  m_SizeDelta: {x: 397.5, y: 523.75}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 0}
+  m_SizeDelta: {x: 397.5, y: 524}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &621569992645564116
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -833,6 +849,7 @@ GameObject:
   - component: {fileID: 6217639934595624149}
   - component: {fileID: 2218654861609332428}
   - component: {fileID: 7226793700273905292}
+  - component: {fileID: 3299837628810543374}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -958,6 +975,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3299837628810543374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107466236905497814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_new_game
+  tmp: {fileID: 0}
 --- !u!1 &2167055419794163325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,10 +1089,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1299,10 +1331,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1420,10 +1452,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1453,7 +1485,6 @@ GameObject:
   - component: {fileID: 3306747251854429789}
   - component: {fileID: 8925539467350939989}
   - component: {fileID: 1627809365629287895}
-  - component: {fileID: 2341394614810990776}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1579,21 +1610,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2341394614810990776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573834249275023549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_credit
-  tmp: {fileID: 0}
 --- !u!1 &3965952254342798622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1621,6 @@ GameObject:
   - component: {fileID: 6392632143819492891}
   - component: {fileID: 5210543739992854038}
   - component: {fileID: 2717456365860302993}
-  - component: {fileID: 8827167083132461939}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1731,21 +1746,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8827167083132461939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965952254342798622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_continue
-  tmp: {fileID: 0}
 --- !u!1 &4036137275774608852
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1757,6 @@ GameObject:
   - component: {fileID: 6546152339117091139}
   - component: {fileID: 3703039595145144793}
   - component: {fileID: 8630375006299365213}
-  - component: {fileID: 7197641187244936394}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1883,21 +1882,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7197641187244936394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4036137275774608852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_quit
-  tmp: {fileID: 0}
 --- !u!1 &4431572382571222460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,7 +1893,6 @@ GameObject:
   - component: {fileID: 7693490831935051011}
   - component: {fileID: 7302315581093514103}
   - component: {fileID: 2648132767697738158}
-  - component: {fileID: 7851782369197037206}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2035,21 +2018,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7851782369197037206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4431572382571222460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_settings
-  tmp: {fileID: 0}
 --- !u!1 &4946774513195098287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,7 +2029,6 @@ GameObject:
   - component: {fileID: 4641986642834324072}
   - component: {fileID: 1524425369147565208}
   - component: {fileID: 8891952446185887389}
-  - component: {fileID: 2395973792645055360}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2187,21 +2154,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2395973792645055360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4946774513195098287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  category: UIButtonText
-  elementId: btn_sign_out
-  tmp: {fileID: 8891952446185887389}
 --- !u!1 &5529513494896450505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,11 +2307,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 969575631182741737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -286, y: 306}
-  m_SizeDelta: {x: 572, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -10}
+  m_SizeDelta: {x: 572, y: 30}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &5626034684239506722
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2423,7 +2375,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2743,6 +2695,7 @@ GameObject:
   - component: {fileID: 3363788579232444289}
   - component: {fileID: 3057614217360478257}
   - component: {fileID: 2242540657834899677}
+  - component: {fileID: 2218819395579805493}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2868,6 +2821,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2218819395579805493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295810916620221217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_continue
+  tmp: {fileID: 0}
 --- !u!1 &6877740159817831574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,10 +3102,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3167,6 +3135,7 @@ GameObject:
   - component: {fileID: 8473668668524344232}
   - component: {fileID: 971192873977740090}
   - component: {fileID: 4961365722035218838}
+  - component: {fileID: 8818218013865421637}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3292,6 +3261,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8818218013865421637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456623953349339939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_settings
+  tmp: {fileID: 0}
 --- !u!1 &7741336288482935184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3391,10 +3375,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3666,6 +3650,7 @@ GameObject:
   - component: {fileID: 6495818297800992305}
   - component: {fileID: 5638493249113433794}
   - component: {fileID: 1858610581616945628}
+  - component: {fileID: 6420196218242001968}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3791,6 +3776,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6420196218242001968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925010907319308449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_quit
+  tmp: {fileID: 0}
 --- !u!1 &9033776021883393101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,10 +3890,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6679245, g: 0.6679245, b: 0.6679245, a: 1}
+    m_PressedColor: {r: 0.5018867, g: 0.5018867, b: 0.5018867, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

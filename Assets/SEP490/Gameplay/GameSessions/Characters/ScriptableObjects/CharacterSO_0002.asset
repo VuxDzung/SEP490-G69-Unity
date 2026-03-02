@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CharacterSO_0002
   m_EditorClassIdentifier: 
   m_CharacterId: ch_0002
-  m_IsAvailable: 0
+  m_IsAvailable: 1
   m_CharacterName: Tauroused
   m_CharacterDescription: ch_0002_desc
-  m_Thumbnail: {fileID: 0}
-  m_FullBodyImg: {fileID: 0}
-  m_Prefab: {fileID: 0}
+  m_Thumbnail: {fileID: 1507052962072475534, guid: b25f78b8b0901b54ba1625f22e6bd299, type: 3}
+  m_FullBodyImg: {fileID: 3774073680682875989, guid: 7cd217d01e84cdb4185eb505b66986dd, type: 3}
+  m_Prefab: {fileID: 7588631248940926599, guid: d28a5a6781d176e40b5ea99fab00243c, type: 3}
   m_CombatPrefab: {fileID: 0}
   m_CharacterType: 0
   baseVit: 0

@@ -2,6 +2,7 @@ namespace SEP490G69.GameSessions
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Shared;
+    using System;
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.UI;
@@ -99,8 +100,11 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                SessionController.ContinueSession();
-                SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                PerformCinematic(() =>
+                {
+                    SessionController.ContinueSession();
+                    SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                });
             }
             catch(System.Exception e)
             {
@@ -140,10 +144,18 @@ namespace SEP490G69.GameSessions
         private void StartNew()
         {
             CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
-            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
+            PerformCinematic(() =>
+            {
                 UIManager.HideFrame(FrameId);
                 CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
                 UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+            });
+        }
+
+        private void PerformCinematic(Action onAction)
+        {
+            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
+                onAction?.Invoke();
             });
         }
     }

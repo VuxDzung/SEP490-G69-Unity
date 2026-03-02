@@ -1,5 +1,6 @@
 namespace SEP490G69.GameSessions
 {
+    using System.Collections.Generic;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Addons.Localization;
     using TMPro;
@@ -60,6 +61,7 @@ namespace SEP490G69.GameSessions
 
         private int _currentCharIndex;
         private string _currentCharId;
+        private List<BaseCharacterSO> _characterList = new List<BaseCharacterSO>();
 
         protected override void OnFrameShown()
         {
@@ -84,7 +86,9 @@ namespace SEP490G69.GameSessions
 
         private void LoadCharacters()
         {
-            foreach (var characterData in CharacterConfig.GetCharactersByType(ECharacterType.Playable))
+            _characterList.Clear();
+            _characterList.AddRange(CharacterConfig.GetCharactersByType(ECharacterType.Playable));
+            foreach (BaseCharacterSO characterData in _characterList)
             {
                 Transform charUITrans = PoolManager.Pools["UICharacter"].Spawn(m_UICharacterPrefab, m_CharacterContainer);
                 UICharacterElement characterUI = charUITrans.GetComponent<UICharacterElement>();
@@ -116,6 +120,13 @@ namespace SEP490G69.GameSessions
             Debug.Log($"Select {characterId}");
             _currentCharId = characterId;
             BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(characterId);
+
+            if (characterSO == null)
+            {
+                Debug.LogError("Character is not configured or is not available right now");
+                return;
+            }
+
             string charName = characterSO.CharacterName;
             string desc = LocalizeManager.GetText("CharacterDescs", characterSO.CharacterDescription);
 
@@ -130,21 +141,21 @@ namespace SEP490G69.GameSessions
             _currentCharIndex--;
             if (_currentCharIndex < 0)
             {
-                _currentCharIndex = CharacterConfig.Characters.Length - 1;
+                _currentCharIndex = _characterList.Count - 1;
             }
 
-            BaseCharacterSO charData = CharacterConfig.Characters[_currentCharIndex];
+            BaseCharacterSO charData = _characterList[_currentCharIndex];
             SelectCharacter(charData.CharacterId);
         }
 
         private void ShowNextChar()
         {
             _currentCharIndex++;
-            if (_currentCharIndex > CharacterConfig.Characters.Length - 1)
+            if (_currentCharIndex > _characterList.Count - 1)
             {
                 _currentCharIndex = 0;
             }
-            BaseCharacterSO charData = CharacterConfig.Characters[_currentCharIndex];
+            BaseCharacterSO charData = _characterList[_currentCharIndex];
             SelectCharacter(charData.CharacterId);
         }
 

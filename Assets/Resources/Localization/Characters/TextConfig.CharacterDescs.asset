@@ -17,18 +17,47 @@ MonoBehaviour:
   - id: ch_0001_desc
     textList:
     - language: 0
-      text: Description of Serias
+      text: Seiras is described as an introverted, quiet character but extremely
+        intelligent and agile. However, because of that introversion, he has very
+        few, almost no friends, gradually isolating himself and losing confidence
+        in expressing himself
     - language: 1
-      text: "M\xF4 t\u1EA3 v\u1EC1 Serias"
+      text: "Seiras l\xE0 m\u1ED9t ng\u01B0\u1EDDi h\u01B0\u1EDBng n\u1ED9i, tr\u1EA7m
+        l\u1EB7ng nh\u01B0ng c\u1EF1c k\u1EF3 th\xF4ng minh v\xE0 nhanh nh\u1EB9n.
+        Tuy nhi\xEAn, v\xEC t\xEDnh c\xE1ch h\u01B0\u1EDBng n\u1ED9i \u0111\xF3,
+        c\u1EADu \u1EA5y c\xF3 r\u1EA5t \xEDt, g\u1EA7n nh\u01B0 kh\xF4ng c\xF3 b\u1EA1n
+        b\xE8, d\u1EA7n d\u1EA7n t\u1EF1 c\xF4 l\u1EADp b\u1EA3n th\xE2n v\xE0 m\u1EA5t
+        t\u1EF1 tin trong vi\u1EC7c th\u1EC3 hi\u1EC7n b\u1EA3n th\xE2n"
   - id: ch_0002_desc
     textList:
     - language: 0
-      text: 'Description of '
+      text: Tauroused is an active, lively, and very mischievous spirit beast. However,
+        carrying an explosive source of energy, he cannot control it. During a training
+        session, Tauroused broke many tools, leading to severe reprimands and nearly
+        being expelled from the academy
     - language: 1
-      text: "M\xF4 t\u1EA3 v\u1EC1 "
+      text: "Tauroused l\xE0 m\u1ED9t linh th\xFA n\u0103ng \u0111\u1ED9ng, ho\u1EA1t
+        b\xE1t v\xE0 r\u1EA5t ngh\u1ECBch ng\u1EE3m. Tuy nhi\xEAn, mang trong m\xECnh
+        ngu\u1ED3n n\u0103ng l\u01B0\u1EE3ng b\xF9ng n\u1ED5, n\xF3 kh\xF4ng th\u1EC3
+        ki\u1EC3m so\xE1t \u0111\u01B0\u1EE3c. Trong m\u1ED9t bu\u1ED5i hu\u1EA5n
+        luy\u1EC7n, Tauroused \u0111\xE3 l\xE0m h\u1ECFng nhi\u1EC1u d\u1EE5ng c\u1EE5,
+        d\u1EABn \u0111\u1EBFn b\u1ECB khi\u1EC3n tr\xE1ch n\u1EB7ng n\u1EC1 v\xE0
+        su\xFDt b\u1ECB \u0111u\u1ED5i kh\u1ECFi h\u1ECDc vi\u1EC7n"
   - id: ch_0003_desc
     textList:
     - language: 0
-      text: Description of Sakura
+      text: Sakura is a spirit with wings like a cherry blossom in full spring bloom.
+        With a radiant appearance and a beautiful face, she becomes the center of
+        attention wherever she appears. She is an extremely upright and straightforward
+        girl, so much so that those around her feel uncomfortable, leading to her
+        being disliked and avoided
     - language: 1
-      text: "M\xF4 t\u1EA3 v\u1EC1 sakura"
+      text: "Sakura l\xE0 m\u1ED9t tinh linh c\xF3 \u0111\xF4i c\xE1nh gi\u1ED1ng
+        nh\u01B0 hoa anh \u0111\xE0o n\u1EDF r\u1ED9 v\xE0o m\xF9a xu\xE2n. V\u1EDBi
+        v\u1EBB ngo\xE0i r\u1EA1ng r\u1EE1 v\xE0 khu\xF4n m\u1EB7t xinh \u0111\u1EB9p,
+        c\xF4 \u1EA5y lu\xF4n tr\u1EDF th\xE0nh t\xE2m \u0111i\u1EC3m ch\xFA \xFD
+        b\u1EA5t c\u1EE9 n\u01A1i n\xE0o c\xF4 xu\u1EA5t hi\u1EC7n. C\xF4 \u1EA5y
+        l\xE0 m\u1ED9t c\xF4 g\xE1i c\u1EF1c k\u1EF3 ch\xEDnh tr\u1EF1c v\xE0 th\u1EB3ng
+        th\u1EAFn, \u0111\u1EBFn n\u1ED7i nh\u1EEFng ng\u01B0\u1EDDi xung quanh c\u1EA3m
+        th\u1EA5y kh\xF3 ch\u1ECBu, d\u1EABn \u0111\u1EBFn vi\u1EC7c c\xF4 b\u1ECB
+        gh\xE9t b\u1ECF v\xE0 xa l\xE1nh"

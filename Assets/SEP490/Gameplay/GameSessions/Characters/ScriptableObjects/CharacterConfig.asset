@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   m_Characters:
+  - {fileID: 11400000, guid: 9d51bc026df239248aa4b6cd825dcfd1, type: 2}
+  - {fileID: 11400000, guid: ceac53a0ae319b94da21c8eae33c41e9, type: 2}
   - {fileID: 11400000, guid: b7aa7755f0834804db5f61c49a867827, type: 2}
   - {fileID: 11400000, guid: 82229bb62ab5d264bbb07e24510c4ef6, type: 2}

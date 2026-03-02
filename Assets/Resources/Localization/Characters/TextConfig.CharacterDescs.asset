@@ -17,6 +17,18 @@ MonoBehaviour:
   - id: ch_0001_desc
     textList:
     - language: 0
+      text: Description of Serias
+    - language: 1
+      text: "M\xF4 t\u1EA3 v\u1EC1 Serias"
+  - id: ch_0002_desc
+    textList:
+    - language: 0
+      text: 'Description of '
+    - language: 1
+      text: "M\xF4 t\u1EA3 v\u1EC1 "
+  - id: ch_0003_desc
+    textList:
+    - language: 0
       text: Description of Sakura
     - language: 1
       text: "M\xF4 t\u1EA3 v\u1EC1 sakura"

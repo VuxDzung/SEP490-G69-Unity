@@ -113,6 +113,7 @@ namespace SEP490G69
         public const int MAX_100 = 100;
         public const float BASE_FILL_SPEED = 50f;
         public const string MOOD_FORMAT = "Mood: {0}";
+        public const float DEFAULT_CAM_ORTH_SIZE = 5f;
 
         public static readonly int[] RP_CHECKPOINTS =
         {

@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 470864232}
   - component: {fileID: 470864231}
   - component: {fileID: 470864234}
+  - component: {fileID: 470864235}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -309,7 +310,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -388,6 +389,19 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &470864235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470864230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ff212116bd2b642b4a62f315ce07f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 470864232}
 --- !u!1001 &647692577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -719,9 +733,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4724578072167786277, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
+      propertyPath: m_Size.x
+      value: 13.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724578072167786277, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
+      propertyPath: m_Size.y
+      value: 7.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4724578072167786277, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9ca8e334ebbc78c4fb78cd3765541d27, type: 3}
+    - target: {fileID: 4724578072167786277, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7170988347289867717, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
       propertyPath: m_Name
       value: scene_bg

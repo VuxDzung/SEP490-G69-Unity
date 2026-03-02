@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2e88854fc56d3142bf52c38fe2b57e8, type: 3}
-  m_Name: StatusMod_0001_07
+  m_Name: StatusMod_0001_0007
   m_EditorClassIdentifier: 
   m_Id: sta_ex_0001_07
   m_StatType: 5

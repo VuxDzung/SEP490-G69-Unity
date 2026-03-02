@@ -5,7 +5,9 @@ namespace SEP490G69
     [CreateAssetMenu(fileName = "StatusMod_", menuName = OrganizationConstants.NAMESPACE + "/Status/Status modifier data")]
     public class StatusModifierSO : ScriptableObject
     {
+        [Header("Basic modifier settings")]
         [SerializeField] private string m_Id;
+        [SerializeField] private bool m_DisplayOnUI;
         [SerializeField] private EStatusType m_StatType;
         [SerializeField] private EOperator m_Operator;
         [SerializeField] private float m_Value;
@@ -19,6 +21,7 @@ namespace SEP490G69
         [SerializeField] private string m_Description;
 
         public string Id => m_Id;
+        public bool DisplayOnUI => m_DisplayOnUI;
         public EStatusType StatType => m_StatType;
         public EOperator Operator => m_Operator;
         public float Value => m_Value;

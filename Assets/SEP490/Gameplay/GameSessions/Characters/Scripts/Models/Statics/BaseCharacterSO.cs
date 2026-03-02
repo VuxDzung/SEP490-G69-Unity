@@ -7,6 +7,7 @@ namespace SEP490G69
     {
         [Header("General information")]
         [SerializeField] private string m_CharacterId;
+        [SerializeField] private bool m_IsAvailable = true;
         [SerializeField] private string m_CharacterName;
         [SerializeField] private string m_CharacterDescription;
         [SerializeField] private Sprite m_Thumbnail;
@@ -26,6 +27,7 @@ namespace SEP490G69
         [SerializeField] private float baseMood;
 
         public string CharacterId => m_CharacterId;
+        public bool IsAvailable => m_IsAvailable;
         public string CharacterName => m_CharacterName;
         public string CharacterDescription => m_CharacterDescription;
         public Sprite Thumbnail => m_Thumbnail;

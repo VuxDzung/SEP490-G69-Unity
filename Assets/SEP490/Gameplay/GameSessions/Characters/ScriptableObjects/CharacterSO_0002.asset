@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CharacterSO_0002
   m_EditorClassIdentifier: 
   m_CharacterId: ch_0002
+  m_IsAvailable: 0
   m_CharacterName: Tauroused
   m_CharacterDescription: ch_0002_desc
   m_Thumbnail: {fileID: 0}

@@ -17,6 +17,10 @@ namespace SEP490G69.GameSessions
 
         [SerializeField] private Button m_SignoutBtn;
 
+        [SerializeField] private float m_FadeDuration = 1.5f;
+        [SerializeField] private float m_DelayFadeOutDur = 2f;
+        [SerializeField] private float m_ZoomInCamOrthSize = 1f;
+
         private GameAuthManager _authManager;
         private GameSessionController _sessionController;
 
@@ -70,7 +74,7 @@ namespace SEP490G69.GameSessions
         {
             if (!SessionController.HasActiveSession())
             {
-                UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+                StartNew();
             }
             else
             {
@@ -79,7 +83,7 @@ namespace SEP490G69.GameSessions
                     // Create new session anyway.
                     if (SessionController.DeleteAllSessions())
                     {
-                        UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+                        StartNew();
                     }
                     else
                     {
@@ -131,6 +135,16 @@ namespace SEP490G69.GameSessions
         private void ShowPlayerProfile()
         {
             UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
+        }
+
+        private void StartNew()
+        {
+            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
+            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
+                UIManager.HideFrame(FrameId);
+                CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
+                UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+            });
         }
     }
 }

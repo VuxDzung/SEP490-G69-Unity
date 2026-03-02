@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BtnRef: {fileID: 5178040864224421165}
-  m_CharImg: {fileID: 4079108804074462939}
+  m_CharImg: {fileID: 1599109789896419729}
 --- !u!1 &1465968458573811565
 GameObject:
   m_ObjectHideFlags: 0

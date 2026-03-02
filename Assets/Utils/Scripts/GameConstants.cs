@@ -42,6 +42,7 @@ namespace SEP490G69
         #region Prefs keys
         public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
         public const string PREF_KEY_PLAYER_ID = "PlayerId";
+        public const string PREF_KEY_AUTH_ACTION = "AuthAction";
         #endregion
 
         #region Localization categories

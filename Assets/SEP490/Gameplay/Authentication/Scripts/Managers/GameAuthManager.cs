@@ -211,6 +211,7 @@
                 {
                     _authResponse = JsonConvert.DeserializeObject<AuthResponse>(response.Json);
                     _webRequests.SetJwt(_authResponse.Data.AccessToken);
+                    PlayerPrefs.SetString(GameConstants.PREF_KEY_AUTH_ACTION, _authResponse.Data.AuthAction);
                 }
             });
 

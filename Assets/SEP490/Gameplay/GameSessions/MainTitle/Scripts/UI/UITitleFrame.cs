@@ -6,9 +6,12 @@ namespace SEP490G69.GameSessions
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.UI;
+    using TMPro;
+    using SEP490G69.PlayerProfile;
 
     public class UITitleFrame : GameUIFrame
     {
+        [SerializeField] private TextMeshProUGUI m_WelcomeTmp;
         [SerializeField] private Button m_NewGameBtn;
         [SerializeField] private Button m_ContinueBtn;
         [SerializeField] private Button m_ProfileBtn;
@@ -47,6 +50,18 @@ namespace SEP490G69.GameSessions
                 return _sessionController;
             }
         }
+        private PlayerProfileController _profileController;
+        protected PlayerProfileController ProfileController
+        {
+            get
+            {
+                if (_profileController == null)
+                {
+                    _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
+                }
+                return _profileController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -58,6 +73,8 @@ namespace SEP490G69.GameSessions
             m_QuitBtn.onClick.AddListener(QuitGame);
             m_SignoutBtn.onClick.AddListener(SignOut);
             m_ProfileBtn.onClick.AddListener(ShowPlayerProfile);
+
+            ShowWelcomeMsg();
         }
         protected override void OnFrameHidden()
         {
@@ -157,6 +174,40 @@ namespace SEP490G69.GameSessions
             FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
                 onAction?.Invoke();
             });
+        }
+
+        private void ShowWelcomeMsg()
+        {
+            string authAction = PlayerPrefs.GetString(GameConstants.PREF_KEY_AUTH_ACTION);
+            if (string.IsNullOrEmpty(authAction))
+            {
+                return;
+            }
+
+            string welcomeMsg = "";
+
+            switch(authAction)
+            {
+                case "Login":
+                    welcomeMsg = "Welcome back ";
+                    break;
+                case "SignUp":
+                    welcomeMsg = "Welcome ";
+                    break;
+
+            }
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                return;
+            }
+
+            string playerName = ProfileController.GetPlayerName(playerId);
+
+            welcomeMsg += playerName;
+
+            m_WelcomeTmp.text = welcomeMsg;
         }
     }
 }

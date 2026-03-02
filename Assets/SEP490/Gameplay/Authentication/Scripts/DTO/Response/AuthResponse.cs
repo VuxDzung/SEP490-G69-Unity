@@ -12,6 +12,7 @@ namespace SEP490G69.Authentication
 
     public class AuthData
     {
+        public string AuthAction { get; set; }
         public string PlayerId { get; set; }
         public string PlayerName { get; set; }
         public string AccessToken { get; set; }

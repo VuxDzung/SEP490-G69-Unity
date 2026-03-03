@@ -316,6 +316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUIManager.Battle
       objectReference: {fileID: 0}
+    - target: {fileID: 4125469786660998024, guid: 47e43b3cab253a84aad1f6e5ca56b59b, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7474351749026557336, guid: 47e43b3cab253a84aad1f6e5ca56b59b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

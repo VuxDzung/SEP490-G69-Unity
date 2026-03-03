@@ -144,5 +144,15 @@ namespace SEP490G69
             }
             return RP_CHECKPOINTS[RP_CHECKPOINTS.Length - 1];
         }
+
+        public static readonly int[] FPS_LIMITS = new int[]
+        {
+            30,
+            60,
+            120,
+            144,
+            240,
+            -1 
+        };
     }
 }

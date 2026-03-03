@@ -177,7 +177,11 @@
             m_MusicVolSwitcher.SetContents(volumes, _selectedMusicIndex);
 
             // FPS Limit
-            string[] fpsOptions = GameConstants.FPS_LIMITS.Select(f => f.ToString()).ToArray();
+            string[] fpsOptions = GameConstants.FPS_LIMITS
+            .Select(f => f <= 0 ? "Unlimited" : f.ToString())
+            .ToArray();
+
+            m_FPSLimitSwitcher.SetContents(fpsOptions, _selectedFPSIndex);
             m_FPSLimitSwitcher.SetContents(fpsOptions, _selectedFPSIndex);
 
             // Language (keep your logic)

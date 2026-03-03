@@ -330,13 +330,20 @@
 
             if (_playerDataDAO.GetPlayerById(deviceId) != null)
             {
+                PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, deviceId);
+                Debug.Log("Fallback to device id login");
                 if (string.IsNullOrEmpty(playerData.PlayerName))
                 {
                     GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
                 }
+                else
+                {
+                    SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+                }
             }
             else
             {
+                Debug.Log("Show set language id");
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_LANG);
             }
         }

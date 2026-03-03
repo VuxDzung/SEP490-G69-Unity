@@ -125,7 +125,25 @@
             try
             {
                 string deviceId = GetDeviceId();
-                return TryCreateNewLocalUser(deviceId, "", "", 0, false) != null;
+                if (TryCreateNewLocalUser(deviceId, "", "", 0, false) != null)
+                {
+                    PlayerData playerData = _playerDataDAO.GetPlayerById(deviceId);
+
+                    if (playerData != null)
+                    {
+                        if (string.IsNullOrEmpty(playerData.PlayerName))
+                        {
+                            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
+                        }
+                        else
+                        {
+                            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+                        }
+                        PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
+                        return true;
+                    }
+                }
+                return false;
             }
             catch(System.Exception e)
             {

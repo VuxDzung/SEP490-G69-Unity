@@ -15,7 +15,8 @@ MonoBehaviour:
   exerciseId: te_0003
   exerciseName: te_0003_name
   exerciseDescription: te_0003_desc
-  exerciseIcon: {fileID: 0}
+  exerciseIcon: {fileID: 3513586293257785579, guid: 53358692ad82093498d257c2a4ecff54, type: 3}
+  canShowOnUI: 1
   m_SuccessModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
     BonusPerLevel: 0

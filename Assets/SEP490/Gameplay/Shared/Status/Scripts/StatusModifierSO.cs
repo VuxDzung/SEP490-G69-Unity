@@ -43,6 +43,27 @@ namespace SEP490G69
             }
             return targetValue;
         }
+        public float GetDelta(float targetValue)
+        {
+            float value = GetRandomNumber();
+
+            switch (m_Operator)
+            {
+                case EOperator.PercentAdd:
+                    return targetValue * value;
+
+                case EOperator.PercentSub:
+                    return -targetValue * value;
+
+                case EOperator.FlatAdd:
+                    return value;
+
+                case EOperator.FlatSub:
+                    return -value;
+            }
+
+            return 0f;
+        }
 
         public float GetRandomNumber()
         {

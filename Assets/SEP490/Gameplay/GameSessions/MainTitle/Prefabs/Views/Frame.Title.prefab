@@ -2929,6 +2929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frameId: Frame.Title
+  m_WelcomeTmp: {fileID: 3888095561972145411}
   m_NewGameBtn: {fileID: 7821085530896136120}
   m_ContinueBtn: {fileID: 8618332293617025015}
   m_ProfileBtn: {fileID: 8282968585778775946}
@@ -2936,6 +2937,9 @@ MonoBehaviour:
   m_CreditBtn: {fileID: 368595680571727702}
   m_QuitBtn: {fileID: 5464933784580466176}
   m_SignoutBtn: {fileID: 4501379534942032816}
+  m_FadeDuration: 1.5
+  m_DelayFadeOutDur: 2
+  m_ZoomInCamOrthSize: 1
 --- !u!1 &6893258177616223927
 GameObject:
   m_ObjectHideFlags: 0

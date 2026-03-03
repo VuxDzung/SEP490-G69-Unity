@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69.Training
 {
+    using System.Collections.Generic;
     using UnityEngine;
 
     public abstract class BaseTrainingStrategy : MonoBehaviour, ITrainingStrategy
@@ -43,7 +44,35 @@
                                   .Build();
         }
 
-        public abstract bool StartTraining(CharacterDataHolder character);
+        public abstract TrainingResult StartTraining(CharacterDataHolder character);
+
+        protected void ApplyRewards(CharacterDataHolder character, List<TrainingRewardConfig> rewards, bool isSuccess, float moodMultiplier, int facilityLevel, TrainingResult result)
+        {
+            foreach (var reward in rewards)
+            {
+                EStatusType statType = reward.Modifier.StatType;
+
+                float before = character.GetStatus(statType);
+
+                // Step 1: Base delta
+                float delta = reward.Modifier.GetDelta(before);
+
+                // Step 2: Facility scaling
+                delta += reward.BonusPerLevel * (facilityLevel - 1);
+
+                // Step 3: Mood multiplier (chỉ apply khi success)
+                if (isSuccess)
+                    delta *= moodMultiplier;
+                else
+                    delta *= 0.1f; // Fail hiệu suất 10%
+
+                float after = before + delta;
+
+                character.SetStatus(statType, after);
+
+                result.Changes.Add(new StatChange(statType, before, delta));
+            }
+        }
 
         /// <summary>
         /// Tính tỷ lệ thất bại 

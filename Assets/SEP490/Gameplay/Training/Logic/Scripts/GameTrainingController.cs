@@ -144,7 +144,11 @@ namespace SEP490G69.Training
             ITrainingStrategy strategy = GetExerciseByType(trainingType);
             if (strategy == null) return;
 
-            strategy.StartTraining(_characterHolder);
+            TrainingResult result = strategy.StartTraining(_characterHolder);
+            var frame = GameUIManager.Singleton
+                .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
+                .AsFrame<UITrainingResultFrame>();
+            frame.SetResult(strategy.DataHolder.GetName(), result);
 
             _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
@@ -154,7 +158,11 @@ namespace SEP490G69.Training
             ITrainingStrategy strategy = GetExerciseById(id);
             if (strategy == null) return;
 
-            strategy.StartTraining(_characterHolder);
+            TrainingResult result = strategy.StartTraining(_characterHolder);
+            var frame = GameUIManager.Singleton
+                .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
+                .AsFrame<UITrainingResultFrame>();
+            frame.SetResult(strategy.DataHolder.GetName(), result);
             _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
 
@@ -175,6 +183,20 @@ namespace SEP490G69.Training
         private ITrainingStrategy GetExerciseById(string id)
         {
             return _exerciseList.FirstOrDefault(ex => ex.ExerciseId.Equals(id));
+        }
+
+        public float GetFailRate()
+        {
+            return GetFailRate(CharacterData.GetEnergy());
+        }
+        public float GetFailRate(float currentEnergy)
+        {
+            if (currentEnergy >= 50f) return 0f;
+
+            float failRate = ((50f - currentEnergy) / 30f) * 100f;
+            float finalRawRate = Mathf.Clamp(failRate, 0f, 100f); 
+            float roundedRate =  (float)System.Math.Round(finalRawRate, 2);
+            return roundedRate;
         }
     }
 

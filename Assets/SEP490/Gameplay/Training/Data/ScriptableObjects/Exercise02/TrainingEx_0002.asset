@@ -15,11 +15,14 @@ MonoBehaviour:
   exerciseId: te_0002
   exerciseName: te_0002_name
   exerciseDescription: te_0002_desc
-  exerciseIcon: {fileID: 0}
+  exerciseIcon: {fileID: -4391303863946248301, guid: a1ecad951e0bbf84f99f4bce2ec67abe, type: 3}
+  canShowOnUI: 1
   m_SuccessModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
     BonusPerLevel: 0
   - Modifier: {fileID: 11400000, guid: 6f665ce4fd6218349b2810818d4184a9, type: 2}
+    BonusPerLevel: 0
+  - Modifier: {fileID: 11400000, guid: 9a400799d5453b0488ce753d03f37cab, type: 2}
     BonusPerLevel: 0
   m_FailedModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}

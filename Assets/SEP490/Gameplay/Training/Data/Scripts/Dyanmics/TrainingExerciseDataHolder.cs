@@ -46,6 +46,15 @@ namespace SEP490G69.Training
             return 0;
         }
 
+        public List<TrainingRewardConfig> GetSuccessRewards()
+        {
+            return _so.SuccessModifiers;
+        }
+        public List<TrainingRewardConfig> GetFailedRewards()
+        {
+            return _so.SuccessModifiers;
+        }
+
         public TrainingRewardConfig GetSuccessRewardByType(EStatusType statType)
         {
             return _so.SuccessModifiers.FirstOrDefault(config => config.Modifier != null && config.Modifier.StatType == statType);

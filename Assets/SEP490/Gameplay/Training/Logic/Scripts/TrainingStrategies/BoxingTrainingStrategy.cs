@@ -4,45 +4,45 @@
 
     public class BoxingTrainingStrategy : BaseTrainingStrategy
     {
-
-        public override bool StartTraining(CharacterDataHolder character)
+        /// <summary>
+        /// Values returns includes
+        /// - A list of stat changes.
+        /// - A change include:
+        ///     + before value
+        ///     + after value
+        ///     + modify/changed value.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
+        public override TrainingResult StartTraining(CharacterDataHolder character)
         {
-            float currentEnergy = character.GetEnergy();
-            float currentMood = character.GetMood();
+            TrainingResult result = new TrainingResult();
+
+            float currentEnergy = character.GetStatus(EStatusType.Energy);
+            float currentMood = character.GetStatus(EStatusType.Mood);
             int facilityLevel = _exerciseDataHolder.GetSessionData().Level;
 
             float failRate = GetFailRate(currentEnergy);
             bool isSuccess = UnityEngine.Random.Range(0f, 100f) >= failRate;
 
-            if (isSuccess)
-            {
-                // Tính Mood Multiplier
-                float moodMultiplier = GetMoodEffectiveness(currentMood);
+            result.IsSuccess = isSuccess;
 
-                // --- 1. TRỪ ENERGY ---
-                var energyReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Energy);
-                float rawEnergyGain = energyReward.Modifier.GetModifiedStatus(character.GetEnergy());
-                // Energy thường không có BonusPerLevel hoặc Mood, nên cộng thẳng
-                character.SetEnergy(rawEnergyGain);
+            float moodMultiplier = GetMoodEffectiveness(currentMood);
 
-                // --- 2. CỘNG POWER TỪ FACILITY ---
-                var powerReward = _exerciseDataHolder.GetSuccessRewardByType(EStatusType.Power);
-                float rawPowerGain = powerReward.Modifier.GetModifiedStatus(character.GetPower());
+            var rewards = isSuccess
+                ? _exerciseDataHolder.GetSuccessRewards()
+                : _exerciseDataHolder.GetFailedRewards();
 
-                // Công thức: Tổng Power = (Base + (Level - 1) * Bonus) * Mood
-                float facilityPowerGain = rawPowerGain + (powerReward.BonusPerLevel * (facilityLevel - 1));
-                float finalPowerGain = facilityPowerGain * moodMultiplier;
+            ApplyRewards(
+                character,
+                rewards,
+                isSuccess,
+                moodMultiplier,
+                facilityLevel,
+                result
+            );
 
-                character.SetPower(finalPowerGain);
-
-                return true;
-            }
-            else
-            {
-                // Xử lý nhánh Fail tương tự, lấy FailedRewardByType, trừ Energy, trừ Mood...
-                // Và nhớ: finalPowerGain nhánh fail = facilityPowerGain * 0.1f;
-                return false;
-            }
+            return result;
         }
     }
 }

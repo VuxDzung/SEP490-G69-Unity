@@ -1,14 +1,13 @@
 namespace SEP490G69
 {
     using System.Collections.Generic;
-    using Unity.VisualScripting.Antlr3.Runtime.Misc;
     using UnityEngine;
 
     [System.Serializable]
     public struct TrainingRewardConfig
     {
         public StatusModifierSO Modifier;
-        public float BonusPerLevel;
+        public float BonusPerLevel; // Level of the training exercise
     }
 
     [CreateAssetMenu(fileName = "TrainingEx_", menuName = OrganizationConstants.NAMESPACE + "/Training Exercises/Exercise data")]

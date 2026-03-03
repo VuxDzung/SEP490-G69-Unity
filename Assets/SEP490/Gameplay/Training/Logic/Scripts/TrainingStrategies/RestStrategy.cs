@@ -4,9 +4,8 @@ namespace SEP490G69.Training
 
     public class RestStrategy : BaseTrainingStrategy
     {
-        public override bool StartTraining(CharacterDataHolder character)
+        public override TrainingResult StartTraining(CharacterDataHolder character)
         {
-
             float currentEnergy = character.GetEnergy();
             float currentMood = character.GetMood();
 
@@ -45,7 +44,10 @@ namespace SEP490G69.Training
             float finalMood = currentMood + moodChange;
             character.SetMood(finalMood);
 
-            return true;
+            TrainingResult result = new TrainingResult();
+            result.IsSuccess = true;
+
+            return result;
         }
     }
 }

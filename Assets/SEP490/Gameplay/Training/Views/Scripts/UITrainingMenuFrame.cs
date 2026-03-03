@@ -109,7 +109,7 @@ namespace SEP490G69.Training
             }
 
             SetEnergy(TrainingController.CharacterData.GetEnergy(), GameConstants.MAX_100);
-
+            SetFailureRate(TrainingController.GetFailRate());
             // Stats
             SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
             SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);

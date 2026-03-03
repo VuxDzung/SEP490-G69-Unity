@@ -19,11 +19,11 @@ namespace SEP490G69.Training
         /// </summary>
         public void SetValue(float before, float after)
         {
-            if (Mathf.Approximately(before, after))
-            {
-                m_RootObj.SetActive(false);
-                return;
-            }
+            //if (Mathf.Approximately(before, after))
+            //{
+            //    m_RootObj.SetActive(false);
+            //    return;
+            //}
 
             m_RootObj.SetActive(true);
             m_StatsBeforeTmp.text = before.ToString("F0");
@@ -40,6 +40,15 @@ namespace SEP490G69.Training
                 m_StatsModifiedTmp.text = diff.ToString("F0");
                 m_StatsModifiedTmp.color = Color.red;
             }
+        }
+
+        public void Show()
+        {
+            m_RootObj.SetActive(true);
+        }
+        public void Hide()
+        {
+            m_RootObj.SetActive(false);
         }
     }
 }

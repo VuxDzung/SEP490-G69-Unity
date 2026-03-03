@@ -84,6 +84,10 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_CARD_DESCS = "CardDescs";
 
         public const string LOCALIZE_CATEGORY_TOOL_TIPS = "Tooltips";
+
+        public const string LOCALIZE_CATEGORY_EXERCISE_NAMES = "ExerciseNames";
+
+        public const string LOCALIZE_CATEGORY_UI_MESSAGE = "UIMessage";
         #endregion
 
         #region Currencies id

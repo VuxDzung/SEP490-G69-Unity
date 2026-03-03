@@ -8,6 +8,7 @@ namespace SEP490G69.GameSessions
     using UnityEngine.UI;
     using TMPro;
     using SEP490G69.PlayerProfile;
+    using SEP490G69.Addons.Localization;
 
     public class UITitleFrame : GameUIFrame
     {
@@ -60,6 +61,18 @@ namespace SEP490G69.GameSessions
                     _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
                 }
                 return _profileController;
+            }
+        }
+        private LocalizationManager _localizeManager;
+        protected LocalizationManager LocalizationManager
+        {
+            get
+            {
+                if (_localizeManager == null)
+                {
+                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+                }
+                return _localizeManager;
             }
         }
 
@@ -189,10 +202,10 @@ namespace SEP490G69.GameSessions
             switch(authAction)
             {
                 case "Login":
-                    welcomeMsg = "Welcome back ";
+                    welcomeMsg = LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_welcome_back");
                     break;
                 case "SignUp":
-                    welcomeMsg = "Welcome ";
+                    welcomeMsg = LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_welcome");
                     break;
 
             }
@@ -205,7 +218,7 @@ namespace SEP490G69.GameSessions
 
             string playerName = ProfileController.GetPlayerName(playerId);
 
-            welcomeMsg += playerName;
+            welcomeMsg = welcomeMsg + " " + playerName;
 
             m_WelcomeTmp.text = welcomeMsg;
         }

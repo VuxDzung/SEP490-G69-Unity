@@ -72,6 +72,60 @@ namespace SEP490G69
             return _characterSO.Prefab;
         }
 
+        public float GetStatus(EStatusType type)
+        {
+            switch(type)
+            {
+                case EStatusType.Vitality:
+                    return GetVIT();
+                    case EStatusType.Power:
+                    return GetPower();
+                case EStatusType.Intelligence:
+                    return GetINT();
+                case EStatusType.Defense:
+                    return GetDef();
+                    case EStatusType.Agi:
+                    return GetAgi();
+                case EStatusType.Energy:
+                    return GetEnergy();
+                case EStatusType.Mood:
+                    return GetMood();
+                default:
+                    return -1;
+            }
+        }
+
+        public void SetStatus(EStatusType type, float value)
+        {
+            switch (type)
+            {
+                case EStatusType.Vitality:
+                    SetVit(value);
+                    break;
+                case EStatusType.Power:
+                    SetPower(value);
+                    break;
+                case EStatusType.Intelligence:
+                    SetInt(value);
+                    break;
+                case EStatusType.Defense:
+                    SetDef(value);
+                    break;
+                case EStatusType.Agi:
+                    SetAgi(value);
+                    break;
+                case EStatusType.Energy:
+                    SetEnergy(value);
+                    break;
+                case EStatusType.Mood:
+                    SetMood(value);
+                    break;
+                default:
+                    Debug.LogError($"Unsupported status type {type.ToString()}");
+                    break;
+            }
+        }
+
         public void SetEnergy(float finalGain)
         {
             _characterData.CurrentEnergy = finalGain;

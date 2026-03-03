@@ -68,7 +68,7 @@
         {
             if (_authManager.LoginByGuest())
             {
-                OnLoginSuccess();
+                
             }
             else
             {

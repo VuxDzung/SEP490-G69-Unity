@@ -60,6 +60,15 @@ namespace SEP490G69.Training
                 return _calendarController;
             }
         }
+        private TooltipController _tooltipController;
+        private TooltipController TooltipController
+        {
+            get
+            {
+                if (_tooltipController == null) _tooltipController = ContextManager.Singleton.ResolveGameContext<TooltipController>();
+                return _tooltipController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -185,6 +194,7 @@ namespace SEP490G69.Training
 
         private void ShowTrainingMenu()
         {
+            TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_TRAINING_MENU);
 
@@ -194,12 +204,14 @@ namespace SEP490G69.Training
 
         private void PerformRest()
         {
+            TooltipController.Hide();
             TrainingController.StartTraining(ETrainingType.Rest);
             LoadCharacterStats();
         }
 
         private void ShowCalendar()
         {
+            TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_CALENDAR);
         }
@@ -209,6 +221,7 @@ namespace SEP490G69.Training
         }
         private void ShowPlayerProfile()
         {
+            TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
         }

@@ -184,6 +184,7 @@ namespace SEP490G69.GameSessions
 
         private void PerformCinematic(Action onAction)
         {
+            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
             FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
                 onAction?.Invoke();
             });

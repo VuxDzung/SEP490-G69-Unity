@@ -89,6 +89,14 @@ namespace SEP490G69.Calendar
             }
         }
 
+        public string GetTurn()
+        {
+            if (_currentSesssion == null) return "No Session";
+
+            int totalWeeks = _currentSesssion.CurrentWeek;
+
+            return (totalWeeks + 1).ToString();
+        }
         public string GetCalendarTime()
         {
             if (_currentSesssion == null) return "No Session";

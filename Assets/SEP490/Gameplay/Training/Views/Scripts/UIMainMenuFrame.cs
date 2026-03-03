@@ -9,6 +9,7 @@ namespace SEP490G69.Training
     {
         [SerializeField] private TextMeshProUGUI m_CalendarTimeTmp;
         [SerializeField] private TextMeshProUGUI m_RemainTimeTmp;
+        [SerializeField] private TextMeshProUGUI m_CurrentTurnTmp;
         [Header("Right vertical fields")]
         [SerializeField] private Button m_SettingsBtn;
         [SerializeField] private Button m_NoAdsBtn;
@@ -128,6 +129,8 @@ namespace SEP490G69.Training
         {
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
             m_RemainTimeTmp.text = CalendarController.GetRemainTimeOfYear().ToString();
+
+            m_CurrentTurnTmp.text = $"Turn: {CalendarController.GetTurn()}";
         }
         private void LoadObjectives()
         {

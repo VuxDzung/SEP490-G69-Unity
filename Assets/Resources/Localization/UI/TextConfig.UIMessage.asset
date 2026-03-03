@@ -85,3 +85,15 @@ MonoBehaviour:
     - language: 1
       text: "\u0110\xE3 \u0111\u1EB7t l\u1EA1i m\u1EADt kh\u1EA9u th\xE0nh c\xF4ng.
         Xin h\xE3y quay l\u1EA1i trang \u0111\u0103ng nh\u1EADp."
+  - id: msg_welcome
+    textList:
+    - language: 0
+      text: Welcome
+    - language: 1
+      text: "Ch\xE0o m\u1EEBng"
+  - id: msg_welcome_back
+    textList:
+    - language: 0
+      text: Welcome back
+    - language: 1
+      text: "Ch\xE0o m\u1EEBng tr\u1EDF l\u1EA1i"

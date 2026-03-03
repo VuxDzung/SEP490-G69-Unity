@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Calendar;
     using TMPro;
     using UnityEngine;
@@ -35,6 +36,8 @@ namespace SEP490G69.Training
         [SerializeField] private UITextSlider m_AgiSlider;
         [SerializeField] private UITextSlider m_INTSlider;
         [SerializeField] private UITextSlider m_StaminaSlider;
+
+        [SerializeField] private Button m_TestCombatBtn;
 
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
@@ -91,6 +94,7 @@ namespace SEP490G69.Training
             m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
+            if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
 
             LoadCharacterStats();
             LoadCalendarTime();
@@ -110,6 +114,7 @@ namespace SEP490G69.Training
             m_TournamentBtn.onClick.RemoveListener(ShowCalendar);
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
             m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
+            if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
         }
@@ -227,6 +232,11 @@ namespace SEP490G69.Training
             TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
+        }
+
+        private void TestShowCombat()
+        {
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_COMBAT);
         }
         #endregion
     }

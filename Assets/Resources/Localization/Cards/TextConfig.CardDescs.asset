@@ -53,3 +53,16 @@ MonoBehaviour:
     - language: 1
       text: "H\u1ED3i ph\u1EE5c 20 \u0111i\u1EC3m th\u1EC3 l\u1EF1c v\xE0 t\u0103ng
         5% m\xE1u."
+  - id: card_0007_desc
+    textList:
+    - language: 0
+      text: Apply 1 Vulnerable effect to enemy
+    - language: 1
+      text: "\xC1p d\u1EE5ng 1 hi\u1EC7u \u1EE9ng \u0110i\u1EC3m y\u1EBFu cho k\u1EBB
+        \u0111\u1ECBch"
+  - id: card_0008_desc
+    textList:
+    - language: 0
+      text: Inflict 2 Power Down.
+    - language: 1
+      text: "G\xE2y 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m s\u1EE9c m\u1EA1nh"

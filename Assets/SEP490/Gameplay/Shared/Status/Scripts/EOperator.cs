@@ -8,5 +8,6 @@ namespace SEP490G69
         FlatAdd = 3,
         FlatSub = 4,
         Mul = 5,
+        Set = 6,
     }
 }

@@ -50,3 +50,15 @@ MonoBehaviour:
       text: Deep Breath
     - language: 1
       text: "Ngh\u1EC9 ng\u01A1i chi\u1EBFn thu\u1EADt"
+  - id: card_0007_name
+    textList:
+    - language: 0
+      text: Analyze
+    - language: 1
+      text: "Ph\xE2n t\xEDch"
+  - id: card_0008_name
+    textList:
+    - language: 0
+      text: Intimidate
+    - language: 1
+      text: "\u0110e d\u1ECDa"

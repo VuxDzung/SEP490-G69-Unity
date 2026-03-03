@@ -16,4 +16,12 @@ MonoBehaviour:
   cardName: card_0001_name
   cardDescription: card_0001_desc
   icon: {fileID: 0}
-  cost: 0
+  cost: 10
+  m_BaseDmg: 15
+  m_ModifyStatType: 1
+  m_DmgModOp: 5
+  dmgModifierValue: 0.4
+  m_ActionType: 0
+  m_DamageType: 1
+  m_StatusGains: []
+  m_StatusInflicts: []

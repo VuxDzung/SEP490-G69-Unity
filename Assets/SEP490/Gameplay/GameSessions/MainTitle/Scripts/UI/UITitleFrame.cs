@@ -130,11 +130,14 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                PerformCinematic(() =>
+                if (SessionController.HasActiveSession())
                 {
-                    SessionController.ContinueSession();
-                    SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
-                });
+                    PerformCinematic(() =>
+                    {
+                        SessionController.ContinueSession();
+                        SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                    });
+                }
             }
             catch(System.Exception e)
             {

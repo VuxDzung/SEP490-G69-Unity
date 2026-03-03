@@ -5,5 +5,6 @@ namespace SEP490G69.Battle
         None = 0,
         Physical = 1,
         Magic = 2,
+        True = 3,
     }
 }

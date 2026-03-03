@@ -21,11 +21,11 @@ MonoBehaviour:
   m_Prefab: {fileID: 7588631248940926599, guid: d28a5a6781d176e40b5ea99fab00243c, type: 3}
   m_CombatPrefab: {fileID: 0}
   m_CharacterType: 0
-  baseVit: 0
-  basePow: 0
-  baseInt: 0
-  baseSta: 0
-  baseDef: 0
-  baseAgi: 0
+  baseVit: 50
+  basePow: 50
+  baseInt: 50
+  baseSta: 50
+  baseDef: 50
+  baseAgi: 50
   baseEnergy: 100
   baseMood: 100

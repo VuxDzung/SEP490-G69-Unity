@@ -2938,7 +2938,7 @@ MonoBehaviour:
   m_QuitBtn: {fileID: 5464933784580466176}
   m_SignoutBtn: {fileID: 4501379534942032816}
   m_FadeDuration: 1.5
-  m_DelayFadeOutDur: 2
+  m_DelayFadeOutDur: 1
   m_ZoomInCamOrthSize: 1
 --- !u!1 &6893258177616223927
 GameObject:

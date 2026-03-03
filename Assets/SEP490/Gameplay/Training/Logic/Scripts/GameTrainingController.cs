@@ -22,7 +22,6 @@ namespace SEP490G69.Training
         [SerializeField] private GameObject m_TrainingMenuBG;
         [SerializeField] private Transform m_TrainingCharContainer;
 
-        private EventManager _eventManager;
 
         // CONFIGs
         private TrainingExerciseConfigSO _exercisesConfig;
@@ -48,8 +47,6 @@ namespace SEP490G69.Training
             LoadConfigs();
             LoadDAOs();
             LoadExerciseStrategies();
-
-            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             if (string.IsNullOrEmpty(sessionId))
@@ -79,7 +76,6 @@ namespace SEP490G69.Training
                 TrainingExerciseSO _so = _exercisesConfig.GetExercise(ex.ExerciseId);
                 ex.Initialize(_exercisesDAO, sessionId, _so);
             });
-
         }
 
         private void Start()
@@ -149,8 +145,6 @@ namespace SEP490G69.Training
                 .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
                 .AsFrame<UITrainingResultFrame>();
             frame.SetResult(strategy.DataHolder.GetName(), result);
-
-            _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
 
         public void StartTraining(string id)
@@ -163,7 +157,6 @@ namespace SEP490G69.Training
                 .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
                 .AsFrame<UITrainingResultFrame>();
             frame.SetResult(strategy.DataHolder.GetName(), result);
-            _eventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
 
         public bool CanJoinTraining()

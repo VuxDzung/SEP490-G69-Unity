@@ -20,6 +20,7 @@ namespace SEP490G69.Training
         [SerializeField] private UIStatModifier m_StaModifier;
         private Dictionary<EStatusType, UIStatModifier> _statMap = null;
 
+        #region Properties (Lazy getters)
         private LocalizationManager _localizeManager;
         protected LocalizationManager LocalizeManager
         {
@@ -32,7 +33,21 @@ namespace SEP490G69.Training
                 return this._localizeManager;
             }
         }
+        private EventManager _eventManager;
+        protected EventManager EventManager
+        {
+            get
+            {
+                if (_eventManager == null)
+                {
+                    _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+                }
+                return _eventManager;
+            }
+        }
+        #endregion
 
+        #region Allocate & Deallocate
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -56,6 +71,7 @@ namespace SEP490G69.Training
             base.OnFrameHidden();
             m_CloseBtn.onClick.RemoveListener(CloseFrame);
         }
+        #endregion
 
         #region Setters
         public void SetResult(string title, TrainingResult result)
@@ -110,6 +126,7 @@ namespace SEP490G69.Training
         private void CloseFrame()
         {
             UIManager.HideFrame(FrameId);
+            EventManager.Publish<TrainingCompletedEvent>(new TrainingCompletedEvent());
         }
         #endregion
     }

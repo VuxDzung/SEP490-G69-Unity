@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8faa186958ad7499aee634a71bba74, type: 3}
+  m_Name: StatusEffect_0019
+  m_EditorClassIdentifier: 
+  m_EffectId: ste_0019
+  m_EffectName: ste_0019_name
+  m_EffectDesc: ste_0019_desc
+  m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
+  m_Target: 0
+  m_ApplyType: 5
+  m_AliveTurnCount: 1
+  m_StatType: 13
+  m_Op: 1
+  m_EffectValue: 0.3

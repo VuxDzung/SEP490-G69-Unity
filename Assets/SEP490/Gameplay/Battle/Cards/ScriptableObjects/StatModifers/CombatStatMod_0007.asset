@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e88854fc56d3142bf52c38fe2b57e8, type: 3}
-  m_Name: StatusMod_card_0004
+  m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
+  m_Name: CombatStatMod_0007
   m_EditorClassIdentifier: 
-  m_Id: sta_ca_0002
-  m_StatType: 5
-  m_Operator: 1
-  m_Value: 0.05
+  m_Id: sta_mod_com_0007
+  m_DisplayOnUI: 0
+  m_StatType: 9
+  m_Operator: 2
+  m_Value: 0.2
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: Heal 5% HP
+  m_Description: 'Card 13: Reduce 20% enemy action gauge'
+  m_ApplyTarget: 1

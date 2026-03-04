@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
+  m_Name: CombatStatMod_0003
+  m_EditorClassIdentifier: 
+  m_Id: sta_mod_com_0003
+  m_DisplayOnUI: 0
+  m_StatType: 8
+  m_Operator: 3
+  m_Value: 20
+  m_RandomNumber: 0
+  m_Min: 0
+  m_Max: 0
+  m_Description: 'Card 6: Add 20 stamina'
+  m_ApplyTarget: 0

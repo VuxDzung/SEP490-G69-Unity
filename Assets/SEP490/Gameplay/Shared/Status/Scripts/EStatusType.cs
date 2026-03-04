@@ -7,9 +7,16 @@ namespace SEP490G69
         Intelligence = 2,
         Defense = 3,
         Agi = 4,
+
+        /// <summary>
+        /// In training and combat, this is the max vitality.
+        /// </summary>
         Vitality = 5,
+
         Energy = 6,
+
         Mood = 7,
+
         Stamina = 8,
 
         // Combat fields
@@ -18,6 +25,10 @@ namespace SEP490G69
 
         // Tournament fields
         RP = 11,
+        Damage = 12,
+        ActionCost = 13,
+        LostVitality = 14,
+        CurrentVitality = 15,
 
         None
     }

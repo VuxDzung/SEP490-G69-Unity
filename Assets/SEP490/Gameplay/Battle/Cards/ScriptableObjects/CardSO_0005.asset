@@ -17,14 +17,16 @@ MonoBehaviour:
   cardDescription: card_0005_desc
   icon: {fileID: 0}
   cost: 0
+  m_ActionType: 2
   m_BaseDmg: 0
   m_ModifyStatType: 9
   m_DmgModOp: 0
   dmgModifierValue: 0
-  m_ActionType: 2
-  m_DamageType: 0
+  m_AtkCount: 0
+  m_DamageType: 3
   m_RecoverModifiers:
-  - {fileID: 11400000, guid: 81550d24706bfaa4d877fd44502da99a, type: 2}
-  - {fileID: 11400000, guid: c47871667303f01448fd083bf4fbcd28, type: 2}
+  - {fileID: 11400000, guid: 1d8110e04cfd07647b6724a84a04f381, type: 2}
+  - {fileID: 11400000, guid: 8c9b0db6299db0648828efaa5ad9a02f, type: 2}
   m_StatusGains: []
   m_StatusInflicts: []
+  m_ExtraActions: []

@@ -22,9 +22,10 @@ MonoBehaviour:
   m_DmgModOp: 0
   dmgModifierValue: 0
   m_ActionType: 2
-  m_DamageType: 0
+  m_DamageType: 3
   m_RecoverModifiers: []
   m_StatusGains: []
   m_StatusInflicts:
   - {fileID: 11400000, guid: 242dfd045f5e90646b80e3fb7f0e453d, type: 2}
   - {fileID: 11400000, guid: 242dfd045f5e90646b80e3fb7f0e453d, type: 2}
+  m_ExtraActions: 

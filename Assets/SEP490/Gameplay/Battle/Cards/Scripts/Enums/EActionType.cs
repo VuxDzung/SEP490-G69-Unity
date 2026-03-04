@@ -15,5 +15,9 @@ namespace SEP490G69.Battle
     {
         None = 0,
         RemoveRandomBuffOfEnemy = 1,
+        ResetEnemyActionGauge = 2,
+        DealExtraDmgIfEnemyHasDebuff = 3,
+        RemoveAllDebuff,
+        StatChanges
     }
 }

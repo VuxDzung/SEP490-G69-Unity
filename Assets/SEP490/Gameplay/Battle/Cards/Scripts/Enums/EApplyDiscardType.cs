@@ -6,5 +6,7 @@ namespace SEP490G69.Battle
         Immediate = 1,
         DiscardAfterNthTurns = 2,
         DiscardAfterBeingAtk = 3,
+        TurnStart = 4,
+        TurnEnd = 5,
     }
 }

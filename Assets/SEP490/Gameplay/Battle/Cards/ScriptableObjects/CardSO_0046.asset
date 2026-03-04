@@ -17,13 +17,20 @@ MonoBehaviour:
   cardDescription: card_0046_desc
   icon: {fileID: 0}
   cost: 40
+  m_ActionType: 0
   m_BaseDmg: 30
   m_ModifyStatType: 2
   m_DmgModOp: 5
   dmgModifierValue: 0.8
-  m_ActionType: 2
-  m_DamageType: 0
+  m_AtkCount: 1
+  m_DamageType: 3
   m_RecoverModifiers: []
   m_StatusGains: []
   m_StatusInflicts: []
-  m_ExtraActions: 01000000
+  m_ExtraActions:
+  - m_ExtraAction: 1
+    m_Target: 1
+    m_ApplyDiscardType: 1
+    m_BaseModStat: 14
+    m_ModOp: 0
+    m_ModValue: 0

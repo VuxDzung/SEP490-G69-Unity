@@ -96,10 +96,6 @@
                 case EActionType.StatRecover:
                     source.HandleStatRecovery(cardSO);
                     break;
-
-                case EActionType.HPRecover:
-                    source.HandleVitRecover(cardSO);
-                    break;
             }
         }
 
@@ -143,7 +139,7 @@
             float finalDamage = DamageCalculator.Calculate(
                 attacker,
                 this,
-                cardSO.BaseDmg,
+                cardSO.BaseValue,
                 cardSO.DamageType
             );
 
@@ -158,14 +154,6 @@
             {
                 ApplyStatusDelta(modifier);
             }
-        }
-
-        protected virtual void HandleVitRecover(CardSO cardSO)
-        {
-            float currentVit = CharacterDataHolder.GetVIT();
-            float final = currentVit + cardSO.BaseDmg;
-
-            CharacterDataHolder.SetStatus(EStatusType.Vitality, final);
         }
 
         #endregion
@@ -263,7 +251,7 @@
                 status.OnTurnEnd();
         }
 
-        public void ApplyStatusDelta(StatusModifierSO modifierSO)
+        public void ApplyStatusDelta(CombatStatModifierSO modifierSO)
         {
             float current = CharacterDataHolder.GetStatus(modifierSO.StatType);
             float delta = modifierSO.GetDelta(current);

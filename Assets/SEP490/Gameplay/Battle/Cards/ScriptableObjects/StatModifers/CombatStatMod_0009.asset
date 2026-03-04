@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e88854fc56d3142bf52c38fe2b57e8, type: 3}
-  m_Name: StatusMod_card_0001
+  m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
+  m_Name: CombatStatMod_0009
   m_EditorClassIdentifier: 
-  m_Id: sta_ca_0001
-  m_StatType: 8
-  m_Operator: 1
-  m_Value: 0.4
+  m_Id: sta_mod_com_0009
+  m_DisplayOnUI: 0
+  m_StatType: 15
+  m_Operator: 2
+  m_Value: 0.1
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: Recover 40 Stamina
+  m_Description: 'Card 14: gain 80 stamina'
+  m_ApplyTarget: 0

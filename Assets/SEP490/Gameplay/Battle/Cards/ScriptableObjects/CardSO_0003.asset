@@ -22,6 +22,8 @@ MonoBehaviour:
   m_DmgModOp: 5
   dmgModifierValue: 0.4
   m_ActionType: 0
-  m_DamageType: 0
+  m_DamageType: 3
+  m_RecoverModifiers: []
   m_StatusGains: []
   m_StatusInflicts: []
+  m_ExtraActions: 

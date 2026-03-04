@@ -1,5 +1,6 @@
 using SEP490G69.Addons.Localization.Enums;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SEP490G69
 {
@@ -144,5 +145,60 @@ namespace SEP490G69
             }
             return RP_CHECKPOINTS[RP_CHECKPOINTS.Length - 1];
         }
+
+        public static readonly int[] FPS_LIMITS = new int[]
+        {
+            30,
+            60,
+            120,
+            144,
+            240,
+            -1 
+        };
+
+        #region UI Rect Pivot Constants
+        public static readonly Vector2 RECT_ANCHOR_TOP_LEFT = new Vector2(0, 1);
+        public static readonly Vector2 RECT_ANCHOR_TOP_CENTER = new Vector2(0.5f, 1);
+        public static readonly Vector2 RECT_ANCHOR_TOP_RIGHT = new Vector2(1, 1);
+
+        public static readonly Vector2 RECT_ANCHOR_MIDDLE_LEFT = new Vector2(0f, 0.5f);
+        public static readonly Vector2 RECT_ANCHOR_MIDDLE_CENTER = new Vector2(0.5f, 0.5f);
+        public static readonly Vector2 RECT_ANCHOR_MIDDLE_RIGHT = new Vector2(1f, 0.5f);
+
+        public static readonly Vector2 RECT_ANCHOR_BOTTOM_LEFT = new Vector2(0f, 0f);
+        public static readonly Vector2 RECT_ANCHOR_BOTTOM_CENTER = new Vector2(0.5f, 0f);
+        public static readonly Vector2 RECT_ANCHOR_BOTTOM_RIGHT = new Vector2(1f, 0f);
+
+        public static Vector2 GetRectValue(ERectPivot pivot)
+        {
+            switch (pivot)
+            {
+                case ERectPivot.TopLeft:
+                    return RECT_ANCHOR_TOP_LEFT;
+                case ERectPivot.TopCenter:
+                    return RECT_ANCHOR_TOP_CENTER;
+                case ERectPivot.TopRight:
+                    return RECT_ANCHOR_TOP_RIGHT;
+                case ERectPivot.MiddleLeft:
+                    return RECT_ANCHOR_MIDDLE_LEFT;
+                case ERectPivot.MiddleCenter:
+                    return RECT_ANCHOR_MIDDLE_CENTER;
+                case ERectPivot.MiddleRight:
+                    return RECT_ANCHOR_MIDDLE_RIGHT;
+                case ERectPivot.BottomLef:
+                    return RECT_ANCHOR_BOTTOM_LEFT;
+                case ERectPivot.BottomCenter:
+                    return RECT_ANCHOR_BOTTOM_CENTER;
+                case ERectPivot.BottomRight:
+                    return RECT_ANCHOR_BOTTOM_RIGHT;
+                default:
+                    return new Vector2(0f, 0f);
+            }
+        }
+        #endregion
+    }
+    public enum ERectPivot
+    {
+        TopLeft, TopCenter, TopRight, MiddleLeft, MiddleRight, MiddleCenter, BottomLef, BottomCenter, BottomRight
     }
 }

@@ -130,11 +130,14 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                PerformCinematic(() =>
+                if (SessionController.HasActiveSession())
                 {
-                    SessionController.ContinueSession();
-                    SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
-                });
+                    PerformCinematic(() =>
+                    {
+                        SessionController.ContinueSession();
+                        SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                    });
+                }
             }
             catch(System.Exception e)
             {
@@ -185,7 +188,7 @@ namespace SEP490G69.GameSessions
         private void PerformCinematic(Action onAction)
         {
             CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
-            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, () => {
+            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, "", () => {
                 onAction?.Invoke();
             });
         }

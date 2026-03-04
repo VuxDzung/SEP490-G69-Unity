@@ -4,10 +4,16 @@ using UnityEngine;
 public class SceneAudioSetter : MonoBehaviour
 {
     [SerializeField] private AudioClip m_BGM;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        ContextManager.Singleton.ResolveGameContext<AudioManager>().SetBG(m_BGM);
-    }
+        var audioManager = ContextManager.Singleton.ResolveGameContext<AudioManager>();
 
+        // Load saved music volume
+        int musicIndex = PlayerPrefs.GetInt("Music", 5);
+        float musicVolume = musicIndex / 10f;
+
+        audioManager.SetBGMVolume(musicVolume);
+        audioManager.SetBG(m_BGM);
+    }
 }

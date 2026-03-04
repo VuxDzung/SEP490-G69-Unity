@@ -10,4 +10,10 @@ namespace SEP490G69.Battle
         HPRecover = 3,
         Other = 4,
     }
+
+    public enum EExtraAction
+    {
+        None = 0,
+        RemoveRandomBuffOfEnemy = 1,
+    }
 }

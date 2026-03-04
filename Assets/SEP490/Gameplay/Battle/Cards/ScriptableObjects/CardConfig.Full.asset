@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1389f26ad4f1192448d95b0846caf870, type: 3}
   m_Name: CardConfig.Full
   m_EditorClassIdentifier: 
-  m_Cards: []
+  m_Cards:
+  - {fileID: 11400000, guid: 058380872f5dfbd4d92b31fed3a21774, type: 2}
+  - {fileID: 11400000, guid: d42e6b20c16868548a4e0457bf1f213d, type: 2}
+  - {fileID: 11400000, guid: 7ccaf64733cc6f1439cada6604b239a1, type: 2}
+  - {fileID: 11400000, guid: c34e135cd8752d94d9ef5d50f4105011, type: 2}
+  - {fileID: 11400000, guid: 196ba3e22c1436c429c480e4dbf9350c, type: 2}
+  - {fileID: 11400000, guid: d2b14c625dc81854d91032999f9a6edc, type: 2}
+  - {fileID: 11400000, guid: d705d64a720cddc4c8693c2efe0343dd, type: 2}
+  - {fileID: 11400000, guid: c61bbcdb2a0b9df40b729a9926b3aeb0, type: 2}

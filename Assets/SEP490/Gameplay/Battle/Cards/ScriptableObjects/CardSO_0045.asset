@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2c0ccba0a43f4ab522fee079809e4, type: 3}
+  m_Name: CardSO_0045
+  m_EditorClassIdentifier: 
+  cardId: card_0045
+  cardName: card_0045_name
+  cardDescription: card_0045_desc
+  icon: {fileID: 0}
+  cost: 60
+  m_BaseDmg: 0
+  m_ModifyStatType: 12
+  m_DmgModOp: 0
+  dmgModifierValue: 0
+  m_ActionType: 2
+  m_DamageType: 0
+  m_RecoverModifiers: []
+  m_StatusGains:
+  - {fileID: 11400000, guid: 8c64d5348a8ef284ba728a1faf1d41bd, type: 2}
+  - {fileID: 11400000, guid: 8c64d5348a8ef284ba728a1faf1d41bd, type: 2}
+  - {fileID: 11400000, guid: 309292f693b7f894d9cabce77129d5d8, type: 2}
+  m_StatusInflicts: []
+  m_ExtraActions: 

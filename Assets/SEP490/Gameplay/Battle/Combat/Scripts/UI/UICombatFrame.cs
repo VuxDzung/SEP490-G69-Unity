@@ -1,0 +1,239 @@
+﻿namespace SEP490G69.Battle.Combat
+{
+    using DG.Tweening;
+    using SEP490G69.Addons.Localization;
+    using SEP490G69.Battle.Cards;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.UI;
+
+    public class UICombatFrame : GameUIFrame
+    {
+        [SerializeField] private UICharacterBaseDetails m_PlayerCharDetails;
+        [SerializeField] private UICharacterBaseDetails m_EnemyCharDetails;
+        [SerializeField] private Transform m_SelectedCardContainer;
+        [SerializeField] private Button m_SettingBtn;
+        [SerializeField] private Button m_RestBtn;
+        [SerializeField] private Button m_ActionBtn;
+        [SerializeField] private Transform m_CardPrefab;
+        [SerializeField] private Transform m_CardContainer;
+        [SerializeField] private Transform m_PlayerStatEffectContainer;
+        [SerializeField] private Transform m_EnemyStatEffectContainer;
+        [SerializeField] private Transform m_StatEffectUIPrefab;
+
+        private LocalizationManager _localizeManager;
+        protected LocalizationManager LocalizeManager
+        {
+            get
+            {
+                if (_localizeManager == null)
+                {
+                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+                }
+                return _localizeManager;
+            }
+        }
+
+        private SceneCombatController _combatController;
+        protected SceneCombatController CombatController
+        {
+            get
+            {
+                if (_combatController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _combatController);
+                }
+                return _combatController;
+            }
+        }
+
+        protected override void OnFrameShown()
+        {
+            base.OnFrameShown();
+            m_SettingBtn.onClick.AddListener(ShowSettings);
+            m_RestBtn.onClick.AddListener(PerformRest);
+            m_ActionBtn.onClick.AddListener(PerformSelectCard);
+        }
+        protected override void OnFrameHidden()
+        {
+            base.OnFrameHidden();
+            m_SettingBtn.onClick.RemoveListener(ShowSettings);
+            m_RestBtn.onClick.RemoveListener(PerformRest);
+            m_ActionBtn.onClick.RemoveListener(PerformSelectCard);
+        }
+
+        private void PerformRest()
+        {
+
+        }
+
+        private void PerformSelectCard()
+        {
+            CombatController.PerformSelectedPlayerCard();
+        }
+
+        private void ShowSettings()
+        {
+
+        }
+
+        public UICombatFrame SetPlayerCharContent(string id, Sprite avatar)
+        {
+            m_PlayerCharDetails.SetContent(id, avatar);
+            return this;
+        }
+        public UICombatFrame SetPlayerCharVit(float cur, float max)
+        {
+            m_PlayerCharDetails.SetVit(cur, max);
+            return this;
+        }
+        public UICombatFrame SetPlayerCharDef(float cur, float max)
+        {
+            m_PlayerCharDetails.SetDef(cur, max);
+            return this;
+        }
+        public UICombatFrame SetPlayerCharSpeed(float cur, float max)
+        {
+            m_PlayerCharDetails.SetSpeed(cur, max);
+            return this;
+        }
+
+        public UICombatFrame SetEnemyCharContent(string id, Sprite avatar)
+        {
+            m_EnemyCharDetails.SetContent(id, avatar);
+            return this;
+        }
+        public UICombatFrame SetEnemyCharVit(float cur, float max)
+        {
+            m_EnemyCharDetails.SetVit(cur, max);
+            return this;
+        }
+        public UICombatFrame SetEnemyCharDef(float cur, float max)
+        {
+            m_EnemyCharDetails.SetDef(cur, max);
+            return this;
+        }
+        public UICombatFrame SetEnemyCharSpeed(float cur, float max)
+        {
+            m_EnemyCharDetails.SetSpeed(cur, max);
+            return this;
+        }
+
+        public UICombatFrame LoadPlayerStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
+        {
+            LoadStatEffects("UIPlayerStatusEffect", effectList, true);
+            return this;
+        }
+        public UICombatFrame LoadEnemyStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
+        {
+            LoadStatEffects("UIEnemyStatusEffect", effectList, false);
+            return this;
+        }
+
+        private void LoadStatEffects(string poolName, IReadOnlyList<RuntimeStatusEffect> effectList, bool isPlayer)
+        {
+            if (PoolManager.Pools[poolName].Count > 0)
+            {
+                PoolManager.Pools[poolName].DespawnAll();
+            }
+            Transform container = isPlayer ? m_PlayerStatEffectContainer : m_EnemyStatEffectContainer;
+            foreach (RuntimeStatusEffect effect in effectList)
+            {
+                Transform effectTrans = PoolManager.Pools[poolName].Spawn(m_StatEffectUIPrefab, container);
+                UIStatusEffectElement effectUI = effectTrans.GetComponent<UIStatusEffectElement>();
+                if (effectUI != null)
+                {
+                    effectUI.SetId(isPlayer ? "player" : "enemy").SetImg(effect.Data.Icon).SetRemainAmount(effect.Amount).SetOnClickCallback(SelectStatEffect);
+                }
+            }
+        }
+
+        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
+        {
+            string poolName = "UICard";
+            Debug.Log("DisplayDrawnCards");
+            if (PoolManager.Pools[poolName].Count > 0)
+            {
+                PoolManager.Pools[poolName].DespawnAll();
+            }
+
+            foreach (CardSO card in cards)
+            {
+                Transform cardTrans = PoolManager.Pools[poolName].Spawn(m_CardPrefab, m_CardContainer);
+                UICardElement cardUI = cardTrans.GetComponent<UICardElement>();
+                if (cardUI != null)
+                {
+                    string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
+                    string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
+                    cardTrans.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+                    cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
+                }
+            }
+        }
+
+        private void SelectCard(string cardId, bool isSelected, Transform cardTrans)
+        {
+            if (CombatController == null)
+            {
+                Debug.LogError("CombatController is null");
+                return;
+            }
+
+            RectTransform rect = cardTrans as RectTransform;
+            LayoutElement layout = rect.GetComponent<LayoutElement>();
+            rect.DOKill();
+
+            if (isSelected)
+            {
+                CombatController.PlayerCharController.SelectCardById(cardId);
+                if (layout != null)
+                    layout.ignoreLayout = true;
+                //cardTrans.SetParent(m_SelectedCardContainer, false);
+
+                //ResetRectTransform(rect, ERectPivot.MiddleCenter);
+
+                rect.localScale = Vector3.one * 0.8f;
+                //rect.DOLocalMove(Vector3.zero, 0.3f);
+                rect.DOScale(1f, 0.3f);
+            }
+            else
+            {
+                CombatController.PlayerCharController.DeselectCurrentCard();
+
+                //cardTrans.SetParent(m_CardContainer, false);
+                if (layout != null)
+                    layout.ignoreLayout = false;
+
+                //ResetRectTransform(rect, ERectPivot.BottomRight);
+
+                rect.localScale = Vector3.one;
+                rect.localRotation = Quaternion.identity;
+            }
+        }
+
+        private void SelectStatEffect(string characterOwner)
+        {
+            if (characterOwner.Equals("player"))
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void ResetRectTransform(RectTransform rect, ERectPivot pivot)
+        {
+            Vector2 rectValue = GameConstants.GetRectValue(pivot);
+            rect.anchorMin = rectValue;
+            rect.anchorMax = rectValue;
+            rect.pivot = rectValue;
+
+            rect.anchoredPosition = Vector2.zero;
+            rect.localRotation = Quaternion.identity;
+            rect.localScale = Vector3.one;
+        }
+    }
+}

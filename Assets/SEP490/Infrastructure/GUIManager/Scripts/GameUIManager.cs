@@ -64,6 +64,7 @@ namespace SEP490G69
                 frame.Show();
                 return frame;
             }
+            Debug.LogError($"Frame {frameId} is not initialized yet!");
             return null;
         }
 
@@ -81,6 +82,7 @@ namespace SEP490G69
                 frame.Hide();
                 return frame;
             }
+            Debug.LogError($"Frame {frameId} is not initialized yet!");
             return null;
         }
 

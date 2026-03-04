@@ -7,6 +7,7 @@ namespace SEP490G69
         private BaseCharacterSO _characterSO;
         private SessionCharacterData _characterData;
 
+        #region Getters
         public string GetRawId()
         {
             return _characterSO.CharacterId;
@@ -27,11 +28,11 @@ namespace SEP490G69
         {
             return _characterSO.CharacterName;
         }
+
         public float GetEnergy()
         {
             return _characterData.CurrentEnergy;
         }
-
         public float GetMood()
         {
             return (float)_characterData.CurrentMood;
@@ -71,6 +72,7 @@ namespace SEP490G69
         {
             return _characterSO.Prefab;
         }
+        #endregion
 
         public float GetStatus(EStatusType type)
         {
@@ -93,6 +95,13 @@ namespace SEP490G69
                 default:
                     return -1;
             }
+        }
+
+        public void ModifyStat(EStatusType type, float delta)
+        {
+            float current = GetStatus(type);
+            float final = current + delta;
+            SetStatus(type, final);
         }
 
         public void SetStatus(EStatusType type, float value)
@@ -131,13 +140,11 @@ namespace SEP490G69
             _characterData.CurrentEnergy = finalGain;
             _characterData.CurrentEnergy = Mathf.Clamp(_characterData.CurrentEnergy, 0, GameConstants.MAX_100);
         }
-
         public void SetMood(float finalGain)
         {
             _characterData.CurrentMood = finalGain;
             _characterData.CurrentMood = Mathf.Clamp(_characterData.CurrentMood, 0, GameConstants.MAX_100);
         }
-
         public void SetVit(float finalGain)
         {
             _characterData.CurrentMaxVitality = finalGain;
@@ -169,11 +176,11 @@ namespace SEP490G69
             _characterData.CurrentDef = Mathf.Clamp(_characterData.CurrentDef, 0, GameConstants.MAX_STAT_VALUE);
         }
 
+        #region Builder
         public class Builder
         {
             private BaseCharacterSO _so;
             private SessionCharacterData _data;
-
             public Builder WithCharacterSO(BaseCharacterSO characterSO)
             {
                 _so = characterSO;
@@ -184,6 +191,7 @@ namespace SEP490G69
                 _data = characterData;
                 return this;
             }
+
             public CharacterDataHolder Build()
             {
                 CharacterDataHolder holder = new CharacterDataHolder
@@ -194,5 +202,7 @@ namespace SEP490G69
                 return holder;
             }
         }
+
+        #endregion
     }
 }

@@ -1,6 +1,7 @@
 namespace SEP490G69.Calendar
 {
     using SEP490G69.GameSessions;
+    using SEP490G69.Training;
     using UnityEngine;
 
     public class GameCalendarController : MonoBehaviour, ISceneContext
@@ -14,6 +15,19 @@ namespace SEP490G69.Calendar
         private PlayerTrainingSession _currentSesssion;
         private CalendarSO _calendarConfig;
         private EventManager _eventManager;
+
+        private GameTrainingController _trainingController;
+        protected GameTrainingController TrainingController
+        {
+            get
+            {
+                if (_trainingController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
+                }
+                return _trainingController;
+            }
+        }
 
         private void Awake()
         {
@@ -30,10 +44,13 @@ namespace SEP490G69.Calendar
             {
                 return;
             }
+
+            _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
         }
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
+            _eventManager.Unsubscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
         }
 
         private void Start()
@@ -51,7 +68,21 @@ namespace SEP490G69.Calendar
             }
         }
 
-        public void GoToNextWeek()
+        private void HandleTrainingCompleteEvent(TrainingCompletedEvent trainingCompletedEvent)
+        {
+            float fadeDur = 1f;
+            float inFadeDur = 1f;
+            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, "New week started", () =>
+            {
+                TrainingController.HideTrainingMenuBG();
+                TrainingController.OpenMainMenuBG();
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+                GoToNextWeek(false);
+            });
+        }
+
+        public void GoToNextWeek(bool saveToDB = true)
         {
             if (_currentSesssion == null)
             {
@@ -63,7 +94,11 @@ namespace SEP490G69.Calendar
                 if (_currentSesssion.CurrentWeek < _calendarConfig.GetTotalWeeks() - 1)
                 {
                     _currentSesssion.CurrentWeek++;
-                    _sessionDAO.UpdateSession(_currentSesssion);
+
+                    if (saveToDB)
+                    {
+                        _sessionDAO.UpdateSession(_currentSesssion);
+                    }
 
                     _eventManager.Publish(new NextWeekEvent
                     {

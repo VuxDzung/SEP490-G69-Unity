@@ -18,8 +18,10 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private EActionType m_ActionType;
         [SerializeField] private EDamageType m_DamageType;
 
+        [Header("Recovery modifiers")]
         [SerializeField] private List<StatusModifierSO> m_RecoverModifiers;
 
+        [Header("Status effects")]
         /// <summary>
         /// Status effects apply for owner
         /// </summary>
@@ -29,6 +31,9 @@ namespace SEP490G69.Battle.Cards
         /// Status effects apply for enemy
         /// </summary>
         [SerializeField] private List<StatusEffectSO> m_StatusInflicts;
+
+        [Header("Extra actions")]
+        [SerializeField] private List<EExtraAction> m_ExtraActions;
 
         public string CardId => cardId;
         public string CardName => cardName;
@@ -46,5 +51,7 @@ namespace SEP490G69.Battle.Cards
 
         public StatusEffectSO[] StatusGains => m_StatusGains.ToArray();
         public StatusEffectSO[] StatusInflicts => m_StatusInflicts.ToArray();
+
+        public EExtraAction[] ExtraActions => m_ExtraActions.ToArray();
     }
 }

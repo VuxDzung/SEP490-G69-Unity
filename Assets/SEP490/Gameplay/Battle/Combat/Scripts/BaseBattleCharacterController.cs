@@ -119,6 +119,8 @@
 
         public virtual void StartNewTurn()
         {
+            OnTurnEnd();
+
             foreach (CardSO card in _currentDrawPool)
             {
                 if (card != _selectedCard)
@@ -127,7 +129,6 @@
 
             _selectedCard = null;
 
-            OnTurnStart();
             ResetCharge();
         }
         #endregion

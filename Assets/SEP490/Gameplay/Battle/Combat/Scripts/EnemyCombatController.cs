@@ -50,6 +50,8 @@ namespace SEP490G69.Battle.Combat
         /// </summary>
         public void DetermineCards(BaseBattleCharacterController enemy)
         {
+            OnTurnStart();
+
             DrawThreeCards(out IReadOnlyList<CardSO> cards);
 
             var strategy = GetFirstStrategy();

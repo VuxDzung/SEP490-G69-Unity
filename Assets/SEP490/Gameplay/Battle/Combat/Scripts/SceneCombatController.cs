@@ -118,7 +118,11 @@
         private void HandlePlayerEnergyFull(BaseBattleCharacterController character)
         {
             _enemyCharacterCombat.PauseBar();
+
+            PlayerCharController.OnTurnStart();
+
             PlayerCharController.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+
             GameUIManager.Singleton
                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
                 .AsFrame<UICombatFrame>()

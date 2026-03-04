@@ -15,6 +15,10 @@ namespace SEP490G69
         // Combat fields
         ActionGauge = 9, // When a card has an effect like add/reduce action gauge, the action gauge is applied in the next character turn.
         ReceivedDmg = 10,
+
+        // Tournament fields
+        RP = 11,
+
         None
     }
 }

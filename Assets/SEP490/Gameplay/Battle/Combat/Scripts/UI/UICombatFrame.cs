@@ -148,7 +148,7 @@
             }
         }
 
-        public void DisplayDrawnCards(List<CardSO> cards)
+        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
             string poolName = "UICard";
             Debug.Log("DisplayDrawnCards");
@@ -186,7 +186,7 @@
 
             if (isSelected)
             {
-                CombatController.SelectCardById(cardId);
+                CombatController.PlayerCharController.SelectCardById(cardId);
                 if (layout != null)
                     layout.ignoreLayout = true;
                 //cardTrans.SetParent(m_SelectedCardContainer, false);
@@ -199,7 +199,7 @@
             }
             else
             {
-                CombatController.DeselectCurrentCard();
+                CombatController.PlayerCharController.DeselectCurrentCard();
 
                 //cardTrans.SetParent(m_CardContainer, false);
                 if (layout != null)

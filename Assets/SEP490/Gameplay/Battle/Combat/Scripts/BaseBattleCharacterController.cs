@@ -36,6 +36,11 @@
 
         private readonly List<RuntimeStatusEffect> _activeStatuses = new();
 
+        private List<CardSO> _deckPool = new List<CardSO>();
+        private List<CardSO> _discardPool = new List<CardSO>();
+        private List<CardSO> _currentDrawPool = new List<CardSO>();
+        private CardSO _selectedCard = null;
+
         #endregion
 
         #region Properties
@@ -43,6 +48,7 @@
         public CharacterDataHolder ReadonlyDataHolder => _readonlyDataHolder;
         public CharacterDataHolder CharacterDataHolder => _runtimeDataHolder;
         public IReadOnlyList<RuntimeStatusEffect> ActiveStatuses => _activeStatuses;
+        public CardSO SelectedCard => _selectedCard;
 
         #endregion
 
@@ -68,13 +74,12 @@
         #region Card Effect Pipeline
 
         public virtual void ReceiveCardEffect(
-            CardSO cardSO,
             BaseBattleCharacterController source,
             BaseBattleCharacterController target)
         {
-            ExecuteMainAction(cardSO, source, target);
-            ApplyStatuses(cardSO.StatusGains, source, target);
-            ApplyStatuses(cardSO.StatusInflicts, source, target);
+            ExecuteMainAction(SelectedCard, source, target);
+            ApplyStatuses(SelectedCard.StatusGains, source, target);
+            ApplyStatuses(SelectedCard.StatusInflicts, source, target);
         }
 
         private void ExecuteMainAction(
@@ -112,6 +117,19 @@
             }
         }
 
+        public virtual void StartNewTurn()
+        {
+            foreach (CardSO card in _currentDrawPool)
+            {
+                if (card != _selectedCard)
+                    _discardPool.Add(card);
+            }
+
+            _selectedCard = null;
+
+            OnTurnStart();
+            ResetCharge();
+        }
         #endregion
 
         // =========================================================
@@ -299,5 +317,84 @@
         public void UnpauseBar() => _isBarPaused = false;
 
         #endregion
+
+        protected void InitializeDeck(string[] cardIdArray)
+        {
+            if (cardIdArray == null || cardIdArray.Length == 0)
+            {
+                Debug.LogError("Deck is empty");
+                return;
+            }
+
+            _deckPool.Clear();
+            _discardPool.Clear();
+            _currentDrawPool.Clear();
+
+            foreach (var id in cardIdArray)
+            {
+                CardSO card = CardConfig.GetCardById(id);
+                if (card != null)
+                    _deckPool.Add(card);
+            }
+        }
+
+        private void Shuffle(List<CardSO> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                int rand = UnityEngine.Random.Range(i, list.Count);
+                (list[i], list[rand]) = (list[rand], list[i]);
+            }
+        }
+
+        public void DrawThreeCards(out IReadOnlyList<CardSO> currentCards)
+        {
+            if (_deckPool.Count == 0)
+            {
+                ReshuffleFromDiscard();
+            }
+
+            _currentDrawPool.Clear();
+
+            int drawCount = Mathf.Min(3, _deckPool.Count);
+
+            for (int i = 0; i < drawCount; i++)
+            {
+                CardSO card = _deckPool[0];
+                _deckPool.RemoveAt(0);
+                _currentDrawPool.Add(card);
+            }
+            currentCards = _currentDrawPool;
+        }
+
+        private void ReshuffleFromDiscard()
+        {
+            if (_discardPool.Count == 0)
+                return;
+
+            _deckPool.AddRange(_discardPool);
+            _discardPool.Clear();
+            Shuffle(_deckPool);
+        }
+
+        public void SelectCardById(string cardId)
+        {
+            CardSO cardSO = _currentDrawPool.FirstOrDefault(c => c.CardId.Equals(cardId));
+            if (cardSO == null)
+            {
+                Debug.LogError("CardSO with id is not in the current draw");
+                return;
+            }
+            SelectCard(cardSO);
+        }
+
+        public void SelectCard(CardSO card)
+        {
+            _selectedCard = card;
+        }
+        public void DeselectCurrentCard()
+        {
+            _selectedCard = null;
+        }
     }
 }

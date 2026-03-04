@@ -1,6 +1,5 @@
 namespace SEP490G69.Battle.Combat
 {
-    using SEP490G69.Battle.Cards;
     using UnityEngine;
 
     public class PlayerBattleCharaterController : BaseBattleCharacterController
@@ -41,6 +40,18 @@ namespace SEP490G69.Battle.Combat
             SetReadonlyDataHolder(readonlyDataHolder);
             SetCharacterDataHolder(_characterHolder);
             InitializeEnergySystem();
+
+            GenerateSampleDeck();
+
+            InitializeDeck(_playerDeckData.CardIds);
+        }
+
+        private void GenerateSampleDeck()
+        {
+            _playerDeckData = new SessionPlayerDeck
+            {
+                CardIds = new string[] { }
+            };
         }
     }
 }

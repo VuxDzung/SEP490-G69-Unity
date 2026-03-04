@@ -49,10 +49,8 @@
             }
         }
 
-        private List<CardSO> _deck = new List<CardSO>();
-        private List<CardSO> _discard = new List<CardSO>();
-        private List<CardSO> _currentDraw = new List<CardSO>();
-        private CardSO _selectedCard = null;
+        public PlayerBattleCharaterController PlayerCharController => _playerCharacterCombat;
+        public EnemyCombatController EnemyCombatController => _enemyCharacterCombat;
 
         private void Awake()
         {
@@ -106,7 +104,6 @@
         public void InitializeBattle()
         {
             UseSampleData();
-            InitializePlayerDeck();
         }
 
         public void StartBattle()
@@ -121,7 +118,11 @@
         private void HandlePlayerEnergyFull(BaseBattleCharacterController character)
         {
             _enemyCharacterCombat.PauseBar();
-            DrawThreeCards();
+            PlayerCharController.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+            GameUIManager.Singleton
+                .GetFrame(GameConstants.FRAME_ID_COMBAT)
+                .AsFrame<UICombatFrame>()
+                .DisplayDrawnCards(cards);
         }
 
         /// <summary>
@@ -131,37 +132,30 @@
         private void HandleEnemyEnergyFull(BaseBattleCharacterController character)
         {
             // Handle AI brain here.
-
-            _playerCharacterCombat.OnTurnStart();
+            _enemyCharacterCombat.DetermineCards(_playerCharacterCombat);
             UpdateToUI();
         }
 
         public void PerformSelectedPlayerCard()
         {
-            if (_selectedCard == null)
+            if (PlayerCharController.SelectedCard == null)
             {
                 Debug.LogWarning("No card selected");
                 return;
             }
 
             // Execute effect
-            _playerCharacterCombat.ReceiveCardEffect(_selectedCard, _playerCharacterCombat, _enemyCharacterCombat);
-
-            // Put 2 remain cards to discard list.
-            foreach (var card in _currentDraw)
-            {
-                if (card != _selectedCard)
-                    _discard.Add(card);
-            }
-
-            _selectedCard = null;
-
-            _playerCharacterCombat.OnTurnStart();
+            _playerCharacterCombat.ReceiveCardEffect(_playerCharacterCombat, _enemyCharacterCombat);
+            _playerCharacterCombat.StartNewTurn();
 
             _enemyCharacterCombat.UnpauseBar();
 
             UpdateToUI();
-            DrawThreeCards();
+            PlayerCharController.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+            GameUIManager.Singleton
+                .GetFrame(GameConstants.FRAME_ID_COMBAT)
+                .AsFrame<UICombatFrame>()
+                .DisplayDrawnCards(cards);
         }
 
         #region Testing only (Delete when the tournament or explore combat event are available)
@@ -237,98 +231,5 @@
                        .SetEnemyCharDef(_enemyCharacterCombat.CharacterDataHolder.GetDef(), _enemyCharacterCombat.ReadonlyDataHolder.GetDef())
                        .LoadEnemyStatEffects(_enemyCharacterCombat.ActiveStatuses);
         }
-
-        #region Card & Deck logic
-        private void InitializePlayerDeck()
-        {
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            SessionPlayerDeck deckData = new SessionPlayerDeck
-            {
-                CardIds = m_ObtainedCardConfig.Ids,
-            };
-
-            if (deckData == null || deckData.CardIds == null || deckData.CardIds.Length == 0)
-            {
-                Debug.LogError("Deck is empty");
-                return;
-            }
-
-            _deck.Clear();
-            _discard.Clear();
-            _currentDraw.Clear();
-
-            foreach (var id in deckData.CardIds)
-            {
-                CardSO card = CardConfig.GetCardById(id);
-                if (card != null)
-                    _deck.Add(card);
-            }
-
-            Shuffle(_deck);
-        }
-
-        private void Shuffle(List<CardSO> list)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                int rand = UnityEngine.Random.Range(i, list.Count);
-                (list[i], list[rand]) = (list[rand], list[i]);
-            }
-        }
-
-        private void DrawThreeCards()
-        {
-            if (_deck.Count == 0)
-            {
-                ReshuffleFromDiscard();
-            }
-
-            _currentDraw.Clear();
-
-            int drawCount = Mathf.Min(3, _deck.Count);
-
-            for (int i = 0; i < drawCount; i++)
-            {
-                CardSO card = _deck[0];
-                _deck.RemoveAt(0);
-                _currentDraw.Add(card);
-            }
-
-            GameUIManager.Singleton
-                .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                .AsFrame<UICombatFrame>()
-                .DisplayDrawnCards(_currentDraw);
-        }
-
-        private void ReshuffleFromDiscard()
-        {
-            if (_discard.Count == 0)
-                return;
-
-            _deck.AddRange(_discard);
-            _discard.Clear();
-            Shuffle(_deck);
-        }
-
-        public void SelectCardById(string cardId)
-        {
-            CardSO cardSO = _currentDraw.FirstOrDefault(c => c.CardId.Equals(cardId));
-            if (cardSO == null)
-            {
-                Debug.LogError("CardSO with id is not in the current draw");
-                return;
-            }
-            SelectCard(cardSO);
-        }
-
-        public void SelectCard(CardSO card)
-        {
-            _selectedCard = card;
-        }
-        public void DeselectCurrentCard()
-        {
-            _selectedCard = null;
-        }
-        #endregion
     }
 }

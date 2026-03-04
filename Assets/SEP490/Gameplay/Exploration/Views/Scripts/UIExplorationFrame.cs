@@ -21,6 +21,21 @@ namespace SEP490G69.Exploration
 
         private int _currentLocationIndex;
 
+        #region Lazy initialization
+        private GameExploreController _exploreController;
+        protected GameExploreController ExploreController
+        {
+            get
+            {
+                if (_exploreController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _exploreController);
+                }
+                return _exploreController;
+            }
+        }
+        #endregion
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();

@@ -34,6 +34,16 @@ namespace SEP490G69.Exploration
                 return _exploreController;
             }
         }
+        private ExplorationConfigSO _explorationConfig;
+        private ExplorationConfigSO ExploreConfig
+        {
+            get
+            {
+                if (_explorationConfig == null)
+                    _explorationConfig = ContextManager.Singleton.GetDataSO<ExplorationConfigSO>();
+                return _explorationConfig;
+            }
+        }
         #endregion
 
         protected override void OnFrameShown()

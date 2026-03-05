@@ -12,6 +12,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private Sprite m_Icon;
         [SerializeField] private bool m_IsSpecial;
         [SerializeField] private EApplyDiscardType m_ApplyType;
+        [SerializeField] private EEffectType m_EffectType;
         [Header("Discard by turn count")]
         [SerializeField] private int m_AliveTurnCount;
         
@@ -31,6 +32,7 @@ namespace SEP490G69.Battle.Cards
         public int AliveTurnCount => m_AliveTurnCount;
 
         public CombatStatModifierSO[] Modifiers => m_Modifiers.ToArray();
+        public EEffectType EffectType => m_EffectType;
 
         public float GetTotalDelta(float value, EStatusType statType)
         {

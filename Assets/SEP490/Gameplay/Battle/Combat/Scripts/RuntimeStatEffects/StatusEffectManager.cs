@@ -67,6 +67,13 @@ namespace SEP490G69
             return dmg;
         }
 
+        public float ModifyActionCost(float cost)
+        {
+            foreach (var s in statuses)
+                cost = s.ModifyActionCost(cost);
+            return cost;
+        }
+
         public void OnAfterReceiveDamage(float dmg)
         {
             foreach (var s in statuses)
@@ -101,6 +108,12 @@ namespace SEP490G69
         {
             if (statuses.Count == 0) return null;
             return statuses[Random.Range(0, statuses.Count - 1)];
+        }
+
+        public RuntimeStatusEffect[] GetEffectsByType(EEffectType type)
+        {
+            if (statuses.Count == 0) return null;
+            return statuses.Where(effect => effect.Data.EffectType == type).ToArray();
         }
     }
 }

@@ -20,6 +20,10 @@ namespace SEP490G69.Battle
         public const string STATUS_EFFECT_ID_0014 = "ste_0014";
         public const string STATUS_EFFECT_ID_0015 = "ste_0015";
         public const string STATUS_EFFECT_ID_0016 = "ste_0016";
+
+        /// <summary>
+        /// Status effect 17: Regeneration
+        /// </summary>
         public const string STATUS_EFFECT_ID_0017 = "ste_0017";
 
         /// <summary>

@@ -3,7 +3,6 @@ namespace SEP490G69.Battle
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
     using System;
-    using UnityEngine;
 
     /// <summary>
     /// This class holds the status effect in combat.
@@ -11,6 +10,7 @@ namespace SEP490G69.Battle
     public class RuntimeStatusEffect : IStatusTrigger
     {
         public event Action<RuntimeStatusEffect> onStackEmpty;
+        private readonly ICardSpecialEffect _specialEffect;
 
         public StatusEffectSO Data { get; }
 
@@ -23,7 +23,7 @@ namespace SEP490G69.Battle
         {
             Data = data;
             this.owner = owner;
-
+            _specialEffect = CardEffectFactory.GetById(Data.EffectId);
             Stack = 1;
         }
 
@@ -42,15 +42,28 @@ namespace SEP490G69.Battle
 
         public void OnTurnEnd()
         {
-            if (Data.EffectId == "Regeneration")
+            //if (Data.EffectId.Equals(StatusEffectConstants.STATUS_EFFECT_ID_0017))
+            //{
+            //    float maxHp = owner.ReadonlyDataHolder.GetVIT();
+
+            //    float heal = maxHp * 0.1f * Stack;
+
+            //    owner.CurrentDataHolder.ModifyStat(EStatusType.Vitality, heal);
+            //}
+            //if (Data.EffectId.Equals(StatusEffectConstants.STATUS_EFFECT_ID_0024))
+            //{
+            //    float maxHp = owner.ReadonlyDataHolder.GetVIT();
+
+            //    float selfDmg = maxHp * 0.15f;// * Stack;
+
+            //    float current = owner.CurrentDataHolder.GetVIT();
+
+            //    owner.CurrentDataHolder.SetStatus(EStatusType.Vitality, Mathf.Max(1, current - selfDmg));
+            //}
+
+            if (_specialEffect != null)
             {
-                float maxHp = owner.ReadonlyDataHolder.GetVIT();
-
-                float heal = maxHp * 0.1f * Stack;
-
-                owner.CurrentDataHolder.ModifyStat(
-                    EStatusType.Vitality,
-                    heal);
+                _specialEffect.OnAfterAction(owner, owner.LastAttacker);
             }
 
             if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns)
@@ -68,6 +81,7 @@ namespace SEP490G69.Battle
                     dmg += modifier.GetDelta(dmg);
                 }
             }
+
             //if (Data.EffectId == "Vulnerable")
             //{
             //    dmg *= 1.2f * Stack;
@@ -85,6 +99,7 @@ namespace SEP490G69.Battle
                     dmg += modifier.GetDelta(dmg);
                 }
             }
+
             //if (Data.EffectId == "Berserk")
             //{
             //    dmg *= 1.3f * Stack;
@@ -93,14 +108,33 @@ namespace SEP490G69.Battle
             return dmg;
         }
 
-        public void OnAfterReceiveDamage(float dmg)
+        public float ModifyActionCost(float baseCost)
         {
-            if (Data.EffectId == StatusEffectConstants.STATUS_EFFECT_ID_0023)
+            float finalCost = baseCost;
+            foreach (var modifier in Data.Modifiers)
             {
-                float reflect = dmg * 0.15f * Stack;
-
-                owner.LastAttacker.ReceiveDamage(reflect, owner);
+                if (modifier.StatType == EStatusType.ActionCost)
+                {
+                    finalCost += modifier.GetDelta(finalCost);
+                }
             }
+            return finalCost;
+        }
+
+        public void OnAfterReceiveDamage(float damage)
+        {
+            //if (Data.EffectId == StatusEffectConstants.STATUS_EFFECT_ID_0023)
+            //{
+            //    float reflect = dmg * 0.15f;// * Stack;
+
+            //    owner.LastAttacker.ReceiveDamage(reflect, owner);
+            //}
+
+            if (_specialEffect != null)
+            {
+                _specialEffect.OnAfterReceiveDmg(damage, owner, owner.LastAttacker);
+            }
+
 
             if (Data.ApplyType == EApplyDiscardType.DiscardAfterBeingAtk)
             {
@@ -110,19 +144,7 @@ namespace SEP490G69.Battle
 
         public void OnAction()
         {
-            // Handle berserk logic.
-            if (Data.EffectId != "ste_0024")
-            {
-                return;
-            }
 
-            float maxHp = owner.ReadonlyDataHolder.GetVIT();
-
-            float selfDmg = maxHp * 0.15f * Stack;
-
-            float current = owner.CurrentDataHolder.GetVIT();
-
-            owner.CurrentDataHolder.SetStatus(EStatusType.Vitality, Mathf.Max(1, current - selfDmg));
         }
 
         private void DecreaseStack()

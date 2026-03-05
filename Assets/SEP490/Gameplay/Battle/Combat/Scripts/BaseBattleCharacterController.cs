@@ -6,7 +6,7 @@
     using System.Linq;
     using UnityEngine;
 
-    public abstract class BaseBattleCharacterController : MonoBehaviour, ICardEffectReceiver
+    public abstract class BaseBattleCharacterController : MonoBehaviour, ICardExecutor
     {
         #region Events
 
@@ -97,6 +97,7 @@
             Debug.Log($"Before execute.Current stamina: {CurrentDataHolder.GetStamina()}");
             runtimeCard.Execute(this, target);
             Debug.Log($"After execute.Current stamina: {CurrentDataHolder.GetStamina()}");
+
             //ExecuteMainAction(SelectedCard, source, target);
             //AddStatusEffects(SelectedCard.StatusGains, source, target, ETargetType.Self);
             //AddStatusEffects(SelectedCard.StatusInflicts, source, target, ETargetType.Opponent);
@@ -237,14 +238,6 @@
             float currentStat = CurrentDataHolder.GetStatus(statType);
             currentStat = Mathf.Clamp(currentStat, 0, ReadonlyDataHolder.GetStatus(statType));
             CurrentDataHolder.SetStatus(statType, currentStat);
-        }
-
-        public void ApplyStatusEffect(StatusEffectSO effectSO)
-        {
-            //float current = CurrentDataHolder.GetStatus(effectSO.StatType);
-            //float delta = effectSO.GetDelta(current);
-
-            //CurrentDataHolder.ModifyStat(effectSO.StatType, delta);
         }
 
         private void QueueGaugeModifier(CombatStatModifierSO modifier)
@@ -396,10 +389,7 @@
         {
             float cost = card.Cost;
 
-            //cost = CombatModifiers.ApplyModifiers(
-            //    EStatusType.ActionCost,
-            //    cost
-            //);
+            cost = StatEffectManager.ModifyActionCost(cost);
 
             return Mathf.Max(0, Mathf.RoundToInt(cost));
         }

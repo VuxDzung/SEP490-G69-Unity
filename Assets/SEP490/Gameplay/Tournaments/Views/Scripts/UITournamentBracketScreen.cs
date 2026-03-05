@@ -12,7 +12,7 @@
         [SerializeField] private TextMeshProUGUI m_TmpTournamentName;
 
         [Header("Elimination Slots (Starting 8)")]
-        [SerializeField] private Image[] m_EliminationSlots = new Image[8]; // Gắn 8 Image theo thứ tự L1..L4, R1..R4
+        [SerializeField] private Image[] m_EliminationSlots = new Image[8]; // Order: L1,L2,... R1,R2,..
 
         [Header("Quarter Final Slots (Winners 4)")]
         [SerializeField] private Image[] m_QuarterSlots = new Image[4]; // Gắn 4 Image: QL1, QL2, QR1, QR2

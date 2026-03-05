@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using System.Linq;
-    using SEP490G69.GameSessions; // Namespace chứa DAO
+    using SEP490G69.GameSessions;
 
     public class GameTournamentController : MonoBehaviour, ISceneContext
     {
@@ -152,7 +152,7 @@
                 // Nếu có Player tham gia trận này -> Chuyển sang Scene Combat
                 if (p1.IsPlayer || p2.IsPlayer)
                 {
-                    Debug.Log($"Vào trận đấu: {p1.Name} vs {p2.Name}");
+                    Debug.Log($"Enter Match: {p1.Name} vs {p2.Name}");
                     // TODO: Chuyển Scene Combat. Sau khi combat xong cập nhật kết quả.
                     // Tạm thời giả lập Player luôn thắng để test UI
                     p2.IsEliminated = true;

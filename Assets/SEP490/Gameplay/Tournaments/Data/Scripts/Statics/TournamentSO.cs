@@ -19,6 +19,7 @@ namespace SEP490G69.Tournament
 
         public string TournamentId => tournamentId;
         public string Name => tournamentName;
+        public string[] EnemyIds => EnemyIdArray;
         public IReadOnlyList<RewardRankData> RewardRanks => m_RewardRanks;
     }
 

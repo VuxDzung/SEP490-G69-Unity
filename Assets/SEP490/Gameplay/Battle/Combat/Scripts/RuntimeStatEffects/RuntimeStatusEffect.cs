@@ -2,119 +2,136 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
+    using System;
     using UnityEngine;
 
-    public class RuntimeStatusEffect 
+    /// <summary>
+    /// This class holds the status effect in combat.
+    /// </summary>
+    public class RuntimeStatusEffect : IStatusTrigger
     {
-        #region Properties
+        public event Action<RuntimeStatusEffect> onStackEmpty;
 
         public StatusEffectSO Data { get; }
-        public int Amount { get; set; }
-        public int RemainingTurns { get; private set; }
 
-        #endregion
+        public int Stack { get; private set; }
 
-        #region Fields
+        private BaseBattleCharacterController owner;
 
-        private readonly BaseBattleCharacterController _owner;
-
-        #endregion
-
-        #region Constructor
-
-        public RuntimeStatusEffect(StatusEffectSO data, BaseBattleCharacterController owner)
+        public RuntimeStatusEffect(StatusEffectSO data,
+                                   BaseBattleCharacterController owner)
         {
             Data = data;
-            _owner = owner;
+            this.owner = owner;
 
-            RemainingTurns = data.AliveTurnCount;
-            Amount = 1;
+            Stack = 1;
         }
 
-        #endregion
+        public void AddStack()
+        {
+            Stack++;
+        }
 
-        #region Lifecycle
-
-        /// <summary>
-        /// Apply status effect immediately and then removed.
-        /// </summary>
         public void OnApply()
         {
-            if (Amount <= 0) return;
-
-            if (Data.ApplyType == EApplyDiscardType.Immediate)
-            {
-                ApplyEffect();
-                DecreaseAmount();
-            }
         }
 
         public void OnTurnStart()
         {
-            if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns)
-            {
-                RemainingTurns--;
-
-                if (RemainingTurns <= 0)
-                    Remove();
-            }
         }
 
         public void OnTurnEnd()
         {
-            // Reserved for future use
+            if (Data.EffectId == "Regeneration")
+            {
+                float maxHp = owner.ReadonlyDataHolder.GetVIT();
+
+                float heal = maxHp * 0.1f * Stack;
+
+                owner.CurrentDataHolder.ModifyStat(
+                    EStatusType.Vitality,
+                    heal);
+            }
+
+            if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns)
+            {
+                DecreaseStack();
+            }
         }
-
-        #endregion
-
-        #region Damage Hooks
 
         public float ModifyIncomingDamage(float dmg)
         {
-            if (Data.StatType == EStatusType.ReceivedDmg)
-                return Data.GetModifiedStatus(dmg);
+            foreach (var modifier in Data.Modifiers)
+            {
+                if (modifier.StatType == EStatusType.ReceivedDmg)
+                {
+                    dmg += modifier.GetDelta(dmg);
+                }
+            }
+            //if (Data.EffectId == "Vulnerable")
+            //{
+            //    dmg *= 1.2f * Stack;
+            //}
 
             return dmg;
         }
 
-        public float ModifyDealableDmg(float dmg)
+        public float ModifyDealDamage(float dmg)
         {
-            if (Data.StatType == EStatusType.Power)
-                return Data.GetModifiedStatus(dmg);
+            foreach (var modifier in Data.Modifiers)
+            {
+                if (modifier.StatType == EStatusType.Damage)
+                {
+                    dmg += modifier.GetDelta(dmg);
+                }
+            }
+            //if (Data.EffectId == "Berserk")
+            //{
+            //    dmg *= 1.3f * Stack;
+            //}
 
             return dmg;
         }
 
         public void OnAfterReceiveDamage(float dmg)
         {
+            if (Data.EffectId == StatusEffectConstants.STATUS_EFFECT_ID_0023)
+            {
+                float reflect = dmg * 0.15f * Stack;
+
+                owner.LastAttacker.ReceiveDamage(reflect, owner);
+            }
+
             if (Data.ApplyType == EApplyDiscardType.DiscardAfterBeingAtk)
             {
-                DecreaseAmount();
+                DecreaseStack();
             }
         }
 
-        #endregion
-
-        #region Internal Helpers
-
-        private void ApplyEffect()
+        public void OnAction()
         {
-            _owner.ApplyStatusEffect(Data);
+            // Handle berserk logic.
+            if (Data.EffectId != "ste_0024")
+            {
+                return;
+            }
+
+            float maxHp = owner.ReadonlyDataHolder.GetVIT();
+
+            float selfDmg = maxHp * 0.15f * Stack;
+
+            float current = owner.CurrentDataHolder.GetVIT();
+
+            owner.CurrentDataHolder.SetStatus(EStatusType.Vitality, Mathf.Max(1, current - selfDmg));
         }
 
-        private void DecreaseAmount()
+        private void DecreaseStack()
         {
-            Amount--;
-
-            if (Amount <= 0)
-                Remove();
+            Stack--;
+            if (Stack <= 0)
+            {
+                onStackEmpty?.Invoke(this);
+            }
         }
-
-        private void Remove()
-        {
-            _owner.RemoveStatus(this);
-        }
-
-        #endregion
     }
 }

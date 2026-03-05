@@ -23,7 +23,7 @@ namespace SEP490G69.Battle.Combat
         {
             m_VitSlider.SetValue(cur, max);
         }
-        public void SetDef(float cur, float max)
+        public void SetStamina(float cur, float max)
         {
             m_DefSlider.SetValue(cur, max);
         }

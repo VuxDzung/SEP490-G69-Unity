@@ -87,12 +87,12 @@
             m_PlayerCharDetails.SetVit(cur, max);
             return this;
         }
-        public UICombatFrame SetPlayerCharDef(float cur, float max)
+        public UICombatFrame SetPlayerCharStamina(float cur, float max)
         {
-            m_PlayerCharDetails.SetDef(cur, max);
+            m_PlayerCharDetails.SetStamina(cur, max);
             return this;
         }
-        public UICombatFrame SetPlayerCharSpeed(float cur, float max)
+        public UICombatFrame SetPlayerCharGauge(float cur, float max)
         {
             m_PlayerCharDetails.SetSpeed(cur, max);
             return this;
@@ -108,12 +108,12 @@
             m_EnemyCharDetails.SetVit(cur, max);
             return this;
         }
-        public UICombatFrame SetEnemyCharDef(float cur, float max)
+        public UICombatFrame SetEnemyCharStamina(float cur, float max)
         {
-            m_EnemyCharDetails.SetDef(cur, max);
+            m_EnemyCharDetails.SetStamina(cur, max);
             return this;
         }
-        public UICombatFrame SetEnemyCharSpeed(float cur, float max)
+        public UICombatFrame SetEnemyCharGauge(float cur, float max)
         {
             m_EnemyCharDetails.SetSpeed(cur, max);
             return this;
@@ -143,7 +143,7 @@
                 UIStatusEffectElement effectUI = effectTrans.GetComponent<UIStatusEffectElement>();
                 if (effectUI != null)
                 {
-                    effectUI.SetId(isPlayer ? "player" : "enemy").SetImg(effect.Data.Icon).SetRemainAmount(effect.Amount).SetOnClickCallback(SelectStatEffect);
+                    effectUI.SetId(isPlayer ? "player" : "enemy").SetImg(effect.Data.Icon).SetRemainAmount(effect.Stack).SetOnClickCallback(SelectStatEffect);
                 }
             }
         }
@@ -169,6 +169,16 @@
 
                     cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
                 }
+            }
+        }
+
+        public void ClearAllCards()
+        {
+            string poolName = "UICard";
+
+            if (PoolManager.Pools[poolName].Count > 0)
+            {
+                PoolManager.Pools[poolName].DespawnAll();
             }
         }
 

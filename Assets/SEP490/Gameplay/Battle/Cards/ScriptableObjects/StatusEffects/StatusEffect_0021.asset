@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0021_name
   m_EffectDesc: ste_0021_desc
   m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
-  m_Target: 1
-  m_ApplyType: 3
+  m_ApplyType: 5
   m_AliveTurnCount: 0
-  m_StatType: 10
-  m_Op: 1
-  m_EffectValue: 0.2
+  m_Modifiers:
+  - {fileID: 11400000, guid: 2d6c4c13cc3d09e4cabd5f89a7a17c4e, type: 2}
+  m_DevNote: 'Darkness
+
+    -20% hit rate'

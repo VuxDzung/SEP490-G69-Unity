@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0008_name
   m_EffectDesc: ste_0008_desc
   m_Icon: {fileID: 6622366419423107492, guid: c1670d1017183fb4bb50fa106d50f472, type: 3}
-  m_Target: 0
   m_ApplyType: 4
   m_AliveTurnCount: 1
-  m_StatType: 2
-  m_Op: 1
-  m_EffectValue: 0.3
+  m_Modifiers:
+  - {fileID: 11400000, guid: 1ab33d794546a004bae74c000816412f, type: 2}
+  m_DevNote: 'Greater Int Up
+
+    +30% Int'

@@ -6,10 +6,11 @@ namespace SEP490G69.Battle.Combat
 
     public class EnemyCombatController : BaseBattleCharacterController
     {
-        private List<ISelectCardStrategy> _cardSelectStrategies;
+        private List<ISelectCardStrategy> _cardSelectStrategies = new List<ISelectCardStrategy>();
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _cardSelectStrategies.Clear();
             _cardSelectStrategies.AddRange(GetComponents<ISelectCardStrategy>());
         }
@@ -29,6 +30,8 @@ namespace SEP490G69.Battle.Combat
             _characterData.CurrentDef = characterSO.BaseDef;
             _characterData.CurrentAgi = characterSO.BaseAgi;
 
+            SessionCharacterData readonlyCharData = _characterData.Clone() as SessionCharacterData;
+
             CharacterDataHolder runtimeDataHolder = new CharacterDataHolder.Builder()
                                                       .WithCharacterSO(characterSO)
                                                       .WithCharacterData(_characterData)
@@ -36,7 +39,8 @@ namespace SEP490G69.Battle.Combat
 
             CharacterDataHolder readonlyDataHolder = new CharacterDataHolder.Builder()
                                                       .WithCharacterSO(characterSO)
-                                                      .WithCharacterData(_characterData).Build();
+                                                      .WithCharacterData(readonlyCharData).Build();
+
             SetReadonlyDataHolder(readonlyDataHolder);
             SetCharacterDataHolder(runtimeDataHolder);
             InitializeEnergySystem();
@@ -62,13 +66,13 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            if (strategy.TrySelectCard(ReadonlyDataHolder, CharacterDataHolder, cards, out CardSO card))
+            if (strategy.TrySelectCard(ReadonlyDataHolder, CurrentDataHolder, cards, out CardSO card))
             {
                 SelectCard(card);
 
-                ReceiveCardEffect(this, enemy);
+                ExecuteCard(this, enemy);
 
-                StartNewTurn();
+                EndCurrentTurn();
             }
             else
             {

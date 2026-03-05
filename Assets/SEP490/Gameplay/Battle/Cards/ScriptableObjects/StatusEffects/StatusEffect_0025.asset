@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0025_name
   m_EffectDesc: ste_0025_desc
   m_Icon: {fileID: 0}
-  m_Target: 1
   m_ApplyType: 5
   m_AliveTurnCount: 1
-  m_StatType: 3
-  m_Op: 2
-  m_EffectValue: 1
+  m_Modifiers:
+  - {fileID: 11400000, guid: 2b7520aac5514554ab62050b9fb1cef3, type: 2}
+  m_DevNote: 'Defense Null
+
+    -100% Defense'

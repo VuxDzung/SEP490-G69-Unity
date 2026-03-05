@@ -44,5 +44,10 @@ namespace SEP490G69.Battle.Combat
         {
             chargeStrategy = strategy;
         }
+
+        public void SetValue(float value)
+        {
+            CurrentValue = value;
+        }
     }
 }

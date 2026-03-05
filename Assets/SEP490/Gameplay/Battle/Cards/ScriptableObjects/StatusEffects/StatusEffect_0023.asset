@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0023_name
   m_EffectDesc: ste_0023_desc
   m_Icon: {fileID: 0}
-  m_Target: 1
   m_ApplyType: 3
   m_AliveTurnCount: 1
-  m_StatType: 10
-  m_Op: 5
-  m_EffectValue: 0.15
+  m_Modifiers:
+  - {fileID: 11400000, guid: 65ae0cc7f15ffe9469bbc41a98d76191, type: 2}
+  m_DevNote: 'Thorn
+
+    Reflect 15% dmg taken'

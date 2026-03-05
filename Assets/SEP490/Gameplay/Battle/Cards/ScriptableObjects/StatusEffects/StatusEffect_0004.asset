@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0004_name
   m_EffectDesc: ste_0004_desc
   m_Icon: {fileID: 0}
-  m_Target: 0
   m_ApplyType: 4
   m_AliveTurnCount: 1
-  m_StatType: 3
-  m_Op: 1
-  m_EffectValue: 0.3
+  m_Modifiers:
+  - {fileID: 11400000, guid: 5f2c0af97765c1648bec9f4aa2955def, type: 2}
+  m_DevNote: 'Greater Defense Up
+
+    + 30% Def'

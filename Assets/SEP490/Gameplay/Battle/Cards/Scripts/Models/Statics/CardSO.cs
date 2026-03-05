@@ -12,6 +12,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private string cardDescription;
         [SerializeField] private Sprite icon;
         [SerializeField] private int cost;
+        [SerializeField] private bool m_IsReady;
 
         [Header("Dmg changer")]
         [SerializeField] private EActionType m_ActionType;
@@ -22,8 +23,9 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private int m_AtkCount;
         [SerializeField] private EDamageType m_DamageType;
 
-        [Header("Recovery modifiers")]
-        [SerializeField] private List<CombatStatModifierSO> m_RecoverModifiers;
+        [Header("Stat modifiers")]
+        [SerializeField] private List<CombatStatModifierSO> m_PreStatModifiers;
+        [SerializeField] private List<CombatStatModifierSO> m_PostStatModifiers;
 
         [Header("Status effects")]
         /// <summary>
@@ -36,14 +38,14 @@ namespace SEP490G69.Battle.Cards
         /// </summary>
         [SerializeField] private List<StatusEffectSO> m_StatusInflicts;
 
-        [Header("Extra actions")]
-        [SerializeField] private List<ExtraActionData> m_ExtraActions;
+        [SerializeField] private string[] m_ExtraActions;
 
         public string CardId => cardId;
         public string CardName => cardName;
         public string CardDescription => cardDescription;
         public Sprite Icon => icon;
         public int Cost => cost;
+        public bool IsReady => m_IsReady;
         public EActionType ActionType => m_ActionType;
         public float BaseValue => m_BaseDmg;
         public EStatusType ModifyStatType => m_ModifyStatType;
@@ -51,61 +53,59 @@ namespace SEP490G69.Battle.Cards
         public float ModifierValue => dmgModifierValue;
         public int AtkCount => m_AtkCount;  
         public EDamageType DamageType => m_DamageType;
+        public string[] ExtraActions => m_ExtraActions;
 
-        public CombatStatModifierSO[] RecoverModifiers => m_RecoverModifiers.ToArray();
+        /// <summary>
+        /// Get modifier(s) before performing the attack action.
+        /// </summary>
+        public CombatStatModifierSO[] PreStatModifiers => m_PreStatModifiers.ToArray();
 
+        /// <summary>
+        /// Get modifier(s) after attack.
+        /// </summary>
+        public CombatStatModifierSO[] PostStatModifiers => m_PostStatModifiers.ToArray();
+
+        /// <summary>
+        /// Status effect(s) gain for self.
+        /// </summary>
         public StatusEffectSO[] StatusGains => m_StatusGains.ToArray();
+
+        /// <summary>
+        /// Status effects assigned for the opponent.
+        /// </summary>
         public StatusEffectSO[] StatusInflicts => m_StatusInflicts.ToArray();
 
-        public ExtraActionData[] ExtraActions => m_ExtraActions.ToArray();
-    }
+        public float GetDelta(float targetValue)
+        {
+            switch (m_DmgModOp)
+            {
+                case EOperator.PercentAdd:
+                    return targetValue * m_BaseDmg;
 
-    [System.Serializable]
-    public class ExtraActionData
-    {
-        [Header("Action settings")]
-        [SerializeField] private EExtraAction m_ExtraAction;
-        [SerializeField] private ETargetType m_Target;
-        [SerializeField] private EApplyDiscardType m_ApplyDiscardType;
+                case EOperator.PercentSub:
+                    return -targetValue * dmgModifierValue;
 
-        [Header("Value modify settings")]
-        [SerializeField] private EStatusType m_BaseModStat;
-        [SerializeField] private EOperator m_ModOp;
-        [SerializeField] private float m_ModValue;
+                case EOperator.FlatAdd:
+                    return dmgModifierValue;
 
-        public EExtraAction ExtraAction => m_ExtraAction;
-        public ETargetType Target => m_Target;
-        public EApplyDiscardType ApplyDiscardType => m_ApplyDiscardType;
+                case EOperator.FlatSub:
+                    return -dmgModifierValue;
+                case EOperator.Mul:
+                    return targetValue * dmgModifierValue;
+            }
 
-        public EStatusType StatusType => m_BaseModStat;
-        public EOperator ModOp => m_ModOp;
-        public float ModValue => m_ModValue;
-    }
-
-    [System.Serializable]
-    public class ActionCondition
-    {
-        [SerializeField] private ECompareOperator m_CompareOp;
-
-        [Header("Opponent")]
-        [SerializeField] private EStatusType m_EnemyStat;
-
-        [Header("Seft")]
-        [SerializeField] private EStatusType m_SelfStat;
-
-        public ECompareOperator CompareOp => m_CompareOp;
-        public EStatusType EnemyComparableStat => m_EnemyStat;
-        public EStatusType SelftComparableStat => m_SelfStat;
+            return 0f;
+        }
     }
 
     public enum ECompareOperator
     {
         None = 0,
-        Equal = 0,
-        NotEqual = 0,
-        GreaterThan = 0,
-        GreaterThanOrEqual = 0,
-        LessThan = 0,
-        LessThanOrEqual = 0,
+        Equal = 1,
+        NotEqual = 2,
+        GreaterThan = 3,
+        GreaterThanOrEqual = 4,
+        LessThan = 5,
+        LessThanOrEqual = 6,
     }
 }

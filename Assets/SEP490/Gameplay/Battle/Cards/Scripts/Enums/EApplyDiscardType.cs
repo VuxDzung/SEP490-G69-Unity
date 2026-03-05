@@ -8,5 +8,6 @@ namespace SEP490G69.Battle
         DiscardAfterBeingAtk = 3,
         TurnStart = 4,
         TurnEnd = 5,
+        Fovever = 6,
     }
 }

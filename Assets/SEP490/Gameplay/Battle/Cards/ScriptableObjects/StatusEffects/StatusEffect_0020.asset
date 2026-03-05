@@ -16,9 +16,10 @@ MonoBehaviour:
   m_EffectName: ste_0020_name
   m_EffectDesc: ste_0020_desc
   m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
-  m_Target: 0
   m_ApplyType: 5
   m_AliveTurnCount: 1
-  m_StatType: 16
-  m_Op: 0
-  m_EffectValue: 0
+  m_Modifiers:
+  - {fileID: 11400000, guid: 52ef5753cfbdbdb4ca7820489f1f425b, type: 2}
+  m_DevNote: 'Stun
+
+    Skip next action'

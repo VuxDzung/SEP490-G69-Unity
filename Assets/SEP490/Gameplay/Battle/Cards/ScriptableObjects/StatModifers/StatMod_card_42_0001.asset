@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
+  m_Name: StatMod_card_42_0001
+  m_EditorClassIdentifier: 
+  m_Id: mod_card_42_0001
+  m_DisplayOnUI: 0
+  m_StatType: 9
+  m_Operator: 6
+  m_Value: 0
+  m_RandomNumber: 0
+  m_Min: 0
+  m_Max: 0
+  m_Description: 'Card 42: set opponent action gauge to 0.'
+  m_StatProvider: 1
+  m_ApplyTarget: 1
+  m_CalculateSource: 2
+  m_ApplyDiscardType: 0

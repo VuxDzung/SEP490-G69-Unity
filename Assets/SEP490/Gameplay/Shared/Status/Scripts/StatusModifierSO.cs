@@ -40,6 +40,10 @@ namespace SEP490G69
                     return targetValue + value;
                 case EOperator.FlatSub:
                     return targetValue - value;
+                case EOperator.Mul:
+                    return targetValue * value;
+                case EOperator.Set:
+                    return value;
             }
             return targetValue;
         }

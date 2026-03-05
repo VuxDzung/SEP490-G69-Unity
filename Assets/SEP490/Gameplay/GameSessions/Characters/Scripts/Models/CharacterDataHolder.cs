@@ -92,6 +92,8 @@ namespace SEP490G69
                     return GetEnergy();
                 case EStatusType.Mood:
                     return GetMood();
+                case EStatusType.Stamina:
+                    return GetStamina();
                 default:
                     return -1;
             }
@@ -128,6 +130,9 @@ namespace SEP490G69
                     break;
                 case EStatusType.Mood:
                     SetMood(value);
+                    break;
+                case EStatusType.Stamina:
+                    SetStamina(value);
                     break;
                 default:
                     Debug.LogError($"Unsupported status type {type.ToString()}");

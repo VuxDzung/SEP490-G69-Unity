@@ -1,70 +1,65 @@
 namespace SEP490G69.Battle
 {
+    using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
     using UnityEngine;
+    using UnityEngine.Purchasing;
 
     public static class DamageCalculator
     {
-        public static float Calculate(
-            BaseBattleCharacterController attacker,
-            BaseBattleCharacterController defender,
-            float baseDamage,
-            EDamageType damageType)
+        public static float Calculate(BaseBattleCharacterController attacker, CardSO card)
         {
-            float finalDamage = baseDamage;
+            float baseDamage = card.BaseValue;
 
-            switch (damageType)
+            float stat = attacker.CurrentDataHolder
+                .GetStatus(card.ModifyStatType);
+            float result = baseDamage;
+
+            switch (card.ModifyOp)
             {
-                case EDamageType.Physical:
-                    finalDamage = CalculatePhysical(attacker, defender, baseDamage);
+                case EOperator.PercentAdd:
+                    result += stat * card.ModifierValue;
                     break;
 
-                case EDamageType.Magic:
-                    finalDamage = CalculateMagical(attacker, defender, baseDamage);
-                    break;
-
-                case EDamageType.True:
-                    finalDamage = baseDamage;
+                case EOperator.FlatAdd:
+                    result += card.ModifierValue;
                     break;
             }
 
-            foreach (var status in attacker.ActiveStatuses)
-            {
-                finalDamage = status.ModifyDealableDmg(finalDamage);
-            }
-
-            return Mathf.Max(0, finalDamage);
+            return Mathf.Max(0, result);
         }
 
-        private static float CalculatePhysical(
-            BaseBattleCharacterController attacker,
-            BaseBattleCharacterController defender,
-            float baseDamage)
-        {
-            float power = attacker.CharacterDataHolder.GetPower();
-            float defense = defender.CharacterDataHolder.GetDef();
+        #region Archive
+        //private static float CalculatePhysical(
+        //    BaseBattleCharacterController attacker,
+        //    BaseBattleCharacterController defender,
+        //    float baseDamage)
+        //{
+        //    float power = attacker.CurrentDataHolder.GetPower();
+        //    float defense = defender.CurrentDataHolder.GetDef();
 
-            float raw = baseDamage + power;
+        //    float raw = baseDamage + power;
 
-            // diminishing defense
-            float damageMultiplier = 100f / (100f + defense);
+        //    // diminishing defense
+        //    float damageMultiplier = 100f / (100f + defense);
 
-            return raw * damageMultiplier;
-        }
+        //    return raw * damageMultiplier;
+        //}
 
-        private static float CalculateMagical(
-            BaseBattleCharacterController attacker,
-            BaseBattleCharacterController defender,
-            float baseDamage)
-        {
-            float intelligence = attacker.CharacterDataHolder.GetINT();
-            float defense = defender.CharacterDataHolder.GetDef();
+        //private static float CalculateMagical(
+        //    BaseBattleCharacterController attacker,
+        //    BaseBattleCharacterController defender,
+        //    float baseDamage)
+        //{
+        //    float intelligence = attacker.CurrentDataHolder.GetINT();
+        //    float defense = defender.CurrentDataHolder.GetDef();
 
-            float raw = baseDamage + intelligence * 1.2f;
+        //    float raw = baseDamage + intelligence * 1.2f;
 
-            float damageMultiplier = 100f / (100f + defense);
+        //    float damageMultiplier = 100f / (100f + defense);
 
-            return raw * damageMultiplier;
-        }
+        //    return raw * damageMultiplier;
+        //}
+        #endregion
     }
 }

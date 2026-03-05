@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8faa186958ad7499aee634a71bba74, type: 3}
+  m_Name: StatusEffect_0024
+  m_EditorClassIdentifier: 
+  m_EffectId: ste_0024
+  m_EffectName: ste_0024_name
+  m_EffectDesc: ste_0024_desc
+  m_Icon: {fileID: 0}
+  m_ApplyType: 6
+  m_AliveTurnCount: 10000000
+  m_Modifiers:
+  - {fileID: 11400000, guid: 8fa83493e951eaf4189d3e7cc6a892a9, type: 2}
+  - {fileID: 11400000, guid: 817af9ab2d2533f49988d9f1b72ec683, type: 2}
+  m_DevNote: 'Berserk
+
+    Deal +30% damage but lost 15% hp damage for each action
+    (HP cannot go down to 0 by this effect).'

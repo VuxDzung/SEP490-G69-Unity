@@ -7,6 +7,11 @@ namespace SEP490G69.Battle.Combat
         private PlayerCharacterRepository _characterRepo;
 
         private SessionPlayerDeck _playerDeckData;
+        private TestObtainedCardSO _test;
+        public void SetSampleDeck(TestObtainedCardSO obtainedCards)
+        {
+            _test = obtainedCards;
+        }
 
         public override void Initialize(BaseCharacterSO characterSO)
         {
@@ -28,17 +33,20 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            _characterData = _characterData.Clone() as SessionCharacterData;
+            SessionCharacterData runtimeCharData = _characterData.Clone() as SessionCharacterData;
+            SessionCharacterData readonlyCharData = _characterData.Clone() as SessionCharacterData;
 
-            CharacterDataHolder _characterHolder = new CharacterDataHolder.Builder()
+            CharacterDataHolder characterHolder = new CharacterDataHolder.Builder()
                                                       .WithCharacterSO(characterSO)
-                                                      .WithCharacterData(_characterData).Build();
+                                                      .WithCharacterData(runtimeCharData).Build();
 
             CharacterDataHolder readonlyDataHolder = new CharacterDataHolder.Builder()
                                                       .WithCharacterSO(characterSO)
-                                                      .WithCharacterData(_characterData).Build();
+                                                      .WithCharacterData(readonlyCharData).Build();
+
             SetReadonlyDataHolder(readonlyDataHolder);
-            SetCharacterDataHolder(_characterHolder);
+            SetCharacterDataHolder(characterHolder);
+
             InitializeEnergySystem();
 
             GenerateSampleDeck();
@@ -50,8 +58,18 @@ namespace SEP490G69.Battle.Combat
         {
             _playerDeckData = new SessionPlayerDeck
             {
-                CardIds = new string[] { }
+                CardIds = _test.Ids
             };
+        }
+        private void Update()
+        {
+            // testing
+            // Decrease health.
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CurrentDataHolder.ModifyStat(EStatusType.Vitality, -20);
+                Debug.Log($"Curren health: {CurrentDataHolder.GetStatus(EStatusType.Vitality)}");
+            }
         }
     }
 }

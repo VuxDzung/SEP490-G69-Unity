@@ -325,14 +325,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3202097114502900946, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3202097114502900946, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3376777616656825152, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -373,10 +365,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6723476003010550271, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3377564228959598254, guid: 39d5f7f44ba0bd640b73e4731e5d4a97, type: 3}
     - target: {fileID: 9177193220093389599, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
       propertyPath: m_Name
       value: scene_bg.combat

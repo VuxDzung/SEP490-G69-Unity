@@ -232,8 +232,8 @@
                 return;
             }
 
-            UIVSDialogFrame frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_DIALOG)
-                                   .AsFrame<UIVSDialogFrame>()
+            UIDialogFrame frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_DIALOG)
+                                   .AsFrame<UIDialogFrame>()
                                    .RenderDialog(node.SpeakerID, node.DialogID, node.BackgroundImage);
 
             if (node is ChoiceNodeSO choiceNode)

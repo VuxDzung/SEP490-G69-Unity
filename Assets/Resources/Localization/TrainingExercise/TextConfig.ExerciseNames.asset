@@ -47,6 +47,6 @@ MonoBehaviour:
   - id: te_0006_name
     textList:
     - language: 0
-      text: Yoga
+      text: Swim
     - language: 1
-      text: Yoga
+      text: "B\u01A1i"

@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.MonthNames
+  m_EditorClassIdentifier: 
+  category: MonthNames
+  textDataList:
+  - id: month_jan
+    textList:
+    - language: 0
+      text: Jan
+    - language: 1
+      text: "Th\xE1ng 1"
+  - id: month_feb
+    textList:
+    - language: 0
+      text: Feb
+    - language: 1
+      text: "Th\xE1ng 2"
+  - id: month_mar
+    textList:
+    - language: 0
+      text: Mar
+    - language: 1
+      text: "Th\xE1ng 3"
+  - id: month_apr
+    textList:
+    - language: 0
+      text: Apr
+    - language: 1
+      text: "Th\xE1ng 4"
+  - id: month_may
+    textList:
+    - language: 0
+      text: May
+    - language: 1
+      text: "Th\xE1ng 5"
+  - id: month_jun
+    textList:
+    - language: 0
+      text: Jun
+    - language: 1
+      text: "Th\xE1ng 6"
+  - id: month_jul
+    textList:
+    - language: 0
+      text: Jul
+    - language: 1
+      text: "Th\xE1ng 7"
+  - id: month_aug
+    textList:
+    - language: 0
+      text: Aug
+    - language: 1
+      text: "Th\xE1ng 8"
+  - id: month_sep
+    textList:
+    - language: 0
+      text: Sep
+    - language: 1
+      text: "Th\xE1ng 9"
+  - id: month_oct
+    textList:
+    - language: 0
+      text: Oct
+    - language: 1
+      text: "Th\xE1ng 10"
+  - id: month_nov
+    textList:
+    - language: 0
+      text: Nov
+    - language: 1
+      text: "Th\xE1ng 11"
+  - id: month_dec
+    textList:
+    - language: 0
+      text: Dec
+    - language: 1
+      text: "Th\xE1ng 12"

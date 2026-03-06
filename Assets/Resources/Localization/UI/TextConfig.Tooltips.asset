@@ -93,3 +93,10 @@ MonoBehaviour:
     - language: 1
       text: "\u0110i\u1EC3m danh ti\u1EBFng: ti\xEAu ch\xED \u0111\xE1nh gi\xE1 \u0111\u1EC3
         tham gia c\xE1c gi\u1EA3i \u0111\u1EA5u"
+  - id: tt_text_mood
+    textList:
+    - language: 0
+      text: 'Mood: display the character''s current mood'
+    - language: 1
+      text: "T\xE2m tr\u1EA1ng: t\xE2m tr\u1EA1ng hi\u1EC7n t\u1EA1i c\u1EE7a nh\xE2n
+        v\u1EADt"

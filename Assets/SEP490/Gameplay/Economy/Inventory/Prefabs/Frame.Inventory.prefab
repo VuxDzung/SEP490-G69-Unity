@@ -814,11 +814,6 @@ MonoBehaviour:
   m_AllItemsBtn: {fileID: 2786004909908674392}
   m_UsableItemsBtn: {fileID: 5232153561905455501}
   m_RelicItemsBtn: {fileID: 5562616075080728105}
-  m_ItemIcon: {fileID: 0}
-  m_ItemNameTmp: {fileID: 0}
-  m_ItemDescTmp: {fileID: 0}
-  m_UseBtn: {fileID: 0}
-  m_EquipBtn: {fileID: 0}
 --- !u!1 &2507409673969933922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3252,7 +3247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1411622995418123630, guid: 6be02f7943f7ac74f8617a8ff1793995, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6be02f7943f7ac74f8617a8ff1793995, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 4952413476355834553}
   m_Tmp: {fileID: 8687091754432339648}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &44583261591938365
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +732,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 8667305021302225097}
   m_Tmp: {fileID: 8800511876177565262}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &1413097994890347564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,7 +1513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7941085776763758979, guid: 48f6e822cca658b41b6b3694e75a0186, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48f6e822cca658b41b6b3694e75a0186, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2140,6 +2142,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 7365991467778432280}
   m_Tmp: {fileID: 5405819252749257515}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &3498771244892660500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,6 +2362,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 4650903720018461625}
   m_Tmp: {fileID: 6725870584523869638}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &3604124107078278221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,6 +3458,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 4079837179946250876}
   m_Tmp: {fileID: 250334302908974185}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &6205199326058735420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4121,6 +4126,7 @@ MonoBehaviour:
   m_Readonly: 1
   m_Slider: {fileID: 3451572645580783843}
   m_Tmp: {fileID: 8699364916537570116}
+  m_RankTmp: {fileID: 0}
 --- !u!1 &7696262978308813894
 GameObject:
   m_ObjectHideFlags: 0

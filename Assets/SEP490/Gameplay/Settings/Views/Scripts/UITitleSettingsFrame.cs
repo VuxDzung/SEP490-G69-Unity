@@ -18,6 +18,7 @@
         [SerializeField] private UILinearSwitcher m_FPSLimitSwitcher;
         [SerializeField] private Button m_ApplyBtn;
         [SerializeField] private Button m_BackBtn;
+
         private int _selectedLangIndex = 0;
         private int _selectedResolutionIndex = 0;
         private int _selectedQualityIndex = 0;
@@ -90,6 +91,7 @@
             ApplyResolution();
             PlayerPrefs.Save();
         }
+
         private void Back()
         {
             UIManager.HideFrame(FrameId);
@@ -205,7 +207,6 @@
             PlayerPrefs.SetInt("Quality", _selectedQualityIndex);
 
             UIManager.HideFrame(FrameId);
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
 
         private void ApplyAudio()

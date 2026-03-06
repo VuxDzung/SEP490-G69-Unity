@@ -97,3 +97,21 @@ MonoBehaviour:
       text: Welcome back
     - language: 1
       text: "Ch\xE0o m\u1EEBng tr\u1EDF l\u1EA1i"
+  - id: msg_new_week_start
+    textList:
+    - language: 0
+      text: New week started...
+    - language: 1
+      text: "B\u1EAFt \u0111\u1EA7u tu\u1EA7n m\u1EDBi..."
+  - id: msg_week
+    textList:
+    - language: 0
+      text: Week
+    - language: 1
+      text: "Tu\u1EA7n"
+  - id: msg_year
+    textList:
+    - language: 0
+      text: Year
+    - language: 1
+      text: "N\u0103m"

@@ -83,3 +83,21 @@ MonoBehaviour:
       text: "L\u1EADp tr\xECnh / H\xECnh \u1EA3nh / \xC2m Thanh\n\nL\u1EADp tr\xECnh
         / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh
         / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh"
+  - id: txt_turn_left
+    textList:
+    - language: 0
+      text: turn(s) left
+    - language: 1
+      text: "l\u01B0\u1EE3t c\xF2n l\u1EA1i"
+  - id: txt_turn
+    textList:
+    - language: 0
+      text: Turn
+    - language: 1
+      text: "L\u01B0\u1EE3t"
+  - id: txt_mood
+    textList:
+    - language: 0
+      text: Mood
+    - language: 1
+      text: "T\xE2m tr\u1EA1ng"

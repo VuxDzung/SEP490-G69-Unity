@@ -1,5 +1,6 @@
 namespace SEP490G69.Calendar
 {
+    using SEP490G69.Addons.Localization;
     using SEP490G69.GameSessions;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -7,9 +8,9 @@ namespace SEP490G69.Calendar
 
     public class GameCalendarController : MonoBehaviour, ISceneContext
     {
-        private readonly string[] MONTH_NAMES = {
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        private readonly string[] MONTH_NAME_KEYS = {
+            "month_jan", "month_feb", "month_mar", "month_apr", "month_may", "month_jun",
+            "month_jul", "month_aug", "month_sep", "month_oct", "month_nov", "month_dec"
         };
 
         private GameSessionDAO _sessionDAO;
@@ -51,6 +52,19 @@ namespace SEP490G69.Calendar
                     _tournamentConfig = ContextManager.Singleton.GetDataSO<TournamentConfigSO>();
                 }
                 return _tournamentConfig;
+            }
+        }
+
+        private LocalizationManager _localizeManager;
+        protected LocalizationManager LocalizationManager
+        {
+            get
+            {
+                if (_localizeManager == null)
+                {
+                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+                }
+                return _localizeManager;
             }
         }
 
@@ -96,7 +110,7 @@ namespace SEP490G69.Calendar
         {
             float fadeDur = 1f;
             float inFadeDur = 1f;
-            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, "New week started", () =>
+            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
             {
                 TrainingController.HideTrainingMenuBG();
                 TrainingController.OpenMainMenuBG();
@@ -188,10 +202,16 @@ namespace SEP490G69.Calendar
             // Week in month (1-4)
             int weekInMonth = (week % 4) + 1;
 
-            string monthName = MONTH_NAMES[monthIndex];
+            string monthNameKey = MONTH_NAME_KEYS[monthIndex];
+            string monthName = LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_MONTH_NAMES, monthNameKey);
+
             string yearSuffix = GetOrdinalSuffix(yearIndex + 1);
             Debug.Log($"Year: {yearIndex + 1}{yearSuffix}");
-            return $"Week {weekInMonth}\n{monthName} {yearIndex + 1}{yearSuffix} Year";
+
+            string weekStr = LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_week");
+            string yearStr = LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_year");
+
+            return $"{weekStr} {weekInMonth}\n{monthName} {yearStr} {yearIndex + 1}";
         }
 
         public int GetRemainTimeOfYear()

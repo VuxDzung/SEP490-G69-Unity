@@ -246,7 +246,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 313.7, y: 100}
+  m_SizeDelta: {x: 320, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6692977070292246212
 MonoBehaviour:
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 6767788309125867010}
   - component: {fileID: 611959473134211201}
   m_Layer: 0
-  m_Name: ic_vita
+  m_Name: ic_stat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

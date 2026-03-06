@@ -95,6 +95,10 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_EXERCISE_NAMES = "ExerciseNames";
 
         public const string LOCALIZE_CATEGORY_UI_MESSAGE = "UIMessage";
+
+        public const string LOCALIZE_CATEGORY_UI_TEXT = "UIText";
+
+        public const string LOCALIZE_CATEGORY_MONTH_NAMES = "MonthNames";
         #endregion
 
         #region Currencies id

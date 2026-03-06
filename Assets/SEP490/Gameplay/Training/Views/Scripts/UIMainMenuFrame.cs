@@ -140,7 +140,9 @@ namespace SEP490G69.Training
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
             m_RemainTimeTmp.text = CalendarController.GetRemainTimeOfYear().ToString();
 
-            m_CurrentTurnTmp.text = $"Turn: {CalendarController.GetCurrentWeek()}";
+            string turnStr = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_TEXT, "txt_turn");
+
+            m_CurrentTurnTmp.text = $"{turnStr}: {CalendarController.GetCurrentWeek()}";
         }
         private void LoadObjectives()
         {

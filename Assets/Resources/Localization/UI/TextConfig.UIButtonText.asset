@@ -110,12 +110,12 @@ MonoBehaviour:
       text: Rest
     - language: 1
       text: "Ngh\u1EC9 ng\u01A1i"
-  - id: btn_calendar
+  - id: btn_tournament_schedule
     textList:
     - language: 0
-      text: Calendar
+      text: Tournament Schedule
     - language: 1
-      text: "L\u1ECBch"
+      text: "L\u1ECBch thi \u0111\u1EA5u"
   - id: btn_deck
     textList:
     - language: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
     - language: 0
       text: Inventory
     - language: 1
-      text: "Kho \u0111\u1ED3"
+      text: "T\xFAi \u0111\u1ED3"
   - id: btn_cards
     textList:
     - language: 0

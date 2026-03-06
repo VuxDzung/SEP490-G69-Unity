@@ -11,6 +11,9 @@ namespace SEP490G69.Calendar
         [SerializeField] private Button m_NextBtn;
         [SerializeField] private TextMeshProUGUI m_CurrentTimeTmp;
         [SerializeField] private Button m_BackBtn;
+        [SerializeField] private GameObject m_NoTournamentGO;
+
+        private int _currentWeek;
 
         private GameCalendarController _calendarController;
         private GameCalendarController CalendarController
@@ -31,6 +34,7 @@ namespace SEP490G69.Calendar
             m_PrevBtn.onClick.AddListener(Prev);
             m_NextBtn.onClick.AddListener(Next);
             m_BackBtn.onClick.AddListener(Back);
+            LoadCalendarTime();
         }
         protected override void OnFrameHidden()
         {
@@ -47,17 +51,42 @@ namespace SEP490G69.Calendar
 
         private void Prev()
         {
-
+            _currentWeek--;
+            if (_currentWeek < 0)
+            {
+                _currentWeek = 0;
+            }
+            DisplayPreviewWeek(_currentWeek);
         }
         private void Next()
         {
-
+            _currentWeek++;
+            if (_currentWeek > CalendarController.GetTotalWeeks() - 1)
+            {
+                _currentWeek = CalendarController.GetTotalWeeks() - 1;
+            }
+            DisplayPreviewWeek(_currentWeek);
         }
 
         private void Back()
         {
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+        }
+
+        private void DisplayPreviewWeek(int week)
+        {
+            CalendarWeekSO weekSO = CalendarController.GetWeekData(week + 1);
+            m_CurrentTimeTmp.text = CalendarController.GetCalendarTime(week);
+
+            if (weekSO.Tournaments.Count > 0)
+            {
+                m_NoTournamentGO.SetActive(false);
+            }
+            else
+            {
+                m_NoTournamentGO.SetActive(true);
+            }
         }
     }
 }

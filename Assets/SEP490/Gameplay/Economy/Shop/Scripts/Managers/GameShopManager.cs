@@ -25,7 +25,7 @@ namespace SEP490G69.Economy
         private LocalizationManager _localization;
 
         private EventManager _eventManager;
-        private List<ItemDataSO> _shopItemPool;
+        private List<ItemDataSO> _shopItemPool = new List<ItemDataSO>();
         private ItemDataConfigSO _itemConfig;
 
         private PlayerTrainingSession _sessionData;

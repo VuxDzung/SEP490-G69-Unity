@@ -140,7 +140,7 @@ namespace SEP490G69.Training
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
             m_RemainTimeTmp.text = CalendarController.GetRemainTimeOfYear().ToString();
 
-            m_CurrentTurnTmp.text = $"Turn: {CalendarController.GetTurn()}";
+            m_CurrentTurnTmp.text = $"Turn: {CalendarController.GetCurrentWeek()}";
         }
         private void LoadObjectives()
         {

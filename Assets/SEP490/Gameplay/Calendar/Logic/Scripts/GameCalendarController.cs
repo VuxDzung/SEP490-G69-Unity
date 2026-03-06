@@ -1,6 +1,7 @@
 namespace SEP490G69.Calendar
 {
     using SEP490G69.GameSessions;
+    using SEP490G69.Tournament;
     using SEP490G69.Training;
     using UnityEngine;
 
@@ -28,13 +29,36 @@ namespace SEP490G69.Calendar
                 return _trainingController;
             }
         }
+        public CalendarSO CalendarConfig
+        {
+            get
+            {
+                if ( _calendarConfig == null)
+                {
+                    _calendarConfig = ContextManager.Singleton.GetDataSO<CalendarSO>();
+                }
+                return _calendarConfig;
+            }
+        }
+
+        private TournamentConfigSO _tournamentConfig;
+        protected TournamentConfigSO TournamentConfig
+        {
+            get
+            {
+                if (_tournamentConfig == null)
+                {
+                    _tournamentConfig = ContextManager.Singleton.GetDataSO<TournamentConfigSO>();
+                }
+                return _tournamentConfig;
+            }
+        }
 
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
 
             _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
-            _calendarConfig = ContextManager.Singleton.GetDataSO<CalendarSO>();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
@@ -124,7 +148,16 @@ namespace SEP490G69.Calendar
             }
         }
 
-        public string GetTurn()
+        public CalendarWeekSO GetWeekData(int week)
+        {
+            if (_calendarConfig == null || _calendarConfig.GetTotalWeeks() == 0)
+            {
+                return null;
+            }
+            return _calendarConfig.GetWeek(week);
+        }
+
+        public string GetCurrentWeek()
         {
             if (_currentSesssion == null) return "No Session";
 
@@ -134,23 +167,30 @@ namespace SEP490G69.Calendar
         }
         public string GetCalendarTime()
         {
-            if (_currentSesssion == null) return "No Session";
+            if (_currentSesssion == null)
+                return "No Session";
 
-            int totalWeeks = _currentSesssion.CurrentWeek;
-            Debug.Log($"Current week: {_currentSesssion.CurrentWeek}");
+            return GetCalendarTime(_currentSesssion.CurrentWeek);
+        }
+        public string GetCalendarTime(int week)
+        {
+            if (_currentSesssion == null)
+                return "No Session";
 
-            // Calculate based on 0-based of CurrentWeek
-            // Year (0, 1, 2)
-            int yearIndex = totalWeeks / 48;
-            // Month in year (0 - 11)
-            int monthIndex = (totalWeeks % 48) / 4;
-            // Week in month (1 - 4)
-            int weekInMonth = (totalWeeks % 4) + 1;
+            Debug.Log($"Calendar query week: {week}");
 
-            // Format: Week 1 Jan 1st Year
-            string yearSuffix = GetOrdinalSuffix(yearIndex + 1);
+            // Year index (0,1,2...)
+            int yearIndex = week / 48;
+
+            // Month index (0-11)
+            int monthIndex = (week % 48) / 4;
+
+            // Week in month (1-4)
+            int weekInMonth = (week % 4) + 1;
+
             string monthName = MONTH_NAMES[monthIndex];
-
+            string yearSuffix = GetOrdinalSuffix(yearIndex + 1);
+            Debug.Log($"Year: {yearIndex + 1}{yearSuffix}");
             return $"Week {weekInMonth}\n{monthName} {yearIndex + 1}{yearSuffix} Year";
         }
 
@@ -172,6 +212,11 @@ namespace SEP490G69.Calendar
                 case 3: return "rd";
                 default: return "th";
             }
+        }
+
+        public int GetTotalWeeks()
+        {
+            return CalendarConfig.GetTotalWeeks();
         }
     }
 

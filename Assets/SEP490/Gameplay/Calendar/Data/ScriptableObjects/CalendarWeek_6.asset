@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5ffb1f5cc6c654d87f22658d91290d, type: 3}
   m_Name: CalendarWeek_6
   m_EditorClassIdentifier: 
-  m_Week: 1
+  m_Week: 6
+  m_Tournaments: []

@@ -19,4 +19,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83e3816359f58b344ab4416b34bf0c4c, type: 2}
   m_Objectives:
   - {fileID: 11400000, guid: 3fe3f13dd82642049b0a50a0b1ef725d, type: 2}
-  m_RewardRanks: []
+  m_RewardRanks:
+  - m_Rank: 1
+    m_Rewards: []
+  - m_Rank: 2
+    m_Rewards: []
+  - m_Rank: 3
+    m_Rewards: []
+  - m_Rank: 4
+    m_Rewards: []
+  - m_Rank: 5
+    m_Rewards: []
+  - m_Rank: 6
+    m_Rewards: []
+  - m_Rank: 7
+    m_Rewards: []
+  - m_Rank: 8
+    m_Rewards: []

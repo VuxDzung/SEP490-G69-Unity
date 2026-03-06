@@ -16,5 +16,15 @@ MonoBehaviour:
   m_ConditionName: tour_condi_0001_name
   m_TournamentDesc: tour_condi_0001_desc
   m_EntryParams:
-  - m_StatusType: 11
-    m_RequiredValue: 300
+  - m_StatusType: 1
+    m_RequiredValue: 20
+  - m_StatusType: 2
+    m_RequiredValue: 20
+  - m_StatusType: 3
+    m_RequiredValue: 20
+  - m_StatusType: 4
+    m_RequiredValue: 20
+  - m_StatusType: 5
+    m_RequiredValue: 20
+  - m_StatusType: 8
+    m_RequiredValue: 20

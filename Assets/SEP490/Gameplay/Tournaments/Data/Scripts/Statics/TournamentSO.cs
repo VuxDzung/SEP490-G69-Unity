@@ -8,6 +8,7 @@ namespace SEP490G69.Tournament
     {
         [SerializeField] private string tournamentId;
         [SerializeField] private string tournamentName;
+        [SerializeField] private bool m_IsCheckpointTournament;
         [SerializeField] private string[] EnemyIdArray;
 
         [Tooltip("The entry condition which the player's character must met to participate in the tournament")]
@@ -19,6 +20,7 @@ namespace SEP490G69.Tournament
 
         public string TournamentId => tournamentId;
         public string Name => tournamentName;
+        public bool IsCheckpointTournament => m_IsCheckpointTournament;
         public string[] EnemyIds => EnemyIdArray;
         public IReadOnlyList<RewardRankData> RewardRanks => m_RewardRanks;
     }

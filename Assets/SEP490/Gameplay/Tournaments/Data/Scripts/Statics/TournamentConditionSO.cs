@@ -9,8 +9,10 @@ namespace SEP490G69.Tournament
         [SerializeField] private string m_ConditionId;
         [SerializeField] private string m_ConditionName;
         [SerializeField] private string m_TournamentDesc;
+        [SerializeField] private bool m_DisplayToUI;
         [SerializeField] private List<ConditionParamData> m_EntryParams;
 
+        public bool DisplayToUI => m_DisplayToUI;
         public string ConditionId => m_ConditionId.Trim();
         public string ConditionName => m_ConditionName.Trim();
         public string ConditionDesc => m_TournamentDesc.Trim();

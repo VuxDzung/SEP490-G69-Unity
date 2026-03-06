@@ -15,8 +15,9 @@ namespace SEP490G69.Training
             RequiredRank = rank;
         }
     }
+    public enum EUpgradeResult { Success, MaxLevel, NotEnoughGold, RankTooLow, Error }
 
-    public class FacilityUpgradeManager
+    public class FacilityUpgradeManager : MonoBehaviour, ISceneContext
     {
         private TrainingExerciseDAO _trainingDAO;
         private GameSessionDAO _sessionDAO; 
@@ -30,13 +31,21 @@ namespace SEP490G69.Training
             { 5, new FacilityUpgradeRequirement(5000, EReputationRank.B) }
         };
 
-        public FacilityUpgradeManager(TrainingExerciseDAO trainingDao, GameSessionDAO sessionDao)
+        private void Awake()
         {
-            _trainingDAO = trainingDao;
-            _sessionDAO = sessionDao;
+            ContextManager.Singleton.AddSceneContext(this);
+            LoadDAOs();
+        }
+        private void OnDestroy()
+        {
+            ContextManager.Singleton.RemoveSceneContext(this);
         }
 
-        public enum EUpgradeResult { Success, MaxLevel, NotEnoughGold, RankTooLow, Error }
+        private void LoadDAOs()
+        {
+            _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+        }
 
         public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId, CharacterDataHolder character)
         {
@@ -53,6 +62,7 @@ namespace SEP490G69.Training
             var requirement = _upgradeConfigs[nextLevel];
 
             PlayerTrainingSession currentSession = _sessionDAO.GetSession(sessionId);
+            
             if (currentSession == null) return EUpgradeResult.Error;
 
 

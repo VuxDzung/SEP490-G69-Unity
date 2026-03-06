@@ -182,3 +182,9 @@ MonoBehaviour:
       text: Profile
     - language: 1
       text: "H\u1ED3 s\u01A1"
+  - id: btn_upgrade
+    textList:
+    - language: 0
+      text: Upgrade
+    - language: 1
+      text: "N\xE2ng c\u1EA5p"

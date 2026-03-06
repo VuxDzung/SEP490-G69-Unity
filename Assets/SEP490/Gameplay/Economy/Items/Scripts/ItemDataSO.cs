@@ -15,5 +15,8 @@ namespace SEP490G69
 
         public string ItemID => m_ItemID;
         public Sprite ItemImage => m_ItemImage;
+
+        public string CurrencyID => m_CurrencyID;
+        public int Cost => m_Cost;
     }
 }

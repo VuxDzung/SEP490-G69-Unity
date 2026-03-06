@@ -16,12 +16,9 @@ namespace SEP490G69.Shared
         [SerializeField] private Button m_ConfirmBtn;
         [SerializeField] private Button m_CancelBtn;
 
-        private LocalizationManager _localizeManager;
-
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            if (_localizeManager == null) _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
             m_ConfirmBtn.onClick.AddListener(Confirm);
             m_CancelBtn.onClick.AddListener(Cancel);
         }
@@ -34,8 +31,8 @@ namespace SEP490G69.Shared
 
         public void SetContent(string titleId, string messageId, bool hasConfirm = true, bool hasCancel = true, Action onConfirm = null, Action onCancel = null)
         {
-            m_TitleTmp.text = _localizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, titleId);
-            m_MessageTmp.text = _localizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, messageId);
+            m_TitleTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, titleId);
+            m_MessageTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, messageId);
             this.onConfirm = onConfirm;
             this.onCancel = onCancel;
 

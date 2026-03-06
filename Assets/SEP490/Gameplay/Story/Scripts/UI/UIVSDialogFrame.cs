@@ -21,9 +21,7 @@
 
         [SerializeField] private float m_CharInterval = 0.03f;
 
-        private LocalizationManager _localization;
         private CharacterConfigSO _characterConfig;
-        private EventManager _eventManager;
 
         private Coroutine _typingCoroutine;
         private string _fullDialogText;
@@ -33,10 +31,8 @@
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            if (_eventManager ==null) _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
-            if (_localization == null) _localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
             if (_characterConfig == null) _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
-            _eventManager.Subscribe<SelectChoice>(DispatchChoiceSelection);
+            EventManager.Subscribe<SelectChoice>(DispatchChoiceSelection);
             m_NextBtn.onClick.AddListener(Next);
             m_AutoBtn.onClick.AddListener(Auto);
             m_SkipBtn.onClick.AddListener(Skip);
@@ -47,13 +43,13 @@
             m_NextBtn.onClick.RemoveListener(Next);
             m_AutoBtn.onClick.RemoveListener(Auto);
             m_SkipBtn.onClick.RemoveListener(Skip);
-            _eventManager.Unsubscribe<SelectChoice>(DispatchChoiceSelection);
+            EventManager.Unsubscribe<SelectChoice>(DispatchChoiceSelection);
             ClearChoices();
         }
 
         public UIVSDialogFrame RenderDialog(string speakerID, string dialogID, Sprite bgSprite)
         {
-            string dialog = _localization.GetText(GameConstants.LOCALIZE_CATEGORY_DIALOG, dialogID);
+            string dialog = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_DIALOG, dialogID);
 
             if (bgSprite != null)
             {
@@ -114,15 +110,15 @@
 
         private void Next()
         {
-            _eventManager.Publish(new NextDialogEvent());
+            EventManager.Publish(new NextDialogEvent());
         }
         private void Auto()
         {
-            _eventManager.Publish(new AutoPlayDialogEvent());
+            EventManager.Publish(new AutoPlayDialogEvent());
         }
         private void Skip()
         {
-            _eventManager.Publish(new SkipDialogEvent());
+            EventManager.Publish(new SkipDialogEvent());
         }
 
         private void DispatchChoiceSelection(SelectChoice selectChoice)
@@ -152,7 +148,7 @@
             // Nếu đang auto -> tự next
             if (_autoMode)
             {
-                _eventManager.Publish(new NextDialogEvent());
+                EventManager.Publish(new NextDialogEvent());
             }
         }
     }

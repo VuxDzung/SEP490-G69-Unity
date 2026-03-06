@@ -31,5 +31,10 @@ namespace SEP490G69
             }
             return null;
         }
+
+        public static bool IsEmpty()
+        {
+            return Pools.Count == 0;
+        }
     }
 }

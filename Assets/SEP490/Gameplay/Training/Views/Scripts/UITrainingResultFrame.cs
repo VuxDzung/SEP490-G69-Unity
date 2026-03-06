@@ -20,33 +20,6 @@ namespace SEP490G69.Training
         [SerializeField] private UIStatModifier m_StaModifier;
         private Dictionary<EStatusType, UIStatModifier> _statMap = null;
 
-        #region Properties (Lazy getters)
-        private LocalizationManager _localizeManager;
-        protected LocalizationManager LocalizeManager
-        {
-            get
-            {
-                if (this._localizeManager == null)
-                {
-                    this._localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
-                }
-                return this._localizeManager;
-            }
-        }
-        private EventManager _eventManager;
-        protected EventManager EventManager
-        {
-            get
-            {
-                if (_eventManager == null)
-                {
-                    _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
-                }
-                return _eventManager;
-            }
-        }
-        #endregion
-
         #region Allocate & Deallocate
         protected override void OnFrameShown()
         {

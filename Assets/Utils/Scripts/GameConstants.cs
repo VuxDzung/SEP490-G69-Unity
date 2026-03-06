@@ -30,6 +30,7 @@ namespace SEP490G69
         public const string FRAME_ID_COMBAT = "Frame.Combat";
         public const string FRAME_ID_TRAINING_RESULT = "Frame.TrainingResult";
         public const string FRAME_ID_TOURNAMENT_BRACKET = "Frame.TournamentBracket";
+        public const string FRAME_ID_STAT_EFFECT_DETAILS = "Frame.StatEffectDetails";
         #endregion
 
         #region Scene names
@@ -112,6 +113,11 @@ namespace SEP490G69
         #region Narrative Event parameters
         public const string PARAM_FADE_TIME = "fadeTime";
         public const string PARAM_IN_FADE_TIME = "inFadeTime";
+        #endregion
+
+        #region Pool names
+        public const string POOL_UI_STATUS_EFFECT_DETAILS = "UIStatEffectDetails";
+        public const string POOL_UI_CARD = "UICard";
         #endregion
 
         public const int TRAINING_STARTER_LEVEL = 1;

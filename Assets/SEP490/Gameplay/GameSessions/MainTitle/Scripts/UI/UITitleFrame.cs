@@ -160,8 +160,9 @@ namespace SEP490G69.GameSessions
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
             return;
-#endif
+#else
             Application.Quit();
+#endif
         }
 
         private void SignOut()

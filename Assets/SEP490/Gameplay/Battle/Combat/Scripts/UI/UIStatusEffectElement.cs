@@ -20,13 +20,13 @@ namespace SEP490G69.Battle.Combat
             return this;
         }
 
-        public void Spawn()
+        public virtual void Spawn()
         {
-            m_BtnRef.onClick.AddListener(Click);
+            if (m_BtnRef) m_BtnRef.onClick.AddListener(Click);
         }
-        public void Despawn()
+        public virtual void Despawn()
         {
-            m_BtnRef.onClick.RemoveListener(Click);
+            if (m_BtnRef) m_BtnRef.onClick.RemoveListener(Click);
             _onClick = null;
             m_StackAmountTmp.text = string.Empty;
             m_Image.sprite = null;

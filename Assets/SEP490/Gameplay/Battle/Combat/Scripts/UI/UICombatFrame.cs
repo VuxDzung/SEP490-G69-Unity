@@ -1,13 +1,12 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
     using DG.Tweening;
-    using SEP490G69.Addons.Localization;
     using SEP490G69.Battle.Cards;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
 
-    public class UICombatFrame : GameUIFrame
+    public class UICombatFrame : BaseCombatFrame
     {
         [SerializeField] private UICharacterBaseDetails m_PlayerCharDetails;
         [SerializeField] private UICharacterBaseDetails m_EnemyCharDetails;
@@ -20,32 +19,6 @@
         [SerializeField] private Transform m_PlayerStatEffectContainer;
         [SerializeField] private Transform m_EnemyStatEffectContainer;
         [SerializeField] private Transform m_StatEffectUIPrefab;
-
-        private LocalizationManager _localizeManager;
-        protected LocalizationManager LocalizeManager
-        {
-            get
-            {
-                if (_localizeManager == null)
-                {
-                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
-                }
-                return _localizeManager;
-            }
-        }
-
-        private SceneCombatController _combatController;
-        protected SceneCombatController CombatController
-        {
-            get
-            {
-                if (_combatController == null)
-                {
-                    ContextManager.Singleton.TryResolveSceneContext(out _combatController);
-                }
-                return _combatController;
-            }
-        }
 
         protected override void OnFrameShown()
         {
@@ -151,16 +124,15 @@
 
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
-            string poolName = "UICard";
             Debug.Log("DisplayDrawnCards");
-            if (PoolManager.Pools[poolName].Count > 0)
+            if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {
-                PoolManager.Pools[poolName].DespawnAll();
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
             }
 
             foreach (CardSO card in cards)
             {
-                Transform cardTrans = PoolManager.Pools[poolName].Spawn(m_CardPrefab, m_CardContainer);
+                Transform cardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, m_CardContainer);
                 UICardElement cardUI = cardTrans.GetComponent<UICardElement>();
                 if (cardUI != null)
                 {
@@ -175,11 +147,9 @@
 
         public void ClearAllCards()
         {
-            string poolName = "UICard";
-
-            if (PoolManager.Pools[poolName].Count > 0)
+            if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {
-                PoolManager.Pools[poolName].DespawnAll();
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
             }
         }
 
@@ -227,11 +197,15 @@
         {
             if (characterOwner.Equals("player"))
             {
-
+                UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
+                         .AsFrame<UIStatusEffectListFrame>()
+                         .LoadStatusEffects(CombatController.PlayerCharController.StatEffectManager.ActiveStatEffects);
             }
             else
             {
-
+                UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
+                         .AsFrame<UIStatusEffectListFrame>()
+                         .LoadStatusEffects(CombatController.EnemyCombatController.StatEffectManager.ActiveStatEffects);
             }
         }
 

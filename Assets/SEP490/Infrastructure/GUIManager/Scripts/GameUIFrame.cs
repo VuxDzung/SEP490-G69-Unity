@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using SEP490G69.Addons.Localization;
     using UnityEngine;
 
     public class GameUIFrame : CoreBehaviour
@@ -85,5 +86,34 @@ namespace SEP490G69
         {
             UIManager.HideFrame(frameId);
         }
+
+        #region Lazy properties
+
+        private LocalizationManager _localizeManager;
+        protected LocalizationManager LocalizeManager
+        {
+            get
+            {
+                if (_localizeManager == null)
+                {
+                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+                }
+                return _localizeManager;
+            }
+        }
+
+        private EventManager _eventManager;
+        protected EventManager EventManager
+        {
+            get
+            {
+                if (_eventManager == null)
+                {
+                    _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+                }
+                return _eventManager;
+            }
+        }
+        #endregion
     }
 }

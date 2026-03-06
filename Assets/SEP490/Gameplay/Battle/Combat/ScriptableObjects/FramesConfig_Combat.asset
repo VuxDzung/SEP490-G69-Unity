@@ -15,3 +15,5 @@ MonoBehaviour:
   m_StarterFrameId: Frame.Combat
   m_Frames:
   - {fileID: 5133411112509410632, guid: 19c17308a0c8976419b09fe7732e77db, type: 3}
+  - {fileID: 286937122626166734, guid: b3d1a14bd840dd9479aa5033a16be617, type: 3}
+  - {fileID: 7173806229999871380, guid: ed945edb71ec1c74d8c38981fbc75b26, type: 3}

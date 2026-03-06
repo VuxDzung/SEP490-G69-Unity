@@ -22,7 +22,6 @@ namespace SEP490G69.GameSessions
         [SerializeField] private Button m_NextBtn;
 
         private CharacterConfigSO _characterConfig;
-        private LocalizationManager _localizeManager;
         private GameSessionController _sessionController;
 
         private CharacterConfigSO CharacterConfig
@@ -36,17 +35,7 @@ namespace SEP490G69.GameSessions
                 return _characterConfig;
             }
         }
-        private LocalizationManager LocalizeManager
-        {
-            get
-            {
-                if (_localizeManager == null)
-                {
-                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();  
-                }
-                    return _localizeManager;
-            }
-        }
+
         private GameSessionController SessionController
         {
             get

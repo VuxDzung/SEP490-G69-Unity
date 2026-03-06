@@ -20,7 +20,7 @@ namespace SEP490G69
         private List<Transform> poolList = new List<Transform>();
         private List<Transform> activeList = new List<Transform>();
         public int Count => activeList.Count;
-
+        public bool IsEmpty => activeList.Count == 0;
         private void Awake()
         {
             PoolManager.AddPool(poolName, this);

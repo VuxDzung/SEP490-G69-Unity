@@ -27,6 +27,7 @@ namespace SEP490G69.GameSessions
             }
             catch (System.Exception ex)
             {
+                Debug.LogException(ex);
                 return false;
             }
         }
@@ -40,6 +41,7 @@ namespace SEP490G69.GameSessions
             }
             catch (System.Exception ex)
             {
+                Debug.LogException(ex);
                 return false;
             }
         }

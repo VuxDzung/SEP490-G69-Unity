@@ -17,14 +17,13 @@
         private FirebaseUser _currentUser;
         private bool _initialized = false;
 
-        private bool _isAutoLoginChecking = false;
+        //private bool _isAutoLoginChecking = false;
 
         public event Action OnAutoLoginStarted;
         public event Action<FirebaseUser> OnAutoLoginSuccess;
         public event Action<FirebaseUser> OnLoginSuccess;
         public event Action<FirebaseUser> OnRegisterSuccess;
         public event Action OnLogout;
-        public event Action OnPasswordChanged;
 
         public event Action<AuthErrorInfo> OnRegisterFailed;
         public event Action<AuthErrorInfo> OnLoginFailed;

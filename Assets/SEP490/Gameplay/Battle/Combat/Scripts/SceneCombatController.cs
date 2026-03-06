@@ -230,11 +230,11 @@
                        .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
                        .SetPlayerCharVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
                        .SetPlayerCharStamina(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
-                       .LoadPlayerStatEffects(_playerCharacterCombat.StatEffectManager.ActiveStatuses)
+                       .LoadPlayerStatEffects(_playerCharacterCombat.StatEffectManager.ActiveStatEffects)
                        .SetEnemyCharContent(_enemyCharacterCombat.CurrentDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
                        .SetEnemyCharVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
                        .SetEnemyCharStamina(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
-                       .LoadEnemyStatEffects(_enemyCharacterCombat.StatEffectManager.ActiveStatuses);
+                       .LoadEnemyStatEffects(_enemyCharacterCombat.StatEffectManager.ActiveStatEffects);
         }
     }
 }

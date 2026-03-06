@@ -13,7 +13,7 @@ namespace SEP490G69
 
         private BaseBattleCharacterController owner;
 
-        public IReadOnlyList<RuntimeStatusEffect> ActiveStatuses => _statusEffects;
+        public IReadOnlyList<RuntimeStatusEffect> ActiveStatEffects => _statusEffects;
 
         public StatusEffectManager(BaseBattleCharacterController owner)
         {

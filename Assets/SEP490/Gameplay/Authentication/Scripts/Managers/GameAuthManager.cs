@@ -21,7 +21,6 @@
         private WebRequests _webRequests;
         private EventManager _eventManager;
 
-        public event Action<string> OnLoginByGGWindowsChanged;
         public event Action OnLoginBEFailed;
 
         private PlayerDataDAO _playerDataDAO;

@@ -68,16 +68,25 @@ namespace SEP490G69.Battle.Combat
 
             if (strategy.TrySelectCard(ReadonlyDataHolder, CurrentDataHolder, cards, out CardSO card))
             {
-                SelectCard(card);
+                if (CalculateCardCost(card) > CurrentDataHolder.GetStamina())
+                {
+                    SelectRest();
+                }
+                else
+                {
+                    SelectCard(card);
+                }
 
                 ExecuteCard(this, enemy);
-
-                EndCurrentTurn();
             }
             else
             {
-                Debug.LogError("Failed to select card");
+                Debug.LogError("Failed to select card. Choose rest as default!");
+                SelectRest();
+                ExecuteCard(this, enemy);
             }
+
+            EndCurrentTurn();
         }
 
         public ISelectCardStrategy GetFirstStrategy()

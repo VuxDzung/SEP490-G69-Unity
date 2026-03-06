@@ -92,6 +92,7 @@
             BaseBattleCharacterController target)
         {
             BaseCard runtimeCard = CardFactory.Create(_selectedCard);
+
             Debug.Log($"Before decrease.Current stamina: {CurrentDataHolder.GetStamina()}");
             DecreaseStamina();
             Debug.Log($"Before execute.Current stamina: {CurrentDataHolder.GetStamina()}");
@@ -105,6 +106,8 @@
 
         public virtual void EndCurrentTurn()
         {
+            StatEffectManager.OnAction();
+
             OnTurnEnd();
 
             foreach (CardSO card in _currentDrawPool)
@@ -114,7 +117,6 @@
             }
             _selectedCard = null;
 
-            StatEffectManager.OnAction();
 
             ResetCharge();
 
@@ -176,10 +178,12 @@
 
         public void OnTurnStart()
         {
+            StatEffectManager.StartTurn();
         }
 
         public void OnTurnEnd()
         {
+            StatEffectManager.EndTurn();
         }
 
         /// <summary>
@@ -370,10 +374,22 @@
             CardSO cardSO = _currentDrawPool.FirstOrDefault(c => c.CardId.Equals(cardId));
             if (cardSO == null)
             {
-                Debug.LogError("CardSO with id is not in the current draw");
-                return;
+                if (cardId.Equals(CardConstants.CARD_ID_0000))
+                {
+                    cardSO = CardConfig.GetCardById(cardId);
+                }
+                else
+                {
+                    Debug.LogError("CardSO with id is not in the current draw");
+                    return;
+                }
             }
             SelectCard(cardSO);
+        }
+
+        public void SelectRest()
+        {
+            SelectCardById(CardConstants.CARD_ID_0000);
         }
 
         public void SelectCard(CardSO card)

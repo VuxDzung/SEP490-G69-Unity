@@ -64,7 +64,8 @@
 
         private void PerformRest()
         {
-
+            CombatController.PlayerCharController.SelectRest();
+            CombatController.PerformSelectedPlayerCard();
         }
 
         private void PerformSelectCard()

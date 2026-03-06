@@ -9,11 +9,11 @@ namespace SEP490G69
 
     public class StatusEffectManager 
     {
-        private List<RuntimeStatusEffect> statuses = new();
+        private readonly List<RuntimeStatusEffect> _statusEffects = new List<RuntimeStatusEffect>();
 
         private BaseBattleCharacterController owner;
 
-        public IReadOnlyList<RuntimeStatusEffect> ActiveStatuses => statuses;
+        public IReadOnlyList<RuntimeStatusEffect> ActiveStatuses => _statusEffects;
 
         public StatusEffectManager(BaseBattleCharacterController owner)
         {
@@ -23,7 +23,7 @@ namespace SEP490G69
         public void AddStatusEffect(StatusEffectSO effect)
         {
             RuntimeStatusEffect exist =
-                statuses.FirstOrDefault(s =>
+                _statusEffects.FirstOrDefault(s =>
                     s.Data.EffectId == effect.EffectId);
 
             if (exist != null)
@@ -34,26 +34,26 @@ namespace SEP490G69
 
             RuntimeStatusEffect runtime = new RuntimeStatusEffect(effect, owner);
             runtime.onStackEmpty += Remove;
-            statuses.Add(runtime);
+            _statusEffects.Add(runtime);
 
             runtime.OnApply();
         }
 
         public void StartTurn()
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects.ToList())
                 s.OnTurnStart();
         }
 
         public void EndTurn()
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects.ToList())
                 s.OnTurnEnd();
         }
 
         public float ModifyIncomingDamage(float dmg)
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects)
                 dmg = s.ModifyIncomingDamage(dmg);
 
             return dmg;
@@ -61,7 +61,7 @@ namespace SEP490G69
 
         public float ModifyDealableDamage(float dmg)
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects)
                 dmg = s.ModifyDealDamage(dmg);
 
             return dmg;
@@ -69,51 +69,51 @@ namespace SEP490G69
 
         public float ModifyActionCost(float cost)
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects)
                 cost = s.ModifyActionCost(cost);
             return cost;
         }
 
         public void OnAfterReceiveDamage(float dmg)
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects)
                 s.OnAfterReceiveDamage(dmg);
         }
 
         public void OnAction()
         {
-            foreach (var s in statuses)
+            foreach (var s in _statusEffects)
                 s.OnAction();
         }
 
         public void Remove(RuntimeStatusEffect effect)
         {
             effect.onStackEmpty -= Remove;
-            statuses.Remove(effect);
+            _statusEffects.Remove(effect);
         }
 
         public RuntimeStatusEffect GetEffectById(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
 
-            return statuses.FirstOrDefault(staEffect => staEffect.Data.EffectId.Equals(id));
+            return _statusEffects.FirstOrDefault(staEffect => staEffect.Data.EffectId.Equals(id));
         }
 
         public int Count()
         {
-            return statuses.Count;
+            return _statusEffects.Count;
         }
 
         public RuntimeStatusEffect GetRandomStatusEffect()
         {
-            if (statuses.Count == 0) return null;
-            return statuses[Random.Range(0, statuses.Count - 1)];
+            if (_statusEffects.Count == 0) return null;
+            return _statusEffects[Random.Range(0, _statusEffects.Count - 1)];
         }
 
         public RuntimeStatusEffect[] GetEffectsByType(EEffectType type)
         {
-            if (statuses.Count == 0) return null;
-            return statuses.Where(effect => effect.Data.EffectType == type).ToArray();
+            if (_statusEffects.Count == 0) return null;
+            return _statusEffects.Where(effect => effect.Data.EffectType == type).ToArray();
         }
     }
 }

@@ -8,6 +8,12 @@ namespace SEP490G69.Battle.Combat
     {
         public bool TrySelectCard(CharacterDataHolder readonlyDataHolder, CharacterDataHolder runtimeDataHolder, IReadOnlyList<CardSO> currentDrawPool, out CardSO card)
         {
+            card = null;
+            if (currentDrawPool == null || currentDrawPool.Count == 0)
+            {
+                return false;
+            }
+
             card = currentDrawPool[Random.Range(0, currentDrawPool.Count - 1)];
             return true;
         }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CardConfig.Full
   m_EditorClassIdentifier: 
   m_Cards:
+  - {fileID: 11400000, guid: a863a5981c2ef594f8786d45d6f6582e, type: 2}
   - {fileID: 11400000, guid: 058380872f5dfbd4d92b31fed3a21774, type: 2}
   - {fileID: 11400000, guid: d42e6b20c16868548a4e0457bf1f213d, type: 2}
   - {fileID: 11400000, guid: 7ccaf64733cc6f1439cada6604b239a1, type: 2}

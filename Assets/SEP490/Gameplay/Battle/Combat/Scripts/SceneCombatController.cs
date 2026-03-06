@@ -136,7 +136,7 @@
         private void HandleEnemyEnergyFull(BaseBattleCharacterController character)
         {
             // Handle AI brain here.
-            //_enemyCharacterCombat.DetermineCards(_playerCharacterCombat);
+            _enemyCharacterCombat.DetermineCards(_playerCharacterCombat);
             UpdateToUI();
         }
 
@@ -155,7 +155,7 @@
             _enemyCharacterCombat.UnpauseBar();
 
             UpdateToUI();
-            //PlayerCharController.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+
             GameUIManager.Singleton
                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
                 .AsFrame<UICombatFrame>()

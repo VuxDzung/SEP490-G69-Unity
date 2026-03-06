@@ -9,6 +9,8 @@ namespace SEP490G69.Battle
     /// </summary>
     public class RuntimeStatusEffect : IStatusTrigger
     {
+        public const int STARTER_STACK = 1;
+
         public event Action<RuntimeStatusEffect> onStackEmpty;
         private readonly ICardSpecialEffect _specialEffect;
 
@@ -24,7 +26,7 @@ namespace SEP490G69.Battle
             Data = data;
             this.owner = owner;
             _specialEffect = CardEffectFactory.GetById(Data.EffectId);
-            Stack = 1;
+            Stack = STARTER_STACK;
         }
 
         public void AddStack()
@@ -38,6 +40,10 @@ namespace SEP490G69.Battle
 
         public void OnTurnStart()
         {
+            if (Data.ApplyType == EApplyDiscardType.TurnStart)
+            {
+                DecreaseStack();
+            }
         }
 
         public void OnTurnEnd()
@@ -61,12 +67,15 @@ namespace SEP490G69.Battle
             //    owner.CurrentDataHolder.SetStatus(EStatusType.Vitality, Mathf.Max(1, current - selfDmg));
             //}
 
+            // Trigger special card effects.
             if (_specialEffect != null)
             {
                 _specialEffect.OnAfterAction(owner, owner.LastAttacker);
             }
 
-            if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns)
+            // Decrease stack/
+            if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns ||
+                Data.ApplyType == EApplyDiscardType.TurnEnd)
             {
                 DecreaseStack();
             }

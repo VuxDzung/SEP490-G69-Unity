@@ -3,18 +3,15 @@ namespace SEP490G69.Economy
     using LiteDB;
     using UnityEngine;
 
-    public class ItemData 
+    public class ShopItemData 
     {
-        #region Identifier
-        [BsonId]
-        public string SessionItemId {  get; set; }
+        #region Identifiers
+        [BsonId] 
+        public string SessionItemId { get; set; }
         public string SessionId { get; set; }
         public string RawItemId { get; set; }
         #endregion
 
-        /// <summary>
-        /// Stack item amount
-        /// </summary>
         public int RemainAmount { get; set; }
     }
 }

@@ -12,6 +12,12 @@ namespace SEP490G69.GameSessions
         private LiteDatabase _database;
         private ILiteCollection<PlayerTrainingSession> _collection;
 
+        public GameSessionDAO()
+        {
+            _database = LocalDBInitiator.GetDatabase();
+            _collection = _database.GetCollection<PlayerTrainingSession>(COLLECTION_NAME);
+        }
+
         public GameSessionDAO(LiteDatabase database)
         {
             _database = database;

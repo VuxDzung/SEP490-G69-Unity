@@ -1,4 +1,4 @@
-namespace SEP490G69
+namespace SEP490G69.Economy
 {
     using UnityEngine;
 
@@ -6,6 +6,8 @@ namespace SEP490G69
     public class ItemDataConfigSO : ScriptableObject
     {
         [SerializeField] private ItemDataSO[] m_Items;
+
+        public ItemDataSO[] Items => m_Items;
 
         public ItemDataSO GetItem(string itemID)
         {

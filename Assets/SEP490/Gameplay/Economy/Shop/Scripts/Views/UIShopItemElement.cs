@@ -1,0 +1,35 @@
+namespace SEP490G69.Economy
+{
+    using System.Drawing;
+    using TMPro;
+    using UnityEngine;
+
+    public class UIShopItemElement : UIInventoryItemSlot
+    {
+        [SerializeField] private GameObject m_SoldOutTextGO;
+        [SerializeField] private TextMeshProUGUI m_NameTmp;
+        [SerializeField] private TextMeshProUGUI m_CostTmp;
+
+        public UIShopItemElement BindShopItem(ShopItemDataHolder item)
+        {
+            _itemId = item.GetRawItemId();
+
+            if (m_Icon != null) m_Icon.sprite = item.GetIcon();
+            if (m_NameTmp != null) m_NameTmp.text = item.GetItemName();
+            if (m_AmountTmp != null) m_AmountTmp.text = item.GetRemainAmount().ToString();
+            if (m_CostTmp != null) m_CostTmp.text = item.GetPrice().ToString();
+            return this;
+        }
+
+        public void ShowSoldOut()
+        {
+            m_SoldOutTextGO.SetActive(true);
+            m_CostTmp.enabled = false;
+        }
+        public void HideSoldOut()
+        {
+            m_SoldOutTextGO.SetActive(false);
+            m_CostTmp.enabled = true;
+        }
+    }
+}

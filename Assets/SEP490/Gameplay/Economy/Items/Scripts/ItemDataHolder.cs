@@ -1,7 +1,7 @@
-namespace SEP490G69
-{
-    using SEP490G69.Addons.Localization;
+using UnityEngine;
 
+namespace SEP490G69.Economy
+{
     /// <summary>
     /// This is a holder for both hard-data (in-editor data) and runtime data
     /// </summary>
@@ -10,68 +10,78 @@ namespace SEP490G69
     {
         private ItemData _data;
         private ItemDataSO _dataSO;
-        private LocalizationManager _localization;
 
-        public string GetItemName()
+        public string GetSessionItemId() => _data.SessionItemId;
+
+        public string GetRawId() => _data.RawItemId;
+
+        public string GetSessionId() => _data.SessionId;
+        public Sprite GetIcon() => _dataSO == null ? null : _dataSO.ItemImage;
+        public EItemType GetItemType() => _dataSO.ItemType;
+        public string GetItemNameKey()
         {
-            if (_localization == null) return string.Empty;
-
-            if (_dataSO == null) return string.Empty;
-
-            return _localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, _dataSO.ItemID);
+            return _dataSO == null ? string.Empty : _dataSO.ItemNameKey;
         }
+
         public string GetItemDescription()
         {
-            if (_localization == null) return string.Empty;
-
-            if (_dataSO == null) return string.Empty;
-
-            return _localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, _dataSO.ItemID);
+            return _dataSO == null ? string.Empty : _dataSO.ItemDescKey;
         }
 
-        public bool TryUseItem(int amount)
+        public int GetRemainAmount()
         {
-            if (_data == null) return false;
-            if (_data.RemainAmount < amount) return false;
-            _data.RemainAmount -= amount;
-            return true;
+            return _data.RemainAmount;
         }
 
         public void AddItemAmount(int amount)
         {
             if (_data == null) return;
-
             _data.RemainAmount += amount;
+        }
+
+        public bool DecreaseItemAmount(int amount)
+        {
+            if (_data == null) return false;
+            if (_data.RemainAmount < amount) return false;
+
+            _data.RemainAmount -= amount;
+            return true;
+        }
+
+        public void UpdateChanges(GameInventoryDAO dao)
+        {
+            dao.Update(_data);
+        }
+
+        public bool TryConvertAsRelic(out EquipmentData equipmentData)
+        {
+            equipmentData = _data as EquipmentData;
+            return equipmentData != null;
         }
 
         public class Builder
         {
             private ItemData data;
             private ItemDataSO dataSO;
-            private LocalizationManager localization;
 
             public Builder WithRuntimeData(ItemData data)
             {
                 this.data = data;
                 return this;
             }
+
             public Builder WithDataSO(ItemDataSO dataSO)
             {
                 this.dataSO = dataSO;
                 return this;
             }
-            public Builder WithLocalization(LocalizationManager localization)
-            {
-                this.localization = localization;
-                return this;
-            }
+
             public ItemDataHolder Build()
             {
                 return new ItemDataHolder
                 {
                     _data = data,
-                    _dataSO = dataSO,
-                    _localization = localization,
+                    _dataSO = dataSO
                 };
             }
         }

@@ -92,6 +92,7 @@ namespace SEP490G69.Training
             m_TournamentBtn.onClick.AddListener(ShowCalendar);
             m_DeckBtn.onClick.AddListener(ShowDeck);
             m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
+            m_InventoryBtn.onClick.AddListener(ShowInventory);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
@@ -114,9 +115,11 @@ namespace SEP490G69.Training
             m_TournamentBtn.onClick.RemoveListener(ShowCalendar);
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
             m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
-            if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
+            m_InventoryBtn.onClick.RemoveListener(ShowInventory);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
+
+            if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
         }
 
         private void LoadCharacterStats()
@@ -197,7 +200,7 @@ namespace SEP490G69.Training
         }
         private void ShowShop()
         {
-
+            UIManager.ShowFrame(GameConstants.FRAME_ID_SHOP);
         }
 
         private void ShowTrainingMenu()
@@ -232,6 +235,11 @@ namespace SEP490G69.Training
             TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
+        }
+
+        private void ShowInventory()
+        {
+            UIManager.ShowFrame(GameConstants.FRAME_ID_INVENTORY);
         }
 
         private void TestShowCombat()

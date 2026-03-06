@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SEP490/Gameplay/Exploration/Scenes/Scene.Exploration.unity
     guid: bec09f9c882209248b89625fbebefeef
+  - enabled: 1
+    path: Assets/SEP490/Gameplay/Tournaments/Scenes/Scene.Tournament.unity
+    guid: af0bde06e6dbcf049a02c7e0b2fe088d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

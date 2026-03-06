@@ -31,6 +31,11 @@ namespace SEP490G69
         public const string FRAME_ID_TRAINING_RESULT = "Frame.TrainingResult";
         public const string FRAME_ID_TOURNAMENT_BRACKET = "Frame.TournamentBracket";
         public const string FRAME_ID_STAT_EFFECT_DETAILS = "Frame.StatEffectDetails";
+
+        public const string FRAME_ID_INVENTORY = "Frame.Inventory";
+        public const string FRAME_ID_INVENTORY_ITEM_DETAILS = "Frame.InventoryItemDetails";
+
+        public const string FRAME_ID_SHOP = "Frame.Shop";
         #endregion
 
         #region Scene names
@@ -118,10 +123,11 @@ namespace SEP490G69
         #region Pool names
         public const string POOL_UI_STATUS_EFFECT_DETAILS = "UIStatEffectDetails";
         public const string POOL_UI_CARD = "UICard";
+        public const string POOL_UI_INVENTORY_ITEM = "UIInventoryItem";
+        public const string POOL_UI_SHOP_ITEM = "UIShopItem";
         #endregion
 
         public const int TRAINING_STARTER_LEVEL = 1;
-        public const int MAX_STAT_VALUE = 1000;
         public const int MAX_100 = 100;
         public const float BASE_FILL_SPEED = 50f;
         public const string MOOD_FORMAT = "Mood: {0}";

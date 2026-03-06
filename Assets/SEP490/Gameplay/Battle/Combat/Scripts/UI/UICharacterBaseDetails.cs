@@ -22,14 +22,17 @@ namespace SEP490G69.Battle.Combat
         public void SetVit(float cur, float max)
         {
             m_VitSlider.SetValue(cur, max);
+            //m_VitSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetStamina(float cur, float max)
         {
             m_DefSlider.SetValue(cur, max);
+            //m_DefSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetSpeed(float cur, float max)
         {
             m_SpeedSlider.SetValue(cur, max);
+            //m_SpeedSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
     }
 }

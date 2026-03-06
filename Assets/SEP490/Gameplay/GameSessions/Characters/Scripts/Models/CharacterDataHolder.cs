@@ -153,32 +153,32 @@ namespace SEP490G69
         public void SetVit(float finalGain)
         {
             _characterData.CurrentMaxVitality = finalGain;
-            _characterData.CurrentMaxVitality = Mathf.Clamp(_characterData.CurrentMaxVitality, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentMaxVitality = Mathf.Clamp(_characterData.CurrentMaxVitality, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
         public void SetPower(float finalGain)
         {
             _characterData.CurrentPower = finalGain;
-            _characterData.CurrentPower = Mathf.Clamp(_characterData.CurrentPower, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentPower = Mathf.Clamp(_characterData.CurrentPower, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
         public void SetAgi(float finalGain)
         {
             _characterData.CurrentAgi = finalGain;
-            _characterData.CurrentAgi = Mathf.Clamp(_characterData.CurrentAgi, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentAgi = Mathf.Clamp(_characterData.CurrentAgi, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
         public void SetStamina(float finalGain)
         {
             _characterData.CurrentStamina = finalGain;
-            _characterData.CurrentStamina = Mathf.Clamp(_characterData.CurrentStamina, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentStamina = Mathf.Clamp(_characterData.CurrentStamina, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
         public void SetInt (float finalGain)
         {
             _characterData.CurrentIntelligence = finalGain;
-            _characterData.CurrentIntelligence = Mathf.Clamp(_characterData.CurrentIntelligence, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentIntelligence = Mathf.Clamp(_characterData.CurrentIntelligence, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
         public void SetDef(float finalGain)
         {
             _characterData.CurrentDef = finalGain;
-            _characterData.CurrentDef = Mathf.Clamp(_characterData.CurrentDef, 0, GameConstants.MAX_STAT_VALUE);
+            _characterData.CurrentDef = Mathf.Clamp(_characterData.CurrentDef, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
 
         #region Builder

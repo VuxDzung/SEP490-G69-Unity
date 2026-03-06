@@ -9,6 +9,7 @@ namespace SEP490G69
         [SerializeField] private bool m_Readonly = false;
         [SerializeField] private Slider m_Slider;
         [SerializeField] private TextMeshProUGUI m_Tmp;
+        [SerializeField] private TextMeshProUGUI m_RankTmp;
 
         private void Start()
         {
@@ -20,6 +21,14 @@ namespace SEP490G69
             //m_Slider.maxValue = max;
             m_Slider.value = cur / max;
             m_Tmp.text = $"{cur}/{max}";
+        }
+
+        public void SetRank(string rank)
+        {
+            if (m_RankTmp != null)
+            {
+                m_RankTmp.text = rank;
+            }
         }
     }
 }

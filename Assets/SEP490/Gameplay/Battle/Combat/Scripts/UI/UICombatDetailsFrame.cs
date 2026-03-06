@@ -77,30 +77,35 @@ namespace SEP490G69.Battle.Combat
         public UICombatDetailsFrame SetPlayerVit(float cur, float max)
         {
             m_PlayerVitSlider.SetValue(cur, max);
+            m_PlayerVitSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetPlayerPow(float cur, float max)
         {
             m_PlayerPowSlider.SetValue(cur, max);
+            m_PlayerPowSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetPlayerAgi(float cur, float max)
         {
             m_PlayerAgiSlider.SetValue(cur, max);
+            m_PlayerAgiSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetPlayerInt(float cur, float max)
         {
             m_PlayerIntSlider.SetValue(cur, max);
+            m_PlayerIntSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetPlayerSta(float cur, float max)
         {
             m_PlayerStaSlider.SetValue(cur, max);
+            m_PlayerStaSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
@@ -111,30 +116,35 @@ namespace SEP490G69.Battle.Combat
         public UICombatDetailsFrame SetEnemyVit(float cur, float max)
         {
             m_EnemyVitSlider.SetValue(cur, max);
+            m_EnemyVitSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetEnemyPow(float cur, float max)
         {
             m_EnemyPowSlider.SetValue(cur, max);
+            m_EnemyPowSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetEnemyAgi(float cur, float max)
         {
             m_EnemyAgiSlider.SetValue(cur, max);
+            m_EnemyAgiSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetEnemyInt(float cur, float max)
         {
             m_EnemyIntSlider.SetValue(cur, max);
+            m_EnemyIntSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 
         public UICombatDetailsFrame SetEnemySta(float cur, float max)
         {
             m_EnemyStaSlider.SetValue(cur, max);
+            m_EnemyStaSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
             return this;
         }
 

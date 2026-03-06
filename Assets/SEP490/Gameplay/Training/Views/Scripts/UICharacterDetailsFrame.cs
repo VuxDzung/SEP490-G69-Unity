@@ -71,33 +71,37 @@ namespace SEP490G69.Training
 
         private void LoadCharacterStats()
         {
-            SetVitality(TrainingController.CharacterData.GetVIT(), GameConstants.MAX_STAT_VALUE);
-            SetPower(TrainingController.CharacterData.GetPower(), GameConstants.MAX_STAT_VALUE);
-            SetINT(TrainingController.CharacterData.GetINT(), GameConstants.MAX_STAT_VALUE);
-            SetAgility(TrainingController.CharacterData.GetAgi(), GameConstants.MAX_STAT_VALUE);
-            SetStamina(TrainingController.CharacterData.GetStamina(), GameConstants.MAX_STAT_VALUE);
+            SetVitality(TrainingController.CharacterData.GetVIT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetVIT()));
+            SetPower(TrainingController.CharacterData.GetPower(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetPower()));
+            SetINT(TrainingController.CharacterData.GetINT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetINT()));
+            SetAgility(TrainingController.CharacterData.GetAgi(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetAgi()));
+            SetStamina(TrainingController.CharacterData.GetStamina(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetStamina()));
         }
-
 
         public void SetVitality(float cur, float max)
         {
             m_VitSlider.SetValue(cur, max);
+            m_VitSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetPower(float cur, float max)
         {
             m_PowerSlider.SetValue(cur, max);
+            m_PowerSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetAgility(float cur, float max)
         {
             m_AgiSlider.SetValue(cur, max);
+            m_AgiSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetINT(float cur, float max)
         {
             m_INTSlider.SetValue(cur, max);
+            m_INTSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
         public void SetStamina(float cur, float max)
         {
             m_StaminaSlider.SetValue(cur, max);
+            m_StaminaSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
         }
     }
 }

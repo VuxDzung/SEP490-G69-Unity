@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Readonly: 0
   m_Slider: {fileID: 6917143482419206053}
   m_Tmp: {fileID: 6297528842893598010}
+  m_RankTmp: {fileID: 1115362270143071535}
 --- !u!1 &5026714271489582108
 GameObject:
   m_ObjectHideFlags: 0

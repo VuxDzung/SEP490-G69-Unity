@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tournamentId: tor_0001
   tournamentName: tor_0001_name
+  m_IsCheckpointTournament: 0
   EnemyIdArray: []
   m_EntryConditions:
   - {fileID: 11400000, guid: 83e3816359f58b344ab4416b34bf0c4c, type: 2}
@@ -21,18 +22,34 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3fe3f13dd82642049b0a50a0b1ef725d, type: 2}
   m_RewardRanks:
   - m_Rank: 1
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 2
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 3
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 4
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 5
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 6
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 7
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
   - m_Rank: 8
-    m_Rewards: []
+    m_Rewards:
+    - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
+    - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}

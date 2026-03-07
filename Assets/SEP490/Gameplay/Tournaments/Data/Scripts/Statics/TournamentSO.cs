@@ -22,6 +22,9 @@ namespace SEP490G69.Tournament
         public string Name => tournamentName;
         public bool IsCheckpointTournament => m_IsCheckpointTournament;
         public string[] EnemyIds => EnemyIdArray;
+
+        public IReadOnlyList<TournamentConditionSO> EntryConditions => m_EntryConditions;
+        public IReadOnlyList<TournamentObjectiveSO> Objectives => m_Objectives;
         public IReadOnlyList<RewardRankData> RewardRanks => m_RewardRanks;
     }
 

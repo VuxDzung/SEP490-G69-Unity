@@ -23,7 +23,8 @@ namespace SEP490G69
 
         public BaseCharacterSO[] GetCharactersByType(ECharacterType characterType)
         {
-            return m_Characters.Where(c => c.CharacterType == characterType && c.IsAvailable == true).ToArray();  
+            return m_Characters.Where(c => c.CharacterType == characterType && 
+                                           c.IsAvailable == true).ToArray();  
         }
     }
 }

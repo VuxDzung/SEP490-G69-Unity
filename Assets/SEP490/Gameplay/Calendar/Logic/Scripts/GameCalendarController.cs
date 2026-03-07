@@ -171,6 +171,15 @@ namespace SEP490G69.Calendar
             return _calendarConfig.GetWeek(week);
         }
 
+        public int GetCurrentWeekInt()
+        {
+            if (_currentSesssion == null)
+            {
+                return -1;
+            }
+            return _currentSesssion.CurrentWeek;
+        }
+
         public string GetCurrentWeek()
         {
             if (_currentSesssion == null) return "No Session";

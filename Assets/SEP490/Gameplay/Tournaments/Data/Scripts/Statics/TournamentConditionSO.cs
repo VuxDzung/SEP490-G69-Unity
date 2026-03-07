@@ -1,6 +1,7 @@
 namespace SEP490G69.Tournament
 {
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "TournamentCondition_", menuName = OrganizationConstants.NAMESPACE + "/Tournaments/Tournament condition data")]
@@ -17,10 +18,19 @@ namespace SEP490G69.Tournament
         public string ConditionName => m_ConditionName.Trim();
         public string ConditionDesc => m_TournamentDesc.Trim();
         public IReadOnlyList<ConditionParamData> EntryParams => m_EntryParams;
+
+        public ConditionParamData GetParamByStatType(EStatusType statType)
+        {
+            if (m_EntryParams == null || m_EntryParams.Count == 0)
+            {
+                return null;
+            }
+            return m_EntryParams.FirstOrDefault(pa => pa.StatusType == statType);
+        }
     }
 
     [System.Serializable]
-    public struct ConditionParamData
+    public class ConditionParamData
     {
         [SerializeField] private EStatusType m_StatusType;
         [SerializeField] private float m_RequiredValue;

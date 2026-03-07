@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5ffb1f5cc6c654d87f22658d91290d, type: 3}
-  m_Name: CalendarWeek_5
+  m_Script: {fileID: 11500000, guid: ffdc328cb49c8af4383107ab984ced71, type: 3}
+  m_Name: Reward_tour_0001_0002
   m_EditorClassIdentifier: 
-  m_Week: 5
-  m_Tournaments:
-  - {fileID: 11400000, guid: 285cbb1b0d073744bb32af92dc0acfbd, type: 2}
+  m_RewardId: re_tour_0001_0001
+  m_RewardName: re_tour_0001_0001_name
+  m_RewardType: 2
+  m_RewardAmount: 50
+  m_StatModifiers: []

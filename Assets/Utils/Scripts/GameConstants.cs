@@ -99,6 +99,8 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_UI_TEXT = "UIText";
 
         public const string LOCALIZE_CATEGORY_MONTH_NAMES = "MonthNames";
+
+        public const string LOCALIZE_CATEGORY_TOUR_NAMES = "TournamentNames";
         #endregion
 
         #region Currencies id

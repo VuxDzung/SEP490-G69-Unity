@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5ffb1f5cc6c654d87f22658d91290d, type: 3}
-  m_Name: CalendarWeek_5
+  m_Script: {fileID: 11500000, guid: b2e88854fc56d3142bf52c38fe2b57e8, type: 3}
+  m_Name: mod_re_tour_0001_0001
   m_EditorClassIdentifier: 
-  m_Week: 5
-  m_Tournaments:
-  - {fileID: 11400000, guid: 285cbb1b0d073744bb32af92dc0acfbd, type: 2}
+  m_Id: mod_re_tour_0001_0001
+  m_DisplayOnUI: 0
+  m_StatType: 11
+  m_Operator: 4
+  m_Value: 50
+  m_RandomNumber: 0
+  m_Min: 0
+  m_Max: 0
+  m_Description: Reward for 50 RP.

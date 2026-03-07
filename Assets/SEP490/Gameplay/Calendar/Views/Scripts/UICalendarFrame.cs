@@ -1,6 +1,8 @@
 namespace SEP490G69.Calendar
 {
+    using SEP490G69.Tournament;
     using SEP490G69.Training;
+    using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -11,6 +13,8 @@ namespace SEP490G69.Calendar
         [SerializeField] private Button m_NextBtn;
         [SerializeField] private TextMeshProUGUI m_CurrentTimeTmp;
         [SerializeField] private Button m_BackBtn;
+        [SerializeField] private Transform m_TournamentContainer;
+        [SerializeField] private Transform m_TournamentUIPrefab;
         [SerializeField] private GameObject m_NoTournamentGO;
 
         private int _currentWeek;
@@ -46,7 +50,13 @@ namespace SEP490G69.Calendar
 
         public void LoadCalendarTime()
         {
-            m_CurrentTimeTmp.text = CalendarController.GetCalendarTime();
+            //m_CurrentTimeTmp.text = CalendarController.GetCalendarTime();
+            _currentWeek = CalendarController.GetCurrentWeekInt();
+            if (_currentWeek < 0)
+            {
+                return;
+            }
+            DisplayPreviewWeek(_currentWeek);
         }
 
         private void Prev()
@@ -79,14 +89,51 @@ namespace SEP490G69.Calendar
             CalendarWeekSO weekSO = CalendarController.GetWeekData(week + 1);
             m_CurrentTimeTmp.text = CalendarController.GetCalendarTime(week);
 
+            if (!PoolManager.Pools["UITournament"].IsEmpty)
+            {
+                PoolManager.Pools["UITournament"].DespawnAll();
+            }
+
             if (weekSO.Tournaments.Count > 0)
             {
                 m_NoTournamentGO.SetActive(false);
+                foreach (TournamentSO data in weekSO.Tournaments)
+                {
+                    Transform tournamentUITrans = PoolManager.Pools["UITournament"].Spawn(m_TournamentUIPrefab, m_TournamentContainer);
+                    UITournamentElement tournamentUI = tournamentUITrans.GetComponent<UITournamentElement>();
+                    if (tournamentUI == null) continue;
+
+                    string tournamentName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOUR_NAMES, data.Name);
+
+                    string requiredRank = "";
+
+                    if (data.EntryConditions.Count > 0)
+                    {
+                        TournamentConditionSO condition = data.EntryConditions[0];
+                        ConditionParamData paramData = condition.GetParamByStatType(EStatusType.RP);
+
+                        if (paramData != null)
+                        {
+                            requiredRank = CharacterStatUtils.GetReputationRank((int)paramData.RequiredValue);
+                        }
+                    }
+
+                    IReadOnlyList<RewardRankData> rewards = data.RewardRanks.Count > 0 ? data.RewardRanks : null;
+
+                    tournamentUI.SetOnClickDetails(ViewTournamentDetails)
+                                .SetId(data.TournamentId)
+                                .SetContent(tournamentName, requiredRank, rewards);
+                }
             }
             else
             {
                 m_NoTournamentGO.SetActive(true);
             }
+        }
+
+        private void ViewTournamentDetails(string tournamentId)
+        {
+
         }
     }
 }

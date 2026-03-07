@@ -29,3 +29,9 @@ MonoBehaviour:
   baseAgi: 20
   baseEnergy: 100
   baseMood: 100
+  m_TrainingModifiers:
+  - {fileID: 11400000, guid: 37f604d5eff70ec4db281b53f9bd8b8f, type: 2}
+  - {fileID: 11400000, guid: 94ccd1e949bb3bd449f497092a06cd77, type: 2}
+  - {fileID: 11400000, guid: 5e9510a1451ec8140a615d147effc147, type: 2}
+  - {fileID: 11400000, guid: 3c90259bf46b72a48a172ee32960cdb2, type: 2}
+  - {fileID: 11400000, guid: f823caec4f0cce946a5609e830a78f1f, type: 2}

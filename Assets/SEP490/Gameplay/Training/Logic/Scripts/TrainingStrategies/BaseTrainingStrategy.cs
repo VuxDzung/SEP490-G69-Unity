@@ -10,6 +10,7 @@
 
         protected TrainingExerciseDataHolder _exerciseDataHolder;
         protected TrainingExerciseDAO _trainingDAO;
+        protected PlayerCharacterDAO _characterDAO;
 
         public ETrainingType TrainingType => m_TrainingType;
         public string ExerciseId => m_ExerciseId;
@@ -18,9 +19,11 @@
         /// <summary>
         /// Logic dùng chung để khởi tạo dữ liệu bài tập từ DAO
         /// </summary>
-        public virtual void Initialize(TrainingExerciseDAO dao, string sessionId, TrainingExerciseSO exerciseSO)
+        public virtual void Initialize(TrainingExerciseDAO dao, PlayerCharacterDAO characterDAO, string sessionId, TrainingExerciseSO exerciseSO)
         {
             _trainingDAO = dao;
+            _characterDAO = characterDAO;
+
             SessionTrainingExercise exerciseData = _trainingDAO.GetByIdAndSessionId(sessionId, exerciseSO.ExerciseId);
 
             if (exerciseData == null)
@@ -54,21 +57,30 @@
 
                 float before = character.GetStatus(statType);
 
-                // Step 1: Base delta
+                // Step 1: Base delta from reward
                 float delta = reward.Modifier.GetDelta(before);
 
                 // Step 2: Facility scaling
                 delta += reward.BonusPerLevel * (facilityLevel - 1);
 
-                // Step 3: Mood multiplier (chỉ apply khi success)
+                // Step 3: Success / Fail
                 if (isSuccess)
                     delta *= moodMultiplier;
                 else
                     delta *= 0.1f; // Fail hiệu suất 10%
 
+                // STEP 4: Character modifier
+                StatusModifierSO charModifier = character.GetModifierByType(statType);
+                if (charModifier != null)
+                {
+                    float modifierDelta = charModifier.GetDelta(before);
+                    delta += modifierDelta;
+                }
+
                 float after = before + delta;
 
                 character.SetStatus(statType, after);
+                //character.UpdateChanges(_characterDAO); // Update to DB.
 
                 result.Changes.Add(new StatChange(statType, before, delta));
             }

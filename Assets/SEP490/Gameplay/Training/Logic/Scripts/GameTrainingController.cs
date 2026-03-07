@@ -35,6 +35,7 @@ namespace SEP490G69.Training
         private GameSessionDAO _sessionDAO;
         private TrainingExerciseDAO _exercisesDAO;
         private PlayerCharacterRepository _characterRepo;
+        private PlayerCharacterDAO _characterDAO;
 
         private List<ITrainingStrategy> _exerciseList = new List<ITrainingStrategy>();
 
@@ -74,7 +75,7 @@ namespace SEP490G69.Training
             _exerciseList.ForEach(ex =>
             {
                 TrainingExerciseSO _so = _exercisesConfig.GetExercise(ex.ExerciseId);
-                ex.Initialize(_exercisesDAO, sessionId, _so);
+                ex.Initialize(_exercisesDAO, _characterDAO, sessionId, _so);
             });
         }
 
@@ -103,6 +104,7 @@ namespace SEP490G69.Training
             _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
             _exercisesDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
         }
 
         private void LoadCharacter()

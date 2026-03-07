@@ -62,3 +62,75 @@ MonoBehaviour:
       text: Intimidate
     - language: 1
       text: "\u0110e d\u1ECDa"
+  - id: card_0009_name
+    textList:
+    - language: 0
+      text: Trip
+    - language: 1
+      text: "Chuy\u1EBFn \u0111i"
+  - id: card_0010_name
+    textList:
+    - language: 0
+      text: First Aid
+    - language: 1
+      text: "S\u01A1 c\u1EE9u"
+  - id: card_0011_name
+    textList:
+    - language: 0
+      text: Heavy Slash
+    - language: 1
+      text: "Tr\u1ECDng Tr\u1EA3m"
+  - id: card_0012_name
+    textList:
+    - language: 0
+      text: Reckless Charge
+    - language: 1
+      text: "Xung Phong Li\u1EC1u L\u0129nh"
+  - id: card_0013_name
+    textList:
+    - language: 0
+      text: Headbutt
+    - language: 1
+      text: "H\xFAc \u0110\u1EA7u"
+  - id: card_0014_name
+    textList:
+    - language: 0
+      text: Blood Rage
+    - language: 1
+      text: "Cu\u1ED3ng huy\u1EBFt"
+  - id: card_0015_name
+    textList:
+    - language: 0
+      text: Power Focus
+    - language: 1
+      text: "T\u1EE5 L\u1EF1c"
+  - id: card_0016_name
+    textList:
+    - language: 0
+      text: Execute
+    - language: 1
+      text: "H\xE0nh quy\u1EBFt"
+  - id: card_0017_name
+    textList:
+    - language: 0
+      text: War Cry
+    - language: 1
+      text: "Chi\u1EBFn H\u1ED1ng"
+  - id: card_0018_name
+    textList:
+    - language: 0
+      text: Berserker Slash
+    - language: 1
+      text: "Cu\u1ED3ng Chi\u1EBFn Tr\u1EA3m"
+  - id: card_0019_name
+    textList:
+    - language: 0
+      text: All Out Strike
+    - language: 1
+      text: "To\xE0n L\u1EF1c Tr\u1EA3m"
+  - id: card_0020_name
+    textList:
+    - language: 0
+      text: Last Resort
+    - language: 1
+      text: "\u0110\xF2n Tuy\u1EC7t M\u1EC7nh"

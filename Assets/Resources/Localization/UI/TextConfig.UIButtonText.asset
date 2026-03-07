@@ -188,3 +188,9 @@ MonoBehaviour:
       text: Upgrade
     - language: 1
       text: "N\xE2ng c\u1EA5p"
+  - id: btn_enter
+    textList:
+    - language: 0
+      text: Enter
+    - language: 1
+      text: "V\xE0o"

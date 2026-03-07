@@ -108,6 +108,7 @@ namespace SEP490G69.Calendar
 
         private void Click()
         {
+            Debug.Log($"Tournament {_id} clicked.");
             _onClick?.Invoke(_id);
         }
     }

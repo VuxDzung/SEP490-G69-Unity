@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7d4ef864f8d5d40a23a44e2ffc111a, type: 3}
-  m_Name: TournamentConfig
+  m_Script: {fileID: 11500000, guid: ffdc328cb49c8af4383107ab984ced71, type: 3}
+  m_Name: Reward_tour_0001_0003
   m_EditorClassIdentifier: 
-  m_Tournaments: []
+  m_RewardId: re_tour_0001_0001
+  m_RewardName: re_tour_0001_0001_name
+  m_RewardType: 2
+  m_RewardAmount: 50
+  m_StatModifiers: []

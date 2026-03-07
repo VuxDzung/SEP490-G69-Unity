@@ -141,6 +141,10 @@ namespace SEP490G69.Calendar
                 // Show tournament details frame here.
                 UIManager.ShowFrame(GameConstants.FRAME_ID_TOURNAMENT_DETAILS).AsFrame<UITournamentDetailsFrame>().LoadTournamentData(tournamentSO);
             }
+            else
+            {
+                Debug.LogError($"Tournament with ID {tournamentId} not found in TournamentConfig.");
+            }
         }
     }
 }

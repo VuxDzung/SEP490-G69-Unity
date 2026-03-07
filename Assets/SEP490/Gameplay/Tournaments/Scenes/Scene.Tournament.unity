@@ -165,7 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TournamentConfig: {fileID: 11400000, guid: 19677024dce3071459ed70d20d1eb8be, type: 2}
   m_CharacterConfig: {fileID: 11400000, guid: 573e543c66ef9524d828d669734f1a64, type: 2}
-  m_EnemyConfig: {fileID: 0}
+  m_IsTesting: 1
+  m_TournamentId: tor_0001
 --- !u!1001 &1229063777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -270,6 +271,10 @@ PrefabInstance:
     - target: {fileID: 3739192284839010799, guid: ccefb38b3b0c3fe4e949569ac6224ac0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862968475767064575, guid: ccefb38b3b0c3fe4e949569ac6224ac0, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8381961176836066192, guid: ccefb38b3b0c3fe4e949569ac6224ac0, type: 3}
       propertyPath: m_Name

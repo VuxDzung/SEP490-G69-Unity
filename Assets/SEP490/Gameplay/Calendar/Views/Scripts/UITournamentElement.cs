@@ -103,7 +103,7 @@ namespace SEP490G69.Calendar
                 return;
             }
 
-            preview.SetContent(rewardSO.RewardId, rewardSO.RewardType, rewardSO.RewardAmount);
+            preview.SetContent(rewardSO.Id, rewardSO.RewardType, rewardSO.RewardAmount);
         }
 
         private void Click()

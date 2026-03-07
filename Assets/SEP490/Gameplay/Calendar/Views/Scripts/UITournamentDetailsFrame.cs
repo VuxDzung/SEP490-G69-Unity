@@ -114,7 +114,7 @@
                                 CardConfigSO cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
                                 if (cardConfig != null)
                                 {
-                                    CardSO cardData = cardConfig.GetCardById(rewardSO.RewardId);
+                                    CardSO cardData = cardConfig.GetCardById(rewardSO.RewardTargetId);
                                     if (cardData != null)
                                     {
                                         itemName = cardData.CardName; // Lấy tên thật của thẻ
@@ -132,7 +132,7 @@
                             }
 
                             // Gán dữ liệu cho UI Element
-                            uiElement.SetIdAndType(rewardSO.RewardId, rewardSO.RewardType)
+                            uiElement.SetIdAndType(rewardSO.Id, rewardSO.RewardType)
                                      .SetOnClickDetails(ViewRewardDetails)
                                      .SetContent(itemName, itemType, itemIcon);
                         }

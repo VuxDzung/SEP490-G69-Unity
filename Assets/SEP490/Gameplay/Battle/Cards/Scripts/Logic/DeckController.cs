@@ -1,16 +1,14 @@
-using UnityEngine;
-
-public class DeckController : MonoBehaviour
+namespace SEP490G69.Battle.Cards
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    using UnityEngine;
 
-    // Update is called once per frame
-    void Update()
+    public class DeckController : MonoBehaviour, IGameContext
     {
-        
+        private ContextManager _contextManager;
+
+        public void SetManager(ContextManager manager)
+        {
+            _contextManager = manager;
+        }
     }
 }

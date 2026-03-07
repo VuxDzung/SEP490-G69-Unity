@@ -62,16 +62,8 @@ namespace SEP490G69.Economy
 
             if (isRelic)
             {
-                if (item.TryConvertAsRelic(out EquipmentData equipment))
-                {
-                    m_EquipBtn.gameObject.SetActive(equipment.Slot == InventoryManager.EMPTY_RELIC_SLOT);
-                    m_UnequipBtn.gameObject.SetActive(equipment.Slot != InventoryManager.EMPTY_RELIC_SLOT);
-                }
-                else
-                {
-                    m_EquipBtn.gameObject.SetActive(false);
-                    m_UnequipBtn.gameObject.SetActive(false);
-                }
+                m_EquipBtn.gameObject.SetActive(item.GetEquipmentSlot() == InventoryManager.EMPTY_RELIC_SLOT);
+                m_UnequipBtn.gameObject.SetActive(item.GetEquipmentSlot() != InventoryManager.EMPTY_RELIC_SLOT);
                 return;
             }
             m_EquipBtn.gameObject.SetActive(false);

@@ -1,7 +1,6 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
     using System.Collections.Generic;
-    using System.Linq;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Battle.Cards;
     using SEP490G69.GameSessions;
@@ -137,9 +136,32 @@
             _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
         }
 
-        public void InitializeBattle()
-        {
+        private void InitializeBattle()
+        {            
             // Initialize player character
+            InitializePlayerCharacter();
+
+            // Initialize enemy
+            InitializeEnemyCharacter();
+
+            // Show preview combat details.
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT_DETAILS)
+                         .AsFrame<UICombatDetailsFrame>()
+                         .SetPlayerCharName(_playerCharacterCombat.ReadonlyDataHolder.GetCharacterName())
+                         .SetPlayerVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetPlayerPow(_playerCharacterCombat.CurrentDataHolder.GetPower(), _playerCharacterCombat.ReadonlyDataHolder.GetPower())
+                         .SetPlayerAgi(_playerCharacterCombat.CurrentDataHolder.GetAgi(), _playerCharacterCombat.ReadonlyDataHolder.GetAgi())
+                         .SetPlayerInt(_playerCharacterCombat.CurrentDataHolder.GetINT(), _playerCharacterCombat.ReadonlyDataHolder.GetINT())
+                         .SetPlayerSta(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
+                         .SetEnemyName(_enemyCharacterCombat.ReadonlyDataHolder.GetCharacterName())
+                         .SetEnemyVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetEnemyPow(_enemyCharacterCombat.CurrentDataHolder.GetPower(), _enemyCharacterCombat.ReadonlyDataHolder.GetPower())
+                         .SetEnemyAgi(_enemyCharacterCombat.CurrentDataHolder.GetAgi(), _enemyCharacterCombat.ReadonlyDataHolder.GetAgi())
+                         .SetEnemyInt(_enemyCharacterCombat.CurrentDataHolder.GetINT(), _enemyCharacterCombat.ReadonlyDataHolder.GetINT())
+                         .SetEnemySta(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina());
+        }
+        private void InitializePlayerCharacter()
+        {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             if (string.IsNullOrEmpty(sessionId))
             {
@@ -170,8 +192,9 @@
             {
                 Debug.LogError($"PlayerCombatController does not exist in character {_enemyCharacterId} prefab");
             }
-
-            // Initialize enemy
+        }
+        private void InitializeEnemyCharacter()
+        {
             _enemyCharacterId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID);//"ch_0010";
 
             if (string.IsNullOrEmpty(_enemyCharacterId))
@@ -191,22 +214,6 @@
             {
                 Debug.LogError($"EnemyCombatController does not exist in character {_enemyCharacterId} prefab");
             }
-            
-            // Show preview combat details.
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT_DETAILS)
-                         .AsFrame<UICombatDetailsFrame>()
-                         .SetPlayerCharName(_playerCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetPlayerVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetPlayerPow(_playerCharacterCombat.CurrentDataHolder.GetPower(), _playerCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetPlayerAgi(_playerCharacterCombat.CurrentDataHolder.GetAgi(), _playerCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetPlayerInt(_playerCharacterCombat.CurrentDataHolder.GetINT(), _playerCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetPlayerSta(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
-                         .SetEnemyName(_enemyCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetEnemyVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetEnemyPow(_enemyCharacterCombat.CurrentDataHolder.GetPower(), _enemyCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetEnemyAgi(_enemyCharacterCombat.CurrentDataHolder.GetAgi(), _enemyCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetEnemyInt(_enemyCharacterCombat.CurrentDataHolder.GetINT(), _enemyCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetEnemySta(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina());
         }
 
         public void StartBattle()

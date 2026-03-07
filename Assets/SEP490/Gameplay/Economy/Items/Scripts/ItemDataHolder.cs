@@ -59,6 +59,20 @@ namespace SEP490G69.Economy
             return equipmentData != null;
         }
 
+        public bool IsRelic()
+        {
+            return TryConvertAsRelic(out EquipmentData relic);
+        }
+
+        public int GetEquipmentSlot()
+        {
+            if (TryConvertAsRelic(out EquipmentData relic))
+            {
+                return relic.Slot;
+            }
+            return -1;
+        }
+
         public class Builder
         {
             private ItemData data;

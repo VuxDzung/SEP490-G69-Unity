@@ -73,7 +73,11 @@ namespace SEP490G69.Battle.Combat
         }
 
         #region Player Stats
-
+        public UICombatDetailsFrame SetPlayerCharName(string name)
+        {
+            m_PlayerCharNameTmp.text = name;
+            return this;
+        }
         public UICombatDetailsFrame SetPlayerVit(float cur, float max)
         {
             m_PlayerVitSlider.SetValue(cur, max);
@@ -112,7 +116,11 @@ namespace SEP490G69.Battle.Combat
         #endregion
 
         #region Enemy Stats
-
+        public UICombatDetailsFrame SetEnemyName(string enemyName)
+        {
+            m_EnemyNameTmp.text = enemyName;
+            return this;
+        }
         public UICombatDetailsFrame SetEnemyVit(float cur, float max)
         {
             m_EnemyVitSlider.SetValue(cur, max);

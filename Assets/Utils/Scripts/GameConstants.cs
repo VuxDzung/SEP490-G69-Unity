@@ -28,6 +28,7 @@ namespace SEP490G69
         public const string FRAME_ID_PLAYER_PROFILE = "Frame.PlayerProfile";
         public const string FRAME_ID_IN_GAME_SETTINGS = "Frame.InGameSettings";
         public const string FRAME_ID_COMBAT = "Frame.Combat";
+        public const string FRAME_ID_COMBAT_DETAILS = "Frame.CombatDetails";
         public const string FRAME_ID_TRAINING_RESULT = "Frame.TrainingResult";
         public const string FRAME_ID_TOURNAMENT_BRACKET = "Frame.TournamentBracket";
         public const string FRAME_ID_STAT_EFFECT_DETAILS = "Frame.StatEffectDetails";

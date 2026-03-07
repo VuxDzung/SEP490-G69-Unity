@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
   m_Name: FramesConfig_Combat
   m_EditorClassIdentifier: 
-  m_StarterFrameId: Frame.Combat
+  m_StarterFrameId: Frame.CombatDetails
   m_Frames:
   - {fileID: 5133411112509410632, guid: 19c17308a0c8976419b09fe7732e77db, type: 3}
   - {fileID: 286937122626166734, guid: b3d1a14bd840dd9479aa5033a16be617, type: 3}

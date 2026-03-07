@@ -10,6 +10,9 @@
         [Header("Configurations")]
         [SerializeField] private TournamentConfigSO m_TournamentConfig;
         [SerializeField] private CharacterConfigSO m_CharacterConfig;
+        [Header("Testing")]
+        [SerializeField] private bool m_IsTesting;
+        [SerializeField] private string m_TournamentId;
 
         // DAOs
         private GameSessionDAO _sessionDAO;
@@ -17,13 +20,23 @@
 
         // Runtime Data
         private List<TournamentParticipant> m_CurrentParticipants = new List<TournamentParticipant>();
+        private List<TournamentParticipant> m_CurrentRoundParticipants = new List<TournamentParticipant>();
+        private int m_CurrentRoundIndex = 0;
         private TournamentSO m_CurrentTournamentData;
-        private UITournamentBracketScreen _uiBracket;
+        private UITournamentBracketScreen _bracketFrame;
 
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
             LoadDAOs();
+        }
+
+        private void Start()
+        {
+            if (m_IsTesting)
+            {
+                LoadTournamentData(m_TournamentId);
+            }
         }
 
         private void OnDestroy()
@@ -58,6 +71,9 @@
 
             // 3. Shuffle
             ShuffleParticipants(m_CurrentParticipants);
+            m_CurrentRoundParticipants.Clear();
+            m_CurrentRoundParticipants.AddRange(m_CurrentParticipants.ToArray());
+            m_CurrentRoundIndex = 0;
 
             // 4. Open UI
             OpenTournamentBracketUI();
@@ -122,11 +138,11 @@
 
         private void OpenTournamentBracketUI()
         {
-            // Hiển thị Frame (Giả định bạn dùng GameUIManager)
-            _uiBracket = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TOURNAMENT_BRACKET).AsFrame<UITournamentBracketScreen>();
+            // Display bracket frame.
+            _bracketFrame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TOURNAMENT_BRACKET).AsFrame<UITournamentBracketScreen>();
 
             // Chuyển data sang UI
-            _uiBracket.SetupTournament(m_CurrentTournamentData.Name, m_CurrentParticipants, this);
+            _bracketFrame.SetupTournament(m_CurrentTournamentData.Name, m_CurrentParticipants, this);
         }
 
         // ==========================================
@@ -135,43 +151,97 @@
 
         public void RequestProgressTournament()
         {
-            // [Inference] Hàm này được gọi khi Player bấm nút "Continue/Next Match" trên UI
-            // Ở đây tôi làm logic ví dụ cho Vòng 1 (Tứ kết - 8 người -> 4 trận)
-
-            List<TournamentParticipant> nextRoundWinners = new List<TournamentParticipant>();
-
-            for (int i = 0; i < m_CurrentParticipants.Count; i += 2)
+            if (m_CurrentRoundParticipants == null || m_CurrentRoundParticipants.Count <= 1)
             {
-                var p1 = m_CurrentParticipants[i];
-                var p2 = m_CurrentParticipants[i + 1];
-
-                // Nếu có Player tham gia trận này -> Chuyển sang Scene Combat
-                if (p1.IsPlayer || p2.IsPlayer)
-                {
-                    Debug.Log($"Enter Match: {p1.Name} vs {p2.Name}");
-                    // TODO: Chuyển Scene Combat. Sau khi combat xong cập nhật kết quả.
-                    // Tạm thời giả lập Player luôn thắng để test UI
-                    p2.IsEliminated = true;
-                    nextRoundWinners.Add(p1);
-                }
-                else
-                {
-                    // Auto Resolve cho NPC vs NPC (Dựa theo quy tắc BR-57)
-                    if (p1.TotalStats >= p2.TotalStats)
-                    {
-                        p2.IsEliminated = true;
-                        nextRoundWinners.Add(p1);
-                    }
-                    else
-                    {
-                        p1.IsEliminated = true;
-                        nextRoundWinners.Add(p2);
-                    }
-                }
+                Debug.LogError("m_CurrentRoundParticipants is null or m_CurrentRoundParticipants.Count <= 1");
+                return;
             }
 
-            // Gọi UI cập nhật lại Bracket vòng tiếp theo
-            _uiBracket.UpdateQuarterFinals(nextRoundWinners);
+            List<TournamentParticipant> winners = new List<TournamentParticipant>();
+
+            for (int i = 0; i < m_CurrentRoundParticipants.Count; i += 2)
+            {
+                TournamentParticipant p1 = m_CurrentRoundParticipants[i];
+                TournamentParticipant p2 = m_CurrentRoundParticipants[i + 1];
+
+                TournamentParticipant winner = ResolveMatch(p1, p2);
+                winners.Add(winner);
+            }
+            m_CurrentRoundParticipants.Clear();
+            m_CurrentRoundParticipants = winners;
+            m_CurrentRoundIndex++;
+
+            UpdateBracketUI();
+
+            // Tournament finished
+            if (m_CurrentRoundParticipants.Count == 1)
+            {
+                OnTournamentFinished(m_CurrentRoundParticipants[0]);
+            }
+        }
+
+        private TournamentParticipant ResolveMatch(TournamentParticipant p1, TournamentParticipant p2)
+        {
+            Debug.Log($"Enter Match: {p1.Name} vs {p2.Name}");
+
+            // Player match
+            //if (p1.IsPlayer || p2.IsPlayer)
+            //{
+            //    // TODO: Load Combat Scene
+            //    // Hiện tại mock player win
+
+            //    if (p1.IsPlayer)
+            //    {
+            //        p2.IsEliminated = true;
+            //        return p1;
+            //    }
+            //    else
+            //    {
+            //        p1.IsEliminated = true;
+            //        return p2;
+            //    }
+            //}
+
+            // NPC vs NPC
+            if (p1.TotalStats >= p2.TotalStats)
+            {
+                p2.IsEliminated = true;
+                return p1;
+            }
+            else
+            {
+                p1.IsEliminated = true;
+                return p2;
+            }
+        }
+        private void UpdateBracketUI()
+        {
+            switch (m_CurrentRoundIndex)
+            {
+                case 1:
+                    _bracketFrame.UpdateQuarterFinals(m_CurrentRoundParticipants);
+                    break;
+
+                case 2:
+                    _bracketFrame.UpdateSemiFinals(m_CurrentRoundParticipants);
+                    break;
+
+                case 3:
+                    _bracketFrame.UpdateFinal(m_CurrentRoundParticipants);
+                    break;
+            }
+        }
+        private void OnTournamentFinished(TournamentParticipant champion)
+        {
+            Debug.Log($"Tournament Champion: {champion.Name}");
+
+            _bracketFrame.ShowChampion(champion);
+
+            if (champion.IsPlayer)
+            {
+                Debug.Log("Player wins tournament!");
+                // TODO: Give rewards
+            }
         }
     }
 }

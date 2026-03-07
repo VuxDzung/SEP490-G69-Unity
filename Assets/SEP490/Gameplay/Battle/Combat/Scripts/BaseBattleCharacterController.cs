@@ -11,6 +11,7 @@
         #region Events
 
         public event Action<BaseBattleCharacterController> OnEnergyFull;
+        public event Action OnDead;
 
         #endregion
 
@@ -150,6 +151,8 @@
 
             Debug.Log($"{CurrentDataHolder.GetCharacterName()} has died.");
             PauseBar();
+
+            OnDead?.Invoke();
         }
 
         public void DecreaseStamina()

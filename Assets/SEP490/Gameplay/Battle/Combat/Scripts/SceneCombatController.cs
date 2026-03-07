@@ -2,8 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Battle.Cards;
     using SEP490G69.GameSessions;
+    using SEP490G69.Shared;
     using UnityEngine;
 
     public class SceneCombatController : MonoBehaviour, ISceneContext
@@ -62,16 +64,56 @@
         {
             InitializeBattle();
 
-            if (_playerCharacterCombat != null) _playerCharacterCombat.OnEnergyFull += HandlePlayerEnergyFull;
-            if (_enemyCharacterCombat != null) _enemyCharacterCombat.OnEnergyFull += HandleEnemyEnergyFull;
+            if (_playerCharacterCombat != null)
+            {
+                _playerCharacterCombat.OnEnergyFull += HandlePlayerEnergyFull;
+                _playerCharacterCombat.OnDead += _playerCharacterCombat_OnDead;
+            }
+            if (_enemyCharacterCombat != null)
+            {
+                _enemyCharacterCombat.OnEnergyFull += HandleEnemyEnergyFull;
+                _enemyCharacterCombat.OnDead += _enemyCharacterCombat_OnDead;
+            }
+        }
+
+        private void _enemyCharacterCombat_OnDead()
+        {
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 1);
+
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                                   .AsFrame<UIMessagePopup>()
+                                   .SetContent("title_victory", "msg_victory", true, false, () =>
+                                   {
+                                       SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
+                                   });
+        }
+
+        private void _playerCharacterCombat_OnDead()
+        {
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 0);
+
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                       .AsFrame<UIMessagePopup>()
+                       .SetContent("title_defeat", "msg_defeat", true, false, () =>
+                       {
+                           SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
+                       });
         }
 
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
 
-            if (_playerCharacterCombat != null) _playerCharacterCombat.OnEnergyFull -= HandlePlayerEnergyFull;
-            if (_enemyCharacterCombat != null) _enemyCharacterCombat.OnEnergyFull -= HandleEnemyEnergyFull;
+            if (_playerCharacterCombat != null)
+            {
+                _playerCharacterCombat.OnEnergyFull -= HandlePlayerEnergyFull;
+                _playerCharacterCombat.OnDead -= _playerCharacterCombat_OnDead;
+            }
+            if (_enemyCharacterCombat != null)
+            {
+                _enemyCharacterCombat.OnEnergyFull -= HandleEnemyEnergyFull;
+                _enemyCharacterCombat.OnDead -= _enemyCharacterCombat_OnDead;
+            }
         }
 
         private void Update()
@@ -198,7 +240,14 @@
             }
 
             // Initialize enemy
-            _enemyCharacterId = "ch_0010";
+            _enemyCharacterId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID);//"ch_0010";
+
+            if (string.IsNullOrEmpty(_enemyCharacterId))
+            {
+                Debug.LogError("Failed to get enemy id");
+                return;
+            }
+
             BaseCharacterSO enemySO = CharacterConfig.GetCharacterById(_enemyCharacterId);
             Transform enemyTrans = PoolManager.Pools[m_CharacterPoolName].Spawn(enemySO.CombatPrefab, m_EnemyContainer);
             _enemyCharacterCombat = enemyTrans.GetComponent<EnemyCombatController>();

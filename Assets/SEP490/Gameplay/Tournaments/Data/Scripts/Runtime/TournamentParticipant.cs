@@ -7,6 +7,7 @@ namespace SEP490G69.Tournament
         public string Id;
         public string Name;
         public Sprite Avatar;
+        public int SlotIndex;
         public bool IsPlayer;
         public float TotalStats;
         public bool IsEliminated;

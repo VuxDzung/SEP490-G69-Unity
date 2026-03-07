@@ -115,3 +115,27 @@ MonoBehaviour:
       text: Year
     - language: 1
       text: "N\u0103m"
+  - id: title_victory
+    textList:
+    - language: 0
+      text: VICTORY
+    - language: 1
+      text: "CHI\u1EBEN TH\u1EAENG"
+  - id: title_defeat
+    textList:
+    - language: 0
+      text: DEFEAT
+    - language: 1
+      text: "\u0110\xC1NH B\u1EA0I"
+  - id: msg_victory
+    textList:
+    - language: 0
+      text: You are victorious
+    - language: 1
+      text: "B\u1EA1n \u0111\xE3 chi\u1EBFn th\u1EAFng"
+  - id: msg_defeat
+    textList:
+    - language: 0
+      text: You have been defeated.
+    - language: 1
+      text: "B\u1EA1n \u0111\xE3 b\u1ECB \u0111\xE1nh b\u1EA1i"

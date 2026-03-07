@@ -53,6 +53,9 @@ namespace SEP490G69
         public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
         public const string PREF_KEY_PLAYER_ID = "PlayerId";
         public const string PREF_KEY_AUTH_ACTION = "AuthAction";
+        public const string PREF_KEY_TOURNAMENT_ENEMY_ID = "tournament_enemy_id";
+        public const string PREF_KEY_COMBAT_TYPE = "combat_type";
+        public const string PREF_KEY_TOURNAMENT_PLAYER_WIN = "tournament_player_win";
         #endregion
 
         #region Localization categories
@@ -136,6 +139,8 @@ namespace SEP490G69
         public const string POOL_UI_SHOP_ITEM = "UIShopItem";
         #endregion
 
+        public const string COMBAT_TYPE_TOURNAMENT = "Tournament";
+        public const string COMBAT_TYPE_EXPLORATION = "Exploration";
         public const int TRAINING_STARTER_LEVEL = 1;
         public const int MAX_100 = 100;
         public const float BASE_FILL_SPEED = 50f;

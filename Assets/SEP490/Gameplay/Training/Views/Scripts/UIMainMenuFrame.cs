@@ -39,6 +39,7 @@ namespace SEP490G69.Training
         [SerializeField] private UITextSlider m_StaminaSlider;
 
         [SerializeField] private Button m_TestCombatBtn;
+        [SerializeField] private Button m_TestTournamentBtn;
 
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
@@ -97,6 +98,7 @@ namespace SEP490G69.Training
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
+            if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.AddListener(TestTournament);
 
             LoadCharacterStats();
             LoadCalendarTime();
@@ -121,6 +123,7 @@ namespace SEP490G69.Training
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
 
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
+            if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.RemoveListener(TestTournament);
         }
 
         private void LoadCharacterStats()
@@ -252,11 +255,15 @@ namespace SEP490G69.Training
         {
             UIManager.ShowFrame(GameConstants.FRAME_ID_INVENTORY);
         }
+        #endregion
 
         private void TestShowCombat()
         {
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_COMBAT);
         }
-        #endregion
+        private void TestTournament()
+        {
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
+        }
     }
 }

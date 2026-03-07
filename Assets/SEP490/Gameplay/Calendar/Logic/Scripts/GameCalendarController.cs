@@ -43,7 +43,7 @@ namespace SEP490G69.Calendar
         }
 
         private TournamentConfigSO _tournamentConfig;
-        protected TournamentConfigSO TournamentConfig
+        public TournamentConfigSO TournamentConfig
         {
             get
             {

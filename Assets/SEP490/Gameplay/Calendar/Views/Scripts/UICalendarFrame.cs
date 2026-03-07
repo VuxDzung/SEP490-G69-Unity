@@ -133,7 +133,14 @@ namespace SEP490G69.Calendar
 
         private void ViewTournamentDetails(string tournamentId)
         {
+            // Show tournament details here by using TournamentConfigSO to get TournamentSO data.
+            TournamentSO tournamentSO = CalendarController.TournamentConfig.GetTournamentById(tournamentId);
 
+            if (tournamentSO != null)
+            {
+                // Show tournament details frame here.
+                UIManager.ShowFrame(GameConstants.FRAME_ID_TOURNAMENT_DETAILS).AsFrame<UITournamentDetailsFrame>().LoadTournamentData(tournamentSO);
+            }
         }
     }
 }

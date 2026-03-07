@@ -36,6 +36,8 @@ namespace SEP490G69
         public const string FRAME_ID_INVENTORY_ITEM_DETAILS = "Frame.InventoryItemDetails";
 
         public const string FRAME_ID_SHOP = "Frame.Shop";
+
+        public const string FRAME_ID_TOURNAMENT_DETAILS = "Frame.TournamentDetails";
         #endregion
 
         #region Scene names

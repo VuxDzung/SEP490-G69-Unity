@@ -10,6 +10,12 @@ namespace SEP490G69
         private LiteDatabase _database;
         private ILiteCollection<SessionCharacterData> _collection;
 
+        public PlayerCharacterDAO()
+        {
+            _database = LocalDBInitiator.GetDatabase();
+            _collection = _database.GetCollection<SessionCharacterData>(COLLECTION_NAME);
+        }
+
         public PlayerCharacterDAO(LiteDatabase database)
         {
             _database = database;

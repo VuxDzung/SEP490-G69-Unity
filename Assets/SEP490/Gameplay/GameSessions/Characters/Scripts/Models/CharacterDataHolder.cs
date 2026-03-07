@@ -181,6 +181,27 @@ namespace SEP490G69
             _characterData.CurrentDef = Mathf.Clamp(_characterData.CurrentDef, 0, CharacterStatUtils.MAX_STAT_VALUE);
         }
 
+        public bool UpdateChanges(PlayerCharacterDAO characterDAO)
+        {
+            if (_characterData != null)
+            {
+                return characterDAO.TryUpdateCharacter(_characterData);
+            }
+            return false;
+        }
+
+        #region Training modifiers (Playable character only)
+        public StatusModifierSO GetModifierByType(EStatusType statusType)
+        {
+            PlayerCharacterDataSO _playableSO = _characterSO.ConvertAs<PlayerCharacterDataSO>();
+            if (_playableSO == null)
+            {
+                return null;
+            }
+            return _playableSO.GetModifierByStatType(statusType);
+        }
+        #endregion
+
         #region Builder
         public class Builder
         {

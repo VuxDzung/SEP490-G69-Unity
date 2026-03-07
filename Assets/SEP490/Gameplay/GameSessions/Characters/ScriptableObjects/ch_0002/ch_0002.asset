@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f71dafd97e9ef74a9f303dcfad6f191, type: 3}
+  m_Name: ch_0002
+  m_EditorClassIdentifier: 
+  m_CharacterId: ch_0002
+  m_IsAvailable: 1
+  m_CharacterName: Tauroused
+  m_CharacterDescription: ch_0002_desc
+  m_Thumbnail: {fileID: 21300000, guid: b25f78b8b0901b54ba1625f22e6bd299, type: 3}
+  m_FullBodyImg: {fileID: 3774073680682875989, guid: 7cd217d01e84cdb4185eb505b66986dd, type: 3}
+  m_Prefab: {fileID: 7588631248940926599, guid: d28a5a6781d176e40b5ea99fab00243c, type: 3}
+  m_CombatPrefab: {fileID: 2432845938911492486, guid: 2d0f8e5bab297ae4fad1b64cc1db96a6, type: 3}
+  m_CharacterType: 0
+  baseVit: 30
+  basePow: 40
+  baseInt: 5
+  baseSta: 90
+  baseDef: 15
+  baseAgi: 20
+  baseEnergy: 100
+  baseMood: 100

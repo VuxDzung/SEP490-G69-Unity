@@ -2,7 +2,7 @@ namespace SEP490G69
 {
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "CharacterSO_", menuName = OrganizationConstants.NAMESPACE + "/Character data")]
+    [CreateAssetMenu(fileName = "CharacterSO_", menuName = OrganizationConstants.NAMESPACE + "/Characters/Base character data")]
     public class BaseCharacterSO : ScriptableObject
     {
         [Header("General information")]
@@ -45,5 +45,10 @@ namespace SEP490G69
 
         public GameObject CombatPrefab => m_CombatPrefab;
         public GameObject Prefab => m_Prefab;
+
+        public T ConvertAs<T>() where T : BaseCharacterSO
+        {
+            return this as T;
+        }
     }
 }

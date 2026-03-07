@@ -11,9 +11,6 @@
         [SerializeField] private TournamentConfigSO m_TournamentConfig;
         [SerializeField] private CharacterConfigSO m_CharacterConfig;
 
-        // Bạn cần tạo EnemyConfigSO chứa List<EnemySO> tương tự CharacterConfigSO
-        [SerializeField] private EnemyConfigSO m_EnemyConfig;
-
         // DAOs
         private GameSessionDAO _sessionDAO;
         private PlayerCharacterRepository _characterRepo;
@@ -36,7 +33,6 @@
 
         private void LoadDAOs()
         {
-            // Khởi tạo database như bên TrainingController
             _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
         }
@@ -99,7 +95,7 @@
 
         private TournamentParticipant GetNPCParticipantData(string enemyId)
         {
-            EnemySO enemySO = m_EnemyConfig.GetEnemyById(enemyId); // Giả định bạn có hàm này
+            EnemySO enemySO = m_CharacterConfig.GetCharacterById(enemyId).ConvertAs<EnemySO>(); // Giả định bạn có hàm này
             if (enemySO == null) return new TournamentParticipant();
 
             return new TournamentParticipant

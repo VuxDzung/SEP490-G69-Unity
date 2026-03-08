@@ -15,14 +15,14 @@ MonoBehaviour:
   m_Id: 
   m_DisplayOnUI: 0
   m_StatType: 8
-  m_Operator: 3
-  m_Value: 20
+  m_Operator: 1
+  m_Value: 0.2
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: 'Card 6: Add 20 stamina'
+  m_Description: 'Card 6: Add 20% stamina'
   m_ApplyTarget: 0
-  m_CalculateSource: 0
+  m_CalculateSource: 2
   m_ApplyValueType: 0
   m_TriggerType: 1
   m_TurnFlowEvent: 0

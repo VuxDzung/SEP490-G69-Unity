@@ -2,7 +2,6 @@ namespace SEP490G69.Battle.Cards
 {
     using System;
     using TMPro;
-    using Unity.VisualScripting;
     using UnityEngine;
     using UnityEngine.UI;
 

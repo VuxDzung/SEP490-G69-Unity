@@ -45,8 +45,6 @@
         {
             SessionPlayerDeck deck = _deckDAO.GetById(_currentSessionId);
 
-            // Nếu người chơi chưa có deck nào trong DB, khởi tạo 1 deck rỗng
-            // Việc này giúp UI không bị lỗi NullReferenceException khi lần đầu load
             if (deck == null)
             {
                 deck = new SessionPlayerDeck

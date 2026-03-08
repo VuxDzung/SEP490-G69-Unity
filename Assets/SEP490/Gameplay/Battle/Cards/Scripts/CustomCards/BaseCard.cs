@@ -2,6 +2,7 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class BaseCard
@@ -51,22 +52,28 @@ namespace SEP490G69.Battle
             }
         }
 
-        protected void ApplyStatusEffects(BaseBattleCharacterController source,  BaseBattleCharacterController target)
+        protected void ApplyStatusEffects(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            if (Data.StatusGains != null && 
+            if (Data.StatusGains != null &&
                 Data.StatusGains.Length > 0 &&
                 CheckGainCondition(source, target))
             {
                 foreach (var s in Data.StatusGains)
-                    source.StatEffectManager.AddStatusEffect(s);
-            }
+                {
+                    //source.StatEffectManager.AddStatusEffect(s);
+                    source.AddStatusEffect(s);
+                }
 
-            if (Data.StatusInflicts != null && 
-                Data.StatusInflicts.Length > 0 &&
-                CheckInflictCondition(source, target))
-            {
-                foreach (var s in Data.StatusInflicts)
-                    target.StatEffectManager.AddStatusEffect(s);
+                if (Data.StatusInflicts != null &&
+                    Data.StatusInflicts.Length > 0 &&
+                    CheckInflictCondition(source, target))
+                {
+                    foreach (var s in Data.StatusInflicts)
+                    {
+                        //target.StatEffectManager.AddStatusEffect(s);
+                        target.AddStatusEffect(s);
+                    }
+                }
             }
         }
 

@@ -12,20 +12,22 @@ namespace SEP490G69.Battle
         public const int STARTER_STACK = 1;
 
         public event Action<RuntimeStatusEffect> onStackEmpty;
-        private readonly ICardSpecialEffect _specialEffect;
 
         public StatusEffectSO Data { get; }
 
         public int Stack { get; private set; }
 
         private BaseBattleCharacterController owner;
+        private ICardSpecialEffect _specialEffect;
+
+        public ICardSpecialEffect SpecialEffect => _specialEffect;
 
         public RuntimeStatusEffect(StatusEffectSO data,
                                    BaseBattleCharacterController owner)
         {
             Data = data;
             this.owner = owner;
-            _specialEffect = CardEffectFactory.GetById(Data.EffectId);
+            _specialEffect = SpecialStatusEffectFactory.GetById(Data.EffectId);
             Stack = STARTER_STACK;
         }
 
@@ -36,6 +38,10 @@ namespace SEP490G69.Battle
 
         public void OnApply()
         {
+            foreach (var mod in Data.Modifiers)
+            {
+                owner.AddStatusModifier(mod);
+            }
         }
 
         public void OnTurnStart()
@@ -48,32 +54,6 @@ namespace SEP490G69.Battle
 
         public void OnTurnEnd()
         {
-            //if (Data.EffectId.Equals(StatusEffectConstants.STATUS_EFFECT_ID_0017))
-            //{
-            //    float maxHp = owner.ReadonlyDataHolder.GetVIT();
-
-            //    float heal = maxHp * 0.1f * Stack;
-
-            //    owner.CurrentDataHolder.ModifyStat(EStatusType.Vitality, heal);
-            //}
-            //if (Data.EffectId.Equals(StatusEffectConstants.STATUS_EFFECT_ID_0024))
-            //{
-            //    float maxHp = owner.ReadonlyDataHolder.GetVIT();
-
-            //    float selfDmg = maxHp * 0.15f;// * Stack;
-
-            //    float current = owner.CurrentDataHolder.GetVIT();
-
-            //    owner.CurrentDataHolder.SetStatus(EStatusType.Vitality, Mathf.Max(1, current - selfDmg));
-            //}
-
-            // Trigger special card effects.
-            if (_specialEffect != null)
-            {
-                _specialEffect.OnAfterAction(owner, owner.LastAttacker);
-            }
-
-            // Decrease stack/
             if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns ||
                 Data.ApplyType == EApplyDiscardType.TurnEnd)
             {
@@ -81,69 +61,18 @@ namespace SEP490G69.Battle
             }
         }
 
-        public float ModifyIncomingDamage(float dmg)
+        public void OnAfterReceiveDamage(float damage)
         {
+            // Handle reflect dmg logic.
             foreach (var modifier in Data.Modifiers)
             {
                 if (modifier.StatType == EStatusType.ReceivedDmg)
                 {
-                    dmg += modifier.GetDelta(dmg);
+                    float reflect = modifier.GetModifiedStatus(damage);
+
+                    owner.LastAttacker.ReceiveDamage(reflect, owner);
                 }
             }
-
-            //if (Data.EffectId == "Vulnerable")
-            //{
-            //    dmg *= 1.2f * Stack;
-            //}
-
-            return dmg;
-        }
-
-        public float ModifyDealDamage(float dmg)
-        {
-            foreach (var modifier in Data.Modifiers)
-            {
-                if (modifier.StatType == EStatusType.Damage)
-                {
-                    dmg += modifier.GetDelta(dmg);
-                }
-            }
-
-            //if (Data.EffectId == "Berserk")
-            //{
-            //    dmg *= 1.3f * Stack;
-            //}
-
-            return dmg;
-        }
-
-        public float ModifyActionCost(float baseCost)
-        {
-            float finalCost = baseCost;
-            foreach (var modifier in Data.Modifiers)
-            {
-                if (modifier.StatType == EStatusType.ActionCost)
-                {
-                    finalCost += modifier.GetDelta(finalCost);
-                }
-            }
-            return finalCost;
-        }
-
-        public void OnAfterReceiveDamage(float damage)
-        {
-            //if (Data.EffectId == StatusEffectConstants.STATUS_EFFECT_ID_0023)
-            //{
-            //    float reflect = dmg * 0.15f;// * Stack;
-
-            //    owner.LastAttacker.ReceiveDamage(reflect, owner);
-            //}
-
-            if (_specialEffect != null)
-            {
-                _specialEffect.OnAfterReceiveDmg(damage, owner, owner.LastAttacker);
-            }
-
 
             if (Data.ApplyType == EApplyDiscardType.DiscardAfterBeingAtk)
             {
@@ -151,17 +80,23 @@ namespace SEP490G69.Battle
             }
         }
 
-        public void OnAction()
-        {
-
-        }
-
         private void DecreaseStack()
         {
             Stack--;
+
             if (Stack <= 0)
             {
+                RemoveModifiers();
+
                 onStackEmpty?.Invoke(this);
+            }
+        }
+
+        private void RemoveModifiers()
+        {
+            foreach (var mod in Data.Modifiers)
+            {
+                owner.RemoveStatusModifier(mod);
             }
         }
     }

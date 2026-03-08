@@ -8,6 +8,10 @@ namespace SEP490G69.Battle
     {
         public static BaseCard Create(CardSO data)
         {
+            if (data == null)
+            {
+                return null;
+            }
             BaseCard card;
 
             switch (data.CardId)

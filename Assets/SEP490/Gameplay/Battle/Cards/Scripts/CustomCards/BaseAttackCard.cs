@@ -13,35 +13,26 @@ namespace SEP490G69.Battle
 
         protected override void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            float damage = CalculateDamage(source);
+            source.CalculateBaseDmg();
 
-            damage = source.StatEffectManager.ModifyDealableDamage(damage);
-            damage = target.StatEffectManager.ModifyIncomingDamage(damage);
+            float damage = source.GetCombatStatus(EStatusType.Damage).Value;
 
             Debug.Log($"Damage: {damage}");
             damage += CalculateExtraDmg(damage, source, target);
+
+            source.StatOutputDmg.SetCurrentValue(damage);
+
             for (int i = 0; i < Data.AtkCount; i++)
             {
-                target.ReceiveDamage(damage, source);
+                target.ReceiveDamage(source.StatOutputDmg.Value, source);
             }
+
             OnAfterAttack(damage, source, target);
         }
 
         protected virtual void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
 
-        }
-
-        protected virtual float CalculateDamage(BaseBattleCharacterController source)
-        {
-            float baseDamage = Data.BaseValue;
-            float characterPow = source.ReadonlyDataHolder.GetPower();
-
-            float stat = source.CurrentDataHolder.GetStatus(Data.ModifyStatType);
-
-            float modified = baseDamage + Data.GetDelta(characterPow);
-
-            return modified;
         }
 
         protected virtual float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)

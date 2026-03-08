@@ -6,7 +6,7 @@ namespace SEP490G69.Battle.Combat
 {
     public class RandomSelectCardStrategy : MonoBehaviour, ISelectCardStrategy
     {
-        public bool TrySelectCard(CharacterDataHolder readonlyDataHolder, CharacterDataHolder runtimeDataHolder, IReadOnlyList<CardSO> currentDrawPool, out CardSO card)
+        public bool TrySelectCard(BaseBattleCharacterController owner, IReadOnlyList<CardSO> currentDrawPool, out CardSO card)
         {
             card = null;
             if (currentDrawPool == null || currentDrawPool.Count == 0)

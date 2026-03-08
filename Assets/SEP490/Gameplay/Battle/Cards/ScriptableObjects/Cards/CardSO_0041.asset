@@ -30,3 +30,9 @@ MonoBehaviour:
   m_StatusGains: []
   m_StatusInflicts: []
   m_ExtraActions: []
+  m_CustomVariables:
+  - m_VariableName: extra_dmg
+    m_DataType: 3
+    m_StringValue: 0.5
+    m_BaseStatus: 12
+    m_Operator: 1

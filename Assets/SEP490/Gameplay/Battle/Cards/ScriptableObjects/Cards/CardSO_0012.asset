@@ -17,6 +17,7 @@ MonoBehaviour:
   cardDescription: card_0012_desc
   icon: {fileID: 0}
   cost: 50
+  m_IsReady: 0
   m_ActionType: 0
   m_BaseDmg: 60
   m_ModifyStatType: 1
@@ -24,8 +25,14 @@ MonoBehaviour:
   dmgModifierValue: 1.7
   m_AtkCount: 1
   m_DamageType: 3
-  m_RecoverModifiers:
-  - {fileID: 11400000, guid: 4029218c472c16748a94d2bdb71b298c, type: 2}
+  m_PreStatModifiers: []
+  m_PostStatModifiers: []
   m_StatusGains: []
   m_StatusInflicts: []
   m_ExtraActions: []
+  m_CustomVariables:
+  - m_VariableName: received_dealt_dmg
+    m_DataType: 3
+    m_StringValue: 0.2
+    m_BaseStatus: 12
+    m_Operator: 5

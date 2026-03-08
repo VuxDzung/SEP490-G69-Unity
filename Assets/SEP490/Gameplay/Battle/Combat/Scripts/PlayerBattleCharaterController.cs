@@ -67,8 +67,8 @@ namespace SEP490G69.Battle.Combat
             // Decrease health.
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                CurrentDataHolder.ModifyStat(EStatusType.Vitality, -20);
-                Debug.Log($"Curren health: {CurrentDataHolder.GetStatus(EStatusType.Vitality)}");
+                //CurrentDataHolder.ModifyStat(EStatusType.Vitality, -20);
+                //Debug.Log($"Curren health: {CurrentDataHolder.GetStatus(EStatusType.Vitality)}");
             }
         }
     }

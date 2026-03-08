@@ -12,8 +12,8 @@ namespace SEP490G69.Battle
 
         protected override bool CheckInflictCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            float currentVit = source.CurrentDataHolder.GetVIT();
-            float enemyPow = target.CurrentDataHolder.GetPower();
+            float currentVit = source.StatVit.Value;
+            float enemyPow = target.StatPow.Value;
             if (currentVit > enemyPow)
             {
                 return true;

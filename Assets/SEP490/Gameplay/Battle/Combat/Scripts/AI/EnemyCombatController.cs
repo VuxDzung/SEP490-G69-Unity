@@ -66,9 +66,9 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            if (strategy.TrySelectCard(ReadonlyDataHolder, CurrentDataHolder, cards, out CardSO card))
+            if (strategy.TrySelectCard(this, cards, out CardSO card))
             {
-                if (CalculateCardCost(card) > CurrentDataHolder.GetStamina())
+                if (CalculateCardCost(card) > GetCombatStatus(EStatusType.Stamina).Value)
                 {
                     SelectRest();
                 }

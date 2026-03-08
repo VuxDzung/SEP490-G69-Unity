@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Id: 
   m_DisplayOnUI: 0
-  m_StatType: 5
-  m_Operator: 1
+  m_StatType: 12
+  m_Operator: 5
   m_Value: 0.2
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
   m_Description: 'Card 12: take 20% dealing dmg.'
-  m_SourceStat: 0
   m_ApplyTarget: 0
   m_CalculateSource: 1
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 1
+  m_TurnFlowEvent: 0

@@ -3,16 +3,13 @@ namespace SEP490G69.Battle
     using SEP490G69;
     using System.Collections.Generic;
 
-    public static class CardEffectFactory
+    public static class SpecialStatusEffectFactory
     {
         private static Dictionary<string, ICardSpecialEffect> effects =
             new Dictionary<string, ICardSpecialEffect>()
             {
-                //{ "Execute", new ExecuteEffect() },
-                { StatusEffectConstants.STATUS_EFFECT_ID_0017, new RegenerationEffect() },
-                { StatusEffectConstants.STATUS_EFFECT_ID_0023, new ThornEffect() },
-                { StatusEffectConstants.STATUS_EFFECT_ID_0024, new BerserkEffect() },
-                //{ "AllOutStrike", new AllOutStrikeEffect() }
+                { StatusEffectConstants.STATUS_EFFECT_ID_0020, new SkipNextActionEffect() },
+                { StatusEffectConstants.STATUS_EFFECT_ID_0026, new ReduceStaminaGainEffect() },
             };
 
         public static ICardSpecialEffect GetById(string id)

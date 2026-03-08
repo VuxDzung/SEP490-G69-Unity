@@ -12,9 +12,13 @@ namespace SEP490G69.Battle
 
         protected override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            if (target.StatEffectManager.Count() > 0)
+            if (target.StatEffectManager.Count(EEffectType.Debuff) > 0)
             {
-                return curDmg * 1.5f;
+                CustomVariable varExtraDmg = Data.GetVariableByName("extra_dmg");
+                if (varExtraDmg != null)
+                {
+                    return varExtraDmg.GetDeltaValue(source);
+                }
             }
             return base.CalculateExtraDmg(curDmg, source, target);
         }

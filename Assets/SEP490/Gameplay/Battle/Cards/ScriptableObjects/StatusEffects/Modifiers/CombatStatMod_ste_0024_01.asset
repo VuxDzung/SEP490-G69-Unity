@@ -21,7 +21,8 @@ MonoBehaviour:
   m_Min: 0
   m_Max: 0
   m_Description: 'Status effect 24: deal extra 30% damage.'
-  m_SourceStat: 0
   m_ApplyTarget: 0
   m_CalculateSource: 1
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 1
+  m_TriggerType: 0
+  m_TurnFlowEvent: 0

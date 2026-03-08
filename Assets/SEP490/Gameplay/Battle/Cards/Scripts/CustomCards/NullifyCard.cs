@@ -13,7 +13,7 @@ namespace SEP490G69.Battle
         protected override void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             base.OnAfterAttack(curDmg, source, target);
-            RuntimeStatusEffect statEffect = target.StatEffectManager.GetRandomStatusEffect();
+            RuntimeStatusEffect statEffect = target.StatEffectManager.GetRandomEffect();
             target.StatEffectManager.Remove(statEffect);
         }
     }

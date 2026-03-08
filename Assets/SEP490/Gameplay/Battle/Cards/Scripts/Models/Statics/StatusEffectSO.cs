@@ -10,7 +10,6 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private string m_EffectName;
         [SerializeField] private string m_EffectDesc;
         [SerializeField] private Sprite m_Icon;
-        [SerializeField] private bool m_IsSpecial;
         [SerializeField] private EApplyDiscardType m_ApplyType;
         [SerializeField] private EEffectType m_EffectType;
         [Header("Discard by turn count")]
@@ -28,23 +27,9 @@ namespace SEP490G69.Battle.Cards
         public string EffectDesc => m_EffectDesc;
         public Sprite Icon => m_Icon;
         public EApplyDiscardType ApplyType => m_ApplyType;
-        public bool IsSpecial => m_IsSpecial;
         public int AliveTurnCount => m_AliveTurnCount;
 
         public CombatStatModifierSO[] Modifiers => m_Modifiers.ToArray();
         public EEffectType EffectType => m_EffectType;
-
-        public float GetTotalDelta(float value, EStatusType statType)
-        {
-            float delta = 0;
-            foreach (var modifier in m_Modifiers)
-            {
-                if (modifier.StatType == statType)
-                {
-                    delta += modifier.GetDelta(value);
-                }
-            }
-            return delta;
-        }
     }
 }

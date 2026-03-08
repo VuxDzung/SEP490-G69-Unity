@@ -23,4 +23,6 @@ MonoBehaviour:
   m_Description: 'Card 10: Heal 25% lost vitality'
   m_ApplyTarget: 0
   m_CalculateSource: 3
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 1
+  m_TurnFlowEvent: 0

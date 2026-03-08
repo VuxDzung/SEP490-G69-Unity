@@ -33,7 +33,7 @@
         private EnergyTurnBar _energyTurnBar;
 
         private CharacterDataHolder _readonlyDataHolder;
-        private CharacterDataHolder _currentDataHolder;
+        //private CharacterDataHolder _currentDataHolder;
 
         private StatusEffectManager _statEffectManager;
 
@@ -42,8 +42,22 @@
         private List<CardSO> _currentDrawPool = new List<CardSO>();
         private CardSO _selectedCard = null;
 
+        public InCombatStatus StatVit {  get; private set; } = new InCombatStatus();
+        public InCombatStatus StatPow { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatAgi { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatInt { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatStamina { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatDEF { get; private set; } = new InCombatStatus();
 
-        private readonly List<CombatStatModifierSO> _pendingGaugeModifiers = new();
+
+        public InCombatStatus StatOutputDmg { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatReceivedDmg { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatActionCost { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatHitRate { get; private set; } = new InCombatStatus();
+
+
+        private readonly List<CombatStatModifierSO> _pendingGaugeModifiers = new List<CombatStatModifierSO>();
+        private readonly Dictionary<EStatusType, InCombatStatus> _statusContainer = new Dictionary<EStatusType, InCombatStatus>();
         #endregion
 
         #region Properties
@@ -55,7 +69,7 @@
         /// <summary>
         /// Get the data which is changed in combat.
         /// </summary>
-        public CharacterDataHolder CurrentDataHolder => _currentDataHolder;
+        //public CharacterDataHolder CurrentDataHolder => _currentDataHolder;
 
         public CardSO SelectedCard => _selectedCard;
         public StatusEffectManager StatEffectManager => _statEffectManager;
@@ -73,7 +87,30 @@
 
         public void SetCharacterDataHolder(CharacterDataHolder holder)
         {
-            _currentDataHolder = holder;
+            //_currentDataHolder = holder;
+
+            StatVit.SetCurrentValue(holder.GetVIT());
+            StatPow.SetCurrentValue(holder.GetPower());
+            StatAgi.SetCurrentValue(holder.GetAgi());
+            StatInt.SetCurrentValue(holder.GetINT());
+            StatStamina.SetCurrentValue(holder.GetStamina());
+            StatDEF.SetCurrentValue(holder.GetDef());
+
+            StatOutputDmg.SetCurrentValue(0f);
+            StatReceivedDmg.SetCurrentValue(0f);
+            StatActionCost.SetCurrentValue(0f);
+
+            _statusContainer.Clear();
+
+            _statusContainer.Add(EStatusType.Vitality, StatVit);
+            _statusContainer.Add(EStatusType.Power, StatPow);
+            _statusContainer.Add(EStatusType.Agi, StatAgi);
+            _statusContainer.Add(EStatusType.Intelligence, StatInt);
+            _statusContainer.Add(EStatusType.Stamina, StatStamina);
+
+            _statusContainer.Add(EStatusType.Damage, StatOutputDmg);
+            _statusContainer.Add(EStatusType.ReceivedDmg, StatReceivedDmg);
+            _statusContainer.Add(EStatusType.ActionCost, StatActionCost);
         }
 
         public void SetReadonlyDataHolder(CharacterDataHolder holder)
@@ -88,27 +125,23 @@
         // =========================================================
         #region Card Pipeline
 
-        public virtual void ExecuteCard(
-            BaseBattleCharacterController source,
-            BaseBattleCharacterController target)
+        public virtual void ExecuteCard(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             BaseCard runtimeCard = CardFactory.Create(_selectedCard);
 
-            Debug.Log($"Before decrease.Current stamina: {CurrentDataHolder.GetStamina()}");
-            DecreaseStamina();
-            Debug.Log($"Before execute.Current stamina: {CurrentDataHolder.GetStamina()}");
-            runtimeCard.Execute(this, target);
-            Debug.Log($"After execute.Current stamina: {CurrentDataHolder.GetStamina()}");
+            TriggerTurnFlowEvent(ETurnFlowEvent.BeforeCardAction);
+            StatEffectManager.Trigger(ETurnFlowEvent.BeforeCardAction, target);
 
-            //ExecuteMainAction(SelectedCard, source, target);
-            //AddStatusEffects(SelectedCard.StatusGains, source, target, ETargetType.Self);
-            //AddStatusEffects(SelectedCard.StatusInflicts, source, target, ETargetType.Opponent);
+            DecreaseStamina();
+
+            runtimeCard.Execute(this, target);
+
+            TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
+            StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
         }
 
         public virtual void EndCurrentTurn()
         {
-            StatEffectManager.OnAction();
-
             OnTurnEnd();
 
             foreach (CardSO card in _currentDrawPool)
@@ -116,12 +149,14 @@
                 if (card != _selectedCard)
                     _discardPool.Add(card);
             }
-            _selectedCard = null;
 
+            _selectedCard = null;
 
             ResetCharge();
 
-            ApplyQueuedGaugeModifiers();
+            TriggerTurnFlowEvent(ETurnFlowEvent.AfterResetActionGaugue);
+
+            OnAfterResetActionGauge();
         }
         #endregion
 
@@ -134,22 +169,22 @@
         {
             LastAttacker = attacker;
 
-            float finalDamage = Mathf.Max(
-                1,
-                damage - CurrentDataHolder.GetDef());
+            float finalDamage = Mathf.Max(1, damage - StatDEF.Value);
 
-            CurrentDataHolder.ModifyStat(EStatusType.Vitality, -finalDamage);
+            StatReceivedDmg.SetCurrentValue(finalDamage);
+            float finalVit = StatVit.Value - StatReceivedDmg.Value;
+            StatVit.SetCurrentValue(finalVit);
 
-            StatEffectManager.OnAfterReceiveDamage(finalDamage);
+            OnAfterReceiveDamage(finalDamage, attacker);
 
             CheckDeath();
         }
 
         private void CheckDeath()
         {
-            if (CurrentDataHolder.GetVIT() > 0) return;
+            if (StatVit.Value > 0) return;
 
-            Debug.Log($"{CurrentDataHolder.GetCharacterName()} has died.");
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} has died.");
             PauseBar();
 
             OnDead?.Invoke();
@@ -162,15 +197,17 @@
                 return;
             }
             Debug.Log($"Card {_selectedCard.CardId} cost: {_selectedCard.Cost}");
-            DecreaseStamina(_selectedCard.Cost);
+            float cost = CalculateCardCost(_selectedCard);
+            DecreaseStamina(cost);
         }
 
-        public void DecreaseStamina(float stamina)
+        private void DecreaseStamina(float stamina)
         {
-            float cur = CurrentDataHolder.GetStamina();
+            float cur = StatStamina.BaseValue;
             cur -= stamina;
             cur = Mathf.Clamp(cur, 0, ReadonlyDataHolder.GetStamina());
-            CurrentDataHolder.SetStamina(cur);
+            //CurrentDataHolder.SetStamina(cur);
+            StatStamina.SetCurrentValue((float)cur);
         }
         #endregion
 
@@ -181,6 +218,9 @@
 
         public void OnTurnStart()
         {
+            TriggerTurnFlowEvent(ETurnFlowEvent.TurnStarted);
+            StatEffectManager.Trigger(ETurnFlowEvent.TurnStarted, LastAttacker);
+
             StatEffectManager.StartTurn();
         }
 
@@ -190,13 +230,7 @@
         }
 
         /// <summary>
-        /// Apply status changes.
-        /// NOTE: 
-        /// + If the changes require/use max vit or any similar stats, get from ReadonlyDataHolder
-        /// + If the changes use current stat like current vitality, current stamina, etc., get from CharacterDataHolder.
-        /// Able to handle:
-        /// - Tactical Rest
-        /// 
+        /// Apply status changes immediately (FIX: Handle all the immediate status modify action at the InCombatStatus.
         /// </summary>
         /// <param name="modifierSO"></param>
         public void ApplyStatusDelta(CombatStatModifierSO modifierSO, bool fromExternal)
@@ -208,25 +242,17 @@
             {
                 QueueGaugeModifier(modifierSO);
 
-                if (fromExternal) // If it from opponent, apply immediate.
-                {
+                if (fromExternal)
                     ApplyQueuedGaugeModifiers();
-                }
 
                 return;
             }
 
-            if (modifierSO.IsInCombatStats())
-            {
-                Debug.Log("Is in combat stats");
-                //CombatModifiers.Add(modifierSO);
+            if (_statusContainer.TryGetValue(modifierSO.StatType, out var status) == false)
                 return;
-            }
 
-            EStatusType statType = modifierSO.StatType;
-
-            float maxValue = ReadonlyDataHolder.GetStatus(statType);
-            float currentValue = CurrentDataHolder.GetStatus(statType);
+            float maxValue = ReadonlyDataHolder.GetStatus(modifierSO.StatType);
+            float currentValue = status.Value;
 
             float calculationValue = modifierSO.CalculateSource switch
             {
@@ -236,15 +262,17 @@
                 EStatCalculationSource.FixedValue => modifierSO.Value,
                 _ => currentValue
             };
-            Debug.Log($"Calculation value: {calculationValue}, CurrentStamina: {CurrentDataHolder.GetStatus(statType)}");
-            float delta = modifierSO.GetDelta(calculationValue);
-            Debug.Log($"Modify stat: {statType.ToString()}\nPlusValue={delta}\nCurrentValue={CurrentDataHolder.GetStatus(statType)}");
-            CurrentDataHolder.ModifyStat(statType, delta);
 
-            // Clamp stat.
-            float currentStat = CurrentDataHolder.GetStatus(statType);
-            currentStat = Mathf.Clamp(currentStat, 0, ReadonlyDataHolder.GetStatus(statType));
-            CurrentDataHolder.SetStatus(statType, currentStat);
+            float delta = modifierSO.GetDelta(calculationValue);
+
+            // Let status effects modify the delta
+            delta = _statEffectManager.ModifyStatDelta(modifierSO.StatType, delta);
+
+            float newValue = currentValue + delta;
+
+            newValue = Mathf.Clamp(newValue, 0, maxValue);
+
+            status.SetCurrentValue(newValue);
         }
 
         private void QueueGaugeModifier(CombatStatModifierSO modifier)
@@ -272,6 +300,10 @@
             _pendingGaugeModifiers.Clear();
         }
 
+        public void AddStatusEffect(StatusEffectSO effectSO)
+        {
+            StatEffectManager.AddStatusEffect(effectSO);
+        }
         #endregion
 
         // =========================================================
@@ -283,7 +315,7 @@
         {
             var strategy = new AgiBasedChargeStrategy(
                 GameConstants.BASE_FILL_SPEED,
-                CurrentDataHolder.GetAgi()
+                StatAgi.Value
             );
 
             _energyTurnBar = new EnergyTurnBar(strategy);
@@ -394,6 +426,10 @@
         {
             SelectCardById(CardConstants.CARD_ID_0000);
         }
+        public void SelectNoAction()
+        {
+            SelectCard(null);
+        }
 
         public void SelectCard(CardSO card)
         {
@@ -406,12 +442,68 @@
 
         public int CalculateCardCost(CardSO card)
         {
-            float cost = card.Cost;
+            StatActionCost.SetCurrentValue(card.Cost);
 
-            cost = StatEffectManager.ModifyActionCost(cost);
+            float cost = StatActionCost.Value;
 
             return Mathf.Max(0, Mathf.RoundToInt(cost));
         }
         #endregion
+
+        private void OnAfterReceiveDamage(float damage, BaseBattleCharacterController attacker)
+        {
+            StatEffectManager.OnAfterReceiveDamage(damage);
+        }
+
+        public void AddStatusModifier(CombatStatModifierSO statModifier)
+        {
+            if (_statusContainer.TryGetValue(statModifier.StatType, out InCombatStatus status))
+            {
+                status.AddModifier(statModifier);
+            }
+        }
+
+        public void RemoveStatusModifier(CombatStatModifierSO modifierSO)
+        {
+            if (_statusContainer.TryGetValue(modifierSO.StatType, out InCombatStatus status))
+            {
+                status.RemoveModifier(modifierSO);
+            }
+        }
+
+        private void OnAfterResetActionGauge()
+        {
+            ApplyQueuedGaugeModifiers();
+        }
+
+        public InCombatStatus GetCombatStatus(EStatusType statusType)
+        {
+            return _statusContainer[statusType];
+        }
+
+        private void TriggerTurnFlowEvent(ETurnFlowEvent flowEvent)
+        {
+            foreach (var status in _statusContainer.Values)
+            {
+                status.Trigger(flowEvent);
+            }
+        }
+
+        public float CalculateBaseDmg()
+        {
+            if (_selectedCard == null)
+            {
+                Debug.LogError("No selected card to calculate base damage. Return 0 by default.");
+                return 0f;
+            }
+            InCombatStatus status = GetCombatStatus(_selectedCard.ModifyStatType);
+            if (status == null)
+            {
+                return 0f;
+            }
+            float damage = _selectedCard.BaseValue + _selectedCard.GetDelta(status.Value);
+            StatOutputDmg.SetCurrentValue(damage);
+            return damage;
+        }
     }
 }

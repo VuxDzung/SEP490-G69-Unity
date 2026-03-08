@@ -9,17 +9,21 @@ namespace SEP490G69.Battle
     /// </summary>
     public class ExecuteCard : BaseAttackCard
     {
-        private readonly float _extraDmgMultiplyValue = 2;
-
+        private const string VAR_EXTRA_DMG = "extra_dmg";
         public ExecuteCard(CardSO cardSO) : base(cardSO)
         {
         }
 
         protected override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            if (target.StatEffectManager.GetEffectById(StatusEffectConstants.STATUS_EFFECT_ID_0018) != null)
+            if (target.StatEffectManager.GetById(StatusEffectConstants.STATUS_EFFECT_ID_0018) != null)
             {
-                return curDmg * _extraDmgMultiplyValue;
+                CustomVariable varExtraDmg = Data.GetVariableByName(VAR_EXTRA_DMG);
+                if (varExtraDmg != null)
+                {
+                    return varExtraDmg.GetDeltaValue(source);
+                }
+                //return curDmg * _extraDmgMultiplyValue;
             } 
             return base.CalculateExtraDmg(curDmg, source, target);
         }

@@ -7,9 +7,9 @@ namespace SEP490G69
     using System.Linq;
     using UnityEngine;
 
-    public class StatusEffectManager 
+    public class StatusEffectManager
     {
-        private readonly List<RuntimeStatusEffect> _statusEffects = new List<RuntimeStatusEffect>();
+        private readonly List<RuntimeStatusEffect> _statusEffects = new();
 
         private BaseBattleCharacterController owner;
 
@@ -22,9 +22,7 @@ namespace SEP490G69
 
         public void AddStatusEffect(StatusEffectSO effect)
         {
-            RuntimeStatusEffect exist =
-                _statusEffects.FirstOrDefault(s =>
-                    s.Data.EffectId == effect.EffectId);
+            RuntimeStatusEffect exist =_statusEffects.FirstOrDefault(s => s.Data.EffectId == effect.EffectId);
 
             if (exist != null)
             {
@@ -33,7 +31,9 @@ namespace SEP490G69
             }
 
             RuntimeStatusEffect runtime = new RuntimeStatusEffect(effect, owner);
+
             runtime.onStackEmpty += Remove;
+
             _statusEffects.Add(runtime);
 
             runtime.OnApply();
@@ -51,39 +51,10 @@ namespace SEP490G69
                 s.OnTurnEnd();
         }
 
-        public float ModifyIncomingDamage(float dmg)
-        {
-            foreach (var s in _statusEffects)
-                dmg = s.ModifyIncomingDamage(dmg);
-
-            return dmg;
-        }
-
-        public float ModifyDealableDamage(float dmg)
-        {
-            foreach (var s in _statusEffects)
-                dmg = s.ModifyDealDamage(dmg);
-
-            return dmg;
-        }
-
-        public float ModifyActionCost(float cost)
-        {
-            foreach (var s in _statusEffects)
-                cost = s.ModifyActionCost(cost);
-            return cost;
-        }
-
         public void OnAfterReceiveDamage(float dmg)
         {
-            foreach (var s in _statusEffects)
+            foreach (var s in _statusEffects.ToList())
                 s.OnAfterReceiveDamage(dmg);
-        }
-
-        public void OnAction()
-        {
-            foreach (var s in _statusEffects)
-                s.OnAction();
         }
 
         public void Remove(RuntimeStatusEffect effect)
@@ -92,28 +63,75 @@ namespace SEP490G69
             _statusEffects.Remove(effect);
         }
 
-        public RuntimeStatusEffect GetEffectById(string id)
+        public int Count(EEffectType effectType = EEffectType.Both)
         {
-            if (string.IsNullOrEmpty(id)) return null;
-
-            return _statusEffects.FirstOrDefault(staEffect => staEffect.Data.EffectId.Equals(id));
+            return effectType switch 
+            { 
+                EEffectType.Buff => _statusEffects.Where(e => e.Data.EffectType == EEffectType.Buff).Count(),
+                EEffectType.Debuff => _statusEffects.Where(e => e.Data.EffectType == EEffectType.Debuff).Count(),
+                _ => _statusEffects.Count
+            };
         }
 
-        public int Count()
+        public RuntimeStatusEffect GetById(string effectId)
         {
-            return _statusEffects.Count;
+            return _statusEffects.FirstOrDefault(e => e.Data.EffectId.Equals(effectId));
         }
 
-        public RuntimeStatusEffect GetRandomStatusEffect()
+        public RuntimeStatusEffect GetRandomEffect()
         {
-            if (_statusEffects.Count == 0) return null;
             return _statusEffects[Random.Range(0, _statusEffects.Count - 1)];
         }
 
         public RuntimeStatusEffect[] GetEffectsByType(EEffectType type)
         {
-            if (_statusEffects.Count == 0) return null;
-            return _statusEffects.Where(effect => effect.Data.EffectType == type).ToArray();
+            return _statusEffects.Where(e => e.Data.EffectType.Equals(type)).ToArray();
+        }
+
+        public float ModifyStatDelta(EStatusType statType, float delta)
+        {
+            foreach (RuntimeStatusEffect effect in _statusEffects)
+            {
+                if (effect.SpecialEffect != null)
+                {
+                    delta = effect.SpecialEffect.ModifyStatDelta(statType, delta, owner);
+                }
+            }
+
+            return delta;
+        }
+
+        public void Trigger(ETurnFlowEvent flowEvent, BaseBattleCharacterController target)
+        {
+            foreach (var effect in _statusEffects)
+            {
+                switch (flowEvent)
+                {
+                    case ETurnFlowEvent.TurnStarted:
+                        break;
+                    case ETurnFlowEvent.BeforeCardAction:
+                        OnBeforeAction(target);
+                        break;
+                    case ETurnFlowEvent.AfterCardAction:
+                        OnAfterAction(target);
+                        break;
+                }
+            }
+        }
+
+        public void OnBeforeAction(BaseBattleCharacterController target)
+        {
+            foreach (var s in _statusEffects)
+            {
+                s.SpecialEffect?.OnBeforeAction(owner, target);
+            }
+        }
+        public void OnAfterAction(BaseBattleCharacterController target)
+        {
+            foreach (var s in _statusEffects)
+            {
+                s.SpecialEffect?.OnAfterAction(owner, target);
+            }
         }
     }
 }

@@ -4,7 +4,14 @@ namespace SEP490G69
 
     public interface ICardSpecialEffect
     {
-        public void OnAfterReceiveDmg(float damage, BaseBattleCharacterController self, BaseBattleCharacterController target);
-        public void OnAfterAction(BaseBattleCharacterController self, BaseBattleCharacterController target);
+        void OnTurnStart(BaseBattleCharacterController self);
+
+        void OnBeforeAction(BaseBattleCharacterController self, BaseBattleCharacterController target);
+
+        void OnAfterAction(BaseBattleCharacterController self, BaseBattleCharacterController target);
+
+        void OnAfterReceiveDmg(float damage, BaseBattleCharacterController self, BaseBattleCharacterController attacker);
+
+        float ModifyStatDelta(EStatusType statType, float delta, BaseBattleCharacterController self);
     }
 }

@@ -64,6 +64,8 @@ namespace SEP490G69
 
                 case EOperator.FlatSub:
                     return -value;
+                case EOperator.Set:
+                    return value;
             }
 
             return 0f;

@@ -23,4 +23,6 @@ MonoBehaviour:
   m_Description: 'Card 5: Add 30% action gauge'
   m_ApplyTarget: 0
   m_CalculateSource: 2
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 1
+  m_TurnFlowEvent: 0

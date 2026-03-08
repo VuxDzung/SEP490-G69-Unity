@@ -148,17 +148,17 @@
             GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT_DETAILS)
                          .AsFrame<UICombatDetailsFrame>()
                          .SetPlayerCharName(_playerCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetPlayerVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetPlayerPow(_playerCharacterCombat.CurrentDataHolder.GetPower(), _playerCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetPlayerAgi(_playerCharacterCombat.CurrentDataHolder.GetAgi(), _playerCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetPlayerInt(_playerCharacterCombat.CurrentDataHolder.GetINT(), _playerCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetPlayerSta(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
+                         .SetPlayerVit(_playerCharacterCombat.StatVit.Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetPlayerPow(_playerCharacterCombat.StatPow.Value, _playerCharacterCombat.ReadonlyDataHolder.GetPower())
+                         .SetPlayerAgi(_playerCharacterCombat.StatAgi.Value, _playerCharacterCombat.ReadonlyDataHolder.GetAgi())
+                         .SetPlayerInt(_playerCharacterCombat.StatInt.Value, _playerCharacterCombat.ReadonlyDataHolder.GetINT())
+                         .SetPlayerSta(_playerCharacterCombat.StatStamina.Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
                          .SetEnemyName(_enemyCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetEnemyVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetEnemyPow(_enemyCharacterCombat.CurrentDataHolder.GetPower(), _enemyCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetEnemyAgi(_enemyCharacterCombat.CurrentDataHolder.GetAgi(), _enemyCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetEnemyInt(_enemyCharacterCombat.CurrentDataHolder.GetINT(), _enemyCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetEnemySta(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina());
+                         .SetEnemyVit(_enemyCharacterCombat.StatVit.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetEnemyPow(_enemyCharacterCombat.StatPow.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetPower())
+                         .SetEnemyAgi(_enemyCharacterCombat.StatAgi.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetAgi())
+                         .SetEnemyInt(_enemyCharacterCombat.StatInt.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetINT())
+                         .SetEnemySta(_enemyCharacterCombat.StatStamina.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina());
         }
         private void InitializePlayerCharacter()
         {
@@ -221,13 +221,13 @@
             ChangeBattleState(EBattleState.InProgress);
             GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
                          .AsFrame<UICombatFrame>()
-                         .SetPlayerCharContent(_playerCharacterCombat.CurrentDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                         .SetPlayerCharVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetPlayerCharStamina(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
+                         .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
+                         .SetPlayerCharVit(_playerCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetPlayerCharStamina(_playerCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
                          .SetPlayerCharGauge(_playerCharacterCombat.GetCurrentEnergyValue(), _playerCharacterCombat.GetMaxEnergyValue())
-                         .SetEnemyCharContent(_enemyCharacterCombat.CurrentDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                         .SetEnemyCharVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetEnemyCharStamina(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
+                         .SetEnemyCharContent(_enemyCharacterCombat.ReadonlyDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
+                         .SetEnemyCharVit(_enemyCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
+                         .SetEnemyCharStamina(_enemyCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
                          .SetEnemyCharGauge(_enemyCharacterCombat.GetCurrentEnergyValue(), _enemyCharacterCombat.GetMaxEnergyValue());
         }
         #endregion
@@ -303,15 +303,17 @@
         {
             if (PlayerCharController.SelectedCard == null)
             {
-                Debug.LogWarning("No card selected");
+                Debug.Log("No card selected. Skip this action");
                 return;
             }
+            else
+            {
+                // Execute effect
+                _playerCharacterCombat.ExecuteCard(_playerCharacterCombat, _enemyCharacterCombat);
+                _playerCharacterCombat.EndCurrentTurn();
 
-            // Execute effect
-            _playerCharacterCombat.ExecuteCard(_playerCharacterCombat, _enemyCharacterCombat);
-            _playerCharacterCombat.EndCurrentTurn();
-
-            _enemyCharacterCombat.UnpauseBar();
+                _enemyCharacterCombat.UnpauseBar();
+            }
 
             UpdateToUI();
 
@@ -326,12 +328,12 @@
             GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT)
                        .AsFrame<UICombatFrame>()
                        .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                       .SetPlayerCharVit(_playerCharacterCombat.CurrentDataHolder.GetVIT(), _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                       .SetPlayerCharStamina(_playerCharacterCombat.CurrentDataHolder.GetStamina(), _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
+                       .SetPlayerCharVit(_playerCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
+                       .SetPlayerCharStamina(_playerCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
                        .LoadPlayerStatEffects(_playerCharacterCombat.StatEffectManager.ActiveStatEffects)
-                       .SetEnemyCharContent(_enemyCharacterCombat.CurrentDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                       .SetEnemyCharVit(_enemyCharacterCombat.CurrentDataHolder.GetVIT(), _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                       .SetEnemyCharStamina(_enemyCharacterCombat.CurrentDataHolder.GetStamina(), _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
+                       .SetEnemyCharContent(_enemyCharacterCombat.ReadonlyDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
+                       .SetEnemyCharVit(_enemyCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
+                       .SetEnemyCharStamina(_enemyCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
                        .LoadEnemyStatEffects(_enemyCharacterCombat.StatEffectManager.ActiveStatEffects);
         }
     }

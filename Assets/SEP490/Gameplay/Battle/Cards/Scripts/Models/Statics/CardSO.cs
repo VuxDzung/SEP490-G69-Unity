@@ -1,6 +1,7 @@
 namespace SEP490G69.Battle.Cards
 {
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "CardSO_", menuName = OrganizationConstants.NAMESPACE + "/Cards/Card data")]
@@ -39,6 +40,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private List<StatusEffectSO> m_StatusInflicts;
 
         [SerializeField] private string[] m_ExtraActions;
+        [SerializeField] private List<CustomVariable> m_CustomVariables;
 
         public string CardId => cardId;
         public string CardName => cardName;
@@ -74,6 +76,17 @@ namespace SEP490G69.Battle.Cards
         /// Status effects assigned for the opponent.
         /// </summary>
         public StatusEffectSO[] StatusInflicts => m_StatusInflicts.ToArray();
+
+        public IReadOnlyList<CustomVariable> CustomVariables => m_CustomVariables;
+
+        public CustomVariable GetVariableByName(string varName)
+        {
+            if (m_CustomVariables == null || m_CustomVariables.Count == 0)
+            {
+                return null;
+            }
+            return CustomVariables.FirstOrDefault(v => v.VariableName.Equals(varName));
+        }
 
         public float GetDelta(float targetValue)
         {

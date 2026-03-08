@@ -73,7 +73,7 @@ namespace SEP490G69.Economy
         {
             _shopItems.Clear();
 
-            var items = _shopDAO.GetAll(_sessionId);
+            List<ShopItemData> items = _shopDAO.GetAll(_sessionId);
 
             LocalizationManager localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
 
@@ -171,6 +171,7 @@ namespace SEP490G69.Economy
             _shopItems.Clear();
 
             var randomItems = _shopItemPool
+                .Where(x => x.OwnershipMethods.Contains(EOwnershipMethod.Shop))
                 .OrderBy(x => UnityEngine.Random.value)
                 .Take(MAX_ITEMS_PER_SESSION)
                 .ToList();

@@ -17,6 +17,7 @@ MonoBehaviour:
   m_ItemDecsKey: itm_0001_desc
   m_ItemImage: {fileID: 0}
   m_ItemType: 1
+  m_OwnershipMethods: 00000000
   m_CurrencyID: gold
   m_Cost: 100
   m_UsableModifiers:

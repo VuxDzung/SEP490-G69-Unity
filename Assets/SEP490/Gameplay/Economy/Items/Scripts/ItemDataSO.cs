@@ -12,6 +12,7 @@ namespace SEP490G69.Economy
         [SerializeField] private string m_ItemDecsKey;
         [SerializeField] private Sprite m_ItemImage;
         [SerializeField] private EItemType m_ItemType;
+        [SerializeField] private List<EOwnershipMethod> m_OwnershipMethods;
 
         [Header("Currency Settings")]
         [SerializeField] private string m_CurrencyID;
@@ -30,6 +31,7 @@ namespace SEP490G69.Economy
         public string ItemDescKey => m_ItemDecsKey;
         public Sprite ItemImage => m_ItemImage;
         public EItemType ItemType => m_ItemType;
+        public IReadOnlyList<EOwnershipMethod> OwnershipMethods => m_OwnershipMethods;
 
         public string CurrencyID => m_CurrencyID;
         public int Cost => m_Cost;

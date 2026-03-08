@@ -17,7 +17,9 @@ MonoBehaviour:
   m_ItemDecsKey: rel_0001_desc
   m_ItemImage: {fileID: 0}
   m_ItemType: 2
+  m_OwnershipMethods: 0100000002000000
   m_CurrencyID: 
   m_Cost: 0
+  m_UsableModifiers: []
   m_RelicModifiers:
   - {fileID: 11400000, guid: 01a2b4894d5def5489fe2f91b6f8ef3c, type: 2}

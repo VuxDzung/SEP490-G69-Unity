@@ -30,39 +30,307 @@ MonoBehaviour:
   - id: card_0003_desc
     textList:
     - language: 0
-      text: A weak magic attack.
+      text: A weak percise attack.
     - language: 1
-      text: "M\u1ED9t \u0111\xF2n t\u1EA5n c\xF4ng ph\xE9p thu\u1EADt y\u1EBFu."
+      text: "M\u1ED9t \u0111\xF2n t\u1EA5n c\xF4ng chu\u1EA9n nh\u01B0ng y\u1EBFu."
   - id: card_0004_desc
     textList:
     - language: 0
-      text: Standard magic attack.
+      text: Standard percise attack.
     - language: 1
-      text: "\u0110\xF2n t\u1EA5n c\xF4ng ma thu\u1EADt ti\xEAu chu\u1EA9n."
+      text: "\u0110\xF2n t\u1EA5n c\xF4ng chu\u1EA9n x\xE1c."
   - id: card_0005_desc
     textList:
     - language: 0
       text: Recover 40 Stamina and gain 30% Action Gauge.
     - language: 1
-      text: "H\u1ED3i ph\u1EE5c 40 \u0111i\u1EC3m th\u1EC3 l\u1EF1c v\xE0 t\u0103ng
-        30% thanh h\xE0nh \u0111\u1ED9ng."
+      text: "H\u1ED3i ph\u1EE5c 40 \u0110i\u1EC3m Th\u1EC3 L\u1EF1c v\xE0 t\u0103ng
+        30% Thanh H\xE0nh \u0110\u1ED9ng."
   - id: card_0006_desc
     textList:
     - language: 0
-      text: Recover 20 Stamina and Heal 5% HP.
+      text: Recover 20% Stamina and Heal 5% HP.
     - language: 1
-      text: "H\u1ED3i ph\u1EE5c 20 \u0111i\u1EC3m th\u1EC3 l\u1EF1c v\xE0 t\u0103ng
-        5% m\xE1u."
+      text: "H\u1ED3i ph\u1EE5c 20% \u0110i\u1EC3m Th\u1EC3 L\u1EF1c v\xE0 5% M\xE1u."
   - id: card_0007_desc
     textList:
     - language: 0
       text: Apply 1 Vulnerable effect to enemy
     - language: 1
-      text: "\xC1p d\u1EE5ng 1 hi\u1EC7u \u1EE9ng \u0110i\u1EC3m y\u1EBFu cho k\u1EBB
-        \u0111\u1ECBch"
+      text: "\xC1p d\u1EE5ng 1 hi\u1EC7u \u1EE9ng D\u1EC5 B\u1ECB Th\u01B0\u01A1ng
+        cho k\u1EBB \u0111\u1ECBch"
   - id: card_0008_desc
     textList:
     - language: 0
       text: Inflict 2 Power Down.
     - language: 1
-      text: "G\xE2y 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m s\u1EE9c m\u1EA1nh"
+      text: "G\xE2y 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m S\u1EE9c M\u1EA1nh"
+  - id: card_0009_desc
+    textList:
+    - language: 0
+      text: Deal damage and inflict 2 Agi Down.
+    - language: 1
+      text: "Tung \u0111\xF2n \u0111\xE1nh v\xE0 g\xE2y 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m
+        T\u1ED1c \u0110\u1ED9"
+  - id: card_0010_desc
+    textList:
+    - language: 0
+      text: Instantly heal 25% of Lost HP.
+    - language: 1
+      text: "l\u1EADp t\u1EE9c h\u1ED3i ph\u1EE5c 25% L\u01B0\u1EE3ng M\xE1u \u0110\xE3
+        M\u1EA5t"
+  - id: card_0011_desc
+    textList:
+    - language: 0
+      text: A heavy physicial attack
+    - language: 1
+      text: "Tung 1 \u0111\xF2n \u0111\xE1nh m\u1EA1nh"
+  - id: card_0012_desc
+    textList:
+    - language: 0
+      text: Deal high damage but take 1 Vulnerable
+    - language: 1
+      text: "G\xE2y ra l\u01B0\u1EE3ng sat th\u01B0\u01A1ng l\u1EDBn nh\u01B0ng nh\u1EADn
+        1 hi\u1EC7u \u1EE9ng D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"
+  - id: card_0014_desc
+    textList:
+    - language: 0
+      text: Lose 10% Max HP. Gain 1 Berserk & 80 Stamina.
+    - language: 1
+      text: "M\u1EA5t 10% L\u01B0\u1EE3ng M\xE1u T\u1ED1i \u0110a. Nh\u1EADn 1 hi\u1EC7u
+        \u1EE9ng Cu\u1ED3ng N\u1ED9 v\xE0 80 N\u0103ng L\u01B0\u1EE3ng"
+  - id: card_0013_desc
+    textList:
+    - language: 0
+      text: Deal damage and reduce enemy's Action Gauge by 20%
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 gi\u1EA3m 20% Thanh H\xE0nh \u0110\u1ED9ng
+        c\u1EE7a \u0111\u1ED1i th\u1EE7 "
+  - id: card_0015_desc
+    textList:
+    - language: 0
+      text: Gain 2 Power Up
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng T\u0103ng S\u1EE9c M\u1EA1nh"
+  - id: card_0016_desc
+    textList:
+    - language: 0
+      text: Deal damage. Dealing 2x damage if target has Vulnerable.
+    - language: 1
+      text: "Tung \u0111\xF2n \u0111\xE1nh, s\u1EBD g\u1EA5p \u0111\xF4i s\xE1t th\u01B0\u01A1ng
+        n\u1EBFu \u0111\u1ED1i th\u1EE7 c\xF3 hi\u1EC7u \u1EE9ng D\u1EC5 B\u1ECB
+        Th\u01B0\u01A1ng"
+  - id: card_0017_desc
+    textList:
+    - language: 0
+      text: Gain 2 Power Up and inflict 2 Power Down on enemy.
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng T\u0103ng S\xE1t Th\u01B0\u01A1ng v\xE0
+        g\u1EAFn 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m S\u1EE9c M\u1EA1nh l\xEAn \u0111\u1ED1i
+        th\u1EE7"
+  - id: card_0018_desc
+    textList:
+    - language: 0
+      text: This attack will guarantee crit if you have Berserk.
+    - language: 1
+      text: "\u0110\xF2n \u0111\xE1nh s\u1EBD ch\u1EAFc ch\u1EAFn ch\xED m\u1EA1ng
+        n\u1EBFu b\u1EA3n th\xE2n \u0111ang c\xF3 hi\u1EC7u \u1EE9ng Cu\u1ED3ng N\u1ED9"
+  - id: card_0019_desc
+    textList:
+    - language: 0
+      text: Deal massive damage but inflict 1 Stun on yourself
+    - language: 1
+      text: "G\xE2y l\u01B0\u1EE3ng l\u1EDBn s\xE1t th\u01B0\u01A1ng sau \u0111\xF3
+        nh\u1EADn hi\u1EC7u \u1EE9ng Cho\xE1ng"
+  - id: card_0020_desc
+    textList:
+    - language: 0
+      text: Only usable if HP < 25%. Deal massive damage
+    - language: 1
+      text: "Ch\u1EC9 d\xF9ng \u0111\u01B0\u1EE3c khi m\xE1u d\u01B0\u1EDBi 25%.
+        G\xE2y l\u01B0\u1EE3ng l\u1EDBn s\xE1t th\u01B0\u01A1ng"
+  - id: card_0021_desc
+    textList:
+    - language: 0
+      text: Deal damage and inflict 2 Defense Down
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 g\u1EAFn 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m
+        Ph\xF2ng Th\u1EE7 l\xEAn \u0111\u1ED1i th\u1EE7"
+  - id: card_0022_desc
+    textList:
+    - language: 0
+      text: The higher max HP, the bigger the damage.
+    - language: 1
+      text: "M\xE1u t\u1ED1i \u0111a c\xE0ng cao s\xE1t th\u01B0\u01A1ng c\xE0ng
+        l\u1EDBn"
+  - id: card_0023_desc
+    textList:
+    - language: 0
+      text: Gain 2 Defense Up and 10% Action Gauge
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng T\u0103ng Ph\xF2ng Th\u1EE7 v\xE0 10%
+        Thanh H\xE0nh \u0110\u1ED9ng"
+  - id: card_0024_desc
+    textList:
+    - language: 0
+      text: Gain 3 Thorn and 2 Defense Up
+    - language: 1
+      text: "Nh\u1EADn 3 hi\u1EC7u \u1EE9ng Gai v\xE0 2 hi\u1EC7u \u1EE9ng T\u0103ng
+        Ph\xF2ng Th\u1EE7"
+  - id: card_0025_desc
+    textList:
+    - language: 0
+      text: Deal damage. Deal 1.5x damage if you have Thorn
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng, s\u1EBD g\xE2y 1,5 l\u1EA7n s\xE1t th\u01B0\u01A1ng
+        n\u1EBFu b\u1EA3n th\xE2n c\xF3 hi\u1EC7u \u1EE9ng Gai"
+  - id: card_0026_desc
+    textList:
+    - language: 0
+      text: Heal 15% Max HP and recover 20 Stamina
+    - language: 1
+      text: "H\u1ED3i ph\u1EE5c 15% m\xE1u t\u1ED1i \u0111a v\xE0 20 N\u0103ng L\u01B0\u1EE3ng"
+  - id: card_0027_desc
+    textList:
+    - language: 0
+      text: Gain 2 Greater Defense Up
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng Si\xEAu T\u0103ng Ph\xF2ng Th\u1EE7"
+  - id: card_0028_desc
+    textList:
+    - language: 0
+      text: Deal damage. Inflict 2 Agi Down.
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng. G\u1EAFn 2 hi\u1EC7u \u1EE9ng Gi\u1EA3m
+        T\u1ED1c D\u1ED9 "
+  - id: card_0029_desc
+    textList:
+    - language: 0
+      text: Deal heavy damage based on Vitality
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng l\u1EDBn d\u1EF1a tr\xEAn l\u01B0\u1EE3ng
+        M\xE1u t\u1ED1c \u0111a"
+  - id: card_0030_desc
+    textList:
+    - language: 0
+      text: Gain 3 Regeneration
+    - language: 1
+      text: "Nh\u1EADn 3 hi\u1EC7u \u1EE9ng H\u1ED3i Ph\u1EE5c"
+  - id: card_0031_desc
+    textList:
+    - language: 0
+      text: Deal massive damage. Inflict 1 Stun if VIT > enemy STR
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng c\u1EF1c l\u1EDBn. N\u1EBFu ch\u1EC9
+        s\u1ED1 VIT c\u1EE7a b\u1EA3n th\xE2n > ch\u1EC9 s\u1ED1 STR c\u1EE7a \u0111\u1ED1i
+        th\u1EE7"
+  - id: card_0032_desc
+    textList:
+    - language: 0
+      text: Remove all debuffs from yourself
+    - language: 1
+      text: "Lo\u1EA1i b\u1ECF to\xE0n b\u1ED9 hi\u1EC7u \u1EE9ng x\u1EA5u tr\xEAn
+        b\u1EA3n th\xE2n"
+  - id: card_0033_desc
+    textList:
+    - language: 0
+      text: Deal massive damage. Gain 5 Defense Null and 5 Vulnerable
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng c\u1EF1c l\u1EDBn d\u1EF1a tr\xEAn l\u01B0\u1EE3ng
+        m\xE1u t\u1ED1i \u0111a. Sau \u0111\xF3 nh\u1EADn 5 hi\u1EC7u \u1EE9ng V\xF4
+        Th\u1EE7 v\xE0 5 hi\u1EC7u \u1EE9ng D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"
+  - id: card_0034_desc
+    textList:
+    - language: 0
+      text: Deal damage. The enemy loses 30 Stamina
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng. \u0110\u1ED1i th\u1EE7 s\u1EBD m\u1EA5t
+        30 N\u0103ng L\u01B0\u1EE3ng"
+  - id: card_0035_desc
+    textList:
+    - language: 0
+      text: Deal damage and inflict 2 Darkness
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 g\u1EAFn 2 hi\u1EC7u \u1EE9ng M\xF9
+        l\xEAn \u0111\u1ED1i th\u1EE7"
+  - id: card_0036_desc
+    textList:
+    - language: 0
+      text: Steal 20 Stamina from the enemy
+    - language: 1
+      text: "C\u01B0\u1EDBp 20 N\u0103ng L\u01B0\u1EE3ng t\u1EEB \u0111\u1ED1i th\u1EE7"
+  - id: card_0037_desc
+    textList:
+    - language: 0
+      text: Gain 2 Agi Up and 20% Action Gauge
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng T\u0103ng T\u1ED1c \u0110\u1ED9 v\xE0
+        t\u0103ng 20% Thanh H\xE0nh \u0110\u1ED9ng"
+  - id: card_0038_desc
+    textList:
+    - language: 0
+      text: Deal damage and inflict 2 Fatigue
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 g\u1EAFn 2 hi\u1EC7u \u1EE9ng M\u1EC7t
+        M\u1ECFi"
+  - id: card_0039_desc
+    textList:
+    - language: 0
+      text: Gain 2 Greater Int Up
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng Si\xEAu T\u0103ng Tr\xED Tu\u1EC7"
+  - id: card_0040_desc
+    textList:
+    - language: 0
+      text: Hit 3 times. Damage scales with Speed
+    - language: 1
+      text: "\u0110\xE1nh 3 \u0111\xF2n li\xEAn ti\u1EBFp. S\xE1t th\u01B0\u01A1ng
+        g\xE2y ra d\u1EF1a tr\xEAn T\u1ED1c \u0110\u1ED9"
+  - id: card_0041_desc
+    textList:
+    - language: 0
+      text: "Deal damage. Deal 1.5\xD7 damage if the enemy has any debuff"
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng. S\xE1t th\u01B0\u01A1ng g\xE2y ra g\u1EA5p
+        1.5 l\u1EA7n n\u1EBFu \u0111\u1ED1i th\u1EE7 c\xF3 hi\u1EC7u \u1EE9ng x\u1EA5u"
+  - id: card_0042_desc
+    textList:
+    - language: 0
+      text: Deal high damage. Reset the enemy's Action Gauge to 0
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng l\u1EDBn. \u0110\u1EB7t l\u1EA1i Thanh
+        H\xE0nh \u0110\u1ED9ng c\u1EE7a \u0111\u1ED1i th\u1EE7 v\u1EC1 0"
+  - id: card_0043_desc
+    textList:
+    - language: 0
+      text: Deal massive damage. Gain 3 Exhaustion
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng c\u1EF1c l\u1EDBn. Nh\u1EADn 3 hi\u1EC7u
+        \u1EE9ng Ki\u1EC7t Qu\u1EC7"
+  - id: card_0044_desc
+    textList:
+    - language: 0
+      text: Need fix
+    - language: 1
+      text: Need Fix
+  - id: card_0045_desc
+    textList:
+    - language: 0
+      text: Gain 2 Agi Up and 2 Greater Agi Up
+    - language: 1
+      text: "Nh\u1EADn 2 hi\u1EC7u \u1EE9ng T\u0103ng T\u1ED1c \u0110\u1ED9 v\xE0
+        2 hi\u1EC7u \u1EE9ng Si\xEAu T\u0103ng T\u1ED1c \u0110\u1ED9"
+  - id: card_0046_desc
+    textList:
+    - language: 0
+      text: Deal damage and remove 1 buff from the enemy
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 lo\u1EA1i b\u1ECF 1 hi\u1EC7u \u1EE9ng
+        c\xF3 l\u1EE3i kh\u1ECFi \u0111\u1ED1i th\u1EE7"
+  - id: card_0047_desc
+    textList:
+    - language: 0
+      text: Deal massive damage and inflict 3 Vulnerable
+    - language: 1
+      text: "G\xE2y s\xE1t th\u01B0\u01A1ng c\u1EF1c l\u1EDBn v\xE0 g\u1EAFn 3 hi\u1EC7u
+        \u1EE9ng D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"

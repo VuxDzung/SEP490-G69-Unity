@@ -194,3 +194,15 @@ MonoBehaviour:
       text: Enter
     - language: 1
       text: "V\xE0o"
+  - id: btn_character_description
+    textList:
+    - language: 0
+      text: Description
+    - language: 1
+      text: "M\xF4 T\u1EA3"
+  - id: btn_base_stats
+    textList:
+    - language: 0
+      text: Stats
+    - language: 1
+      text: "Ch\u1EC9 S\u1ED1"

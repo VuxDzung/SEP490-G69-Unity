@@ -7,7 +7,8 @@ namespace SEP490G69.Economy
     {
         private ShopItemData _data;
         private ItemDataSO _dataSO;
-        private LocalizationManager _localization;
+
+        #region Getters
         public string GetSessionItemId()
         {
             return _data.SessionItemId;
@@ -18,19 +19,15 @@ namespace SEP490G69.Economy
         }
         public string GetItemName()
         {
-            if (_localization == null) return string.Empty;
-
             if (_dataSO == null) return string.Empty;
 
-            return _localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, _dataSO.ItemID);
+            return _dataSO.ItemNameKey;//_localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, _dataSO.ItemID);
         }
         public string GetItemDescription()
         {
-            if (_localization == null) return string.Empty;
-
             if (_dataSO == null) return string.Empty;
 
-            return _localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, _dataSO.ItemID);
+            return _dataSO.ItemDescKey; //_localization.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, _dataSO.ItemID);
         }
         public float GetPrice()
         {
@@ -49,6 +46,26 @@ namespace SEP490G69.Economy
             if (_data == null) return 0;
             return _data.RemainAmount;
         }
+        #endregion
+
+        public bool TryDecreaseAmount(int amount)
+        {
+            if (_data == null)
+            {
+                return false;
+            }
+            if (_data.RemainAmount < amount)
+            {
+                return false;
+            }
+            _data.RemainAmount -= amount;
+            if (_data.RemainAmount < 0)
+            {
+                _data.RemainAmount = 0;
+            }
+            return true;
+        }
+
         public void SetRemainAmount(int remainAmount)
         {
             _data.RemainAmount = remainAmount;
@@ -59,11 +76,11 @@ namespace SEP490G69.Economy
             dao.Update(_data);
         }
 
+        #region Builder
         public class Builder
         {
             ShopItemData _data;
             ItemDataSO _dataSO;
-            LocalizationManager _localizeManager;
 
             public Builder WithDBData(ShopItemData data)
             {
@@ -75,21 +92,16 @@ namespace SEP490G69.Economy
                 _dataSO = data;
                 return this;
             }
-            public Builder WithLocalization(LocalizationManager localizationManager)
-            {
-                _localizeManager = localizationManager;
-                return this;
-            }
             public ShopItemDataHolder Build()
             {
                 ShopItemDataHolder holder = new ShopItemDataHolder
                 {
                     _data = _data,
                     _dataSO = _dataSO,
-                    _localization = _localizeManager,
                 };
                 return holder;
             }
         }
+        #endregion
     }
 }

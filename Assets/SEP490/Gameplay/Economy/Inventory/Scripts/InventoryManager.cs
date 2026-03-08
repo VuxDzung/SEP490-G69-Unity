@@ -52,16 +52,16 @@ namespace SEP490G69
         {
             _inventoryItems.Clear();
 
-            var items = _inventoryDAO.GetAllItems(_sessionId);
+            List<ItemData> items = _inventoryDAO.GetAllItems(_sessionId);
 
-            foreach (var data in items)
+            foreach (ItemData data in items)
             {
                 ItemDataSO so = _itemConfig.GetItem(data.RawItemId);
 
                 var holder = new ItemDataHolder.Builder()
-                    .WithRuntimeData(data)
-                    .WithDataSO(so)
-                    .Build();
+                                               .WithRuntimeData(data)
+                                               .WithDataSO(so)
+                                               .Build();
 
                 _inventoryItems.Add(holder);
             }

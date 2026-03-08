@@ -130,6 +130,16 @@ namespace SEP490G69.GameSessions
             PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
         }
 
+        /// <summary>
+        /// Delete all player's active session
+        /// A session includes:
+        /// - Character data.
+        /// - Item data.
+        /// - Card data
+        /// - Tournament progression.
+        /// - Session data.
+        /// </summary>
+        /// <returns></returns>
         public bool DeleteAllSessions()
         {
             if (_sessionCreator == null) return false;

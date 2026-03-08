@@ -3,7 +3,8 @@ using UnityEngine;
 namespace SEP490G69.Economy
 {
     /// <summary>
-    /// This is a holder for both hard-data (in-editor data) and runtime data
+    /// This is a holder for both hard-data (in-editor data) and runtime data.
+    /// Use for getter only.
     /// </summary>
     [System.Serializable]
     public class ItemDataHolder 
@@ -11,10 +12,9 @@ namespace SEP490G69.Economy
         private ItemData _data;
         private ItemDataSO _dataSO;
 
+        #region Getters
         public string GetSessionItemId() => _data.SessionItemId;
-
         public string GetRawId() => _data.RawItemId;
-
         public string GetSessionId() => _data.SessionId;
         public Sprite GetIcon() => _dataSO == null ? null : _dataSO.ItemImage;
         public EItemType GetItemType() => _dataSO.ItemType;
@@ -22,16 +22,16 @@ namespace SEP490G69.Economy
         {
             return _dataSO == null ? string.Empty : _dataSO.ItemNameKey;
         }
-
         public string GetItemDescription()
         {
             return _dataSO == null ? string.Empty : _dataSO.ItemDescKey;
         }
-
         public int GetRemainAmount()
         {
             return _data.RemainAmount;
         }
+
+        #endregion
 
         public void AddItemAmount(int amount)
         {
@@ -73,6 +73,7 @@ namespace SEP490G69.Economy
             return -1;
         }
 
+        #region Builder 
         public class Builder
         {
             private ItemData data;
@@ -99,5 +100,6 @@ namespace SEP490G69.Economy
                 };
             }
         }
+        #endregion
     }
 }

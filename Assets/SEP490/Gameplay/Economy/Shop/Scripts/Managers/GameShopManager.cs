@@ -36,6 +36,7 @@ namespace SEP490G69.Economy
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
+
             _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
             _inventoryManager = ContextManager.Singleton.ResolveGameContext<InventoryManager>();
@@ -45,6 +46,14 @@ namespace SEP490G69.Economy
             _shopDAO = new GameShopDAO();
 
             LoadShopItemPool();
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.Log("Session id cache does not exist!");
+                return;
+            }
+            SetSessionId(sessionId);
         }
         private void OnDestroy()
         {
@@ -75,7 +84,6 @@ namespace SEP490G69.Economy
                 ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
                                                                   .WithDBData(data)
                                                                   .WithSOData(so)
-                                                                  .WithLocalization(_localization)
                                                                   .Build();
 
                 _shopItems.Add(holder);
@@ -122,9 +130,8 @@ namespace SEP490G69.Economy
 
             _inventoryManager.AddItem(itemId, amount);
 
-            int newRemain = shopItem.GetRemainAmount() - amount;
+            shopItem.TryDecreaseAmount(amount);
 
-            shopItem.SetRemainAmount(newRemain);
             shopItem.UpdateChanges(_shopDAO);
 
             _sessionDAO.UpdateSession(session);
@@ -150,8 +157,6 @@ namespace SEP490G69.Economy
             session.CurrentGoldAmount += sellPrice * amount;
 
             _sessionDAO.UpdateSession(session);
-
-            //_currencyManager.AddCurrency(itemSO.CurrencyID, sellPrice * amount);
         }
 
         /// <summary>
@@ -183,8 +188,7 @@ namespace SEP490G69.Economy
                 _shopDAO.Insert(data);
                 ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
                                                                   .WithDBData(data)
-                                                                  .WithSOData(item)
-                                                                  .WithLocalization(_localization).Build();
+                                                                  .WithSOData(item).Build();
                 _shopItems.Add(holder);
             }
         }

@@ -56,7 +56,7 @@ namespace SEP490G69
 
             foreach (ItemData data in items)
             {
-                ItemDataSO so = _itemConfig.GetItem(data.RawItemId);
+                ItemDataSO so = _itemConfig.GetItemById(data.RawItemId);
 
                 var holder = new ItemDataHolder.Builder()
                                                .WithRuntimeData(data)
@@ -103,7 +103,7 @@ namespace SEP490G69
 
                 _inventoryDAO.Insert(newItem);
 
-                ItemDataSO so = _itemConfig.GetItem(itemId);
+                ItemDataSO so = _itemConfig.GetItemById(itemId);
 
                 item = new ItemDataHolder.Builder()
                     .WithRuntimeData(newItem)

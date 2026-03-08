@@ -17,6 +17,9 @@ namespace SEP490G69.Economy
         [SerializeField] private string m_CurrencyID;
         [SerializeField] private int m_Cost;
 
+        [Header("Usable settings")]
+        [SerializeField] private List<StatusModifierSO> m_UsableModifiers;
+
         [Header("Relic fields")]
         [Tooltip("When the player equip the relic, all the stats in combat changes based on the relic modifiers. " +
                  "When unequip the relic, those stats changes are reverted as well")]
@@ -30,6 +33,8 @@ namespace SEP490G69.Economy
 
         public string CurrencyID => m_CurrencyID;
         public int Cost => m_Cost;
+
+        public IReadOnlyList<StatusModifierSO> UsableModifiers => m_UsableModifiers;
 
         /// <summary>
         /// When the player equip the relic, all the stats in combat changes based on the relic modifiers.

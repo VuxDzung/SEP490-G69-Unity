@@ -79,7 +79,7 @@ namespace SEP490G69.Economy
 
             foreach (ShopItemData data in items)
             {
-                ItemDataSO so = _itemConfig.GetItem(data.RawItemId);
+                ItemDataSO so = _itemConfig.GetItemById(data.RawItemId);
 
                 ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
                                                                   .WithDBData(data)
@@ -119,7 +119,7 @@ namespace SEP490G69.Economy
             PlayerTrainingSession session = GetSessionData();
             if (session == null) return;
 
-            ItemDataSO itemSO = _itemConfig.GetItem(itemId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(itemId);
 
             int totalCost = itemSO.Cost * amount;
 
@@ -144,7 +144,7 @@ namespace SEP490G69.Economy
         /// <param name="amount"></param>
         public void SellItem(string itemId, int amount)
         {
-            ItemDataSO itemSO = _itemConfig.GetItem(itemId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(itemId);
 
             PlayerTrainingSession session = GetSessionData();
             if (session == null) return;

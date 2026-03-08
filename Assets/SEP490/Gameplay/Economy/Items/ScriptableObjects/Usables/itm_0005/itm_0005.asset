@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4233715205b5d734fa7ceeddb49d5fe8, type: 3}
-  m_Name: itm_0001
+  m_Name: itm_0005
   m_EditorClassIdentifier: 
-  m_ItemID: itm_0001
-  m_ItemNameKey: itm_0001_name
-  m_ItemDecsKey: itm_0001_desc
+  m_ItemID: itm_0005
+  m_ItemNameKey: itm_0005_name
+  m_ItemDecsKey: itm_0005_desc
   m_ItemImage: {fileID: 0}
   m_ItemType: 1
-  m_OwnershipMethods: 00000000
+  m_OwnershipMethods: 01000000
   m_CurrencyID: gold
-  m_Cost: 30
+  m_Cost: 350
   m_UsableModifiers:
-  - {fileID: 11400000, guid: 7f5b354ca485cc84e9b92adfb28812ce, type: 2}
+  - {fileID: 11400000, guid: 799f133f027818b41842693b30d1174c, type: 2}
+  - {fileID: 11400000, guid: c5cc134ff02842f49b142d3c2a753390, type: 2}
   m_RelicModifiers: []

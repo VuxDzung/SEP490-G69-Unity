@@ -1,9 +1,9 @@
-namespace SEP490G69.Battle.Cards
+﻿namespace SEP490G69.Battle.Cards
 {
     using LiteDB;
     using UnityEngine;
 
-    public class GameDeckDAO 
+    public class GameDeckDAO
     {
         public const string COLLECTION_NAME = "PlayerDeck";
 
@@ -19,7 +19,7 @@ namespace SEP490G69.Battle.Cards
 
         public GameDeckDAO(LiteDatabase database)
         {
-            _database = LocalDBInitiator.GetDatabase();
+            _database = database;
             _collection = _database.GetCollection<SessionPlayerDeck>(COLLECTION_NAME);
         }
 
@@ -29,10 +29,41 @@ namespace SEP490G69.Battle.Cards
             {
                 return _collection.FindById(sessionId);
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        // --- CREATE & UPDATE ---
+        /// <summary>
+        /// Thêm mới nếu chưa có, cập nhật ghi đè nếu đã tồn tại.
+        /// </summary>
+        public bool Upsert(SessionPlayerDeck deck)
+        {
+            try
+            {
+                return _collection.Upsert(deck);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- DELETE ---
+        public bool Delete(string sessionId)
+        {
+            try
+            {
+                return _collection.Delete(sessionId);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
             }
         }
     }

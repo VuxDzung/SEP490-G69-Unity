@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
   m_Name: FramesConfig_Deck
   m_EditorClassIdentifier: 
-  m_StarterFrameId: 
-  m_Frames: []
+  m_StarterFrameId: Frame.EditDeck
+  m_Frames:
+  - {fileID: 2902401323083316011, guid: d5535fdb0643a024a9ed7a31de138ca9, type: 3}

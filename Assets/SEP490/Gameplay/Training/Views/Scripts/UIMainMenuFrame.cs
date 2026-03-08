@@ -2,7 +2,6 @@ namespace SEP490G69.Training
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Calendar;
-    using System.Runtime.ConstrainedExecution;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -242,7 +241,7 @@ namespace SEP490G69.Training
         }
         private void ShowDeck()
         {
-
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_DECK);
         }
         private void ShowPlayerProfile()
         {

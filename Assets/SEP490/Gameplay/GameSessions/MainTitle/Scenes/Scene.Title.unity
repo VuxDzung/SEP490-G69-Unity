@@ -509,6 +509,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8429499272419609716, guid: 7992c3c66397c624bbe7dc404e08adde, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429499272419609716, guid: 7992c3c66397c624bbe7dc404e08adde, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -626,6 +630,7 @@ GameObject:
   - component: {fileID: 871359043}
   - component: {fileID: 871359044}
   - component: {fileID: 871359045}
+  - component: {fileID: 871359046}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -689,6 +694,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: UIUniqueCard
+  preLoadPrefabs: []
+--- !u!114 &871359046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871359041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: UIStatusTooltip
   preLoadPrefabs: []
 --- !u!1 &879103819
 GameObject:

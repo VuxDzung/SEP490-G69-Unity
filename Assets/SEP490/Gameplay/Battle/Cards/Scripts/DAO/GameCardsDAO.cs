@@ -98,5 +98,19 @@
                 return false;
             }
         }
+
+        public bool DeleteAllBySessionId(string sessionId)
+        {
+            try
+            {
+                _collection.DeleteMany(x => x.SessionId.Equals(sessionId));
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
     }
 }

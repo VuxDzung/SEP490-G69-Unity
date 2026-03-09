@@ -2,6 +2,7 @@
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using System.Collections.Generic;
+    using System.Linq;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -21,7 +22,6 @@
         [SerializeField] private CardConfigSO m_CardConfig;
 
         private List<string> _currentDeckIds = new List<string>();
-        private List<UICardElement> _spawnedCards = new List<UICardElement>();
         private int _maxDeckSize = 9;
 
         private GameDeckController _deckController;
@@ -37,13 +37,15 @@
             }
         }
 
+        private List<SessionCardData> _obtainedCards = new List<SessionCardData>();
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
             m_BackBtn.onClick.AddListener(Back);
             m_SaveDeckBtn.onClick.AddListener(SaveDeck);
 
-            LoadAllCards();
+            LoadAllCards(true);
         }
         protected override void OnFrameHidden()
         {
@@ -57,12 +59,16 @@
         /// <summary>
         /// Tải toàn bộ thẻ bài (cả trong Deck và Inventory) và sắp xếp vào đúng Container.
         /// </summary>
-        private void LoadAllCards()
+        private void LoadAllCards(bool refreshFromDB)
         {
             ClearSpawnedCards();
 
             SessionPlayerDeck playerDeck = DeckController.GetCurrentDeck();
-            List<SessionCardData> obtainedCards = DeckController.GetAllObtainedCards();
+
+            if (refreshFromDB)
+            {
+                _obtainedCards = DeckController.GetAllObtainedCards();
+            }
 
             _currentDeckIds.Clear();
 
@@ -71,101 +77,116 @@
                 _currentDeckIds.AddRange(playerDeck.CardIds);
             }
 
-            Dictionary<string, int> deckUsage = new Dictionary<string, int>();
+            Debug.Log($"Player deck count: {playerDeck.CardIds.Length}");
+
+            //Debug.Log("<color=green>---------- SPAWN DECK CARDS ----------</color>");
 
             // ---------- SPAWN DECK CARDS ----------
-            foreach (string deckId in _currentDeckIds)
+            foreach (string deckCardId in _currentDeckIds)
             {
-                string rawId = CardUtils.ExtractRawCardId(deckId);
+                string rawId = CardUtils.ExtractRawCardId(deckCardId);
 
                 CardSO staticCardData = m_CardConfig.GetCardById(rawId);
                 if (staticCardData == null) continue;
 
-                Transform cardUITransform =
-                    PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_InDeckContainer);
+                Transform dekcCardUITransform = PoolManager.Pools["UIDeckCard"].Spawn(m_CardUIPrefab, m_InDeckContainer);
 
-                UICardElement cardElement = cardUITransform.GetComponent<UICardElement>();
+                UIEditableCardElement deckCardElement = dekcCardUITransform.GetComponent<UIEditableCardElement>();
+                dekcCardUITransform.gameObject.name = $"InDeckCard_{deckCardId}";
+                deckCardElement.SetContent(
+                    rawId,
+                    deckCardId,
+                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, staticCardData.CardName),
+                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription),
+                    staticCardData.Icon,
+                    1);
 
-                cardElement.Spawn();
-                cardElement.SetContent(
-                    deckId,
-                    staticCardData.CardName,
-                    staticCardData.CardDescription,
-                    staticCardData.Icon);
-
-                cardElement.SetOnSelectCallback(OnCardClicked);
-
-                _spawnedCards.Add(cardElement);
-
-                if (!deckUsage.ContainsKey(rawId))
-                    deckUsage[rawId] = 0;
-
-                deckUsage[rawId]++;
+                deckCardElement.SetOnSelectCallback(OnRemoveFromDeck);
             }
 
+            //Debug.Log("<color=green>---------- SPAWN INVENTORY ----------</color>");
             // ---------- SPAWN INVENTORY ----------
-            foreach (var sessionCard in obtainedCards)
+            foreach (SessionCardData card in _obtainedCards)
             {
-                CardSO staticCardData = m_CardConfig.GetCardById(sessionCard.RawCardId);
-                if (staticCardData == null) continue;
-
-                int usedInDeck = deckUsage.ContainsKey(sessionCard.RawCardId)
-                    ? deckUsage[sessionCard.RawCardId]
-                    : 0;
-
-                int remaining = sessionCard.ObtainedAmount - usedInDeck;
-
-                for (int i = 0; i < remaining; i++)
+                if (card.ObtainedAmount <= 0)
                 {
-                    Transform cardUITransform =
-                        PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_ObtainedContainer);
-
-                    UICardElement cardElement = cardUITransform.GetComponent<UICardElement>();
-
-                    cardElement.Spawn();
-                    cardElement.SetContent(
-                        sessionCard.RawCardId,
-                        staticCardData.CardName,
-                        staticCardData.CardDescription,
-                        staticCardData.Icon);
-
-                    cardElement.SetOnSelectCallback(OnCardClicked);
-
-                    _spawnedCards.Add(cardElement);
+                    Debug.Log($"<color=yellow>Warning: </color> {card.SessionCardId} stack amount is zero.");
+                    continue;
                 }
+
+                CardSO staticCardData = m_CardConfig.GetCardById(card.RawCardId);
+                if (staticCardData == null)
+                {
+                    Debug.LogError($"CardSO of {card.RawCardId} is not registered.");
+                    continue;
+                }
+
+                Transform cardUITransform = PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_ObtainedContainer);
+
+                UIEditableCardElement cardElement = cardUITransform.GetComponent<UIEditableCardElement>();
+
+                cardElement.SetContent(
+                    card.RawCardId,
+                    "",
+                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, staticCardData.CardName),
+                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription),
+                    staticCardData.Icon,
+                    card.ObtainedAmount);
+
+                cardElement.SetOnSelectCallback(OnAddToDeck);
             }
 
             UpdateDeckCountText();
         }
 
-        /// <summary>
-        /// Xử lý logic di chuyển thẻ bài qua lại khi click.
-        /// </summary>
-        private void OnCardClicked(string cardId, bool isSelected, Transform cardTransform)
+        private void OnRemoveFromDeck(string _, bool __, Transform cardTransform)
         {
-            UICardElement cardUI = cardTransform.GetComponent<UICardElement>();
-            bool isCurrentlyInDeck = cardTransform.parent == m_InDeckContainer;
+            UIEditableCardElement cardUI = cardTransform.GetComponent<UIEditableCardElement>();
 
-            if (isCurrentlyInDeck)
+            bool isInDeck = DeckController.IsCardInDeck(cardUI.DeckCardId);
+
+            if (isInDeck)
             {
-                _currentDeckIds.Remove(cardId);
-                cardTransform.SetParent(m_ObtainedContainer, false);
+                bool removed = DeckController.RemoveCardFromDeck(cardUI.DeckCardId, false);
+
+                if (!removed)
+                {
+                    Debug.LogError("Failed to remove from deck");
+                    return;
+                }
+                Debug.Log("Move to inventory");
+                string rawId = cardUI.RawCardId;
+
+                SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(rawId));
+                cardData.ObtainedAmount++;
             }
             else
             {
-                if (_currentDeckIds.Count >= _maxDeckSize)
-                {
-                    Debug.LogWarning("Deck đã đầy!");
-                    cardUI.Deselect();
-                    return;
-                }
-
-                _currentDeckIds.Add(cardId);
-                cardTransform.SetParent(m_InDeckContainer, false);
+                Debug.LogError($"{cardUI.DeckCardId} is not in deck");
             }
+            cardUI.Deselect();
+            LoadAllCards(false); // refresh UI
+        }
+
+        private void OnAddToDeck(string _, bool __, Transform cardTransform)
+        {
+            UIEditableCardElement cardUI = cardTransform.GetComponent<UIEditableCardElement>();
+
+            bool added = DeckController.AddCardToDeck(cardUI.RawCardId);
+
+            if (!added)
+            {
+                Debug.LogError("Failed to add to deck");
+
+                return;
+            }
+            Debug.Log("Move to deck");
+
+            SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(cardUI.RawCardId));
+            cardData.ObtainedAmount--;
 
             cardUI.Deselect();
-            UpdateDeckCountText();
+            LoadAllCards(false); // refresh UI
         }
 
         private void UpdateDeckCountText()
@@ -179,19 +200,21 @@
         private void SaveDeck()
         {
             DeckController.SaveDeck(_currentDeckIds);
+            DeckController.SaveInventory(_obtainedCards);
+
             // TODO: Bổ sung hiệu ứng hoặc Toast message báo "Lưu thành công"
         }
 
         private void ClearSpawnedCards()
         {
-            foreach (var card in _spawnedCards)
+            if (PoolManager.Pools["UICard"].Count > 0)
             {
-                if (card != null)
-                {
-                    PoolManager.Pools["UICard"].DespawnObject(card.transform);
-                }
+                PoolManager.Pools["UICard"].DespawnAll();
             }
-            _spawnedCards.Clear();
+            if (PoolManager.Pools["UIDeckCard"].Count > 0)
+            {
+                PoolManager.Pools["UIDeckCard"].DespawnAll();
+            }
         }
 
         private void Back()

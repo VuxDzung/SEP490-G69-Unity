@@ -59,12 +59,33 @@
             }
         }
 
+        public bool Update(SessionPlayerDeck deck)
+        {
+            try
+            {
+                return _collection.Update(deck);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
         // --- DELETE ---
         public bool Delete(string sessionId)
         {
             try
             {
-                return _collection.Delete(sessionId);
+                if (GetById(sessionId) != null)
+                {
+                    return _collection.Delete(sessionId);
+                }
+                else
+                {
+                    Debug.LogError($"[GameDeckDAO]: Deck of session {sessionId} does not existed");
+                    return false;
+                }
             }
             catch (System.Exception e)
             {

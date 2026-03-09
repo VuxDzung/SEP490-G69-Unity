@@ -12,6 +12,8 @@ namespace SEP490G69.GameSessions
     {
         [SerializeField] private bool m_DeleteAll = true;
 
+        private StarterCardConfigSO _starterCardConfig;
+
         private IGameSessionCreator _sessionCreator;
         private PlayerCharacterRepository _characterRepo;
         private PlayerDataDAO _playerDAO;
@@ -77,6 +79,8 @@ namespace SEP490G69.GameSessions
 
         private void Start()
         {
+            _starterCardConfig = ContextManager.Singleton.GetDataSO<StarterCardConfigSO>();
+
             _sessionCreator = new SingleSessionCreator();
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
 
@@ -110,7 +114,7 @@ namespace SEP490G69.GameSessions
 
             if (_sessionCreator.TryCreateSession(playerId, characterId, out sessionId, out error))
             {
-                BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(characterId);
+                PlayerCharacterDataSO characterSO = CharacterConfig.GetCharacterById(characterId).ConvertAs<PlayerCharacterDataSO>();
 
                 if (characterSO != null)
                 {
@@ -120,21 +124,47 @@ namespace SEP490G69.GameSessions
                         Debug.Log("Start create player's deck");
                         DeckController.SetSessionId(sessionId);
 
-                        string[] characterStarterCards = new string[0]; // Update later.
+                        // Dung: Add default starter cards.
+                        List<string> starterCards = new List<string>();
 
-                        foreach (string rawCardId in characterStarterCards)
+                        foreach (StarterCardData starterCard in _starterCardConfig.StarterCards)
                         {
+                            for (int i = 0; i < starterCard.amount; i++)
+                            {
+                                starterCards.Add(starterCard.cardId);
+                            }
+                            DeckController.AddObtainedCard(starterCard.cardId, starterCard.amount);
+                        }
+
+                        // Dung: Add charater's starter cards.
+                        foreach (string rawCardId in characterSO.StartingCardIds)
+                        {
+                            starterCards.Add(rawCardId);
                             DeckController.AddObtainedCard(rawCardId);
                         }
 
-                        foreach (string rawCardId in characterStarterCards)
+                        // Add to deck.
+                        foreach (string rawCardId in starterCards)
                         {
-                            if (!DeckController.AddCardToDeck(rawCardId))
+                            if (DeckController.GetDeckCardCount() >= GameDeckController.MAX_DECK_COUNT)
+                            {
+                                Debug.Log("<color=red>[GameSessionController]</color> Max card amount exceeded");
+                                break;
+                            }
+                            if (!DeckController.AddCardToDeck(rawCardId, false))
                             {
                                 Debug.Log($"<color=red>Error:</color> Failed to add card {rawCardId} to deck");
                             }
+                            else
+                            {
+                                if (!DeckController.RemoveObtainedCard(rawCardId, 1))
+                                {
+                                    Debug.LogError("Failed to decrease card amount");
+                                }
+                            }
                         }
-
+                        Debug.Log("<color=green>Add cards to deck successfully!</color>");
+                        DeckController.SaveDeck();
                         return true;
                     }
                     else
@@ -166,6 +196,7 @@ namespace SEP490G69.GameSessions
             string sessionId = sessions[0].SessionId;
 
             PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
+            DeckController.SetSessionId(sessionId);
         }
 
         /// <summary>

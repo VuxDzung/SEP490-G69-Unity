@@ -1,10 +1,12 @@
 namespace SEP490G69.Battle.Combat
 {
+    using SEP490G69.Battle.Cards;
     using UnityEngine;
 
     public class PlayerBattleCharaterController : BaseBattleCharacterController
     {
         private PlayerCharacterRepository _characterRepo;
+        private GameDeckDAO _deckDAO;
 
         private SessionPlayerDeck _playerDeckData;
         private TestObtainedCardSO _test;
@@ -22,6 +24,13 @@ namespace SEP490G69.Battle.Combat
             if (string.IsNullOrEmpty(sessionId))
             {
                 Debug.LogError($"Session {sessionId} does not exist in local PlayerPrefs");
+                return;
+            }
+            _playerDeckData = _deckDAO.GetById(sessionId);
+
+            if (_playerDeckData == null)
+            {
+                Debug.LogError($"Session {sessionId} does not have deck data");
                 return;
             }
 
@@ -48,8 +57,6 @@ namespace SEP490G69.Battle.Combat
             SetCharacterDataHolder(characterHolder);
 
             InitializeEnergySystem();
-
-            GenerateSampleDeck();
 
             InitializeDeck(_playerDeckData.CardIds);
         }

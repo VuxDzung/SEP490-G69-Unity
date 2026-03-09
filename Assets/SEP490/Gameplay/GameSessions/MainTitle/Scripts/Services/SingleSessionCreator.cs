@@ -1,5 +1,6 @@
 namespace SEP490G69.GameSessions
 {
+    using SEP490G69.Battle.Cards;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
     using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace SEP490G69.GameSessions
         private PlayerCharacterDAO _characterDAO;
         private TournamentProgressDAO _tournamentDAO;
         private TrainingExerciseDAO _trainingDAO;
+        private GameDeckDAO _deckDAO;
+        private GameCardsDAO _cardsDAO;
 
         public SingleSessionCreator()
         {
@@ -25,6 +28,8 @@ namespace SEP490G69.GameSessions
             _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
             _tournamentDAO = new TournamentProgressDAO();
             _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            _deckDAO = new GameDeckDAO();
+            _cardsDAO = new GameCardsDAO();
         }
 
         public List<PlayerTrainingSession> GetAllSessions(string playerId)
@@ -88,7 +93,7 @@ namespace SEP490G69.GameSessions
                 // Step 2: Delete all tournament progress
                 if (!_tournamentDAO.DeleteAllBySessionId(session.SessionId))
                 {
-                    Debug.LogError("Failed to delete all progress by session. Delete all by default (Testing only)");
+                    Debug.LogError("[SingleSessionCreator] Failed to delete all progress by session. Delete all by default (Testing only)");
                     _tournamentDAO.DeleteAll();
                     //continue;
                 }
@@ -96,12 +101,27 @@ namespace SEP490G69.GameSessions
                 // Step 3: Delete all training exercises.
                 if (!_trainingDAO.DeleteAllBySessionId(session.SessionId))
                 {
-                    Debug.LogError("Failed to clear all old training exercises. Delete all by default.");
+                    Debug.LogError("[SingleSessionCreator] Failed to clear all old training exercises. Delete all by default.");
                     _trainingDAO.DeleteAll();
                 }
 
-                if (!_dao.DeleteById(session.SessionId)) // Error here.
+                // Step 4: Delete deck.
+                if (!_deckDAO.Delete(session.SessionId))
                 {
+                    Debug.LogError($"[SingleSessionCreator] Failed to delete the deck of session {session.SessionId}");
+                }
+
+                // Step 5: Delete all cards
+                if (!_cardsDAO.DeleteAllBySessionId(session.SessionId))
+                {
+                    Debug.LogError($"[SingleSessionCreator] Failed to delete all cards of session {session.SessionId}");
+                }
+
+                // Final: delete the session.
+                if (!_dao.DeleteById(session.SessionId))
+                {
+                    Debug.LogError($"[SingleSessionCreator] Failed to delete session {session.SessionId}");
+
                     allDeleted = false;
                 }
             }

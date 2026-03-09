@@ -14,6 +14,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private Sprite icon;
         [SerializeField] private int cost;
         [SerializeField] private bool m_IsReady;
+        [SerializeField] private bool m_Stackable;
 
         [Header("Dmg changer")]
         [SerializeField] private EActionType m_ActionType;
@@ -48,6 +49,8 @@ namespace SEP490G69.Battle.Cards
         public Sprite Icon => icon;
         public int Cost => cost;
         public bool IsReady => m_IsReady;
+        public bool Stackable => m_Stackable;
+
         public EActionType ActionType => m_ActionType;
         public float BaseValue => m_BaseDmg;
         public EStatusType ModifyStatType => m_ModifyStatType;

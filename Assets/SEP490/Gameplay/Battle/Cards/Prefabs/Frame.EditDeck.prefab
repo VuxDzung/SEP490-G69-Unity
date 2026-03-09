@@ -1877,7 +1877,7 @@ GameObject:
   - component: {fileID: 6225201175030134775}
   - component: {fileID: 2988477278946040412}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content.Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2399,7 +2399,7 @@ MonoBehaviour:
   m_InDeckContainer: {fileID: 5274892201901854986}
   m_ObtainedContainer: {fileID: 1475223531347456585}
   m_SearchInputTmp: {fileID: 2305223860925466693}
-  m_CardUIPrefab: {fileID: 4483193689666573129, guid: 5f0a180a0116a4542977c34792a585cb, type: 3}
+  m_CardUIPrefab: {fileID: 5880420539340702264, guid: d900bb3fc43ce0d42a2ede1accbd4216, type: 3}
   m_CardConfig: {fileID: 11400000, guid: 6af2c5d57f0d0eb4fa37f8c4b5de75d3, type: 2}
 --- !u!1 &4378227888858315196
 GameObject:
@@ -3439,7 +3439,7 @@ GameObject:
   - component: {fileID: 95883666871807459}
   - component: {fileID: 4003568864225329553}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content.Deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3835,7 +3835,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8530551973821438048}
   m_HandleRect: {fileID: 3896373475944546908}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

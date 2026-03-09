@@ -16,7 +16,7 @@ namespace SEP490G69
 
         public IReadOnlyList<string> UniqueCardId => m_UniqueCardId;
 
-        public IReadOnlyList<string> StartingCardId => m_StartingCardId;
+        public IReadOnlyList<string> StartingCardIds => m_StartingCardId;
 
         public StatusModifierSO GetModifierByStatType(EStatusType statType)
         {

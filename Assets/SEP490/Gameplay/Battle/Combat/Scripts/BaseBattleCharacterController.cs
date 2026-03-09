@@ -344,9 +344,9 @@
         #endregion
 
         #region Cards
-        protected void InitializeDeck(string[] cardIdArray)
+        protected void InitializeDeck(string[] deckCardIdArray)
         {
-            if (cardIdArray == null || cardIdArray.Length == 0)
+            if (deckCardIdArray == null || deckCardIdArray.Length == 0)
             {
                 Debug.LogError("Deck is empty");
                 return;
@@ -356,11 +356,14 @@
             _discardPool.Clear();
             _currentDrawPool.Clear();
 
-            foreach (var id in cardIdArray)
+            foreach (var deckCardId in deckCardIdArray)
             {
-                CardSO card = CardConfig.GetCardById(id);
+                string rawCardId = CardUtils.ExtractRawCardId(deckCardId);
+                CardSO card = CardConfig.GetCardById(rawCardId);
                 if (card != null)
+                {
                     _deckPool.Add(card);
+                }
             }
         }
 

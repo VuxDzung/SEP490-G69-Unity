@@ -10,9 +10,13 @@
     /// - Load in-deck cards.
     /// - Add card to deck.
     /// - Remove card from deck.
+    /// - Add obtained card (rawCardId:string, amount:int)
+    /// - Remove obtained card (rawCardId:string, amount:int)
     /// </summary>
     public class GameDeckController : MonoBehaviour, IGameContext
     {
+        public const int MAX_DECK_COUNT = 9;
+
         private ContextManager _contextManager;
 
         private GameCardsDAO _cardsDAO;
@@ -21,11 +25,15 @@
         private string _currentSessionId;
         private CardConfigSO _cardConfig;
 
+        private SessionPlayerDeck _deck;
+
         private void Awake()
         {
             _cardsDAO = new GameCardsDAO();
             _deckDAO = new GameDeckDAO();
             _currentSessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            SetSessionId(_currentSessionId);
         }
 
         public void SetManager(ContextManager manager)
@@ -37,8 +45,31 @@
 
         public void SetSessionId(string sessionId)
         {
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError("Session id is null");
+                return;
+            }
+
             _currentSessionId = sessionId;
+
+            _deck = _deckDAO.GetById(sessionId);
+
+            if (_deck == null)
+            {
+                Debug.Log("[GameDeckController] No deck existed. Create new deck!");
+                _deck = new SessionPlayerDeck();
+                _deck.SessionId = sessionId;
+                _deck.CardIds = new string[0];
+
+                if (!_deckDAO.Upsert(_deck))
+                {
+                    Debug.LogError($"[GameDeckController] Failed to upsert deck for session {sessionId}");
+                }
+            }
         }
+
+        #region Card Inventory
 
         /// <summary>
         /// Lấy toàn bộ thẻ bài người chơi đang sở hữu từ Database.
@@ -49,95 +80,61 @@
         }
 
         /// <summary>
-        /// Lấy thông tin Deck hiện tại của người chơi.
-        /// </summary>
-        public SessionPlayerDeck GetCurrentDeck()
-        {
-            SessionPlayerDeck deck = _deckDAO.GetById(_currentSessionId);
-
-            if (deck == null)
-            {
-                deck = new SessionPlayerDeck
-                {
-                    SessionId = _currentSessionId,
-                    CardIds = new string[0]
-                };
-            }
-
-            return deck;
-        }
-
-        /// <summary>
-        /// Lưu cấu hình Deck mới vào Database (Ghi đè hoặc tạo mới).
-        /// </summary>
-        public void SaveDeck(List<string> cardIds)
-        {
-            SessionPlayerDeck deckToSave = new SessionPlayerDeck
-            {
-                SessionId = _currentSessionId,
-                CardIds = cardIds.ToArray()
-            };
-
-            bool success = _deckDAO.Upsert(deckToSave);
-
-            if (success)
-            {
-                Debug.Log($"[GameDeckController] Đã lưu Deck thành công với {cardIds.Count} thẻ.");
-            }
-            else
-            {
-                Debug.LogError("[GameDeckController] Xảy ra lỗi khi lưu Deck xuống Database!");
-            }
-        }
-
-        /// <summary>
         /// Thêm thẻ bài mới vào kho (Inventory) khi người chơi nhận được (từ Shop, Exploration...).
         /// </summary>
         public void AddObtainedCard(string rawCardId, int amount = 1)
         {
-            if (string.IsNullOrEmpty(rawCardId) || _cardConfig.GetCardById(rawCardId) == null)
-            {
-                Debug.LogError("[GameDeckController] Error: Invalid raw card id");
-                return;
-            }
+            SessionCardData card = _cardsDAO.GetById(_currentSessionId, rawCardId);
 
-            SessionCardData existingCard = _cardsDAO.GetById(_currentSessionId, rawCardId);
+            Debug.Log($"<color=green>[GameDeckController]</color> Add obtainedcard: {rawCardId}, amount: {amount}");
 
-            if (existingCard != null)
+            if (card == null)
             {
-                existingCard.ObtainedAmount += amount;
-                bool success = _cardsDAO.Update(existingCard);
-
-                if (success)
-                {
-                    Debug.Log($"[GameDeckController] Increase card {rawCardId} stack amount to {existingCard.ObtainedAmount}.");
-                }
-                else
-                {
-                    Debug.LogError($"[GameDeckController] Failed to stack existed card {rawCardId}");
-                }
-            }
-            else
-            {
-                SessionCardData newCard = new SessionCardData
+                card = new SessionCardData
                 {
                     SessionCardId = $"{_currentSessionId}:{rawCardId}",
-                    RawCardId = rawCardId,
                     SessionId = _currentSessionId,
+                    RawCardId = rawCardId,
                     ObtainedAmount = amount
                 };
 
-                bool success = _cardsDAO.Insert(newCard);
-
-                if (success)
-                {
-                    Debug.Log($"[GameDeckController] Received new card success: {rawCardId}.");
-                }
-                else
-                {
-                    Debug.LogError($"[GameDeckController] Failed to receive new card: {rawCardId}");
-                }
+                _cardsDAO.Insert(card);
             }
+            else
+            {
+                card.ObtainedAmount += amount;
+                _cardsDAO.Update(card);
+            }
+        }
+
+        public bool RemoveObtainedCard(string rawCardId, int amount)
+        {
+            SessionCardData card = _cardsDAO.GetById(_currentSessionId, rawCardId);
+
+            if (card == null || card.ObtainedAmount < amount)
+                return false;
+
+            card.ObtainedAmount -= amount;
+
+            _cardsDAO.Update(card);
+
+            return true;
+        }
+        public void AddObtainedCards(List<string> rawCardIds)
+        {
+            foreach (var id in rawCardIds)
+                AddObtainedCard(id, 1);
+        }
+        #endregion
+
+
+        public bool IsCardInDeck(string deckCardId)
+        {
+            if (string.IsNullOrEmpty(deckCardId))
+            {
+                return false;
+            }
+            return _deck.CardIds.Contains(deckCardId);
         }
 
         private int CountDeckCardsByRawId(List<string> deckCards, string rawCardId)
@@ -148,7 +145,7 @@
             {
                 string[] parts = id.Split(':');
 
-                if (parts.Length >= 2 && parts[1] == rawCardId)
+                if (parts.Length >= 2 && parts[1].Equals(rawCardId))
                 {
                     count++;
                 }
@@ -157,8 +154,50 @@
             return count;
         }
 
-        public bool AddCardToDeck(string rawCardId)
+        public int GetDeckCardCount()
         {
+            if (_deck == null)
+            {
+                Debug.LogError("Failed to get player deck");
+                return -1;
+            }
+            return _deck.CardIds.Length;
+        }
+
+        /// <summary>
+        /// When add card to deck, decrease the stack inventory
+        /// </summary>
+        /// <param name="rawCardId"></param>
+        /// <param name="autoUpdateDB"></param>
+        /// <returns></returns>
+        public bool AddCardToDeck(string rawCardId, bool autoUpdateDB = true)
+        {
+            if (_deck == null)
+            {
+                Debug.LogError("Failed to get player deck");
+                return false;
+            }
+
+            if (_deck.CardIds.Length >= MAX_DECK_COUNT)
+            {
+                Debug.LogError("Max cards amount in deck exceeded");
+                return false;
+            }
+
+            CardSO cardSO = _cardConfig.GetCardById(rawCardId);
+
+            foreach (var cardId in _deck.CardIds)
+            {
+                string inDeckRawId = CardUtils.ExtractRawCardId(cardId);
+
+                if (cardSO.CardId.Equals(inDeckRawId) &&
+                    !cardSO.Stackable)
+                {
+                    Debug.LogError("You're trying to insert an unstackable card to deck");
+                    return false;
+                }
+            }
+
             SessionCardData ownedCard = _cardsDAO.GetById(_currentSessionId, rawCardId);
 
             if (ownedCard == null)
@@ -167,19 +206,18 @@
                 return false;
             }
 
-            SessionPlayerDeck deck = GetCurrentDeck();
+            List<string> deckCards = _deck.CardIds.ToList();
 
-            List<string> deckCards = deck.CardIds.ToList();
+            //int deckCount = CountDeckCardsByRawId(deckCards, rawCardId);
 
-            int deckCount = CountDeckCardsByRawId(deckCards, rawCardId);
+            //if (deckCount >= ownedCard.ObtainedAmount)
+            //{
+            //    Debug.Log($"<color=yellow>Warning: </color>Cannot add {rawCardId} to deck. Not enough copies.");
+            //    return false;
+            //}
 
-            if (deckCount >= ownedCard.ObtainedAmount)
-            {
-                Debug.LogWarning($"Cannot add {rawCardId} to deck. Not enough copies.");
-                return false;
-            }
-
-            int variant = GenerateVariantIndex(deckCards, rawCardId);
+            //int variant = GenerateVariantIndex(deckCards, rawCardId);
+            string variant = System.Guid.NewGuid().ToString();
 
             string deckCardId = string.Format(
                 GameDeckDAO.FORMAT_IN_DECK_CARD_ID,
@@ -189,29 +227,127 @@
             );
 
             deckCards.Add(deckCardId);
+            _deck.CardIds = deckCards.ToArray();
 
-            SaveDeck(deckCards);
+            if (autoUpdateDB)
+            {
+                RemoveObtainedCard(rawCardId, 1);
+                SaveDeck();
+            }
 
             return true;
         }
 
-        public bool RemoveCardFromDeck(string deckCardId)
+        /// <summary>
+        /// When remove card from deck, increase the stack amount of the obtained card in inventory.
+        /// </summary>
+        /// <param name="deckCardId"></param>
+        /// <param name="autoSaveDB"></param>
+        /// <returns></returns>
+        public bool RemoveCardFromDeck(string deckCardId, bool autoSaveDB = true)
         {
-            SessionPlayerDeck deck = GetCurrentDeck();
+            List<string> deckCards = _deck.CardIds.ToList();
 
-            List<string> deckCards = deck.CardIds.ToList();
-
-            bool removed = deckCards.Remove(deckCardId);
-
-            if (!removed)
+            if (!deckCards.Contains(deckCardId))
             {
-                Debug.LogWarning($"Card {deckCardId} not found in deck.");
+                Debug.LogError($"Card {deckCardId} is not in deck");
                 return false;
             }
 
-            SaveDeck(deckCards);
+            if (!deckCards.Remove(deckCardId))
+            {
+                return false;
+            }
+
+            _deck.CardIds = deckCards.ToArray();
+
+            if (autoSaveDB)
+            {
+                string rawCardId = CardUtils.ExtractRawCardId(deckCardId);
+                AddObtainedCard(rawCardId, 1);
+                SaveDeck();
+            }
 
             return true;
+        }
+
+        public void AddCardsToDeck(List<string> rawIds, bool autoUpdateDB = true)
+        {
+            foreach (var rawId in rawIds)
+                AddCardToDeck(rawId, autoUpdateDB);
+        }
+
+        public void RemoveCardsFromDeck(List<string> deckIds)
+        {
+            foreach (var id in deckIds)
+                RemoveCardFromDeck(id);
+        }
+
+        /// <summary>
+        /// Lấy thông tin Deck hiện tại của người chơi.
+        /// </summary>
+        public SessionPlayerDeck GetCurrentDeck()
+        {
+            if (_deck == null)
+            {
+                Debug.LogError("Deck is null");
+                _deck = new SessionPlayerDeck
+                {
+                    SessionId = _currentSessionId,
+                    CardIds = new string[0]
+                };
+            }
+
+            return _deck;
+        }
+
+        public void SaveDeck(List<string> cardIds)
+        {
+            if (_deck == null)
+            {
+                Debug.LogError("[GameDeckController] Deck data is null");
+                return;
+            }
+
+            _deck.CardIds = cardIds.ToArray();
+
+            SaveDeck();
+        }
+
+        /// <summary>
+        /// Lưu cấu hình Deck mới vào Database (Ghi đè hoặc tạo mới).
+        /// </summary>
+        public void SaveDeck()
+        {
+            if (_deck == null)
+            {
+                Debug.LogError("[GameDeckController] Deck data is null");
+                return;
+            }
+
+            bool success = _deckDAO.Update(_deck);
+
+            if (success)
+            {
+                Debug.Log($"[GameDeckController] Đã lưu Deck thành công với {_deck.CardIds.Length} thẻ.");
+            }
+            else
+            {
+                Debug.LogError("[GameDeckController] Xảy ra lỗi khi lưu Deck xuống Database!");
+            }
+        }
+
+        public void SaveInventory(List<SessionCardData> cards)
+        {
+            foreach (var card in cards)
+            {
+                bool success = _cardsDAO.Update(card);
+
+                if (!success)
+                {
+                    Debug.LogError($"Failed to update card {card.RawCardId}");
+                }
+            }
         }
 
         private int GenerateVariantIndex(List<string> deckCards, string rawCardId)

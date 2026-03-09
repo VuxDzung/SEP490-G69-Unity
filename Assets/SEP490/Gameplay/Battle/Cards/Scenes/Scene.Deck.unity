@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 673544269}
   - component: {fileID: 673544270}
+  - component: {fileID: 673544271}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -450,6 +451,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: UICard
+  preLoadPrefabs: []
+--- !u!114 &673544271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673544268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: UIDeckCard
   preLoadPrefabs: []
 --- !u!1001 &1256166357
 PrefabInstance:

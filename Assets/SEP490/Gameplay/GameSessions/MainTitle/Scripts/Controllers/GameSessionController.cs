@@ -1,11 +1,16 @@
 namespace SEP490G69.GameSessions
 {
     using SEP490G69.PlayerProfile;
+    using SEP490G69.Tournament;
+    using SEP490G69.Training;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class GameSessionController : MonoBehaviour, ISceneContext
     {
+        [SerializeField] private bool m_DeleteAll = true;
+
         private IGameSessionCreator _sessionCreator;
         private PlayerCharacterRepository _characterRepo;
         private PlayerDataDAO _playerDAO;
@@ -64,6 +69,8 @@ namespace SEP490G69.GameSessions
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
 
             CheckPlayerProfile();
+
+            if (m_DeleteAll) DELETE_ALL();
         }
 
         public bool HasActiveSession()
@@ -196,6 +203,68 @@ namespace SEP490G69.GameSessions
                 else
                 {
                     Debug.Log("Sync failed!");
+                }
+            }
+        }
+        private GameSessionDAO _dao;
+        private PlayerCharacterDAO _characterDAO;
+        private TournamentProgressDAO _tournamentDAO;
+        private TrainingExerciseDAO _trainingDAO;
+
+        private void DELETE_ALL()
+        {
+            string playerId = AuthManager.GetUserId();
+            _dao = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
+            _tournamentDAO = new TournamentProgressDAO();
+            _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            List<PlayerTrainingSession> sessions = _dao.GetAllBydPlayerId(playerId);
+
+            var playerSessions = sessions.Where(s => s.PlayerId == playerId).ToList();
+
+            if (playerSessions.Count == 0)
+                return;
+
+            bool allDeleted = true;
+
+            foreach (var session in playerSessions)
+            {
+                // Step 1: delete all characters.
+                SessionCharacterData characterData = _characterDAO.GetCharacterById(session.SessionId, session.CharacterId);
+
+                if (characterData != null)
+                {
+                    _characterDAO.TryDeleteCharacter(characterData.Id);
+                }
+
+                // Step 2: Delete all tournament progress
+                if (!_tournamentDAO.DeleteAllBySessionId(session.SessionId))
+                {
+                    Debug.LogError("Failed to delete all progress by session. Delete all by default (Testing only)");
+                    _tournamentDAO.DeleteAll();
+                    allDeleted = false;
+                }
+
+                // Step 3: Delete all training exercises.
+                if (!_trainingDAO.DeleteAllBySessionId(session.SessionId))
+                {
+                    Debug.LogError("Failed to clear all old training exercises. Delete all by default.");
+                    _trainingDAO.DeleteAll();
+                    allDeleted = false;
+                }
+
+                if (!_dao.DeleteById(session.SessionId))
+                {
+                    allDeleted = false;
+                }
+
+                if (allDeleted)
+                {
+                    Debug.Log("Delete all succss");
+                }
+                else
+                {
+                    Debug.Log("Delete all failed");
                 }
             }
         }

@@ -14,21 +14,38 @@ namespace SEP490G69
         {
             _database = LocalDBInitiator.GetDatabase();
             _collection = _database.GetCollection<SessionCharacterData>(COLLECTION_NAME);
+            _collection.EnsureIndex(x => x.SessionId);
+            _collection.EnsureIndex(_ => _.RawCharacterId);
         }
 
         public PlayerCharacterDAO(LiteDatabase database)
         {
             _database = database;
             _collection = _database.GetCollection<SessionCharacterData>(COLLECTION_NAME);
+            _collection.EnsureIndex(x => x.SessionId);
+            _collection.EnsureIndex(_ => _.RawCharacterId);
         }
 
-        public SessionCharacterData GetCharacter(string id)
+        public SessionCharacterData GetCharacterById(string id)
         {
             if (string.IsNullOrEmpty(id))
                 return null;
             try
             {
                 return _collection.FindById(id);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex);
+                return null;
+            }
+        }
+        public SessionCharacterData GetCharacterById(string sessionId, string rawCharacterId)
+        {
+            try
+            {
+                return _collection.FindOne(x => x.SessionId.Equals(sessionId) && 
+                                           x.RawCharacterId.Equals(rawCharacterId));
             }
             catch (System.Exception ex)
             {

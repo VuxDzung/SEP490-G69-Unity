@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdc328cb49c8af4383107ab984ced71, type: 3}
   m_Name: Reward_tour_0001_0002
   m_EditorClassIdentifier: 
-  m_RewardId: re_tour_0001_0001
-  m_RewardName: re_tour_0001_0001_name
+  m_Id: re_tour_0001_0002
+  m_RewardName: re_tour_0001_0002_name
   m_RewardType: 2
-  m_RewardAmount: 50
+  m_RewardTargetId: rp
+  m_RewardAmount: 100
   m_StatModifiers: []

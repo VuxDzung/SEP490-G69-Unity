@@ -4,6 +4,8 @@
     using UnityEngine;
     using SEP490G69.GameSessions;
     using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.Addons.Localization;
+    using System.Collections;
 
     public class GameTournamentController : MonoBehaviour, ISceneContext
     {
@@ -42,9 +44,11 @@
 
         private UITournamentBracketScreen _bracketFrame;
 
-        private string _tournamentId;
+        private string _sessionTournamentId;
 
         #endregion
+
+        private EventManager _eventManager;
 
 
         #region Unity Lifecycle
@@ -52,6 +56,7 @@
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
+            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
             LoadDAOs();
         }
 
@@ -60,7 +65,15 @@
             if (m_IsTesting)
             {
                 LoadTournamentData(m_TournamentId);
+                return;
             }
+            string tournamentId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ID);
+            if (string.IsNullOrEmpty(tournamentId))
+            {
+                Debug.LogError($"Tournament id {tournamentId} is not in the cache!");
+                return;
+            }
+            LoadTournamentData(tournamentId);
         }
 
         private void OnDestroy()
@@ -93,15 +106,15 @@
         public void LoadTournamentData(string tournamentId)
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            _tournamentId = $"{sessionId}:{tournamentId}";
+            _sessionTournamentId = $"{sessionId}:{tournamentId}";
 
-            TournamentProgressData saved = _tournamentDAO.Get(_tournamentId);
+            TournamentProgressData saved = _tournamentDAO.GetById(_sessionTournamentId);
 
             if (saved != null)
             {
                 if (m_ClearExistedProgress)
                 {
-                    _tournamentDAO.Delete(_tournamentId);
+                    _tournamentDAO.Delete(_sessionTournamentId);
                 }
                 else
                 {
@@ -114,6 +127,7 @@
                     }
 
                     OpenTournamentBracketUI();
+                    UpdateBracketUI();
                     return;
                 }
             }
@@ -127,7 +141,7 @@
         /// </summary>
         private void RestoreProgress(TournamentProgressData data)
         {
-            _currentTournamentSO = m_TournamentConfig.GetTournamentById(data.TournamentId);
+            _currentTournamentSO = m_TournamentConfig.GetTournamentById(data.RawTournamentId);
 
             m_CurrentRoundIndex = data.CurrentRoundIndex;
             m_SemiFinalParticipants = RestoreParticipants(data.SemiFinalParticipants);
@@ -556,11 +570,68 @@
             }
 
             Debug.Log("Clear tournament progress");
-            _tournamentDAO.Delete(_tournamentId);
-
-            Debug.Log("Go back to main menu");
+            _tournamentDAO.Delete(_sessionTournamentId);
+            Debug.Log("Ready to go back to main menu");
         }
 
+        public void GoBackToMainMenu()
+        {
+            List<LoadTask> loadTaskList = new List<LoadTask>();
+            LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
+            loadTaskList.Add(goToNextWeekTask);
+
+            SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
+        }
+
+        private IEnumerator DelayGoToNextWeek()
+        {
+            yield return new WaitForSeconds(0.2f);
+            _eventManager.Publish(new EndTournamentEvent());
+        }
+
+        public IReadOnlyList<RewardDataSO> GetPlayerRewards()
+        {
+            TournamentRewardTier tier = GetPlayerRewardTier();
+
+            IReadOnlyList<RewardDataSO> rewardRanks = GetRewardsByTier(tier);
+
+            if (rewardRanks == null || rewardRanks.Count == 0)
+                return null;
+
+            return rewardRanks;
+        }
+
+        private TournamentRewardTier GetPlayerRewardTier()
+        {
+            bool playerAlive = m_CurrentRoundParticipants.Exists(p => p.IsPlayer);
+
+            if (playerAlive && m_CurrentRoundParticipants.Count == 1)
+            {
+                return TournamentRewardTier.Champion;
+            }
+
+            if (m_CurrentRoundIndex >= 2)
+            {
+                return TournamentRewardTier.SemiFinal;
+            }
+
+            return TournamentRewardTier.Elimination;
+        }
+
+        private IReadOnlyList<RewardDataSO> GetRewardsByTier(TournamentRewardTier tier)
+        {
+            switch (tier)
+            {
+                case TournamentRewardTier.Champion:
+                    return _currentTournamentSO.ChampionRewards;
+
+                case TournamentRewardTier.SemiFinal:
+                    return _currentTournamentSO.SemiFinalRewards;
+
+                default:
+                    return _currentTournamentSO.EliminationRewards;
+            }
+        }
         #endregion
 
 
@@ -608,7 +679,8 @@
             return new TournamentProgressData
             {
                 Id = $"{sessionId}:{_currentTournamentSO.TournamentId}",
-                TournamentId = _currentTournamentSO.TournamentId,
+                SessionId = sessionId,
+                RawTournamentId = _currentTournamentSO.TournamentId,
                 CurrentRoundIndex = m_CurrentRoundIndex,
                 WaitingForPlayerBattle = false,
                 Participants = ConvertParticipants(m_CurrentParticipants),
@@ -640,5 +712,12 @@
         }
 
         #endregion
+    }
+
+    public enum TournamentRewardTier
+    {
+        Elimination,
+        SemiFinal,
+        Champion
     }
 }

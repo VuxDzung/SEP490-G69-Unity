@@ -134,7 +134,7 @@ namespace SEP490G69.Economy
 
             shopItem.UpdateChanges(_shopDAO);
 
-            _sessionDAO.UpdateSession(session);
+            _sessionDAO.Update(session);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace SEP490G69.Economy
 
             session.CurrentGoldAmount += sellPrice * amount;
 
-            _sessionDAO.UpdateSession(session);
+            _sessionDAO.Update(session);
         }
 
         /// <summary>

@@ -7,8 +7,8 @@ namespace SEP490G69.Tournament
     {
         [BsonId]
         public string Id { get; set; } // sessionId:tournamentId
-
-        public string TournamentId { get; set; }
+        public string SessionId { get; set; }
+        public string RawTournamentId { get; set; }
 
         public int CurrentRoundIndex { get; set; }
 

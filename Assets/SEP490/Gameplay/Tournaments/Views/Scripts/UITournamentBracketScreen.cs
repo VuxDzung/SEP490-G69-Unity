@@ -26,6 +26,8 @@
         [Header("Controls")]
         [SerializeField] private Button m_BtnContinue; // Nút để ấn Next Match
 
+        [SerializeField] private Button m_EndTournamentBtn;
+
         private GameTournamentController _controller;
 
         #region Properties (Lazy getters)
@@ -36,12 +38,14 @@
         {
             base.OnFrameShown();
             m_BtnContinue.onClick.AddListener(OnContinueClicked);
+            m_EndTournamentBtn.onClick.AddListener(EndTournament);
         }
 
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
             m_BtnContinue.onClick.RemoveListener(OnContinueClicked);
+            m_EndTournamentBtn.onClick.RemoveListener(EndTournament);
         }
 
         // Khởi tạo ban đầu
@@ -49,8 +53,7 @@
         {
             _controller = controller;
 
-            m_TmpTournamentName.text =
-                LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOUR_NAMES, tournamentNameKey);
+            m_TmpTournamentName.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOUR_NAMES, tournamentNameKey);
 
             ClearSlots(m_QuarterSlots);
             ClearSlots(m_FinalSlots);
@@ -132,7 +135,24 @@
             {
                 m_ChampionSlot.sprite = winners[0].Avatar;
                 m_ChampionSlot.color = Color.white;
+
+                m_EndTournamentBtn.gameObject.SetActive(true);
+
+                IReadOnlyList<RewardDataSO> rewards = _controller.GetPlayerRewards();
+
+                if (rewards != null)
+                {
+                    foreach (var r in rewards)
+                    {
+                        Debug.Log($"Player reward: {r.name}");
+                    }
+                }
             }
+            else
+            {
+                m_EndTournamentBtn.gameObject.SetActive(false);
+            }
+
         }
 
         // ==========================================
@@ -176,6 +196,11 @@
             {
                 Debug.LogError("Tournament controller is null");
             }
+        }
+
+        private void EndTournament()
+        {
+            _controller.GoBackToMainMenu();
         }
     }
 }

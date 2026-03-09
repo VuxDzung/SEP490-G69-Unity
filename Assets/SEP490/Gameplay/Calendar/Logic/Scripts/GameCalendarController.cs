@@ -84,11 +84,13 @@ namespace SEP490G69.Calendar
             }
 
             _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
+            _eventManager.Subscribe<EndTournamentEvent>(HandleEndTournamentEvent);
         }
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
             _eventManager.Unsubscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
+            _eventManager.Unsubscribe<EndTournamentEvent>(HandleEndTournamentEvent);
         }
 
         private void Start()
@@ -102,7 +104,7 @@ namespace SEP490G69.Calendar
 
             if (_currentSesssion == null)
             {
-                return;
+                Debug.Log("Current session data is null");
             }
         }
 
@@ -115,8 +117,22 @@ namespace SEP490G69.Calendar
                 TrainingController.HideTrainingMenuBG();
                 TrainingController.OpenMainMenuBG();
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+                GoToNextWeek(true);
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
-                GoToNextWeek(false);
+            });
+        }
+
+        private void HandleEndTournamentEvent(EndTournamentEvent ev)
+        {
+            float fadeDur = 1f;
+            float inFadeDur = 1f;
+            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            {
+                TrainingController.HideTrainingMenuBG();
+                TrainingController.OpenMainMenuBG();
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+                GoToNextWeek(true);
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
             });
         }
 
@@ -124,6 +140,8 @@ namespace SEP490G69.Calendar
         {
             if (_currentSesssion == null)
             {
+                Debug.Log("Current session data is null");
+
                 return;
             }
 
@@ -135,7 +153,7 @@ namespace SEP490G69.Calendar
 
                     if (saveToDB)
                     {
-                        _sessionDAO.UpdateSession(_currentSesssion);
+                        _sessionDAO.Update(_currentSesssion);
                     }
 
                     _eventManager.Publish(new NextWeekEvent
@@ -246,6 +264,31 @@ namespace SEP490G69.Calendar
         public int GetTotalWeeks()
         {
             return CalendarConfig.GetTotalWeeks();
+        }
+
+        public bool TryEnterTournament(string tournamentId, out string result)
+        {
+            result = string.Empty;
+            if (_currentSesssion == null)
+            {
+                result = "Current session model is null";
+                return false;
+            }
+            CalendarWeekSO weekSO = GetWeekData(_currentSesssion.CurrentWeek + 1);
+            if (weekSO == null)
+            {
+                result = $"Calendar week SO {_currentSesssion.CurrentWeek} is not registered";
+                return false;
+            }
+
+            TournamentSO tournamentSO = weekSO.GetTournamentById(tournamentId);
+            if (tournamentSO == null)
+            {
+                result = $"error: week {_currentSesssion.CurrentWeek} does not have tournament {tournamentId}";
+                return false;
+            }
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_TOURNAMENT_ID, tournamentId);
+            return true;
         }
     }
 

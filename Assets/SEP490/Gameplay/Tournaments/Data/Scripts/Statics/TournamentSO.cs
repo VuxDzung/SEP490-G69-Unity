@@ -16,7 +16,11 @@ namespace SEP490G69.Tournament
         [Tooltip("Objective(s) which the player must complete to continue game progression")]
         [SerializeField] private List<TournamentObjectiveSO> m_Objectives;
         [Tooltip("When the tournament ends, the player shall receive the reward based on the tournament rank/position/top")]
-        [SerializeField] private List<RewardRankData> m_RewardRanks;
+        [SerializeField] private List<RewardRankData> m_RewardRanks; // Don't use this. Remove later.
+
+        [SerializeField] private List<RewardDataSO> m_ChampionRewards;
+        [SerializeField] private List<RewardDataSO> m_SemiFinalRewards;
+        [SerializeField] private List<RewardDataSO> m_EliminationRewards;
 
         public string TournamentId => tournamentId;
         public string Name => tournamentName;
@@ -26,6 +30,10 @@ namespace SEP490G69.Tournament
         public IReadOnlyList<TournamentConditionSO> EntryConditions => m_EntryConditions;
         public IReadOnlyList<TournamentObjectiveSO> Objectives => m_Objectives;
         public IReadOnlyList<RewardRankData> RewardRanks => m_RewardRanks;
+
+        public IReadOnlyList<RewardDataSO> ChampionRewards => m_ChampionRewards;
+        public IReadOnlyList<RewardDataSO> SemiFinalRewards => m_SemiFinalRewards;
+        public IReadOnlyList<RewardDataSO> EliminationRewards => m_EliminationRewards;
     }
 
     [System.Serializable]

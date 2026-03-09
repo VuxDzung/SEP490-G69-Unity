@@ -24,7 +24,7 @@ namespace SEP490G69.GameSessions
             _collection = _database.GetCollection<PlayerTrainingSession>(COLLECTION_NAME);
         }
 
-        public bool InsertSession(PlayerTrainingSession session)
+        public bool Insert(PlayerTrainingSession session)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public bool UpdateSession(PlayerTrainingSession session)
+        public bool Update(PlayerTrainingSession session)
         {
             try
             {
@@ -52,10 +52,13 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public bool DeleteSession(string sessionId)
+        public bool DeleteById(string sessionId)
         {
             if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError("Session id is null");
                 return false;
+            }
 
             try
             {
@@ -83,11 +86,25 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public List<PlayerTrainingSession> GetAllSessions(string playerId)
+        public List<PlayerTrainingSession> GetAllBydPlayerId(string playerId)
         {
             try
             {
-                List<PlayerTrainingSession> list = _collection.Query().ToList().Where(s => s.PlayerId.Equals(playerId)).ToList();
+                return _collection.Query()
+                    .Where(x => x.PlayerId == playerId)
+                    .ToList();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex);
+                return null;
+            }
+        }
+        public List<PlayerTrainingSession> GetAll()
+        {
+            try
+            {
+                List<PlayerTrainingSession> list = _collection.Query().ToList();
                 return list;
             }
             catch (System.Exception ex)

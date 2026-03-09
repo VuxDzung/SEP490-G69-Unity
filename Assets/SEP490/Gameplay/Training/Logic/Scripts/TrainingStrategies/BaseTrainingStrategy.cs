@@ -24,7 +24,7 @@
             _trainingDAO = dao;
             _characterDAO = characterDAO;
 
-            SessionTrainingExercise exerciseData = _trainingDAO.GetByIdAndSessionId(sessionId, exerciseSO.ExerciseId);
+            SessionTrainingExercise exerciseData = _trainingDAO.GetById(sessionId, exerciseSO.ExerciseId);
 
             if (exerciseData == null)
             {
@@ -73,14 +73,14 @@
                 StatusModifierSO charModifier = character.GetModifierByType(statType);
                 if (charModifier != null)
                 {
-                    float modifierDelta = charModifier.GetDelta(before);
+                    float modifierDelta = charModifier.GetDelta(delta);
                     delta += modifierDelta;
                 }
 
                 float after = before + delta;
 
                 character.SetStatus(statType, after);
-                //character.UpdateChanges(_characterDAO); // Update to DB.
+                character.UpdateChanges(_characterDAO);
 
                 result.Changes.Add(new StatChange(statType, before, delta));
             }

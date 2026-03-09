@@ -49,7 +49,7 @@ namespace SEP490G69.Training
 
         public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId, CharacterDataHolder character)
         {
-            SessionTrainingExercise currentFacility = _trainingDAO.GetByIdAndSessionId(sessionId, exerciseId);
+            SessionTrainingExercise currentFacility = _trainingDAO.GetById(sessionId, exerciseId);
             if (currentFacility == null) return EUpgradeResult.Error;
 
 
@@ -82,7 +82,7 @@ namespace SEP490G69.Training
             currentSession.CurrentGoldAmount -= requirement.GoldCost;
             currentFacility.Level = nextLevel;
 
-            bool isSessionSaved = _sessionDAO.UpdateSession(currentSession);
+            bool isSessionSaved = _sessionDAO.Update(currentSession);
             bool isFacilitySaved = _trainingDAO.UpdateTrainingExercise(currentFacility);
 
             if (isSessionSaved && isFacilitySaved)

@@ -20,7 +20,7 @@ namespace SEP490G69
 
             string id = string.Format(FORMAT_ID, sessionId, characterSO.CharacterId);
 
-            if (_dao.GetCharacter(id) != null )
+            if (_dao.GetCharacterById(id) != null )
             {
                 Debug.Log($"Character {id} has already existed!");
                 if (!_dao.TryDeleteCharacter(id))
@@ -49,7 +49,7 @@ namespace SEP490G69
             try
             {
                 string queryId = string.Format(FORMAT_ID, sessionId, characterId);
-                return _dao.GetCharacter(queryId);
+                return _dao.GetCharacterById(queryId);
             }
             catch(System.Exception ex)
             {

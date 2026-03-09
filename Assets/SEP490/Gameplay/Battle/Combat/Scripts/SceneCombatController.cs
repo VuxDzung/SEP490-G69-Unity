@@ -219,7 +219,8 @@
         public void StartBattle()
         {
             ChangeBattleState(EBattleState.InProgress);
-            GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
+            GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_COMBAT_DETAILS);
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT)
                          .AsFrame<UICombatFrame>()
                          .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
                          .SetPlayerCharVit(_playerCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())

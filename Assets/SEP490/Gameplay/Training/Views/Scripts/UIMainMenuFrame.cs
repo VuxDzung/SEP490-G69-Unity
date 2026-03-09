@@ -1,7 +1,9 @@
 namespace SEP490G69.Training
 {
+    using System.Collections.Generic;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Calendar;
+    using SEP490G69.Tournament;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -75,6 +77,19 @@ namespace SEP490G69.Training
             }
         }
 
+        private TournamentProgressDAO _tournamentDAO;
+        protected TournamentProgressDAO TournamentDAO
+        {
+            get
+            {
+                if (_tournamentDAO == null)
+                {
+                    _tournamentDAO = new TournamentProgressDAO();
+                }
+                return _tournamentDAO;
+            }
+        }
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -98,6 +113,13 @@ namespace SEP490G69.Training
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.AddListener(TestTournament);
+
+            m_ShopBtn.interactable = !HasAnyActiveTournament();
+            m_TrainingBtn.interactable = !HasAnyActiveTournament();
+            m_RestBtn.interactable = !HasAnyActiveTournament();
+            m_DeckBtn.interactable = !HasAnyActiveTournament();
+            m_CharacterDetailsBtn.interactable = !HasAnyActiveTournament();
+            m_InventoryBtn.interactable = !HasAnyActiveTournament();
 
             LoadCharacterStats();
             LoadCalendarTime();
@@ -213,11 +235,15 @@ namespace SEP490G69.Training
         }
         private void ShowShop()
         {
+            if (HasAnyActiveTournament()) return;
+
             UIManager.ShowFrame(GameConstants.FRAME_ID_SHOP);
         }
 
         private void ShowTrainingMenu()
         {
+            if (HasAnyActiveTournament()) return;
+
             TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_TRAINING_MENU);
@@ -228,6 +254,8 @@ namespace SEP490G69.Training
 
         private void PerformRest()
         {
+            if (HasAnyActiveTournament()) return;
+
             TooltipController.Hide();
             TrainingController.StartTraining(ETrainingType.Rest);
             LoadCharacterStats();
@@ -241,10 +269,14 @@ namespace SEP490G69.Training
         }
         private void ShowDeck()
         {
+            if (HasAnyActiveTournament()) return;
+
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_DECK);
         }
         private void ShowPlayerProfile()
         {
+            if (HasAnyActiveTournament()) return;
+
             TooltipController.Hide();
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_PLAYER_PROFILE);
@@ -252,6 +284,8 @@ namespace SEP490G69.Training
 
         private void ShowInventory()
         {
+            if (HasAnyActiveTournament()) return;
+
             UIManager.ShowFrame(GameConstants.FRAME_ID_INVENTORY);
         }
         #endregion
@@ -263,6 +297,13 @@ namespace SEP490G69.Training
         private void TestTournament()
         {
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
+        }
+
+        private bool HasAnyActiveTournament()
+        {
+            List<TournamentProgressData> tournaments = TournamentDAO.GetAllBySessionId(PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID));
+
+            return tournaments.Count > 0;
         }
     }
 }

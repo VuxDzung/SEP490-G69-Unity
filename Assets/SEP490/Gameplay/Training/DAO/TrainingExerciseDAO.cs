@@ -1,6 +1,9 @@
 namespace SEP490G69.Training
 {
     using LiteDB;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class TrainingExerciseDAO 
@@ -70,7 +73,7 @@ namespace SEP490G69.Training
             }
         }
 
-        public SessionTrainingExercise GetByIdAndSessionId(string sessionId, string exerciseId)
+        public SessionTrainingExercise GetById(string sessionId, string exerciseId)
         {
             try
             {
@@ -80,6 +83,69 @@ namespace SEP490G69.Training
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        public List<SessionTrainingExercise> GetAllBySessionId(string sessionId)
+        {
+            try
+            {
+                return _collection.Find(ex => ex.SessionId.Equals(sessionId)).ToList();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public bool DeleteById(string entityId)
+        {
+            try
+            {
+
+                _collection.Delete(entityId);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteAllBySessionId(string sessionId)
+        {
+            try
+            {
+                List<SessionTrainingExercise> exercises = GetAllBySessionId(sessionId);
+                foreach (var exercise in exercises)
+                {
+                    DeleteById(exercise.Id);
+                }
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+        public bool DeleteAll()
+        {
+            try
+            {
+                List<SessionTrainingExercise> exercises = _collection.FindAll().ToList();
+                foreach (var exercise in exercises)
+                {
+                    DeleteById(exercise.Id);
+                }
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
             }
         }
     }

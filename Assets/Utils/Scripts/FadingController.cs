@@ -62,6 +62,8 @@ namespace SEP490G69
         public void FadeIn2Out(float fadeDuration, float inFadeTime, Color fadeColor, string message, Action onFadeInCompleted = null, Action onFadeOutCompleted = null)
         {
             m_FadeGroup.alpha = 0f;
+            if (m_MessageTmp != null) m_MessageTmp.text = string.Empty;
+
             m_FadeGroup.gameObject.SetActive(true);
             m_Image.color = fadeColor;
             m_FadeGroup.DOFade(1f, fadeDuration).onComplete = () => { 
@@ -94,7 +96,6 @@ namespace SEP490G69
 
             if (string.IsNullOrEmpty(msg))
             {
-                m_MessageTmp.text = string.Empty;
                 m_MessageTmp.gameObject.SetActive(false);
                 onCompleted?.Invoke();
                 return;

@@ -7,6 +7,7 @@
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
+    using SEP490G69.Addons.LoadScreenSystem;
 
     public class UITournamentDetailsFrame : GameUIFrame
     {
@@ -23,7 +24,18 @@
         [SerializeField] private Transform m_RewardPreviewPrefab;
 
         private string _currentTournamentId;
-
+        private GameCalendarController _calendarController;
+        protected GameCalendarController CalendarController
+        {
+            get
+            {
+                if (_calendarController == null)
+                {
+                    ContextManager.Singleton.TryResolveSceneContext(out _calendarController);
+                }
+                return _calendarController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -156,7 +168,6 @@
                 // CardSO cardSO = ContextManager.Singleton.GetDataSO<CardConfigSO>().GetCardById(rewardId);
                 // UIManager.ShowFrame("FRAME_CARD_DETAIL").AsFrame<UICardDetailFrame>().LoadData(cardSO);
             }
-
         }
 
         private void Back()
@@ -166,15 +177,14 @@
 
         private void Enter()
         {
-            // Bạn có thể lấy Controller Giải đấu ra và gọi lệnh Load
-            if (ContextManager.Singleton.TryResolveSceneContext(out GameTournamentController tourController))
+            if (CalendarController.TryEnterTournament(_currentTournamentId, out string result))
             {
-                UIManager.HideFrame(FrameId); // Ẩn màn Detail
-                tourController.LoadTournamentData(_currentTournamentId); // Kích hoạt luồng Bracket
+                UIManager.HideFrame(FrameId);
+                SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
             }
             else
             {
-                Debug.LogError("Cannot find GameTournamentController context!");
+                Debug.Log($"Result: {result}");
             }
         }
     }

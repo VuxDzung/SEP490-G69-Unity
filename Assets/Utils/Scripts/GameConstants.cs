@@ -57,6 +57,8 @@ namespace SEP490G69
         public const string PREF_KEY_CURRENT_SESSION_ID = "CurrentSessionId";
         public const string PREF_KEY_PLAYER_ID = "PlayerId";
         public const string PREF_KEY_AUTH_ACTION = "AuthAction";
+
+        public const string PREF_KEY_TOURNAMENT_ID = "tournament_id";
         public const string PREF_KEY_TOURNAMENT_ENEMY_ID = "tournament_enemy_id";
         public const string PREF_KEY_COMBAT_TYPE = "combat_type";
         public const string PREF_KEY_TOURNAMENT_PLAYER_WIN = "tournament_player_win";

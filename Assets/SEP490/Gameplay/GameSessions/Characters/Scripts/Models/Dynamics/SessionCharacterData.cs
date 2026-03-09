@@ -11,6 +11,8 @@ namespace SEP490G69
         //-----------------------------------------
         [BsonId]
         public string Id { get; set; }
+        public string SessionId { get; set; }
+        public string RawCharacterId { get; set; }
 
 
         //-----------------------------------------

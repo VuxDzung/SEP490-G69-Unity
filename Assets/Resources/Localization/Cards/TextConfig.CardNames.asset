@@ -65,9 +65,9 @@ MonoBehaviour:
   - id: card_0009_name
     textList:
     - language: 0
-      text: Trip
+      text: Trap
     - language: 1
-      text: "Chuy\u1EBFn \u0111i"
+      text: "B\u1EABy"
   - id: card_0010_name
     textList:
     - language: 0
@@ -134,3 +134,87 @@ MonoBehaviour:
       text: Last Resort
     - language: 1
       text: "\u0110\xF2n Tuy\u1EC7t M\u1EC7nh"
+  - id: card_0021_name
+    textList:
+    - language: 0
+      text: Shatter
+    - language: 1
+      text: "Ph\xE1 V\u1EE1"
+  - id: card_0022_name
+    textList:
+    - language: 0
+      text: Tackle
+    - language: 1
+      text: "H\xFAc M\u1EA1nh"
+  - id: card_0023_name
+    textList:
+    - language: 0
+      text: Iron Guard
+    - language: 1
+      text: "Th\u1EE7 S\u1EAFt"
+  - id: card_0024_name
+    textList:
+    - language: 0
+      text: Spiked Armor
+    - language: 1
+      text: "Gi\xE1p Gai"
+  - id: card_0025_name
+    textList:
+    - language: 0
+      text: Nature's Wrath
+    - language: 1
+      text: "Thi\xEAn Nhi\xEAn Ph\u1EABn N\u1ED9"
+  - id: card_0026_name
+    textList:
+    - language: 0
+      text: Photosynthesis
+    - language: 1
+      text: "Quang H\u1EE3p"
+  - id: card_0027_name
+    textList:
+    - language: 0
+      text: Fortress Stance
+    - language: 1
+      text: "Th\u1EBF Ph\xE1o \u0110\xE0i"
+  - id: card_0028_name
+    textList:
+    - language: 0
+      text: Entangling Roots
+    - language: 1
+      text: "Qu\u1EA5n R\u1EC5"
+  - id: card_0029_name
+    textList:
+    - language: 0
+      text: "Body Press\t"
+    - language: 1
+      text: "\xC1p Th\xE2n"
+  - id: card_0030_name
+    textList:
+    - language: 0
+      text: Regrowth
+    - language: 1
+      text: "T\xE1i Sinh"
+  - id: card_0031_name
+    textList:
+    - language: 0
+      text: Guardian Impact
+    - language: 1
+      text: "\xC1p L\u1EF1c H\u1ED9 V\u1EC7"
+  - id: card_0033_name
+    textList:
+    - language: 0
+      text: Explosive Armor
+    - language: 1
+      text: "Gi\xE1p B\xF9ng N\u1ED5"
+  - id: card_0034_name
+    textList:
+    - language: 0
+      text: Mana Shock
+    - language: 1
+      text: "Ch\u1EA5n \u0110\u1ED9ng Ma L\u1EF1c"
+  - id: card_0035_name
+    textList:
+    - language: 0
+      text: Dark Blast
+    - language: 1
+      text: "B\xF9ng N\u1ED5 B\xF3ng T\u1ED1i"

@@ -9,7 +9,11 @@ namespace SEP490G69
     {
         [SerializeField] private List<StatusModifierSO> m_TrainingModifiers;
 
+        [SerializeField] private List<string> m_UniqueCardId;
+
         public IReadOnlyList<StatusModifierSO> TrainingModifiers;
+
+        public IReadOnlyList<string> UniqueCardId => m_UniqueCardId;
 
         public StatusModifierSO GetModifierByStatType(EStatusType statType)
         {

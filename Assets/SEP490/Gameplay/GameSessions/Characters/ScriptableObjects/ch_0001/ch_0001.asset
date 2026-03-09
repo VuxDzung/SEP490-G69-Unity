@@ -34,3 +34,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 91b029e184aa87f4b869f43b6cbbb9dd, type: 2}
   - {fileID: 11400000, guid: eb531ea2ffc965e4db2731259af18d2d, type: 2}
   - {fileID: 11400000, guid: dcbf80d3c85a27d499b041fff03f30d2, type: 2}
+  m_UniqueCardId:
+  - card_0001
+  - card_0002
+  - card_0003

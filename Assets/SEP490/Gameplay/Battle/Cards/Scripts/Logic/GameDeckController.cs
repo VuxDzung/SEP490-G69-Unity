@@ -79,5 +79,47 @@
                 Debug.LogError("[GameDeckController] Xảy ra lỗi khi lưu Deck xuống Database!");
             }
         }
+
+        /// <summary>
+        /// Thêm thẻ bài mới vào kho (Inventory) khi người chơi nhận được (từ Shop, Exploration...).
+        /// </summary>
+        public void AddObtainedCard(string rawCardId, int amount = 1)
+        {
+            if (string.IsNullOrEmpty(rawCardId))
+            {
+                Debug.LogError("[GameDeckController] Lỗi: rawCardId không hợp lệ khi thêm bài mới!");
+                return;
+            }
+
+            SessionCardData existingCard = _cardsDAO.GetById(_currentSessionId, rawCardId);
+
+            if (existingCard != null)
+            {
+                existingCard.ObtainedAmount += amount;
+                bool success = _cardsDAO.Update(existingCard);
+
+                if (success)
+                {
+                    Debug.Log($"[GameDeckController] Đã tăng số lượng thẻ {rawCardId} thành {existingCard.ObtainedAmount}.");
+                }
+            }
+            else
+            {
+                SessionCardData newCard = new SessionCardData
+                {
+                    SessionCardId = $"{_currentSessionId}:{rawCardId}",
+                    RawCardId = rawCardId,
+                    SessionId = _currentSessionId,
+                    ObtainedAmount = amount
+                };
+
+                bool success = _cardsDAO.Insert(newCard);
+
+                if (success)
+                {
+                    Debug.Log($"[GameDeckController] Nhận thẻ bài mới thành công: {rawCardId}.");
+                }
+            }
+        }
     }
 }

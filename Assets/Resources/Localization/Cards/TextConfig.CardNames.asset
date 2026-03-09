@@ -200,6 +200,12 @@ MonoBehaviour:
       text: Guardian Impact
     - language: 1
       text: "\xC1p L\u1EF1c H\u1ED9 V\u1EC7"
+  - id: card_0032_name
+    textList:
+    - language: 0
+      text: Purify
+    - language: 1
+      text: "Thanh T\u1EA9y"
   - id: card_0033_name
     textList:
     - language: 0
@@ -218,3 +224,75 @@ MonoBehaviour:
       text: Dark Blast
     - language: 1
       text: "B\xF9ng N\u1ED5 B\xF3ng T\u1ED1i"
+  - id: card_0036_name
+    textList:
+    - language: 0
+      text: Mind Drain
+    - language: 1
+      text: "R\xFAt C\u1EA1n T\xE2m Tr\xED"
+  - id: card_0037_name
+    textList:
+    - language: 0
+      text: Swift Step
+    - language: 1
+      text: "L\u01B0\u1EDBt Nhanh"
+  - id: card_0038_name
+    textList:
+    - language: 0
+      text: Gravity Well
+    - language: 1
+      text: "H\u1ED1 Tr\u1ECDng L\u1EF1c"
+  - id: card_0039_name
+    textList:
+    - language: 0
+      text: Concentration
+    - language: 1
+      text: "T\u1EADp Trung"
+  - id: card_0040_name
+    textList:
+    - language: 0
+      text: Flurry
+    - language: 1
+      text: "Li\xEAn K\xEDch"
+  - id: card_0041_name
+    textList:
+    - language: 0
+      text: Cursed Whisper
+    - language: 1
+      text: "Th\xEC Th\u1EA7m Nguy\u1EC1n R\u1EE7a"
+  - id: card_0042_name
+    textList:
+    - language: 0
+      text: Time Warp
+    - language: 1
+      text: "B\u1EBB Cong Th\u1EDDi Gian"
+  - id: card_0043_name
+    textList:
+    - language: 0
+      text: Overload
+    - language: 1
+      text: "Qu\xE1 T\u1EA3i"
+  - id: card_0044_name
+    textList:
+    - language: 0
+      text: Fix
+    - language: 1
+      text: Fix
+  - id: card_0045_name
+    textList:
+    - language: 0
+      text: Afterimage
+    - language: 1
+      text: "D\u01B0 \u1EA2nh"
+  - id: card_0046_name
+    textList:
+    - language: 0
+      text: Nullify
+    - language: 1
+      text: "V\xF4 Hi\u1EC7u H\xF3a"
+  - id: card_0047_name
+    textList:
+    - language: 0
+      text: Meteor Shower
+    - language: 1
+      text: "M\u01B0a Thi\xEAn Th\u1EA1ch"

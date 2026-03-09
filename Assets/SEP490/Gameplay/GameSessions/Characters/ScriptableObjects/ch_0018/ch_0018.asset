@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Leon
   m_CharacterDescription: ch_0018_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: 4528400736281484973, guid: daa2c079a342a844eaebb2795a3ef6a1, type: 3}
   m_FullBodyImg: {fileID: -2627815976479114376, guid: 352c7e83d149e9e48964c494d0b39edb, type: 3}
   m_Prefab: {fileID: 167783558989398599, guid: 33be92e35684dc144b5c9e828c90bb4a, type: 3}
   m_CombatPrefab: {fileID: 1368658196324137033, guid: cedc9c93f69287a499b36eba2d11d3ed, type: 3}

@@ -38,3 +38,7 @@ MonoBehaviour:
   - card_0001
   - card_0002
   - card_0003
+  m_StartingCardId:
+  - card_0003
+  - card_0004
+  - card_0007

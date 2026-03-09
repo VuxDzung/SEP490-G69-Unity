@@ -1,14 +1,13 @@
 namespace SEP490G69.GameSessions
 {
     using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.PlayerProfile;
     using SEP490G69.Shared;
     using System;
+    using TMPro;
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.UI;
-    using TMPro;
-    using SEP490G69.PlayerProfile;
-    using SEP490G69.Addons.Localization;
 
     public class UITitleFrame : GameUIFrame
     {
@@ -46,7 +45,7 @@ namespace SEP490G69.GameSessions
             {
                 if (_sessionController == null)
                 {
-                    bool hasSession = ContextManager.Singleton.TryResolveSceneContext<GameSessionController>(out _sessionController); 
+                    bool hasSession = ContextManager.Singleton.TryResolveSceneContext<GameSessionController>(out _sessionController);
                 }
                 return _sessionController;
             }
@@ -98,7 +97,8 @@ namespace SEP490G69.GameSessions
             else
             {
                 Debug.Log("Has active session");
-                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>().SetContent("title_noti", "msg_has_active_session", true, true, () => {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>().SetContent("title_noti", "msg_has_active_session", true, true, () =>
+                {
                     // Create new session anyway.
                     if (SessionController.DeleteAllSessions())
                     {
@@ -108,7 +108,8 @@ namespace SEP490G69.GameSessions
                     {
                         Debug.LogError($"Failed to delete session of player {AuthManager.GetUserId()}");
                     }
-                }, () => { 
+                }, () =>
+                {
                     // Nothing happen.
                 });
             }
@@ -127,7 +128,7 @@ namespace SEP490G69.GameSessions
                     });
                 }
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Debug.LogException(e);
             }
@@ -177,7 +178,8 @@ namespace SEP490G69.GameSessions
         private void PerformCinematic(Action onAction)
         {
             CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
-            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.white, "", () => {
+            FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.black, "", () =>
+            {
                 onAction?.Invoke();
             });
         }
@@ -192,7 +194,7 @@ namespace SEP490G69.GameSessions
 
             string welcomeMsg = "";
 
-            switch(authAction)
+            switch (authAction)
             {
                 case "Login":
                     welcomeMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_welcome_back");

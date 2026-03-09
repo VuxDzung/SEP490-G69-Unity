@@ -5,6 +5,12 @@
 
     public class GameDeckDAO
     {
+        /// <summary>
+        /// Format includes: <SESSION_ID>:<RAW_CARD_ID>:<CARD_VARIANT>
+        /// Card variant is used to handle the case which there're 2 same cards in a deck.
+        /// </summary>
+        public const string FORMAT_IN_DECK_CARD_ID = "{0}:{1}:{2}";
+
         public const string COLLECTION_NAME = "PlayerDeck";
 
         private readonly LiteDatabase _database;

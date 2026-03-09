@@ -1,5 +1,6 @@
 namespace SEP490G69.GameSessions
 {
+    using SEP490G69.Battle.Cards;
     using SEP490G69.PlayerProfile;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -17,8 +18,8 @@ namespace SEP490G69.GameSessions
 
         private GameAuthManager _authManager;
         private PlayerProfileController _profileController;
-
         private CharacterConfigSO _characterConfig;
+        private GameDeckController _deckController;
 
         private GameAuthManager AuthManager
         {
@@ -51,6 +52,17 @@ namespace SEP490G69.GameSessions
                     _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
                 }
                 return _profileController;
+            }
+        }
+        private GameDeckController DeckController
+        {
+            get
+            {
+                if (_deckController == null)
+                {
+                    _deckController = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
+                }
+                return _deckController;
             }
         }
 
@@ -99,11 +111,30 @@ namespace SEP490G69.GameSessions
             if (_sessionCreator.TryCreateSession(playerId, characterId, out sessionId, out error))
             {
                 BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(characterId);
+
                 if (characterSO != null)
                 {
                     if (_characterRepo.TryCreateNewCharacter(sessionId, characterSO))
                     {
                         Debug.Log($"Create character session data {characterId} for session {sessionId} success");
+                        Debug.Log("Start create player's deck");
+                        DeckController.SetSessionId(sessionId);
+
+                        string[] characterStarterCards = new string[0]; // Update later.
+
+                        foreach (string rawCardId in characterStarterCards)
+                        {
+                            DeckController.AddObtainedCard(rawCardId);
+                        }
+
+                        foreach (string rawCardId in characterStarterCards)
+                        {
+                            if (!DeckController.AddCardToDeck(rawCardId))
+                            {
+                                Debug.Log($"<color=red>Error:</color> Failed to add card {rawCardId} to deck");
+                            }
+                        }
+
                         return true;
                     }
                     else

@@ -65,40 +65,74 @@
             List<SessionCardData> obtainedCards = DeckController.GetAllObtainedCards();
 
             _currentDeckIds.Clear();
+
             if (playerDeck != null && playerDeck.CardIds != null)
             {
                 _currentDeckIds.AddRange(playerDeck.CardIds);
             }
 
-            if (obtainedCards == null) return;
+            Dictionary<string, int> deckUsage = new Dictionary<string, int>();
 
+            // ---------- SPAWN DECK CARDS ----------
+            foreach (string deckId in _currentDeckIds)
+            {
+                string rawId = CardUtils.ExtractRawCardId(deckId);
+
+                CardSO staticCardData = m_CardConfig.GetCardById(rawId);
+                if (staticCardData == null) continue;
+
+                Transform cardUITransform =
+                    PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_InDeckContainer);
+
+                UICardElement cardElement = cardUITransform.GetComponent<UICardElement>();
+
+                cardElement.Spawn();
+                cardElement.SetContent(
+                    deckId,
+                    staticCardData.CardName,
+                    staticCardData.CardDescription,
+                    staticCardData.Icon);
+
+                cardElement.SetOnSelectCallback(OnCardClicked);
+
+                _spawnedCards.Add(cardElement);
+
+                if (!deckUsage.ContainsKey(rawId))
+                    deckUsage[rawId] = 0;
+
+                deckUsage[rawId]++;
+            }
+
+            // ---------- SPAWN INVENTORY ----------
             foreach (var sessionCard in obtainedCards)
             {
                 CardSO staticCardData = m_CardConfig.GetCardById(sessionCard.RawCardId);
                 if (staticCardData == null) continue;
 
-                bool isInDeck = _currentDeckIds.Contains(sessionCard.RawCardId);
-                Transform targetContainer = isInDeck ? m_InDeckContainer : m_ObtainedContainer;
+                int usedInDeck = deckUsage.ContainsKey(sessionCard.RawCardId)
+                    ? deckUsage[sessionCard.RawCardId]
+                    : 0;
 
-                Transform cardUITransform = PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, targetContainer);
+                int remaining = sessionCard.ObtainedAmount - usedInDeck;
 
-                UICardElement cardElement = cardUITransform.GetComponent<UICardElement>();
-                cardElement.Spawn();
-                cardElement.SetContent(staticCardData.CardId, staticCardData.CardName, staticCardData.CardDescription, staticCardData.Icon);
-                cardElement.SetOnSelectCallback(OnCardClicked);
-
-                _spawnedCards.Add(cardElement);
-
-                if (isInDeck)
+                for (int i = 0; i < remaining; i++)
                 {
-                    _currentDeckIds.Remove(sessionCard.RawCardId);
-                }
-            }
+                    Transform cardUITransform =
+                        PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_ObtainedContainer);
 
-            _currentDeckIds.Clear();
-            if (playerDeck != null && playerDeck.CardIds != null)
-            {
-                _currentDeckIds.AddRange(playerDeck.CardIds);
+                    UICardElement cardElement = cardUITransform.GetComponent<UICardElement>();
+
+                    cardElement.Spawn();
+                    cardElement.SetContent(
+                        sessionCard.RawCardId,
+                        staticCardData.CardName,
+                        staticCardData.CardDescription,
+                        staticCardData.Icon);
+
+                    cardElement.SetOnSelectCallback(OnCardClicked);
+
+                    _spawnedCards.Add(cardElement);
+                }
             }
 
             UpdateDeckCountText();
@@ -158,23 +192,6 @@
                 }
             }
             _spawnedCards.Clear();
-        }
-
-        /// <summary>
-        /// Load in-deck cards.
-        /// </summary>
-        private void LoadInDeckCards()
-        {
-
-        }
-
-        /// <summary>
-        /// Load obtained cards here.
-        /// Display by using PoolManager.Pools["UICard"].Spawn(prefab:Transform, container:Transform) to spawn card UI.
-        /// </summary>
-        private void LoadObtainedCards()
-        {
-
         }
 
         private void Back()

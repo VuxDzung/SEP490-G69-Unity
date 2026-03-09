@@ -7,6 +7,11 @@
 
     public class GameCardsDAO
     {
+        /// <summary>
+        /// Format id <SESSION_ID>:<RAW_CARD_ID>
+        /// </summary>
+        public const string FORMAT_OBTAINED_CARD_ID = "{0}:{1}";
+
         public const string COLLECTION_NAME = "PlayerCards";
         private readonly LiteDatabase _database;
         private readonly ILiteCollection<SessionCardData> _collection;
@@ -18,6 +23,7 @@
             _collection.EnsureIndex(x => x.SessionId);
             _collection.EnsureIndex(x => x.RawCardId);
         }
+
         public GameCardsDAO(LiteDatabase database)
         {
             _database = database;

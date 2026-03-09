@@ -146,8 +146,7 @@
 
             foreach (CardSO card in _currentDrawPool)
             {
-                if (card != _selectedCard)
-                    _discardPool.Add(card);
+                _discardPool.Add(card); // Put all 3 cards to trash pool.
             }
 
             _selectedCard = null;

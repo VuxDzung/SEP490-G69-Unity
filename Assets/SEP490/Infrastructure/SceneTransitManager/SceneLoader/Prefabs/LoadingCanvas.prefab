@@ -858,4 +858,13 @@ MonoBehaviour:
   image: {fileID: 2800200695305313089}
   loadingBar: {fileID: 3605282763497354097}
   loadingText: {fileID: 96624766059292086}
-  backgroundList: []
+  backgroundList:
+  - {fileID: 535112104041116636, guid: 000cdef6c7830364fa738e2ae5708cb9, type: 3}
+  - {fileID: -2931684817194156921, guid: fe10dc82b31874547aac9c690bb83d70, type: 3}
+  - {fileID: -919373166903837290, guid: c424f9ee64d9b714486b040b2b334093, type: 3}
+  - {fileID: -8176709062493211827, guid: 237bb6612fa5588429914f774d319103, type: 3}
+  - {fileID: 4213765768500658908, guid: 2bd4db17152f2b24496267e761fde2f1, type: 3}
+  - {fileID: 322554724442796835, guid: ba24cfa1970ed254890224b21fe1f8ab, type: 3}
+  - {fileID: -5217370738105972662, guid: 0f6aeb44b08f2c4429c1eefb38fe7eac, type: 3}
+  - {fileID: -5796239808565678260, guid: ce6f56e4994e4374587d127c2b0280e8, type: 3}
+  - {fileID: 1790304728446450321, guid: d619e6f6686d0e24791a4fda9081d54b, type: 3}

@@ -15,6 +15,12 @@ namespace SEP490G69.Battle.Combat
             _test = obtainedCards;
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _deckDAO = new GameDeckDAO();
+        }
+
         public override void Initialize(BaseCharacterSO characterSO)
         {
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());

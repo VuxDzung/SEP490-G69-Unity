@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 587114503955847758}
   - component: {fileID: 7166285606362736238}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: tmp.gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 7136108465010277764}
   - component: {fileID: 3954235707160821291}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: tmp.refresh_cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (100G)
+  m_text: (0G)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
@@ -2077,11 +2077,11 @@ RectTransform:
   - {fileID: 472964026529547242}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 720}
-  m_Pivot: {x: 0.5, y: 1}
+  m_SizeDelta: {x: 1280, y: 720}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5161185378159503607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2097,6 +2097,7 @@ MonoBehaviour:
   frameId: Frame.Shop
   m_ItemContainer: {fileID: 1662864658218680137}
   m_ItemPrefab: {fileID: 7013484488528331922, guid: 2907f1f194c0669449471b01b58639ab, type: 3}
+  m_RemainGoldTmp: {fileID: 7166285606362736238}
   m_ItemIcon: {fileID: 4744509182381333604}
   m_ItemDetailsGO: {fileID: 1591837694288133006}
   m_ItemNameTmp: {fileID: 6301617545533817183}
@@ -2126,7 +2127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -14,7 +14,7 @@ namespace SEP490G69
     /// - Equip relic
     /// - Unequip relic.
     /// </summary>
-    public class InventoryManager : MonoBehaviour, IGameContext
+    public class GameInventoryManager : MonoBehaviour, IGameContext
     {
         public const string FORMAT_INVENTORY_ITEM_ID = "{0}:{1}";
         public const int EMPTY_RELIC_SLOT = -1;
@@ -82,7 +82,10 @@ namespace SEP490G69
         public void AddItem(string itemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
+            {
+                Debug.LogError("[GameInventoryManager.AddItem] Session id is null/empty!");
                 return;
+            }
 
             ItemDataHolder item = GetItemBy(itemId);
 
@@ -128,14 +131,30 @@ namespace SEP490G69
         public bool UseItem(string itemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
+            {
+                Debug.LogError("[GameInventoryManager.UseItem] Session id is null/empty!");
                 return false;
+            }
+
+            if (string.IsNullOrEmpty(itemId))
+            {
+                Debug.LogError("[GameInventoryManager.UseItem] Item id is null!");
+                return false;
+            }
 
             ItemDataHolder item = GetItemBy(itemId);
 
-            if (item == null) return false;
+            if (item == null)
+            {
+                Debug.LogError($"[GameInventoryManager.UseItem] Item SO with id {itemId} is not configured!");
+                return false;
+            }
 
             if (!item.DecreaseItemAmount(amount))
+            {
+                Debug.Log($"<color=red>[GameInventoryManager.UseItem]</color> Failed to decrease item {itemId} amount");
                 return false;
+            }
 
             if (item.GetRemainAmount() == 0)
             {

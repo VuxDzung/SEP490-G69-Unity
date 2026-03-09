@@ -2,6 +2,7 @@ namespace SEP490G69.Training
 {
     using System.Collections.Generic;
     using System.Linq;
+    using SEP490G69.Economy;
     using SEP490G69.GameSessions;
     using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace SEP490G69.Training
         [SerializeField] private GameObject m_TrainingMenuBG;
         [SerializeField] private Transform m_TrainingCharContainer;
 
+        private EventManager _eventManager;
 
         // CONFIGs
         private TrainingExerciseConfigSO _exercisesConfig;
@@ -44,6 +46,8 @@ namespace SEP490G69.Training
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
+
+            _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             LoadConfigs();
             LoadDAOs();
@@ -77,6 +81,8 @@ namespace SEP490G69.Training
                 TrainingExerciseSO _so = _exercisesConfig.GetExercise(ex.ExerciseId);
                 ex.Initialize(_exercisesDAO, _characterDAO, sessionId, _so);
             });
+
+            _eventManager.Subscribe<UseItemEvent>(HandeUseItemEvent);
         }
 
         private void Start()
@@ -87,6 +93,8 @@ namespace SEP490G69.Training
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
+
+            _eventManager.Unsubscribe<UseItemEvent>(HandeUseItemEvent);
         }
 
         private void LoadExerciseStrategies()
@@ -192,6 +200,21 @@ namespace SEP490G69.Training
             float finalRawRate = Mathf.Clamp(failRate, 0f, 100f); 
             float roundedRate =  (float)System.Math.Round(finalRawRate, 2);
             return roundedRate;
+        }
+
+        private void HandeUseItemEvent(UseItemEvent ev)
+        {
+            if (ev.ItemData.GetItemType() == EItemType.Consumable)
+            {
+                foreach (var mod in ev.ItemData.GetUsableModifiers())
+                {
+                    EStatusType statType = mod.StatType;
+                    float modValue = mod.GetModifiedStatus(_characterHolder.GetStatus(statType));
+                    _characterHolder.SetStatus(statType, modValue);
+                }
+
+                _characterHolder.UpdateChanges(_characterDAO);
+            }
         }
     }
 

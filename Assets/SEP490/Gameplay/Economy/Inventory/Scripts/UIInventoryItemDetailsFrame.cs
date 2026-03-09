@@ -10,19 +10,20 @@ namespace SEP490G69.Economy
         [SerializeField] private Image m_ItemIcon;
         [SerializeField] private TextMeshProUGUI m_ItemNameTmp;
         [SerializeField] private TextMeshProUGUI m_ItemDescTmp;
+        [SerializeField] private TextMeshProUGUI m_ItemTypeTmp;
         [SerializeField] private Button m_UseBtn;
         [SerializeField] private Button m_EquipBtn;
         [SerializeField] private Button m_UnequipBtn;
 
         private string _selectedItemId;
-        private InventoryManager _invetoryManager;
-        private InventoryManager InventoryManager
+        private GameInventoryManager _invetoryManager;
+        private GameInventoryManager InventoryManager
         {
             get
             {
                 if (_invetoryManager == null)
                 {
-                    _invetoryManager = ContextManager.Singleton.ResolveGameContext<InventoryManager>();
+                    _invetoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
                 }
                 return _invetoryManager;
             }
@@ -56,14 +57,14 @@ namespace SEP490G69.Economy
             m_ItemIcon.sprite = item.GetIcon();
             m_ItemNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, item.GetItemNameKey());
             m_ItemDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, item.GetItemDescription());
-
+            m_ItemTypeTmp.text = item.GetItemType().ToString();
             bool isConsumable = item.GetItemType() == EItemType.Consumable;
             bool isRelic = item.GetItemType() == EItemType.Relic;
 
             if (isRelic)
             {
-                m_EquipBtn.gameObject.SetActive(item.GetEquipmentSlot() == InventoryManager.EMPTY_RELIC_SLOT);
-                m_UnequipBtn.gameObject.SetActive(item.GetEquipmentSlot() != InventoryManager.EMPTY_RELIC_SLOT);
+                m_EquipBtn.gameObject.SetActive(item.GetEquipmentSlot() == GameInventoryManager.EMPTY_RELIC_SLOT);
+                m_UnequipBtn.gameObject.SetActive(item.GetEquipmentSlot() != GameInventoryManager.EMPTY_RELIC_SLOT);
                 return;
             }
             m_EquipBtn.gameObject.SetActive(false);

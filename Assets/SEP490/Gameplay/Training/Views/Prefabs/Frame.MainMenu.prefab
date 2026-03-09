@@ -1757,6 +1757,7 @@ MonoBehaviour:
   m_CalendarTimeTmp: {fileID: 1773637662876870119}
   m_RemainTimeTmp: {fileID: 2360637354611403734}
   m_CurrentTurnTmp: {fileID: 7317391275757330151}
+  m_RemainGoldTmp: {fileID: 5283116850169193094}
   m_SettingsBtn: {fileID: 6641999152979379229}
   m_NoAdsBtn: {fileID: 101254787272511566}
   m_HallOfFameBtn: {fileID: 3076279106313557337}

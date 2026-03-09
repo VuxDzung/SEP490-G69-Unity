@@ -31,7 +31,7 @@ namespace SEP490G69.Economy
         public string ItemDescKey => m_ItemDecsKey;
         public Sprite ItemImage => m_ItemImage;
         public EItemType ItemType => m_ItemType;
-        public IReadOnlyList<EOwnershipMethod> OwnershipMethods => m_OwnershipMethods;
+        public List<EOwnershipMethod> OwnershipMethods => m_OwnershipMethods;
 
         public string CurrencyID => m_CurrencyID;
         public int Cost => m_Cost;
@@ -43,5 +43,11 @@ namespace SEP490G69.Economy
         /// When unequip the relic, those stats changes are reverted as well.
         /// </summary>
         public IReadOnlyList<StatusModifierSO> RelicModifiers => m_RelicModifiers;
+
+        public bool IsShopItem()
+        {
+            Debug.Log($"Item: {m_ItemID}. IsShopItem: {m_OwnershipMethods.Contains(EOwnershipMethod.Shop)}");
+            return m_OwnershipMethods.Contains(EOwnershipMethod.Shop);
+        }
     }
 }

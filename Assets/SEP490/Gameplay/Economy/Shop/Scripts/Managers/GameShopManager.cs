@@ -16,12 +16,12 @@ namespace SEP490G69.Economy
     /// </summary>
     public class GameShopManager : MonoBehaviour, ISceneContext
     {
-        public const int MAX_ITEMS_PER_SESSION = 6;
+        public const int MAX_ITEMS_PER_SESSION = 2;
 
         private GameShopDAO _shopDAO;
         private GameSessionDAO _sessionDAO;
 
-        private InventoryManager _inventoryManager;
+        private GameInventoryManager _inventoryManager;
         private LocalizationManager _localization;
 
         private EventManager _eventManager;
@@ -39,7 +39,7 @@ namespace SEP490G69.Economy
 
             _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
-            _inventoryManager = ContextManager.Singleton.ResolveGameContext<InventoryManager>();
+            _inventoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
             _localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
 
             _sessionDAO = new GameSessionDAO();
@@ -63,7 +63,9 @@ namespace SEP490G69.Economy
         private void LoadShopItemPool()
         {
             _shopItemPool.Clear();
-            _shopItemPool.AddRange(_itemConfig.Items);
+            ItemDataSO[] items = _itemConfig.Items.Where(x => x.IsShopItem()).ToArray();
+            Debug.Log($"Load {items.Length} shop items");
+            _shopItemPool.AddRange(items);
         }
         public void SetSessionId(string sessionId)
         {
@@ -113,18 +115,33 @@ namespace SEP490G69.Economy
         {
             ShopItemDataHolder shopItem = _shopItems.FirstOrDefault(x => x.GetRawItemId() == itemId);
 
-            if (shopItem == null) return;
-            if (shopItem.GetRemainAmount() < amount) return;
+            if (shopItem == null)
+            {
+                Debug.LogError($"Shop item {itemId} does not exist!");
+                return;
+            }
+            if (shopItem.GetRemainAmount() < amount)
+            {
+                Debug.Log($"<color=red>[GameShopManager]</color> Not enough item {shopItem.GetRawItemId()}");
+                return;
+            }
 
             PlayerTrainingSession session = GetSessionData();
-            if (session == null) return;
+            if (session == null)
+            {
+                Debug.LogError("[GameShopManager] Session data is null");
+                return;
+            }
 
             ItemDataSO itemSO = _itemConfig.GetItemById(itemId);
 
             int totalCost = itemSO.Cost * amount;
 
             if (session.CurrentGoldAmount < totalCost)
+            {
+                Debug.Log("<color=red>[GameShopManager]</color> Not enough money");
                 return;
+            }
 
             session.CurrentGoldAmount -= totalCost;
 
@@ -135,6 +152,8 @@ namespace SEP490G69.Economy
             shopItem.UpdateChanges(_shopDAO);
 
             _sessionDAO.Update(session);
+
+            Debug.Log($"<color=green>[GameShopManager.BuyItem]</color> Purchase item {itemId} successfully!");
         }
 
         /// <summary>
@@ -170,8 +189,7 @@ namespace SEP490G69.Economy
 
             _shopItems.Clear();
 
-            var randomItems = _shopItemPool
-                .Where(x => x.OwnershipMethods.Contains(EOwnershipMethod.Shop))
+            List<ItemDataSO> randomItems = _shopItemPool
                 .OrderBy(x => UnityEngine.Random.value)
                 .Take(MAX_ITEMS_PER_SESSION)
                 .ToList();
@@ -180,7 +198,7 @@ namespace SEP490G69.Economy
             {
                 ShopItemData data = new ShopItemData
                 {
-                    SessionItemId = string.Format(InventoryManager.FORMAT_INVENTORY_ITEM_ID, _sessionId, item.ItemID),
+                    SessionItemId = string.Format(GameInventoryManager.FORMAT_INVENTORY_ITEM_ID, _sessionId, item.ItemID),
                     SessionId = _sessionId,
                     RawItemId = item.ItemID,
                     RemainAmount = UnityEngine.Random.Range(1, 5)
@@ -192,6 +210,7 @@ namespace SEP490G69.Economy
                                                                   .WithSOData(item).Build();
                 _shopItems.Add(holder);
             }
+            Debug.Log($"<color=green>[GameShopManager]</color> Refresh {randomItems.Count} shop items.");
         }
 
         public PlayerTrainingSession GetSessionData()

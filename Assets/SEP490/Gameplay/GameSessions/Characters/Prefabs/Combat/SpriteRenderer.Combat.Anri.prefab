@@ -25,6 +25,14 @@ PrefabInstance:
       value: SpriteRenderer.Combat.Anri
       objectReference: {fileID: 0}
     - target: {fileID: 4725673294311680568, guid: e656ec6c77138c14bb776d29c1678b9c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725673294311680568, guid: e656ec6c77138c14bb776d29c1678b9c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725673294311680568, guid: e656ec6c77138c14bb776d29c1678b9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}

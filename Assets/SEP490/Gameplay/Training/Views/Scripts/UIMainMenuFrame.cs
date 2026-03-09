@@ -3,6 +3,7 @@ namespace SEP490G69.Training
     using System.Collections.Generic;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Calendar;
+    using SEP490G69.GameSessions;
     using SEP490G69.Tournament;
     using TMPro;
     using UnityEngine;
@@ -13,6 +14,8 @@ namespace SEP490G69.Training
         [SerializeField] private TextMeshProUGUI m_CalendarTimeTmp;
         [SerializeField] private TextMeshProUGUI m_RemainTimeTmp;
         [SerializeField] private TextMeshProUGUI m_CurrentTurnTmp;
+        [SerializeField] private TextMeshProUGUI m_RemainGoldTmp;
+
         [Header("Right vertical fields")]
         [SerializeField] private Button m_SettingsBtn;
         [SerializeField] private Button m_NoAdsBtn;
@@ -90,6 +93,16 @@ namespace SEP490G69.Training
             }
         }
 
+        private GameSessionDAO _sessionDAO;
+        protected GameSessionDAO SessionDAO
+        {
+            get
+            {
+                if (_sessionDAO == null) _sessionDAO = new GameSessionDAO();
+                return _sessionDAO;
+            }
+        }
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -124,6 +137,7 @@ namespace SEP490G69.Training
             LoadCharacterStats();
             LoadCalendarTime();
             LoadObjectives();
+            LoadRemainGold();
         }
 
         protected override void OnFrameHidden()
@@ -304,6 +318,25 @@ namespace SEP490G69.Training
             List<TournamentProgressData> tournaments = TournamentDAO.GetAllBySessionId(PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID));
 
             return tournaments.Count > 0;
+        }
+
+        private void LoadRemainGold()
+        {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session id is null/empty");
+                return;
+            }
+            PlayerTrainingSession sessionData = SessionDAO.GetSession(sessionId);
+
+            if (sessionData == null)
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session data with id {sessionId} does not exist");
+                return;
+            }
+
+            m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
         }
     }
 }

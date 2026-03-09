@@ -154,6 +154,8 @@ namespace SEP490G69
         public const string MOOD_FORMAT = "Mood: {0}";
         public const float DEFAULT_CAM_ORTH_SIZE = 5f;
 
+        public const int STARTER_MONEY_AMOUNT = 100000000;
+
         public static readonly int[] RP_CHECKPOINTS =
         {
             200,

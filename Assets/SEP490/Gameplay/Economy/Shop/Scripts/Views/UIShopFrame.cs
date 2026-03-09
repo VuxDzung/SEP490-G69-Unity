@@ -1,5 +1,6 @@
 namespace SEP490G69.Economy
 {
+    using SEP490G69.GameSessions;
     using System.Collections.Generic;
     using System.Linq;
     using TMPro;
@@ -11,6 +12,7 @@ namespace SEP490G69.Economy
         [Header("Shop Items")]
         [SerializeField] private Transform m_ItemContainer;
         [SerializeField] private Transform m_ItemPrefab;
+        [SerializeField] private TextMeshProUGUI m_RemainGoldTmp;
 
         [Header("Item Details")]
         [SerializeField] private Image m_ItemIcon;
@@ -42,6 +44,16 @@ namespace SEP490G69.Economy
             }
         }
 
+        private GameSessionDAO _sessionDAO;
+        protected GameSessionDAO SessionDAO
+        {
+            get
+            {
+                if (_sessionDAO == null) _sessionDAO = new GameSessionDAO();
+                return _sessionDAO;
+            }
+        }
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -49,6 +61,7 @@ namespace SEP490G69.Economy
             m_RefreshBtn.onClick.AddListener(RefreshShop);
             m_BackBtn.onClick.AddListener(Back);
             LoadShopItems();
+            LoadRemainGold();
         }
         protected override void OnFrameHidden()
         {
@@ -75,7 +88,7 @@ namespace SEP490G69.Economy
 
                 if (slot == null) continue;
 
-                slot.BindShopItem(item).SetClickAction(SelectItem);
+                slot.BindShopItem(item, LocalizeManager).SetClickAction(SelectItem);
 
                 if (item.GetRemainAmount() <= 0)
                     slot.ShowSoldOut();
@@ -117,7 +130,7 @@ namespace SEP490G69.Economy
             {
                 if (slot.name.Contains(itemId))
                 {
-                    slot.BindShopItem(item);
+                    slot.BindShopItem(item, LocalizeManager);
 
                     if (item.GetRemainAmount() <= 0)
                         slot.ShowSoldOut();
@@ -152,6 +165,25 @@ namespace SEP490G69.Economy
             }
 
             _slots.Clear();
+        }
+
+        private void LoadRemainGold()
+        {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session id is null/empty");
+                return;
+            }
+            PlayerTrainingSession sessionData = SessionDAO.GetSession(sessionId);
+
+            if (sessionData == null)
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session data with id {sessionId} does not exist");
+                return;
+            }
+
+            m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
         }
     }
 }

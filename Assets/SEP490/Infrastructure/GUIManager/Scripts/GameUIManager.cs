@@ -82,7 +82,7 @@ namespace SEP490G69
                 frame.Hide();
                 return frame;
             }
-            Debug.Log($"<color=red>Expected exception:</color> Frame {frameId} is not initialized yet!");
+            Debug.Log($"<color=red>Expected exception:</color> Frame {frameId} is not displayed!");
             return null;
         }
 

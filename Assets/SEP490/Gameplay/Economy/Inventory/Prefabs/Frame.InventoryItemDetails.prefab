@@ -622,10 +622,10 @@ RectTransform:
   - {fileID: 6920961999583183282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -360}
-  m_SizeDelta: {x: 0, y: 720}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1313769416756786734
 MonoBehaviour:
@@ -643,6 +643,7 @@ MonoBehaviour:
   m_ItemIcon: {fileID: 7204236935445302078}
   m_ItemNameTmp: {fileID: 6438513234703380318}
   m_ItemDescTmp: {fileID: 3291061808143766050}
+  m_ItemTypeTmp: {fileID: 9076819519412875334}
   m_UseBtn: {fileID: 3809582180836113954}
   m_EquipBtn: {fileID: 3818851074134172564}
   m_UnequipBtn: {fileID: 2247297296539304345}
@@ -794,7 +795,7 @@ GameObject:
   - component: {fileID: 1044124029984904805}
   - component: {fileID: 6438513234703380318}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: tmp.item_name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1527,7 +1528,7 @@ GameObject:
   - component: {fileID: 8949209095654739825}
   - component: {fileID: 9076819519412875334}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: tmp.category
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -58,6 +58,7 @@ namespace SEP490G69.GameSessions
             newSession.SessionId = sessionId;
             newSession.PlayerId = playerId;
             newSession.CharacterId = rawCharacterId;
+            newSession.CurrentGoldAmount = GameConstants.STARTER_MONEY_AMOUNT;
 
             if (_dao.Insert(newSession))
             {

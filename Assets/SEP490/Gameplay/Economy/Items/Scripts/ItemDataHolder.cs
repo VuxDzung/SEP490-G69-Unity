@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SEP490G69.Economy
@@ -71,6 +72,11 @@ namespace SEP490G69.Economy
                 return relic.Slot;
             }
             return -1;
+        }
+
+        public IReadOnlyList<StatusModifierSO> GetUsableModifiers()
+        {
+            return _dataSO.UsableModifiers;
         }
 
         #region Builder 

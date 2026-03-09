@@ -16,5 +16,5 @@ MonoBehaviour:
   m_Frames:
   - {fileID: 5133411112509410632, guid: 19c17308a0c8976419b09fe7732e77db, type: 3}
   - {fileID: 286937122626166734, guid: b3d1a14bd840dd9479aa5033a16be617, type: 3}
-  - {fileID: 7173806229999871380, guid: ed945edb71ec1c74d8c38981fbc75b26, type: 3}
   - {fileID: 8287456197134602574, guid: 3521ad8314267c94bba74ba12bab35bf, type: 3}
+  - {fileID: 4821147905637234500, guid: 4120ac289d2bf1f44a8b64895e4f0d3c, type: 3}

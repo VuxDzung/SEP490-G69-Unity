@@ -7,6 +7,8 @@ namespace SEP490G69.Economy
 
     public class UIInventoryFrame : GameUIFrame
     {
+        [SerializeField] private Button m_BackBtn;
+
         [Header("Character info")]
         [SerializeField] private Image m_CharacterImg;
         [SerializeField] private TextMeshProUGUI m_CharacterNameTmp;
@@ -25,14 +27,14 @@ namespace SEP490G69.Economy
         private EItemType _currentFilter = EItemType.None;
         private readonly List<UIInventoryItemSlot> _slots = new();
 
-        private InventoryManager _invetoryManager;
-        private InventoryManager InventoryManager
+        private GameInventoryManager _invetoryManager;
+        private GameInventoryManager InventoryManager
         {
             get
             {
                 if (_invetoryManager == null)
                 {
-                    _invetoryManager = ContextManager.Singleton.ResolveGameContext<InventoryManager>();
+                    _invetoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
                 }
                 return _invetoryManager;
             }
@@ -51,6 +53,8 @@ namespace SEP490G69.Economy
             EventManager.Subscribe<UnequipRelicEvent>(OnInventoryUpdated);
 
             DisplayItems(EItemType.None);
+
+            m_BackBtn.onClick.AddListener(Back);
         }
         protected override void OnFrameHidden()
         {
@@ -64,6 +68,7 @@ namespace SEP490G69.Economy
             EventManager.Unsubscribe<EquipRelicEvent>(OnInventoryUpdated);
             EventManager.Unsubscribe<UnequipRelicEvent>(OnInventoryUpdated);
 
+            m_BackBtn.onClick.RemoveListener(Back);
         }
 
         private void OnInventoryUpdated<T>(T evt)
@@ -131,6 +136,11 @@ namespace SEP490G69.Economy
         private void CloseDetails()
         {
             UIManager.HideFrame(GameConstants.FRAME_ID_INVENTORY_ITEM_DETAILS);
+        }
+
+        private void Back()
+        {
+            HideThisView();
         }
     }
 }

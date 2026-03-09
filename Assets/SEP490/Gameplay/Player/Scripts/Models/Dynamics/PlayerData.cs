@@ -1,4 +1,5 @@
 using LiteDB;
+using System;
 
 namespace SEP490G69
 {
@@ -12,5 +13,10 @@ namespace SEP490G69
         public int LegacyPoints { get; set; }
         public int TotalPlayTime { get; set; }
         public bool IsSynced { get; set; }
+
+        /// <summary>
+        /// How many runs has the player played.
+        /// </summary>
+        public int RunCount { get; set; }
     }
 }

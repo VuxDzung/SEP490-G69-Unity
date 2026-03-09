@@ -41,6 +41,7 @@ namespace SEP490G69
         public const string FRAME_ID_TOURNAMENT_DETAILS = "Frame.TournamentDetails";
 
         public const string FRAME_ID_EDIT_DECK = "Frame.EditDeck";
+        public const string FRAME_ID_CARD_DETAILS = "Frame.CardDetails";
         #endregion
 
         #region Scene names

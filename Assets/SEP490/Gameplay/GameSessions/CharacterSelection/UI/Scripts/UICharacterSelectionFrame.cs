@@ -331,9 +331,14 @@ namespace SEP490G69.GameSessions
         {
             Debug.Log($"Người chơi đã ấn vào thẻ Unique Card có ID: {cardId}");
 
-            // TODO: Bạn có thể bật 1 Popup Detail để xem chi tiết thẻ tại đây
-            // CardSO cardSO = ContextManager.Singleton.GetDataSO<CardConfigSO>().GetCardById(cardId);
-            // UIManager.ShowFrame("FRAME_CARD_DETAIL").AsFrame<UICardDetailFrame>().LoadData(cardSO);
+            // GỌI POPUP LÊN
+            CardSO cardSO = ContextManager.Singleton.GetDataSO<CardConfigSO>().GetCardById(cardId);
+            if (cardSO != null)
+            {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_CARD_DETAILS)
+                 .AsFrame<UICardDetailFrame>()
+                 .LoadData(cardSO);
+            }
         }
 
         // Hàm hỗ trợ format text Growth Rate

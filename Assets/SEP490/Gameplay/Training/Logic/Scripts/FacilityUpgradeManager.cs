@@ -20,7 +20,8 @@ namespace SEP490G69.Training
     public class FacilityUpgradeManager : MonoBehaviour, ISceneContext
     {
         private TrainingExerciseDAO _trainingDAO;
-        private GameSessionDAO _sessionDAO; 
+        private GameSessionDAO _sessionDAO;
+        private GameTrainingController _trainingController;
 
 
         private readonly Dictionary<int, FacilityUpgradeRequirement> _upgradeConfigs = new Dictionary<int, FacilityUpgradeRequirement>()
@@ -35,6 +36,7 @@ namespace SEP490G69.Training
         {
             ContextManager.Singleton.AddSceneContext(this);
             LoadDAOs();
+            _trainingController = GetComponent<GameTrainingController>();
         }
         private void OnDestroy()
         {
@@ -47,14 +49,25 @@ namespace SEP490G69.Training
             _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
         }
 
+        public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId)
+        {
+            CharacterDataHolder holder = _trainingController.CharacterData;
+            return TryUpgradeFacility(sessionId, exerciseId, holder);
+        }
+
         public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId, CharacterDataHolder character)
         {
             SessionTrainingExercise currentFacility = _trainingDAO.GetById(sessionId, exerciseId);
-            if (currentFacility == null) return EUpgradeResult.Error;
+            if (currentFacility == null)
+            {
+                Debug.Log($"<color=red>[FacilityUpgradeManager error]</color> No facility with id {exerciseId} existed.");
+                return EUpgradeResult.Error;
+            }
 
 
             if (currentFacility.Level >= 5)
             {
+                Debug.Log($"<color=red>[FacilityUpgradeManager]</color> Max level of facility {exerciseId} exceeded.");
                 return EUpgradeResult.MaxLevel;
             }
 
@@ -73,6 +86,7 @@ namespace SEP490G69.Training
 
 
             EReputationRank currentRank = ReputationHelper.GetRankFromRP(character.GetRP());
+
             if (currentRank < requirement.RequiredRank)
             {
                 return EUpgradeResult.RankTooLow;
@@ -99,8 +113,16 @@ namespace SEP490G69.Training
 
         public FacilityUpgradeRequirement? GetRequirementForNextLevel(int currentLevel)
         {
-            if (currentLevel >= 5) return null;
+            if (currentLevel >= 5)
+            {
+                return null;
+            }
             return _upgradeConfigs[currentLevel + 1];
+        }
+
+        public List<SessionTrainingExercise> GetAllExercises(string sessionId)
+        {
+            return _trainingDAO.GetAllBySessionId(sessionId);
         }
     }
 }

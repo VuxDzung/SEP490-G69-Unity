@@ -195,7 +195,10 @@ namespace SEP490G69
 
         public void DespawnObject(Transform obj, ESpawnType type = ESpawnType.Pooling)
         {
-            obj.GetComponent<IPooledObject>()?.Despawn();
+            IPooledObject[] despawnedObject = obj.GetComponents<IPooledObject>();
+            foreach (var despawnedObj in despawnedObject)
+                despawnedObj.Despawn();
+
             switch (type)
             {
                 case ESpawnType.Pooling:

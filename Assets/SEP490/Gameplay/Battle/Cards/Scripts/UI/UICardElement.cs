@@ -21,12 +21,12 @@ namespace SEP490G69.Battle.Cards
 
         public void Spawn()
         {
+
         }
 
         public void Despawn()
         {
-            //_onSelect = null;
-            //Deselect();
+
         }
 
         public UICardElement SetOnSelectCallback(Action<string, bool, Transform> onSelect)

@@ -148,12 +148,12 @@ namespace SEP490G69.GameSessions
                         {
                             if (DeckController.GetDeckCardCount() >= GameDeckController.MAX_DECK_COUNT)
                             {
-                                Debug.Log("<color=red>[GameSessionController]</color> Max card amount exceeded");
+                                Debug.Log("<color=red>[GameSessionController Error]</color> Max card amount exceeded");
                                 break;
                             }
                             if (!DeckController.AddCardToDeck(rawCardId, false))
                             {
-                                Debug.Log($"<color=red>Error:</color> Failed to add card {rawCardId} to deck");
+                                Debug.Log($"<color=red>[GameSessionController Error]</color> Failed to add card {rawCardId} to deck");
                             }
                             else
                             {
@@ -163,19 +163,19 @@ namespace SEP490G69.GameSessions
                                 }
                             }
                         }
-                        Debug.Log("<color=green>Add cards to deck successfully!</color>");
+                        Debug.Log("<color=green>[GameSessionController]</color> Add cards to deck successfully!");
                         DeckController.SaveDeck();
                         return true;
                     }
                     else
                     {
-                        Debug.Log($"Failed to create character session data {characterId} for session {sessionId} success");
+                        Debug.Log($"<color=red>[GameSessionController]</color> Failed to create character session data {characterId} for session {sessionId} success");
                         return false;
                     }
                 }
                 else
                 {
-                    Debug.LogError($"No SO data of character with id {characterId}");
+                    Debug.LogError($"[GameSessionController] No SO data of character with id {characterId}");
                     return false;
                 }
             }
@@ -190,7 +190,7 @@ namespace SEP490G69.GameSessions
             List<PlayerTrainingSession> sessions = _sessionCreator.GetAllSessions(playerId);
             if (sessions.Count == 0)
             {
-                Debug.Log("No session available!");
+                Debug.Log("<color=yellow>[GameSessionController]</color> No session available!");
                 return;
             }
             string sessionId = sessions[0].SessionId;

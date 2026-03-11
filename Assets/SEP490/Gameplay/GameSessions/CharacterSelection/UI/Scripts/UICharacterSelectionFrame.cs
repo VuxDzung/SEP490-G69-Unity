@@ -298,7 +298,6 @@ namespace SEP490G69.GameSessions
                 else
                 {
                     Debug.LogWarning($"<color=orange>[Card Load Debug]</color> PoolManager không chứa key '{poolKey}', dùng Instantiate mặc định...");
-                    cardTrans = Instantiate(m_UICardPrefab, m_CardContainer).transform;
                 }
 
                 if (cardTrans == null)
@@ -312,7 +311,10 @@ namespace SEP490G69.GameSessions
                 if (cardUI != null)
                 {
                     string desc = cardSO.CardDescription;
-                    cardUI.SetContent(cardSO.CardId, cardSO.CardName, desc, cardSO.Icon);
+                    cardUI.SetContent(cardSO.CardId, 
+                                      LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, cardSO.CardName), 
+                                      desc, 
+                                      cardSO.Icon);
                     cardUI.SetOnSelectCallback(OnUniqueCardClicked);
                     loadedCount++;
                     Debug.Log($"<color=green>[Card Load Debug]</color> 7. Load THÀNH CÔNG lên UI thẻ: {cardSO.CardName}");

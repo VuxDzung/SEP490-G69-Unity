@@ -82,6 +82,11 @@ namespace SEP490G69.Battle.Cards
 
         public IReadOnlyList<CustomVariable> CustomVariables => m_CustomVariables;
 
+        /// <summary>
+        /// Get custom/external variable.
+        /// </summary>
+        /// <param name="varName"></param>
+        /// <returns></returns>
         public CustomVariable GetVariableByName(string varName)
         {
             if (m_CustomVariables == null || m_CustomVariables.Count == 0)

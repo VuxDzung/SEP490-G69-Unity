@@ -2,6 +2,7 @@
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using System.Collections.Generic;
+    using System.Collections;
     using System.Linq;
     using TMPro;
     using UnityEngine;
@@ -20,6 +21,8 @@
 
         [Header("Data Config")]
         [SerializeField] private CardConfigSO m_CardConfig;
+
+        [SerializeField] private RectTransform m_OnDragParent;
 
         private List<string> _currentDeckIds = new List<string>();
         private int _maxDeckSize = 9;
@@ -77,9 +80,7 @@
                 _currentDeckIds.AddRange(playerDeck.CardIds);
             }
 
-            Debug.Log($"Player deck count: {playerDeck.CardIds.Length}");
-
-            //Debug.Log("<color=green>---------- SPAWN DECK CARDS ----------</color>");
+            Debug.Log($"Player deck count: {_currentDeckIds.Count}");
 
             // ---------- SPAWN DECK CARDS ----------
             foreach (string deckCardId in _currentDeckIds)
@@ -87,12 +88,14 @@
                 string rawId = CardUtils.ExtractRawCardId(deckCardId);
 
                 CardSO staticCardData = m_CardConfig.GetCardById(rawId);
+
                 if (staticCardData == null) continue;
 
-                Transform dekcCardUITransform = PoolManager.Pools["UIDeckCard"].Spawn(m_CardUIPrefab, m_InDeckContainer);
+                Transform deckCardUITrans = PoolManager.Pools["UIDeckCard"].Spawn(m_CardUIPrefab, m_InDeckContainer);
+                deckCardUITrans.gameObject.name = $"InDeckCard_{deckCardId}:Parent_{deckCardUITrans.parent.gameObject.name}";
 
-                UIEditableCardElement deckCardElement = dekcCardUITransform.GetComponent<UIEditableCardElement>();
-                dekcCardUITransform.gameObject.name = $"InDeckCard_{deckCardId}";
+                UIEditableCardElement deckCardElement = deckCardUITrans.GetComponent<UIEditableCardElement>();
+
                 deckCardElement.SetContent(
                     rawId,
                     deckCardId,
@@ -101,10 +104,15 @@
                     staticCardData.Icon,
                     1);
 
-                deckCardElement.SetOnSelectCallback(OnRemoveFromDeck);
+                UIDragableElement dragableCardUI = deckCardUITrans.GetComponent<UIDragableElement>();
+
+                if (dragableCardUI != null)
+                {
+                    dragableCardUI._onDragParent = m_OnDragParent;
+                    dragableCardUI.onDropped = OnDropCard;
+                }
             }
 
-            //Debug.Log("<color=green>---------- SPAWN INVENTORY ----------</color>");
             // ---------- SPAWN INVENTORY ----------
             foreach (SessionCardData card in _obtainedCards)
             {
@@ -122,6 +130,7 @@
                 }
 
                 Transform cardUITransform = PoolManager.Pools["UICard"].Spawn(m_CardUIPrefab, m_ObtainedContainer);
+                cardUITransform.gameObject.name = $"InventoryCard_{card.RawCardId}";
 
                 UIEditableCardElement cardElement = cardUITransform.GetComponent<UIEditableCardElement>();
 
@@ -133,60 +142,69 @@
                     staticCardData.Icon,
                     card.ObtainedAmount);
 
-                cardElement.SetOnSelectCallback(OnAddToDeck);
+                UIDragableElement dragableCardUI = cardUITransform.GetComponent<UIDragableElement>();
+                if (dragableCardUI != null)
+                {
+                    dragableCardUI._onDragParent = m_OnDragParent;
+                    dragableCardUI.onDropped = OnDropCard;
+                }
             }
 
             UpdateDeckCountText();
         }
 
-        private void OnRemoveFromDeck(string _, bool __, Transform cardTransform)
+        private void OnDropCard(Transform cardUITrans, Transform parent)
         {
-            UIEditableCardElement cardUI = cardTransform.GetComponent<UIEditableCardElement>();
-
-            bool isInDeck = DeckController.IsCardInDeck(cardUI.DeckCardId);
-
-            if (isInDeck)
+            UIDropHandler dropHandler = parent.GetComponentInParent<UIDropHandler>();
+            if (dropHandler != null)
             {
-                bool removed = DeckController.RemoveCardFromDeck(cardUI.DeckCardId, false);
+                UIEditableCardElement cardUI = cardUITrans.GetComponent<UIEditableCardElement>();
 
-                if (!removed)
+                bool isInDeck = DeckController.IsCardInDeck(cardUI.DeckCardId);
+
+                if (dropHandler.HandlerName.Equals("deck"))
                 {
-                    Debug.LogError("Failed to remove from deck");
-                    return;
-                }
-                Debug.Log("Move to inventory");
-                string rawId = cardUI.RawCardId;
+                    if (!isInDeck)
+                    {
+                        Debug.Log("<color=green>[UIEditDeckFrame]</color> Move to deck");
+                        bool added = DeckController.AddCardToDeck(cardUI.RawCardId);
 
-                SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(rawId));
-                cardData.ObtainedAmount++;
+                        if (!added)
+                        {
+                            Debug.LogError("<color=red>[UIEditDeckFrame]</color> Failed to add to deck");
+                            return;
+                        }
+
+                        SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(cardUI.RawCardId));
+                        cardData.ObtainedAmount--;
+                    }
+                }
+                else
+                {
+                    if (isInDeck)
+                    {
+                        Debug.Log("<color=green>[UIEditDeckFrame]</color> Move to inventory");
+                        bool removed = DeckController.RemoveCardFromDeck(cardUI.DeckCardId, false);
+
+                        if (!removed)
+                        {
+                            Debug.LogError("Failed to remove from deck");
+                            return;
+                        }
+
+                        string rawId = cardUI.RawCardId;
+
+                        SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(rawId));
+                        cardData.ObtainedAmount++;
+                    }
+                }
+                cardUI.Deselect();
+                LoadAllCards(false);
             }
             else
             {
-                Debug.LogError($"{cardUI.DeckCardId} is not in deck");
+                Debug.Log("No drop parent");
             }
-            cardUI.Deselect();
-            LoadAllCards(false); // refresh UI
-        }
-
-        private void OnAddToDeck(string _, bool __, Transform cardTransform)
-        {
-            UIEditableCardElement cardUI = cardTransform.GetComponent<UIEditableCardElement>();
-
-            bool added = DeckController.AddCardToDeck(cardUI.RawCardId);
-
-            if (!added)
-            {
-                Debug.LogError("Failed to add to deck");
-
-                return;
-            }
-            Debug.Log("Move to deck");
-
-            SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(cardUI.RawCardId));
-            cardData.ObtainedAmount--;
-
-            cardUI.Deselect();
-            LoadAllCards(false); // refresh UI
         }
 
         private void UpdateDeckCountText()
@@ -209,10 +227,12 @@
         {
             if (PoolManager.Pools["UICard"].Count > 0)
             {
+                Debug.Log("<color=green>[UIEditDeckFrame.ClearSpawnedCards]</color> Clear all card inventory");
                 PoolManager.Pools["UICard"].DespawnAll();
             }
             if (PoolManager.Pools["UIDeckCard"].Count > 0)
             {
+                Debug.Log("<color=green>[UIEditDeckFrame.ClearSpawnedCards]</color> Clear all card deck");
                 PoolManager.Pools["UIDeckCard"].DespawnAll();
             }
         }

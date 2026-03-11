@@ -518,6 +518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUIManager.Deck
       objectReference: {fileID: 0}
+    - target: {fileID: 6143111410098085793, guid: e89b81c9d578c344b9b8ca64d429b31a, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

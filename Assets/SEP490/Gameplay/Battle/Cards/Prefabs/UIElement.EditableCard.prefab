@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 5880420539340702264}
   - component: {fileID: 5431922279477503556}
   - component: {fileID: 1243731843683999255}
-  - component: {fileID: 7574490090940292794}
   - component: {fileID: 4363232324602421710}
   - component: {fileID: 8765939593922810717}
+  - component: {fileID: 9004829740864345509}
   m_Layer: 0
   m_Name: UIElement.EditableCard
   m_TagString: Untagged
@@ -219,23 +219,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7574490090940292794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093440760782398628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e48635a43eb0106419f630a0bb7cd20a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CardIcon: {fileID: 1777726569747994224}
-  m_Border: {fileID: 1243731843683999255}
-  m_CardNameTmp: {fileID: 598581021869849726}
-  m_CardDescTmp: {fileID: 8301344020117857386}
-  m_BtnRef: {fileID: 4363232324602421710}
 --- !u!114 &4363232324602421710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,12 +275,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31b21c118c1aab4f9c2ccad85e348f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onDragParent: {fileID: 0}
+  _originalParent: {fileID: 0}
+  _rectTransform: {fileID: 0}
+  _canvas: {fileID: 0}
+  _canvasGroup: {fileID: 0}
   m_CardIcon: {fileID: 1777726569747994224}
   m_Border: {fileID: 1243731843683999255}
   m_CardNameTmp: {fileID: 598581021869849726}
   m_CardDescTmp: {fileID: 8301344020117857386}
   m_BtnRef: {fileID: 4363232324602421710}
   m_AmountTmp: {fileID: 2841472343606843986}
+--- !u!225 &9004829740864345509
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093440760782398628}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2748158914416931215
 GameObject:
   m_ObjectHideFlags: 0

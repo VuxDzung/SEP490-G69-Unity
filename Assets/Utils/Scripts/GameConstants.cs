@@ -114,6 +114,10 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_MONTH_NAMES = "MonthNames";
 
         public const string LOCALIZE_CATEGORY_TOUR_NAMES = "TournamentNames";
+
+        public const string LOCALIZE_CATEGORY_STATUS_EFFECT_NAMES = "StatusEffectNames";
+
+        public const string LOCALIZE_CATEGORY_STATUS_EFFECT_DESC = "StatusEffectDescs";
         #endregion
 
         #region Currencies id

@@ -92,13 +92,6 @@ MonoBehaviour:
     - language: 1
       text: "G\xE2y ra l\u01B0\u1EE3ng sat th\u01B0\u01A1ng l\u1EDBn nh\u01B0ng nh\u1EADn
         1 hi\u1EC7u \u1EE9ng D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"
-  - id: card_0014_desc
-    textList:
-    - language: 0
-      text: Lose 10% Max HP. Gain 1 Berserk & 80 Stamina.
-    - language: 1
-      text: "M\u1EA5t 10% L\u01B0\u1EE3ng M\xE1u T\u1ED1i \u0110a. Nh\u1EADn 1 hi\u1EC7u
-        \u1EE9ng Cu\u1ED3ng N\u1ED9 v\xE0 80 N\u0103ng L\u01B0\u1EE3ng"
   - id: card_0013_desc
     textList:
     - language: 0
@@ -106,6 +99,13 @@ MonoBehaviour:
     - language: 1
       text: "G\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 gi\u1EA3m 20% Thanh H\xE0nh \u0110\u1ED9ng
         c\u1EE7a \u0111\u1ED1i th\u1EE7 "
+  - id: card_0014_desc
+    textList:
+    - language: 0
+      text: Lose 10% Max HP. Gain 1 Berserk & 80 Stamina.
+    - language: 1
+      text: "M\u1EA5t 10% L\u01B0\u1EE3ng M\xE1u T\u1ED1i \u0110a. Nh\u1EADn 1 hi\u1EC7u
+        \u1EE9ng Cu\u1ED3ng N\u1ED9 v\xE0 80 N\u0103ng L\u01B0\u1EE3ng"
   - id: card_0015_desc
     textList:
     - language: 0

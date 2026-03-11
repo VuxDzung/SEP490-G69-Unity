@@ -313,8 +313,9 @@ namespace SEP490G69.GameSessions
                     string desc = cardSO.CardDescription;
                     cardUI.SetContent(cardSO.CardId, 
                                       LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, cardSO.CardName), 
-                                      desc, 
-                                      cardSO.Icon);
+                                      LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, cardSO.CardDescription), 
+                                      cardSO.Icon
+                                      );
                     cardUI.SetOnSelectCallback(OnUniqueCardClicked);
                     loadedCount++;
                     Debug.Log($"<color=green>[Card Load Debug]</color> 7. Load THÀNH CÔNG lên UI thẻ: {cardSO.CardName}");

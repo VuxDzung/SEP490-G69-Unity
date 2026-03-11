@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.StatusEffectNames
+  m_EditorClassIdentifier: 
+  category: StatusEffectNames
+  textDataList:
+  - id: ste_0001_name
+    textList:
+    - language: 0
+      text: Power Up
+    - language: 0
+      text: "T\u0103ng Pow"
+  - id: ste_0002_name
+    textList:
+    - language: 0
+      text: Greater Power Up
+    - language: 1
+      text: "T\u0103ng Pow \u0110\u1EA1i"
+  - id: ste_0003_name
+    textList:
+    - language: 0
+      text: Defense Up
+    - language: 1
+      text: "T\u0103ng Def"
+  - id: ste_0004_name
+    textList:
+    - language: 0
+      text: Greater Defense Up
+    - language: 1
+      text: "T\u0103ng Def \u0110\u1EA1i"
+  - id: ste_0005_name
+    textList:
+    - language: 0
+      text: Agi Up
+    - language: 1
+      text: "T\u0103ng Agi"
+  - id: ste_0006_name
+    textList:
+    - language: 0
+      text: Greater Agi Up
+    - language: 1
+      text: "T\u0103ng Agi \u0110\u1EA1i"
+  - id: ste_0007_name
+    textList:
+    - language: 0
+      text: Int Up
+    - language: 1
+      text: "T\u0103ng Int"
+  - id: ste_0008_name
+    textList:
+    - language: 0
+      text: Greater Int Up
+    - language: 1
+      text: "T\u0103ng Int \u0110\u1EA1i"
+  - id: ste_0009_name
+    textList:
+    - language: 0
+      text: Power Down
+    - language: 1
+      text: "Gi\u1EA3m Pow"
+  - id: ste_0010_name
+    textList:
+    - language: 0
+      text: Greater Power Down
+    - language: 1
+      text: "Gi\u1EA3m Pow \u0110\u1EA1i"
+  - id: ste_0011_name
+    textList:
+    - language: 0
+      text: Defense Down
+    - language: 1
+      text: "Gi\u1EA3m Def"
+  - id: ste_0012_name
+    textList:
+    - language: 0
+      text: Greater Defense Down
+    - language: 1
+      text: "Gi\u1EA3m Def \u0110\u1EA1i"
+  - id: ste_0013_name
+    textList:
+    - language: 0
+      text: Agi Down
+    - language: 1
+      text: "Gi\u1EA3m Agi"
+  - id: ste_0014_name
+    textList:
+    - language: 0
+      text: Greater Agi Down
+    - language: 1
+      text: "Gi\u1EA3m Agi \u0110\u1EA1i"
+  - id: ste_0015_name
+    textList:
+    - language: 0
+      text: Int Down
+    - language: 1
+      text: "Gi\u1EA3m Int"
+  - id: ste_0016_name
+    textList:
+    - language: 0
+      text: Greater Int Down
+    - language: 1
+      text: "Gi\u1EA3m Int \u0110\u1EA1i"
+  - id: ste_0017_name
+    textList:
+    - language: 0
+      text: Regeneration
+    - language: 1
+      text: "H\u1ED3i Ph\u1EE5c"
+  - id: ste_0018_name
+    textList:
+    - language: 0
+      text: Vulnerable
+    - language: 1
+      text: "D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"
+  - id: ste_0019_name
+    textList:
+    - language: 0
+      text: Fatigue
+    - language: 1
+      text: "M\u1EC7t M\u1ECFi"
+  - id: ste_0020_name
+    textList:
+    - language: 0
+      text: Stun
+    - language: 1
+      text: "Cho\xE1ng"
+  - id: ste_0021_name
+    textList:
+    - language: 0
+      text: Darkness
+    - language: 1
+      text: "B\xF3ng T\u1ED1i"
+  - id: ste_0022_name
+    textList:
+    - language: 0
+      text: Damage Up
+    - language: 1
+      text: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
+  - id: ste_0023_name
+    textList:
+    - language: 0
+      text: Thorn
+    - language: 1
+      text: Gai
+  - id: ste_0024_name
+    textList:
+    - language: 0
+      text: Berserk
+    - language: 1
+      text: "Cu\u1ED3ng N\u1ED9"
+  - id: ste_0025_name
+    textList:
+    - language: 0
+      text: Defense Null
+    - language: 1
+      text: "V\xF4 Th\u1EE7"
+  - id: ste_0026_name
+    textList:
+    - language: 0
+      text: Exhausion
+    - language: 1
+      text: "Ki\u1EC7t Qu\u1EC7"

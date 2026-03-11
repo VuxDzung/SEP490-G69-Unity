@@ -40,12 +40,14 @@ namespace SEP490G69.Battle
         {
             foreach (var mod in Data.Modifiers)
             {
-                owner.AddStatusModifier(mod);
+                owner.AddEffectModifier(mod, Data.EffectId);
             }
         }
 
         public void OnTurnStart()
         {
+            _specialEffect?.OnTurnStart(owner);
+
             if (Data.ApplyType == EApplyDiscardType.TurnStart)
             {
                 DecreaseStack();
@@ -86,18 +88,15 @@ namespace SEP490G69.Battle
 
             if (Stack <= 0)
             {
-                RemoveModifiers();
+                RemoveEffectModifiers();
 
                 onStackEmpty?.Invoke(this);
             }
         }
 
-        private void RemoveModifiers()
+        private void RemoveEffectModifiers()
         {
-            foreach (var mod in Data.Modifiers)
-            {
-                owner.RemoveStatusModifier(mod);
-            }
+            owner.RemoveStatusEffect(Data.EffectId);
         }
     }
 }

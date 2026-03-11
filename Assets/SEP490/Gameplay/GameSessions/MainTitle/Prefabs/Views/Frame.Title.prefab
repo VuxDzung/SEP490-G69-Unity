@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_sign_out
-  tmp: {fileID: 8891952446185887389}
+  tmp: {fileID: 6518383314428212579}
 --- !u!1 &348852795945683471
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_credit
-  tmp: {fileID: 0}
+  tmp: {fileID: 7794467205099381312}
 --- !u!1 &1306113359063397800
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_new_game
-  tmp: {fileID: 0}
+  tmp: {fileID: 7226793700273905292}
 --- !u!1 &2167055419794163325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,7 +2287,7 @@ GameObject:
   - component: {fileID: 5626034684239506722}
   - component: {fileID: 3888095561972145411}
   m_Layer: 0
-  m_Name: wc_player
+  m_Name: tmp.wc_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2835,7 +2835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_continue
-  tmp: {fileID: 0}
+  tmp: {fileID: 2242540657834899677}
 --- !u!1 &6877740159817831574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3279,7 +3279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_settings
-  tmp: {fileID: 0}
+  tmp: {fileID: 4961365722035218838}
 --- !u!1 &7741336288482935184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3794,7 +3794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: UIButtonText
   elementId: btn_quit
-  tmp: {fileID: 0}
+  tmp: {fileID: 1858610581616945628}
 --- !u!1 &9033776021883393101
 GameObject:
   m_ObjectHideFlags: 0

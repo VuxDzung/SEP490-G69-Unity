@@ -206,3 +206,9 @@ MonoBehaviour:
       text: Stats
     - language: 1
       text: "Ch\u1EC9 S\u1ED1"
+  - id: btn_battle
+    textList:
+    - language: 0
+      text: Battle
+    - language: 1
+      text: "Chi\u1EBFn \u0111\u1EA5u"

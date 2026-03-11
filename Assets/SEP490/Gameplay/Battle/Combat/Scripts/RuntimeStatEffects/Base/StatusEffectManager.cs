@@ -42,7 +42,9 @@ namespace SEP490G69
         public void StartTurn()
         {
             foreach (var s in _statusEffects.ToList())
+            {
                 s.OnTurnStart();
+            }
         }
 
         public void EndTurn()

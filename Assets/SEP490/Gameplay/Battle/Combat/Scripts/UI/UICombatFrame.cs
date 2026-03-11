@@ -37,13 +37,13 @@
 
         private void PerformRest()
         {
-            CombatController.PlayerCharController.SelectRest();
-            CombatController.PerformSelectedPlayerCard();
+            CombatController.Player.SelectRest();
+            CombatController.TurnSystem.ExecutePlayerCard();
         }
 
         private void PerformSelectCard()
         {
-            CombatController.PerformSelectedPlayerCard();
+            CombatController.TurnSystem.ExecutePlayerCard();
         }
 
         private void ShowSettings()
@@ -124,7 +124,6 @@
 
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
-            Debug.Log("DisplayDrawnCards");
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
@@ -167,7 +166,7 @@
 
             if (isSelected)
             {
-                CombatController.PlayerCharController.SelectCardById(cardId);
+                CombatController.Player.SelectCardById(cardId);
                 if (layout != null)
                     layout.ignoreLayout = true;
                 //cardTrans.SetParent(m_SelectedCardContainer, false);
@@ -180,7 +179,7 @@
             }
             else
             {
-                CombatController.PlayerCharController.DeselectCurrentCard();
+                CombatController.Player.DeselectCurrentCard();
 
                 //cardTrans.SetParent(m_CardContainer, false);
                 if (layout != null)
@@ -199,13 +198,13 @@
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.PlayerCharController.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
             }
             else
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.EnemyCombatController.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
             }
         }
 

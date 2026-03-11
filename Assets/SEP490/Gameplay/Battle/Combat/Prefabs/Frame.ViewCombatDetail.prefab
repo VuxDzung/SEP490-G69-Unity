@@ -3140,6 +3140,7 @@ GameObject:
   - component: {fileID: 4895720437665852802}
   - component: {fileID: 4491045201713632802}
   - component: {fileID: 3844157987755755270}
+  - component: {fileID: 1865666594197487950}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3265,6 +3266,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1865666594197487950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6289829258413914642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_battle
+  tmp: {fileID: 3844157987755755270}
 --- !u!1 &6353393953951494051
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
+    using System;
     using System.Collections.Generic;
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Battle.Cards;
@@ -17,325 +18,137 @@
 
     public class SceneCombatController : MonoBehaviour, ISceneContext
     {
-        [SerializeField] private string m_CharacterPoolName = "CombatCharacter";
+        public event Action<EBattleState> OnStateChanged;
+
+        [Header("Scene References")]
         [SerializeField] private Transform m_PlayerContainer;
         [SerializeField] private Transform m_EnemyContainer;
+        [SerializeField] private string m_CharacterPoolName = "CombatCharacter";
 
-        [Header("Testing")]
-        [SerializeField] private TestObtainedCardSO m_ObtainedCardConfig;
+        private BattleStateMachine _battleState;
+        private CombatInitializer _initializer;
+        private CombatTurnSystem _turnSystem;
+        private CombatUIUpdater _uiUpdater;
 
-        private PlayerBattleCharaterController _playerCharacterCombat;
-        private EnemyCombatController _enemyCharacterCombat;
+        private PlayerBattleCharaterController _player;
+        private EnemyCombatController _enemy;
 
-        private string _playerCharacterId;
-        private string _enemyCharacterId;
-        private EBattleState _battleState;
-        private GameSessionDAO _sessionDAO;
+        public PlayerBattleCharaterController Player => _player;
+        public EnemyCombatController Enemy => _enemy;
+        public CombatTurnSystem TurnSystem => _turnSystem;
 
-        #region Properties
-        private CharacterConfigSO _characterConfig;
-        protected CharacterConfigSO CharacterConfig
-        {
-            get
-            {
-                if (_characterConfig == null)
-                {
-                    _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
-                }
-                return _characterConfig;
-            }
-        }
-
-        private CardConfigSO _cardConfig;
-        protected CardConfigSO CardConfig
-        {
-            get
-            {
-                if (_cardConfig == null)
-                {
-                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
-                }
-                return _cardConfig;
-            }
-        }
-
-        public PlayerBattleCharaterController PlayerCharController => _playerCharacterCombat;
-        public EnemyCombatController EnemyCombatController => _enemyCharacterCombat;
-
-        #endregion
-
-        #region Unity life cycle
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
 
-            LoadDAOs();
+            _battleState = new BattleStateMachine();
+            _initializer = new CombatInitializer();
+            _turnSystem = new CombatTurnSystem();
+            _uiUpdater = new CombatUIUpdater();
         }
+
         private void Start()
         {
-            ChangeBattleState(EBattleState.Pending);
             InitializeBattle();
+            BindEvents();
+            _battleState.ChangeState(EBattleState.Pending);
+        }
 
-            if (_playerCharacterCombat != null)
+        private void Update()
+        {
+            if (_battleState.CurrentState != EBattleState.InProgress)
             {
-                _playerCharacterCombat.OnEnergyFull += HandlePlayerEnergyFull;
-                _playerCharacterCombat.OnDead += HandlePlayerDefeated;
+                return;
             }
-            if (_enemyCharacterCombat != null)
-            {
-                _enemyCharacterCombat.OnEnergyFull += HandleEnemyEnergyFull;
-                _enemyCharacterCombat.OnDead += HandleEnemyDefeated;
-            }
+
+            _turnSystem.Update(Time.deltaTime);
+            _uiUpdater.UpdateEnergy(_player, _enemy);
         }
 
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
-
-            if (_playerCharacterCombat != null)
-            {
-                _playerCharacterCombat.OnEnergyFull -= HandlePlayerEnergyFull;
-                _playerCharacterCombat.OnDead -= HandlePlayerDefeated;
-            }
-            if (_enemyCharacterCombat != null)
-            {
-                _enemyCharacterCombat.OnEnergyFull -= HandleEnemyEnergyFull;
-                _enemyCharacterCombat.OnDead -= HandleEnemyDefeated;
-            }
-        }
-
-        private void Update()
-        {
-            if (_battleState == EBattleState.InProgress)
-            {
-                float dt = Time.deltaTime;
-
-                if (_playerCharacterCombat != null)
-                {
-                    _playerCharacterCombat.UpdateCharge(dt);
-                    GameUIManager.Singleton
-                                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                                 .AsFrame<UICombatFrame>()
-                                 .SetPlayerCharGauge(_playerCharacterCombat.GetCurrentEnergyValue(), _playerCharacterCombat.GetMaxEnergyValue());
-                }
-                if (_enemyCharacterCombat != null)
-                {
-                    _enemyCharacterCombat.UpdateCharge(dt);
-                    GameUIManager.Singleton
-                                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                                 .AsFrame<UICombatFrame>()
-                                 .SetEnemyCharGauge(_enemyCharacterCombat.GetCurrentEnergyValue(), _enemyCharacterCombat.GetMaxEnergyValue());
-                }
-            }
-        }
-        #endregion
-
-        #region Initialization
-        private void LoadDAOs()
-        {
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            UnbindEvents();
         }
 
         private void InitializeBattle()
-        {            
-            // Initialize player character
-            InitializePlayerCharacter();
-
-            // Initialize enemy
-            InitializeEnemyCharacter();
-
-            // Show preview combat details.
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT_DETAILS)
-                         .AsFrame<UICombatDetailsFrame>()
-                         .SetPlayerCharName(_playerCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetPlayerVit(_playerCharacterCombat.StatVit.Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetPlayerPow(_playerCharacterCombat.StatPow.Value, _playerCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetPlayerAgi(_playerCharacterCombat.StatAgi.Value, _playerCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetPlayerInt(_playerCharacterCombat.StatInt.Value, _playerCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetPlayerSta(_playerCharacterCombat.StatStamina.Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
-                         .SetEnemyName(_enemyCharacterCombat.ReadonlyDataHolder.GetCharacterName())
-                         .SetEnemyVit(_enemyCharacterCombat.StatVit.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetEnemyPow(_enemyCharacterCombat.StatPow.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetPower())
-                         .SetEnemyAgi(_enemyCharacterCombat.StatAgi.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetAgi())
-                         .SetEnemyInt(_enemyCharacterCombat.StatInt.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetINT())
-                         .SetEnemySta(_enemyCharacterCombat.StatStamina.Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina());
-        }
-        private void InitializePlayerCharacter()
         {
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                Debug.LogError("Session id is empty");
-                return;
-            }
-            PlayerTrainingSession sessionData = _sessionDAO.GetSession(sessionId);
-            if (sessionData == null)
-            {
-                Debug.LogError($"Session with id {sessionId} does not exist!");
-                return;
-            }
-            BaseCharacterSO _playerCharSO = CharacterConfig.GetCharacterById(sessionData.CharacterId);
-            if (_playerCharSO == null)
-            {
-                Debug.LogError($"BaseCharacterSO with id {sessionData.CharacterId} is not configred yet!");
-                return;
-            }
+            (_player, _enemy) = _initializer.Initialize(
+                m_PlayerContainer,
+                m_EnemyContainer,
+                m_CharacterPoolName);
 
-            Transform playerCharTrans = PoolManager.Pools[m_CharacterPoolName].Spawn(_playerCharSO.CombatPrefab, m_PlayerContainer);
-            _playerCharacterCombat = playerCharTrans.GetComponent<PlayerBattleCharaterController>();
-            if (_playerCharacterCombat != null)
-            {
-                _playerCharacterCombat.SetSampleDeck(m_ObtainedCardConfig);
-                _playerCharacterCombat.Initialize(_playerCharSO);
-            }
-            else
-            {
-                Debug.LogError($"PlayerCombatController does not exist in character {_enemyCharacterId} prefab");
-            }
+            _turnSystem.Initialize(_player, _enemy);
+            _uiUpdater.ShowCombatPreview(_player, _enemy);
         }
-        private void InitializeEnemyCharacter()
+
+        private void BindEvents()
         {
-            _enemyCharacterId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID);//"ch_0010";
+            _player.OnEnergyFull += HandlePlayerTurn;
+            _enemy.OnEnergyFull += HandleEnemyTurn;
 
-            if (string.IsNullOrEmpty(_enemyCharacterId))
-            {
-                Debug.LogError("Failed to get enemy id");
-                return;
-            }
+            _player.OnDead += HandlePlayerDefeated;
+            _enemy.OnDead += HandleEnemyDefeated;
 
-            BaseCharacterSO enemySO = CharacterConfig.GetCharacterById(_enemyCharacterId);
-            Transform enemyTrans = PoolManager.Pools[m_CharacterPoolName].Spawn(enemySO.CombatPrefab, m_EnemyContainer);
-            _enemyCharacterCombat = enemyTrans.GetComponent<EnemyCombatController>();
-            if (_enemyCharacterCombat != null)
+            _battleState.OnStateChanged += state =>
             {
-                _enemyCharacterCombat.Initialize(enemySO);
-            }
-            else
-            {
-                Debug.LogError($"EnemyCombatController does not exist in character {_enemyCharacterId} prefab");
-            }
+                OnStateChanged?.Invoke(state);
+            };
+
+            OnStateChanged += SceneCombatController_OnStateChanged;
+        }
+
+        private void UnbindEvents()
+        {
+            _player.OnEnergyFull -= HandlePlayerTurn;
+            _enemy.OnEnergyFull -= HandleEnemyTurn;
+
+            _player.OnDead -= HandlePlayerDefeated;
+            _enemy.OnDead -= HandleEnemyDefeated;
         }
 
         public void StartBattle()
         {
-            ChangeBattleState(EBattleState.InProgress);
-            GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_COMBAT_DETAILS);
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT)
-                         .AsFrame<UICombatFrame>()
-                         .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                         .SetPlayerCharVit(_playerCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetPlayerCharStamina(_playerCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
-                         .SetPlayerCharGauge(_playerCharacterCombat.GetCurrentEnergyValue(), _playerCharacterCombat.GetMaxEnergyValue())
-                         .SetEnemyCharContent(_enemyCharacterCombat.ReadonlyDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                         .SetEnemyCharVit(_enemyCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                         .SetEnemyCharStamina(_enemyCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
-                         .SetEnemyCharGauge(_enemyCharacterCombat.GetCurrentEnergyValue(), _enemyCharacterCombat.GetMaxEnergyValue());
-        }
-        #endregion
-
-        public void PauseBattle()
-        {
-            ChangeBattleState(EBattleState.Pause);
-        }
-        public void UnpauseBattle()
-        {
-            ChangeBattleState(EBattleState.InProgress);
+            _battleState.ChangeState(EBattleState.InProgress);
+            _uiUpdater.ShowCombatHUD(_player, _enemy);
         }
 
-        private void ChangeBattleState(EBattleState state)
+        public void PauseBattle() => _battleState.ChangeState(EBattleState.Pause);
+        public void ResumeBattle() => _battleState.ChangeState(EBattleState.InProgress);
+
+        private void HandlePlayerTurn(BaseBattleCharacterController character)
         {
-            _battleState = state;
+            _turnSystem.PlayerTurn();
+        }
+
+        private void HandleEnemyTurn(BaseBattleCharacterController character)
+        {
+            _turnSystem.EnemyTurn();
+            _uiUpdater.UpdateStats(_player, _enemy);
         }
 
         private void HandleEnemyDefeated()
         {
-            PlayerPrefs.SetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 1);
-            ChangeBattleState(EBattleState.Finish);
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
-                                   .AsFrame<UIMessagePopup>()
-                                   .SetContent("title_victory", "msg_victory", true, false, () =>
-                                   {
-                                       SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
-                                   });
+            _battleState.ChangeState(EBattleState.Finish);
+            _uiUpdater.ShowVictory();
         }
 
         private void HandlePlayerDefeated()
         {
-            PlayerPrefs.SetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 0);
-            ChangeBattleState(EBattleState.Finish);
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
-                       .AsFrame<UIMessagePopup>()
-                       .SetContent("title_defeat", "msg_defeat", true, false, () =>
-                       {
-                           SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TOURNAMENT);
-                       });
+            _battleState.ChangeState(EBattleState.Finish);
+            _uiUpdater.ShowDefeat();
         }
 
-        /// <summary>
-        /// Pause timeline and draw 3 random cards.
-        /// </summary>
-        /// <param name="character"></param>
-        private void HandlePlayerEnergyFull(BaseBattleCharacterController character)
+        private void SceneCombatController_OnStateChanged(EBattleState state)
         {
-            _enemyCharacterCombat.PauseBar();
-
-            PlayerCharController.OnTurnStart();
-
-            PlayerCharController.DrawThreeCards(out IReadOnlyList<CardSO> cards);
-
-            GameUIManager.Singleton
-                .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                .AsFrame<UICombatFrame>()
-                .DisplayDrawnCards(cards);
-        }
-
-        /// <summary>
-        /// Perform enemy's card determination.
-        /// </summary>
-        /// <param name="character"></param>
-        private void HandleEnemyEnergyFull(BaseBattleCharacterController character)
-        {
-            // Handle AI brain here.
-            _enemyCharacterCombat.DetermineCards(_playerCharacterCombat);
-            UpdateToUI();
-        }
-
-        public void PerformSelectedPlayerCard()
-        {
-            if (PlayerCharController.SelectedCard == null)
+            switch(state)
             {
-                Debug.Log("No card selected. Skip this action");
-                return;
+                case EBattleState.Pause:
+                case EBattleState.Finish:
+                    _enemy.PauseBar();
+                    _player.PauseBar();
+                    break;
             }
-            else
-            {
-                // Execute effect
-                _playerCharacterCombat.ExecuteCard(_playerCharacterCombat, _enemyCharacterCombat);
-                _playerCharacterCombat.EndCurrentTurn();
-
-                _enemyCharacterCombat.UnpauseBar();
-            }
-
-            UpdateToUI();
-
-            GameUIManager.Singleton
-                .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                .AsFrame<UICombatFrame>()
-                .ClearAllCards();
-        }
-
-        private void UpdateToUI()
-        {
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT)
-                       .AsFrame<UICombatFrame>()
-                       .SetPlayerCharContent(_playerCharacterCombat.ReadonlyDataHolder.GetRawId(), _playerCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                       .SetPlayerCharVit(_playerCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _playerCharacterCombat.ReadonlyDataHolder.GetVIT())
-                       .SetPlayerCharStamina(_playerCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _playerCharacterCombat.ReadonlyDataHolder.GetStamina())
-                       .LoadPlayerStatEffects(_playerCharacterCombat.StatEffectManager.ActiveStatEffects)
-                       .SetEnemyCharContent(_enemyCharacterCombat.ReadonlyDataHolder.GetRawId(), _enemyCharacterCombat.ReadonlyDataHolder.GetAvatar())
-                       .SetEnemyCharVit(_enemyCharacterCombat.GetCombatStatus(EStatusType.Vitality).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetVIT())
-                       .SetEnemyCharStamina(_enemyCharacterCombat.GetCombatStatus(EStatusType.Stamina).Value, _enemyCharacterCombat.ReadonlyDataHolder.GetStamina())
-                       .LoadEnemyStatEffects(_enemyCharacterCombat.StatEffectManager.ActiveStatEffects);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SEP490G69.Battle
     public class InCombatStatus 
     {
         private float _currentValue;
-        private List<CombatStatModifierSO> _modifierPool = new List<CombatStatModifierSO>();
+        private List<InCombatStatModifier> _modifierPool = new List<InCombatStatModifier>();
 
         public InCombatStatus()
         {
@@ -38,9 +38,9 @@ namespace SEP490G69.Battle
 
                 foreach (var mod in _modifierPool)
                 {
-                    if (mod.ApplyValueType == EApplyValueType.GetterValue)
+                    if (mod.ModifierSO.ApplyValueType == EApplyValueType.GetterValue)
                     {
-                        value = mod.GetModifiedStatus(value);
+                        value = mod.ModifierSO.GetModifiedStatus(value);
                     }
                 }
 
@@ -48,7 +48,7 @@ namespace SEP490G69.Battle
             }
         }
 
-        public void AddModifier(CombatStatModifierSO modifier)
+        public void AddModifier(CombatStatModifierSO modifier, string ownerId)
         {
             if (modifier.TriggerType == EModifierTriggerType.Immediate)
             {
@@ -56,34 +56,63 @@ namespace SEP490G69.Battle
                 return;
             }
 
-            _modifierPool.Add(modifier);
+            InCombatStatModifier existed = GetRuntimeModifier(modifier.Id);
+            if (existed != null)
+            {
+                existed.AddOwner(ownerId);
+            }
+            else
+            {
+                InCombatStatModifier runtimeModifier = new InCombatStatModifier(modifier);
+                runtimeModifier.AddOwner(ownerId);
+
+                _modifierPool.Add(runtimeModifier);
+            }
         }
 
-        public void RemoveModifier(CombatStatModifierSO modifier)
+        public void RemoveModifier(string modifierId)
         {
-            CombatStatModifierSO existed = GetModifierById(modifier.Id);
+            InCombatStatModifier existed = GetRuntimeModifier(modifierId);
             if (existed != null)
             {
                 _modifierPool.Remove(existed);
             }
         }
 
-        public void Trigger(ETurnFlowEvent flowEvent)
+        public void RemoveModifiersByOwner(string ownerId)
         {
-            foreach (CombatStatModifierSO mod in _modifierPool)
+            // Step 1: Get all modifiers which belongs to the owner.
+            List<InCombatStatModifier> modifiers = _modifierPool.Where(mod => mod.OwnerIds.Contains(ownerId)).ToList();
+
+            // Step 2: Remove the owner id in each modifier.
+            foreach (InCombatStatModifier modifier in modifiers)
             {
-                if (mod.TriggerType == EModifierTriggerType.ByTurnFlowEvent &&
-                    mod.TurnFlowEvent == flowEvent &&
-                    mod.ApplyValueType == EApplyValueType.BaseOrCurrentValue)
+                modifier.RemoveOwner(ownerId);
+
+                // Step 2.1: If the modifier owner list is empty, remove the modifier from the modifier pool.
+                if (modifier.OwnerIds.Count == 0)
                 {
-                    _currentValue = mod.GetModifiedStatus(_currentValue);
+                    RemoveModifier(modifier.ModifierSO.Id);
                 }
             }
         }
 
-        public CombatStatModifierSO GetModifierById(string modifierId)
+        public void Trigger(ETurnFlowEvent flowEvent)
         {
-            return _modifierPool.FirstOrDefault(m => m.Id == modifierId);
+            foreach (InCombatStatModifier mod in _modifierPool)
+            {
+                if (mod.ModifierSO.TriggerType == EModifierTriggerType.ByTurnFlowEvent &&
+                    mod.ModifierSO.TurnFlowEvent == flowEvent &&
+                    mod.ModifierSO.ApplyValueType == EApplyValueType.BaseOrCurrentValue)
+                {
+                    _currentValue = mod.ModifierSO.GetModifiedStatus(_currentValue);
+                }
+            }
+        }
+
+        public InCombatStatModifier GetRuntimeModifier(string modifierId)
+        {
+            return _modifierPool.FirstOrDefault(mod => mod.ModifierSO.Id == modifierId);
         }
     }
 }

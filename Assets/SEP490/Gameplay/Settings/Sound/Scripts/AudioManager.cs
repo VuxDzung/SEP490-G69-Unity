@@ -4,8 +4,35 @@ namespace SEP490G69
 
     public class AudioManager : MonoBehaviour, IGameContext
     {
+        [SerializeField] private AudioConfigSO m_Config;
         [SerializeField] private AudioSource m_BgSource;
         [SerializeField] private AudioSource m_AudioSource;
+
+
+        private void Awake()
+        {
+            if (m_Config == null)
+            {
+                m_Config = Resources.Load<AudioConfigSO>("AudioConfig");
+            }    
+        }
+
+        public void PlaySFX(string sfxId)
+        {
+            if (m_Config == null)
+            {
+                return;
+            }
+            PlaySFX(m_Config.GetById(sfxId));
+        }
+        public void SetBG(string bgId, bool repeat = true)
+        {
+            if (m_Config == null)
+            {
+                return;
+            }
+            SetBG(m_Config.GetById(bgId), repeat);
+        }
 
         public void PlaySFX(AudioClip clip)
         {

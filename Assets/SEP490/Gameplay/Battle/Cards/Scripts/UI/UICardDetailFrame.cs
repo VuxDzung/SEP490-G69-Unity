@@ -54,8 +54,8 @@ namespace SEP490G69.Battle.Cards
 
             // 1. Gán thông tin trực quan của thẻ bài
             if (m_CardIcon != null) m_CardIcon.sprite = cardData.Icon;
-            if (m_CardNameTmp != null) m_CardNameTmp.text = cardData.CardName;
-            if (m_CardDescTmp != null) m_CardDescTmp.text = cardData.CardDescription;
+            if (m_CardNameTmp != null) m_CardNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, cardData.CardName);
+            if (m_CardDescTmp != null) m_CardDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, cardData.CardDescription);
             if (m_CardCostTmp != null) m_CardCostTmp.text = cardData.Cost.ToString();
 
             // 2. Tự động quét và Load các Tooltip giải thích trạng thái bằng PoolManager
@@ -155,9 +155,13 @@ namespace SEP490G69.Battle.Cards
                 UIStatusTooltipElement tooltipElement = tooltipTrans.GetComponent<UIStatusTooltipElement>();
                 if (tooltipElement != null)
                 {
-                    tooltipElement.Setup(status);
+                    string locName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_STATUS_EFFECT_NAMES, status.EffectName);
+                    string locDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_STATUS_EFFECT_DESC, status.EffectDesc);
                     spawnedCount++;
+                    tooltipElement.Setup(status.Icon, locName, locDesc);
                     Debug.Log($"<color=green>[Tooltip Debug]</color> ---> Đổ data THÀNH CÔNG cho Tooltip: {status.EffectName}");
+
+                    
                 }
                 else
                 {

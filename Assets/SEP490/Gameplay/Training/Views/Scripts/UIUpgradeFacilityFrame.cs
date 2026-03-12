@@ -20,6 +20,9 @@ namespace SEP490G69.Training
 
         [SerializeField] private Button m_UpgradeBtn;
 
+        private string _selectedFacilityId;
+
+        #region Lazy properties
         private FacilityUpgradeManager _facilityManager;
         protected FacilityUpgradeManager FacilityUpgradeManager
         {
@@ -30,6 +33,19 @@ namespace SEP490G69.Training
                 return _facilityManager;
             }
         }
+        private TrainingExerciseConfigSO _exercisesConfig;
+        private TrainingExerciseConfigSO ExerciseConfig
+        {
+            get
+            {
+                if (_exercisesConfig == null)
+                {
+                    _exercisesConfig = ContextManager.Singleton.GetDataSO<TrainingExerciseConfigSO>();
+                }
+                return _exercisesConfig;
+            }
+        }
+        #endregion
 
         protected override void OnFrameShown()
         {
@@ -55,16 +71,42 @@ namespace SEP490G69.Training
 
         private void LoadFacilities()
         {
-
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            foreach (var facility in FacilityUpgradeManager.GetAllExercises(sessionId))
+            {
+                Transform facilityUITrans = PoolManager.Pools["UIFacility"].Spawn(m_ExerciseUIPrefab, m_FacilityUIContainer);
+                UIFacilityElement facilityUI = facilityUITrans.GetComponent<UIFacilityElement>();
+                if (facilityUI != null)
+                {
+                    facilityUI.SetOnClickCallback(SelectFacility)
+                              .SetContent(facility.ExerciseId, 
+                              LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, 
+                                                      ExerciseConfig.GetExercise(facility.ExerciseId).ExerciseName),
+                              facility.Level);
+                }
+            }
         }
 
         public void SelectFacility(string facilityId)
         {
-
+            Debug.Log($"<color=green>[UIUpgradeFacilityFrame]</color> Select facility {facilityId}");
+            _selectedFacilityId = facilityId;
         }
 
         private void UpgradeSelectedFacility()
         {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[UIUpgradeFacilityFrame error] Session id is empty");
+                return;
+            }
+            if (string.IsNullOrEmpty(_selectedFacilityId))
+            {
+                Debug.LogError($"[UIUpgradeFacilityFrame error] Selected facility raw id is empty");
+                return;
+            }
+            EUpgradeResult result = FacilityUpgradeManager.TryUpgradeFacility(sessionId, _selectedFacilityId);
 
         }
     }

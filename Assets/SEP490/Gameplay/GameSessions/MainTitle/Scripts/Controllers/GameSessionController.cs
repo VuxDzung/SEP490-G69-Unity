@@ -1,6 +1,7 @@
 namespace SEP490G69.GameSessions
 {
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
     using SEP490G69.PlayerProfile;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -15,8 +16,16 @@ namespace SEP490G69.GameSessions
         private StarterCardConfigSO _starterCardConfig;
 
         private IGameSessionCreator _sessionCreator;
-        private PlayerCharacterRepository _characterRepo;
+
         private PlayerDataDAO _playerDAO;
+        private GameSessionDAO _sessionDAO;
+        private PlayerCharacterRepository _characterRepo;
+        private TrainingExerciseDAO _exercisesDAO;
+        private GameCardsDAO _cardsDAO;
+        private GameDeckDAO _deckDAO;
+        private GameInventoryDAO _inventoryDAO;
+        private GameShopDAO _shopDAO;
+        private TournamentProgressDAO _tournamentDAO;
 
         private GameAuthManager _authManager;
         private PlayerProfileController _profileController;
@@ -81,12 +90,21 @@ namespace SEP490G69.GameSessions
         {
             _starterCardConfig = ContextManager.Singleton.GetDataSO<StarterCardConfigSO>();
 
+            LoadDAOs();
+            CheckPlayerProfile();
+        }
+
+        private void LoadDAOs()
+        {
             _sessionCreator = new SingleSessionCreator();
             _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
-
-            CheckPlayerProfile();
-
-            if (m_DeleteAll) DELETE_ALL();
+            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
+            _cardsDAO = new GameCardsDAO(LocalDBInitiator.GetDatabase());
+            _deckDAO = new GameDeckDAO(LocalDBInitiator.GetDatabase());
+            _inventoryDAO = new GameInventoryDAO();
+            _shopDAO = new GameShopDAO();
+            _tournamentDAO = new TournamentProgressDAO();
+            _exercisesDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
         }
 
         public bool HasActiveSession()
@@ -148,12 +166,12 @@ namespace SEP490G69.GameSessions
                         {
                             if (DeckController.GetDeckCardCount() >= GameDeckController.MAX_DECK_COUNT)
                             {
-                                Debug.Log("<color=red>[GameSessionController]</color> Max card amount exceeded");
+                                Debug.Log("<color=red>[GameSessionController Error]</color> Max card amount exceeded");
                                 break;
                             }
                             if (!DeckController.AddCardToDeck(rawCardId, false))
                             {
-                                Debug.Log($"<color=red>Error:</color> Failed to add card {rawCardId} to deck");
+                                Debug.Log($"<color=red>[GameSessionController Error]</color> Failed to add card {rawCardId} to deck");
                             }
                             else
                             {
@@ -163,19 +181,19 @@ namespace SEP490G69.GameSessions
                                 }
                             }
                         }
-                        Debug.Log("<color=green>Add cards to deck successfully!</color>");
+                        Debug.Log("<color=green>[GameSessionController]</color> Add cards to deck successfully!");
                         DeckController.SaveDeck();
                         return true;
                     }
                     else
                     {
-                        Debug.Log($"Failed to create character session data {characterId} for session {sessionId} success");
+                        Debug.Log($"<color=red>[GameSessionController]</color> Failed to create character session data {characterId} for session {sessionId} success");
                         return false;
                     }
                 }
                 else
                 {
-                    Debug.LogError($"No SO data of character with id {characterId}");
+                    Debug.LogError($"[GameSessionController] No SO data of character with id {characterId}");
                     return false;
                 }
             }
@@ -190,7 +208,7 @@ namespace SEP490G69.GameSessions
             List<PlayerTrainingSession> sessions = _sessionCreator.GetAllSessions(playerId);
             if (sessions.Count == 0)
             {
-                Debug.Log("No session available!");
+                Debug.Log("<color=yellow>[GameSessionController]</color> No session available!");
                 return;
             }
             string sessionId = sessions[0].SessionId;
@@ -235,7 +253,7 @@ namespace SEP490G69.GameSessions
             if (_playerDAO != null)
             {
                 string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
-                PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+                PlayerData playerData = _playerDAO.GetById(playerId);
 
                 if (playerData == null)
                 {
@@ -269,67 +287,88 @@ namespace SEP490G69.GameSessions
                 }
             }
         }
-        private GameSessionDAO _dao;
-        private PlayerCharacterDAO _characterDAO;
-        private TournamentProgressDAO _tournamentDAO;
-        private TrainingExerciseDAO _trainingDAO;
 
-        private void DELETE_ALL()
+        public void SyncDataToCloud()
         {
+            // Step 1: get all local data.
             string playerId = AuthManager.GetUserId();
-            _dao = new GameSessionDAO(LocalDBInitiator.GetDatabase());
-            _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
-            _tournamentDAO = new TournamentProgressDAO();
-            _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
-            List<PlayerTrainingSession> sessions = _dao.GetAllBydPlayerId(playerId);
-
-            var playerSessions = sessions.Where(s => s.PlayerId == playerId).ToList();
-
-            if (playerSessions.Count == 0)
-                return;
-
-            bool allDeleted = true;
-
-            foreach (var session in playerSessions)
+            if (string.IsNullOrEmpty(playerId))
             {
-                // Step 1: delete all characters.
-                SessionCharacterData characterData = _characterDAO.GetCharacterById(session.SessionId, session.CharacterId);
-
-                if (characterData != null)
-                {
-                    _characterDAO.TryDeleteCharacter(characterData.Id);
-                }
-
-                // Step 2: Delete all tournament progress
-                if (!_tournamentDAO.DeleteAllBySessionId(session.SessionId))
-                {
-                    Debug.LogError("Failed to delete all progress by session. Delete all by default (Testing only)");
-                    _tournamentDAO.DeleteAll();
-                    allDeleted = false;
-                }
-
-                // Step 3: Delete all training exercises.
-                if (!_trainingDAO.DeleteAllBySessionId(session.SessionId))
-                {
-                    Debug.LogError("Failed to clear all old training exercises. Delete all by default.");
-                    _trainingDAO.DeleteAll();
-                    allDeleted = false;
-                }
-
-                if (!_dao.DeleteById(session.SessionId))
-                {
-                    allDeleted = false;
-                }
-
-                if (allDeleted)
-                {
-                    Debug.Log("Delete all succss");
-                }
-                else
-                {
-                    Debug.Log("Delete all failed");
-                }
+                Debug.LogError("[GameSessionController error] Player id is null/empty");
+                return;
             }
+            Debug.Log($"[GameSessionController] PlayerId: {playerId}");
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                return;
+            }
+
+            Debug.Log($"[GameSessionController] SessionId: {sessionId}");
+
+            PlayerData playerData = _playerDAO.GetById(playerId);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+            SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionData.SessionId, sessionData.CharacterId);
+            List<SessionTrainingExercise> exercises = _exercisesDAO.GetAllBySessionId(sessionId);
+            List<SessionCardData> cards = _cardsDAO.GetAllBySessionId(sessionId);
+            SessionPlayerDeck deck = _deckDAO.GetById(sessionId);
+            List<ItemData> obtainedItems = _inventoryDAO.GetAllItems(sessionId);
+            List<ShopItemData> shopItems = _shopDAO.GetAll(sessionId);
+            List<TournamentProgressData> tournaments = _tournamentDAO.GetAllBySessionId(sessionId);
+
+            // Step 2: send a GET request to game backend to get the latest game progression data.
+
+            // Step 3: check data integrity and resolve conflict.
+            //
+            // Terminology:
+            // - CloudLastSyncTime: latest sync timestamp from backend.
+            // - LocalLastSyncTime: playerData.LastSyncTime.
+            // - LocalLastUpdatedTime: playerData.LastUpdatedTime.
+            // - CloudRunCount: run count stored in backend.
+            // - LocalRunCount: playerData.RunCount.
+            //
+            // Case 1: CloudLastSyncTime > LocalLastSyncTime
+            // -> Cloud data is newer than the local synced state.
+            //
+            //    1.1 If CloudRunCount > LocalRunCount
+            //        -> Player progressed further on another device.
+            //        -> Override the local data with cloud data.
+            //
+            //    1.2 If CloudRunCount == LocalRunCount
+            //        -> Same run but cloud has newer update.
+            //        -> Override the local data.
+            //
+            //    1.3 If CloudRunCount < LocalRunCount
+            //        -> Local device progressed further.
+            //        -> Conflict detected.
+            //        -> Resolve by overriding the cloud data with local data.
+            //
+            // Case 2: CloudLastSyncTime == LocalLastSyncTime
+            // -> Both states were synced at the same point.
+            //
+            //    2.1 If LocalLastUpdatedTime > LocalLastSyncTime
+            //        -> Local has new updates after last sync.
+            //        -> Push local changes to cloud.
+            //
+            //    2.2 If LocalLastUpdatedTime <= LocalLastSyncTime
+            //        -> No change.
+            //        -> Skip sync.
+            //
+            // Case 3: CloudLastSyncTime < LocalLastSyncTime
+            // -> Local device already synced more recently than backend.
+            // -> Override the cloud data with local data.
+            //
+            // Additional validation:
+            //
+            // - DeviceId mismatch:
+            //     If another device updated the same run simultaneously,
+            //     use RunCount and LastUpdatedTime to determine priority.
+            //
+            // - Corrupted session:
+            //     If cloud sessionId != local sessionId,
+            //     treat it as a new run and upload local session.
         }
     }
 }

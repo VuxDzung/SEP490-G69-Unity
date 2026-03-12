@@ -69,6 +69,7 @@ namespace SEP490G69.Economy
             EventManager.Unsubscribe<UnequipRelicEvent>(OnInventoryUpdated);
 
             m_BackBtn.onClick.RemoveListener(Back);
+            ClearAllUIElements();
         }
 
         private void OnInventoryUpdated<T>(T evt)
@@ -95,14 +96,7 @@ namespace SEP490G69.Economy
         {
             _currentFilter = itemType;
 
-            if (!PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].IsEmpty)
-            {
-                PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].DespawnAll();
-            }
-            if (_slots.Count > 0)
-            {
-                _slots.Clear();
-            }
+            ClearAllUIElements();
 
             var items = InventoryManager.GetAllItems();
 
@@ -141,6 +135,18 @@ namespace SEP490G69.Economy
         private void Back()
         {
             HideThisView();
+        }
+
+        private void ClearAllUIElements()
+        {
+            if (!PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].IsEmpty)
+            {
+                PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].DespawnAll();
+            }
+            if (_slots.Count > 0)
+            {
+                _slots.Clear();
+            }
         }
     }
 }

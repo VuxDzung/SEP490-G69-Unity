@@ -31,13 +31,13 @@ namespace SEP490G69.PlayerProfile
 
         public async void UpdatePlayerName(string playerId, string playerName)
         {
-            PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+            PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
             {
                 return;
             }
             playerData.PlayerName = playerName;
-            _playerDAO.UpdatePlayer(playerData);
+            _playerDAO.Update(playerData);
 
             bool syncSuccess = await SyncPlayerName(playerId, playerName);
         }
@@ -91,7 +91,7 @@ namespace SEP490G69.PlayerProfile
         {
             if (string.IsNullOrEmpty(playerId)) return string.Empty;
 
-            PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+            PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
             {
                 return string.Empty;
@@ -102,7 +102,7 @@ namespace SEP490G69.PlayerProfile
         {
             if (string.IsNullOrEmpty(playerId)) return string.Empty;
 
-            PlayerData playerData = _playerDAO.GetPlayerById(playerId);
+            PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
             {
                 return string.Empty;

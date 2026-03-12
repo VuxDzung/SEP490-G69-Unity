@@ -126,7 +126,7 @@
                 string deviceId = GetDeviceId();
                 if (TryCreateNewLocalUser(deviceId, "", "", 0, false) != null)
                 {
-                    PlayerData playerData = _playerDataDAO.GetPlayerById(deviceId);
+                    PlayerData playerData = _playerDataDAO.GetById(deviceId);
 
                     if (playerData != null)
                     {
@@ -279,7 +279,7 @@
                 LoadingHandler.Singleton.Hide();
                 Debug.Log("OnAutoLoginSuccess");
 
-                PlayerData playerData = _playerDataDAO.GetPlayerById(user.UserId);
+                PlayerData playerData = _playerDataDAO.GetById(user.UserId);
 
                 if (playerData == null)
                 {
@@ -291,7 +291,7 @@
                     }
                 }
 
-                playerData = _playerDataDAO.GetPlayerById(user.UserId);
+                playerData = _playerDataDAO.GetById(user.UserId);
 
                 if (playerData != null)
                 {
@@ -325,9 +325,9 @@
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
 
             string deviceId = UnityEngine.SystemInfo.deviceUniqueIdentifier;
-            PlayerData playerData = _playerDataDAO.GetPlayerById(deviceId);
+            PlayerData playerData = _playerDataDAO.GetById(deviceId);
 
-            if (_playerDataDAO.GetPlayerById(deviceId) != null)
+            if (_playerDataDAO.GetById(deviceId) != null)
             {
                 PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, deviceId);
                 Debug.Log("Fallback to device id login");
@@ -349,7 +349,7 @@
 
         private PlayerData TryCreateNewLocalUser(string playerId, string username, string playerEmail = "", int legacyPoints = 0, bool isSynced = true)
         {
-            PlayerData _existedData = _playerDataDAO.GetPlayerById(playerId);
+            PlayerData _existedData = _playerDataDAO.GetById(playerId);
 
             if (_existedData != null)
             {
@@ -364,7 +364,7 @@
             playerData.IsSynced = isSynced;
             playerData.LegacyPoints = legacyPoints;
 
-            _playerDataDAO.InsertNewPlayer(playerData);
+            _playerDataDAO.Insert(playerData);
 
             return playerData;
         }

@@ -71,7 +71,7 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public PlayerTrainingSession GetSession(string sessionId)
+        public PlayerTrainingSession GetById(string sessionId)
         {
             if (string.IsNullOrEmpty(sessionId))
                 return null;
@@ -86,7 +86,7 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public List<PlayerTrainingSession> GetAllBydPlayerId(string playerId)
+        public List<PlayerTrainingSession> GetAllByPlayerId(string playerId)
         {
             try
             {

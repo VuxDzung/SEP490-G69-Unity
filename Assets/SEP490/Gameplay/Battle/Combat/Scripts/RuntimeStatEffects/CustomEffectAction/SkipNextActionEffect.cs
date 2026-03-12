@@ -14,13 +14,17 @@
 
         public void OnTurnStart(BaseBattleCharacterController self)
         {
-            if (used) return;
+            if (used)
+            {
+                return;
+            }
 
             used = true;
 
             Debug.Log($"{self.name} skips action");
 
-            self.SelectNoAction(); // hoặc cancel action
+            self.SelectNoAction();
+            self.ExecuteCard(self, null);
         }
 
         public void OnAfterAction(BaseBattleCharacterController self, BaseBattleCharacterController target) { }

@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.StatusEffectDescs
+  m_EditorClassIdentifier: 
+  category: StatusEffectDescs
+  textDataList:
+  - id: ste_0001_desc
+    textList:
+    - language: 0
+      text: Increase Pow by 10%
+    - language: 1
+      text: "T\u0103ng 10% Pow"
+  - id: ste_0002_desc
+    textList:
+    - language: 0
+      text: Increase Pow by 30%
+    - language: 1
+      text: "T\u0103ng 30% Pow"
+  - id: ste_0003_desc
+    textList:
+    - language: 0
+      text: Increase Def by 10%
+    - language: 1
+      text: "T\u0103ng 10% Def"
+  - id: ste_0004_desc
+    textList:
+    - language: 0
+      text: Increase Def by 30%
+    - language: 1
+      text: "T\u0103ng 30% Def"
+  - id: ste_0005_desc
+    textList:
+    - language: 0
+      text: Increase Agi by 10%
+    - language: 1
+      text: "T\u0103ng 10% Agi"
+  - id: ste_0006_desc
+    textList:
+    - language: 0
+      text: Increase Agi by 30%
+    - language: 1
+      text: "T\u0103ng 30% Agi"
+  - id: ste_0007_desc
+    textList:
+    - language: 0
+      text: Increase Int by 10%
+    - language: 1
+      text: "T\u0103ng 10% Int"
+  - id: ste_0008_desc
+    textList:
+    - language: 0
+      text: Increase Int by 30%
+    - language: 1
+      text: "T\u0103ng 30% Int"
+  - id: ste_0009_desc
+    textList:
+    - language: 0
+      text: Decrease Pow by 10%
+    - language: 1
+      text: "Gi\u1EA3m 10% Pow"
+  - id: ste_0010_desc
+    textList:
+    - language: 0
+      text: Decrease Pow by 30%
+    - language: 1
+      text: "Gi\u1EA3m 30% Pow"
+  - id: ste_0011_desc
+    textList:
+    - language: 0
+      text: Decrese Def by 10%
+    - language: 1
+      text: "GI\u1EA3m 10% Def"
+  - id: ste_0012_desc
+    textList:
+    - language: 0
+      text: Decrese Def by 30%
+    - language: 1
+      text: "GI\u1EA3m 30% Def"
+  - id: ste_0013_desc
+    textList:
+    - language: 0
+      text: Decrese Agi by 10%
+    - language: 1
+      text: "GI\u1EA3m 10% Agi"
+  - id: ste_0014_desc
+    textList:
+    - language: 0
+      text: Decrese Agi by 30%
+    - language: 1
+      text: "GI\u1EA3m 30% Agi"
+  - id: ste_0015_desc
+    textList:
+    - language: 0
+      text: Decrese Int by 10%
+    - language: 1
+      text: "GI\u1EA3m 10% Int"
+  - id: ste_0016_desc
+    textList:
+    - language: 0
+      text: Decrese Int by 30%
+    - language: 1
+      text: "GI\u1EA3m 30% Int"
+  - id: ste_0017_desc
+    textList:
+    - language: 0
+      text: Heal 10% Hp after an action
+    - language: 1
+      text: "H\u1ED3i 10% Hp sau m\u1ED7i h\xE0nh \u0111\u1ED9ng"
+  - id: ste_0018_desc
+    textList:
+    - language: 0
+      text: Take extra +20% dmg
+    - language: 1
+      text: "Nh\u1EADn th\xEAm 20% s\xE1t th\u01B0\u01A1ng"
+  - id: ste_0019_desc
+    textList:
+    - language: 0
+      text: Action Cost +30% Stamina
+    - language: 1
+      text: "H\xE0nh \u0111\u1ECDng t\u1ED1n th\xEAm 30% Th\u1EC3 L\u1EF1c"
+  - id: ste_0020_desc
+    textList:
+    - language: 0
+      text: Skip next action
+    - language: 1
+      text: "B\u1ECF qua h\xE0nh \u0111\u1ED9ng ti\u1EBFp theo"
+  - id: ste_0021_desc
+    textList:
+    - language: 0
+      text: Decrease hit rate by 20%
+    - language: 1
+      text: "Gi\u1EA3m 20% t\u1EF7 l\u1EC7 ra \u0111\xF2n chu\u1EA9n x\xE1c"
+  - id: ste_0022_desc
+    textList:
+    - language: 0
+      text: Deal 10% more damage
+    - language: 1
+      text: "G\xE2y th\xEAm 10% s\xE1t th\u01B0\u01A1ng"
+  - id: ste_0023_desc
+    textList:
+    - language: 0
+      text: Reflect 15% dmg taken
+    - language: 1
+      text: "Ph\u1EA3n l\u1EA1i 15% s\xE1t th\u01B0\u01A1ng nh\u1EADn v\xE0o"
+  - id: ste_0024_desc
+    textList:
+    - language: 0
+      text: Deal +30% damage but take 15% hp damage for each action (HP cannot go
+        down to 0 by this effect)
+    - language: 1
+      text: "G\xE2y th\xEAm 30% s\xE1t th\u01B0\u01A1ng nh\u01B0ng nh\u1EADn 15%
+        HP hi\u1EC7n t\u1EA1i sau m\u1ED7i h\xE0nh \u0111\u1ED9ng (HP kh\xF4ng th\u1EC3
+        xu\u1ED1ng 0 v\u1EDBi hi\u1EC7u \u1EE9ng n\xE0y)"
+  - id: ste_0025_desc
+    textList:
+    - language: 0
+      text: Decrease Def by 100%
+    - language: 1
+      text: "Gi\u1EA3m 100% Def"
+  - id: ste_0026_desc
+    textList:
+    - language: 0
+      text: Decrese 50% stamina gained
+    - language: 1
+      text: "Gi\u1EA3m 50% th\u1EC3 l\u1EF1c nh\u1EADn \u0111\u01B0\u1EE3c"

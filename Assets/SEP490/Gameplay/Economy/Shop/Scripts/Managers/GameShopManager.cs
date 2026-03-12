@@ -217,7 +217,7 @@ namespace SEP490G69.Economy
         {
             if (_sessionData == null)
             {
-                _sessionData = _sessionDAO.GetSession(_sessionId);
+                _sessionData = _sessionDAO.GetById(_sessionId);
             }
             return _sessionData;
         }

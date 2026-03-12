@@ -3,6 +3,7 @@ namespace SEP490G69.Battle.Cards
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
+    using SEP490G69.Addons.Localization;
 
     public class UIStatusTooltipElement : MonoBehaviour, IPooledObject
     {
@@ -11,13 +12,11 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private TextMeshProUGUI m_StatusDescTmp;
         public void Spawn() { }
         public void Despawn() { }
-        public void Setup(StatusEffectSO statusEffect)
+        public void Setup(Sprite icon, string name, string desc)
         {
-            if (statusEffect == null) return;
-
-            if (m_StatusIcon != null) m_StatusIcon.sprite = statusEffect.Icon;
-            if (m_StatusNameTmp != null) m_StatusNameTmp.text = statusEffect.EffectName;
-            if (m_StatusDescTmp != null) m_StatusDescTmp.text = statusEffect.EffectDesc;
+            if (m_StatusIcon != null) m_StatusIcon.sprite = icon;
+            if (m_StatusNameTmp != null) m_StatusNameTmp.text = name;
+            if (m_StatusDescTmp != null) m_StatusDescTmp.text = desc;
         }
     }
 }

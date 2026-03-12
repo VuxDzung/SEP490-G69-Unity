@@ -5,7 +5,7 @@ namespace SEP490G69.Battle.Cards
     using UnityEngine;
     using UnityEngine.UI;
 
-    public class UICardElement : MonoBehaviour, IPooledObject
+    public class UICardElement : UIDragableElement, IPooledObject
     {
         private Action<string, bool, Transform> _onSelect;
 
@@ -21,12 +21,12 @@ namespace SEP490G69.Battle.Cards
 
         public void Spawn()
         {
+
         }
 
         public void Despawn()
         {
-            //_onSelect = null;
-            //Deselect();
+
         }
 
         public UICardElement SetOnSelectCallback(Action<string, bool, Transform> onSelect)

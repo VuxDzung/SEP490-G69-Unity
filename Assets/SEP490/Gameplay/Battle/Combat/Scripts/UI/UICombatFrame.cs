@@ -20,6 +20,9 @@
         [SerializeField] private Transform m_EnemyStatEffectContainer;
         [SerializeField] private Transform m_StatEffectUIPrefab;
 
+        [SerializeField] private UIDropHandler m_PlayerDropArea;
+        [SerializeField] private UIDropHandler m_EnemyDropArea;
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -37,13 +40,13 @@
 
         private void PerformRest()
         {
-            CombatController.PlayerCharController.SelectRest();
-            CombatController.PerformSelectedPlayerCard();
+            CombatController.Player.SelectRest();
+            CombatController.TurnSystem.ExecutePlayerCard();
         }
 
         private void PerformSelectCard()
         {
-            CombatController.PerformSelectedPlayerCard();
+            CombatController.TurnSystem.ExecutePlayerCard();
         }
 
         private void ShowSettings()
@@ -124,7 +127,6 @@
 
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
-            Debug.Log("DisplayDrawnCards");
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
@@ -140,7 +142,7 @@
                     string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
                     cardTrans.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-                    cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
+                    //cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
                 }
             }
         }
@@ -167,7 +169,7 @@
 
             if (isSelected)
             {
-                CombatController.PlayerCharController.SelectCardById(cardId);
+                CombatController.Player.SelectCardById(cardId);
                 if (layout != null)
                     layout.ignoreLayout = true;
                 //cardTrans.SetParent(m_SelectedCardContainer, false);
@@ -180,7 +182,7 @@
             }
             else
             {
-                CombatController.PlayerCharController.DeselectCurrentCard();
+                CombatController.Player.DeselectCurrentCard();
 
                 //cardTrans.SetParent(m_CardContainer, false);
                 if (layout != null)
@@ -199,13 +201,13 @@
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.PlayerCharController.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
             }
             else
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.EnemyCombatController.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
             }
         }
 

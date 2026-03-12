@@ -34,7 +34,7 @@ namespace SEP490G69.GameSessions
 
         public List<PlayerTrainingSession> GetAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessionList = _dao.GetAllBydPlayerId(playerId);
+            List<PlayerTrainingSession> sessionList = _dao.GetAllByPlayerId(playerId);
             return sessionList;
         }
 
@@ -43,7 +43,7 @@ namespace SEP490G69.GameSessions
             errorMessage = "";
             sessionId = "";
 
-            if (_dao.GetAllBydPlayerId(playerId).Count > 0)
+            if (_dao.GetAllByPlayerId(playerId).Count > 0)
             {
                 errorMessage = "error_session_02";
                 return false;
@@ -72,7 +72,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllBydPlayerId(playerId);
+            List<PlayerTrainingSession> sessions = _dao.GetAllByPlayerId(playerId);
 
             var playerSessions = sessions.Where(s => s.PlayerId == playerId).ToList();
 
@@ -132,7 +132,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteSession(string playerId, string sessionId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllBydPlayerId(playerId);
+            List<PlayerTrainingSession> sessions = _dao.GetAllByPlayerId(playerId);
 
             var session = sessions
                 .FirstOrDefault(s => s.SessionId == sessionId);

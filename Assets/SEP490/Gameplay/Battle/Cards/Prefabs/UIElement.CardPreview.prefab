@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7574490090940292794}
   - component: {fileID: 4363232324602421710}
   m_Layer: 0
-  m_Name: UIElement.Card
+  m_Name: UIElement.CardPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

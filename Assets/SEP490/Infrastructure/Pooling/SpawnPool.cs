@@ -86,6 +86,7 @@ namespace SEP490G69
             {
                 pooledObject.gameObject.SetActive(true);
                 activeList.Add(pooledObject);
+                pooledObject.SetParent(parent);
 
                 IPooledObject[] existedObjects = pooledObject.GetComponents<IPooledObject>();
 
@@ -139,6 +140,7 @@ namespace SEP490G69
                 pooledObject.gameObject.SetActive(true);
                 pooledObject.position = pos;
                 pooledObject.rotation = rot;
+                pooledObject.SetParent(parent);
                 activeList.Add(pooledObject);
                 IPooledObject[] existedObjects = pooledObject.GetComponents<IPooledObject>();
 
@@ -193,7 +195,10 @@ namespace SEP490G69
 
         public void DespawnObject(Transform obj, ESpawnType type = ESpawnType.Pooling)
         {
-            obj.GetComponent<IPooledObject>()?.Despawn();
+            IPooledObject[] despawnedObject = obj.GetComponents<IPooledObject>();
+            foreach (var despawnedObj in despawnedObject)
+                despawnedObj.Despawn();
+
             switch (type)
             {
                 case ESpawnType.Pooling:

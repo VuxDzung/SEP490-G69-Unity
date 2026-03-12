@@ -1,6 +1,7 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Training;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -127,14 +128,20 @@
 
         public virtual void ExecuteCard(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            BaseCard runtimeCard = CardFactory.Create(_selectedCard);
-
             TriggerTurnFlowEvent(ETurnFlowEvent.BeforeCardAction);
             StatEffectManager.Trigger(ETurnFlowEvent.BeforeCardAction, target);
 
-            DecreaseStamina();
+            if (_selectedCard != null)
+            {
+                BaseCard runtimeCard = CardFactory.Create(_selectedCard);
 
-            runtimeCard.Execute(this, target);
+                DecreaseStamina();
+                runtimeCard.Execute(this, target);
+            }
+            else
+            {
+                Debug.Log("No selected card. Skip");
+            }
 
             TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
             StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
@@ -457,19 +464,23 @@
             StatEffectManager.OnAfterReceiveDamage(damage);
         }
 
-        public void AddStatusModifier(CombatStatModifierSO statModifier)
-        {
-            if (_statusContainer.TryGetValue(statModifier.StatType, out InCombatStatus status))
-            {
-                status.AddModifier(statModifier);
-            }
-        }
-
-        public void RemoveStatusModifier(CombatStatModifierSO modifierSO)
+        public void AddEffectModifier(CombatStatModifierSO modifierSO, string statusEffectId)
         {
             if (_statusContainer.TryGetValue(modifierSO.StatType, out InCombatStatus status))
             {
-                status.RemoveModifier(modifierSO);
+                status.AddModifier(modifierSO, statusEffectId);
+            }
+        }
+
+        /// <summary>
+        /// Remove all effect's modifiers in each status.
+        /// </summary>
+        /// <param name="statusEffectId"></param>
+        public void RemoveStatusEffect(string statusEffectId)
+        {
+            foreach (var status in _statusContainer.Values)
+            {
+                status.RemoveModifiersByOwner(statusEffectId);
             }
         }
 

@@ -328,7 +328,7 @@ namespace SEP490G69.Training
                 Debug.LogError($"[UIMainMenuFrame] Session id is null/empty");
                 return;
             }
-            PlayerTrainingSession sessionData = SessionDAO.GetSession(sessionId);
+            PlayerTrainingSession sessionData = SessionDAO.GetById(sessionId);
 
             if (sessionData == null)
             {

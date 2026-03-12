@@ -267,7 +267,7 @@
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             if (string.IsNullOrEmpty(sessionId)) return null;
 
-            PlayerTrainingSession sessionData = _sessionDAO.GetSession(sessionId);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
             if (sessionData == null) return null;
 
             SessionCharacterData characterData =

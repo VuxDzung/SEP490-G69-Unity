@@ -8,6 +8,7 @@ namespace SEP490G69.Battle.Cards
     public class UICardElement : UIDragableElement, IPooledObject
     {
         private Action<string, bool, Transform> _onSelect;
+        private Action<string, Transform> _onDragEnd;
 
         [SerializeField] private Image m_CardIcon;
         [SerializeField] private Image m_Border;
@@ -21,12 +22,14 @@ namespace SEP490G69.Battle.Cards
 
         public void Spawn()
         {
-
+            onDropped += Drop;
         }
 
         public void Despawn()
         {
-
+            onDropped -= Drop;
+            _onSelect = null;
+            _onDragEnd = null;
         }
 
         public UICardElement SetOnSelectCallback(Action<string, bool, Transform> onSelect)
@@ -35,6 +38,12 @@ namespace SEP490G69.Battle.Cards
             m_BtnRef.onClick.AddListener(Select);
             _onSelect = null;
             _onSelect = onSelect;
+            return this;
+        }
+
+        public UICardElement SetOnDragEnd(Action<string, Transform> onDragEnd)
+        {
+            _onDragEnd = onDragEnd;
             return this;
         }
 
@@ -58,6 +67,11 @@ namespace SEP490G69.Battle.Cards
         {
             _isSelected = false;
             m_Border.enabled = false;
+        }
+
+        private void Drop(Transform cardTransform, Transform parent)
+        {
+            _onDragEnd?.Invoke(RawCardId, parent);
         }
     }
 }

@@ -20,8 +20,7 @@
         [SerializeField] private Transform m_EnemyStatEffectContainer;
         [SerializeField] private Transform m_StatEffectUIPrefab;
 
-        [SerializeField] private UIDropHandler m_PlayerDropArea;
-        [SerializeField] private UIDropHandler m_EnemyDropArea;
+        [SerializeField] private UIDropHandler m_CardTriggerArea;
 
         protected override void OnFrameShown()
         {
@@ -142,7 +141,9 @@
                     string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
                     cardTrans.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-                    //cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
+                    cardUI.SetOnSelectCallback(SelectCard)
+                          .SetOnDragEnd(PerformCardAction)
+                          .SetContent(card.CardId, cardName, cardDesc, card.Icon);
                 }
             }
         }
@@ -182,7 +183,7 @@
             }
             else
             {
-                CombatController.Player.DeselectCurrentCard();
+                //CombatController.Player.DeselectCurrentCard();
 
                 //cardTrans.SetParent(m_CardContainer, false);
                 if (layout != null)
@@ -192,6 +193,19 @@
 
                 rect.localScale = Vector3.one;
                 rect.localRotation = Quaternion.identity;
+            }
+        }
+
+        private void PerformCardAction(string rawCardId, Transform currentParent)
+        {
+            UIDropHandler handler = currentParent.GetComponent<UIDropHandler>();
+            if (handler != null)
+            {
+                if (handler.HandlerName.Equals(m_CardTriggerArea.HandlerName))
+                {
+                    CombatController.Player.SelectCardById(rawCardId);
+                    CombatController.TurnSystem.ExecutePlayerCard();
+                }
             }
         }
 
@@ -209,18 +223,6 @@
                          .AsFrame<UIStatusEffectListFrame>()
                          .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
             }
-        }
-
-        private void ResetRectTransform(RectTransform rect, ERectPivot pivot)
-        {
-            Vector2 rectValue = GameConstants.GetRectValue(pivot);
-            rect.anchorMin = rectValue;
-            rect.anchorMax = rectValue;
-            rect.pivot = rectValue;
-
-            rect.anchoredPosition = Vector2.zero;
-            rect.localRotation = Quaternion.identity;
-            rect.localScale = Vector3.one;
         }
     }
 }

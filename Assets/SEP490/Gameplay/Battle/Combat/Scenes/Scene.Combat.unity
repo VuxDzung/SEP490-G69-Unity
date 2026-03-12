@@ -325,6 +325,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3202097114502900946, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202097114502900946, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202097114502900946, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3376777616656825152, guid: 2c0f34230a74b5b45b01eb0d666ce00e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -623,10 +635,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b102cadd412214d826cd6002fe0049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CharacterPoolName: CombatCharacter
   m_PlayerContainer: {fileID: 5637653827438158798}
   m_EnemyContainer: {fileID: 8524398606036371613}
-  m_ObtainedCardConfig: {fileID: 11400000, guid: cbb1437f3cfb1694c89bfda2179b38ca, type: 2}
+  m_CharacterPoolName: CombatCharacter
 --- !u!1 &1432482710004096691
 GameObject:
   m_ObjectHideFlags: 0

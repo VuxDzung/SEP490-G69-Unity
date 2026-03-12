@@ -101,3 +101,21 @@ MonoBehaviour:
       text: Mood
     - language: 1
       text: "T\xE2m tr\u1EA1ng"
+  - id: txt_player_name
+    textList:
+    - language: 0
+      text: 'Player''s name:'
+    - language: 1
+      text: "T\xEAn ng\u01B0\u1EDDi ch\u01A1i:"
+  - id: txt_player_id
+    textList:
+    - language: 0
+      text: 'Player''s id:'
+    - language: 1
+      text: "Id ng\u01B0\u1EDDi ch\u01A1i:"
+  - id: txt_play_time
+    textList:
+    - language: 0
+      text: 'Playtime:'
+    - language: 1
+      text: "Th\u1EDDi gian ch\u01A1i:"

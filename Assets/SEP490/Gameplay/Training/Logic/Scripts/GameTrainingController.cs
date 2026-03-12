@@ -58,7 +58,7 @@ namespace SEP490G69.Training
             {
                 return;
             }
-            PlayerTrainingSession sessionData = _sessionDAO.GetSession(sessionId);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
 
             if (sessionData == null)
             {

@@ -212,3 +212,9 @@ MonoBehaviour:
       text: Battle
     - language: 1
       text: "Chi\u1EBFn \u0111\u1EA5u"
+  - id: btn_sync
+    textList:
+    - language: 0
+      text: Sync now
+    - language: 1
+      text: "\u0110\u1ED3ng b\u1ED9"

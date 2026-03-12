@@ -74,7 +74,7 @@ namespace SEP490G69.Training
             int nextLevel = currentFacility.Level + 1;
             var requirement = _upgradeConfigs[nextLevel];
 
-            PlayerTrainingSession currentSession = _sessionDAO.GetSession(sessionId);
+            PlayerTrainingSession currentSession = _sessionDAO.GetById(sessionId);
             
             if (currentSession == null) return EUpgradeResult.Error;
 

@@ -20,6 +20,9 @@
         [SerializeField] private Transform m_EnemyStatEffectContainer;
         [SerializeField] private Transform m_StatEffectUIPrefab;
 
+        [SerializeField] private UIDropHandler m_PlayerDropArea;
+        [SerializeField] private UIDropHandler m_EnemyDropArea;
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -139,7 +142,7 @@
                     string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
                     cardTrans.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-                    cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
+                    //cardUI.SetOnSelectCallback(SelectCard).SetContent(card.CardId, cardName, cardDesc, card.Icon);
                 }
             }
         }

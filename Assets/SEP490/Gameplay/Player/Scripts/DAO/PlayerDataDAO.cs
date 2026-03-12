@@ -13,35 +13,66 @@ namespace SEP490G69
         private LiteDatabase _database;
 
         public const string PLAYER_DATA_COLLECTION = "Player";
+        private readonly ILiteCollection<PlayerData> _collection;
 
         public PlayerDataDAO(LiteDatabase database)
         {
             _database = database;
+            _collection = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
         }
 
-        public void InsertNewPlayer(PlayerData playerData)
+        public bool Insert(PlayerData playerData)
         {
-            var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            col.Insert(playerData);
+            try
+            {
+                _collection.Insert(playerData);
+                return true;
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public bool UpdatePlayer(PlayerData playerData)
+        public bool Update(PlayerData playerData)
         {
-            var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            return col.Update(playerData);
+            try
+            {
+                return _collection.Update(playerData);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public List<PlayerData> GetPlayers()
+        public List<PlayerData> GetAll()
         {
-            var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            List<PlayerData> result = col.Query().ToList();
-            return result;
+            try
+            {
+                List<PlayerData> result = _collection.Query().ToList();
+                return result;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
-        public PlayerData GetPlayerById(string id)
+        public PlayerData GetById(string id)
         {
-            var col = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-            return col.FindById(id);
+            try
+            {
+                return _collection.FindById(id);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
     }
 }

@@ -76,7 +76,7 @@ namespace SEP490G69.Calendar
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            _currentSesssion = _sessionDAO.GetSession(sessionId);
+            _currentSesssion = _sessionDAO.GetById(sessionId);
 
             if (_currentSesssion == null)
             {
@@ -100,7 +100,7 @@ namespace SEP490G69.Calendar
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            _currentSesssion = _sessionDAO.GetSession(sessionId);  
+            _currentSesssion = _sessionDAO.GetById(sessionId);  
 
             if (_currentSesssion == null)
             {

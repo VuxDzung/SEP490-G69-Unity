@@ -416,7 +416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7625550282253302299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -433,9 +433,9 @@ RectTransform:
   - {fileID: 2393339198736400958}
   m_Father: {fileID: 6486112000649373058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 361, y: -198.75}
   m_SizeDelta: {x: 722.2, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5911958338580804109
@@ -820,6 +820,7 @@ GameObject:
   - component: {fileID: 787494446291732458}
   - component: {fileID: 1213372549658497800}
   - component: {fileID: 6728474411036523266}
+  - component: {fileID: 5168502871543154799}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -945,6 +946,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5168502871543154799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2328274616717868033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_sync
+  tmp: {fileID: 6728474411036523266}
 --- !u!1 &2363840152630213081
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +972,7 @@ GameObject:
   - component: {fileID: 8300594653458206944}
   - component: {fileID: 1124890317160186643}
   - component: {fileID: 7729667905397142681}
+  - component: {fileID: 3831670960467830118}
   m_Layer: 0
   m_Name: PlayerPlaytime
   m_TagString: Untagged
@@ -1083,6 +1100,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3831670960467830118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2363840152630213081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIText
+  elementId: txt_play_time
+  tmp: {fileID: 7729667905397142681}
 --- !u!1 &3406684668455730503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,7 +1176,7 @@ MonoBehaviour:
   m_SyncBtn: {fileID: 7321297469208270009}
   m_SignOutBtn: {fileID: 3464672232746839484}
   m_EditNameBtn: {fileID: 4671054352435006043}
-  m_PrevFrame: 
+  m_PrevFrame: Frame.MainMenu
 --- !u!222 &7966864154405326397
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1539,6 +1571,7 @@ GameObject:
   - component: {fileID: 8018182605701622477}
   - component: {fileID: 5034434014191494442}
   - component: {fileID: 2911735032702370199}
+  - component: {fileID: 7114682670831963915}
   m_Layer: 0
   m_Name: PlayerName
   m_TagString: Untagged
@@ -1666,6 +1699,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7114682670831963915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138596663204466750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIText
+  elementId: txt_player_name
+  tmp: {fileID: 2911735032702370199}
 --- !u!1 &4203216002838816977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,6 +1921,7 @@ GameObject:
   - component: {fileID: 8422264305793610554}
   - component: {fileID: 3809128432861353750}
   - component: {fileID: 3690336200448679431}
+  - component: {fileID: 923450943030654375}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2000,6 +2049,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &923450943030654375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883053791450486200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: btn_sign_out
+  tmp: {fileID: 3690336200448679431}
 --- !u!1 &4979267705995753314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,9 +2513,9 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 25
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -2472,7 +2536,7 @@ GameObject:
   - component: {fileID: 6895142870179825047}
   - component: {fileID: 8696537797061192586}
   m_Layer: 0
-  m_Name: PlayerFullName
+  m_Name: Tmp.PlayerFullName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2607,6 +2671,7 @@ GameObject:
   - component: {fileID: 5659787400465123856}
   - component: {fileID: 4359781328818079505}
   - component: {fileID: 7555320839873058631}
+  - component: {fileID: 8180296298158609793}
   m_Layer: 0
   m_Name: PlayerID
   m_TagString: Untagged
@@ -2734,6 +2799,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8180296298158609793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503300871990019273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIText
+  elementId: txt_player_id
+  tmp: {fileID: 7555320839873058631}
 --- !u!1 &6557876488660203337
 GameObject:
   m_ObjectHideFlags: 0

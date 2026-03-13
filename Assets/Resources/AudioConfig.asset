@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b7e2087b4f31a43b1082c515363b0f, type: 3}
   m_Name: AudioConfig
   m_EditorClassIdentifier: 
-  m_AudioList: []
+  m_AudioList:
+  - id: sfx_click
+    clip: {fileID: 0}

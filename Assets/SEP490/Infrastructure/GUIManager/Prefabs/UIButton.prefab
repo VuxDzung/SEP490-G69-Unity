@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3861195310556276116}
   - component: {fileID: 6393461778285544809}
   - component: {fileID: 1979267590627402588}
+  - component: {fileID: 9219683021088238281}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -136,6 +137,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9219683021088238281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804246643771745088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a5f5604489bb47adaeac56473b117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: UIButtonText
+  elementId: 
+  tmp: {fileID: 1979267590627402588}
 --- !u!1 &6843102440068982230
 GameObject:
   m_ObjectHideFlags: 0

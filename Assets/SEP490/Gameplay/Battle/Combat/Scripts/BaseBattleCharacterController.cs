@@ -62,6 +62,8 @@
         #endregion
 
         #region Properties
+        public CharacterVFXController VFXController { get; private set; }
+        public CharacterAnimationController AnimationController { get; private set; }
 
         /// <summary>
         /// Get the data which is readonly in combat.
@@ -82,6 +84,8 @@
         protected virtual void Awake()
         {
             _statEffectManager = new StatusEffectManager(this);
+            AnimationController = GetComponent<CharacterAnimationController>();
+            VFXController = GetComponent<CharacterVFXController>();
         }
 
         public abstract void Initialize(BaseCharacterSO characterSO);

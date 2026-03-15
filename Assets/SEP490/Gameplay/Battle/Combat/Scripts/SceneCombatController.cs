@@ -23,6 +23,8 @@
         [Header("Scene References")]
         [SerializeField] private Transform m_PlayerContainer;
         [SerializeField] private Transform m_EnemyContainer;
+        [SerializeField] private Transform m_PlayerCombatPos;
+        [SerializeField] private Transform m_EnemyCombatPos;
         [SerializeField] private string m_CharacterPoolName = "CombatCharacter";
 
         private BattleStateMachine _battleState;
@@ -77,6 +79,9 @@
                 m_PlayerContainer,
                 m_EnemyContainer,
                 m_CharacterPoolName);
+
+            _player.AnimationController.SetCombatPosition(m_PlayerCombatPos);
+            _enemy.AnimationController.SetCombatPosition(m_EnemyCombatPos);
 
             _turnSystem.Initialize(_player, _enemy);
             _uiUpdater.ShowCombatPreview(_player, _enemy);

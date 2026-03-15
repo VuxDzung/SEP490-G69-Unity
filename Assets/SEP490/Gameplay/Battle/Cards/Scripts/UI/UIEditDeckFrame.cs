@@ -19,6 +19,8 @@
         [SerializeField] private TMP_InputField m_SearchInputTmp;
         [SerializeField] private Transform m_CardUIPrefab;
 
+        [SerializeField] private TMP_Dropdown m_FilterDropdown;
+
         [Header("Data Config")]
         [SerializeField] private CardConfigSO m_CardConfig;
 

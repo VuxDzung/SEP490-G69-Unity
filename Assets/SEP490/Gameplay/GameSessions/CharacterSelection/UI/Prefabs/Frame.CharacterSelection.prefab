@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 548658209243699059, guid: fc8692514bdad3145a3df3e3bbf40a28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd7db2f49598ec249955d8675ae8dbea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3395,7 +3395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4955812417162557949, guid: cc59f1c7c63d77440929e87d0d5a645a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 993ac6696f14f2a4da4a95b9086a2993, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6136,7 +6136,7 @@ PrefabInstance:
     - target: {fileID: 1063148113658920992, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2913238592758277715, guid: 99eee996177ef684799fd28752874542, type: 3}
+      objectReference: {fileID: 21300000, guid: 10ad34628ee0b0547b53e925b7d35573, type: 3}
     - target: {fileID: 1323601125673409249, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: elementId
       value: btn_next
@@ -6301,7 +6301,7 @@ PrefabInstance:
     - target: {fileID: 1063148113658920992, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2913238592758277715, guid: 99eee996177ef684799fd28752874542, type: 3}
+      objectReference: {fileID: 21300000, guid: e77adb7c04d374345b07fff4de58f150, type: 3}
     - target: {fileID: 1323601125673409249, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: elementId
       value: btn_back

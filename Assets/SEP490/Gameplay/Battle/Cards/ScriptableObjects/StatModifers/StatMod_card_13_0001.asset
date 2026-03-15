@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
   m_Name: StatMod_card_13_0001
   m_EditorClassIdentifier: 
-  m_Id: 
+  m_Id: mod_card_13_0001
   m_DisplayOnUI: 0
   m_StatType: 9
   m_Operator: 2
@@ -23,4 +23,6 @@ MonoBehaviour:
   m_Description: 'Card 13: Reduce 20% enemy action gauge'
   m_ApplyTarget: 1
   m_CalculateSource: 0
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 0
+  m_TurnFlowEvent: 0

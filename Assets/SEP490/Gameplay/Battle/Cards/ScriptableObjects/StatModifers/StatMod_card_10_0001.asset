@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c52667fe55c8a4fb998261d6630c3b, type: 3}
   m_Name: StatMod_card_10_0001
   m_EditorClassIdentifier: 
-  m_Id: 
+  m_Id: mod_card_10_0001
   m_DisplayOnUI: 0
   m_StatType: 5
   m_Operator: 1

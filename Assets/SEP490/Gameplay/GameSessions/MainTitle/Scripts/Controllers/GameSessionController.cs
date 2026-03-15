@@ -1,5 +1,6 @@
 namespace SEP490G69.GameSessions
 {
+    using SEP490G69.Addons.Networking;
     using SEP490G69.Battle.Cards;
     using SEP490G69.Economy;
     using SEP490G69.PlayerProfile;
@@ -16,6 +17,8 @@ namespace SEP490G69.GameSessions
         private StarterCardConfigSO _starterCardConfig;
 
         private IGameSessionCreator _sessionCreator;
+
+        private WebRequests _webRequests;
 
         private PlayerDataDAO _playerDAO;
         private GameSessionDAO _sessionDAO;
@@ -74,6 +77,17 @@ namespace SEP490G69.GameSessions
                     _deckController = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
                 }
                 return _deckController;
+            }
+        }
+        private WebRequests WebRequests
+        {
+            get
+            {
+                if (_webRequests == null)
+                {
+                    _webRequests = ContextManager.Singleton.ResolveGameContext<WebRequests>();
+                }
+                return _webRequests;
             }
         }
 
@@ -288,8 +302,14 @@ namespace SEP490G69.GameSessions
             }
         }
 
-        public void SyncDataToCloud()
+        public async void SyncDataToCloud()
         {
+            if (!WebRequests.HasInternetConnection())
+            {
+                Debug.Log($"<color=red>[GameSessionController]</color> No internet connection is available!");
+                return;
+            }
+
             // Step 1: get all local data.
             string playerId = AuthManager.GetUserId();
             if (string.IsNullOrEmpty(playerId))
@@ -319,6 +339,12 @@ namespace SEP490G69.GameSessions
             List<TournamentProgressData> tournaments = _tournamentDAO.GetAllBySessionId(sessionId);
 
             // Step 2: send a GET request to game backend to get the latest game progression data.
+
+            string queryParams = $"playerId={playerId},sessionId={sessionId}";
+            await WebRequests.GetEndpointByParam("GetPlayerProgression", queryParams, (responsePackage) =>
+            {
+                // Deserialize the response packet here.
+            });
 
             // Step 3: check data integrity and resolve conflict.
             //

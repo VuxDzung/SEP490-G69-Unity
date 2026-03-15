@@ -22,6 +22,11 @@ namespace SEP490G69.Battle
 
             source.StatOutputDmg.SetCurrentValue(damage);
 
+            source.AnimationController.PlayAnimation("atk");
+            source.VFXController.PlayAtkVFX();
+
+            target.AnimationController.PlayAnimation("take_dmg");
+
             for (int i = 0; i < Data.AtkCount; i++)
             {
                 target.ReceiveDamage(source.StatOutputDmg.Value, source);

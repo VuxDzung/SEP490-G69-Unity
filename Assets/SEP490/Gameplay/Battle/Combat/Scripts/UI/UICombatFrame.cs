@@ -2,6 +2,7 @@
 {
     using DG.Tweening;
     using SEP490G69.Battle.Cards;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
@@ -21,6 +22,9 @@
         [SerializeField] private Transform m_StatEffectUIPrefab;
 
         [SerializeField] private UIDropHandler m_CardTriggerArea;
+
+        [SerializeField] private Transform m_UISpawnPoint;
+        [SerializeField] private Transform m_UIDiscardPoint;
 
         protected override void OnFrameShown()
         {
@@ -124,6 +128,12 @@
             }
         }
 
+        /// <summary>
+        /// Display cards by spawning card UI.
+        /// Cards are spawned at the m_UISpawnPoint and move smoothly to m_CardContainer.
+        /// In m_CardContainer, there's a Horizontal Layout Group Component.
+        /// </summary>
+        /// <param name="cards"></param>
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
@@ -131,20 +141,52 @@
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
             }
 
+            StartCoroutine(CoDisplayCards(cards));
+        }
+
+        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards)
+        {
             foreach (CardSO card in cards)
             {
                 Transform cardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, m_CardContainer);
+                RectTransform rect = cardTrans.GetComponent<RectTransform>();
+                LayoutElement layout = rect.GetComponent<LayoutElement>();
+
+                if (layout != null)
+                    layout.ignoreLayout = true;
+
+                // Spawn at spawn point
+                rect.position = m_UISpawnPoint.position;
+                rect.localScale = Vector3.one * 0.7f;
+
                 UICardElement cardUI = cardTrans.GetComponent<UICardElement>();
                 if (cardUI != null)
                 {
                     string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
                     string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
-                    cardTrans.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
                     cardUI.SetOnSelectCallback(SelectCard)
                           .SetOnDragEnd(PerformCardAction)
                           .SetContent(card.CardId, cardName, cardDesc, card.Icon);
                 }
+
+                // Target position (slot in layout)
+                Vector3 targetPos = rect.position;
+
+                // Offset spawn so animation visible
+                rect.position = m_UISpawnPoint.position;
+
+                rect.DOMove(targetPos, 0.35f)
+                    .SetEase(Ease.OutCubic)
+                    .OnComplete(() =>
+                    {
+                        if (layout != null)
+                            layout.ignoreLayout = false;
+                    });
+
+                rect.DOScale(1f, 0.35f);
+
+                yield return new WaitForSeconds(0.08f); // card draw delay
             }
         }
 

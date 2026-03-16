@@ -52,7 +52,7 @@ MonoBehaviour:
     velocity: {x: 10, y: 0}
   - animationName: dodge
     invert: 0
-    duration: 3
+    duration: 1
     curve:
       serializedVersion: 2
       m_Curve:
@@ -89,7 +89,7 @@ MonoBehaviour:
     velocity: {x: 5, y: 0}
   - animationName: take_dmg
     invert: 0
-    duration: 3
+    duration: 1
     curve:
       serializedVersion: 2
       m_Curve:

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56af5113ce0129945b250446912cb0e9, type: 3}
-  m_Name: AnimationConfig.ch_0028
+  m_Name: AnimationConfig.ch_0003
   m_EditorClassIdentifier: 
   m_Animations:
   - animationName: atk

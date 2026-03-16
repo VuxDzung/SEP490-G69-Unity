@@ -15,7 +15,6 @@ MonoBehaviour:
   m_Animations:
   - animationName: atk
     invert: 0
-    poseSprite: {fileID: 21300000, guid: c0da2a2d50942f24bb63010dff3856ef, type: 3}
     duration: 1
     curve:
       serializedVersion: 2
@@ -53,8 +52,7 @@ MonoBehaviour:
     velocity: {x: 10, y: 0}
   - animationName: dodge
     invert: 1
-    poseSprite: {fileID: 21300000, guid: c2c8f05f2e35aeb42835849895f0c71d, type: 3}
-    duration: 3
+    duration: 1
     curve:
       serializedVersion: 2
       m_Curve:
@@ -91,8 +89,7 @@ MonoBehaviour:
     velocity: {x: 5, y: 0}
   - animationName: take_dmg
     invert: 1
-    poseSprite: {fileID: 21300000, guid: 0dfaf867abc537e469d3280b60cdafd9, type: 3}
-    duration: 3
+    duration: 1
     curve:
       serializedVersion: 2
       m_Curve:

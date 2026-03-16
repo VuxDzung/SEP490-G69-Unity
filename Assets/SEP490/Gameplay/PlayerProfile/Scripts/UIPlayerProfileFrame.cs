@@ -1,5 +1,6 @@
 namespace SEP490G69.PlayerProfile
 {
+    using SEP490G69.GameSessions;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -30,6 +31,19 @@ namespace SEP490G69.PlayerProfile
                     _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
                 }
                 return _profileController;
+            }
+        }
+
+        private GameSyncController _syncController;
+        private GameSyncController SyncController
+        {
+            get
+            {
+                if (_syncController == null)
+                {
+                    _syncController = ContextManager.Singleton.ResolveGameContext<GameSyncController>();
+                }
+                return _syncController;
             }
         }
 
@@ -66,9 +80,10 @@ namespace SEP490G69.PlayerProfile
             if (!string.IsNullOrEmpty(m_PrevFrame)) UIManager.ShowFrame(m_PrevFrame);
         }
 
-        private void Sync()
+        private async void Sync()
         {
-
+            Debug.Log($"<color=green>[UIPlayerProfileFrame.Sync]</color>");
+            await SyncController.SyncPlayerData();
         }
 
         private void SignOut()

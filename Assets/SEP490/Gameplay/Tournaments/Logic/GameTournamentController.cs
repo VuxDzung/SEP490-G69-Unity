@@ -271,10 +271,10 @@
             if (sessionData == null) return null;
 
             SessionCharacterData characterData =
-                _characterRepo.GetCharacterData(sessionId, sessionData.CharacterId);
+                _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
 
             BaseCharacterSO characterSO =
-                m_CharacterConfig.GetCharacterById(sessionData.CharacterId);
+                m_CharacterConfig.GetCharacterById(sessionData.RawCharacterId);
 
             CharacterDataHolder holder = new CharacterDataHolder.Builder()
                 .WithCharacterData(characterData)

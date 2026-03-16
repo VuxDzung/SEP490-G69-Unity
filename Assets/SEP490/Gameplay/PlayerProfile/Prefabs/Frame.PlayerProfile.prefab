@@ -345,7 +345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2913238592758277715, guid: 99eee996177ef684799fd28752874542, type: 3}
+  m_Sprite: {fileID: -7771328113661370811, guid: 9d6dbf793ec3f7a4bbe2ba016c63f804, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1173,8 +1173,8 @@ MonoBehaviour:
   m_Email: {fileID: 760118879649772863}
   m_GenderTmp: {fileID: 3463973865864991918}
   m_TotalPlayTime: {fileID: 372603282982650531}
-  m_SyncBtn: {fileID: 7321297469208270009}
-  m_SignOutBtn: {fileID: 3464672232746839484}
+  m_SyncBtn: {fileID: 3464672232746839484}
+  m_SignOutBtn: {fileID: 7321297469208270009}
   m_EditNameBtn: {fileID: 4671054352435006043}
   m_PrevFrame: Frame.MainMenu
 --- !u!222 &7966864154405326397
@@ -1506,7 +1506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0c1d259588d9ba14dbe90c9054cc7eb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2decde79b1433a4f9fa23cee87de683, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2883,7 +2883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a257dcdf024873e42a8b98b08b646062, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7684dcfe6a7a27b43ab7860d20219e92, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

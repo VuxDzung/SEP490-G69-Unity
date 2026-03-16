@@ -15,7 +15,8 @@ namespace SEP490G69.GameSessions
         /// </summary>
         public const string SESSION_ID_FORMAT = "{0}_{1}";
 
-        private GameSessionDAO _dao;
+        private GameSessionDAO _sessionDAO;
+        private PlayerDataDAO _playerDAO;
         private PlayerCharacterDAO _characterDAO;
         private TournamentProgressDAO _tournamentDAO;
         private TrainingExerciseDAO _trainingDAO;
@@ -24,7 +25,8 @@ namespace SEP490G69.GameSessions
 
         public SingleSessionCreator()
         {
-            _dao = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
             _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
             _tournamentDAO = new TournamentProgressDAO();
             _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
@@ -34,7 +36,7 @@ namespace SEP490G69.GameSessions
 
         public List<PlayerTrainingSession> GetAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessionList = _dao.GetAllByPlayerId(playerId);
+            List<PlayerTrainingSession> sessionList = _sessionDAO.GetAllByPlayerId(playerId);
             return sessionList;
         }
 
@@ -43,25 +45,31 @@ namespace SEP490G69.GameSessions
             errorMessage = "";
             sessionId = "";
 
-            if (_dao.GetAllByPlayerId(playerId).Count > 0)
+            if (_sessionDAO.GetAllByPlayerId(playerId).Count > 0)
             {
                 errorMessage = "error_session_02";
                 return false;
             }
 
+            PlayerData playerData = _playerDAO.GetById(playerId);
+
+            int newRun = playerData.CurrentRun + 1;
+
             // Dung: Construct session id.
             string idPreFix = playerId;
-            string idPostFix = GetSessionIdOrder(playerId).ToString(); // May change later
+            string idPostFix = newRun.ToString(); //GetSessionIdOrder(playerId).ToString(); // May change later
             sessionId = string.Format(SESSION_ID_FORMAT, idPreFix, idPostFix);
 
             PlayerTrainingSession newSession = new PlayerTrainingSession();
             newSession.SessionId = sessionId;
             newSession.PlayerId = playerId;
-            newSession.CharacterId = rawCharacterId;
+            newSession.RawCharacterId = rawCharacterId;
             newSession.CurrentGoldAmount = GameConstants.STARTER_MONEY_AMOUNT;
 
-            if (_dao.Insert(newSession))
+            if (_sessionDAO.Insert(newSession))
             {
+                playerData.CurrentRun = newRun;
+                _playerDAO.Update(playerData);
                 return true;
             }
             
@@ -72,7 +80,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteAllSessions(string playerId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllByPlayerId(playerId);
+            List<PlayerTrainingSession> sessions = _sessionDAO.GetAllByPlayerId(playerId);
 
             var playerSessions = sessions.Where(s => s.PlayerId == playerId).ToList();
 
@@ -84,7 +92,7 @@ namespace SEP490G69.GameSessions
             foreach (var session in playerSessions)
             {
                 // Step 1: delete all characters.
-                SessionCharacterData characterData = _characterDAO.GetCharacterById(session.SessionId, session.CharacterId);
+                SessionCharacterData characterData = _characterDAO.GetCharacterById(session.SessionId, session.RawCharacterId);
 
                 if (characterData != null)
                 {
@@ -119,7 +127,7 @@ namespace SEP490G69.GameSessions
                 }
 
                 // Final: delete the session.
-                if (!_dao.DeleteById(session.SessionId))
+                if (!_sessionDAO.DeleteById(session.SessionId))
                 {
                     Debug.LogError($"[SingleSessionCreator] Failed to delete session {session.SessionId}");
 
@@ -132,7 +140,7 @@ namespace SEP490G69.GameSessions
 
         public bool TryDeleteSession(string playerId, string sessionId)
         {
-            List<PlayerTrainingSession> sessions = _dao.GetAllByPlayerId(playerId);
+            List<PlayerTrainingSession> sessions = _sessionDAO.GetAllByPlayerId(playerId);
 
             var session = sessions
                 .FirstOrDefault(s => s.SessionId == sessionId);
@@ -143,9 +151,10 @@ namespace SEP490G69.GameSessions
             if (session.PlayerId != playerId)
                 return false;
 
-            return _dao.DeleteById(sessionId);
+            return _sessionDAO.DeleteById(sessionId);
         }
 
+        #region Archive (May delete later)
         private int GetSessionIdOrder(string playerId)
         {
             List<PlayerTrainingSession> sessionList = GetAllSessions(playerId);
@@ -165,11 +174,12 @@ namespace SEP490G69.GameSessions
             int newOrder = 0;
             if (orderIntList.Count == 0) return newOrder;
 
-            while (!orderIntList.Contains(newOrder))
+            while (orderIntList.Contains(newOrder))
             {
                 newOrder++;
             }
             return newOrder;
         }
+        #endregion
     }
 }

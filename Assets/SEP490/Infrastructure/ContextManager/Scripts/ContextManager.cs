@@ -67,6 +67,25 @@ namespace SEP490G69
             context = default(T);
             return false;
         }
+
+        public void RegisterGameContext<T>(GameObject contextObj) where T : IGameContext
+        {
+            T existed = ResolveGameContext<T>();
+            if (existed != null)
+            {
+                return;
+            }
+            existed = contextObj.GetComponent<T>();
+            if (existed == null)
+            {
+                return;
+            }
+            contextObj.transform.SetParent(this.transform, false);
+            contextObj.transform.localPosition = Vector3.zero;
+            contextObj.name = $"[Context] {contextObj.name}";
+            _gameContextList.Add(existed);
+        }
+
         public T ResolveGameContext<T>() where T : IGameContext
         {
             foreach (var context in _gameContextList)

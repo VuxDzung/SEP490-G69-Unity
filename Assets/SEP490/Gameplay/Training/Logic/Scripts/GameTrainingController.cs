@@ -64,11 +64,11 @@ namespace SEP490G69.Training
             {
                 return;
             }
-            SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionId, sessionData.CharacterId);
+            SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
 
             Debug.Log($"Character: {characterData.Id}");
 
-            BaseCharacterSO characterSO = _characterConfig.GetCharacterById(sessionData.CharacterId);
+            BaseCharacterSO characterSO = _characterConfig.GetCharacterById(sessionData.RawCharacterId);
 
             _characterHolder = new CharacterDataHolder.Builder()
                                    .WithCharacterData(characterData)

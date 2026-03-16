@@ -27,6 +27,6 @@ namespace SEP490G69
         /// <summary>
         /// How many runs has the player played.
         /// </summary>
-        public int RunCount { get; set; }
+        public int CurrentRun { get; set; }
     }
 }

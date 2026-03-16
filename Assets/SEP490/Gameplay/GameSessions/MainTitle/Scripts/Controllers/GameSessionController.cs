@@ -1,13 +1,16 @@
 namespace SEP490G69.GameSessions
 {
+    using Newtonsoft.Json;
+    using NUnit.Framework;
     using SEP490G69.Addons.Networking;
     using SEP490G69.Battle.Cards;
     using SEP490G69.Economy;
     using SEP490G69.PlayerProfile;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
+    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Threading.Tasks;
     using UnityEngine;
 
     public class GameSessionController : MonoBehaviour, ISceneContext
@@ -35,17 +38,7 @@ namespace SEP490G69.GameSessions
         private CharacterConfigSO _characterConfig;
         private GameDeckController _deckController;
 
-        private GameAuthManager AuthManager
-        {
-            get
-            {
-                if (_authManager == null)
-                {
-                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();  
-                }
-                return _authManager;
-            }
-        }
+        #region Lazy properties
         private CharacterConfigSO CharacterConfig
         {
             get
@@ -55,6 +48,18 @@ namespace SEP490G69.GameSessions
                     _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
                 }
                 return _characterConfig;
+            }
+        }
+
+        private GameAuthManager AuthManager
+        {
+            get
+            {
+                if (_authManager == null)
+                {
+                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
+                }
+                return _authManager;
             }
         }
         private PlayerProfileController ProfileController
@@ -90,7 +95,9 @@ namespace SEP490G69.GameSessions
                 return _webRequests;
             }
         }
+        #endregion
 
+        #region Unity methods
         private void OnEnable()
         {
             ContextManager.Singleton.AddSceneContext(this);
@@ -105,8 +112,10 @@ namespace SEP490G69.GameSessions
             _starterCardConfig = ContextManager.Singleton.GetDataSO<StarterCardConfigSO>();
 
             LoadDAOs();
-            CheckPlayerProfile();
+            //CheckPlayerProfile();
         }
+
+        #endregion
 
         private void LoadDAOs()
         {
@@ -128,6 +137,17 @@ namespace SEP490G69.GameSessions
             return _sessionCreator.GetAllSessions(playerId).Count > 0;
         }
 
+        /// <summary>
+        /// Create a brand new session.
+        /// A session consists of:
+        /// - Session data
+        /// - Session character data.
+        /// - Player starter cards & starter deck
+        /// </summary>
+        /// <param name="characterId"></param>
+        /// <param name="sessionId"></param>
+        /// <param name="error"></param>
+        /// <returns></returns>
         public bool CreateNewSession(string characterId, out string sessionId, out string error)
         {
             error = "";
@@ -154,6 +174,7 @@ namespace SEP490G69.GameSessions
                     {
                         Debug.Log($"Create character session data {characterId} for session {sessionId} success");
                         Debug.Log("Start create player's deck");
+
                         DeckController.SetSessionId(sessionId);
 
                         // Dung: Add default starter cards.
@@ -260,7 +281,7 @@ namespace SEP490G69.GameSessions
             PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, "");
         }
 
-        private async void CheckPlayerProfile()
+        public async void CheckPlayerProfile()
         {
             _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
 
@@ -300,101 +321,6 @@ namespace SEP490G69.GameSessions
                     Debug.Log("Sync failed!");
                 }
             }
-        }
-
-        public async void SyncDataToCloud()
-        {
-            if (!WebRequests.HasInternetConnection())
-            {
-                Debug.Log($"<color=red>[GameSessionController]</color> No internet connection is available!");
-                return;
-            }
-
-            // Step 1: get all local data.
-            string playerId = AuthManager.GetUserId();
-            if (string.IsNullOrEmpty(playerId))
-            {
-                Debug.LogError("[GameSessionController error] Player id is null/empty");
-                return;
-            }
-            Debug.Log($"[GameSessionController] PlayerId: {playerId}");
-
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                return;
-            }
-
-            Debug.Log($"[GameSessionController] SessionId: {sessionId}");
-
-            PlayerData playerData = _playerDAO.GetById(playerId);
-            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
-            SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionData.SessionId, sessionData.CharacterId);
-            List<SessionTrainingExercise> exercises = _exercisesDAO.GetAllBySessionId(sessionId);
-            List<SessionCardData> cards = _cardsDAO.GetAllBySessionId(sessionId);
-            SessionPlayerDeck deck = _deckDAO.GetById(sessionId);
-            List<ItemData> obtainedItems = _inventoryDAO.GetAllItems(sessionId);
-            List<ShopItemData> shopItems = _shopDAO.GetAll(sessionId);
-            List<TournamentProgressData> tournaments = _tournamentDAO.GetAllBySessionId(sessionId);
-
-            // Step 2: send a GET request to game backend to get the latest game progression data.
-
-            string queryParams = $"playerId={playerId},sessionId={sessionId}";
-            await WebRequests.GetEndpointByParam("GetPlayerProgression", queryParams, (responsePackage) =>
-            {
-                // Deserialize the response packet here.
-            });
-
-            // Step 3: check data integrity and resolve conflict.
-            //
-            // Terminology:
-            // - CloudLastSyncTime: latest sync timestamp from backend.
-            // - LocalLastSyncTime: playerData.LastSyncTime.
-            // - LocalLastUpdatedTime: playerData.LastUpdatedTime.
-            // - CloudRunCount: run count stored in backend.
-            // - LocalRunCount: playerData.RunCount.
-            //
-            // Case 1: CloudLastSyncTime > LocalLastSyncTime
-            // -> Cloud data is newer than the local synced state.
-            //
-            //    1.1 If CloudRunCount > LocalRunCount
-            //        -> Player progressed further on another device.
-            //        -> Override the local data with cloud data.
-            //
-            //    1.2 If CloudRunCount == LocalRunCount
-            //        -> Same run but cloud has newer update.
-            //        -> Override the local data.
-            //
-            //    1.3 If CloudRunCount < LocalRunCount
-            //        -> Local device progressed further.
-            //        -> Conflict detected.
-            //        -> Resolve by overriding the cloud data with local data.
-            //
-            // Case 2: CloudLastSyncTime == LocalLastSyncTime
-            // -> Both states were synced at the same point.
-            //
-            //    2.1 If LocalLastUpdatedTime > LocalLastSyncTime
-            //        -> Local has new updates after last sync.
-            //        -> Push local changes to cloud.
-            //
-            //    2.2 If LocalLastUpdatedTime <= LocalLastSyncTime
-            //        -> No change.
-            //        -> Skip sync.
-            //
-            // Case 3: CloudLastSyncTime < LocalLastSyncTime
-            // -> Local device already synced more recently than backend.
-            // -> Override the cloud data with local data.
-            //
-            // Additional validation:
-            //
-            // - DeviceId mismatch:
-            //     If another device updated the same run simultaneously,
-            //     use RunCount and LastUpdatedTime to determine priority.
-            //
-            // - Corrupted session:
-            //     If cloud sessionId != local sessionId,
-            //     treat it as a new run and upload local session.
         }
     }
 }

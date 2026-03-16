@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56af5113ce0129945b250446912cb0e9, type: 3}
+  m_Name: AnimationConfig.ch_0016
+  m_EditorClassIdentifier: 
+  m_Animations:
+  - animationName: atk
+    invert: 1
+    duration: 1
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0012741089
+        value: 1.0091553
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.104309365
+        value: 0.49541575
+        inSlope: -1.5211138
+        outSlope: -1.5211138
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.48092157
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.99872
+        value: 0.013223812
+        inSlope: -0.04992769
+        outSlope: -0.04992769
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.08070069
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    velocity: {x: 10, y: 0}
+  - animationName: dodge
+    invert: 0
+    duration: 3
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.20333515
+        value: 0.5099427
+        inSlope: -1.6724529
+        outSlope: -1.6724529
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.29832515
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    velocity: {x: 5, y: 0}
+  - animationName: take_dmg
+    invert: 0
+    duration: 3
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    velocity: {x: 3, y: 0}

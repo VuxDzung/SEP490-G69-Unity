@@ -2,6 +2,7 @@ namespace SEP490G69.Battle.Combat
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Unity.VisualScripting;
     using UnityEngine;
 
     /// <summary>
@@ -12,6 +13,8 @@ namespace SEP490G69.Battle.Combat
         [SerializeField] private SpriteRenderer m_SpriteRenderer;
         [SerializeField] private Animator m_Animator;
         [SerializeField] private AnimationConfigSO m_Config;
+
+        [SerializeField] private Transform m_PoseContainer;
 
         [SerializeField] private List<Transform> m_Poses;
 
@@ -30,6 +33,15 @@ namespace SEP490G69.Battle.Combat
         public void SetCombatPosition(Transform poseTrans)
         {
             _combatPos = poseTrans;
+        }
+
+        private void Awake()
+        {
+            m_Poses.Clear();
+            for (int i = 0; i < m_PoseContainer.childCount; i++)
+            {
+                m_Poses.Add(m_PoseContainer.GetChild(i));
+            }
         }
 
         private void OnEnable()

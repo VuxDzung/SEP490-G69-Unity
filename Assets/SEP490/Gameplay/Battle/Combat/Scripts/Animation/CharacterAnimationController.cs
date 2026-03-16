@@ -37,11 +37,7 @@ namespace SEP490G69.Battle.Combat
 
         private void Awake()
         {
-            m_Poses.Clear();
-            for (int i = 0; i < m_PoseContainer.childCount; i++)
-            {
-                m_Poses.Add(m_PoseContainer.GetChild(i));
-            }
+            LoadPoseTransforms();
         }
 
         private void OnEnable()
@@ -58,6 +54,15 @@ namespace SEP490G69.Battle.Combat
         public void PlayAnimation()
         {
             PlayAnimation(m_TestAnimation);
+        }
+
+        private void LoadPoseTransforms()
+        {
+            m_Poses.Clear();
+            for (int i = 0; i < m_PoseContainer.childCount; i++)
+            {
+                m_Poses.Add(m_PoseContainer.GetChild(i));
+            }
         }
 
         public void PlayAnimation(string animName)
@@ -81,11 +86,12 @@ namespace SEP490G69.Battle.Combat
             m_Animator.enabled = false;
             _poseTrans.gameObject.SetActive(true);
             m_SpriteRenderer.enabled = false;
+
             // set pose sprite
-            if (data.PoseSprite != null)
-            {
-                //m_SpriteRenderer.sprite = data.poseSprite;
-            }
+            //if (data.PoseSprite != null)
+            //{
+            //    m_SpriteRenderer.sprite = data.PoseSprite;
+            //}
             transform.position = _combatPos.position;
 
             // start timer

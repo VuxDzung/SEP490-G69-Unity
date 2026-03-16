@@ -24,13 +24,13 @@ namespace SEP490G69.Battle.Combat
     {
         [SerializeField] string animationName;
         [SerializeField] bool invert;
-        [SerializeField] Sprite poseSprite;
+        //[SerializeField] Sprite poseSprite;
         [SerializeField] float duration;
         [SerializeField] AnimationCurve curve = AnimationCurve.EaseInOut(0, 1, 1, 0);
         [SerializeField] Vector2 velocity;
 
         public string AnimationName => animationName;
-        public Sprite PoseSprite => poseSprite;
+        //public Sprite PoseSprite => poseSprite;
         public float Duration => duration;
         public AnimationCurve Curve => curve;
         public Vector2 Velocity

@@ -23,7 +23,7 @@ namespace SEP490G69.Battle.Combat
 
             CharacterConfigSO config = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
 
-            BaseCharacterSO charSO = config.GetCharacterById(session.CharacterId);
+            BaseCharacterSO charSO = config.GetCharacterById(session.RawCharacterId);
 
             Transform trans = PoolManager.Pools[pool].Spawn(charSO.CombatPrefab, parent);
 

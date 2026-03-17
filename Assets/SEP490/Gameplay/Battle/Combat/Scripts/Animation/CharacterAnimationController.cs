@@ -28,7 +28,7 @@ namespace SEP490G69.Battle.Combat
         private float _startTime;
         private Transform _poseTrans;
 
-        private Transform _combatPos;
+        [SerializeField] private Transform _combatPos;
 
         public void SetCombatPosition(Transform poseTrans)
         {

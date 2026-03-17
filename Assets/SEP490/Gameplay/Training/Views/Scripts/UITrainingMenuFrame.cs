@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -22,11 +23,8 @@ namespace SEP490G69.Training
 
         [Header("Bottom")]
         [SerializeField] private TextMeshProUGUI m_FailRateTmp;
-        [SerializeField] private Button m_BoxingBtn;
-        [SerializeField] private Button m_RunBtn;
-        [SerializeField] private Button m_DodgeBtn;
-        [SerializeField] private Button m_StudyBtn;
-        [SerializeField] private Button m_YogaBtn;
+
+        [SerializeField] private List<UIExerciseElement> m_ExercisesUI;
 
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_Container;
@@ -76,29 +74,45 @@ namespace SEP490G69.Training
 
         private void LoadExercisesUI()
         {
-            string poolName = "UIExercise";
+            ITrainingStrategy[] strategies = TrainingController.GetAllTrainings();
 
-            foreach (var strategy in TrainingController.GetAllTrainings())
+            if (m_ExercisesUI.Count != strategies.Length)
             {
-                if (!strategy.DataHolder.CanShowOnUI()) continue;
-
-                Transform exerciseUITrans = PoolManager.Pools[poolName].Spawn(m_ExerciseUIPrefab, m_Container);
-                UIExerciseElement exerciseUI = exerciseUITrans.GetComponent<UIExerciseElement>();
-                if (exerciseUI != null)
-                {
-                    exerciseUI.SetOnClick(PerformExercise)
-                              .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(), 
-                              strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
-                }
+                return;
             }
+
+            for (int i = 0; i < strategies.Length; i++)
+            {
+                ITrainingStrategy strategy = strategies[i];
+                m_ExercisesUI[i].SetOnClick(PerformExercise)
+                                .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(),
+                                strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
+                m_ExercisesUI[i].Spawn();
+            }
+
+            //foreach (ITrainingStrategy strategy in TrainingController.GetAllTrainings())
+            //{
+            //    if (!strategy.DataHolder.CanShowOnUI()) continue;
+
+            //    Transform exerciseUITrans = PoolManager.Pools[poolName].Spawn(m_ExerciseUIPrefab, m_Container);
+            //    UIExerciseElement exerciseUI = exerciseUITrans.GetComponent<UIExerciseElement>();
+            //    if (exerciseUI != null)
+            //    {
+            //        exerciseUI.SetOnClick(PerformExercise)
+            //                  .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(), 
+            //                  strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
+            //    }
+            //}
         }
+
         private void ClearAllExercisesUI()
         {
-            string poolName = "UIExercise";
-            if (PoolManager.Pools[poolName].Count > 0)
-            {
-                PoolManager.Pools[poolName].DespawnAll();
-            }
+            //string poolName = "UIExercise";
+            //if (PoolManager.Pools[poolName].Count > 0)
+            //{
+            //    PoolManager.Pools[poolName].DespawnAll();
+            //}
+            m_ExercisesUI.ForEach(exUI => exUI.Despawn());
         }
 
         private void LoadStats()

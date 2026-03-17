@@ -20,5 +20,7 @@ MonoBehaviour:
     m_EndPointUrl: api/playerProfiles/updatePlayerName
   - m_EndPointName: GetPlayerName
     m_EndPointUrl: api/playerProfiles/getPlayerName
-  - m_EndPointName: GetPlayerProgression
-    m_EndPointUrl: api/gameProgression/getPlayerProgression
+  - m_EndPointName: GetPlayerGameData
+    m_EndPointUrl: api/gameProgression/getPlayerGameData
+  - m_EndPointName: GetPlayerMetadata
+    m_EndPointUrl: api/gameProgression/getPlayerMetadata

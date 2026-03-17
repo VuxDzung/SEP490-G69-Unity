@@ -58,6 +58,10 @@ namespace SEP490G69.Shared
 
         private void DisplayCurrentContent()
         {
+            if (_currentIndex >= _contentList.Count || _currentIndex < 0)
+            {
+                _currentIndex = 0;
+            }
             OnChanged?.Invoke(_currentIndex);
             m_ContentTmp.text = _contentList[_currentIndex].ToString();
         }

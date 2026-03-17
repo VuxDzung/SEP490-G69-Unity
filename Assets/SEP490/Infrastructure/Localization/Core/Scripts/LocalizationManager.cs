@@ -98,7 +98,7 @@ namespace SEP490G69.Addons.Localization
 
         private void LoadExistedLanguage()
         {
-            string langStr = PlayerPrefs.GetString("Language");
+            string langStr = PlayerPrefs.GetString(GameConstants.PREF_KEY_LANGUAGE);
             if (!string.IsNullOrEmpty(langStr))
             {
                 ELocalizeLanguageType lang = Enum.Parse<ELocalizeLanguageType>(langStr);

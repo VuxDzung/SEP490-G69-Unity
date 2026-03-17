@@ -25,19 +25,8 @@
         private int _selectedSoundIndex = 5;
         private int _selectedMusicIndex = 5;
         private int _selectedFPSIndex = 0;
-        private LocalizationManager localizationManager;
         private Resolution[] _resolutions;
-        public LocalizationManager LocalizationManager
-        {
-            get
-            {
-                if (localizationManager == null)
-                {
-                    localizationManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
-                }
-                return localizationManager;
-            }
-        }
+
 
         protected override void OnFrameShown()
         {
@@ -101,13 +90,14 @@
         {
             m_LanguageSwitcher.SetContents(GameConstants.LANGUAGES.Select(e => e.ToString()).ToArray(), _selectedLangIndex);
         }
+
         private void LoadExistedLanguage()
         {
             string langStr = PlayerPrefs.GetString("Language");
             if (!string.IsNullOrEmpty(langStr))
             {
                 ELocalizeLanguageType lang = Enum.Parse<ELocalizeLanguageType>(langStr);
-                _selectedLangIndex = GameConstants.LANGUAGES.IndexOf(lang);
+                _selectedLangIndex = GameConstants.LANGUAGES.IndexOf(LocalizeManager.CurrentLanguage);
             }
             else
             {
@@ -151,12 +141,12 @@
         public void ConfirmLanguage()
         {
             ELocalizeLanguageType lang = GameConstants.LANGUAGES[_selectedLangIndex];
-            LocalizationManager.SetLanguage(lang);
+            LocalizeManager.SetLanguage(lang);
             // Save language index to data here.
-            PlayerPrefs.SetString("Language", GameConstants.LANGUAGES[_selectedLangIndex].ToString());
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_LANGUAGE, GameConstants.LANGUAGES[_selectedLangIndex].ToString());
 
             UIManager.HideFrame(FrameId);
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
+            //UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
 
         private void LoadSwitchers()
@@ -192,11 +182,12 @@
 
         private void LoadExistedSettings()
         {
-            _selectedResolutionIndex = PlayerPrefs.GetInt("Resolution", 0);
-            _selectedQualityIndex = PlayerPrefs.GetInt("Quality", QualitySettings.GetQualityLevel());
-            _selectedSoundIndex = PlayerPrefs.GetInt("Sound", 5);
-            _selectedMusicIndex = PlayerPrefs.GetInt("Music", 5);
-            _selectedFPSIndex = PlayerPrefs.GetInt("FPS", 0);
+            _selectedResolutionIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_RESOLUTION, 0);
+            Debug.Log($"Selected resolution: {_selectedResolutionIndex}");
+            _selectedQualityIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_QUALITY, QualitySettings.GetQualityLevel());
+            _selectedSoundIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_SOUND, 5);
+            _selectedMusicIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_MUSIC, 5);
+            _selectedFPSIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_FPS, 0);
 
             LoadExistedLanguage();
         }
@@ -204,7 +195,7 @@
         private void ApplyQuality()
         {
             QualitySettings.SetQualityLevel(_selectedQualityIndex);
-            PlayerPrefs.SetInt("Quality", _selectedQualityIndex);
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_QUALITY, _selectedQualityIndex);
 
             UIManager.HideFrame(FrameId);
         }
@@ -219,8 +210,8 @@
             audioManager.SetSFXVolume(soundVolume);
             audioManager.SetBGMVolume(musicVolume);
 
-            PlayerPrefs.SetInt("Sound", _selectedSoundIndex);
-            PlayerPrefs.SetInt("Music", _selectedMusicIndex);
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_SOUND, _selectedSoundIndex);
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_MUSIC, _selectedMusicIndex);
         }
 
         private void ApplyFPS()
@@ -237,9 +228,8 @@
                 Application.targetFrameRate = -1;
             }
 
-            PlayerPrefs.SetInt("FPS", _selectedFPSIndex);
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_FPS, _selectedFPSIndex);
             UIManager.HideFrame(FrameId);
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
 
         
@@ -251,7 +241,7 @@
             selected.height,
             Screen.fullScreenMode
             );
-            PlayerPrefs.SetInt("Resolution", _selectedResolutionIndex);
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_RESOLUTION, _selectedResolutionIndex);
 
             UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);

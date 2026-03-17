@@ -63,6 +63,13 @@ namespace SEP490G69
         public const string PREF_KEY_TOURNAMENT_ENEMY_ID = "tournament_enemy_id";
         public const string PREF_KEY_COMBAT_TYPE = "combat_type";
         public const string PREF_KEY_TOURNAMENT_PLAYER_WIN = "tournament_player_win";
+
+        public const string PREF_KEY_SOUND = "Sound";
+        public const string PREF_KEY_QUALITY = "Quality";
+        public const string PREF_KEY_MUSIC = "Music";
+        public const string PREF_KEY_FPS = "FPS";
+        public const string PREF_KEY_RESOLUTION = "Resolution";
+        public const string PREF_KEY_LANGUAGE = "Language";
         #endregion
 
         #region Localization categories

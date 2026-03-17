@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3552b684b24297e4bac0bf033e77ac2a, type: 3}
-  m_Name: DialogTree.Intro
+  m_Name: DialogTree.0001
   m_EditorClassIdentifier: 
-  m_TreeId: dt_0001_0001
+  m_TreeId: dt_0001
   m_StarterNodeID: node_0001_0001
   m_NodeList:
   - {fileID: 11400000, guid: 39f62ec81d0ac784ab0d4cf03ebfeb4c, type: 2}
   - {fileID: 11400000, guid: 858e9de72e6d1214daa0cc8f455a02cb, type: 2}
+  - {fileID: 11400000, guid: f5af0848e9186794c9e5568acf7ee5cd, type: 2}
+  - {fileID: 11400000, guid: 38c123ea387ee594abce6d654c14f6b6, type: 2}
+  - {fileID: 11400000, guid: ff0a1a63f75ec9d4c88e189342eab12b, type: 2}

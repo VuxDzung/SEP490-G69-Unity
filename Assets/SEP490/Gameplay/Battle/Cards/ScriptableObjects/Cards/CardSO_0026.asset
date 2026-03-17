@@ -15,9 +15,10 @@ MonoBehaviour:
   cardId: card_0026
   cardName: card_0026_name
   cardDescription: card_0026_desc
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d720cc152e203d04bb1dd889d36cce23, type: 3}
   cost: 25
   m_IsReady: 0
+  m_Stackable: 0
   m_ActionType: 3
   m_BaseDmg: 0
   m_ModifyStatType: 14
@@ -31,3 +32,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44e5dfb9348abaf4fb6b887d7e61b4c2, type: 2}
   m_StatusGains: []
   m_StatusInflicts: []
+  m_ExtraActions: []
+  m_CustomVariables: []

@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 436809165}
   - component: {fileID: 436809166}
   - component: {fileID: 436809167}
+  - component: {fileID: 436809168}
   m_Layer: 0
   m_Name: Sprite.ShopCart
   m_TagString: obj_shop_cart
@@ -905,6 +906,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6, y: 5.64}
   m_EdgeRadius: 0
+--- !u!114 &436809168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436809164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fbd7230215df04ab324b9b54c2e9a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectId: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

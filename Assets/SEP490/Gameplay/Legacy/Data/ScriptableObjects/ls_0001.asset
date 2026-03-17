@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f2c37d8c343084cac590aac0c50385, type: 3}
+  m_Name: ls_0001
+  m_EditorClassIdentifier: 
+  m_LegacyStatId: ls_0001
+  m_StatType: 1
+  m_BonusPerLevel: 0
+  m_LegacyName: ls_0001_name
+  m_LegacyDesc: ls_0001_desc
+  m_Icon: {fileID: 0}
+  m_BaseCost: 0
+  m_CostPerLevel: 0

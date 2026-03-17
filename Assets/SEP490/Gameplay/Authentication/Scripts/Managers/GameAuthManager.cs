@@ -29,7 +29,7 @@
 
         private void Awake()
         {
-            _playerDataDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
+            _playerDataDAO = new PlayerDataDAO();
 
             firebaseAuth = new FirebaseAuthService();
             unityAuth = new UnityAuthService();

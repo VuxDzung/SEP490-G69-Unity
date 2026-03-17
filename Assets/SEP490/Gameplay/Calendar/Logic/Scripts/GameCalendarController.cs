@@ -72,7 +72,7 @@ namespace SEP490G69.Calendar
         {
             ContextManager.Singleton.AddSceneContext(this);
 
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
@@ -86,6 +86,7 @@ namespace SEP490G69.Calendar
             _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
             _eventManager.Subscribe<EndTournamentEvent>(HandleEndTournamentEvent);
         }
+
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
@@ -95,7 +96,7 @@ namespace SEP490G69.Calendar
 
         private void Start()
         {
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO();
             _calendarConfig = ContextManager.Singleton.GetDataSO<CalendarSO>();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 

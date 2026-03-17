@@ -23,7 +23,7 @@ namespace SEP490G69.Battle.Combat
 
         public override void Initialize(BaseCharacterSO characterSO)
         {
-            _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
+            _characterRepo = new PlayerCharacterRepository();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 

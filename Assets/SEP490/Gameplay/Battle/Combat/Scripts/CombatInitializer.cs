@@ -18,7 +18,7 @@ namespace SEP490G69.Battle.Combat
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
-            GameSessionDAO dao = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            GameSessionDAO dao = new GameSessionDAO();
             PlayerTrainingSession session = dao.GetById(sessionId);
 
             CharacterConfigSO config = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();

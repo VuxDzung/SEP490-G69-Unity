@@ -55,13 +55,12 @@ namespace SEP490G69.GameSessions
 
         private void LoadDAOs()
         {
-            LiteDatabase database = LocalDBInitiator.GetDatabase();
-            _playerDAO = new PlayerDataDAO(database);
-            _sessionDAO = new GameSessionDAO(database);
-            _characterRepo = new PlayerCharacterRepository(database);
-            _exercisesDAO = new TrainingExerciseDAO(database);
-            _cardsDAO = new GameCardsDAO(database);
-            _deckDAO = new GameDeckDAO(database);
+            _playerDAO = new PlayerDataDAO();
+            _sessionDAO = new GameSessionDAO();
+            _characterRepo = new PlayerCharacterRepository();
+            _exercisesDAO = new TrainingExerciseDAO();
+            _cardsDAO = new GameCardsDAO();
+            _deckDAO = new GameDeckDAO();
             _inventoryDAO = new GameInventoryDAO();
             _shopDAO = new GameShopDAO();
             _tournamentDAO = new TournamentProgressDAO();

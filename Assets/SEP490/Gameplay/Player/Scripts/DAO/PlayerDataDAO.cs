@@ -8,25 +8,22 @@ namespace SEP490G69
     /// <summary>
     /// Document here: https://www.litedb.org/docs/getting-started/
     /// </summary>
-    public class PlayerDataDAO 
+    public class PlayerDataDAO : BaseDAO
     {
-        private LiteDatabase _database;
+        public const string COLLECTION_NAME = "Player";
 
-        public const string PLAYER_DATA_COLLECTION = "Player";
-        private readonly ILiteCollection<PlayerData> _collection;
-
-        public PlayerDataDAO(LiteDatabase database)
-        {
-            _database = database;
-            _collection = _database.GetCollection<PlayerData>(PLAYER_DATA_COLLECTION);
-        }
+        public PlayerDataDAO() { }
 
         public bool Insert(PlayerData playerData)
         {
             try
             {
-                _collection.Insert(playerData);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                    collection.Insert(playerData);
+                    return true;
+                }
             }
             catch(System.Exception e)
             {
@@ -39,7 +36,11 @@ namespace SEP490G69
         {
             try
             {
-                return _collection.Update(playerData);
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                    return collection.Update(playerData);
+                }
             }
             catch (System.Exception e)
             {
@@ -52,8 +53,12 @@ namespace SEP490G69
         {
             try
             {
-                List<PlayerData> result = _collection.Query().ToList();
-                return result;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                    List<PlayerData> result = collection.Query().ToList();
+                    return result;
+                }
             }
             catch (System.Exception e)
             {
@@ -66,7 +71,11 @@ namespace SEP490G69
         {
             try
             {
-                return _collection.FindById(id);
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                    return collection.FindById(id);
+                }
             }
             catch (System.Exception e)
             {

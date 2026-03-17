@@ -1,9 +1,10 @@
 ﻿namespace SEP490G69.Battle.Cards
 {
     using LiteDB;
+    using System;
     using UnityEngine;
 
-    public class GameDeckDAO
+    public class GameDeckDAO : BaseDAO
     {
         /// <summary>
         /// Format includes: <SESSION_ID>:<RAW_CARD_ID>:<CARD_VARIANT>
@@ -13,46 +14,33 @@
 
         public const string COLLECTION_NAME = "PlayerDeck";
 
-        private readonly LiteDatabase _database;
-
-        private readonly ILiteCollection<SessionPlayerDeck> _collection;
-
-        public GameDeckDAO()
-        {
-            _database = LocalDBInitiator.GetDatabase();
-            _collection = _database.GetCollection<SessionPlayerDeck>(COLLECTION_NAME);
-        }
-
-        public GameDeckDAO(LiteDatabase database)
-        {
-            _database = database;
-            _collection = _database.GetCollection<SessionPlayerDeck>(COLLECTION_NAME);
-        }
-
         public SessionPlayerDeck GetById(string sessionId)
         {
             try
             {
-                return _collection.FindById(sessionId);
+                return LocalDBInitiator.Execute(db =>
+                {
+                    return db.GetCollection<SessionPlayerDeck>(COLLECTION_NAME).FindById(sessionId);
+                });
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
             }
         }
 
-        // --- CREATE & UPDATE ---
-        /// <summary>
-        /// Thêm mới nếu chưa có, cập nhật ghi đè nếu đã tồn tại.
-        /// </summary>
         public bool Upsert(SessionPlayerDeck deck)
         {
             try
             {
-                return _collection.Upsert(deck);
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<SessionPlayerDeck>(db, COLLECTION_NAME);
+                    return col.Upsert(deck);
+                }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
@@ -63,31 +51,37 @@
         {
             try
             {
-                return _collection.Update(deck);
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<SessionPlayerDeck>(db, COLLECTION_NAME);
+                    return col.Update(deck);
+                }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
             }
         }
 
-        // --- DELETE ---
         public bool Delete(string sessionId)
         {
             try
             {
-                if (GetById(sessionId) != null)
+                using (var db = LocalDBInitiator.GetDatabase())
                 {
-                    return _collection.Delete(sessionId);
-                }
-                else
-                {
-                    Debug.LogError($"[GameDeckDAO]: Deck of session {sessionId} does not existed");
+                    var col = GetCollection<SessionPlayerDeck>(db, COLLECTION_NAME);
+
+                    if (col.FindById(sessionId) != null)
+                    {
+                        return col.Delete(sessionId);
+                    }
+
+                    Debug.LogError($"[GameDeckDAO]: Deck of session {sessionId} does not exist");
                     return false;
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;

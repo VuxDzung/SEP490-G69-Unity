@@ -6,42 +6,46 @@ namespace SEP490G69.Training
     using System.Linq;
     using UnityEngine;
 
-    public class TrainingExerciseDAO 
+    public class TrainingExerciseDAO : BaseDAO
     {
         public const string COLLECTION_NAME = "SessionExerciseData";
 
-        private LiteDatabase _database;
-        private ILiteCollection<SessionTrainingExercise> _collection;
 
-        public TrainingExerciseDAO(LiteDatabase database)
-        {
-            _database = database;
-            _collection = _database.GetCollection<SessionTrainingExercise>(COLLECTION_NAME);
-        }
+        public TrainingExerciseDAO() { }
 
         public bool InsertTrainingExercise(SessionTrainingExercise trainingExercise)
         {
             try
             {
-                _collection.Insert(trainingExercise);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    collection.Insert(trainingExercise);
+                    return true;
+                }
+
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
+
         public bool UpdateTrainingExercise(SessionTrainingExercise trainingExercise)
         {
             try
             {
-                _collection.Update(trainingExercise);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    collection.Update(trainingExercise);
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -50,12 +54,16 @@ namespace SEP490G69.Training
         {
             try
             {
-                _collection.Delete(id);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    collection.Delete(id);
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -64,11 +72,15 @@ namespace SEP490G69.Training
         {
             try
             {
-                return _collection.FindById(id);
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    return collection.FindById(id);
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return null;
             }
         }
@@ -77,11 +89,15 @@ namespace SEP490G69.Training
         {
             try
             {
-                return _collection.FindOne(ex => ex.SessionId.Equals(sessionId) && ex.ExerciseId.Equals(exerciseId));
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    return collection.FindOne(ex => ex.SessionId.Equals(sessionId) && ex.ExerciseId.Equals(exerciseId));
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return null;
             }
         }
@@ -90,11 +106,15 @@ namespace SEP490G69.Training
         {
             try
             {
-                return _collection.Find(ex => ex.SessionId.Equals(sessionId)).ToList();
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    return collection.Find(ex => ex.SessionId.Equals(sessionId)).ToList();
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return null;
             }
         }
@@ -103,13 +123,16 @@ namespace SEP490G69.Training
         {
             try
             {
-
-                _collection.Delete(entityId);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    collection.Delete(entityId);
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -118,12 +141,12 @@ namespace SEP490G69.Training
         {
             try
             {
-                List<SessionTrainingExercise> exercises = GetAllBySessionId(sessionId);
-                foreach (var exercise in exercises)
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
                 {
-                    DeleteById(exercise.Id);
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    collection.DeleteMany(x => x.SessionId.Equals(sessionId));
+                    return true;
                 }
-                return true;
             }
             catch (System.Exception e)
             {
@@ -131,16 +154,21 @@ namespace SEP490G69.Training
                 return false;
             }
         }
+
         public bool DeleteAll()
         {
             try
             {
-                List<SessionTrainingExercise> exercises = _collection.FindAll().ToList();
-                foreach (var exercise in exercises)
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
                 {
-                    DeleteById(exercise.Id);
+                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                    List<SessionTrainingExercise> exercises = collection.FindAll().ToList();
+                    foreach (var exercise in exercises)
+                    {
+                        DeleteById(exercise.Id);
+                    }
+                    return true;
                 }
-                return true;
             }
             catch (System.Exception e)
             {

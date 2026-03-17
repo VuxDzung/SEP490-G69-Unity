@@ -120,14 +120,14 @@ namespace SEP490G69.GameSessions
         private void LoadDAOs()
         {
             _sessionCreator = new SingleSessionCreator();
-            _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
-            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
-            _cardsDAO = new GameCardsDAO(LocalDBInitiator.GetDatabase());
-            _deckDAO = new GameDeckDAO(LocalDBInitiator.GetDatabase());
+            _characterRepo = new PlayerCharacterRepository();
+            _playerDAO = new PlayerDataDAO();
+            _cardsDAO = new GameCardsDAO();
+            _deckDAO = new GameDeckDAO();
             _inventoryDAO = new GameInventoryDAO();
             _shopDAO = new GameShopDAO();
             _tournamentDAO = new TournamentProgressDAO();
-            _exercisesDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            _exercisesDAO = new TrainingExerciseDAO();
         }
 
         public bool HasActiveSession()
@@ -283,7 +283,7 @@ namespace SEP490G69.GameSessions
 
         public async void CheckPlayerProfile()
         {
-            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
+            _playerDAO = new PlayerDataDAO();
 
             if (_playerDAO != null)
             {

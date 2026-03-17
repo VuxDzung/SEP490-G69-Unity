@@ -5,35 +5,43 @@ namespace SEP490G69.Tournament
     using System.Linq;
     using UnityEngine;
 
-    public class TournamentProgressDAO 
+    public class TournamentProgressDAO : BaseDAO
     {
         public const string COLLECTION_NAME = "tournament_progress";
 
-        private LiteDatabase _database;
-        private ILiteCollection<TournamentProgressData> _collection;
-
-        public TournamentProgressDAO()
-        {
-            _database = LocalDBInitiator.GetDatabase();
-            _collection = _database.GetCollection<TournamentProgressData>(COLLECTION_NAME);
-            _collection.EnsureIndex(x => x.SessionId);
-            _collection.EnsureIndex(x => x.RawTournamentId);
-        }
+        public TournamentProgressDAO() { }
 
         public TournamentProgressData GetById(string id)
         {
-            return _collection.FindById(id);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    return collection.FindById(id);
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
+
         public TournamentProgressData GetById(string sessionId, string rawTournamentId)
         {
             try
             {
-                return _collection.FindOne(x => x.SessionId.Equals(sessionId) && 
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    return collection.FindOne(x => x.SessionId.Equals(sessionId) &&
                                                 x.RawTournamentId.Equals(rawTournamentId));
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogError(e.ToString());
+                Debug.LogException(e);
                 return null;
             }
         }
@@ -42,40 +50,69 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return _collection.Find(x => x.SessionId.Equals(sessionId)).ToList();
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    return collection.Find(x => x.SessionId.Equals(sessionId)).ToList();
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogError(e.ToString());
+                Debug.LogException(e);
                 return null;
             }
         }
 
-        public void Upsert(TournamentProgressData data)
+        public bool Upsert(TournamentProgressData data)
         {
-            _collection.Upsert(data);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    collection.Upsert(data);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void Delete(string id)
+        public bool Delete(string id)
         {
-            _collection.Delete(id);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    collection.Delete(id);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
         public bool DeleteAllBySessionId(string sessionId)
         {
             try
             {
-                List<TournamentProgressData> progresses = GetAllBySessionId(sessionId);
-                if (progresses == null || progresses.Count == 0) return true;
-                foreach (var progress in progresses)
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
                 {
-                    Delete(progress.Id);
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    collection.DeleteMany(s => s.SessionId.Equals(sessionId));
+                    return true;
                 }
-                return true;
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
-                Debug.LogError(e.ToString());
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -84,17 +121,21 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                List<TournamentProgressData> progresses = _collection.FindAll().ToList();
-                if (progresses == null || progresses.Count == 0) return true;
-                foreach (var progress in progresses)
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
                 {
-                    Delete(progress.Id);
+                    ILiteCollection<TournamentProgressData> collection = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
+                    List<TournamentProgressData> progresses = collection.FindAll().ToList();
+                    if (progresses == null || progresses.Count == 0) return true;
+                    foreach (var progress in progresses)
+                    {
+                        Delete(progress.Id);
+                    }
+                    return true;
                 }
-                return true;
             }
             catch (System.Exception e)
             {
-                Debug.LogError(e.ToString());
+                Debug.LogException(e);
                 return false;
             }
         }

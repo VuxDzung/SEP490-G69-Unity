@@ -1,7 +1,6 @@
 namespace SEP490G69
 {
     using LiteDB;
-    using SEP490G69.Battle.Cards;
     using UnityEngine;
 
     public class PlayerCharacterRepository 
@@ -9,12 +8,10 @@ namespace SEP490G69
         public const string FORMAT_ID = "{0}:{1}";
 
         private PlayerCharacterDAO _dao;
-        private GameDeckDAO _deckDAO;
 
-        public PlayerCharacterRepository(LiteDatabase db)
+        public PlayerCharacterRepository()
         {
-            _dao = new PlayerCharacterDAO(db);
-            _deckDAO = new GameDeckDAO(db);
+            _dao = new PlayerCharacterDAO();
         }
 
         public bool TryCreateNewCharacter(string sessionId, BaseCharacterSO characterSO)

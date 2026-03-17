@@ -25,11 +25,11 @@ namespace SEP490G69.GameSessions
 
         public SingleSessionCreator()
         {
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
-            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
-            _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO();
+            _playerDAO = new PlayerDataDAO();
+            _characterDAO = new PlayerCharacterDAO();
             _tournamentDAO = new TournamentProgressDAO();
-            _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
+            _trainingDAO = new TrainingExerciseDAO();
             _deckDAO = new GameDeckDAO();
             _cardsDAO = new GameCardsDAO();
         }

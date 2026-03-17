@@ -5,7 +5,7 @@
     using System.Linq;
     using UnityEngine;
 
-    public class GameCardsDAO
+    public class GameCardsDAO : BaseDAO
     {
         /// <summary>
         /// Format id <SESSION_ID>:<RAW_CARD_ID>
@@ -13,31 +13,43 @@
         public const string FORMAT_OBTAINED_CARD_ID = "{0}:{1}";
 
         public const string COLLECTION_NAME = "PlayerCards";
-        private readonly LiteDatabase _database;
-        private readonly ILiteCollection<SessionCardData> _collection;
 
-        public GameCardsDAO()
-        {
-            _database = LocalDBInitiator.GetDatabase();
-            _collection = _database.GetCollection<SessionCardData>(COLLECTION_NAME);
-            _collection.EnsureIndex(x => x.SessionId);
-            _collection.EnsureIndex(x => x.RawCardId);
-        }
-
-        public GameCardsDAO(LiteDatabase database)
-        {
-            _database = database;
-            _collection = _database.GetCollection<SessionCardData>(COLLECTION_NAME);
-        }
+        public GameCardsDAO() { }
 
         public SessionCardData GetById(string sessionId, string rawCardId)
         {
-            return _collection.FindOne(card => card.SessionId.Equals(sessionId) &&
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    return collection.FindOne(card => card.SessionId.Equals(sessionId) &&
                                                card.RawCardId.Equals(rawCardId));
+                }
+
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogError(e.Message);
+                return null;
+            }
         }
+
         public SessionCardData GetById(string sessionCardId)
         {
-            return _collection.FindById(sessionCardId);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    return collection.FindById(sessionCardId);
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -47,11 +59,15 @@
         {
             try
             {
-                return _collection.Find(card => card.SessionId.Equals(sessionId)).ToList();
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    return collection.Find(card => card.SessionId.Equals(sessionId)).ToList();
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return new List<SessionCardData>();
             }
         }
@@ -61,12 +77,16 @@
         {
             try
             {
-                _collection.Insert(card);
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    collection.Insert(card);
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -76,11 +96,16 @@
         {
             try
             {
-                return _collection.Update(card);
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    collection.Update(card);
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -90,11 +115,15 @@
         {
             try
             {
-                return _collection.Delete(sessionCardId);
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    return collection.Delete(sessionCardId);
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }
@@ -103,12 +132,16 @@
         {
             try
             {
-                _collection.DeleteMany(x => x.SessionId.Equals(sessionId));
-                return true;
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                    collection.DeleteMany(x => x.SessionId.Equals(sessionId));
+                    return true;
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e.Message);
                 return false;
             }
         }

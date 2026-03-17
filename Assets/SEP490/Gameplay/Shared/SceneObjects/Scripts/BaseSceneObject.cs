@@ -7,5 +7,10 @@ namespace SEP490G69
         [SerializeField] private string m_ObjectId;
 
         public string ObjectId => m_ObjectId;
+
+        public virtual void Interact()
+        {
+
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace SEP490G69.PlayerProfile
 
         private void Awake()
         {
-            _playerDAO = new PlayerDataDAO(LocalDBInitiator.GetDatabase());
+            _playerDAO = new PlayerDataDAO();
             _firebase = FirebaseAuth.DefaultInstance;
         }
 

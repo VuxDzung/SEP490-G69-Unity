@@ -109,10 +109,10 @@ namespace SEP490G69.Training
         }
         private void LoadDAOs()
         {
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
-            _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
-            _exercisesDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
-            _characterDAO = new PlayerCharacterDAO(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO();
+            _characterRepo = new PlayerCharacterRepository();
+            _exercisesDAO = new TrainingExerciseDAO();
+            _characterDAO = new PlayerCharacterDAO();
         }
 
         private void LoadCharacter()

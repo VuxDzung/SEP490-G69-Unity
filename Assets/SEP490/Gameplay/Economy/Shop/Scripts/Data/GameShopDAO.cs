@@ -3,53 +3,122 @@ namespace SEP490G69.Economy
     using LiteDB;
     using System.Linq;
     using System.Collections.Generic;
+    using SEP490G69.GameSessions;
+    using UnityEngine;
 
-    public class GameShopDAO
+    public class GameShopDAO : BaseDAO
     {
         public const string COLLECTION_NAME = "SHOP";
 
-        private LiteDatabase _database;
-        private ILiteCollection<ShopItemData> _collection;
-
-        public GameShopDAO()
-        {
-            _database = LocalDBInitiator.GetDatabase();
-            _collection = _database.GetCollection<ShopItemData>(COLLECTION_NAME);
-
-            _collection.EnsureIndex(x => x.SessionId);
-            _collection.EnsureIndex(x => x.RawItemId);
-        }
+        public GameShopDAO() { }
 
         public List<ShopItemData> GetAll(string sessionId)
         {
-            return _collection.Find(x => x.SessionId == sessionId).ToList();
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    List<ShopItemData> list = collection.Find(x => x.SessionId == sessionId).ToList();
+                    return list;
+                }
+
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
         public ShopItemData Get(string sessionId, string rawItemId)
         {
-            return _collection.FindOne(x =>
-                x.SessionId == sessionId &&
-                x.RawItemId == rawItemId);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    ShopItemData item = collection.FindOne(x =>x.SessionId == sessionId && x.RawItemId == rawItemId);
+                    return item;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
-        public void Insert(ShopItemData data)
+        public bool Insert(ShopItemData data)
         {
-            _collection.Insert(data);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    collection.Insert(data);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void Update(ShopItemData data)
+        public bool Update(ShopItemData data)
         {
-            _collection.Update(data);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    collection.Update(data);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void Delete(string sessionItemId)
+        public bool Delete(string sessionItemId)
         {
-            _collection.Delete(sessionItemId);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    collection.Delete(sessionItemId);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void ClearSession(string sessionId)
+        public bool ClearSession(string sessionId)
         {
-            _collection.DeleteMany(x => x.SessionId == sessionId);
+            try
+            {
+                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
+                {
+                    ILiteCollection<ShopItemData> collection = GetCollection<ShopItemData>(db, COLLECTION_NAME);
+                    collection.DeleteMany(x => x.SessionId == sessionId);
+                    return true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
     }
 }

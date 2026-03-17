@@ -95,8 +95,8 @@
         /// </summary>
         private void LoadDAOs()
         {
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
-            _characterRepo = new PlayerCharacterRepository(LocalDBInitiator.GetDatabase());
+            _sessionDAO = new GameSessionDAO();
+            _characterRepo = new PlayerCharacterRepository();
             _tournamentDAO = new TournamentProgressDAO();
         }
 

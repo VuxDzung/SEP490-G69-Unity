@@ -45,8 +45,8 @@ namespace SEP490G69.Training
 
         private void LoadDAOs()
         {
-            _trainingDAO = new TrainingExerciseDAO(LocalDBInitiator.GetDatabase());
-            _sessionDAO = new GameSessionDAO(LocalDBInitiator.GetDatabase());
+            _trainingDAO = new TrainingExerciseDAO();
+            _sessionDAO = new GameSessionDAO();
         }
 
         public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId)

@@ -1,66 +1,141 @@
 namespace SEP490G69.Economy
 {
     using LiteDB;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
-    public class GameInventoryDAO 
+    public class GameInventoryDAO : BaseDAO
     {
         public const string COLLECTION_NAME = "INVENTORY";
 
-        private LiteDatabase _database;
-        private ILiteCollection<ItemData> _collection;
-
-        public GameInventoryDAO()
-        {
-            _database = LocalDBInitiator.GetDatabase();
-            _collection = _database.GetCollection<ItemData>(COLLECTION_NAME);
-
-            _collection.EnsureIndex(x => x.SessionId);
-            _collection.EnsureIndex(x => x.RawItemId);
-        }
+        public GameInventoryDAO() { }
 
         public ItemData GetItem(string sessionId, string rawItemId)
         {
-            return _collection.FindOne(
-                x => x.SessionId == sessionId && x.RawItemId == rawItemId);
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    return col.FindOne(x => x.SessionId == sessionId && x.RawItemId == rawItemId);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
         public List<ItemData> GetAllItems(string sessionId)
         {
-            return _collection.Find(x => x.SessionId == sessionId).ToList();
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    return col.Find(x => x.SessionId == sessionId).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
-        public void Insert(ItemData item)
+        public bool Insert(ItemData item)
         {
-            _collection.Insert(item);
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    col.Insert(item);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void Update(ItemData item)
+        public bool Update(ItemData item)
         {
-            _collection.Update(item);
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    col.Update(item);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
-        public void Delete(string sessionItemId)
+        public bool Delete(string sessionItemId)
         {
-            _collection.Delete(sessionItemId);
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    col.Delete(sessionItemId);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
         }
 
         public EquipmentData GetEquippedRelic(string sessionId, int slot)
         {
-            return _collection
-                .Find(x => x.SessionId == sessionId)
-                .OfType<EquipmentData>()
-                .FirstOrDefault(x => x.Slot == slot);
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    return col.Find(x => x.SessionId == sessionId)
+                              .OfType<EquipmentData>()
+                              .FirstOrDefault(x => x.Slot == slot);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
 
         public EquipmentData GetRelic(string sessionId, string relicId)
         {
-            return _collection
-                .Find(x => x.SessionId == sessionId && x.RawItemId == relicId)
-                .OfType<EquipmentData>()
-                .FirstOrDefault();
+            try
+            {
+                using (var db = LocalDBInitiator.GetDatabase())
+                {
+                    var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                    return col.Find(x => x.SessionId == sessionId && x.RawItemId == relicId)
+                              .OfType<EquipmentData>()
+                              .FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
         }
     }
 }

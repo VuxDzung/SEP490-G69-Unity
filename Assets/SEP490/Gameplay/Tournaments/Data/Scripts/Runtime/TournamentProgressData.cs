@@ -19,6 +19,9 @@ namespace SEP490G69.Tournament
 
         public bool WaitingForPlayerBattle { get; set; }
 
+        public bool IsBattleFinished { get; set; }
+        public bool IsPlayerWon { get; set; }
+
         public string PendingEnemyId { get; set; }
     }
 }

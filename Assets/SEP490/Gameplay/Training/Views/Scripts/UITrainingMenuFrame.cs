@@ -76,18 +76,19 @@ namespace SEP490G69.Training
         {
             ITrainingStrategy[] strategies = TrainingController.GetAllTrainings();
 
-            if (m_ExercisesUI.Count != strategies.Length)
+            if (m_ExercisesUI.Count != strategies.Length - 1)
             {
+                Debug.Log($"<color=red>[UITrainingMenuSelection.LoadExercisesUI error]</color> The UI Element count ({m_ExercisesUI.Count})  does not equals with the exercise strategies count ({strategies.Length - 1})");
                 return;
             }
 
-            for (int i = 0; i < strategies.Length; i++)
+            for (int i = 1; i < strategies.Length; i++)
             {
                 ITrainingStrategy strategy = strategies[i];
-                m_ExercisesUI[i].SetOnClick(PerformExercise)
+                m_ExercisesUI[i - 1].SetOnClick(PerformExercise)
                                 .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(),
                                 strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
-                m_ExercisesUI[i].Spawn();
+                m_ExercisesUI[i - 1].Spawn();
             }
 
             //foreach (ITrainingStrategy strategy in TrainingController.GetAllTrainings())

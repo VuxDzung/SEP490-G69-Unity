@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 1243731843683999255}
   - component: {fileID: 7574490090940292794}
   - component: {fileID: 4363232324602421710}
+  - component: {fileID: -7373065109602022466}
   m_Layer: 0
   m_Name: UIElement.CardPreview
   m_TagString: Untagged
@@ -230,6 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48635a43eb0106419f630a0bb7cd20a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onDragParent: {fileID: 0}
+  _originalParent: {fileID: 0}
+  _rectTransform: {fileID: 0}
+  _canvas: {fileID: 0}
+  _canvasGroup: {fileID: 0}
   m_CardIcon: {fileID: 1777726569747994224}
   m_Border: {fileID: 1243731843683999255}
   m_CardNameTmp: {fileID: 598581021869849726}
@@ -279,6 +285,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &-7373065109602022466
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093440760782398628}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2748158914416931215
 GameObject:
   m_ObjectHideFlags: 0

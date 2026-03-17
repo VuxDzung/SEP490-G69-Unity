@@ -122,7 +122,14 @@
 
                     if (saved.WaitingForPlayerBattle)
                     {
-                        ResumeAfterCombat(saved);
+                        if (saved.IsBattleFinished)
+                        {
+                            ResumeAfterCombat(saved);
+                        }
+                        else
+                        {
+                            StartPlayerBattle(saved.PendingEnemyId);
+                        }
                         return;
                     }
 
@@ -382,7 +389,9 @@
                 TournamentParticipant winner = ResolveMatch(p1, p2);
 
                 if (winner == null)
+                {
                     return;
+                }
 
                 winners.Add(winner);
             }
@@ -411,8 +420,7 @@
 
         private void ResumeAfterCombat(TournamentProgressData data)
         {
-            bool playerWon =
-                PlayerPrefs.GetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 0) == 1;
+            bool playerWon = data.IsPlayerWon;//PlayerPrefs.GetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 0) == 1;
 
             List<TournamentParticipant> winners = new();
 
@@ -571,6 +579,21 @@
 
             Debug.Log("Clear tournament progress");
             _tournamentDAO.Delete(_sessionTournamentId);
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            if (sessionData != null)
+            {
+                sessionData.ActiveTournamentId = string.Empty;
+                _sessionDAO.Update(sessionData);
+                Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated as empty because the tournament has ended!");
+            }
+            else
+            {
+                Debug.LogError($"[GameTournamentController.SaveProgress error] Session data with id {sessionId} does not exist in the database.");
+            }
+
             Debug.Log("Ready to go back to main menu");
         }
 
@@ -669,6 +692,20 @@
         {
             TournamentProgressData data = BuildProgressData();
             _tournamentDAO.Upsert(data);
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            if (sessionData != null)
+            {
+                sessionData.ActiveTournamentId = data.Id;
+                _sessionDAO.Update(sessionData);
+                Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated!");
+            }
+            else
+            {
+                Debug.LogError($"[GameTournamentController.SaveProgress error] Session data with id {sessionId} does not exist in the database.");
+            }
         }
 
 

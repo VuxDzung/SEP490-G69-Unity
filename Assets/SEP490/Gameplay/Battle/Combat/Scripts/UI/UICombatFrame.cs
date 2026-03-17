@@ -25,6 +25,9 @@
 
         [SerializeField] private Transform m_UISpawnPoint;
         [SerializeField] private Transform m_UIDiscardPoint;
+        [SerializeField] private Transform m_DraggingArea;
+
+        [SerializeField] private Transform[] m_CardSlots;
 
         protected override void OnFrameShown()
         {
@@ -136,24 +139,29 @@
         /// <param name="cards"></param>
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
-            if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
-            {
-                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();
-            }
-
+            ClearAllCards();
             StartCoroutine(CoDisplayCards(cards));
         }
 
         private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards)
         {
-            foreach (CardSO card in cards)
+            //m_CardContainer.GetComponent<HorizontalLayoutGroup>().enabled = false;
+            for (int i = 0; i < cards.Count; i++)
             {
+                CardSO card = cards[i];
+                Debug.Log($"<color=green>[UICombatFrame.CoDisplayCards]</color> Card id: {card.CardId} - Name: {card.CardName}");
+                Transform slotTrans = m_CardSlots[i];
+
                 Transform cardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, m_CardContainer);
                 RectTransform rect = cardTrans.GetComponent<RectTransform>();
                 LayoutElement layout = rect.GetComponent<LayoutElement>();
 
                 if (layout != null)
+                {
                     layout.ignoreLayout = true;
+                }
+                // Target position (slot in layout)
+                Vector3 targetPos = slotTrans.position;
 
                 // Spawn at spawn point
                 rect.position = m_UISpawnPoint.position;
@@ -168,10 +176,11 @@
                     cardUI.SetOnSelectCallback(SelectCard)
                           .SetOnDragEnd(PerformCardAction)
                           .SetContent(card.CardId, cardName, cardDesc, card.Icon);
+
+                    cardUI._onDragParent = m_DraggingArea;
                 }
 
-                // Target position (slot in layout)
-                Vector3 targetPos = rect.position;
+
 
                 // Offset spawn so animation visible
                 rect.position = m_UISpawnPoint.position;
@@ -186,8 +195,9 @@
 
                 rect.DOScale(1f, 0.35f);
 
-                yield return new WaitForSeconds(0.08f); // card draw delay
+                yield return new WaitForSeconds(0.05f); // card draw delay
             }
+            //m_CardContainer.GetComponent<HorizontalLayoutGroup>().enabled = true;
         }
 
         public void ClearAllCards()
@@ -214,7 +224,9 @@
             {
                 CombatController.Player.SelectCardById(cardId);
                 if (layout != null)
+                {
                     layout.ignoreLayout = true;
+                }
                 //cardTrans.SetParent(m_SelectedCardContainer, false);
 
                 //ResetRectTransform(rect, ERectPivot.MiddleCenter);

@@ -30,13 +30,17 @@ namespace SEP490G69.Battle.Cards
             onDropped -= Drop;
             _onSelect = null;
             _onDragEnd = null;
+            _onSelect = null;
+            RawCardId = string.Empty;
+            m_CardNameTmp.text = string.Empty;
+            m_CardDescTmp.text = string.Empty;
+            m_CardIcon.sprite = null;
         }
 
         public UICardElement SetOnSelectCallback(Action<string, bool, Transform> onSelect)
         {
             m_BtnRef.onClick.RemoveListener(Select);
             m_BtnRef.onClick.AddListener(Select);
-            _onSelect = null;
             _onSelect = onSelect;
             return this;
         }

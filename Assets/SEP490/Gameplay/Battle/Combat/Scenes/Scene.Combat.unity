@@ -392,7 +392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2309442282301163495, guid: 47e43b3cab253a84aad1f6e5ca56b59b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4125469786660998024, guid: 47e43b3cab253a84aad1f6e5ca56b59b, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380579487146481769}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40b102cadd412214d826cd6002fe0049, type: 3}
   m_Name: 

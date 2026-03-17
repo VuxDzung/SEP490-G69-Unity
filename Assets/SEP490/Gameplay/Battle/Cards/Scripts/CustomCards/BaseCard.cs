@@ -2,7 +2,6 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public class BaseCard
@@ -32,6 +31,9 @@ namespace SEP490G69.Battle
         protected virtual void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             Debug.Log("Do nothing");
+
+            // Trigger flow event now.
+            OnAnimationCompleted(source, target);
         }
 
         protected void ApplyStatModifiers(BaseBattleCharacterController source, BaseBattleCharacterController target, CombatStatModifierSO[] modifiers)
@@ -89,6 +91,12 @@ namespace SEP490G69.Battle
         protected virtual bool CheckInflictCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             return true;
+        }
+
+        protected virtual void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        {
+            source.TriggerAfterCardResolved(target);
+            target.CheckDeath();
         }
     }
 }

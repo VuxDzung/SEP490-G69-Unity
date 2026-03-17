@@ -85,8 +85,6 @@ namespace SEP490G69.Battle.Combat
                 SelectRest();
                 ExecuteCard(this, enemy);
             }
-
-            EndCurrentTurn();
         }
 
         public ISelectCardStrategy GetFirstStrategy()

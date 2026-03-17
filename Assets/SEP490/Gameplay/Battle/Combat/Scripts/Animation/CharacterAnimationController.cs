@@ -1,8 +1,8 @@
 namespace SEP490G69.Battle.Combat
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Unity.VisualScripting;
     using UnityEngine;
 
     /// <summary>
@@ -10,6 +10,8 @@ namespace SEP490G69.Battle.Combat
     /// </summary>
     public class CharacterAnimationController : MonoBehaviour
     {
+        private Action<string> _onAnimationCompleted;
+
         [SerializeField] private SpriteRenderer m_SpriteRenderer;
         [SerializeField] private Animator m_Animator;
         [SerializeField] private AnimationConfigSO m_Config;
@@ -65,7 +67,7 @@ namespace SEP490G69.Battle.Combat
             }
         }
 
-        public void PlayAnimation(string animName)
+        public void PlayAnimation(string animName, Action<string> onAnimationCompleted = null)
         {
             if (m_Config == null)
             {
@@ -79,6 +81,8 @@ namespace SEP490G69.Battle.Combat
             {
                 return;
             }
+
+            _onAnimationCompleted = onAnimationCompleted;
 
             _animationData = data;
             _poseTrans = m_Poses.FirstOrDefault(p => p.gameObject.name.Contains(_animationData.AnimationName));
@@ -123,11 +127,13 @@ namespace SEP490G69.Battle.Combat
 
                 m_Animator.enabled = true;
 
-                _animationData = null;
 
                 m_SpriteRenderer.enabled = true;
                 _poseTrans?.gameObject.SetActive(false);
                 CombatCameraController.Singleton.ZoomCamera(false);
+                _onAnimationCompleted?.Invoke(_animationData.AnimationName);
+
+                _animationData = null;
             }
         }
     }

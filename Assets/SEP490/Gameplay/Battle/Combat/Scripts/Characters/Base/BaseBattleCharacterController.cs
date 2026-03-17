@@ -7,12 +7,14 @@
     using System.Linq;
     using UnityEngine;
 
-    public abstract class BaseBattleCharacterController : MonoBehaviour, ICardExecutor
+    public abstract class BaseBattleCharacterController : MonoBehaviour
     {
         #region Events
 
         public event Action<BaseBattleCharacterController> OnEnergyFull;
         public event Action OnDead;
+
+        public Action OnActionFinished;
 
         #endregion
 
@@ -34,7 +36,6 @@
         private EnergyTurnBar _energyTurnBar;
 
         private CharacterDataHolder _readonlyDataHolder;
-        //private CharacterDataHolder _currentDataHolder;
 
         private StatusEffectManager _statEffectManager;
 
@@ -43,7 +44,7 @@
         private List<CardSO> _currentDrawPool = new List<CardSO>();
         private CardSO _selectedCard = null;
 
-        public InCombatStatus StatVit {  get; private set; } = new InCombatStatus();
+        public InCombatStatus StatVit { get; private set; } = new InCombatStatus();
         public InCombatStatus StatPow { get; private set; } = new InCombatStatus();
         public InCombatStatus StatAgi { get; private set; } = new InCombatStatus();
         public InCombatStatus StatInt { get; private set; } = new InCombatStatus();
@@ -62,8 +63,20 @@
         #endregion
 
         #region Properties
+        private CharacterAnimationController _animController;
+
         public CharacterVFXController VFXController { get; private set; }
-        public CharacterAnimationController AnimationController { get; private set; }
+        public CharacterAnimationController AnimationController
+        {
+            get
+            {
+                if (_animController == null)
+                {
+                    _animController = GetComponent<CharacterAnimationController>();
+                }
+                return _animController;
+            }
+        }
 
         /// <summary>
         /// Get the data which is readonly in combat.
@@ -84,7 +97,7 @@
         protected virtual void Awake()
         {
             _statEffectManager = new StatusEffectManager(this);
-            AnimationController = GetComponent<CharacterAnimationController>();
+            _animController = GetComponent<CharacterAnimationController>();
             VFXController = GetComponent<CharacterVFXController>();
         }
 
@@ -145,10 +158,9 @@
             else
             {
                 Debug.Log("No selected card. Skip");
+                TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
+                StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
             }
-
-            TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
-            StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
         }
 
         public virtual void EndCurrentTurn()
@@ -185,12 +197,10 @@
             float finalVit = StatVit.Value - StatReceivedDmg.Value;
             StatVit.SetCurrentValue(finalVit);
 
-            OnAfterReceiveDamage(finalDamage, attacker);
-
-            CheckDeath();
+            StatEffectManager.OnAfterReceiveDamage(damage);
         }
 
-        private void CheckDeath()
+        public void CheckDeath()
         {
             if (StatVit.Value > 0) return;
 
@@ -369,6 +379,7 @@
 
             foreach (var deckCardId in deckCardIdArray)
             {
+                Debug.Log($"Initialize deck card: {deckCardId}");
                 string rawCardId = CardUtils.ExtractRawCardId(deckCardId);
                 CardSO card = CardConfig.GetCardById(rawCardId);
                 if (card != null)
@@ -404,6 +415,7 @@
                 _deckPool.RemoveAt(0);
                 _currentDrawPool.Add(card);
             }
+
             currentCards = _currentDrawPool;
         }
 
@@ -463,11 +475,7 @@
         }
         #endregion
 
-        private void OnAfterReceiveDamage(float damage, BaseBattleCharacterController attacker)
-        {
-            StatEffectManager.OnAfterReceiveDamage(damage);
-        }
-
+        #region Status Effect Modifier methods
         public void AddEffectModifier(CombatStatModifierSO modifierSO, string statusEffectId)
         {
             if (_statusContainer.TryGetValue(modifierSO.StatType, out InCombatStatus status))
@@ -486,6 +494,17 @@
             {
                 status.RemoveModifiersByOwner(statusEffectId);
             }
+        }
+        #endregion
+
+        public void TriggerAfterCardResolved(BaseBattleCharacterController target)
+        {
+            CheckDeath();
+
+            TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
+            StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
+
+            OnActionFinished?.Invoke();
         }
 
         private void OnAfterResetActionGauge()

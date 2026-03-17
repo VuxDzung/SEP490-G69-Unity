@@ -1,17 +1,40 @@
 namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.GameSessions;
+    using SEP490G69.Tournament;
     using UnityEngine;
 
     public class CombatInitializer
     {
-        public (PlayerBattleCharaterController, EnemyCombatController)
-            Initialize(Transform playerParent, Transform enemyParent, string poolName)
-        {
-            PlayerBattleCharaterController player = SpawnPlayer(playerParent, poolName);
-            EnemyCombatController enemy = SpawnEnemy(enemyParent, poolName);
+        private TournamentProgressDAO _tournamentDAO;
+        private GameSessionDAO _sessionDAO;
 
-            return (player, enemy);
+        public void Initialize(Transform playerParent, Transform enemyParent, string poolName, out PlayerBattleCharaterController player, out EnemyCombatController enemy)
+        {
+            player = null;
+            enemy = null;
+
+            _sessionDAO = new GameSessionDAO();
+            _tournamentDAO = new TournamentProgressDAO();
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+            if (sessionData == null )
+            {
+                Debug.LogError($"[CombatInitializer.Initialize] Session data with id {sessionId} does not exist in the database");
+                return;
+            }
+
+            TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
+            if ( tournamentData == null)
+            {
+                Debug.LogError($"[CombatInitializer.Initialize] Tournament data with id {sessionData.ActiveTournamentId} does not exist in the database");
+                return;
+            }
+
+            player = SpawnPlayer(playerParent, poolName);
+            enemy = SpawnEnemy(tournamentData.PendingEnemyId, enemyParent, poolName);
         }
 
         private PlayerBattleCharaterController SpawnPlayer(Transform parent, string pool)
@@ -33,9 +56,9 @@ namespace SEP490G69.Battle.Combat
             return controller;
         }
 
-        private EnemyCombatController SpawnEnemy(Transform parent, string pool)
+        private EnemyCombatController SpawnEnemy(string enemyId, Transform parent, string pool)
         {
-            string enemyId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID);
+            //string enemyId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID);
 
             CharacterConfigSO config = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
             BaseCharacterSO enemySO = config.GetCharacterById(enemyId);

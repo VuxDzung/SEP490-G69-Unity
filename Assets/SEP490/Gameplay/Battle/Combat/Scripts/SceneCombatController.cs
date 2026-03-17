@@ -1,11 +1,8 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
-    using System;
-    using System.Collections.Generic;
-    using SEP490G69.Addons.LoadScreenSystem;
-    using SEP490G69.Battle.Cards;
     using SEP490G69.GameSessions;
-    using SEP490G69.Shared;
+    using SEP490G69.Tournament;
+    using System;
     using UnityEngine;
 
     public enum EBattleState
@@ -32,6 +29,9 @@
         private CombatTurnSystem _turnSystem;
         private CombatUIUpdater _uiUpdater;
 
+        private GameSessionDAO _sessionDAO;
+        private TournamentProgressDAO _tournamentDAO;
+
         private PlayerBattleCharaterController _player;
         private EnemyCombatController _enemy;
 
@@ -47,6 +47,9 @@
             _initializer = new CombatInitializer();
             _turnSystem = new CombatTurnSystem();
             _uiUpdater = new CombatUIUpdater();
+
+            _sessionDAO = new GameSessionDAO();
+            _tournamentDAO = new TournamentProgressDAO();
         }
 
         private void Start()
@@ -65,6 +68,7 @@
 
             _turnSystem.Update(Time.deltaTime);
             _uiUpdater.UpdateEnergy(_player, _enemy);
+            _uiUpdater.UpdateStats(_player, _enemy);
         }
 
         private void OnDestroy()
@@ -75,10 +79,13 @@
 
         private void InitializeBattle()
         {
-            (_player, _enemy) = _initializer.Initialize(
-                m_PlayerContainer,
-                m_EnemyContainer,
-                m_CharacterPoolName);
+            _initializer.Initialize(m_PlayerContainer, m_EnemyContainer, m_CharacterPoolName, out _player, out _enemy);
+
+            if (_player == null || _enemy == null)
+            {
+                Debug.LogError($"[SceneCombatController.InitializeBattle error] Player or Enemy controller instance(s) is/are null");
+                return;
+            }
 
             _player.AnimationController.SetCombatPosition(m_PlayerCombatPos);
             _enemy.AnimationController.SetCombatPosition(m_EnemyCombatPos);
@@ -114,6 +121,11 @@
 
         public void StartBattle()
         {
+            if (_player == null || _enemy == null)
+            {
+                Debug.LogError($"[SceneCombatController.StartBattle error] Player or Enemy controller instance(s) is/are null");
+                return;
+            }
             _battleState.ChangeState(EBattleState.InProgress);
             _uiUpdater.ShowCombatHUD(_player, _enemy);
         }
@@ -124,6 +136,7 @@
         private void HandlePlayerTurn(BaseBattleCharacterController character)
         {
             _turnSystem.PlayerTurn();
+            _uiUpdater.UpdateStats(_player, _enemy);
         }
 
         private void HandleEnemyTurn(BaseBattleCharacterController character)
@@ -135,13 +148,13 @@
         private void HandleEnemyDefeated()
         {
             _battleState.ChangeState(EBattleState.Finish);
-            _uiUpdater.ShowVictory();
+            OnVictorious();
         }
 
         private void HandlePlayerDefeated()
         {
             _battleState.ChangeState(EBattleState.Finish);
-            _uiUpdater.ShowDefeat();
+            OnDefeated();
         }
 
         private void SceneCombatController_OnStateChanged(EBattleState state)
@@ -154,6 +167,85 @@
                     _player.PauseBar();
                     break;
             }
+        }
+
+        private void OnVictorious()
+        {
+            _uiUpdater.ShowVictory();
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Session id in cache is null/empty");
+                return;
+            }
+
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            if (sessionData == null)
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Session data with id {sessionId} does not exist in the database");
+                return;
+            }
+
+            TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
+
+            if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Active tournament id in session {sessionData.SessionId} is null/empty");
+                return;
+            }
+
+            if (tournamentData == null)
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Tournament data with id {sessionData.ActiveTournamentId} does not exist in the database");
+                return;
+            }
+
+            tournamentData.IsBattleFinished = true;
+            tournamentData.IsPlayerWon = true;
+
+            _tournamentDAO.Upsert(tournamentData);          
+        }
+        private void OnDefeated()
+        {
+            _uiUpdater.ShowDefeat();
+
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Session id in cache is null/empty");
+                return;
+            }
+
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            if (sessionData == null)
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Session data with id {sessionId} does not exist in the database");
+                return;
+            }
+
+            TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
+
+            if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Active tournament id in session {sessionData.SessionId} is null/empty");
+                return;
+            }
+
+            if (tournamentData == null)
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Tournament data with id {sessionData.ActiveTournamentId} does not exist in the database");
+                return;
+            }
+
+            tournamentData.IsBattleFinished = true;
+            tournamentData.IsPlayerWon = false;
+
+            _tournamentDAO.Upsert(tournamentData);
         }
     }
 }

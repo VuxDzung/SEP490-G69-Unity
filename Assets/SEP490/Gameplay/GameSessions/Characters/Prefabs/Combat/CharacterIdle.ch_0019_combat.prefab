@@ -226,6 +226,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 909007078d48f0e489465272ef9d96f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5835404393852255987}
+    - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 909007078d48f0e489465272ef9d96f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4830902555099552061}
   m_SourcePrefab: {fileID: 100100000, guid: 909007078d48f0e489465272ef9d96f6, type: 3}
 --- !u!4 &6628056006078596319 stripped
 Transform:
@@ -255,6 +258,7 @@ MonoBehaviour:
   m_PoseContainer: {fileID: 681712211670535813}
   m_Poses: []
   m_TestAnimation: 
+  _combatPos: {fileID: 0}
 --- !u!114 &5835404393852255987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +272,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AtkVFX: {fileID: 508775640472340582}
+--- !u!114 &4830902555099552061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822383890572667251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &7157399118416605512 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3108912023163548709, guid: 909007078d48f0e489465272ef9d96f6, type: 3}

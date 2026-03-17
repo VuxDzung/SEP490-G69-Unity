@@ -13,6 +13,21 @@ namespace SEP490G69.Battle.Combat
         {
             _player = player;
             _enemy = enemy;
+
+            _player.OnActionFinished = () =>
+            {
+                _player.EndCurrentTurn();
+
+                _enemy.UnpauseBar();
+                _player.UnpauseBar();
+            };
+
+            _enemy.OnActionFinished = () =>
+            {
+                _enemy.EndCurrentTurn();
+                _enemy.UnpauseBar();
+                _player.UnpauseBar();
+            };
         }
 
         public void Update(float dt)
@@ -50,13 +65,8 @@ namespace SEP490G69.Battle.Combat
                 _player.ExecuteCard(_player, _enemy);
             }
 
-            _player.EndCurrentTurn();
-
-            _enemy.UnpauseBar();
-            _player.UnpauseBar();
-
             GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
-                                   .AsFrame<UICombatFrame>().ClearAllCards();
+                       .AsFrame<UICombatFrame>().ClearAllCards();
         }
     }
 }

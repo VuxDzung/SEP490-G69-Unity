@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 1243731843683999255}
   - component: {fileID: 7574490090940292794}
   - component: {fileID: 4363232324602421710}
+  - component: {fileID: 1298537246059967284}
   m_Layer: 0
   m_Name: UIElement.CardCombat
   m_TagString: Untagged
@@ -175,11 +176,11 @@ RectTransform:
   - {fileID: 8140747984019073077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 90, y: -132}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 264}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5431922279477503556
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -284,6 +285,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1298537246059967284
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093440760782398628}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2748158914416931215
 GameObject:
   m_ObjectHideFlags: 0

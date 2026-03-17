@@ -38,7 +38,7 @@ namespace SEP490G69.Battle
 
         public void OnApply()
         {
-            foreach (var mod in Data.Modifiers)
+            foreach (CombatStatModifierSO mod in Data.Modifiers)
             {
                 owner.AddEffectModifier(mod, Data.EffectId);
             }

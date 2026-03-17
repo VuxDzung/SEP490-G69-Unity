@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99ea60cd3cabba42a2c52ecb7058d8d, type: 3}
-  m_Name: DialogTreeConfig
+  m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
+  m_Name: FramesConfig_TestCutscene
   m_EditorClassIdentifier: 
-  m_Trees:
-  - {fileID: 11400000, guid: ceedc1e06169c064e833db04d147cc8e, type: 2}
-  - {fileID: 11400000, guid: 16bf34f19e8c81e4b82570fbe91f2c84, type: 2}
+  m_StarterFrameId: 
+  m_Frames:
+  - {fileID: 8248288711004666034, guid: 7b3ead519b3980749ae95d4c00adcd5f, type: 3}

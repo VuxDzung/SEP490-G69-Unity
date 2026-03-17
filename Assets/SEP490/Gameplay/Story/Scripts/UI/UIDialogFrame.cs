@@ -55,11 +55,11 @@
                 m_BgImage.sprite = bgSprite;
                 m_BgImage.enabled = true;
             }
-            else
-            {
-                m_BgImage.sprite = null;
-                m_BgImage.enabled = false;
-            }
+            //else
+            //{
+            //    m_BgImage.sprite = null;
+            //    m_BgImage.enabled = false;
+            //}
 
             if (dialog.Contains("<USER_NAME>"))
             {

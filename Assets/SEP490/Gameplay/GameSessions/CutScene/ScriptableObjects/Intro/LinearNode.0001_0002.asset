@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99ea60cd3cabba42a2c52ecb7058d8d, type: 3}
-  m_Name: DialogTreeConfig
+  m_Script: {fileID: 11500000, guid: 7333e29eecb99e643a4aa7757ec6ce96, type: 3}
+  m_Name: LinearNode.0001_0002
   m_EditorClassIdentifier: 
-  m_Trees:
-  - {fileID: 11400000, guid: ceedc1e06169c064e833db04d147cc8e, type: 2}
-  - {fileID: 11400000, guid: 16bf34f19e8c81e4b82570fbe91f2c84, type: 2}
+  m_NodeID: node_0001_0002
+  m_SpeakerID: 
+  m_DialogID: 
+  m_BgImage: {fileID: 0}
+  m_NextNode: {fileID: 0}

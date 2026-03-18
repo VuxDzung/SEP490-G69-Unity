@@ -15,11 +15,11 @@ MonoBehaviour:
   m_ItemID: rel_0001
   m_ItemNameKey: rel_0001_name
   m_ItemDecsKey: rel_0001_desc
-  m_ItemImage: {fileID: 0}
+  m_ItemImage: {fileID: 21300000, guid: 808ca8e31e4b2714fb5930742800bee1, type: 3}
   m_ItemType: 2
-  m_OwnershipMethods: 0100000002000000
-  m_CurrencyID: 
-  m_Cost: 0
+  m_OwnershipMethods: 00000000
+  m_CurrencyID: gold
+  m_Cost: 300
   m_UsableModifiers: []
   m_RelicModifiers:
   - {fileID: 11400000, guid: 01a2b4894d5def5489fe2f91b6f8ef3c, type: 2}

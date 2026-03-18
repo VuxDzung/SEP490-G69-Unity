@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7333e29eecb99e643a4aa7757ec6ce96, type: 3}
+  m_Name: LinearNode.0001_0005
+  m_EditorClassIdentifier: 
+  m_NodeID: node_0001_0005
+  m_SpeakerID: ch_0006
+  m_DialogID: node_0001_0005
+  m_BgImage: {fileID: 21300000, guid: 66ed0c61e3dc4254b8851155de4f2198, type: 3}
+  m_NextNode: {fileID: 11400000, guid: 78d2de56c5bac0c43a94655950d2d2e7, type: 2}

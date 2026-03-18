@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4233715205b5d734fa7ceeddb49d5fe8, type: 3}
+  m_Name: rel_0015
+  m_EditorClassIdentifier: 
+  m_ItemID: rel_0015
+  m_ItemNameKey: rel_0015_name
+  m_ItemDecsKey: rel_0015_desc
+  m_ItemImage: {fileID: 21300000, guid: e7ddd8bdaccf47549b8d49d6eb5082f0, type: 3}
+  m_ItemType: 2
+  m_OwnershipMethods: 00000000
+  m_CurrencyID: gold
+  m_Cost: 2300
+  m_UsableModifiers: []
+  m_RelicModifiers:
+  - {fileID: 11400000, guid: 01a2b4894d5def5489fe2f91b6f8ef3c, type: 2}

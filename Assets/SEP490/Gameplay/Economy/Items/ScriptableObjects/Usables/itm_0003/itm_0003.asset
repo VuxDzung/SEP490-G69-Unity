@@ -15,7 +15,7 @@ MonoBehaviour:
   m_ItemID: itm_0003
   m_ItemNameKey: itm_0003_name
   m_ItemDecsKey: itm_0003_desc
-  m_ItemImage: {fileID: 0}
+  m_ItemImage: {fileID: 21300000, guid: f3e4ec75ce823b24db7d9c068e6d33db, type: 3}
   m_ItemType: 1
   m_OwnershipMethods: 01000000
   m_CurrencyID: 

@@ -183,12 +183,11 @@ namespace SEP490G69.GameSessions
                     return;
                 }
 
-                // Dung: Uncomment when the Next button at the Legacy Upgrade frame is available.
-                //if (playerData.LegacyPoints > 0)
-                //{
-                //    UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
-                //}
-                //else
+                if (playerData.LegacyPoints > 0)
+                {
+                    UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
+                }
+                else
                 {
                     UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
                 }

@@ -251,6 +251,8 @@ namespace SEP490G69.GameSessions
                         }
                         Debug.Log("<color=green>[GameSessionController]</color> Add cards to deck successfully!");
                         DeckController.SaveDeck();
+
+                        PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
                         return true;
                     }
                     else

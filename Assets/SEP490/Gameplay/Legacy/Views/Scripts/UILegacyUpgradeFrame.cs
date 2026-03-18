@@ -8,6 +8,7 @@ namespace SEP490G69.Legacy
     public class UILegacyUpgradeFrame : GameUIFrame
     {
         [SerializeField] private Button m_BackBtn;
+        [SerializeField] private Button m_NextBtn;
 
         [SerializeField] private Transform m_LegacyStatPrefab;
         [SerializeField] private Transform m_LegacyStatContainer;
@@ -97,7 +98,14 @@ namespace SEP490G69.Legacy
 
         private void Back()
         {
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_TITLE);
+        }
 
+        private void Next()
+        {
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
         }
 
         private void SelectDetails(string legacyStatId)

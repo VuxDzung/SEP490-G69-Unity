@@ -66,7 +66,6 @@ namespace SEP490G69.GameSessions
                 return _characterConfig;
             }
         }
-
         private GameSessionController SessionController
         {
             get
@@ -76,6 +75,32 @@ namespace SEP490G69.GameSessions
                     ContextManager.Singleton.TryResolveSceneContext<GameSessionController>(out _sessionController);
                 }
                 return _sessionController;
+            }
+        }
+
+        private PlayerDataDAO _playerDAO;
+        private PlayerDataDAO PlayerDAO
+        {
+            get
+            {
+                if (_playerDAO == null)
+                {
+                    _playerDAO = new PlayerDataDAO();
+                }
+                return _playerDAO;
+            }
+        }
+
+        private GameAuthManager _authManager;
+        private GameAuthManager AuthManager
+        {
+            get
+            {
+                if (_authManager == null)
+                {
+                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
+                }
+                return _authManager;
             }
         }
 
@@ -440,7 +465,16 @@ namespace SEP490G69.GameSessions
 
         private void Back()
         {
-            UIManager.HideFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+            UIManager.HideFrame(FrameId);
+
+            PlayerData playerData = _playerDAO.GetById(AuthManager.GetUserId());
+
+            if (playerData != null && playerData.LegacyPoints > 0)
+            {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
+                return;
+            }
+
             UIManager.ShowFrame(GameConstants.FRAME_ID_TITLE);
         }
 
@@ -448,12 +482,11 @@ namespace SEP490G69.GameSessions
         {
             if (SessionController.CreateNewSession(_currentCharId, out string sessionId, out string error))
             {
-                PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
                 SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
             }
             else
             {
-                Debug.LogError($"Error: {error}");
+                Debug.LogError($"[UICharacterSelectionFrame.Next error]: {error}");
             }
         }
     }

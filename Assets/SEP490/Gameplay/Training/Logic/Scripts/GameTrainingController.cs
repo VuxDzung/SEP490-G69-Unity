@@ -38,6 +38,7 @@ namespace SEP490G69.Training
         private TrainingExerciseDAO _exercisesDAO;
         private PlayerCharacterRepository _characterRepo;
         private PlayerCharacterDAO _characterDAO;
+        private SupportItemsService _supportItemsService;
 
         private List<ITrainingStrategy> _exerciseList = new List<ITrainingStrategy>();
 
@@ -113,6 +114,7 @@ namespace SEP490G69.Training
             _characterRepo = new PlayerCharacterRepository();
             _exercisesDAO = new TrainingExerciseDAO();
             _characterDAO = new PlayerCharacterDAO();
+            _supportItemsService = new SupportItemsService();
         }
 
         private void LoadCharacter()
@@ -208,6 +210,19 @@ namespace SEP490G69.Training
             {
                 foreach (var mod in ev.ItemData.GetUsableModifiers())
                 {
+                    if (mod.StatType == EStatusType.TrainingEffective)
+                    {
+                        if (_supportItemsService.StackSupportItem(ev.ItemData.GetSessionId(), ev.ItemData.GetRawId()))
+                        {
+                            Debug.Log($"<color=green>[GameTrainingController]</color> Upsert support training modifier completed");
+                        }
+                        else
+                        {
+                            Debug.Log($"<color=red>[GameTrainingController]</color> Upsert support training modifier failed");
+                        }
+                        continue;
+                    }
+
                     EStatusType statType = mod.StatType;
                     float modValue = mod.GetModifiedStatus(_characterHolder.GetStatus(statType));
                     _characterHolder.SetStatus(statType, modValue);

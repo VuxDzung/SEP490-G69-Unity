@@ -30,5 +30,7 @@ namespace SEP490G69
         ActionCost = 13, // Action cost is based on the card's cost.
         HitRate = 14,
         #endregion
+
+        TrainingEffective = 15,
     }
 }

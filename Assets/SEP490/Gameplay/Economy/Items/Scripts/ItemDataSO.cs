@@ -1,6 +1,7 @@
 namespace SEP490G69.Economy
 {
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "ItemData_",menuName = OrganizationConstants.NAMESPACE + "/Items/Item data")]
@@ -43,6 +44,11 @@ namespace SEP490G69.Economy
         /// When unequip the relic, those stats changes are reverted as well.
         /// </summary>
         public IReadOnlyList<StatusModifierSO> RelicModifiers => m_RelicModifiers;
+
+        public IReadOnlyList<StatusModifierSO> GetModifiersByStatType(EStatusType statType)
+        {
+            return m_UsableModifiers.Where(m =>  m.StatType == statType).ToList();
+        }
 
         public bool IsShopItem()
         {

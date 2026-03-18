@@ -177,9 +177,14 @@
 
         public string GetFirebaseUid()
         {
-            return firebaseAuth != null
-                ? FirebaseAuth.DefaultInstance.CurrentUser?.UserId
-                : null;
+            if (firebaseAuth != null)
+            {
+                if (FirebaseAuth.DefaultInstance.CurrentUser != null)
+                {
+                    return FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
+                }
+            }
+            return string.Empty;
         }
 
         public string GetUserId()

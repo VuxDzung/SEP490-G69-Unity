@@ -1,6 +1,8 @@
 ﻿namespace SEP490G69.Training
 {
+    using SEP490G69.Economy;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public abstract class BaseTrainingStrategy : MonoBehaviour, ITrainingStrategy
@@ -11,6 +13,8 @@
         protected TrainingExerciseDataHolder _exerciseDataHolder;
         protected TrainingExerciseDAO _trainingDAO;
         protected PlayerCharacterDAO _characterDAO;
+        private SupportItemsService _supportItemsRepository;
+        protected string _sessionId;
 
         public ETrainingType TrainingType => m_TrainingType;
         public string ExerciseId => m_ExerciseId;
@@ -23,17 +27,20 @@
         {
             _trainingDAO = dao;
             _characterDAO = characterDAO;
+            _supportItemsRepository = new SupportItemsService();
 
-            SessionTrainingExercise exerciseData = _trainingDAO.GetById(sessionId, exerciseSO.ExerciseId);
+            _sessionId = sessionId;
+
+            SessionTrainingExercise exerciseData = _trainingDAO.GetById(_sessionId, exerciseSO.ExerciseId);
 
             if (exerciseData == null)
             {
                 Debug.Log($"Existed data does not exist. Create new data for training exercise {exerciseSO.ExerciseId}");
-                string id = $"{sessionId}:{exerciseSO.ExerciseId}";
+                string id = EntityIdConstructor.ConstructDBEntityId(_sessionId, exerciseSO.ExerciseId); 
                 exerciseData = new SessionTrainingExercise
                 {
                     Id = id,
-                    SessionId = sessionId,
+                    SessionId = _sessionId,
                     ExerciseId = exerciseSO.ExerciseId,
                     Level = GameConstants.TRAINING_STARTER_LEVEL,
                 };
@@ -94,6 +101,13 @@
             if (currentEnergy >= 50f) return 0f; 
 
             float failRate = ((50f - currentEnergy) / 30f) * 100f;
+
+            TrainingSupportItem supportItem = _supportItemsRepository.GetAllBySessionId(_sessionId).FirstOrDefault();
+            ItemDataSO itemSO = _supportItemsRepository.ItemConfig.GetItemById(supportItem.RawItemId);
+            StatusModifierSO trainingEffectiveMod = itemSO.GetModifiersByStatType(EStatusType.TrainingEffective).FirstOrDefault();
+
+            failRate -= trainingEffectiveMod.Value;
+
             return Mathf.Clamp(failRate, 0f, 100f);
         }
 

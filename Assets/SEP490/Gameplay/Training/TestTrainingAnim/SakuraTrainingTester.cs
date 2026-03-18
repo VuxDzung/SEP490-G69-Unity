@@ -8,14 +8,16 @@ public class SakuraTrainingTester : MonoBehaviour
     public Button buttonTrainPower;
     public Button buttonTrainIntelligence;
     public Button buttonTrainEvade;
-    public Button buttonTrainRun; // Thêm nút test Run
+    public Button buttonTrainRun;
+    public Button buttonTrainSwim; // Nút test bơi
 
     [Header("Thành phần của Sakura")]
     public SpriteRenderer sakuraRenderer;
     public Sprite spriteSakuraWindUp;
     public Sprite spriteSakuraHeadbutt;
     public Sprite spriteSakuraStudy;
-    public Sprite spriteSakuraRunning; // Thêm sprite Run
+    public Sprite spriteSakuraRunning;
+    public Sprite spriteSakuraSwimming; // Sprite cho bơi
 
     [Header("Sprites - Bài tập EVADE")]
     public Sprite spriteSakuraSpinning;
@@ -23,16 +25,20 @@ public class SakuraTrainingTester : MonoBehaviour
     public Sprite spriteSakuraEvade2;
     public Sprite spriteSakuraEvade3;
 
-    [Header("Môi trường - Tĩnh")]
-    public GameObject staticBackgroundGroup;
+    [Header("Các Backgrounds (Môi trường)")]
+    public GameObject bgPowAndEvade;
+    public GameObject bgStudy;
+    public GameObject bgRunning;
+    public GameObject bgSwimming;
+
+    [Header("Môi trường - Tương tác")]
     public SpriteRenderer bagRenderer;
     public Sprite spriteBagNormal;
     public Sprite spriteBagDeform;
 
-    [Header("Môi trường - Cuộn (Parallax)")]
-    public GameObject scrollingBackgroundGroup;
-    public SpriteRenderer[] scrollingLayers; // Kéo 4 lớp: Sky, Levee, Fence, Track vào đây
-    public float[] scrollSpeeds = { 0.05f, 0.2f, 0.5f, 0.8f }; // Tốc độ tương ứng cho từng lớp
+    [Header("Môi trường - Cuộn (Parallax cho Running)")]
+    public SpriteRenderer[] scrollingLayers; // Kéo các lớp nền của Running vào đây
+    public float[] scrollSpeeds = { 0.05f, 0.2f, 0.5f, 0.8f };
 
     [Header("Các vị trí - POW & STUDY")]
     public Transform positionStart;
@@ -41,10 +47,12 @@ public class SakuraTrainingTester : MonoBehaviour
     public Transform posStudyLeft;
     public Transform posStudyRight;
 
-    [Header("Các vị trí - EVADE & RUN")]
+    [Header("Các vị trí - EVADE, RUN & SWIM")]
     public Transform posEvadeLeft;
     public Transform posEvadeRight;
-    public Transform posRunCenter; // Điểm đứng khi chạy
+    public Transform posRunCenter;
+    public Transform posSwimming; // Điểm trung tâm khi bơi
+
     public float evadeRandomYRange = 0.5f;
     [SerializeField] private float evadeMoveDuration = 0.25f;
     [SerializeField] private float evadePauseDuration = 0.3f;
@@ -64,17 +72,19 @@ public class SakuraTrainingTester : MonoBehaviour
         bagOriginalPosition = bagRenderer.transform.position;
         bagOriginalScale = bagRenderer.transform.localScale;
 
-        buttonTrainPower.onClick.AddListener(PlayPowerTraining);
-        buttonTrainIntelligence.onClick.AddListener(PlayIntelligenceTraining);
-        buttonTrainEvade.onClick.AddListener(PlayEvadeTraining);
-        buttonTrainRun.onClick.AddListener(PlayRunTraining);
+        // Đăng ký sự kiện nút bấm
+        if (buttonTrainPower) buttonTrainPower.onClick.AddListener(PlayPowerTraining);
+        if (buttonTrainIntelligence) buttonTrainIntelligence.onClick.AddListener(PlayIntelligenceTraining);
+        if (buttonTrainEvade) buttonTrainEvade.onClick.AddListener(PlayEvadeTraining);
+        if (buttonTrainRun) buttonTrainRun.onClick.AddListener(PlayRunTraining);
+        if (buttonTrainSwim) buttonTrainSwim.onClick.AddListener(PlaySwimmingTraining);
 
         StopAllAnimations();
     }
 
     void Update()
     {
-        // Xử lý cuộn nền liên tục nếu đang ở bài tập Run/Swim
+        // Xử lý cuộn nền liên tục (chỉ chạy khi isScrolling = true)
         if (isScrolling && scrollingLayers != null)
         {
             for (int i = 0; i < scrollingLayers.Length; i++)
@@ -92,7 +102,7 @@ public class SakuraTrainingTester : MonoBehaviour
     private void StopAllAnimations()
     {
         if (activeTrainingSequence != null) activeTrainingSequence.Kill();
-        DOTween.Kill(sakuraRenderer.transform);
+        DOTween.Kill(sakuraRenderer.transform); // Dừng tất cả tween đang chạy trên Sakura
         DOTween.Kill(bagRenderer.transform);
 
         isScrolling = false;
@@ -106,17 +116,21 @@ public class SakuraTrainingTester : MonoBehaviour
         bagRenderer.enabled = false;
     }
 
-    // Đổi môi trường hiển thị
-    private void SetupEnvironment(bool useScrolling)
+    // Hàm mới: Quản lý bật/tắt các Background
+    private void SetActiveBackground(GameObject activeBg)
     {
-        if (staticBackgroundGroup != null) staticBackgroundGroup.SetActive(!useScrolling);
-        if (scrollingBackgroundGroup != null) scrollingBackgroundGroup.SetActive(useScrolling);
+        if (bgPowAndEvade) bgPowAndEvade.SetActive(false);
+        if (bgStudy) bgStudy.SetActive(false);
+        if (bgRunning) bgRunning.SetActive(false);
+        if (bgSwimming) bgSwimming.SetActive(false);
+
+        if (activeBg) activeBg.SetActive(true);
     }
 
     private void PlayPowerTraining()
     {
         StopAllAnimations();
-        SetupEnvironment(false); // Dùng nền tĩnh
+        SetActiveBackground(bgPowAndEvade);
         bagRenderer.enabled = true;
         sakuraRenderer.sprite = spriteSakuraWindUp;
 
@@ -143,13 +157,13 @@ public class SakuraTrainingTester : MonoBehaviour
     private void PlayIntelligenceTraining()
     {
         StopAllAnimations();
-        SetupEnvironment(false); // Dùng nền tĩnh
+        SetActiveBackground(bgStudy);
         sakuraRenderer.sprite = spriteSakuraStudy;
         sakuraRenderer.transform.position = posStudyLeft.position;
 
         activeTrainingSequence = DOTween.Sequence();
-        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyRight.position.x, 4f).SetEase(Ease.InOutQuad));
-        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyLeft.position.x, 4f).SetEase(Ease.InOutQuad));
+        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyRight.position.x, 6f).SetEase(Ease.InOutQuad));
+        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyLeft.position.x, 6f).SetEase(Ease.InOutQuad));
 
         // Float logic
         sakuraRenderer.transform.DOMoveY(posStudyLeft.position.y + 0.5f, 2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
@@ -161,7 +175,7 @@ public class SakuraTrainingTester : MonoBehaviour
     private void PlayEvadeTraining()
     {
         StopAllAnimations();
-        SetupEnvironment(false); // Dùng nền tĩnh
+        SetActiveBackground(bgPowAndEvade);
         sakuraRenderer.transform.position = posEvadeLeft.position;
 
         currentEvadeStep = 0;
@@ -205,8 +219,8 @@ public class SakuraTrainingTester : MonoBehaviour
     private void PlayRunTraining()
     {
         StopAllAnimations();
-        SetupEnvironment(true); // BẬT NỀN CUỘN
-        isScrolling = true;
+        SetActiveBackground(bgRunning);
+        isScrolling = true; // Chỉ bật cuộn nền cho Run
 
         sakuraRenderer.sprite = spriteSakuraRunning;
         sakuraRenderer.transform.position = posRunCenter.position;
@@ -214,11 +228,47 @@ public class SakuraTrainingTester : MonoBehaviour
 
         activeTrainingSequence = DOTween.Sequence();
         float startY = posRunCenter.position.y;
-        float floatHeight = 0.3f; // Lơ lửng nhẹ
+        float floatHeight = 0.3f;
 
-        // Chỉ cần 1 lệnh đi lên, và dùng LoopType.Yoyo cho toàn bộ Sequence để nó tự dội ngược lại mượt mà
         activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveY(startY + floatHeight, 0.6f).SetEase(Ease.InOutSine));
-
         activeTrainingSequence.SetLoops(-1, LoopType.Yoyo);
+    }
+
+    // BÀI TẬP MỚI: SWIMMING
+    private void PlaySwimmingTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgSwimming);
+        // isScrolling = false; (Đã được set ở StopAllAnimations)
+
+        sakuraRenderer.sprite = spriteSakuraSwimming;
+        sakuraRenderer.transform.position = posSwimming.position;
+        sakuraRenderer.transform.rotation = Quaternion.identity;
+
+        // Thay vì dùng Sequence nối tiếp, ta chạy nhiều Tween đồng thời với chu kỳ (thời gian) khác nhau 
+        // để tạo cảm giác bơi lội ngẫu nhiên và mềm mại hơn.
+
+        float moveXAmount = 1.2f; // Biên độ sang trái/phải
+        float moveYAmount = 0.4f; // Biên độ lên/xuống
+        float rotateAngle = 10f;  // Biên độ xoay Z
+
+        // 1. Lên xuống (nhịp nhanh hơn một chút)
+        sakuraRenderer.transform.DOMoveY(posSwimming.position.y + moveYAmount, 0.5f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+
+        // 2. Sang trái phải (nhịp chậm hơn)
+        sakuraRenderer.transform.DOMoveX(posSwimming.position.x + moveXAmount, 1.5f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+
+        // 3. Xoay nhẹ ở trục Z
+        Transform t = sakuraRenderer.transform;
+
+        t.localRotation = Quaternion.Euler(0, 0, -rotateAngle);
+
+        t.DOLocalRotate(new Vector3(0, 0, rotateAngle), 1f)
+         .SetEase(Ease.InOutSine)
+         .SetLoops(-1, LoopType.Yoyo);
     }
 }

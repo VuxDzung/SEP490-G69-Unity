@@ -14,33 +14,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: Dialogs
   textDataList:
-  - id: dlg_0001
+  - id: node_0001_0001
     textList:
     - language: 0
-      text: Hello
+      text: "Wow, so this is the legendary Star Academy. Starting today, this is
+        where I\u2019m going to shine."
     - language: 1
-      text: "Xin ch\xE0o"
-  - id: dlg_0002
+      text: "Wow, \u0111\xE2y ch\xEDnh l\xE0 H\u1ECDc Vi\u1EC7n Ng\xF4i Sao trong
+        truy\u1EC1n thuy\u1EBFt sao. T\u1EEB ng\xE0y h\xF4m nay \u0111\xE2y s\u1EBD
+        l\xE0 n\u01A1i m\xECnh \u0111\u01B0\u1EE3c t\u1ECFa s\xE1ng."
+  - id: node_0001_0002
     textList:
     - language: 0
-      text: What do you need?
+      text: Hey, I heard that guy is the Headmaster's son, right?
     - language: 1
-      text: "B\u1EA1n c\u1EA7n g\xEC?"
-  - id: dlg_0003
+      text: "\xCA, nghe n\xF3i th\u1EB1ng kia l\xE0 con l\xE3o hi\u1EC7u tr\u01B0\u1EDFng
+        ph\u1EA3i kh\xF4ng."
+  - id: node_0001_0003
     textList:
     - language: 0
-      text: Select an answer
+      text: Yeah, that's him. Just another privileged daddy's boy. (Sighs) I highly
+        doubt he can actually do anything useful.
     - language: 1
-      text: "H\xE3y ch\u1ECDn m\u1ED9t c\xE2u tr\u1EA3 l\u1EDDi"
-  - id: dlg_0004
+      text: "\u1EEA, l\xE0 n\xF3 \u0111\xF3, l\u1EA1i th\xEAm m\u1ED9t th\u1EB1ng
+        con \xF4ng ch\xE1u cha. Haizz, kh\xF4ng bi\u1EBFt c\xF3 l\xE0m \u0111\u01B0\u1EE3c
+        tr\xF2 tr\u1ED1ng g\xEC kh\xF4ng n\u1EEFa."
+  - id: node_0001_0004
     textList:
     - language: 0
-      text: Welcome <USER_NAME>
+      text: Definitely not. These rich kids just coast by on their family connections.
     - language: 1
-      text: "Ch\xE0o m\u1EEBng b\u1EA1n <USER_NAME>"
-  - id: dlg_0006
+      text: "Ch\u1EAFc ch\u1EAFn l\xE0 kh\xF4ng r\u1ED3i, m\u1EA5y th\u1EB1ng c\xF3
+        ti\u1EC1n m\xE0, to\xE0n d\u1EF1a v\xE0o quy\u1EC1n th\u1EBF."
+  - id: node_0001_0005
     textList:
     - language: 0
-      text: I'm Umbra
+      text: (Thinking back to last night's conversation...) ---
     - language: 1
-      text: "T\xF4i l\xE0 Umbra"
+      text: "(H\u1ED3i t\u01B0\u1EDFng l\u1EA1i cu\u1ED9c tr\xF2 chuy\u1EC7n t\u1ED1i
+        h\xF4m qua...) ---"
+  - id: node_0001_0006
+    textList:
+    - language: 0
+      text: In the next few days, I will secure a position for you at the academy,
+        and give you the best spirit beasts.
+    - language: 1
+      text: "M\u1EA5y h\xF4m n\u1EEFa, ta s\u1EBD s\u1EAFp \u0111\u1EB7t cho con
+        m\u1ED9t v\u1ECB tr\xED t\u1EA1i h\u1ECDc vi\u1EC7n, cho con nh\u1EEFng linh
+        th\xFA gi\u1ECFi nh\u1EA5t."
+  - id: node_0001_0007
+    textList:
+    - language: 0
+      text: All you have to do is perform well and climb the ranks.
+    - language: 1
+      text: "Vi\u1EC7c con c\u1EA7n l\xE0m ch\u1EC9 l\xE0 th\u1EC3 hi\u1EC7n th\u1EADt
+        t\u1ED1t \u0111\u1EC3 th\u0103ng ti\u1EBFn th\xF4i."
+  - id: node_0001_0008
+    textList:
+    - language: 0
+      text: I don't need all that. I appreciate you helping me become a coach at
+        the academy.
+    - language: 1
+      text: "Con kh\xF4ng c\u1EA7n nh\u01B0 v\u1EADy, con c\u1EA3m \u01A1n b\u1ED1
+        \u0111\xE3 gi\xFAp con \u0111\u01B0\u1EE3c tr\u1EDF th\xE0nh hu\u1EA5n luy\u1EC7n
+        vi\xEAn t\u1EA1i h\u1ECDc vi\u1EC7n"
+  - id: node_0001_0009
+    textList:
+    - language: 0
+      text: But as for the rest... I'm going to have to decline.
+    - language: 1
+      text: "Nh\u01B0ng nh\u1EEFng \u0111i\u1EC1u c\xF2n l\u1EA1i \u2026 con xin
+        ph\xE9p t\u1EEB ch\u1ED1i."
+  - id: node_0001_0010
+    textList:
+    - language: 0
+      text: You are my son. Everything has been arranged, do not try to defy me.
+    - language: 1
+      text: "Con l\xE0 con trai c\u1EE7a ta, t\u1EA5t c\u1EA3 m\u1ECDi th\u1EE9 ta
+        \u0111\xE3 chu\u1EA9n b\u1ECB r\u1ED3i, \u0111\u1EEBng c\u1ED1 c\xE3i l\u1EDDi
+        ta."
+  - id: node_0001_0011
+    textList:
+    - language: 0
+      text: But like I said, I work by my own principles. I refuse to leave any student
+        behind, and I don't want to just be known as your son.
+    - language: 1
+      text: "Nh\u01B0ng con c\u0169ng \u0111\xE3 n\xF3i r\u1ED3i, con l\xE0m vi\u1EC7c
+        theo t\xF4n ch\u1EC9 c\u1EE7a m\xECnh, con kh\xF4ng mu\u1ED1n b\u1ECF b\u1EA5t
+        c\u1EE9 h\u1ECDc vi\xEAn n\xE0o \u1EDF l\u1EA1i c\u0169ng nh\u01B0 kh\xF4ng
+        mu\u1ED1n ph\u1EA3i mang c\xE1i danh con c\u1EE7a cha."
+  - id: node_0001_0012
+    textList:
+    - language: 0
+      text: That much is obvious. Eventually, you will understand what I mean...
+    - language: 1
+      text: "V\u1ED1n d\u0129 \u0111i\u1EC1u \u0111\xF3 l\xE0 hi\u1EC3n nhi\xEAn,
+        r\u1ED3i con s\u1EBD hi\u1EC3u nh\u1EEFng g\xEC ta n\xF3i\u2026"

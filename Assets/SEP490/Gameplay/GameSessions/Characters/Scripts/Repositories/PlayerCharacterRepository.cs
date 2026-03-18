@@ -1,6 +1,8 @@
 namespace SEP490G69
 {
     using LiteDB;
+    using System.Collections.Generic;
+    using SEP490G69.Legacy;
     using UnityEngine;
 
     public class PlayerCharacterRepository 
@@ -14,7 +16,7 @@ namespace SEP490G69
             _dao = new PlayerCharacterDAO();
         }
 
-        public bool TryCreateNewCharacter(string sessionId, BaseCharacterSO characterSO)
+        public bool TryCreateNewCharacter(string sessionId, BaseCharacterSO characterSO, BonusStarterStats bonusStarterStats)
         {
             SessionCharacterData characterData = new SessionCharacterData();
 
@@ -31,15 +33,15 @@ namespace SEP490G69
             }
 
             characterData.Id = id;
-            characterData.CurrentMaxVitality = characterSO.BaseVit;
-            characterData.CurrentPower = characterSO.BasePow;
-            characterData.CurrentIntelligence = characterSO.BaseInt;
-            characterData.CurrentStamina = characterSO.BaseSta;
-            characterData.CurrentDef = characterSO.BaseDef;
-            characterData.CurrentAgi = characterSO.BaseAgi;
+            characterData.CurrentMaxVitality = characterSO.BaseVit + bonusStarterStats.BonusVit;
+            characterData.CurrentPower = characterSO.BasePow + bonusStarterStats.BonusPow;
+            characterData.CurrentIntelligence = characterSO.BaseInt + bonusStarterStats.BonusInt;
+            characterData.CurrentStamina = characterSO.BaseSta + bonusStarterStats.BonusSta;
+            characterData.CurrentDef = characterSO.BaseDef + bonusStarterStats.BonusDef;
+            characterData.CurrentAgi = characterSO.BaseAgi + bonusStarterStats.BonusAgi;
             characterData.CurrentEnergy = characterSO.BaseEnergy;
             characterData.CurrentMood = characterSO.BaseMood;
-            characterData.CurrentRP = 0;
+            characterData.CurrentRP = characterSO.BaseRP;
 
             return _dao.TryCreateCharacter(characterData);
         }
@@ -57,5 +59,15 @@ namespace SEP490G69
                 return null;
             }
         }
+    }
+
+    public class BonusStarterStats
+    {
+        public int BonusVit { get; set; }
+        public int BonusPow { get; set; }
+        public int BonusInt { get; set; }
+        public int BonusSta { get; set; }
+        public int BonusDef { get; set; }
+        public int BonusAgi { get; set; }
     }
 }

@@ -42,6 +42,8 @@ namespace SEP490G69
 
         public const string FRAME_ID_EDIT_DECK = "Frame.EditDeck";
         public const string FRAME_ID_CARD_DETAILS = "Frame.CardDetails";
+
+        public const string FRAME_ID_LEGACY_UPGRADE = "Frame.LegacyUpgrade";
         #endregion
 
         #region Scene names
@@ -125,6 +127,10 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_STATUS_EFFECT_NAMES = "StatusEffectNames";
 
         public const string LOCALIZE_CATEGORY_STATUS_EFFECT_DESC = "StatusEffectDescs";
+
+        public const string LOCALIZE_CATEGORY_LEGACY_STAT_NAMES = "LegacyStatNames";
+        public const string LOCALIZE_CATEGORY_LEGACY_STAT_DESCS = "LegacyStatDescs";
+
         #endregion
 
         #region Currencies id
@@ -155,6 +161,8 @@ namespace SEP490G69
         public const string POOL_UI_CARD = "UICard";
         public const string POOL_UI_INVENTORY_ITEM = "UIInventoryItem";
         public const string POOL_UI_SHOP_ITEM = "UIShopItem";
+
+        public const string POOL_UI_LEGACY_STATS = "UILegacyStats";
         #endregion
 
         public const string COMBAT_TYPE_TOURNAMENT = "Tournament";
@@ -164,6 +172,8 @@ namespace SEP490G69
         public const float BASE_FILL_SPEED = 50f;
         public const string MOOD_FORMAT = "Mood: {0}";
         public const float DEFAULT_CAM_ORTH_SIZE = 5f;
+
+        public const int LEGACY_STATS_MAX_LV = 10;
 
         public const int STARTER_MONEY_AMOUNT = 100000000;
 

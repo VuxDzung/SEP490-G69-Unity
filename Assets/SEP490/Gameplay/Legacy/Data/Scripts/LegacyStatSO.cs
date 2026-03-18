@@ -7,6 +7,7 @@ namespace SEP490G69.Legacy
     {
         [SerializeField] private string m_LegacyStatId;
         [SerializeField] private EStatusType m_StatType;
+        [SerializeField] private int m_BaseValue;
         [SerializeField] private int m_BonusPerLevel;
         [SerializeField] private string m_LegacyName;
         [SerializeField] private string m_LegacyDesc;
@@ -16,6 +17,7 @@ namespace SEP490G69.Legacy
 
         public string LegacyStatId => m_LegacyStatId;
         public EStatusType StatType => m_StatType;
+        public int BaseValue => m_BaseValue;
         public int BonusPerLevel => m_BonusPerLevel;
         public string LegacyName => m_LegacyName;
         public string LegacyDesc => m_LegacyDesc;

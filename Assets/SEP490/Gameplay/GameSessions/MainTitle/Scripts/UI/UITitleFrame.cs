@@ -27,6 +27,7 @@ namespace SEP490G69.GameSessions
 
         private GameAuthManager _authManager;
         private GameSessionController _sessionController;
+        private PlayerDataDAO _playerDAO;
 
         private GameAuthManager AuthManager
         {
@@ -171,7 +172,26 @@ namespace SEP490G69.GameSessions
             {
                 UIManager.HideFrame(FrameId);
                 CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
-                UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+
+                string playerId = AuthManager.GetUserId();
+
+                PlayerData playerData = _playerDAO.GetById(playerId);
+
+                if (playerData == null)
+                {
+                    Debug.LogError($"[UITitleFrame.StartNew error] Player data of player {playerId}");
+                    return;
+                }
+
+                // Dung: Uncomment when the Next button at the Legacy Upgrade frame is available.
+                //if (playerData.LegacyPoints > 0)
+                //{
+                //    UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
+                //}
+                //else
+                {
+                    UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+                }
             });
         }
 

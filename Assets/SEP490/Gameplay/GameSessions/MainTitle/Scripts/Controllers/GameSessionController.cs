@@ -5,6 +5,7 @@ namespace SEP490G69.GameSessions
     using SEP490G69.Addons.Networking;
     using SEP490G69.Battle.Cards;
     using SEP490G69.Economy;
+    using SEP490G69.Legacy;
     using SEP490G69.PlayerProfile;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -32,11 +33,13 @@ namespace SEP490G69.GameSessions
         private GameInventoryDAO _inventoryDAO;
         private GameShopDAO _shopDAO;
         private TournamentProgressDAO _tournamentDAO;
+        private GameLegacyDAO _legacyDAO;
 
         private GameAuthManager _authManager;
         private PlayerProfileController _profileController;
         private CharacterConfigSO _characterConfig;
         private GameDeckController _deckController;
+        private GameLegacyController _legacyController;
 
         #region Lazy properties
         private CharacterConfigSO CharacterConfig
@@ -95,6 +98,18 @@ namespace SEP490G69.GameSessions
                 return _webRequests;
             }
         }
+
+        private GameLegacyController LegacyController
+        {
+            get
+            {
+                if (_legacyController == null)
+                {
+                    _legacyController = ContextManager.Singleton.ResolveGameContext<GameLegacyController>();
+                }
+                return _legacyController;
+            }
+        }
         #endregion
 
         #region Unity methods
@@ -128,6 +143,7 @@ namespace SEP490G69.GameSessions
             _shopDAO = new GameShopDAO();
             _tournamentDAO = new TournamentProgressDAO();
             _exercisesDAO = new TrainingExerciseDAO();
+            _legacyDAO = new GameLegacyDAO();
         }
 
         public bool HasActiveSession()
@@ -170,7 +186,24 @@ namespace SEP490G69.GameSessions
 
                 if (characterSO != null)
                 {
-                    if (_characterRepo.TryCreateNewCharacter(sessionId, characterSO))
+                    BonusStarterStats bonusStarterStats = new BonusStarterStats();
+
+                    LegacyStatDataHolder vitHolder = LegacyController.GetByType(playerId, EStatusType.Vitality);
+                    bonusStarterStats.BonusVit = vitHolder != null ? vitHolder.GetCurrentValue() : 0;
+
+                    LegacyStatDataHolder powHolder = LegacyController.GetByType(playerId, EStatusType.Power);
+                    bonusStarterStats.BonusPow = powHolder != null ? powHolder.GetCurrentValue() : 0;
+
+                    LegacyStatDataHolder intHolder = LegacyController.GetByType(playerId, EStatusType.Intelligence);
+                    bonusStarterStats.BonusInt = intHolder != null ? intHolder.GetCurrentValue() : 0;
+
+                    LegacyStatDataHolder staHolder = LegacyController.GetByType(playerId, EStatusType.Stamina);
+                    bonusStarterStats.BonusSta = staHolder != null ? staHolder.GetCurrentValue() : 0;
+
+                    LegacyStatDataHolder agiHolder = LegacyController.GetByType(playerId, EStatusType.Agi);
+                    bonusStarterStats.BonusAgi = agiHolder != null ? agiHolder.GetCurrentValue() : 0;
+
+                    if (_characterRepo.TryCreateNewCharacter(sessionId, characterSO, bonusStarterStats))
                     {
                         Debug.Log($"Create character session data {characterId} for session {sessionId} success");
                         Debug.Log("Start create player's deck");

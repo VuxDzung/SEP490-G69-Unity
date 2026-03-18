@@ -27,14 +27,14 @@ namespace SEP490G69.Legacy
             }
         }
 
-        public List<LegacyStatData> GetById(string playerId, string rawLegacyId)
+        public LegacyStatData GetById(string playerId, string rawLegacyId)
         {
             try
             {
                 LiteDatabase db = LocalDBInitiator.GetDatabase();
                 var col = GetCollection<LegacyStatData>(db, COLLECTION_NAME);
 
-                return col.Find(l => l.PlayerId.Equals(playerId) && l.RawLegacyStatId.Equals(rawLegacyId)).ToList();
+                return col.FindOne(l => l.PlayerId.Equals(playerId) && l.RawLegacyStatId.Equals(rawLegacyId));
             }
             catch (System.Exception e)
             {

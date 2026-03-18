@@ -25,6 +25,7 @@ namespace SEP490G69
         [SerializeField] private int baseAgi;
         [SerializeField] private float baseEnergy;
         [SerializeField] private float baseMood;
+        [SerializeField] private int baseRP = 0;
 
         public string CharacterId => m_CharacterId;
         public bool IsAvailable => m_IsAvailable;
@@ -42,6 +43,7 @@ namespace SEP490G69
         public int BaseAgi => baseAgi;
         public float BaseEnergy => baseEnergy;
         public float BaseMood => baseMood;
+        public int BaseRP => baseRP;
 
         public GameObject CombatPrefab => m_CombatPrefab;
         public GameObject Prefab => m_Prefab;

@@ -16,8 +16,8 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: John
   m_CharacterDescription: ch_0005_desc
-  m_Thumbnail: {fileID: 0}
-  m_FullBodyImg: {fileID: 0}
+  m_Thumbnail: {fileID: 21300000, guid: e080957dc3da0d041a2dc39d86a1cad3, type: 3}
+  m_FullBodyImg: {fileID: 21300000, guid: 94baacce9cc41c0479e44077c66b10ec, type: 3}
   m_Prefab: {fileID: 0}
   m_CombatPrefab: {fileID: 0}
   m_CharacterType: 2

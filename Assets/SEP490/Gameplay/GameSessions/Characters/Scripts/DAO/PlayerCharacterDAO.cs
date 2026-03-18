@@ -1,102 +1,240 @@
 namespace SEP490G69
 {
     using LiteDB;
+    using System;
     using UnityEngine;
 
     public class PlayerCharacterDAO : BaseDAO
     {
         public const string COLLECTION_NAME = "PlayerCharacterData";
 
-        public PlayerCharacterDAO() { }
+        // =========================
+        // AUTO MODE
+        // =========================
 
-        public SessionCharacterData GetCharacterById(string id)
+        public SessionCharacterData GetById(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return null;
-            }
-
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCharacterData> collection = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
-                    return collection.FindById(id);
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, id));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
             }
         }
 
-        public SessionCharacterData GetCharacterById(string sessionId, string rawCharacterId)
+        public SessionCharacterData GetById(string sessionId, string rawCharacterId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCharacterData> collection = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
-                    return collection.FindOne(x => x.SessionId.Equals(sessionId) &&
-                                           x.RawCharacterId.Equals(rawCharacterId));
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawCharacterId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
             }
         }
 
-        public bool TryCreateCharacter(SessionCharacterData characterData)
+        public bool Insert(SessionCharacterData characterData)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCharacterData> collection = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
-                    collection.Insert(characterData);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Insert(db, characterData));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
             }
         }
 
-        public bool TryUpdateCharacter(SessionCharacterData characterData)
+        public bool Update(SessionCharacterData characterData)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCharacterData> collection = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
-                    collection.Update(characterData);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Update(db, characterData));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
             }
         }
 
-        public bool TryDeleteCharacter(string id)
+        public bool Upsert(SessionCharacterData characterData)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCharacterData> collection = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
-                    collection.Delete(id);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Upsert(db, characterData));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Delete(string entityId)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Delete(db, entityId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteManyBySessionId(string sessionId)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => DeleteManyBySessionId(db, sessionId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        public SessionCharacterData GetById(LiteDatabase db, string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                    return null;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                return col.FindById(id);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public SessionCharacterData GetById(LiteDatabase db, string sessionId, string rawCharacterId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(rawCharacterId))
+                    return null;
+
+                string entityId = EntityIdConstructor.ConstructDBEntityId(sessionId, rawCharacterId);
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        // --- CREATE ---
+
+        public bool Insert(LiteDatabase db, SessionCharacterData characterData)
+        {
+            try
+            {
+                if (characterData == null)
+                    return false;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                col.Insert(characterData);
+                return true;
+            }
+            catch (LiteException e) when (e.ErrorCode == LiteException.INDEX_DUPLICATE_KEY)
+            {
+                Debug.LogWarning($"[PlayerCharacterDAO] Duplicate character: {characterData?.Id}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, SessionCharacterData characterData)
+        {
+            try
+            {
+                if (characterData == null)
+                    return false;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                return col.Upsert(characterData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- UPDATE ---
+
+        public bool Update(LiteDatabase db, SessionCharacterData characterData)
+        {
+            try
+            {
+                if (characterData == null)
+                    return false;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                return col.Update(characterData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- DELETE ---
+
+        public bool Delete(LiteDatabase db, string entityId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(entityId))
+                    return false;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                return col.Delete(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteManyBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return false;
+
+                var col = GetCollection<SessionCharacterData>(db, COLLECTION_NAME);
+                col.DeleteMany(c => c.SessionId == sessionId);
+                return true;
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;

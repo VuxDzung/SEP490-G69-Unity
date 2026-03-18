@@ -92,26 +92,24 @@ namespace SEP490G69.GameSessions
             foreach (var session in playerSessions)
             {
                 // Step 1: delete all characters.
-                SessionCharacterData characterData = _characterDAO.GetCharacterById(session.SessionId, session.RawCharacterId);
+                SessionCharacterData characterData = _characterDAO.GetById(session.SessionId, session.RawCharacterId);
 
                 if (characterData != null)
                 {
-                    _characterDAO.TryDeleteCharacter(characterData.Id);
+                    _characterDAO.Delete(characterData.Id);
                 }
 
                 // Step 2: Delete all tournament progress
                 if (!_tournamentDAO.DeleteAllBySessionId(session.SessionId))
                 {
-                    Debug.LogError("[SingleSessionCreator] Failed to delete all progress by session. Delete all by default (Testing only)");
-                    _tournamentDAO.DeleteAll();
+                    Debug.LogError("[SingleSessionCreator] Failed to delete all progress by session.");
                     //continue;
                 }
 
                 // Step 3: Delete all training exercises.
                 if (!_trainingDAO.DeleteAllBySessionId(session.SessionId))
                 {
-                    Debug.LogError("[SingleSessionCreator] Failed to clear all old training exercises. Delete all by default.");
-                    _trainingDAO.DeleteAll();
+                    Debug.LogError("[SingleSessionCreator] Failed to clear all old training exercises.");
                 }
 
                 // Step 4: Delete deck.

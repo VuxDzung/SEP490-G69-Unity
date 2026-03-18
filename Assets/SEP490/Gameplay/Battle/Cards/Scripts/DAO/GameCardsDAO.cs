@@ -1,36 +1,28 @@
 ﻿namespace SEP490G69.Battle.Cards
 {
     using LiteDB;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
     public class GameCardsDAO : BaseDAO
     {
-        /// <summary>
-        /// Format id <SESSION_ID>:<RAW_CARD_ID>
-        /// </summary>
-        public const string FORMAT_OBTAINED_CARD_ID = "{0}:{1}";
-
         public const string COLLECTION_NAME = "PlayerCards";
 
-        public GameCardsDAO() { }
+        // =========================
+        // AUTO MODE (SAFE WRAPPER)
+        // =========================
 
         public SessionCardData GetById(string sessionId, string rawCardId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    return collection.FindOne(card => card.SessionId.Equals(sessionId) &&
-                                               card.RawCardId.Equals(rawCardId));
-                }
-
+                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawCardId));
             }
-            catch(System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return null;
             }
         }
@@ -39,91 +31,89 @@
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    return collection.FindById(sessionCardId);
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, sessionCardId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return null;
             }
         }
 
-        /// <summary>
-        /// Lấy toàn bộ thẻ bài mà người chơi (Session) đang sở hữu.
-        /// </summary>
         public List<SessionCardData> GetAllBySessionId(string sessionId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    return collection.Find(card => card.SessionId.Equals(sessionId)).ToList();
-                }
+                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return new List<SessionCardData>();
             }
         }
 
-        // --- CREATE ---
         public bool Insert(SessionCardData card)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    collection.Insert(card);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Insert(db, card));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
-        // --- UPDATE ---
+        public bool InsertMany(List<SessionCardData> cards)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => InsertMany(db, cards));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(SessionCardData card)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Upsert(db, card));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
         public bool Update(SessionCardData card)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    collection.Update(card);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Update(db, card));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
-        // --- DELETE ---
         public bool Delete(string sessionCardId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    return collection.Delete(sessionCardId);
-                }
+                return LocalDBInitiator.Execute(db => Delete(db, sessionCardId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -132,16 +122,183 @@
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionCardData> collection = GetCollection<SessionCardData>(db, COLLECTION_NAME);
-                    collection.DeleteMany(x => x.SessionId.Equals(sessionId));
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        public SessionCardData GetById(LiteDatabase db, string sessionId, string rawCardId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(rawCardId))
+                    return null;
+
+                string entityId = EntityIdConstructor.ConstructDBEntityId(sessionId, rawCardId);
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public SessionCardData GetById(LiteDatabase db, string sessionCardId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionCardId))
+                    return null;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.FindById(sessionCardId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public List<SessionCardData> GetAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return new List<SessionCardData>();
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.Find(card => card.SessionId == sessionId).ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<SessionCardData>();
+            }
+        }
+
+        // --- CREATE ---
+
+        public bool Insert(LiteDatabase db, SessionCardData card)
+        {
+            try
+            {
+                if (card == null)
+                    return false;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                col.Insert(card);
+                return true;
+            }
+            catch (LiteException e) when (e.ErrorCode == LiteException.INDEX_DUPLICATE_KEY)
+            {
+                Debug.LogWarning($"[GameCardsDAO] Duplicate key: {card?.SessionCardId}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool InsertMany(LiteDatabase db, List<SessionCardData> cards)
+        {
+            try
+            {
+                if (cards == null || cards.Count == 0)
+                    return true;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                int inserted = col.InsertBulk(cards);
+                return inserted == cards.Count;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, SessionCardData card)
+        {
+            try
+            {
+                if (card == null)
+                    return false;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.Upsert(card);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- UPDATE ---
+
+        public bool Update(LiteDatabase db, SessionCardData card)
+        {
+            try
+            {
+                if (card == null)
+                    return false;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.Update(card);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- DELETE ---
+
+        public bool Delete(LiteDatabase db, string sessionCardId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionCardId))
+                    return false;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                return col.Delete(sessionCardId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return false;
+
+                var col = GetCollection<SessionCardData>(db, COLLECTION_NAME);
+                col.DeleteMany(x => x.SessionId == sessionId);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
                 return false;
             }
         }

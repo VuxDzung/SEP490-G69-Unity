@@ -1,8 +1,7 @@
 namespace SEP490G69
 {
     using LiteDB;
-    using System.Collections.Generic;
-    using SEP490G69.Legacy;
+    using UnityEditor.U2D.Animation;
     using UnityEngine;
 
     public class PlayerCharacterRepository 
@@ -16,16 +15,66 @@ namespace SEP490G69
             _dao = new PlayerCharacterDAO();
         }
 
+        public bool Insert(SessionCharacterData characterData)
+        {
+            return _dao.Insert(characterData);
+        }
+
+        public bool Insert(LiteDatabase db, SessionCharacterData characterData)
+        {
+            return _dao.Insert(db, characterData);
+        }
+
+        public bool Upsert(SessionCharacterData characterData)
+        {
+            return _dao.Upsert(characterData);
+        }
+
+        public bool Upsert(LiteDatabase db, SessionCharacterData characterData)
+        {
+            return _dao.Upsert(db, characterData);
+        }
+
+        public bool Update(SessionCharacterData characterData)
+        {
+            return _dao.Update(characterData);
+        }
+
+        public bool Update(LiteDatabase db, SessionCharacterData characterData)
+        {
+            return _dao.Update(db, characterData);
+        }
+
+        public bool Delete(string entityId)
+        {
+            return _dao.Delete(entityId);
+        }
+
+        public bool Delete(LiteDatabase db, string entityId)
+        {
+            return _dao.Delete(db, entityId);
+        }
+
+        public bool DeleteManyBySessionId(string entityId)
+        {
+            return _dao.DeleteManyBySessionId(entityId);
+        }
+
+        public bool DeleteManyBySessionId(LiteDatabase db, string entityId)
+        {
+            return _dao.DeleteManyBySessionId(db, entityId);
+        }
+
         public bool TryCreateNewCharacter(string sessionId, BaseCharacterSO characterSO, BonusStarterStats bonusStarterStats)
         {
             SessionCharacterData characterData = new SessionCharacterData();
 
             string id = string.Format(FORMAT_ID, sessionId, characterSO.CharacterId);
 
-            if (_dao.GetCharacterById(id) != null )
+            if (_dao.GetById(id) != null )
             {
                 Debug.Log($"Character {id} has already existed!");
-                if (!_dao.TryDeleteCharacter(id))
+                if (!_dao.Delete(id))
                 {
                     Debug.LogError($"Failed to delete character {id}");
                     return false;
@@ -43,7 +92,7 @@ namespace SEP490G69
             characterData.CurrentMood = characterSO.BaseMood;
             characterData.CurrentRP = characterSO.BaseRP;
 
-            return _dao.TryCreateCharacter(characterData);
+            return _dao.Insert(characterData);
         }
 
         public SessionCharacterData GetCharacterData(string sessionId, string characterId)
@@ -51,7 +100,7 @@ namespace SEP490G69
             try
             {
                 string queryId = string.Format(FORMAT_ID, sessionId, characterId);
-                return _dao.GetCharacterById(queryId);
+                return _dao.GetById(queryId);
             }
             catch(System.Exception ex)
             {

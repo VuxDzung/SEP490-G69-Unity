@@ -97,7 +97,7 @@ namespace SEP490G69.Training
             currentFacility.Level = nextLevel;
 
             bool isSessionSaved = _sessionDAO.Update(currentSession);
-            bool isFacilitySaved = _trainingDAO.UpdateTrainingExercise(currentFacility);
+            bool isFacilitySaved = _trainingDAO.Update(currentFacility);
 
             if (isSessionSaved && isFacilitySaved)
             {

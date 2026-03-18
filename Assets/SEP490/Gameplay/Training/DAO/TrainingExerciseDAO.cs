@@ -1,7 +1,7 @@
 namespace SEP490G69.Training
 {
     using LiteDB;
-    using NUnit.Framework;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -10,129 +10,72 @@ namespace SEP490G69.Training
     {
         public const string COLLECTION_NAME = "SessionExerciseData";
 
+        // =========================
+        // AUTO MODE (SAFE WRAPPER)
+        // =========================
 
-        public TrainingExerciseDAO() { }
-
-        public bool InsertTrainingExercise(SessionTrainingExercise trainingExercise)
+        #region Auto mode
+        public bool Insert(SessionTrainingExercise entity)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    collection.Insert(trainingExercise);
-                    return true;
-                }
-
+                return LocalDBInitiator.Execute(db => Insert(db, entity));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
-        public bool UpdateTrainingExercise(SessionTrainingExercise trainingExercise)
+        public bool InsertMany(List<SessionTrainingExercise> entities)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    collection.Update(trainingExercise);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => InsertMany(db, entities));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
-        public bool DeleteTrainingExercise(string id)
+        public bool Update(SessionTrainingExercise entity)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    collection.Delete(id);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Update(db, entity));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
-        public SessionTrainingExercise GetTrainingExercise(string id)
+        public bool Upsert(SessionTrainingExercise entity)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    return collection.FindById(id);
-                }
+                return LocalDBInitiator.Execute(db => Upsert(db, entity));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
-                return null;
+                Debug.LogException(e);
+                return false;
             }
         }
 
-        public SessionTrainingExercise GetById(string sessionId, string exerciseId)
+        public bool Delete(string entityId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    return collection.FindOne(ex => ex.SessionId.Equals(sessionId) && ex.ExerciseId.Equals(exerciseId));
-                }
+                return LocalDBInitiator.Execute(db => Delete(db, entityId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
-                return null;
-            }
-        }
-
-        public List<SessionTrainingExercise> GetAllBySessionId(string sessionId)
-        {
-            try
-            {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    return collection.Find(ex => ex.SessionId.Equals(sessionId)).ToList();
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError(e.Message);
-                return null;
-            }
-        }
-
-        public bool DeleteById(string entityId)
-        {
-            try
-            {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    collection.Delete(entityId);
-                    return true;
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -141,40 +84,185 @@ namespace SEP490G69.Training
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    collection.DeleteMany(x => x.SessionId.Equals(sessionId));
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
             }
         }
 
-        public bool DeleteAll()
+        public SessionTrainingExercise GetById(string sessionId, string exerciseId)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<SessionTrainingExercise> collection = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                    List<SessionTrainingExercise> exercises = collection.FindAll().ToList();
-                    foreach (var exercise in exercises)
-                    {
-                        DeleteById(exercise.Id);
-                    }
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, sessionId, exerciseId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public List<SessionTrainingExercise> GetAllBySessionId(string sessionId)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<SessionTrainingExercise>();
+            }
+        }
+        #endregion
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        #region Transaction mode
+        public bool Insert(LiteDatabase db, SessionTrainingExercise entity)
+        {
+            try
+            {
+                if (entity == null)
+                    return false;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.Insert(entity);
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
             }
         }
+
+        public bool InsertMany(LiteDatabase db, List<SessionTrainingExercise> entities)
+        {
+            try
+            {
+                if (entities == null || entities.Count == 0)
+                    return true;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                int inserted = col.InsertBulk(entities);
+                return inserted == entities.Count;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Update(LiteDatabase db, SessionTrainingExercise entity)
+        {
+            try
+            {
+                if (entity == null)
+                    return false;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.Update(entity);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, SessionTrainingExercise entity)
+        {
+            try
+            {
+                if (entity == null)
+                    return false;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.Upsert(entity);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Delete(LiteDatabase db, string entityId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(entityId))
+                    return false;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.Delete(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return false;
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                col.DeleteMany(x => x.SessionId == sessionId);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public SessionTrainingExercise GetById(LiteDatabase db, string sessionId, string exerciseId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(exerciseId))
+                    return null;
+
+                string entityId = EntityIdConstructor.ConstructDBEntityId(sessionId, exerciseId);
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public List<SessionTrainingExercise> GetAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return new List<SessionTrainingExercise>();
+
+                var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
+                return col.Find(x => x.SessionId == sessionId).ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<SessionTrainingExercise>();
+            }
+        }
+        #endregion
     }
 }

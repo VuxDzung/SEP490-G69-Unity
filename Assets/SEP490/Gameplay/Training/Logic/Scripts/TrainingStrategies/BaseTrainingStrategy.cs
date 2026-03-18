@@ -45,7 +45,7 @@
                     Level = GameConstants.TRAINING_STARTER_LEVEL,
                 };
 
-                _trainingDAO.InsertTrainingExercise(exerciseData);
+                _trainingDAO.Insert(exerciseData);
             }
 
             _exerciseDataHolder = new TrainingExerciseDataHolder.Builder()

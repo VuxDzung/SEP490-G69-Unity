@@ -24,3 +24,9 @@ MonoBehaviour:
     m_EndPointUrl: api/gameProgression/getPlayerGameData
   - m_EndPointName: GetPlayerMetadata
     m_EndPointUrl: api/gameProgression/getPlayerMetadata
+  - m_EndPointName: FetchCloudData
+    m_EndPointUrl: api/gameProgression/fetchCloudData
+  - m_EndPointName: OverrideCloudData
+    m_EndPointUrl: api/gameProgression/overrideCloudData
+  - m_EndPointName: UpdateLastSyncTime
+    m_EndPointUrl: api/gameProgression/updateLastSyncTime

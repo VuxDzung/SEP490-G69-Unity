@@ -1,6 +1,7 @@
 namespace SEP490G69.GameSessions
 {
     using LiteDB;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -9,21 +10,19 @@ namespace SEP490G69.GameSessions
     {
         public const string COLLECTION_NAME = "PlayerTrainingSessions";
 
+        // =========================
+        // AUTO MODE
+        // =========================
+
         public bool Insert(PlayerTrainingSession session)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    collection.Insert(session);
-                    return true;
-                }
-
+                return LocalDBInitiator.Execute(db => Insert(db, session));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
@@ -32,65 +31,50 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    collection.Update(session);
-                    return true;
-                }
-
+                return LocalDBInitiator.Execute(db => Update(db, session));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(PlayerTrainingSession session)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Upsert(db, session));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
                 return false;
             }
         }
 
         public bool DeleteById(string sessionId)
         {
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                Debug.LogError("Session id is null");
-                return false;
-            }
-
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    collection.Delete(sessionId);
-                    return true;
-                }
-
+                return LocalDBInitiator.Execute(db => DeleteById(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return false;
             }
         }
 
         public PlayerTrainingSession GetById(string sessionId)
         {
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                return null;
-            }
-
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    return collection.FindById(sessionId);
-                }
-
+                return LocalDBInitiator.Execute(db => GetById(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 return null;
             }
         }
@@ -99,19 +83,12 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    return collection.Query()
-                                     .Where(x => x.PlayerId == playerId)
-                                     .ToList();
-                }
-
+                return LocalDBInitiator.Execute(db => GetAllByPlayerId(db, playerId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
-                return null;
+                return new List<PlayerTrainingSession>();
             }
         }
 
@@ -119,18 +96,138 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerTrainingSession> collection = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
-                    List<PlayerTrainingSession> list = collection.Query().ToList();
-                    return list;
-                }
-
+                return LocalDBInitiator.Execute(db => GetAll(db));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<PlayerTrainingSession>();
+            }
+        }
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        public bool Insert(LiteDatabase db, PlayerTrainingSession session)
+        {
+            try
+            {
+                if (session == null)
+                    return false;
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                col.Insert(session);
+                return true;
+            }
+            catch (LiteException e) when (e.ErrorCode == LiteException.INDEX_DUPLICATE_KEY)
+            {
+                Debug.LogWarning($"[GameSessionDAO] Duplicate session: {session?.SessionId}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Update(LiteDatabase db, PlayerTrainingSession session)
+        {
+            try
+            {
+                if (session == null)
+                    return false;
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.Update(session);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, PlayerTrainingSession session)
+        {
+            try
+            {
+                if (session == null)
+                    return false;
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.Upsert(session);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteById(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return false;
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.Delete(sessionId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public PlayerTrainingSession GetById(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return null;
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.FindById(sessionId);
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        public List<PlayerTrainingSession> GetAllByPlayerId(LiteDatabase db, string playerId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(playerId))
+                    return new List<PlayerTrainingSession>();
+
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.Find(x => x.PlayerId == playerId).ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<PlayerTrainingSession>();
+            }
+        }
+
+        public List<PlayerTrainingSession> GetAll(LiteDatabase db)
+        {
+            try
+            {
+                var col = GetCollection<PlayerTrainingSession>(db, COLLECTION_NAME);
+                return col.FindAll().ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<PlayerTrainingSession>();
             }
         }
     }

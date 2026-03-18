@@ -3,35 +3,15 @@ namespace SEP490G69.GameSessions
     using Newtonsoft.Json;
     using SEP490G69.Economy;
     using SEP490G69.Tournament;
-    using System;
     using System.Collections.Generic;
 
-    public class GetPlayerGameDataResponse
+    public class OverrideCloudDataRequest 
     {
-        #region Response handler
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-        [JsonProperty("error_msg")]
-        public string ErrorMsg { get; set; } = string.Empty;
+        [JsonProperty("player_data")]
+        public PlayerData PlayerData { get; set; } = new PlayerData();
 
-        #endregion
-
-        #region Player info
-        [JsonProperty("player_id")]
-        public string PlayerId { get; set; } = string.Empty;
-        [JsonProperty("player_name")]
-        public string PlayerName { get; set; } = string.Empty;
-        [JsonProperty("legacy_points")]
-        public int LegacyPoints { get; set; }
-        [JsonProperty("last_sync_time")]
-        public DateTime LastSyncedTime { get; set; }
-        [JsonProperty("current_run")]
-        public int CurrentRun { get; set; }
-        #endregion
-
-        #region Game data
         [JsonProperty("session")]
-        public PlayerTrainingSession Session { get; set; }
+        public PlayerTrainingSession Session { get; set; } = new PlayerTrainingSession();
 
         [JsonProperty("exercises")]
         public List<SessionTrainingExercise> Exercises { get; set; } = new List<SessionTrainingExercise>();
@@ -53,7 +33,5 @@ namespace SEP490G69.GameSessions
 
         [JsonProperty("tournament_progressions")]
         public List<TournamentProgressData> TournamentProgressions { get; set; } = new List<TournamentProgressData>();
-
-        #endregion
     }
 }

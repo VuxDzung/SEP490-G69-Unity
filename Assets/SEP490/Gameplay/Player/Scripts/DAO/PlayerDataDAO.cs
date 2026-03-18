@@ -3,7 +3,7 @@ namespace SEP490G69
     using UnityEngine;
     using LiteDB;
     using System.Collections.Generic;
-    using System.Linq;
+    using System;
 
     /// <summary>
     /// Document here: https://www.litedb.org/docs/getting-started/
@@ -12,20 +12,17 @@ namespace SEP490G69
     {
         public const string COLLECTION_NAME = "Player";
 
-        public PlayerDataDAO() { }
+        // =========================
+        // AUTO MODE
+        // =========================
 
         public bool Insert(PlayerData playerData)
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
-                    collection.Insert(playerData);
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Insert(db, playerData));
             }
-            catch(System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
@@ -36,13 +33,22 @@ namespace SEP490G69
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
-                    return collection.Update(playerData);
-                }
+                return LocalDBInitiator.Execute(db => Update(db, playerData));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(PlayerData playerData)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Upsert(db, playerData));
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
@@ -53,17 +59,12 @@ namespace SEP490G69
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
-                    List<PlayerData> result = collection.Query().ToList();
-                    return result;
-                }
+                return LocalDBInitiator.Execute(db => GetAll(db));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
-                return null;
+                return new List<PlayerData>();
             }
         }
 
@@ -71,16 +72,134 @@ namespace SEP490G69
         {
             try
             {
-                using (LiteDatabase db = LocalDBInitiator.GetDatabase())
-                {
-                    ILiteCollection<PlayerData> collection = GetCollection<PlayerData>(db, COLLECTION_NAME);
-                    return collection.FindById(id);
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, id));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        public bool Delete(string id)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Delete(db, id));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        public bool Insert(LiteDatabase db, PlayerData playerData)
+        {
+            try
+            {
+                if (playerData == null)
+                    return false;
+
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                col.Insert(playerData);
+                return true;
+            }
+            catch (LiteException e) when (e.ErrorCode == LiteException.INDEX_DUPLICATE_KEY)
+            {
+                Debug.LogWarning($"[PlayerDataDAO] Duplicate player: {playerData?.PlayerId}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Update(LiteDatabase db, PlayerData playerData)
+        {
+            try
+            {
+                if (playerData == null)
+                    return false;
+
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                return col.Update(playerData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, PlayerData playerData)
+        {
+            try
+            {
+                if (playerData == null)
+                    return false;
+
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                return col.Upsert(playerData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public List<PlayerData> GetAll(LiteDatabase db)
+        {
+            try
+            {
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                return col.Query().ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<PlayerData>();
+            }
+        }
+
+        public PlayerData GetById(LiteDatabase db, string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                    return null;
+
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                return col.FindById(id);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public bool Delete(LiteDatabase db, string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                    return false;
+
+                var col = GetCollection<PlayerData>(db, COLLECTION_NAME);
+                return col.Delete(id);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
             }
         }
     }

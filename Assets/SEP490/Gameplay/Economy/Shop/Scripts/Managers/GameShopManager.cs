@@ -185,7 +185,7 @@ namespace SEP490G69.Economy
         /// </summary>
         public void RefreshShop()
         {
-            _shopDAO.ClearSession(_sessionId);
+            _shopDAO.DeleteManyBySessionId(_sessionId);
 
             _shopItems.Clear();
 

@@ -1,40 +1,26 @@
 namespace SEP490G69
 {
     using LiteDB;
+    using SEP490G69.Battle.Cards;
     using System;
     using System.IO;
     using UnityEngine;
 
     public class LocalDBInitiator : GlobalSingleton<LocalDBInitiator>
     {
-        private LiteDatabase _database;
-
-        /// <summary>
-        /// Get current database instance.
-        /// If the database instance is null, create a new instance.
-        /// </summary>
-        /// <returns></returns>
-
-        //public static LiteDatabase GetDatabase()
-        //{
-        //    if (Singleton._database == null)
-        //    {
-        //        string folderPath = Path.Combine(Application.persistentDataPath, "database");
-
-        //        if (!Directory.Exists(folderPath))
-        //        {
-        //            Directory.CreateDirectory(folderPath);
-        //        }
-
-        //        string dbPath = Path.Combine(folderPath, "GameData.db");
-
-        //        Singleton._database = new LiteDatabase(dbPath);
-        //    }
-
-        //    return Singleton._database;
-        //}
-
         private static readonly object _dbLock = new object();
+
+        protected override void CreateNewInstance()
+        {
+            base.CreateNewInstance();
+
+            Execute(db =>
+            {
+                var cards = db.GetCollection<SessionCardData>(GameCardsDAO.COLLECTION_NAME);
+                cards.EnsureIndex(x => x.SessionId);
+                cards.EnsureIndex(x => x.RawCardId);
+            });
+        }
 
         public static T Execute<T>(Func<LiteDatabase, T> action)
         {

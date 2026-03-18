@@ -1,5 +1,7 @@
 namespace SEP490G69
 {
+    using LiteDB;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -8,22 +10,19 @@ namespace SEP490G69
     {
         public const string COLLECTION_NAME = "TrainingSupportItems";
 
-        public TrainingSupportItemsDAO() { }
+        // =========================
+        // AUTO MODE
+        // =========================
 
         public TrainingSupportItem GetById(string entityId)
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    return col.FindById(entityId);
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, entityId));
             }
-            catch(System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogException(e);  
+                Debug.LogException(e);
                 return null;
             }
         }
@@ -32,14 +31,9 @@ namespace SEP490G69
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    return col.FindOne(itm => itm.SessionId.Equals(sessionId) && itm.RawItemId.Equals(rawItemId));
-                }
+                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawItemId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
@@ -50,37 +44,12 @@ namespace SEP490G69
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    return col.Find(itm => itm.SessionId.Equals(sessionId)).ToList();
-                }
+                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
-                return null;
-            }
-        }
-
-        public bool Update(TrainingSupportItem item)
-        {
-            try
-            {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    col.Update(item);   
-
-                    return true;
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogException(e);
-                return false;
+                return new List<TrainingSupportItem>(); // FIX null
             }
         }
 
@@ -88,16 +57,35 @@ namespace SEP490G69
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    col.Insert(item);
-
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Insert(db, item));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Update(TrainingSupportItem item)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Update(db, item));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(TrainingSupportItem item)
+        {
+            try
+            {
+                return LocalDBInitiator.Execute(db => Upsert(db, item));
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
@@ -108,16 +96,9 @@ namespace SEP490G69
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    col.Delete(entityId);
-
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => Delete(db, entityId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;
@@ -128,16 +109,166 @@ namespace SEP490G69
         {
             try
             {
-                using (var db = LocalDBInitiator.GetDatabase())
-                {
-                    var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-
-                    col.DeleteMany(itm => itm.SessionId.Equals(sessionId));
-
-                    return true;
-                }
+                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
-            catch (System.Exception e)
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // =========================
+        // TRANSACTION MODE (CORE)
+        // =========================
+
+        public TrainingSupportItem GetById(LiteDatabase db, string entityId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(entityId))
+                    return null;
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public TrainingSupportItem GetById(LiteDatabase db, string sessionId, string rawItemId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(rawItemId))
+                    return null;
+
+                string entityId = EntityIdConstructor.ConstructDBEntityId(sessionId, rawItemId);
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public List<TrainingSupportItem> GetAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return new List<TrainingSupportItem>();
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.Find(x => x.SessionId == sessionId).ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new List<TrainingSupportItem>();
+            }
+        }
+
+        // --- CREATE ---
+
+        public bool Insert(LiteDatabase db, TrainingSupportItem item)
+        {
+            try
+            {
+                if (item == null)
+                {
+                    return false;
+                }
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                col.Insert(item);
+                return true;
+            }
+            catch (LiteException e) when (e.ErrorCode == LiteException.INDEX_DUPLICATE_KEY)
+            {
+                Debug.LogWarning($"[TrainingSupportItemsDAO] Duplicate: {item?.EntityId}");
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool Upsert(LiteDatabase db, TrainingSupportItem item)
+        {
+            try
+            {
+                if (item == null)
+                    return false;
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.Upsert(item);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- UPDATE ---
+
+        public bool Update(LiteDatabase db, TrainingSupportItem item)
+        {
+            try
+            {
+                if (item == null)
+                    return false;
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.Update(item);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        // --- DELETE ---
+
+        public bool Delete(LiteDatabase db, string entityId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(entityId))
+                    return false;
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                return col.Delete(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteAllBySessionId(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionId))
+                    return false;
+
+                var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
+                col.DeleteMany(x => x.SessionId == sessionId); // FIX Equals
+                return true;
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return false;

@@ -185,7 +185,7 @@ namespace SEP490G69
         {
             if (_characterData != null)
             {
-                return characterDAO.TryUpdateCharacter(_characterData);
+                return characterDAO.Update(_characterData);
             }
             return false;
         }

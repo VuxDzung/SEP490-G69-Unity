@@ -154,6 +154,8 @@ namespace SEP490G69.Calendar
 
                     if (saveToDB)
                     {
+                        LocalDBOrchestrator.UpdateDBChangeTime();
+
                         _sessionDAO.Update(_currentSesssion);
                     }
 

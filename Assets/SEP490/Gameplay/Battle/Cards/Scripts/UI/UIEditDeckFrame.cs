@@ -221,7 +221,7 @@
         {
             DeckController.SaveDeck(_currentDeckIds);
             DeckController.SaveInventory(_obtainedCards);
-
+            LocalDBOrchestrator.UpdateDBChangeTime();
             // TODO: Bổ sung hiệu ứng hoặc Toast message báo "Lưu thành công"
         }
 

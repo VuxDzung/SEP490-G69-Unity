@@ -29,7 +29,7 @@ namespace SEP490G69.PlayerProfile
             _webRequests = _contextManager.ResolveGameContext<WebRequests>();
         }
 
-        public async void UpdatePlayerName(string playerId, string playerName)
+        public void UpdatePlayerName(string playerId, string playerName)
         {
             PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
@@ -38,8 +38,7 @@ namespace SEP490G69.PlayerProfile
             }
             playerData.PlayerName = playerName;
             _playerDAO.Update(playerData);
-
-            bool syncSuccess = await SyncPlayerName(playerId, playerName);
+            LocalDBOrchestrator.UpdateDBChangeTime();
         }
 
         public async Task<bool> SyncPlayerName(string playerId, string playerName)

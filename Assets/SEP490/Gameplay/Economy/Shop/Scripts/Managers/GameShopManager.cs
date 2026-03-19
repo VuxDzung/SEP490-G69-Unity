@@ -153,6 +153,8 @@ namespace SEP490G69.Economy
 
             _sessionDAO.Update(session);
 
+            LocalDBOrchestrator.UpdateDBChangeTime();
+
             Debug.Log($"<color=green>[GameShopManager.BuyItem]</color> Purchase item {itemId} successfully!");
         }
 
@@ -176,6 +178,8 @@ namespace SEP490G69.Economy
             session.CurrentGoldAmount += sellPrice * amount;
 
             _sessionDAO.Update(session);
+
+            LocalDBOrchestrator.UpdateDBChangeTime();
         }
 
         /// <summary>
@@ -210,6 +214,8 @@ namespace SEP490G69.Economy
                                                                   .WithSOData(item).Build();
                 _shopItems.Add(holder);
             }
+
+            LocalDBOrchestrator.UpdateDBChangeTime();
             Debug.Log($"<color=green>[GameShopManager]</color> Refresh {randomItems.Count} shop items.");
         }
 

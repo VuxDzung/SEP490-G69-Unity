@@ -38,10 +38,12 @@ namespace SEP490G69.Training
         public void Despawn()
         {
             m_Btn.onClick.RemoveListener(Click);
+            _onClick = null;
         }
 
         public UIExerciseElement SetOnClick(Action<string> onClick)
         {
+            _onClick = null;
             _onClick = onClick;
             return this;
         }

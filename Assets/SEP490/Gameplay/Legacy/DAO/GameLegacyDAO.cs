@@ -1,5 +1,6 @@
 namespace SEP490G69.Legacy
 {
+    using System.Collections.Generic;
     using LiteDB;
     using System;
     using UnityEngine;
@@ -51,6 +52,19 @@ namespace SEP490G69.Legacy
             }
         }
 
+        public bool InsertMany(List<LegacyStatData> legacyStats)
+        {
+            try
+            {
+                return LocalDBOrchestrator.Execute(db => InsertMany(db, legacyStats));
+            }
+            catch(Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
         public bool Update(LegacyStatData data)
         {
             try
@@ -82,6 +96,19 @@ namespace SEP490G69.Legacy
             try
             {
                 return LocalDBOrchestrator.Execute(db => DeleteById(db, entityId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteMany(string playerId)
+        {
+            try
+            {
+                return LocalDBOrchestrator.Execute(db => DeleteManyById(db, playerId));
             }
             catch (Exception e)
             {
@@ -155,6 +182,24 @@ namespace SEP490G69.Legacy
             }
         }
 
+        public bool InsertMany(LiteDatabase db, List<LegacyStatData> legacyStats)
+        {
+            try
+            {
+                if (legacyStats == null || legacyStats.Count == 0)
+                    return false;
+
+                var col = GetCollection<LegacyStatData>(db, COLLECTION_NAME);
+                col.InsertBulk(legacyStats);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
         public bool Upsert(LiteDatabase db, LegacyStatData data)
         {
             try
@@ -202,6 +247,24 @@ namespace SEP490G69.Legacy
 
                 var col = GetCollection<LegacyStatData>(db, COLLECTION_NAME);
                 return col.Delete(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return false;
+            }
+        }
+
+        public bool DeleteManyById(LiteDatabase db, string playerId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(playerId))
+                    return false;
+
+                var col = GetCollection<LegacyStatData>(db, COLLECTION_NAME);
+                int deleted = col.DeleteMany(legacy => legacy.PlayerId == playerId);
+                return deleted >= 0;
             }
             catch (Exception e)
             {

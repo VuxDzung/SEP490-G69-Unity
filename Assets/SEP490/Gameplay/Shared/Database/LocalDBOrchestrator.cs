@@ -127,38 +127,48 @@ namespace SEP490G69
 
         public static bool UpdateDBChangeTime()
         {
-            return Execute(db =>
+            return Execute(db => UpdateDBChangeTime(db));
+        }
+
+        public static bool UpdateDBChangeTime(LiteDatabase db)
+        {
+            string playerId = Singleton.AuthManager.GetUserId();
+
+            try
             {
-                string playerId = Singleton.AuthManager.GetUserId();
-                try
+                if (string.IsNullOrEmpty(playerId))
                 {
-                    if (string.IsNullOrEmpty(playerId))
-                    {
-                        Debug.LogError($"[LocalDBOrchestrator.UpdateDBChangeTime fatal error] Player id is empty");
-                        return false;
-                    }
-
-                    var playerCol = db.GetCollection<PlayerData>(PlayerDataDAO.COLLECTION_NAME);
-
-                    PlayerData playerData = playerCol.FindById(playerId);
-
-                    if (playerData == null)
-                    {
-                        Debug.LogError($"[LocalDBOrchestrator.UpdateDBChangeTime fatal error] Player data with id {playerId} does not exist in database");
-                        return false;
-                    }
-
-                    playerData.LastUpdatedTime = DateTime.UtcNow;
-
-                    return playerCol.Update(playerData);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError("[LocalDBOrchestrator.UpdateDBChangeTime exception]: Failed to update DB change time. See next log for more details");
-                    Debug.LogException(ex);
+                    Debug.LogError("[UpdateDBChangeTime] Player id is empty");
                     return false;
                 }
-            });
+
+                var playerCol = db.GetCollection<PlayerData>(PlayerDataDAO.COLLECTION_NAME);
+
+                var playerData = playerCol.FindById(playerId);
+
+                if (playerData == null)
+                {
+                    Debug.LogError($"[UpdateDBChangeTime] Player data with id {playerId} not found");
+                    return false;
+                }
+
+                playerData.LastUpdatedTime = DateTime.UtcNow;
+
+                bool result = playerCol.Update(playerData);
+
+                if (result)
+                {
+                    Debug.Log($"[UpdateDBChangeTime] Updated time: {playerData.LastUpdatedTime}");
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[UpdateDBChangeTime] Exception");
+                Debug.LogException(ex);
+                return false;
+            }
         }
     }
 }

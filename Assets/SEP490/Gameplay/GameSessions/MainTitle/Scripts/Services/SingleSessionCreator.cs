@@ -85,7 +85,9 @@ namespace SEP490G69.GameSessions
             var playerSessions = sessions.Where(s => s.PlayerId == playerId).ToList();
 
             if (playerSessions.Count == 0)
+            {
                 return false;
+            }
 
             bool allDeleted = true;
 

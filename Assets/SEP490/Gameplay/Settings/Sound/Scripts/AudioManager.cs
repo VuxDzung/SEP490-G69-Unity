@@ -36,11 +36,19 @@ namespace SEP490G69
 
         public void PlaySFX(AudioClip clip)
         {
+            if (clip == null)
+            {
+                return;
+            }
             m_AudioSource.PlayOneShot(clip, 1);
         }
 
         public void SetBG(AudioClip clip, bool repeat = true)
         {
+            if (clip == null)
+            {
+                return;
+            }
             m_BgSource.clip = clip;
             m_BgSource.loop = repeat;
             m_BgSource.Play();

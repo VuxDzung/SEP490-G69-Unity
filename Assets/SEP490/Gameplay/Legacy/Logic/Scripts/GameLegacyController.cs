@@ -35,6 +35,56 @@ namespace SEP490G69.Legacy
             _playerDAO = new PlayerDataDAO();
         }
 
+        public void Initialize(string playerId)
+        {
+            List<LegacyStatData> legacyStats = new List<LegacyStatData>();
+            foreach (var legacySO in LegacyStatsConfig.LegacyStats)
+            {
+                LegacyStatData legacyStat = _legacyDAO.GetById(playerId, legacySO.LegacyStatId);
+                legacyStats.Add(legacyStat);
+            }
+
+            if (legacyStats.Count == 0)
+            {
+                Debug.Log($"<color=yellow>[GameLegacyController.Initialize]</color> No legacy data is existed. Insert new collection");
+                InsertNewLegacies(playerId);
+            }
+            else if (legacyStats.Count > 0 && legacyStats.Count != LegacyStatsConfig.LegacyStats.Count)
+            {
+                Debug.Log($"<color=yellow>[GameLegacyController.Initialize]</color> Legacy collection does not match. Clear old one and add new one");
+
+                // Clear old.
+                _legacyDAO.DeleteMany(playerId);
+
+                // Add new.
+                InsertNewLegacies(playerId);
+            }
+            else
+            {
+                Debug.Log($"<color=green>[GameLegacyController.Initialize]</color> No conflict existed!\nSO count: {LegacyStatsConfig.LegacyStats.Count}\nDB count: {legacyStats.Count}");
+            }
+        }
+
+        private void InsertNewLegacies(string playerId)
+        {
+            List<LegacyStatData> pendingAddStats = new List<LegacyStatData>();
+            // Init new.
+            foreach (var legacySO in LegacyStatsConfig.LegacyStats)
+            {
+                LegacyStatData legacyStat = new LegacyStatData
+                {
+                    Id = EntityIdConstructor.ConstructDBEntityId(playerId, legacySO.LegacyStatId),
+                    PlayerId = playerId,
+                    RawLegacyStatId = legacySO.LegacyStatId,
+                    Level = 0,
+                };
+                pendingAddStats.Add(legacyStat);
+            }
+
+            _legacyDAO.InsertMany(pendingAddStats);
+        }
+
+
         public IReadOnlyList<LegacyStatDataHolder> GetAllPlayerLegacyStats(string playerId)
         {
             List<LegacyStatDataHolder> holders = new List<LegacyStatDataHolder>();

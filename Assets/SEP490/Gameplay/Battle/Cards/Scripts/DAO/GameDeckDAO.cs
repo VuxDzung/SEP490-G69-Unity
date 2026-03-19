@@ -165,7 +165,10 @@
             try
             {
                 if (string.IsNullOrEmpty(sessionId))
+                {
+                    Debug.LogError($"[GameDeckDAO.Delete] Session id is empty");
                     return false;
+                }
 
                 var col = GetCollection<SessionPlayerDeck>(db, COLLECTION_NAME);
                 return col.Delete(sessionId);

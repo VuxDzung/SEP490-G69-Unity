@@ -90,6 +90,8 @@ namespace SEP490G69.Economy
                 return;
 
             InventoryManager.UseItem(_selectedItemId, 1);
+
+            LocalDBOrchestrator.UpdateDBChangeTime();
         }
 
         private void EquipRelic()
@@ -98,6 +100,8 @@ namespace SEP490G69.Economy
                 return;
 
             InventoryManager.EquipRelic(_selectedItemId, 0);
+
+            LocalDBOrchestrator.UpdateDBChangeTime();
         }
 
         private void UnequipRelic()
@@ -105,6 +109,8 @@ namespace SEP490G69.Economy
             if (string.IsNullOrEmpty(_selectedItemId))
                 return;
             InventoryManager.UnequipRelic(_selectedItemId, 0);
+
+            LocalDBOrchestrator.UpdateDBChangeTime();
         }
     }
 }

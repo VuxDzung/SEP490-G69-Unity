@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69.Training
 {
+    using LiteDB;
     using SEP490G69.Economy;
     using System.Collections.Generic;
     using System.Linq;
@@ -35,8 +36,9 @@
 
             if (exerciseData == null)
             {
-                Debug.Log($"Existed data does not exist. Create new data for training exercise {exerciseSO.ExerciseId}");
-                string id = EntityIdConstructor.ConstructDBEntityId(_sessionId, exerciseSO.ExerciseId); 
+                string id = EntityIdConstructor.ConstructDBEntityId(_sessionId, exerciseSO.ExerciseId);
+
+                Debug.Log($"Existed data does not exist. Create new data for training exercise {exerciseSO.ExerciseId}\nEntityId: {id}");
                 exerciseData = new SessionTrainingExercise
                 {
                     Id = id,
@@ -45,7 +47,14 @@
                     Level = GameConstants.TRAINING_STARTER_LEVEL,
                 };
 
-                _trainingDAO.Insert(exerciseData);
+                if (_trainingDAO.Upsert(exerciseData))
+                {
+                    LocalDBOrchestrator.UpdateDBChangeTime();
+                }
+                else
+                {
+                    Debug.LogError("Failed to insert new training strategy");
+                }
             }
 
             _exerciseDataHolder = new TrainingExerciseDataHolder.Builder()
@@ -87,7 +96,11 @@
                 float after = before + delta;
 
                 character.SetStatus(statType, after);
-                character.UpdateChanges(_characterDAO);
+
+                if (character.UpdateChanges(_characterDAO))
+                {
+                    LocalDBOrchestrator.UpdateDBChangeTime();
+                }
 
                 result.Changes.Add(new StatChange(statType, before, delta));
             }

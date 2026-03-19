@@ -133,7 +133,7 @@ namespace SEP490G69.Training
                     return false;
 
                 var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
-                return col.Insert(entity);
+                return col.Insert(entity); // Error here
             }
             catch (Exception e)
             {
@@ -182,7 +182,9 @@ namespace SEP490G69.Training
             try
             {
                 if (entity == null)
+                {
                     return false;
+                }
 
                 var col = GetCollection<SessionTrainingExercise>(db, COLLECTION_NAME);
                 return col.Upsert(entity);

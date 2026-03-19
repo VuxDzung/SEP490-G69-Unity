@@ -329,13 +329,15 @@
             LoadingHandler.Singleton.Hide();
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
 
-            string deviceId = UnityEngine.SystemInfo.deviceUniqueIdentifier;
+            string deviceId = GetDeviceId();
             PlayerData playerData = _playerDataDAO.GetById(deviceId);
 
             if (_playerDataDAO.GetById(deviceId) != null)
             {
                 PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, deviceId);
+
                 Debug.Log("Fallback to device id login");
+
                 if (string.IsNullOrEmpty(playerData.PlayerName))
                 {
                     GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
@@ -347,7 +349,7 @@
             }
             else
             {
-                Debug.Log("Show set language id");
+                Debug.Log("No account available. Brandly new user. Show set language id");
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_LANG);
             }
         }

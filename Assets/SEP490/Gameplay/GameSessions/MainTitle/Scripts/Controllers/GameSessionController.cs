@@ -128,6 +128,7 @@ namespace SEP490G69.GameSessions
 
             LoadDAOs();
             //CheckPlayerProfile();
+            InitLegacies();
         }
 
         #endregion
@@ -153,6 +154,17 @@ namespace SEP490G69.GameSessions
             return _sessionCreator.GetAllSessions(playerId).Count > 0;
         }
 
+        private void InitLegacies()
+        {
+            string playerId = AuthManager.GetUserId();
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.LogError($"[GameSessionController.InitLegacies] Player id is null/empty");
+                return;
+            }
+            LegacyController.Initialize(playerId);
+        }
+
         /// <summary>
         /// Create a brand new session.
         /// A session consists of:
@@ -168,6 +180,7 @@ namespace SEP490G69.GameSessions
         {
             error = "";
             sessionId = "";
+
             if (_sessionCreator == null) return false;
 
             if (AuthManager == null) return false;
@@ -179,6 +192,13 @@ namespace SEP490G69.GameSessions
             }
 
             string playerId = AuthManager.GetUserId();
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.LogError($"[GameSessionController.CreateNewSession fatal error] Player id is null/empty!");
+                error = $"Player id is null/empty!";
+                return false;
+            }
 
             if (_sessionCreator.TryCreateSession(playerId, characterId, out sessionId, out error))
             {
@@ -210,8 +230,9 @@ namespace SEP490G69.GameSessions
 
                         DeckController.SetSessionId(sessionId);
 
-                        // Dung: Add default starter cards.
+                        // Dung: Add default starter cards (Available for all characters).
                         List<string> starterCards = new List<string>();
+                        Dictionary<string, int> starterCardsLookup = new Dictionary<string, int>();
 
                         foreach (StarterCardData starterCard in _starterCardConfig.StarterCards)
                         {
@@ -219,10 +240,12 @@ namespace SEP490G69.GameSessions
                             {
                                 starterCards.Add(starterCard.cardId);
                             }
-                            DeckController.AddObtainedCard(starterCard.cardId, starterCard.amount);
+                            starterCardsLookup.Add(starterCard.cardId, starterCard.amount);
                         }
 
-                        // Dung: Add charater's starter cards.
+                        DeckController.AddManyCards(starterCardsLookup);
+
+                        // Dung: Add charater's starter cards (Unique cards of the character).
                         foreach (string rawCardId in characterSO.StartingCardIds)
                         {
                             starterCards.Add(rawCardId);
@@ -349,15 +372,15 @@ namespace SEP490G69.GameSessions
                     return;
                 }
                 Debug.Log("Local player name does not match with cloud's player name. Sync now!");
-                bool success = await ProfileController.SyncPlayerName(playerId, playerData.PlayerName);
-                if (success)
-                {
-                    Debug.Log("Sync success");
-                }
-                else
-                {
-                    Debug.Log("Sync failed!");
-                }
+                //bool success = await ProfileController.SyncPlayerName(playerId, playerData.PlayerName);
+                //if (success)
+                //{
+                //    Debug.Log("Sync success");
+                //}
+                //else
+                //{
+                //    Debug.Log("Sync failed!");
+                //}
             }
         }
     }

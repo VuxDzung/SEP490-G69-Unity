@@ -194,6 +194,7 @@ namespace SEP490G69.Training
         {
             return GetFailRate(CharacterData.GetEnergy());
         }
+
         public float GetFailRate(float currentEnergy)
         {
             if (currentEnergy >= 50f) return 0f;
@@ -229,6 +230,7 @@ namespace SEP490G69.Training
                 }
 
                 _characterHolder.UpdateChanges(_characterDAO);
+                LocalDBOrchestrator.UpdateDBChangeTime();
             }
         }
     }

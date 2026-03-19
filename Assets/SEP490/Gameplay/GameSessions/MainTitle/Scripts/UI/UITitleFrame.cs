@@ -27,7 +27,7 @@ namespace SEP490G69.GameSessions
 
         private GameAuthManager _authManager;
         private GameSessionController _sessionController;
-        private PlayerDataDAO _playerDAO;
+        private PlayerDataDAO _playerDAO = new PlayerDataDAO();
 
         private GameAuthManager AuthManager
         {
@@ -171,11 +171,10 @@ namespace SEP490G69.GameSessions
             PerformCinematic(() =>
             {
                 UIManager.HideFrame(FrameId);
-                CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
 
                 string playerId = AuthManager.GetUserId();
 
-                PlayerData playerData = _playerDAO.GetById(playerId);
+                PlayerData playerData = _playerDAO.GetById(playerId); // Error here
 
                 if (playerData == null)
                 {
@@ -183,7 +182,7 @@ namespace SEP490G69.GameSessions
                     return;
                 }
 
-                if (playerData.LegacyPoints > 0)
+                if (playerData.LegacyPoints > 0.5f)
                 {
                     UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
                 }
@@ -191,12 +190,14 @@ namespace SEP490G69.GameSessions
                 {
                     UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
                 }
+
+                CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
             });
         }
 
         private void PerformCinematic(Action onAction)
         {
-            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
+            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration - 0.1f);
             FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.black, "", () =>
             {
                 onAction?.Invoke();

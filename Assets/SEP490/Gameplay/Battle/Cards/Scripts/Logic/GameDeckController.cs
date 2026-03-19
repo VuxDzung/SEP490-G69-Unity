@@ -92,7 +92,7 @@
             {
                 card = new SessionCardData
                 {
-                    SessionCardId = $"{_currentSessionId}:{rawCardId}",
+                    SessionCardId = EntityIdConstructor.ConstructDBEntityId(_currentSessionId, rawCardId),
                     SessionId = _currentSessionId,
                     RawCardId = rawCardId,
                     ObtainedAmount = amount
@@ -105,6 +105,34 @@
                 card.ObtainedAmount += amount;
                 _cardsDAO.Update(card);
             }
+        }
+
+        /// <summary>
+        /// Only use this at the beginning of the game when you initialize the starter data.
+        /// </summary>
+        /// <param name="cards"></param>
+        public bool AddManyCards(Dictionary<string, int> cards)
+        {
+            List<SessionCardData> cardList = new List<SessionCardData>();
+            foreach (var cardPair in cards)
+            {
+                string rawCardId = cardPair.Key;
+                int amount = cardPair.Value;
+                SessionCardData card = new SessionCardData
+                {
+                    SessionCardId = EntityIdConstructor.ConstructDBEntityId(_currentSessionId, rawCardId),
+                    SessionId = _currentSessionId,
+                    RawCardId = rawCardId,
+                    ObtainedAmount = amount
+                };
+                cardList.Add(card);
+            }
+            return _cardsDAO.InsertMany(cardList);
+        }
+
+        public void AddManyCardsToDeck(Dictionary<string, int> cards)
+        {
+
         }
 
         public bool RemoveObtainedCard(string rawCardId, int amount)

@@ -27,6 +27,7 @@ namespace SEP490G69.GameSessions
 
         private GameAuthManager _authManager;
         private GameSessionController _sessionController;
+        private NarrativeManager _narrativeManager;
         private PlayerDataDAO _playerDAO = new PlayerDataDAO();
 
         private GameAuthManager AuthManager
@@ -61,6 +62,17 @@ namespace SEP490G69.GameSessions
                     _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
                 }
                 return _profileController;
+            }
+        }
+        protected NarrativeManager NarrativeManager
+        {
+            get
+            {
+                if (_narrativeManager == null)
+                {
+                    _narrativeManager = ContextManager.Singleton.ResolveGameContext<NarrativeManager>();
+                }
+                return _narrativeManager;
             }
         }
 
@@ -170,29 +182,17 @@ namespace SEP490G69.GameSessions
             CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
             PerformCinematic(() =>
             {
+                ShowCutscene();
+
                 UIManager.HideFrame(FrameId);
-
-                string playerId = AuthManager.GetUserId();
-
-                PlayerData playerData = _playerDAO.GetById(playerId); // Error here
-
-                if (playerData == null)
-                {
-                    Debug.LogError($"[UITitleFrame.StartNew error] Player data of player {playerId}");
-                    return;
-                }
-
-                if (playerData.LegacyPoints > 0.5f)
-                {
-                    UIManager.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
-                }
-                else
-                {
-                    UIManager.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
-                }
 
                 CinematicCameraController.Instance.SetOrthSize(GameConstants.DEFAULT_CAM_ORTH_SIZE);
             });
+        }
+
+        private void ShowCutscene()
+        {
+            NarrativeManager.StartTree("dt_0001", "node_0001_0001");
         }
 
         private void PerformCinematic(Action onAction)

@@ -1,7 +1,5 @@
 namespace SEP490G69
 {
-    using UnityEngine;
-
     public class FadeInHandler : NarrativeActionHandlerBase
     {
         public FadeInHandler(ContextManager contextManager) : base(contextManager)

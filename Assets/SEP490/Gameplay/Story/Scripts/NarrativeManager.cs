@@ -47,8 +47,7 @@
             {
                 new FadeInHandler(manager),
                 new FadeIn2OutHandler(manager),
-                //new FadeOutHandler(dialogManager),
-                // new PlayCutsceneHandler(...)
+                new StartNewGameHandler(manager)
             });
 
             _eventManager.Subscribe<NextDialogEvent>(DispatchNextEvent);

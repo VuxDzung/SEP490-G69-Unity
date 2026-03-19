@@ -308,7 +308,7 @@ namespace SEP490G69.GameSessions
                 return;
             }
             string sessionId = sessions[0].SessionId;
-
+            Debug.Log($"Session id: {sessionId}");
             PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
             DeckController.SetSessionId(sessionId);
             ContextManager.Singleton.ResolveGameContext<GameInventoryManager>().SetSessionId(sessionId);

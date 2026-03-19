@@ -149,6 +149,7 @@ namespace SEP490G69
         public const string ACTION_FADE_IN = "FADE_IN";
         public const string ACTION_FADE_OUT = "FADE_OUT";
         public const string ACTION_FADE_IN_2_OUT = "FADE_IN_2_OUT";
+        public const string ACTION_START_NEW_GAME = "START_NEW_GAME";
         #endregion
 
         #region Narrative Event parameters

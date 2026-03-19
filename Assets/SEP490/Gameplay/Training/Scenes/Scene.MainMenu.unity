@@ -771,6 +771,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfacadcce595a2a43b515c687c273b86, type: 3}
+--- !u!224 &291789441 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7484315955433877412, guid: cfacadcce595a2a43b515c687c273b86, type: 3}
+  m_PrefabInstance: {fileID: 291789440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &436809164
 GameObject:
   m_ObjectHideFlags: 0
@@ -11449,6 +11454,9 @@ MonoBehaviour:
   m_MainMenuBG: {fileID: 1578307709}
   m_TrainingMenuBG: {fileID: 1229295397}
   m_TrainingCharContainer: {fileID: 923788789}
+  _sakuraAnimPrefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
+  m_OverlayPrefab: {fileID: 7954338484560110503, guid: c3bdf2cec9b76db47a3aca8c44793a70, type: 3}
+  m_UICanvas: {fileID: 291789441}
 --- !u!114 &1612326926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11673,6 +11681,7 @@ GameObject:
   - component: {fileID: 2134430719}
   - component: {fileID: 2134430720}
   - component: {fileID: 2134430721}
+  - component: {fileID: 2134430722}
   m_Layer: 0
   m_Name: SpawnPools.Menu
   m_TagString: Untagged
@@ -11834,6 +11843,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: UIFacility
+  preLoadPrefabs: []
+--- !u!114 &2134430722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134430710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: TennisBallPool
   preLoadPrefabs: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

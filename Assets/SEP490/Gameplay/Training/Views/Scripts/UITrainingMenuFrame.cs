@@ -29,6 +29,10 @@ namespace SEP490G69.Training
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_Container;
 
+        // Biến quản lý làm mờ/ẩn cụm nút bấm
+        [Header("UI Control")]
+        [SerializeField] private CanvasGroup m_MenuCanvasGroup;
+
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
         {
@@ -48,15 +52,10 @@ namespace SEP490G69.Training
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeFacilityBtn.onClick.AddListener(UpgradeFacilityNav);
 
-            //m_BoxingBtn.onClick.AddListener(PerformBoxing);
-            //m_RunBtn.onClick.AddListener(PerformRun);
-            //m_DodgeBtn.onClick.AddListener(PerformDodge);
-            //m_StudyBtn.onClick.AddListener(PerformStudy);
-            //m_YogaBtn.onClick.AddListener(PerformYoga);
-
             LoadStats();
             LoadExercisesUI();
         }
+
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
@@ -64,12 +63,27 @@ namespace SEP490G69.Training
             m_UpgradeFacilityBtn.onClick.RemoveListener(UpgradeFacilityNav);
 
             ClearAllExercisesUI();
+        }
 
-            //m_BoxingBtn.onClick.RemoveListener(PerformBoxing);
-            //m_RunBtn.onClick.RemoveListener(PerformRun);
-            //m_DodgeBtn.onClick.RemoveListener(PerformDodge);
-            //m_StudyBtn.onClick.RemoveListener(PerformStudy);
-            //m_YogaBtn.onClick.RemoveListener(PerformYoga);
+        // HÀM CHO GAME CONTROLLER GỌI: ẨN/HIỆN NÚT MÀ KHÔNG TẮT BG
+        public void HideUIForAnimation()
+        {
+            if (m_MenuCanvasGroup != null)
+            {
+                m_MenuCanvasGroup.alpha = 0f;
+                m_MenuCanvasGroup.blocksRaycasts = false;
+                m_MenuCanvasGroup.interactable = false;
+            }
+        }
+
+        public void ShowUIAfterAnimation()
+        {
+            if (m_MenuCanvasGroup != null)
+            {
+                m_MenuCanvasGroup.alpha = 1f;
+                m_MenuCanvasGroup.blocksRaycasts = true;
+                m_MenuCanvasGroup.interactable = true;
+            }
         }
 
         private void LoadExercisesUI()
@@ -90,33 +104,14 @@ namespace SEP490G69.Training
                                 strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
                 m_ExercisesUI[i - 1].Spawn();
             }
-
-            //foreach (ITrainingStrategy strategy in TrainingController.GetAllTrainings())
-            //{
-            //    if (!strategy.DataHolder.CanShowOnUI()) continue;
-
-            //    Transform exerciseUITrans = PoolManager.Pools[poolName].Spawn(m_ExerciseUIPrefab, m_Container);
-            //    UIExerciseElement exerciseUI = exerciseUITrans.GetComponent<UIExerciseElement>();
-            //    if (exerciseUI != null)
-            //    {
-            //        exerciseUI.SetOnClick(PerformExercise)
-            //                  .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(), 
-            //                  strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
-            //    }
-            //}
         }
 
         private void ClearAllExercisesUI()
         {
-            //string poolName = "UIExercise";
-            //if (PoolManager.Pools[poolName].Count > 0)
-            //{
-            //    PoolManager.Pools[poolName].DespawnAll();
-            //}
             m_ExercisesUI.ForEach(exUI => exUI.Despawn());
         }
 
-        private void LoadStats()
+        public void LoadStats()
         {
             if (TrainingController == null)
             {
@@ -126,7 +121,6 @@ namespace SEP490G69.Training
             SetEnergy(TrainingController.CharacterData.GetEnergy(), GameConstants.MAX_100);
             SetFailureRate(TrainingController.GetFailRate());
 
-            // Stats
             SetVitality(TrainingController.CharacterData.GetVIT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetVIT()));
             SetPower(TrainingController.CharacterData.GetPower(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetPower()));
             SetINT(TrainingController.CharacterData.GetINT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetINT()));
@@ -134,45 +128,14 @@ namespace SEP490G69.Training
             SetStamina(TrainingController.CharacterData.GetStamina(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetStamina()));
         }
 
-        public void SetEnergy(float cur, float max)
-        {
-            m_EnergySlider.SetValue(cur, max);
-        }
-        public void SetMood(string mood)
-        {
-            m_MoodTmp.text = string.Format(GameConstants.MOOD_FORMAT, mood);
-        }
-
-        public void SetFailureRate(float rate)
-        {
-            m_FailRateTmp.text = string.Format(FORMAT_FAIL_RATE, rate);
-        }
-
-        public void SetVitality(float cur, float max)
-        {
-            m_HealthSlider.SetValue(cur, max);
-            m_HealthSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
-        }
-        public void SetPower(float cur, float max)
-        {
-            m_PowerSlider.SetValue(cur, max);
-            m_PowerSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
-        }
-        public void SetAgility(float cur, float max)
-        {
-            m_AgilitySlider.SetValue(cur, max);
-            m_AgilitySlider.SetRank(CharacterStatUtils.GetStatRank(cur));
-        }
-        public void SetINT(float cur, float max)
-        {
-            m_INTSlider.SetValue(cur, max);
-            m_INTSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
-        }
-        public void SetStamina(float cur, float max)
-        {
-            m_StaminaSlider.SetValue(cur, max);
-            m_StaminaSlider.SetRank(CharacterStatUtils.GetStatRank(cur));
-        }
+        public void SetEnergy(float cur, float max) { m_EnergySlider.SetValue(cur, max); }
+        public void SetMood(string mood) { m_MoodTmp.text = string.Format(GameConstants.MOOD_FORMAT, mood); }
+        public void SetFailureRate(float rate) { m_FailRateTmp.text = string.Format(FORMAT_FAIL_RATE, rate); }
+        public void SetVitality(float cur, float max) { m_HealthSlider.SetValue(cur, max); m_HealthSlider.SetRank(CharacterStatUtils.GetStatRank(cur)); }
+        public void SetPower(float cur, float max) { m_PowerSlider.SetValue(cur, max); m_PowerSlider.SetRank(CharacterStatUtils.GetStatRank(cur)); }
+        public void SetAgility(float cur, float max) { m_AgilitySlider.SetValue(cur, max); m_AgilitySlider.SetRank(CharacterStatUtils.GetStatRank(cur)); }
+        public void SetINT(float cur, float max) { m_INTSlider.SetValue(cur, max); m_INTSlider.SetRank(CharacterStatUtils.GetStatRank(cur)); }
+        public void SetStamina(float cur, float max) { m_StaminaSlider.SetValue(cur, max); m_StaminaSlider.SetRank(CharacterStatUtils.GetStatRank(cur)); }
 
         public void Back()
         {
@@ -188,38 +151,11 @@ namespace SEP490G69.Training
 
         }
 
-        public void PerformBoxing()
-        {
-            if (TrainingController.CanJoinTraining())
-                TrainingController.StartTraining(ETrainingType.Boxing);
-        }
-        private void PerformRun()
-        {
-            if (TrainingController.CanJoinTraining())
-                TrainingController.StartTraining(ETrainingType.Run);
-        }
-        private void PerformDodge()
-        {
-            if (TrainingController.CanJoinTraining())
-                TrainingController.StartTraining(ETrainingType.Dodge);
-        }
-        private void PerformStudy()
-        {
-            if (TrainingController.CanJoinTraining())
-                TrainingController.StartTraining(ETrainingType.Study);
-        }
-        private void PerformYoga()
-        {
-            if (TrainingController.CanJoinTraining())
-                TrainingController.StartTraining(ETrainingType.Yoga);
-        }
-
         private void PerformExercise(string id)
         {
             if (TrainingController.CanJoinTraining())
             {
                 TrainingController.StartTraining(id);
-                LoadStats();
             }
         }
     }

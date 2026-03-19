@@ -23,6 +23,16 @@ namespace SEP490G69.Training
         [SerializeField] private GameObject m_TrainingMenuBG;
         [SerializeField] private Transform m_TrainingCharContainer;
 
+        [Header("Training Animation Prefabs")]
+        [SerializeField] private SakuraTrainingAnimationController _sakuraAnimPrefab;
+
+        // THAY ĐỔI: Chuyển sang dùng Prefab và sinh ra động
+        [Header("UI System")]
+        [SerializeField] private GameObject m_OverlayPrefab;     // Kéo Prefab Overlay vào đây
+        [SerializeField] private Transform m_UICanvas;           // Kéo UICanvas trên Scene vào đây
+
+        private GameObject _activeOverlayInstance;               // Biến lưu trữ Overlay đang hiển thị
+
         private EventManager _eventManager;
 
         // CONFIGs
@@ -55,20 +65,12 @@ namespace SEP490G69.Training
             LoadExerciseStrategies();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                return;
-            }
+            if (string.IsNullOrEmpty(sessionId)) return;
+
             PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+            if (sessionData == null) return;
 
-            if (sessionData == null)
-            {
-                return;
-            }
             SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
-
-            Debug.Log($"Character: {characterData.Id}");
-
             BaseCharacterSO characterSO = _characterConfig.GetCharacterById(sessionData.RawCharacterId);
 
             _characterHolder = new CharacterDataHolder.Builder()
@@ -76,7 +78,6 @@ namespace SEP490G69.Training
                                    .WithCharacterSO(characterSO)
                                    .Build();
 
-            // Initialize exercises strategies.
             _exerciseList.ForEach(ex =>
             {
                 TrainingExerciseSO _so = _exercisesConfig.GetExercise(ex.ExerciseId);
@@ -84,6 +85,7 @@ namespace SEP490G69.Training
             });
 
             _eventManager.Subscribe<UseItemEvent>(HandeUseItemEvent);
+            _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompletedEvent);
         }
 
         private void Start()
@@ -94,8 +96,8 @@ namespace SEP490G69.Training
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
-
             _eventManager.Unsubscribe<UseItemEvent>(HandeUseItemEvent);
+            _eventManager.Unsubscribe<TrainingCompletedEvent>(HandleTrainingCompletedEvent);
         }
 
         private void LoadExerciseStrategies()
@@ -103,11 +105,13 @@ namespace SEP490G69.Training
             _exerciseList.Clear();
             _exerciseList.AddRange(GetComponentsInChildren<ITrainingStrategy>());
         }
+
         private void LoadConfigs()
         {
             _exercisesConfig = ContextManager.Singleton.GetDataSO<TrainingExerciseConfigSO>();
             _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
         }
+
         private void LoadDAOs()
         {
             _sessionDAO = new GameSessionDAO();
@@ -120,7 +124,6 @@ namespace SEP490G69.Training
         private void LoadCharacter()
         {
             string poolName = "Character";
-
             Transform characterTrans = PoolManager.Pools[poolName].Spawn(_characterHolder.GetPrefab(), m_CharacterContainer);
             _characterAnimator = characterTrans.GetComponent<Animator>();
         }
@@ -128,9 +131,11 @@ namespace SEP490G69.Training
         public void OpenMainMenuBG()
         {
             m_MainMenuBG.SetActive(true);
+            _characterAnimator.gameObject.SetActive(true);
             _characterAnimator.transform.SetParent(m_CharacterContainer.transform, false);
             _characterAnimator.transform.localPosition = Vector3.zero;
         }
+
         public void HideMainMenuBG()
         {
             m_MainMenuBG.SetActive(false);
@@ -139,36 +144,94 @@ namespace SEP490G69.Training
         public void OpenTrainingMenuBG()
         {
             m_TrainingMenuBG.SetActive(true);
+            _characterAnimator.gameObject.SetActive(true);
             _characterAnimator.transform.SetParent(m_TrainingCharContainer.transform, false);
             _characterAnimator.transform.localPosition = Vector3.zero;
         }
+
         public void HideTrainingMenuBG()
         {
             m_TrainingMenuBG.SetActive(false);
         }
 
+        // ================== LOGIC GỌI TRAINING VÀ HOẠT ẢNH ==================
         public void StartTraining(ETrainingType trainingType)
         {
             ITrainingStrategy strategy = GetExerciseByType(trainingType);
             if (strategy == null) return;
-
-            TrainingResult result = strategy.StartTraining(_characterHolder);
-            var frame = GameUIManager.Singleton
-                .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
-                .AsFrame<UITrainingResultFrame>();
-            frame.SetResult(strategy.DataHolder.GetName(), result);
+            ProcessTrainingLogic(strategy);
         }
 
         public void StartTraining(string id)
         {
             ITrainingStrategy strategy = GetExerciseById(id);
             if (strategy == null) return;
+            ProcessTrainingLogic(strategy);
+        }
 
+        private void ProcessTrainingLogic(ITrainingStrategy strategy)
+        {
             TrainingResult result = strategy.StartTraining(_characterHolder);
-            var frame = GameUIManager.Singleton
-                .ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT)
-                .AsFrame<UITrainingResultFrame>();
-            frame.SetResult(strategy.DataHolder.GetName(), result);
+            UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU) as UITrainingMenuFrame;
+
+            // 1. SPAWN OVERLAY VÀO CANVAS NGAY KHI VỪA BẤM TẬP
+            if (m_OverlayPrefab != null && m_UICanvas != null && _activeOverlayInstance == null)
+            {
+                // Instantiate sinh ra Overlay và tự động nhét vào làm con của UICanvas
+                _activeOverlayInstance = Instantiate(m_OverlayPrefab, m_UICanvas);
+                _activeOverlayInstance.transform.SetAsLastSibling(); // Ép xuống đáy để che mọi thứ
+            }
+
+            if (_characterHolder.GetRawId() == "ch_0003" && _sakuraAnimPrefab != null)
+            {
+                if (menuFrame != null) menuFrame.HideUIForAnimation();
+                _characterAnimator.gameObject.SetActive(false);
+
+                SakuraTrainingAnimationController animInstance = Instantiate(_sakuraAnimPrefab);
+
+                animInstance.PlayTrainingAnim(strategy.TrainingType, () =>
+                {
+                    Destroy(animInstance.gameObject);
+
+                    _characterAnimator.gameObject.SetActive(true);
+                    if (menuFrame != null) menuFrame.ShowUIAfterAnimation();
+
+                    // 2. ÉP OVERLAY XUỐNG DƯỚI CÙNG 1 LẦN NỮA TRƯỚC KHI BUNG POPUP
+                    if (_activeOverlayInstance != null)
+                    {
+                        _activeOverlayInstance.transform.SetAsLastSibling();
+                    }
+
+                    // Hệ thống UIManager sẽ tự động nhét Popup này nằm DƯỚI cái Overlay trong Hierarchy (nghĩa là nổi lên trên cùng)
+                    var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
+                    frame.SetResult(strategy.DataHolder.GetName(), result);
+                });
+            }
+            else
+            {
+                if (_activeOverlayInstance != null) _activeOverlayInstance.transform.SetAsLastSibling();
+
+                var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
+                frame.SetResult(strategy.DataHolder.GetName(), result);
+            }
+        }
+
+        // ================== HỦY OVERLAY KHI ĐÓNG POPUP ==================
+        private void HandleTrainingCompletedEvent(TrainingCompletedEvent ev)
+        {
+            // Xóa sổ cái Overlay khỏi Scene
+            if (_activeOverlayInstance != null)
+            {
+                Destroy(_activeOverlayInstance);
+                _activeOverlayInstance = null;
+            }
+
+            // Cập nhật lại thanh máu
+            UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU) as UITrainingMenuFrame;
+            if (menuFrame != null)
+            {
+                menuFrame.LoadStats();
+            }
         }
 
         public bool CanJoinTraining()
@@ -185,6 +248,7 @@ namespace SEP490G69.Training
         {
             return _exerciseList.FirstOrDefault(ex => ex.TrainingType == trainingType);
         }
+
         private ITrainingStrategy GetExerciseById(string id)
         {
             return _exerciseList.FirstOrDefault(ex => ex.ExerciseId.Equals(id));
@@ -200,8 +264,8 @@ namespace SEP490G69.Training
             if (currentEnergy >= 50f) return 0f;
 
             float failRate = ((50f - currentEnergy) / 30f) * 100f;
-            float finalRawRate = Mathf.Clamp(failRate, 0f, 100f); 
-            float roundedRate =  (float)System.Math.Round(finalRawRate, 2);
+            float finalRawRate = Mathf.Clamp(failRate, 0f, 100f);
+            float roundedRate = (float)System.Math.Round(finalRawRate, 2);
             return roundedRate;
         }
 

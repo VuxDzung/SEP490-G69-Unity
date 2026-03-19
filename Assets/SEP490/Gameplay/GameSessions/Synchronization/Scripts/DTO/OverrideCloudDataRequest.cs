@@ -1,38 +1,36 @@
 namespace SEP490G69.GameSessions
 {
     using Newtonsoft.Json;
-    using SEP490G69.Economy;
-    using SEP490G69.Tournament;
     using System.Collections.Generic;
 
-    public class OverrideCloudDataRequest 
+    public class OverrideCloudDataRequest
     {
         [JsonProperty("player_data")]
         public PlayerInfoDTO PlayerData { get; set; } = new PlayerInfoDTO();
 
         [JsonProperty("session")]
-        public PlayerTrainingSession Session { get; set; } = new PlayerTrainingSession();
+        public PlayerTrainingSessionDTO Session { get; set; } = new PlayerTrainingSessionDTO();
 
         [JsonProperty("character")]
-        public SessionCharacterData Character { get; set; } = new SessionCharacterData();
+        public SessionCharacterDataDTO Character { get; set; } = new SessionCharacterDataDTO();
 
         [JsonProperty("exercises")]
-        public List<SessionTrainingExercise> Exercises { get; set; } = new List<SessionTrainingExercise>();
+        public List<SessionTrainingExerciseDTO> Exercises { get; set; } = new List<SessionTrainingExerciseDTO>();
 
         [JsonProperty("deck")]
-        public SessionPlayerDeck Deck { get; set; } = new SessionPlayerDeck();
+        public SessionPlayerDeckDTO Deck { get; set; } = new SessionPlayerDeckDTO();
 
         [JsonProperty("cards")]
-        public List<SessionCardData> Cards { get; set; } = new List<SessionCardData>();
+        public List<SessionCardDataDTO> Cards { get; set; } = new List<SessionCardDataDTO>();
 
 
         [JsonProperty("obtained_items")]
-        public List<ItemData> ObtainedItems { get; set; } = new List<ItemData>();
+        public List<ItemDataDTO> ObtainedItems { get; set; } = new List<ItemDataDTO>();
 
         [JsonProperty("shop_items")]
-        public List<ShopItemData> ShopItems { get; set; } = new List<ShopItemData>();
+        public List<ShopItemDataDTO> ShopItems { get; set; } = new List<ShopItemDataDTO>();
 
         [JsonProperty("tournament_progressions")]
-        public List<TournamentProgressData> TournamentProgressions { get; set; } = new List<TournamentProgressData>();
+        public List<TournamentProgressDataDTO> TournamentProgressions { get; set; } = new List<TournamentProgressDataDTO>();
     }
 }

@@ -2,17 +2,16 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
-    using SEP490G69.Battle.Cards;
 
     [CreateAssetMenu(fileName = "EnemySO", menuName = OrganizationConstants.NAMESPACE + "/Characters/Enemy data")]
     public class EnemySO : BaseCharacterSO 
     {
-
         [Header("Enemy Specifics")]
         [Header("Combat Deck")]
-        [SerializeField] private List<string> m_Deck;
+        //[SerializeField] private List<string> m_Deck;
+        [SerializeField] private EnemyDeckSO m_EnemyDeck;
 
-        public IReadOnlyList<string> Deck => m_Deck;
+        public IReadOnlyList<string> Deck => m_EnemyDeck.CardIdList;
 
         public float TotalStats => BaseVit + BasePow + BaseAgi + BaseInt + BaseSta;
     }

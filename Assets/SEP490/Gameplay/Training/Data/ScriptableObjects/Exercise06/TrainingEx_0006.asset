@@ -20,8 +20,14 @@ MonoBehaviour:
   m_SuccessModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
     BonusPerLevel: 0
-  - Modifier: {fileID: 11400000, guid: 2f9578b1a3105564fb8475505b84df44, type: 2}
+  - Modifier: {fileID: 11400000, guid: f68132c6c17960e47b8fe8cad04c161e, type: 2}
     BonusPerLevel: 0
+  - Modifier: {fileID: 11400000, guid: 0bf8fd5e87382e04892f9cefdc05dcf8, type: 2}
+    BonusPerLevel: 5
+  - Modifier: {fileID: 11400000, guid: fabd4fe64242494478df1e655052c747, type: 2}
+    BonusPerLevel: 2
+  - Modifier: {fileID: 11400000, guid: 771715e50da42c3449703b5b18c49211, type: 2}
+    BonusPerLevel: -1
   m_FailedModifiers:
   - Modifier: {fileID: 11400000, guid: 6b3c5c87694447947b4cb90326bffb95, type: 2}
     BonusPerLevel: 0

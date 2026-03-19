@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30f08f4b5a2924aa0cb5fdf7a7242a, type: 3}
+  m_Name: ch_0028_0001
+  m_EditorClassIdentifier: 
+  m_CharacterId: ch_0028_0001
+  m_IsAvailable: 1
+  m_CharacterName: Capri
+  m_CharacterDescription: ch_0028_desc
+  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_FullBodyImg: {fileID: 0}
+  m_Prefab: {fileID: 1647430779239574558, guid: 64dd65ca65b6bbe449b361e6abbeb0b0, type: 3}
+  m_CombatPrefab: {fileID: 4614346758846958402, guid: 6a9f01ef849574e42857420da8e048d7, type: 3}
+  m_CharacterType: 1
+  baseVit: 35
+  basePow: 15
+  baseInt: 10
+  baseSta: 40
+  baseDef: 25
+  baseAgi: 10
+  baseEnergy: 0
+  baseMood: 0
+  baseRP: 0
+  m_Deck: []

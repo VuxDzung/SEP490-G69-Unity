@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30f08f4b5a2924aa0cb5fdf7a7242a, type: 3}
+  m_Name: ch_0012_0001
+  m_EditorClassIdentifier: 
+  m_CharacterId: ch_0012_0001
+  m_IsAvailable: 1
+  m_CharacterName: Taro
+  m_CharacterDescription: ch_0012_desc
+  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_FullBodyImg: {fileID: 0}
+  m_Prefab: {fileID: 1647430779239574558, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
+  m_CombatPrefab: {fileID: 1554301435424827168, guid: 3eba1da9e2d59f64c85e79887a68d13c, type: 3}
+  m_CharacterType: 1
+  baseVit: 35
+  basePow: 28
+  baseInt: 5
+  baseSta: 30
+  baseDef: 20
+  baseAgi: 15
+  baseEnergy: 0
+  baseMood: 0
+  baseRP: 0
+  m_Deck: []

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30f08f4b5a2924aa0cb5fdf7a7242a, type: 3}
+  m_Name: ch_0029_0010
+  m_EditorClassIdentifier: 
+  m_CharacterId: ch_0029_0010
+  m_IsAvailable: 1
+  m_CharacterName: Aqua
+  m_CharacterDescription: ch_0029_desc
+  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_FullBodyImg: {fileID: 0}
+  m_Prefab: {fileID: 1647430779239574558, guid: 848802061a521b5498e815b661576e5c, type: 3}
+  m_CombatPrefab: {fileID: 8603591403344560196, guid: be1e9f7e4d39ec245a5efa79a4ed79d6, type: 3}
+  m_CharacterType: 1
+  baseVit: 695
+  basePow: 535
+  baseInt: 999
+  baseSta: 930
+  baseDef: 540
+  baseAgi: 805
+  baseEnergy: 0
+  baseMood: 0
+  baseRP: 0
+  m_Deck: []

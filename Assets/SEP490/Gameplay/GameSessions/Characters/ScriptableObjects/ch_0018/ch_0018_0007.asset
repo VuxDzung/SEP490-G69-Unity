@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30f08f4b5a2924aa0cb5fdf7a7242a, type: 3}
+  m_Name: ch_0018_0007
+  m_EditorClassIdentifier: 
+  m_CharacterId: ch_0018_0007
+  m_IsAvailable: 1
+  m_CharacterName: Leon
+  m_CharacterDescription: ch_0018_desc
+  m_Thumbnail: {fileID: 4528400736281484973, guid: daa2c079a342a844eaebb2795a3ef6a1, type: 3}
+  m_FullBodyImg: {fileID: -2627815976479114376, guid: 352c7e83d149e9e48964c494d0b39edb, type: 3}
+  m_Prefab: {fileID: 167783558989398599, guid: 33be92e35684dc144b5c9e828c90bb4a, type: 3}
+  m_CombatPrefab: {fileID: 1942180303091356574, guid: 8e0ff4d97c7fd894f8097a4a389f1317, type: 3}
+  m_CharacterType: 1
+  baseVit: 280
+  basePow: 320
+  baseInt: 100
+  baseSta: 290
+  baseDef: 180
+  baseAgi: 260
+  baseEnergy: 0
+  baseMood: 0
+  baseRP: 0
+  m_Deck:
+  - card_0001
+  - card_0001
+  - card_0001
+  - card_0002
+  - card_0002
+  - card_0002
+  - card_0011
+  - card_0008
+  - card_0015

@@ -105,14 +105,21 @@ public class SakuraTrainingAnimationController : MonoBehaviour
         DOTween.Kill(sakuraRenderer.transform);
         DOTween.Kill(sakuraBagRenderer.transform);
 
+        // THAY ĐỔI QUAN TRỌNG: Cứu các quả bóng ra khỏi Container trước khi vứt vào Pool
         foreach (var ball in sakuraActiveBalls)
         {
-            if (ball != null) DOTween.Kill(ball);
+            if (ball != null)
+            {
+                DOTween.Kill(ball);
+                ball.SetParent(null); // <- Cứu bóng khỏi bị Destroy theo Prefab
+
+                if (PoolManager.Pools.ContainsKey(tennisBallPoolName))
+                {
+                    PoolManager.Pools[tennisBallPoolName].DespawnObject(ball);
+                }
+            }
         }
         sakuraActiveBalls.Clear();
-
-        if (PoolManager.Pools.ContainsKey(tennisBallPoolName))
-            PoolManager.Pools[tennisBallPoolName].DespawnAll();
 
         sakuraIsScrolling = false;
         sakuraRenderer.transform.position = sakuraPosStart.position;
@@ -155,8 +162,8 @@ public class SakuraTrainingAnimationController : MonoBehaviour
             default: PlaySakuraStudyTraining(); break;
         }
 
-        // Đếm ngược 4.5 giây, sau đó dừng toàn bộ và gọi hàm callback trả kết quả
-        sakuraTimerTween = DOVirtual.DelayedCall(4.5f, () =>
+        // Đếm ngược 3 giây, sau đó dừng toàn bộ và gọi hàm callback trả kết quả
+        sakuraTimerTween = DOVirtual.DelayedCall(3f, () =>
         {
             StopAllSakuraAnimations();
             onComplete?.Invoke();
@@ -307,10 +314,18 @@ public class SakuraTrainingAnimationController : MonoBehaviour
         {
             sakuraActiveBalls.Add(ball);
             ball.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+
             ball.DOMove(endPos, ballFlySpeed).SetEase(Ease.Linear).OnComplete(() => {
                 DOTween.Kill(ball);
                 sakuraActiveBalls.Remove(ball);
-                if (PoolManager.Pools.ContainsKey(tennisBallPoolName)) PoolManager.Pools[tennisBallPoolName].DespawnObject(ball);
+
+                // THAY ĐỔI QUAN TRỌNG: Cứu bóng ra trước khi cất
+                ball.SetParent(null);
+
+                if (PoolManager.Pools.ContainsKey(tennisBallPoolName))
+                {
+                    PoolManager.Pools[tennisBallPoolName].DespawnObject(ball);
+                }
             });
         }
     }

@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 20
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

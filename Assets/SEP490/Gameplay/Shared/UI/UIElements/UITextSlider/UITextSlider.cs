@@ -21,8 +21,8 @@ namespace SEP490G69
         {
             //m_Slider.maxValue = max;
 
-            float finalCur = (float)Math.Round(cur, 1);
-            float finalMax = (float)Math.Round(max, 1);
+            float finalCur = (float)Math.Round(cur, 0);
+            float finalMax = (float)Math.Round(max, 0);
 
             if (finalCur < 0)
             {

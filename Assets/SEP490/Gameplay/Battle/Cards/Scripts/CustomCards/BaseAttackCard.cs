@@ -2,7 +2,6 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
-    using UnityEngine;
 
     /// <summary>
     /// Base attack card. Handle most of the attack card logic.
@@ -85,10 +84,7 @@ namespace SEP490G69.Battle
             }
         }
 
-        protected virtual void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
-        {
-
-        }
+        protected virtual void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target) { }
 
         protected virtual float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {

@@ -51,7 +51,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     velocity: {x: 10, y: 0}
   - animationName: dodge
-    invert: 0
+    invert: 1
     duration: 1
     curve:
       serializedVersion: 2
@@ -88,7 +88,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     velocity: {x: 5, y: 0}
   - animationName: take_dmg
-    invert: 0
+    invert: 1
     duration: 1
     curve:
       serializedVersion: 2

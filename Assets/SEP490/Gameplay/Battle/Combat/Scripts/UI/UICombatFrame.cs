@@ -234,7 +234,8 @@
 
                     cardUI.SetOnSelectCallback(SelectCard)
                           .SetOnDragEnd(PerformCardAction)
-                          .SetContent(card.CardId, cardName, cardDesc, card.Icon);
+                          .SetContent(card.CardId, cardName, cardDesc, card.Icon)
+                          .SetCost(card.Cost);
 
                     cardUI._onDragParent = m_DraggingArea;
                 }

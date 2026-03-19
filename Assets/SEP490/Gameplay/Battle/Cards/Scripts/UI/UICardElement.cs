@@ -15,6 +15,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private TextMeshProUGUI m_CardNameTmp;
         [SerializeField] private TextMeshProUGUI m_CardDescTmp;
         [SerializeField] private Button m_BtnRef;
+        [SerializeField] private TextMeshProUGUI m_CostTmp;
 
         public string RawCardId { get; private set; }
 
@@ -51,13 +52,24 @@ namespace SEP490G69.Battle.Cards
             return this;
         }
 
-        public void SetContent(string cardId, string cardName, string cardDesc, Sprite icon)
+        public UICardElement SetContent(string cardId, string cardName, string cardDesc, Sprite icon)
         {
             RawCardId = cardId;
             m_CardNameTmp.text = cardName;
             m_CardDescTmp.text = cardDesc;
             m_CardIcon.sprite = icon;
+            return this;
         }
+
+        public UICardElement SetCost(int cost)
+        {
+            if (m_CostTmp != null)
+            {
+                m_CostTmp.text = cost.ToString();
+            }
+            return this;
+        }
+
 
         private void Select()
         {

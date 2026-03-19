@@ -125,6 +125,7 @@
             _statusContainer.Add(EStatusType.Agi, StatAgi);
             _statusContainer.Add(EStatusType.Intelligence, StatInt);
             _statusContainer.Add(EStatusType.Stamina, StatStamina);
+            _statusContainer.Add(EStatusType.Defense, StatDEF);
 
             _statusContainer.Add(EStatusType.Damage, StatOutputDmg);
             _statusContainer.Add(EStatusType.ReceivedDmg, StatReceivedDmg);
@@ -190,8 +191,8 @@
         public void ReceiveDamage(float damage, BaseBattleCharacterController attacker)
         {
             LastAttacker = attacker;
-
-            float finalDamage = Mathf.Max(1, damage - StatDEF.Value);
+            Debug.Log($"{gameObject.name} received pure dmg: {damage}");
+            float finalDamage = Mathf.Max(0, damage - StatDEF.Value);
 
             StatReceivedDmg.SetCurrentValue(finalDamage);
             float finalVit = StatVit.Value - StatReceivedDmg.Value;
@@ -538,10 +539,14 @@
             InCombatStatus status = GetCombatStatus(_selectedCard.ModifyStatType);
             if (status == null)
             {
+                Debug.Log($"<color=red>[BaseBattleCharacterController.CalculateBaseDmg] Scale stat {_selectedCard.ModifyStatType} is not registered</color>");
                 return 0f;
             }
             float damage = _selectedCard.BaseValue + _selectedCard.GetDelta(status.Value);
             StatOutputDmg.SetCurrentValue(damage);
+
+            Debug.Log($"{gameObject.name} deal pure dmg: {damage}\nExtra final dmg: {StatOutputDmg.Value}");
+
             return damage;
         }
     }

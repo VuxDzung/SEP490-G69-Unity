@@ -83,8 +83,13 @@ namespace SEP490G69
         {
             if (string.IsNullOrEmpty(_sessionId))
             {
-                Debug.LogError("[GameInventoryManager.AddItem] Session id is null/empty!");
-                return;
+                _sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+                if (string.IsNullOrEmpty(_sessionId))
+                {
+                    Debug.LogError("[GameInventoryManager.AddItem] Session id is null/empty!");
+                    return;
+                }
             }
 
             ItemDataHolder item = GetItemBy(itemId);

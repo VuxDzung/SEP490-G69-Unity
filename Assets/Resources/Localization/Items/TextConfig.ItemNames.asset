@@ -14,253 +14,253 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: ItemNames
   textDataList:
-  - id: itm_0001
+  - id: itm_0001_name
     textList:
     - language: 0
       text: Basic Energy Drink
     - language: 1
       text: "Th\u1EE9c u\u1ED1ng n\u0103ng l\u01B0\u1EE3ng c\u01A1 b\u1EA3n"
-  - id: itm_0002
+  - id: itm_0002_name
     textList:
     - language: 0
       text: Academy Recovery Meal
     - language: 1
       text: "B\u1EEFa \u0103n ph\u1EE5c h\u1ED3i c\u1EE7a h\u1ECDc vi\u1EC7n"
-  - id: itm_0003
+  - id: itm_0003_name
     textList:
     - language: 0
       text: Overclock Serum
     - language: 1
       text: "Huy\u1EBFt Thanh Qu\xE1 T\u1EA3i"
-  - id: itm_0005
+  - id: itm_0005_name
     textList:
     - language: 0
       text: Rest Protocol Chip
     - language: 1
       text: "Chip Giao Th\u1EE9c Ngh\u1EC9 Ng\u01A1i"
-  - id: itm_0006
+  - id: itm_0006_name
     textList:
     - language: 0
       text: Motivational Poster
     - language: 1
       text: "\xC1p Ph\xEDch Truy\u1EC1n C\u1EA3m H\u1EE9ng"
-  - id: itm_0007
+  - id: itm_0007_name
     textList:
     - language: 0
       text: "Coach\u2019s Encouragement Letter"
     - language: 1
       text: "Th\u01B0 \u0110\u1ED9ng Vi\xEAn T\u1EEB Hu\u1EA5n Luy\u1EC7n Vi\xEAn"
-  - id: itm_0008
+  - id: itm_0008_name
     textList:
     - language: 0
       text: Illusionary Comfort Charm
     - language: 1
       text: "B\xF9a An T\xE2m \u1EA2o \u1EA2nh"
-  - id: itm_0009
+  - id: itm_0009_name
     textList:
     - language: 0
       text: False Praise Recording
     - language: 1
       text: "B\u1EA3n Ghi L\u1EDDi Khen Gi\u1EA3"
-  - id: itm_0011
+  - id: itm_0011_name
     textList:
     - language: 0
       text: Power Training Manual
     - language: 1
       text: "C\u1EA9m Nang Luy\u1EC7n S\u1EE9c M\u1EA1nh"
-  - id: itm_0012
+  - id: itm_0012_name
     textList:
     - language: 0
       text: Ancient Insight Scroll
     - language: 1
       text: "Cu\u1ED9n Th\u01B0 Th\u1EA5u Hi\u1EC3u C\u1ED5 \u0110\u1EA1i"
-  - id: itm_0013
+  - id: itm_0013_name
     textList:
     - language: 0
       text: Brutal Strength Injector
     - language: 1
       text: "\u1ED0ng Ti\xEAm T\u0103ng L\u1EF1c T\xE0n B\u1EA1o"
-  - id: itm_0014
+  - id: itm_0014_name
     textList:
     - language: 0
       text: Focus Compression Device
     - language: 1
       text: "Thi\u1EBFt B\u1ECB N\xE9n T\u1EADp Trung"
-  - id: itm_0015
+  - id: itm_0015_name
     textList:
     - language: 0
       text: Balanced Growth Crystal
     - language: 1
       text: "Tinh Th\u1EC3 Ph\xE1t Tri\u1EC3n C\xE2n B\u1EB1ng"
-  - id: itm_0016
+  - id: itm_0016_name
     textList:
     - language: 0
       text: Focus Booster
     - language: 1
       text: "Ch\u1EA5t T\u0103ng C\u01B0\u1EDDng T\u1EADp Trung"
-  - id: itm_0017
+  - id: itm_0017_name
     textList:
     - language: 0
       text: Zodiac Blessing Charm
     - language: 1
       text: "B\xF9a Ch\xFAc Ph\xFAc Ho\xE0ng \u0110\u1EA1o"
-  - id: itm_0018
+  - id: itm_0018_name
     textList:
     - language: 0
       text: Forced Optimization Protocol
     - language: 1
       text: "Giao Th\u1EE9c T\u1ED1i \u01AFu C\u01B0\u1EE1ng Ch\u1EBF"
-  - id: itm_0019
+  - id: itm_0019_name
     textList:
     - language: 0
       text: Mental Overdrive
     - language: 1
       text: "Qu\xE1 T\u1EA3i Tinh Th\u1EA7n"
-  - id: itm_0020
+  - id: itm_0020_name
     textList:
     - language: 0
       text: Perfect Schedule Planner
     - language: 1
       text: "B\u1ED9 L\u1EADp K\u1EBF Ho\u1EA1ch Ho\xE0n H\u1EA3o"
-  - id: rel_0001
+  - id: rel_0001_name
     textList:
     - language: 0
       text: Wooden Buckler
     - language: 1
       text: "Khi\xEAn G\u1ED7 Th\xF4"
-  - id: rel_0002
+  - id: rel_0002_name
     textList:
     - language: 0
       text: Novice Bangle
     - language: 1
       text: "V\xF2ng Tay T\xE2n Th\u1EE7"
-  - id: rel_0003
+  - id: rel_0003_name
     textList:
     - language: 0
       text: Iron Weights
     - language: 1
       text: "T\u1EA1 S\u1EAFt N\u1EB7ng"
-  - id: rel_0004
+  - id: rel_0004_name
     textList:
     - language: 0
       text: Trainee Boots
     - language: 1
       text: "Gi\xE0y T\u1EADp S\u1EF1"
-  - id: rel_0005
+  - id: rel_0005_name
     textList:
     - language: 0
       text: "Scholar\u2019s Pen"
     - language: 1
       text: "B\xFAt H\u1ECDc Gi\u1EA3"
-  - id: rel_0006
+  - id: rel_0006_name
     textList:
     - language: 0
       text: Bronze Shield
     - language: 1
       text: "Khi\xEAn \u0110\u1ED3ng"
-  - id: rel_0007
+  - id: rel_0007_name
     textList:
     - language: 0
       text: Vitality Gem
     - language: 1
       text: "Ng\u1ECDc Sinh L\u1EF1c"
-  - id: rel_0008
+  - id: rel_0008_name
     textList:
     - language: 0
       text: Berserker Gloves
     - language: 1
       text: "G\u0103ng Cu\u1ED3ng N\u1ED9"
-  - id: rel_0009
+  - id: rel_0009_name
     textList:
     - language: 0
       text: Heavy Armor
     - language: 1
       text: "Gi\xE1p H\u1EA1ng N\u1EB7ng"
-  - id: rel_0010
+  - id: rel_0010_name
     textList:
     - language: 0
       text: Owl Cloak
     - language: 1
       text: "\xC1o Cho\xE0ng C\xFA"
-  - id: rel_0011
+  - id: rel_0011_name
     textList:
     - language: 0
       text: Stamina Belt
     - language: 1
       text: "\u0110ai Th\u1EC3 L\u1EF1c"
-  - id: rel_0012
+  - id: rel_0012_name
     textList:
     - language: 0
       text: Zodiac Pendant
     - language: 1
       text: "M\u1EB7t D\xE2y Ho\xE0ng \u0110\u1EA1o"
-  - id: rel_0013
+  - id: rel_0013_name
     textList:
     - language: 0
       text: "Giant\u2019s Visage"
     - language: 1
       text: "M\u1EB7t N\u1EA1 Kh\u1ED5ng L\u1ED3"
-  - id: rel_0014
+  - id: rel_0014_name
     textList:
     - language: 0
       text: Assassin Dagger
     - language: 1
       text: "Dao G\u0103m S\xE1t Th\u1EE7"
-  - id: rel_0015
+  - id: rel_0015_name
     textList:
     - language: 0
       text: "Sage\u2019s Scroll"
     - language: 1
       text: "Cu\u1ED9n S\xE1ch Hi\u1EC1n Tri\u1EBFt"
-  - id: rel_0016
+  - id: rel_0016_name
     textList:
     - language: 0
       text: Heart of the Oak
     - language: 1
       text: "Tr\xE1i Tim G\u1ED7 S\u1ED3i"
-  - id: rel_0017
+  - id: rel_0017_name
     textList:
     - language: 0
       text: "Bull\u2019s Wrath"
     - language: 1
       text: "N\u1ED9 Kh\xED Cu\u1ED3ng Ng\u01B0u"
-  - id: rel_0018
+  - id: rel_0018_name
     textList:
     - language: 0
       text: "Sheep\u2019s Mirage"
     - language: 1
       text: "\u1EA2o \u1EA2nh Linh C\u1EEBu"
-  - id: rel_0019
+  - id: rel_0019_name
     textList:
     - language: 0
       text: Bloodthirsty Axe
     - language: 1
       text: "R\xECu Kh\xE1t M\xE1u"
-  - id: rel_0020
+  - id: rel_0020_name
     textList:
     - language: 0
       text: "Champion\u2019s Crown"
     - language: 1
       text: "V\u01B0\u01A1ng Mi\u1EC7n Qu\xE1n Qu\xE2n"
-  - id: rel_0021
+  - id: rel_0021_name
     textList:
     - language: 0
       text: Absolute Aegis
     - language: 1
       text: "Khi\xEAn Tuy\u1EC7t \u0110\u1ED1i"
-  - id: rel_0022
+  - id: rel_0022_name
     textList:
     - language: 0
       text: Infinite Mind
     - language: 1
       text: "Tr\xED Tu\u1EC7 V\xF4 H\u1EA1n"
-  - id: rel_0023
+  - id: rel_0023_name
     textList:
     - language: 0
       text: God of War Mask
     - language: 1
       text: "M\u1EB7t N\u1EA1 Chi\u1EBFn Th\u1EA7n"
-  - id: rel_0024
+  - id: rel_0024_name
     textList:
     - language: 0
       text: Time Manipulator

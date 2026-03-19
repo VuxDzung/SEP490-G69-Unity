@@ -16,7 +16,16 @@ MonoBehaviour:
   m_StarterNodeID: node_0001_0001
   m_NodeList:
   - {fileID: 11400000, guid: 39f62ec81d0ac784ab0d4cf03ebfeb4c, type: 2}
+  - {fileID: 11400000, guid: 3df40b121d777204eb94a04f4223db88, type: 2}
+  - {fileID: 11400000, guid: d662199d61219a64a815456a66b4d9ea, type: 2}
   - {fileID: 11400000, guid: 858e9de72e6d1214daa0cc8f455a02cb, type: 2}
   - {fileID: 11400000, guid: f5af0848e9186794c9e5568acf7ee5cd, type: 2}
   - {fileID: 11400000, guid: 38c123ea387ee594abce6d654c14f6b6, type: 2}
+  - {fileID: 11400000, guid: bcc8a1e53402cdb42b4e670e410dd669, type: 2}
   - {fileID: 11400000, guid: ff0a1a63f75ec9d4c88e189342eab12b, type: 2}
+  - {fileID: 11400000, guid: 78d2de56c5bac0c43a94655950d2d2e7, type: 2}
+  - {fileID: 11400000, guid: e6db6d29bfe67104f9a86c3134ddf9c5, type: 2}
+  - {fileID: 11400000, guid: 57330c023cc5ab74eaaccee8fa65023b, type: 2}
+  - {fileID: 11400000, guid: 55a13680b062334479044e2077327042, type: 2}
+  - {fileID: 11400000, guid: df6d2a0c4ff5a5c4db74ff18f6343ff3, type: 2}
+  - {fileID: 11400000, guid: 479d715ed7c137e468c90a3eeb971d17, type: 2}

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7333e29eecb99e643a4aa7757ec6ce96, type: 3}
-  m_Name: LinearNode.0001_0006
+  m_Name: node_0001_0001
   m_EditorClassIdentifier: 
-  m_NodeID: node_0001_0006
-  m_SpeakerID: ch_0008
-  m_DialogID: node_0001_0006
-  m_BgImage: {fileID: 21300000, guid: 6451766b9483f604bae40ba65f9a365f, type: 3}
-  m_NextNode: {fileID: 11400000, guid: e6db6d29bfe67104f9a86c3134ddf9c5, type: 2}
+  m_NodeID: node_0001_0001
+  m_SpeakerID: ch_0004
+  m_DialogID: node_0001_0001
+  m_BgImage: {fileID: 21300000, guid: 32a5e0510671ebc47a92f51d1063ffa3, type: 3}
+  m_NextNode: {fileID: 11400000, guid: 3df40b121d777204eb94a04f4223db88, type: 2}

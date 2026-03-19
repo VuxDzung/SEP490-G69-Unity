@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Lio
   m_CharacterDescription: ch_0019_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: 8613187393314092741, guid: 06ef2db9f6e48d544ab7c8e262d5677a, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: 909007078d48f0e489465272ef9d96f6, type: 3}
   m_CombatPrefab: {fileID: 6822383890572667251, guid: ee7c62dc53cf2cb4b82a3338bb9fe58f, type: 3}
@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 0
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

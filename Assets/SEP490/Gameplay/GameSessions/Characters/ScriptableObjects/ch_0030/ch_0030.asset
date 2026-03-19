@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Pina
   m_CharacterDescription: ch_0030_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: 1270995951318619193, guid: 57973ba92dd926d4ea14707a4d58e0cd, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: 3ba328e6e2e770b42886c744c39d7b93, type: 3}
   m_CombatPrefab: {fileID: 3896661514944079473, guid: ec625fc530762e346a5314b45d9d3ca2, type: 3}
@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 0
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

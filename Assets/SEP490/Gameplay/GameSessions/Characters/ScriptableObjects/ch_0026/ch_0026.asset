@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Sage
   m_CharacterDescription: ch_0026_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: -3017663019087049684, guid: 72cf2a511bf69eb47a5334241df5163c, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: c34414146ce2b994a937273ca61098dc, type: 3}
   m_CombatPrefab: {fileID: 4686531750117028951, guid: 401dc871bbd0a5a40ae07e360c08d436, type: 3}
@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 0
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Capri
   m_CharacterDescription: ch_0028_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: 2852561382289643634, guid: 018eb82d738364a409b3b0582de99ee0, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: 64dd65ca65b6bbe449b361e6abbeb0b0, type: 3}
   m_CombatPrefab: {fileID: 4614346758846958402, guid: 6a9f01ef849574e42857420da8e048d7, type: 3}
@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 0
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

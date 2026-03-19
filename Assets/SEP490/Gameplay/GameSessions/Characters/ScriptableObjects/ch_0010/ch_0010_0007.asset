@@ -17,7 +17,7 @@ MonoBehaviour:
   m_CharacterName: Arin
   m_CharacterDescription: ch_0010_desc
   m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
-  m_FullBodyImg: {fileID: 0}
+  m_FullBodyImg: {fileID: -3907118523944546923, guid: 483532285308c2f4c9b80b38aeabed2e, type: 3}
   m_Prefab: {fileID: 1647430779239574558, guid: cd9590f5b34e4cc40a4d9ff6818de355, type: 3}
   m_CombatPrefab: {fileID: 4650660320774192443, guid: 9f9005ead40ca3e4e9160910599e04d9, type: 3}
   m_CharacterType: 1
@@ -30,4 +30,4 @@ MonoBehaviour:
   baseEnergy: 0
   baseMood: 0
   baseRP: 0
-  m_Deck: []
+  m_EnemyDeck: {fileID: 0}

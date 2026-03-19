@@ -16,7 +16,7 @@ MonoBehaviour:
   m_IsAvailable: 1
   m_CharacterName: Taro
   m_CharacterDescription: ch_0012_desc
-  m_Thumbnail: {fileID: 21300000, guid: c1598ea6129a36c4e8852be6948b610f, type: 3}
+  m_Thumbnail: {fileID: -8182288072369247225, guid: 279df39cdbc9b684182ae1bfcfe15107, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
   m_CombatPrefab: {fileID: 1554301435424827168, guid: 3eba1da9e2d59f64c85e79887a68d13c, type: 3}
@@ -29,4 +29,5 @@ MonoBehaviour:
   baseAgi: 0
   baseEnergy: 0
   baseMood: 0
-  m_Deck: []
+  baseRP: 0
+  m_EnemyDeck: {fileID: 0}

@@ -116,11 +116,13 @@
             float failRate = ((50f - currentEnergy) / 30f) * 100f;
 
             TrainingSupportItem supportItem = _supportItemsRepository.GetAllBySessionId(_sessionId).FirstOrDefault();
-            ItemDataSO itemSO = _supportItemsRepository.ItemConfig.GetItemById(supportItem.RawItemId);
-            StatusModifierSO trainingEffectiveMod = itemSO.GetModifiersByStatType(EStatusType.TrainingEffective).FirstOrDefault();
+            if (supportItem != null)
+            {
+                ItemDataSO itemSO = _supportItemsRepository.ItemConfig.GetItemById(supportItem.RawItemId);
+                StatusModifierSO trainingEffectiveMod = itemSO.GetModifiersByStatType(EStatusType.TrainingEffective).FirstOrDefault();
 
-            failRate -= trainingEffectiveMod.Value;
-
+                failRate -= trainingEffectiveMod.Value;
+            }
             return Mathf.Clamp(failRate, 0f, 100f);
         }
 

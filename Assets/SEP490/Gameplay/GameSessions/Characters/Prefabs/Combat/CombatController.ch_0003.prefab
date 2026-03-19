@@ -149,6 +149,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
+--- !u!4 &2551600945391540478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7715387877564327050, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
+  m_PrefabInstance: {fileID: 5222922055305837684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5068129218850140563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1021779745233800679, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
+  m_PrefabInstance: {fileID: 5222922055305837684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5107571929405681176 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1052213335609954924, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
+  m_PrefabInstance: {fileID: 5222922055305837684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6904233003103063336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1705536847195812188, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
@@ -223,6 +238,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3921930843742639280, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6153811885331302286}
+    - targetCorrespondingSourceObject: {fileID: 3921930843742639280, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1790768214126945869}
   m_SourcePrefab: {fileID: 100100000, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}
 --- !u!4 &2806354768096430269 stripped
 Transform:
@@ -267,8 +285,27 @@ MonoBehaviour:
   m_Animator: {fileID: 5297871572350725107}
   m_Config: {fileID: 11400000, guid: ae19f6de9f1f48c48af2de21b8b6f887, type: 2}
   m_PoseContainer: {fileID: 6904233003103063336}
-  m_Poses: []
+  m_Poses:
+  - {fileID: 2551600945391540478}
+  - {fileID: 5068129218850140563}
+  - {fileID: 5107571929405681176}
   m_TestAnimation: 
+  _combatPos: {fileID: 0}
+--- !u!114 &1790768214126945869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839943081260906037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b946434cde926ae4ba5c990420635cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AtkVFX: {fileID: 0}
+  m_StunVFX: {fileID: 0}
+  m_BuffEffectVFX: {fileID: 0}
 --- !u!212 &8490359945618044685 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1347996285439268232, guid: b6473d2c78ba5e34ea30d5d86ce15227, type: 3}

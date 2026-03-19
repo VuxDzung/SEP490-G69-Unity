@@ -10,25 +10,42 @@ namespace SEP490G69.Battle.Combat
 
         public void PlayAtkVFX()
         {
-            m_AtkVFX.Play();
+            if (m_AtkVFX != null)
+            {
+                m_AtkVFX.Play();
+            }
+            
         }
 
         public void PlayStunVFX()
         {
-            m_StunVFX.Play();
+            if (m_StunVFX != null)
+            {
+                m_StunVFX.Play();
+            }
         }
         public void StopStunVFX()
         {
-            m_StunVFX.Stop();
+            if(m_StunVFX != null)
+            {
+                m_StunVFX.Stop();
+            }
         }
 
         public void PlayBuffVFX()
         {
-            m_BuffEffectVFX.Play();
+            if(m_BuffEffectVFX != null) 
+            {
+                m_BuffEffectVFX.Play();
+            }
         }
         public void StopBuffVFX()
         {
-            m_BuffEffectVFX.Stop();
+            if(m_BuffEffectVFX != null)
+            {
+                m_BuffEffectVFX.Stop();
+            }
+            
         }
     }
 }

@@ -1,61 +1,73 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
+using SEP490G69;
 
 public class SakuraTrainingTester : MonoBehaviour
 {
     [Header("Giao diện nút bấm (Chỉ để Test)")]
-    public Button buttonTrainPower;
-    public Button buttonTrainIntelligence;
-    public Button buttonTrainEvade;
-    public Button buttonTrainRun;
-    public Button buttonTrainSwim; // Nút test bơi
+    [SerializeField] private Button buttonTrainPower;
+    [SerializeField] private Button buttonTrainIntelligence;
+    [SerializeField] private Button buttonTrainEvade;
+    [SerializeField] private Button buttonTrainRun;
+    [SerializeField] private Button buttonTrainSwim;
 
     [Header("Thành phần của Sakura")]
-    public SpriteRenderer sakuraRenderer;
-    public Sprite spriteSakuraWindUp;
-    public Sprite spriteSakuraHeadbutt;
-    public Sprite spriteSakuraStudy;
-    public Sprite spriteSakuraRunning;
-    public Sprite spriteSakuraSwimming; // Sprite cho bơi
+    [SerializeField] private SpriteRenderer sakuraRenderer;
+    [SerializeField] private Sprite spriteSakuraWindUp;
+    [SerializeField] private Sprite spriteSakuraHeadbutt;
+    [SerializeField] private Sprite spriteSakuraStudy;
+    [SerializeField] private Sprite spriteSakuraRunning;
+    [SerializeField] private Sprite spriteSakuraSwimming;
 
     [Header("Sprites - Bài tập EVADE")]
-    public Sprite spriteSakuraSpinning;
-    public Sprite spriteSakuraEvade1;
-    public Sprite spriteSakuraEvade2;
-    public Sprite spriteSakuraEvade3;
+    [SerializeField] private Sprite spriteSakuraSpinning;
+    [SerializeField] private Sprite spriteSakuraEvade1;
+    [SerializeField] private Sprite spriteSakuraEvade2;
+    [SerializeField] private Sprite spriteSakuraEvade3;
+
+    [Header("Đạo cụ - Bài tập EVADE (Sử dụng PoolManager)")]
+    [SerializeField] private GameObject tennisBallPrefab;
+    [SerializeField] private string tennisBallPoolName = "TennisBallPool";
+    [SerializeField] private float ballFlySpeed = 0.5f;
+
+    [Header("Cấu hình Bóng bay & Mask")]
+    [SerializeField] private Transform posBallSpawnLeft;   // Điểm bắn bóng bên trái
+    [SerializeField] private Transform posBallSpawnRight;  // Điểm bắn bóng bên phải
+    [SerializeField] private Transform ballContainer;      // Nơi chứa bóng để gắn Sprite Mask
 
     [Header("Các Backgrounds (Môi trường)")]
-    public GameObject bgPowAndEvade;
-    public GameObject bgStudy;
-    public GameObject bgRunning;
-    public GameObject bgSwimming;
+    [SerializeField] private GameObject bgPowAndEvade;
+    [SerializeField] private GameObject bgStudy;
+    [SerializeField] private GameObject bgRunning;
+    [SerializeField] private GameObject bgSwimming;
 
     [Header("Môi trường - Tương tác")]
-    public SpriteRenderer bagRenderer;
-    public Sprite spriteBagNormal;
-    public Sprite spriteBagDeform;
+    [SerializeField] private SpriteRenderer bagRenderer;
+    [SerializeField] private Sprite spriteBagNormal;
+    [SerializeField] private Sprite spriteBagDeform;
 
     [Header("Môi trường - Cuộn (Parallax cho Running)")]
-    public SpriteRenderer[] scrollingLayers; // Kéo các lớp nền của Running vào đây
-    public float[] scrollSpeeds = { 0.05f, 0.2f, 0.5f, 0.8f };
+    [SerializeField] private SpriteRenderer[] scrollingLayers;
+    [SerializeField] private float[] scrollSpeeds = { 0.05f, 0.2f, 0.5f, 0.8f };
 
     [Header("Các vị trí - POW & STUDY")]
-    public Transform positionStart;
-    public Transform positionWindUp;
-    public Transform positionImpact;
-    public Transform posStudyLeft;
-    public Transform posStudyRight;
+    [SerializeField] private Transform positionStart;
+    [SerializeField] private Transform positionWindUp;
+    [SerializeField] private Transform positionImpact;
+    [SerializeField] private Transform posStudyLeft;
+    [SerializeField] private Transform posStudyRight;
 
     [Header("Các vị trí - EVADE, RUN & SWIM")]
-    public Transform posEvadeLeft;
-    public Transform posEvadeRight;
-    public Transform posRunCenter;
-    public Transform posSwimming; // Điểm trung tâm khi bơi
+    [SerializeField] private Transform posEvadeLeft;
+    [SerializeField] private Transform posEvadeRight;
+    [SerializeField] private Transform posRunCenter;
+    [SerializeField] private Transform posSwimming;
 
-    public float evadeRandomYRange = 0.5f;
-    [SerializeField] private float evadeMoveDuration = 0.25f;
-    [SerializeField] private float evadePauseDuration = 0.3f;
+    [SerializeField] private float evadeRandomYRange = 0.5f;
+    [SerializeField] private float evadeMoveDuration = 0.4f; // Tăng nhẹ thời gian di chuyển để nhìn rõ mưa bóng
+    [SerializeField] private float evadePauseDuration = 0.4f;
     [SerializeField] private int evadeSpins = 3;
 
     private Vector3 bagOriginalPosition;
@@ -63,16 +75,15 @@ public class SakuraTrainingTester : MonoBehaviour
 
     private Sequence activeTrainingSequence;
     private int currentEvadeStep = 0;
-
-    // Cờ kiểm soát trạng thái
     private bool isScrolling = false;
+
+    private List<Transform> activeBalls = new List<Transform>();
 
     void Start()
     {
         bagOriginalPosition = bagRenderer.transform.position;
         bagOriginalScale = bagRenderer.transform.localScale;
 
-        // Đăng ký sự kiện nút bấm
         if (buttonTrainPower) buttonTrainPower.onClick.AddListener(PlayPowerTraining);
         if (buttonTrainIntelligence) buttonTrainIntelligence.onClick.AddListener(PlayIntelligenceTraining);
         if (buttonTrainEvade) buttonTrainEvade.onClick.AddListener(PlayEvadeTraining);
@@ -84,7 +95,6 @@ public class SakuraTrainingTester : MonoBehaviour
 
     void Update()
     {
-        // Xử lý cuộn nền liên tục (chỉ chạy khi isScrolling = true)
         if (isScrolling && scrollingLayers != null)
         {
             for (int i = 0; i < scrollingLayers.Length; i++)
@@ -102,13 +112,25 @@ public class SakuraTrainingTester : MonoBehaviour
     private void StopAllAnimations()
     {
         if (activeTrainingSequence != null) activeTrainingSequence.Kill();
-        DOTween.Kill(sakuraRenderer.transform); // Dừng tất cả tween đang chạy trên Sakura
+        DOTween.Kill(sakuraRenderer.transform);
         DOTween.Kill(bagRenderer.transform);
+
+        foreach (var ball in activeBalls)
+        {
+            if (ball != null) DOTween.Kill(ball);
+        }
+        activeBalls.Clear();
+
+        if (PoolManager.Pools.ContainsKey(tennisBallPoolName))
+        {
+            PoolManager.Pools[tennisBallPoolName].DespawnAll();
+        }
 
         isScrolling = false;
 
         sakuraRenderer.transform.position = positionStart.position;
         sakuraRenderer.transform.rotation = Quaternion.identity;
+        sakuraRenderer.flipX = false;
 
         bagRenderer.transform.position = bagOriginalPosition;
         bagRenderer.transform.localScale = bagOriginalScale;
@@ -116,7 +138,6 @@ public class SakuraTrainingTester : MonoBehaviour
         bagRenderer.enabled = false;
     }
 
-    // Hàm mới: Quản lý bật/tắt các Background
     private void SetActiveBackground(GameObject activeBg)
     {
         if (bgPowAndEvade) bgPowAndEvade.SetActive(false);
@@ -127,6 +148,7 @@ public class SakuraTrainingTester : MonoBehaviour
         if (activeBg) activeBg.SetActive(true);
     }
 
+    // ================= CÁC BÀI TẬP BÌNH THƯỜNG =================
     private void PlayPowerTraining()
     {
         StopAllAnimations();
@@ -165,20 +187,51 @@ public class SakuraTrainingTester : MonoBehaviour
         activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyRight.position.x, 6f).SetEase(Ease.InOutQuad));
         activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveX(posStudyLeft.position.x, 6f).SetEase(Ease.InOutQuad));
 
-        // Float logic
         sakuraRenderer.transform.DOMoveY(posStudyLeft.position.y + 0.5f, 2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
-        sakuraRenderer.transform.DORotate(new Vector3(0, 0, 360f), 6f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+        sakuraRenderer.transform.DORotate(new Vector3(0, 0, 360f), 10f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
 
         activeTrainingSequence.SetLoops(-1, LoopType.Restart);
     }
 
+    private void PlayRunTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgRunning);
+        isScrolling = true;
+
+        sakuraRenderer.sprite = spriteSakuraRunning;
+        sakuraRenderer.transform.position = posRunCenter.position;
+
+        activeTrainingSequence = DOTween.Sequence();
+        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveY(posRunCenter.position.y + 0.3f, 0.6f).SetEase(Ease.InOutSine));
+        activeTrainingSequence.SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void PlaySwimmingTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgSwimming);
+
+        sakuraRenderer.sprite = spriteSakuraSwimming;
+        sakuraRenderer.transform.position = posSwimming.position;
+
+        sakuraRenderer.transform.DOMoveY(posSwimming.position.y + 0.4f, 0.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+        sakuraRenderer.transform.DOMoveX(posSwimming.position.x + 1.2f, 1.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+
+        Transform t = sakuraRenderer.transform;
+        t.localRotation = Quaternion.Euler(0, 0, -10f);
+        t.DOLocalRotate(new Vector3(0, 0, 10f), 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    // ================== BÀI TẬP NÉ TRÁNH (EVADE) ==================
     private void PlayEvadeTraining()
     {
         StopAllAnimations();
         SetActiveBackground(bgPowAndEvade);
-        sakuraRenderer.transform.position = posEvadeLeft.position;
 
+        sakuraRenderer.transform.position = posEvadeLeft.position;
         currentEvadeStep = 0;
+
         RunNextEvadeStep();
     }
 
@@ -187,8 +240,11 @@ public class SakuraTrainingTester : MonoBehaviour
         if (this == null || !gameObject.activeInHierarchy) return;
 
         activeTrainingSequence = DOTween.Sequence();
-        Transform startPos = (currentEvadeStep % 2 == 0) ? posEvadeLeft : posEvadeRight;
-        Transform endPos = (currentEvadeStep % 2 == 0) ? posEvadeRight : posEvadeLeft;
+
+        bool isMovingRight = (currentEvadeStep % 2 == 0);
+        Transform startPos = isMovingRight ? posEvadeLeft : posEvadeRight;
+        Transform endPos = isMovingRight ? posEvadeRight : posEvadeLeft;
+
         Sprite[] evadeSprites = { spriteSakuraEvade1, spriteSakuraEvade2, spriteSakuraEvade3 };
         Sprite targetSprite = evadeSprites[currentEvadeStep % 3];
 
@@ -197,16 +253,39 @@ public class SakuraTrainingTester : MonoBehaviour
 
         activeTrainingSequence.AppendCallback(() => {
             sakuraRenderer.sprite = spriteSakuraSpinning;
+            sakuraRenderer.flipX = !isMovingRight;
             sakuraRenderer.transform.position = startPos.position;
             sakuraRenderer.transform.rotation = Quaternion.identity;
         });
 
-        activeTrainingSequence.Append(sakuraRenderer.transform.DOMove(targetPosition, evadeMoveDuration).SetEase(Ease.Linear));
+        // Di chuyển và quay
+        activeTrainingSequence.Append(sakuraRenderer.transform.DOMove(targetPosition, evadeMoveDuration).SetEase(Ease.OutSine));
         activeTrainingSequence.Insert(0, sakuraRenderer.transform.DORotate(new Vector3(0, 360f * evadeSpins, 0), evadeMoveDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
 
+        // ---------------- THAY ĐỔI LOGIC BẮN BÓNG SO LE ----------------
+        int totalBalls = Random.Range(3, 6); // Bắn từ 3 đến 5 quả bóng mỗi lượt
+        float timeStep = evadeMoveDuration / totalBalls; // Chia đều khoảng thời gian
+        bool isLeftTurn = Random.value > 0.5f; // Random xem bên nào (Trái/Phải) được bắn quả đầu tiên
+
+        for (int i = 0; i < totalBalls; i++)
+        {
+            float spawnDelay = timeStep * i;
+
+            // Luân phiên đảo bên bắn
+            Transform spawnPoint = isLeftTurn ? posBallSpawnLeft : posBallSpawnRight;
+            Transform destPoint = isLeftTurn ? posBallSpawnRight : posBallSpawnLeft;
+
+            activeTrainingSequence.InsertCallback(spawnDelay, () => ShootTennisBall(spawnPoint, destPoint));
+
+            // Đổi cờ để quả bóng kế tiếp bắn từ hướng ngược lại
+            isLeftTurn = !isLeftTurn;
+        }
+        // -------------------------------------------------------------
+
         activeTrainingSequence.AppendCallback(() => {
-            sakuraRenderer.transform.rotation = (endPos == posEvadeLeft) ? Quaternion.Euler(0, 180f, 0) : Quaternion.identity;
+            sakuraRenderer.transform.rotation = Quaternion.identity;
             sakuraRenderer.sprite = targetSprite;
+            sakuraRenderer.flipX = isMovingRight;
         });
 
         activeTrainingSequence.AppendInterval(evadePauseDuration);
@@ -216,59 +295,41 @@ public class SakuraTrainingTester : MonoBehaviour
         });
     }
 
-    private void PlayRunTraining()
+    // ================= LOGIC SINH BÓNG TỪ 2 BÊN =================
+    private void ShootTennisBall(Transform spawnPoint, Transform destPoint)
     {
-        StopAllAnimations();
-        SetActiveBackground(bgRunning);
-        isScrolling = true; // Chỉ bật cuộn nền cho Run
+        if (tennisBallPrefab == null || spawnPoint == null || destPoint == null) return;
 
-        sakuraRenderer.sprite = spriteSakuraRunning;
-        sakuraRenderer.transform.position = posRunCenter.position;
-        sakuraRenderer.transform.rotation = Quaternion.identity;
+        if (!PoolManager.Pools.ContainsKey(tennisBallPoolName))
+        {
+            Debug.LogWarning($"[SpawnPool] Không tìm thấy Pool tên là '{tennisBallPoolName}'.");
+            return;
+        }
 
-        activeTrainingSequence = DOTween.Sequence();
-        float startY = posRunCenter.position.y;
-        float floatHeight = 0.3f;
+        // Random vị trí Y để bóng bay so le trên/dưới
+        float randomY = Random.Range(-evadeRandomYRange, evadeRandomYRange);
+        Vector3 spawnPos = new Vector3(spawnPoint.position.x, spawnPoint.position.y + randomY, spawnPoint.position.z);
+        Vector3 endPos = new Vector3(destPoint.position.x, destPoint.position.y + randomY, destPoint.position.z);
 
-        activeTrainingSequence.Append(sakuraRenderer.transform.DOMoveY(startY + floatHeight, 0.6f).SetEase(Ease.InOutSine));
-        activeTrainingSequence.SetLoops(-1, LoopType.Yoyo);
-    }
+        Transform ball = PoolManager.Pools[tennisBallPoolName].Spawn(tennisBallPrefab.transform, spawnPos, Quaternion.identity, ballContainer);
 
-    // BÀI TẬP MỚI: SWIMMING
-    private void PlaySwimmingTraining()
-    {
-        StopAllAnimations();
-        SetActiveBackground(bgSwimming);
-        // isScrolling = false; (Đã được set ở StopAllAnimations)
+        if (ball != null)
+        {
+            activeBalls.Add(ball);
 
-        sakuraRenderer.sprite = spriteSakuraSwimming;
-        sakuraRenderer.transform.position = posSwimming.position;
-        sakuraRenderer.transform.rotation = Quaternion.identity;
+            ball.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.FastBeyond360)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart);
 
-        // Thay vì dùng Sequence nối tiếp, ta chạy nhiều Tween đồng thời với chu kỳ (thời gian) khác nhau 
-        // để tạo cảm giác bơi lội ngẫu nhiên và mềm mại hơn.
+            ball.DOMove(endPos, ballFlySpeed).SetEase(Ease.Linear).OnComplete(() => {
+                DOTween.Kill(ball);
+                activeBalls.Remove(ball);
 
-        float moveXAmount = 1.2f; // Biên độ sang trái/phải
-        float moveYAmount = 0.4f; // Biên độ lên/xuống
-        float rotateAngle = 10f;  // Biên độ xoay Z
-
-        // 1. Lên xuống (nhịp nhanh hơn một chút)
-        sakuraRenderer.transform.DOMoveY(posSwimming.position.y + moveYAmount, 0.5f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-
-        // 2. Sang trái phải (nhịp chậm hơn)
-        sakuraRenderer.transform.DOMoveX(posSwimming.position.x + moveXAmount, 1.5f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-
-        // 3. Xoay nhẹ ở trục Z
-        Transform t = sakuraRenderer.transform;
-
-        t.localRotation = Quaternion.Euler(0, 0, -rotateAngle);
-
-        t.DOLocalRotate(new Vector3(0, 0, rotateAngle), 1f)
-         .SetEase(Ease.InOutSine)
-         .SetLoops(-1, LoopType.Yoyo);
+                if (PoolManager.Pools.ContainsKey(tennisBallPoolName))
+                {
+                    PoolManager.Pools[tennisBallPoolName].DespawnObject(ball);
+                }
+            });
+        }
     }
 }

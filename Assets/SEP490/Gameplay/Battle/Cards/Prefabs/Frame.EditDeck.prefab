@@ -2692,6 +2692,7 @@ GameObject:
   - component: {fileID: 1647185124941130707}
   - component: {fileID: 5902878419875398739}
   - component: {fileID: 5289978722209525667}
+  - component: {fileID: 1694146627000917746}
   m_Layer: 0
   m_Name: Field.Cards
   m_TagString: Untagged
@@ -2758,6 +2759,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1694146627000917746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3593613275685580619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c2c8fa9b74e9d4c81c9526897a8e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandlerName: inventory
+  m_DropContainer: {fileID: 1529409651893616681}
 --- !u!1 &3635016435977792471
 GameObject:
   m_ObjectHideFlags: 0
@@ -3146,10 +3161,10 @@ RectTransform:
   - {fileID: 942144854150928902}
   - {fileID: 7402814112897827667}
   - {fileID: 5020847453651170076}
-  - {fileID: 7431016843504078248}
   - {fileID: 7659190912817219294}
   - {fileID: 3306974473925099524}
   - {fileID: 4432744473378682757}
+  - {fileID: 7431016843504078248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3486,7 +3501,7 @@ RectTransform:
   m_Father: {fileID: 210666540673104617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3621,7 +3636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &244655686415873291
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4059,7 +4074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4834604995777887534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5357,7 +5372,7 @@ RectTransform:
   m_Father: {fileID: 152311965389659043}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6092,6 +6107,7 @@ GameObject:
   - component: {fileID: 5324572171981962181}
   - component: {fileID: 3639704438183039244}
   - component: {fileID: 7001201094986004670}
+  - component: {fileID: 8831613955696073543}
   m_Layer: 0
   m_Name: ScrollView
   m_TagString: Untagged
@@ -6188,6 +6204,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8831613955696073543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567447263398301796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c2c8fa9b74e9d4c81c9526897a8e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandlerName: deck
+  m_DropContainer: {fileID: 3593212896344521193}
 --- !u!1 &8629712143544096800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7033,6 +7063,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7172,6 +7206,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}

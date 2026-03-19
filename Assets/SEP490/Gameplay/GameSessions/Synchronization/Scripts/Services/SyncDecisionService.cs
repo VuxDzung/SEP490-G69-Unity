@@ -121,7 +121,9 @@
             // → Local is outdated → Pull from cloud
             //
             if (cloudRun > localRun)
+            {
                 return ESyncState.PullingFromCloud;
+            }
 
             // ---------------------------------------------------------
             // CASE 2: Local run > Cloud run
@@ -138,7 +140,9 @@
             // -> Cloud is outdated -> Push to cloud
             //
             if (cloudRun > localRun)
+            {
                 return ESyncState.PushingToCloud;
+            }
 
             // ---------------------------------------------------------
             // CASE 3: Same run index
@@ -170,7 +174,7 @@
                 }
 
                 // -----------------------------------------------------
-                // CASE 3.2: Cloud is newer or equal
+                // CASE 3.2: Cloud is newer
                 // -----------------------------------------------------
                 //
                 // Meaning:
@@ -180,7 +184,18 @@
                 // Decision:
                 // → Pull from cloud
                 //
-                return ESyncState.PullingFromCloud;
+                if (localUpdated < cloudLastSync)
+                {
+                    return ESyncState.PullingFromCloud;
+                }
+
+                // -----------------------------------------------------
+                // CASE 3.2: Cloud and local are the same
+                // -----------------------------------------------------
+                // Decision:
+                // → Don't do anything
+                //
+                return ESyncState.Idle;
             }
 
             // ---------------------------------------------------------

@@ -52,6 +52,10 @@ namespace SEP490G69.GameSessions
                         await PushToCloud(playerId, sessionId);
                         break;
 
+                    case ESyncState.Idle:
+                        Debug.Log("Sync check completed. Nothing changed.");
+                        break;
+
                     default:
                         Debug.LogWarning($"[Sync] Skip with state {state}");
                         break;

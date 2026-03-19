@@ -2,7 +2,7 @@ namespace SEP490G69.Training
 {
     using UnityEngine;
 
-    public class YogaTrainingStrategy : BaseTrainingStrategy
+    public class SwimTrainingStrategy : BaseTrainingStrategy
     {
         public override TrainingResult StartTraining(CharacterDataHolder character)
         {

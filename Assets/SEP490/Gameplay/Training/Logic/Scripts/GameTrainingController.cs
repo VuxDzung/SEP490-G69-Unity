@@ -13,7 +13,7 @@ namespace SEP490G69.Training
         Run,
         Dodge,
         Study,
-        Yoga,
+        Swim
     }
 
     public class GameTrainingController : MonoBehaviour, ISceneContext

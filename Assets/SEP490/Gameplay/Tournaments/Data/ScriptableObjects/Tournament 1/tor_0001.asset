@@ -10,30 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7f352cb248ebba408e37215d53859f0, type: 3}
-  m_Name: TournamentSO_0001
+  m_Name: tor_0001
   m_EditorClassIdentifier: 
   tournamentId: tor_0001
   tournamentName: tor_0001_name
   m_IsCheckpointTournament: 0
   m_IsMandatory: 0
   EnemyIdArray:
-  - ch_0010
-  - ch_0011
-  - ch_0012
-  - ch_0013
-  - ch_0018
-  - ch_0019
-  - ch_0020
+  - ch_0010_0001
+  - ch_0012_0001
+  - ch_0014_0001
+  - ch_0028_0001
+  - ch_0018_0001
+  - ch_0020_0001
+  - ch_0022_0001
   m_EntryConditions:
   - {fileID: 11400000, guid: 83e3816359f58b344ab4416b34bf0c4c, type: 2}
-  m_Objectives:
-  - {fileID: 11400000, guid: 3fe3f13dd82642049b0a50a0b1ef725d, type: 2}
+  m_Objectives: []
   m_RewardRanks: []
   m_ChampionRewards:
   - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
   - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
+  - {fileID: 11400000, guid: 5b97d69bd8e84704db4b5e5d12ec83ba, type: 2}
   m_SemiFinalRewards:
   - {fileID: 11400000, guid: 20a33adc21644504f806cef106354d09, type: 2}
   - {fileID: 11400000, guid: f1d2594eb056b324b8f1cc642b7c75a2, type: 2}
+  - {fileID: 11400000, guid: 1d072773986340548b0315ba1f109dd3, type: 2}
   m_EliminationRewards:
   - {fileID: 11400000, guid: 94e90149abd14144497d9ea7eee75898, type: 2}

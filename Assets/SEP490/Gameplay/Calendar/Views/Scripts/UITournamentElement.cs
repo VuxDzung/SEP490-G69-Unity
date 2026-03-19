@@ -39,23 +39,25 @@ namespace SEP490G69.Calendar
             _id = id;
             return this;
         }
-        public void SetContent(string tournamentName, string requiredRank, IReadOnlyList<RewardRankData> rewards)
+
+        public void SetContent(string tournamentName, string requiredRank, IReadOnlyList<RewardDataSO> rewards)
         {
             m_TournamentNameTmp.text = tournamentName;
             m_RequiredRankTmp.text = requiredRank;
 
             if (rewards == null || rewards.Count == 0) return;
 
-            LoadTop1Rewards(rewards[0]);
+            LoadTop1Rewards(rewards);
         }
 
-        private void LoadTop1Rewards(RewardRankData reward)
+        private void LoadTop1Rewards(IReadOnlyList<RewardDataSO> rewards)
         {
             if (!PoolManager.Pools["UIRewardPreview"].IsEmpty)
             {
                 PoolManager.Pools["UIRewardPreview"].DespawnAll();
             }
-            foreach (var rewardSO in reward.Rewards)
+
+            foreach (var rewardSO in rewards)
             {
                 if (rewardSO == null) continue;
 
@@ -67,8 +69,7 @@ namespace SEP490G69.Calendar
                     continue;
                 }
 
-                Transform rewardTrans =
-                    PoolManager.Pools["UIRewardPreview"].Spawn(prefab, m_RewardContainer);
+                Transform rewardTrans = PoolManager.Pools["UIRewardPreview"].Spawn(prefab, m_RewardContainer);
 
                 SetupRewardUI(rewardTrans, rewardSO);
             }
@@ -93,6 +94,7 @@ namespace SEP490G69.Calendar
                     return null;
             }
         }
+
         private void SetupRewardUI(Transform rewardTrans, RewardDataSO rewardSO)
         {
             UIRewardPreview preview = rewardTrans.GetComponent<UIRewardPreview>();
@@ -103,7 +105,7 @@ namespace SEP490G69.Calendar
                 return;
             }
 
-            preview.SetContent(rewardSO.Id, rewardSO.RewardType, rewardSO.RewardAmount);
+            preview.SetContent(rewardSO.RewardTargetId, rewardSO.RewardType, rewardSO.RewardAmount);
         }
 
         private void Click()

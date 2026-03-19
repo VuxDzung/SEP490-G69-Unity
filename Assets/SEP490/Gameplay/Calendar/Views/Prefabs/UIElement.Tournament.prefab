@@ -709,7 +709,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 560, y: 175}
+  m_SizeDelta: {x: 560, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006206254508681710
 CanvasRenderer:
@@ -766,8 +766,8 @@ MonoBehaviour:
   m_RequiredRankTmp: {fileID: 8000841161619957301}
   m_RewardContainer: {fileID: 3761247089555624576}
   m_NumericRewardPrefab: {fileID: 3387836303059867507, guid: f1d029d3004d10e488bcb3593e2ecadc, type: 3}
-  m_ItemRewardPrefab: {fileID: 0}
-  m_CardRewadPrefab: {fileID: 0}
+  m_ItemRewardPrefab: {fileID: 6057561564407859923, guid: 2a557d0d6942122469a30b80113a691f, type: 3}
+  m_CardRewadPrefab: {fileID: 8083674945025571831, guid: e361477d452e3484a85abaed4e4a3989, type: 3}
 --- !u!1 &3373900125807993460
 GameObject:
   m_ObjectHideFlags: 0

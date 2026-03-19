@@ -6,6 +6,7 @@
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Addons.Localization;
     using System.Collections;
+    using SEP490G69.Battle.Cards;
 
     public class GameTournamentController : MonoBehaviour, ISceneContext
     {
@@ -309,9 +310,7 @@
 
         private TournamentParticipant GetNPCParticipantData(string enemyId)
         {
-            EnemySO enemySO = m_CharacterConfig
-                .GetCharacterById(enemyId)
-                .ConvertAs<EnemySO>();
+            EnemySO enemySO = m_CharacterConfig.GetCharacterById(enemyId).ConvertAs<EnemySO>();
 
             if (enemySO == null) return new TournamentParticipant();
 
@@ -574,14 +573,42 @@
             if (champion.IsPlayer)
             {
                 Debug.Log("Player wins tournament!");
-                // TODO: reward system
+            }
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            IReadOnlyList<RewardDataSO> rewardList = GetPlayerRewards();
+
+            GameInventoryManager inventory = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
+            GameDeckController cardInventory = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
+
+            if (rewardList.Count > 0)
+            {
+                SessionCharacterData character = _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
+
+                foreach (var reward in rewardList)
+                {
+                    switch (reward.RewardType)
+                    {
+                        case ERewardType.Gold:
+                            sessionData.CurrentGoldAmount += reward.RewardAmount;
+                            break;
+                        case ERewardType.ReputationPoint:
+                            character.CurrentRP += reward.RewardAmount;
+                            break;
+                        case ERewardType.Item:
+                            inventory.AddItem(reward.RewardTargetId, reward.RewardAmount);
+                            break;
+                        case ERewardType.Card:
+                            cardInventory.AddObtainedCard(reward.RewardTargetId, reward.RewardAmount);
+                            break;
+                    }
+                    Debug.Log($"Received: {reward.RewardTargetId} -amount: {reward.RewardAmount}");
+                }
             }
 
             Debug.Log("Clear tournament progress");
             _tournamentDAO.Delete(_sessionTournamentId);
-
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
 
             if (sessionData != null)
             {
@@ -599,6 +626,8 @@
 
         public void GoBackToMainMenu()
         {
+
+
             List<LoadTask> loadTaskList = new List<LoadTask>();
             LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
             loadTaskList.Add(goToNextWeekTask);
@@ -619,7 +648,7 @@
             IReadOnlyList<RewardDataSO> rewardRanks = GetRewardsByTier(tier);
 
             if (rewardRanks == null || rewardRanks.Count == 0)
-                return null;
+                return new List<RewardDataSO>();
 
             return rewardRanks;
         }
@@ -673,6 +702,7 @@
             data.PendingEnemyId = enemyId;
 
             _tournamentDAO.Upsert(data);
+            LocalDBOrchestrator.UpdateDBChangeTime();
 
             PlayerPrefs.SetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID, enemyId);
 
@@ -699,7 +729,10 @@
             if (sessionData != null)
             {
                 sessionData.ActiveTournamentId = data.Id;
-                _sessionDAO.Update(sessionData);
+                if (_sessionDAO.Update(sessionData))
+                {
+                    LocalDBOrchestrator.UpdateDBChangeTime();
+                }
                 Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated!");
             }
             else

@@ -9,10 +9,13 @@ namespace SEP490G69.Battle.Combat
         private PlayerBattleCharaterController _player;
         private EnemyCombatController _enemy;
 
+        private CardConfigSO _cardConfig;
+
         public void Initialize(PlayerBattleCharaterController player, EnemyCombatController enemy)
         {
             _player = player;
             _enemy = enemy;
+            _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
 
             _player.OnActionFinished = () =>
             {
@@ -51,7 +54,29 @@ namespace SEP490G69.Battle.Combat
 
         public void EnemyTurn()
         {
-            _enemy.DetermineCards(_player);
+            _player.PauseBar();
+            _enemy.PauseBar();
+            _enemy.DetermineCards(_player, (selectedCardId) =>
+            {
+                if (selectedCardId.Equals("REST"))
+                {
+                    Debug.Log("Enemy choose rest");
+                }
+                else
+                {
+                    CardSO card = _cardConfig.GetCardById(selectedCardId);
+
+                    if (card == null)
+                    {
+                        return;
+                    }
+
+                    GameUIManager.Singleton
+                                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
+                                 .AsFrame<UICombatFrame>()
+                                 .SpawnEnemyCard(card);
+                }
+            });
         }
 
         public void ExecutePlayerCard()

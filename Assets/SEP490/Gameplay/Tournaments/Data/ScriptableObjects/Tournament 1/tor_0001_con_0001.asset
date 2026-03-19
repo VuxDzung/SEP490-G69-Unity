@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 123a154d142643d42af23dddab26bdfe, type: 3}
-  m_Name: TournamentCondition_0001
+  m_Name: tor_0001_con_0001
   m_EditorClassIdentifier: 
-  m_ConditionId: tour_condi_0001
+  m_ConditionId: tor_0001_con_0001
   m_ConditionName: tour_condi_0001_name
   m_TournamentDesc: tour_condi_0001_desc
   m_DisplayToUI: 0

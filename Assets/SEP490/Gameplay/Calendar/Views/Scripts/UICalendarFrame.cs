@@ -118,7 +118,7 @@ namespace SEP490G69.Calendar
                         }
                     }
 
-                    IReadOnlyList<RewardRankData> rewards = data.RewardRanks.Count > 0 ? data.RewardRanks : null;
+                    IReadOnlyList<RewardDataSO> rewards = data.ChampionRewards.Count > 0 ? data.ChampionRewards : null;
 
                     tournamentUI.SetOnClickDetails(ViewTournamentDetails)
                                 .SetId(data.TournamentId)

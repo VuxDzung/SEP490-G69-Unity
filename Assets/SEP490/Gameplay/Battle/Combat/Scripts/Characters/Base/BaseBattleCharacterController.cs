@@ -380,10 +380,13 @@
             foreach (var deckCardId in deckCardIdArray)
             {
                 Debug.Log($"Initialize deck card: {deckCardId}");
+                
                 string rawCardId = CardUtils.ExtractRawCardId(deckCardId);
                 CardSO card = CardConfig.GetCardById(rawCardId);
+
                 if (card != null)
                 {
+                    Debug.Log($"{gameObject.name} add card {rawCardId}");
                     _deckPool.Add(card);
                 }
             }

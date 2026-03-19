@@ -4,7 +4,11 @@ namespace SEP490G69.Battle.Cards
     {
         public static string ExtractRawCardId(string deckCardId)
         {
-            return deckCardId.Split(':')[1];
+            string[] parts = deckCardId.Split(':');
+            if (parts.Length > 1)
+                return parts[1];
+            else
+                return parts[0];
         }
     }
 }

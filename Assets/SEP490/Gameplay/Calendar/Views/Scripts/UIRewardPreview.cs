@@ -1,5 +1,7 @@
 namespace SEP490G69.Calendar
 {
+    using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
     using System;
     using TMPro;
     using UnityEngine;
@@ -15,6 +17,32 @@ namespace SEP490G69.Calendar
 
         private string _id;
 
+        private ItemDataConfigSO _itemConfig;
+        private ItemDataConfigSO ItemConfig
+        {
+            get
+            {
+                if (_itemConfig == null)
+                {
+                    _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
+                }
+                return _itemConfig;
+            }
+        }
+
+        private CardConfigSO _cardConfig;
+        private CardConfigSO CardConfig
+        {
+            get
+            {
+                if (_cardConfig == null)
+                {
+                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
+                }
+                return _cardConfig;
+            }
+        }
+
         public void Spawn()
         {
             if (m_DetailsBtn != null) m_DetailsBtn.onClick.AddListener(Click);
@@ -28,7 +56,20 @@ namespace SEP490G69.Calendar
         {
             _id = id;
             string amountStr = $"{amount.ToString()} {DeterminePostfix(rewardType)}";
-            m_NumericTmp.text = amountStr;
+            if (m_NumericTmp != null) m_NumericTmp.text = amountStr;
+
+            switch (rewardType)
+            {
+                case ERewardType.Item:
+                    ItemDataSO item = ItemConfig.GetItemById(id);
+                    Debug.Log($"item id: {id}");
+                    if (m_Icon) m_Icon.sprite = item.ItemImage;
+                    break;
+                case ERewardType.Card:
+                    CardSO card = CardConfig.GetCardById(id);
+                    if (m_Icon) m_Icon.sprite = card.Icon;
+                    break;
+            }
 
             return this;
         }

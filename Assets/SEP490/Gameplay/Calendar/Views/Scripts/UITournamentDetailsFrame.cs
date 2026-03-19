@@ -8,6 +8,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.Economy;
 
     public class UITournamentDetailsFrame : GameUIFrame
     {
@@ -24,6 +25,20 @@
         [SerializeField] private Transform m_RewardPreviewPrefab;
 
         private string _currentTournamentId;
+
+        private ItemDataConfigSO _itemConfig;
+        private ItemDataConfigSO ItemConfig
+        {
+            get
+            {
+                if (_itemConfig == null)
+                {
+                    _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
+                }
+                return _itemConfig;
+            }
+        }
+
         private GameCalendarController _calendarController;
         protected GameCalendarController CalendarController
         {
@@ -91,11 +106,9 @@
             }
 
             // Lấy phần thưởng của Top 1 (Rank == 1)
-            if (tournamentSO.RewardRanks != null && tournamentSO.RewardRanks.Count > 0)
+            if (tournamentSO.ChampionRewards != null && tournamentSO.ChampionRewards.Count > 0)
             {
-                RewardRankData topReward = tournamentSO.RewardRanks[0];
-
-                foreach (RewardDataSO rewardSO in topReward.Rewards)
+                foreach (RewardDataSO rewardSO in tournamentSO.ChampionRewards)
                 {
                     if (rewardSO == null) continue;
 
@@ -136,14 +149,14 @@
                             }
                             else if (rewardSO.RewardType == ERewardType.Item)
                             {
-                                // TODO: Hiện tại chưa có ItemConfigSO và RelicSO, tạm thời bỏ qua phần gán Icon.
-                                // Khi nào làm xong Relic, bạn get Config như CardConfig ở trên.
-                                // ItemConfigSO itemConfig = ContextManager.Singleton.GetDataSO<ItemConfigSO>();
-                                // ItemSO itemData = itemConfig.GetItemById(rewardSO.RewardId);
-                                // if (itemData != null) { itemName = itemData.ItemName; itemIcon = itemData.Icon; }
+                                ItemDataSO itemData = ItemConfig.GetItemById(rewardSO.RewardTargetId);
+                                if (itemData != null) 
+                                { 
+                                    itemName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, itemData.ItemNameKey); 
+                                    itemIcon = itemData.ItemImage; 
+                                }
                             }
 
-                            // Gán dữ liệu cho UI Element
                             uiElement.SetIdAndType(rewardSO.Id, rewardSO.RewardType)
                                      .SetOnClickDetails(ViewRewardDetails)
                                      .SetContent(itemName, itemType, itemIcon);

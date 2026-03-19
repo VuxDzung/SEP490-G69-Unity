@@ -29,6 +29,11 @@
 
         [SerializeField] private Transform[] m_CardSlots;
 
+        [SerializeField] private Transform m_EnemyCardActiveDisplayPoint;
+        [SerializeField] private Transform m_EnemyCardActiveSpawnPoint;
+
+        private Transform _enemySelectedCardTrans;
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -139,12 +144,66 @@
         /// <param name="cards"></param>
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
+            Debug.Log("DisplayDrawnCards");
             ClearAllCards();
             StartCoroutine(CoDisplayCards(cards));
         }
 
+        public void SpawnEnemyCard(CardSO card)
+        {
+            if (_enemySelectedCardTrans != null)
+            {
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
+            }
+
+            Transform spawnPoint = m_EnemyCardActiveSpawnPoint;
+            Transform targetPoint = m_EnemyCardActiveDisplayPoint;
+
+            Vector3 targetPosition = targetPoint.position;
+
+            _enemySelectedCardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, spawnPoint);
+            RectTransform rect = _enemySelectedCardTrans.GetComponent<RectTransform>();
+            LayoutElement layout = rect.GetComponent<LayoutElement>();
+            rect.DOKill();
+
+            UICardElement cardUI = _enemySelectedCardTrans.GetComponent<UICardElement>();
+            if (cardUI != null)
+            {
+                string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
+                string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
+
+                cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon);
+            }
+
+            rect.position = spawnPoint.position;
+            rect.DOMove(targetPosition, 0.55f)
+                    .SetEase(Ease.OutCubic)
+                    .OnComplete(() =>
+                    {
+                        if (layout != null)
+                            layout.ignoreLayout = false;
+
+                        StartCoroutine(DelayDespawn());
+                    });
+        }
+
+        private IEnumerator DelayDespawn()
+        {
+            yield return new WaitForSeconds(0.2f);
+            if (_enemySelectedCardTrans != null)
+            {
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
+                _enemySelectedCardTrans = null;
+            }
+        }
+
         private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards)
         {
+            if (cards.Count == 0)
+            {
+                Debug.Log("No card of player");
+                yield return null; ;
+            }
             //m_CardContainer.GetComponent<HorizontalLayoutGroup>().enabled = false;
             for (int i = 0; i < cards.Count; i++)
             {
@@ -202,6 +261,8 @@
 
         public void ClearAllCards()
         {
+            Debug.Log("ClearAllCards");
+
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnAll();

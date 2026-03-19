@@ -585,6 +585,7 @@
             if (rewardList.Count > 0)
             {
                 SessionCharacterData character = _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
+                bool charUpdated = false;
 
                 foreach (var reward in rewardList)
                 {
@@ -594,6 +595,7 @@
                             sessionData.CurrentGoldAmount += reward.RewardAmount;
                             break;
                         case ERewardType.ReputationPoint:
+                            charUpdated = true;
                             character.CurrentRP += reward.RewardAmount;
                             break;
                         case ERewardType.Item:
@@ -605,6 +607,8 @@
                     }
                     Debug.Log($"Received: {reward.RewardTargetId} -amount: {reward.RewardAmount}");
                 }
+
+                if (charUpdated) _characterRepo.Update(character);
             }
 
             Debug.Log("Clear tournament progress");
@@ -626,8 +630,6 @@
 
         public void GoBackToMainMenu()
         {
-
-
             List<LoadTask> loadTaskList = new List<LoadTask>();
             LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
             loadTaskList.Add(goToNextWeekTask);

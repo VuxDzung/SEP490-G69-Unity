@@ -186,11 +186,18 @@ namespace SEP490G69
         public bool RemoveItem(string itemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
+            {
+                Debug.LogError("[GameInventoryManager.GetItemBy error] Session id is null");
                 return false;
+            }
 
             ItemDataHolder item = GetItemBy(itemId);
 
-            if (item == null) return false;
+            if (item == null)
+            {
+                Debug.LogError($"[GameInventoryManager.GetItemBy error] Item with id {itemId} is null");
+                return false;
+            }
 
             if (!item.DecreaseItemAmount(amount))
                 return false;
@@ -218,7 +225,10 @@ namespace SEP490G69
         public void EquipRelic(string relicId, int slot)
         {
             if (string.IsNullOrEmpty(_sessionId))
+            {
+                Debug.LogError("[GameInventoryManager.EquipRelic error] Session id is null");
                 return;
+            }
 
             ItemDataHolder holder = GetItemBy(relicId);
 
@@ -254,7 +264,10 @@ namespace SEP490G69
         public void UnequipRelic(string relicId, int slot)
         {
             if (string.IsNullOrEmpty(_sessionId))
+            {
+                Debug.LogError("[GameInventoryManager.UnequipRelic error] Session id is null");
                 return;
+            }
 
             EquipmentData relic = _inventoryDAO.GetRelic(_sessionId, relicId);
 
@@ -273,6 +286,7 @@ namespace SEP490G69
         {
             if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
             {
+                Debug.LogError("[GameInventoryManager.GetItemBy error] Session id/raw item id is null");
                 return null;
             }
             ItemDataHolder item = _inventoryItems.FirstOrDefault(item => item.GetSessionId().Equals(_sessionId) &&
@@ -283,7 +297,10 @@ namespace SEP490G69
         public ItemDataHolder GetItemBy(string rawId)
         {
             if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
+            {
+                Debug.LogError("[GameInventoryManager.GetItemBy error] Raw item id is null");
                 return null;
+            }
 
             return _inventoryItems.FirstOrDefault(x => x.GetRawId() == rawId);
         }

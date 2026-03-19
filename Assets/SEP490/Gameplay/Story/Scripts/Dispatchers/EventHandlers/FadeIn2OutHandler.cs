@@ -41,9 +41,10 @@
             if (onCompleted.GetStringValue() == "StartDialogTree")
             {
                 var treeId = parameters.GetParameter("dialogTreeId");
+                var dialogId = parameters.GetParameter("dialogId");
                 if (treeId != null)
                 {
-                    _dialogManager.StartTree(treeId.GetStringValue());
+                    _dialogManager.StartTree(treeId.GetStringValue(), dialogId != null ? dialogId.GetStringValue() : "");
                 }
             }
         }

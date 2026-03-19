@@ -6112,7 +6112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a56c42973ece4793a25227b810083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BGM: {fileID: 8300000, guid: f7c94b00546f2484ea827051a05081a4, type: 3}
+  m_BGM: {fileID: 8300000, guid: 3dd87290fc4a67e4f886336d02fe3ed1, type: 3}
 --- !u!4 &929796097
 Transform:
   m_ObjectHideFlags: 0

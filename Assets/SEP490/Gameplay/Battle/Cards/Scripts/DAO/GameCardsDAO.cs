@@ -18,7 +18,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawCardId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId, rawCardId));
             }
             catch (Exception e)
             {
@@ -31,7 +31,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionCardId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionCardId));
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, card));
+                return LocalDBOrchestrator.Execute(db => Insert(db, card));
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => InsertMany(db, cards));
+                return LocalDBOrchestrator.Execute(db => InsertMany(db, cards));
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, card));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, card));
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, card));
+                return LocalDBOrchestrator.Execute(db => Update(db, card));
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, sessionCardId));
+                return LocalDBOrchestrator.Execute(db => Delete(db, sessionCardId));
             }
             catch (Exception e)
             {
@@ -122,7 +122,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {

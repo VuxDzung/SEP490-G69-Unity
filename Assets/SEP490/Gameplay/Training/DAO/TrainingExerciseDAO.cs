@@ -19,7 +19,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, entity));
+                return LocalDBOrchestrator.Execute(db => Insert(db, entity));
             }
             catch (Exception e)
             {
@@ -32,7 +32,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => InsertMany(db, entities));
+                return LocalDBOrchestrator.Execute(db => InsertMany(db, entities));
             }
             catch (Exception e)
             {
@@ -45,7 +45,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, entity));
+                return LocalDBOrchestrator.Execute(db => Update(db, entity));
             }
             catch (Exception e)
             {
@@ -58,7 +58,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, entity));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, entity));
             }
             catch (Exception e)
             {
@@ -71,7 +71,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, entityId));
+                return LocalDBOrchestrator.Execute(db => Delete(db, entityId));
             }
             catch (Exception e)
             {
@@ -84,7 +84,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {
@@ -97,7 +97,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId, exerciseId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId, exerciseId));
             }
             catch (Exception e)
             {
@@ -110,7 +110,7 @@ namespace SEP490G69.Training
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {

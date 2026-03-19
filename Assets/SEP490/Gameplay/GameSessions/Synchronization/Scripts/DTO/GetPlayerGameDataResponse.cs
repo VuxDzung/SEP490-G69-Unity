@@ -33,6 +33,9 @@ namespace SEP490G69.GameSessions
         [JsonProperty("session")]
         public PlayerTrainingSession Session { get; set; }
 
+        [JsonProperty("character")]
+        public SessionCharacterData Character { get; set; } = new SessionCharacterData();
+
         [JsonProperty("exercises")]
         public List<SessionTrainingExercise> Exercises { get; set; } = new List<SessionTrainingExercise>();
 
@@ -42,8 +45,6 @@ namespace SEP490G69.GameSessions
         [JsonProperty("cards")]
         public List<SessionCardData> Cards { get; set; } = new List<SessionCardData>();
 
-        [JsonProperty("character")]
-        public SessionCharacterData Character { get; set; } = new SessionCharacterData();
 
         [JsonProperty("obtained_items")]
         public List<ItemData> ObtainedItems { get; set; } = new List<ItemData>();
@@ -51,7 +52,7 @@ namespace SEP490G69.GameSessions
         [JsonProperty("shop_items")]
         public List<ShopItemData> ShopItems { get; set; } = new List<ShopItemData>();
 
-        [JsonProperty("tournament_progressions")]
+        [JsonProperty("tournaments")]
         public List<TournamentProgressData> TournamentProgressions { get; set; } = new List<TournamentProgressData>();
 
         #endregion

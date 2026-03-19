@@ -18,7 +18,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, entityId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, entityId));
             }
             catch (Exception e)
             {
@@ -31,7 +31,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawItemId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId, rawItemId));
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, item));
+                return LocalDBOrchestrator.Execute(db => Insert(db, item));
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, item));
+                return LocalDBOrchestrator.Execute(db => Update(db, item));
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, item));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, item));
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, entityId));
+                return LocalDBOrchestrator.Execute(db => Delete(db, entityId));
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {

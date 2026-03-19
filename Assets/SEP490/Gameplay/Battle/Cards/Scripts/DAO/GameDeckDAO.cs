@@ -21,7 +21,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId));
             }
             catch (Exception e)
             {
@@ -34,7 +34,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, deck));
+                return LocalDBOrchestrator.Execute(db => Insert(db, deck));
             }
             catch (Exception e)
             {
@@ -47,7 +47,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, deck));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, deck));
             }
             catch (Exception e)
             {
@@ -60,7 +60,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, deck));
+                return LocalDBOrchestrator.Execute(db => Update(db, deck));
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => Delete(db, sessionId));
             }
             catch (Exception e)
             {

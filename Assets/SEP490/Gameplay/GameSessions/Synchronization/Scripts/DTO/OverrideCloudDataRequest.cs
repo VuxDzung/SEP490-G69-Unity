@@ -8,10 +8,13 @@ namespace SEP490G69.GameSessions
     public class OverrideCloudDataRequest 
     {
         [JsonProperty("player_data")]
-        public PlayerData PlayerData { get; set; } = new PlayerData();
+        public PlayerInfoDTO PlayerData { get; set; } = new PlayerInfoDTO();
 
         [JsonProperty("session")]
         public PlayerTrainingSession Session { get; set; } = new PlayerTrainingSession();
+
+        [JsonProperty("character")]
+        public SessionCharacterData Character { get; set; } = new SessionCharacterData();
 
         [JsonProperty("exercises")]
         public List<SessionTrainingExercise> Exercises { get; set; } = new List<SessionTrainingExercise>();
@@ -22,8 +25,6 @@ namespace SEP490G69.GameSessions
         [JsonProperty("cards")]
         public List<SessionCardData> Cards { get; set; } = new List<SessionCardData>();
 
-        [JsonProperty("character")]
-        public SessionCharacterData Character { get; set; } = new SessionCharacterData();
 
         [JsonProperty("obtained_items")]
         public List<ItemData> ObtainedItems { get; set; } = new List<ItemData>();

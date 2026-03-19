@@ -18,7 +18,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, id));
+                return LocalDBOrchestrator.Execute(db => GetById(db, id));
             }
             catch (Exception e)
             {
@@ -31,7 +31,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawTournamentId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId, rawTournamentId));
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, data));
+                return LocalDBOrchestrator.Execute(db => Insert(db, data));
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => InsertMany(db, tournaments));
+                return LocalDBOrchestrator.Execute(db => InsertMany(db, tournaments));
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, data));
+                return LocalDBOrchestrator.Execute(db => Update(db, data));
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, data));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, data));
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, id));
+                return LocalDBOrchestrator.Execute(db => Delete(db, id));
             }
             catch (Exception e)
             {
@@ -122,7 +122,7 @@ namespace SEP490G69.Tournament
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteAllBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteAllBySessionId(db, sessionId));
             }
             catch (Exception e)
             {

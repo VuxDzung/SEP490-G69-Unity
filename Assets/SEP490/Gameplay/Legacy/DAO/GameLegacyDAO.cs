@@ -16,7 +16,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, entityId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, entityId));
             }
             catch (Exception e)
             {
@@ -29,7 +29,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, playerId, rawLegacyId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, playerId, rawLegacyId));
             }
             catch (Exception e)
             {
@@ -42,7 +42,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, data));
+                return LocalDBOrchestrator.Execute(db => Insert(db, data));
             }
             catch (Exception e)
             {
@@ -55,7 +55,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, data));
+                return LocalDBOrchestrator.Execute(db => Update(db, data));
             }
             catch (Exception e)
             {
@@ -68,7 +68,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, data));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, data));
             }
             catch (Exception e)
             {
@@ -81,7 +81,7 @@ namespace SEP490G69.Legacy
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteById(db, entityId));
+                return LocalDBOrchestrator.Execute(db => DeleteById(db, entityId));
             }
             catch (Exception e)
             {

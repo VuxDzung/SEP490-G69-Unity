@@ -16,7 +16,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, id));
+                return LocalDBOrchestrator.Execute(db => GetById(db, id));
             }
             catch (Exception e)
             {
@@ -29,7 +29,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId, rawCharacterId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId, rawCharacterId));
             }
             catch (Exception e)
             {
@@ -42,7 +42,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, characterData));
+                return LocalDBOrchestrator.Execute(db => Insert(db, characterData));
             }
             catch (Exception e)
             {
@@ -55,7 +55,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, characterData));
+                return LocalDBOrchestrator.Execute(db => Update(db, characterData));
             }
             catch (Exception e)
             {
@@ -68,7 +68,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, characterData));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, characterData));
             }
             catch (Exception e)
             {
@@ -81,7 +81,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Delete(db, entityId));
+                return LocalDBOrchestrator.Execute(db => Delete(db, entityId));
             }
             catch (Exception e)
             {
@@ -94,7 +94,7 @@ namespace SEP490G69
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteManyBySessionId(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteManyBySessionId(db, sessionId));
             }
             catch (Exception e)
             {

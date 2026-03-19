@@ -253,6 +253,9 @@ namespace SEP490G69.GameSessions
                         DeckController.SaveDeck();
 
                         PlayerPrefs.SetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, sessionId);
+
+                        LocalDBOrchestrator.UpdateDBChangeTime();
+
                         return true;
                     }
                     else

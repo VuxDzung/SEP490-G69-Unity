@@ -18,7 +18,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Insert(db, session));
+                return LocalDBOrchestrator.Execute(db => Insert(db, session));
             }
             catch (Exception e)
             {
@@ -31,7 +31,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Update(db, session));
+                return LocalDBOrchestrator.Execute(db => Update(db, session));
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => Upsert(db, session));
+                return LocalDBOrchestrator.Execute(db => Upsert(db, session));
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => DeleteById(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => DeleteById(db, sessionId));
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetById(db, sessionId));
+                return LocalDBOrchestrator.Execute(db => GetById(db, sessionId));
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAllByPlayerId(db, playerId));
+                return LocalDBOrchestrator.Execute(db => GetAllByPlayerId(db, playerId));
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@ namespace SEP490G69.GameSessions
         {
             try
             {
-                return LocalDBInitiator.Execute(db => GetAll(db));
+                return LocalDBOrchestrator.Execute(db => GetAll(db));
             }
             catch (Exception e)
             {

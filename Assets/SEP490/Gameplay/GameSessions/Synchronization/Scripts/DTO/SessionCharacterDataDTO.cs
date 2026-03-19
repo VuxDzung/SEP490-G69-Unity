@@ -10,10 +10,10 @@
         public string Id { get; set; }
 
         [JsonProperty("sessionId")]
-        public string SessionId { get; set; }
+        public string SessionId { get; set; } = string.Empty;
 
         [JsonProperty("rawCharacterId")]
-        public string RawCharacterId { get; set; }
+        public string RawCharacterId { get; set; } = string.Empty;
 
         //-----------------------------------------
         // CHARACTER-RUNTIME-STATS

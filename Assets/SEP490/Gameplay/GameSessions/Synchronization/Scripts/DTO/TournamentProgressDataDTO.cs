@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    using Tournament;
+
     public class TournamentProgressDataDTO
     {
         [JsonProperty("id")]
@@ -18,16 +18,16 @@
         public int CurrentRoundIndex { get; set; }
 
         [JsonProperty("participants")]
-        public List<TournamentParticipantData> Participants { get; set; }
+        public List<TournamentParticipantDTO> Participants { get; set; }
 
         [JsonProperty("semiFinalParticipants")]
-        public List<TournamentParticipantData> SemiFinalParticipants { get; set; }
+        public List<TournamentParticipantDTO> SemiFinalParticipants { get; set; }
 
         [JsonProperty("finalParticipants")]
-        public List<TournamentParticipantData> FinalParticipants { get; set; }
+        public List<TournamentParticipantDTO> FinalParticipants { get; set; }
 
         [JsonProperty("currentRoundParticipants")]
-        public List<TournamentParticipantData> CurrentRoundParticipants { get; set; }
+        public List<TournamentParticipantDTO> CurrentRoundParticipants { get; set; }
 
         [JsonProperty("waitingForPlayerBattle")]
         public bool WaitingForPlayerBattle { get; set; }

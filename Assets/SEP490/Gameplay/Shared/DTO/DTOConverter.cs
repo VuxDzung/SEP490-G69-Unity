@@ -83,12 +83,12 @@ namespace SEP490G69.GameSessions
             }
             return new PlayerTrainingSessionDTO
             {
-                SessionId = session.SessionId,
-                PlayerId = session.PlayerId,
-                RawCharacterId = session.RawCharacterId,
+                SessionId = session.SessionId ?? string.Empty,
+                PlayerId = session.PlayerId ?? string.Empty,
+                RawCharacterId = session.RawCharacterId ?? string.Empty,
                 CurrentGoldAmount = session.CurrentGoldAmount,
                 CurrentWeek = session.CurrentWeek,
-                ActiveTournamentId = session.ActiveTournamentId,
+                ActiveTournamentId = session.ActiveTournamentId ?? string.Empty,
             };
         }
 
@@ -102,8 +102,8 @@ namespace SEP490G69.GameSessions
             return new SessionCharacterDataDTO
             {
                 Id = character.Id,
-                SessionId = character.SessionId,
-                RawCharacterId = character.RawCharacterId,
+                SessionId = character.SessionId ?? string.Empty,
+                RawCharacterId = character.RawCharacterId ?? string.Empty,
                 CurrentMaxVitality = character.CurrentMaxVitality,
                 CurrentPower = character.CurrentPower,
                 CurrentIntelligence = character.CurrentIntelligence,
@@ -200,16 +200,89 @@ namespace SEP490G69.GameSessions
             {
                 return null;
             }
+
+            List<TournamentParticipantDTO> participantDTOs = new List<TournamentParticipantDTO>();
+            if (tournament.Participants != null && tournament.Participants.Count > 0)
+            {
+                foreach (var participant in tournament.Participants)
+                {
+                    TournamentParticipantDTO dto = new TournamentParticipantDTO
+                    {
+                        Id = participant.Id,
+                        CharacterId = participant.CharacterId,
+                        IsPlayer = participant.IsPlayer,
+                        SlotIndex = participant.SlotIndex,
+                        TotalStats = participant.TotalStats,
+                        IsEliminated = participant.IsEliminated,
+                    };
+                    participantDTOs.Add(dto);
+                }
+            }
+
+            List<TournamentParticipantDTO> semiFinalParDTOs = new List<TournamentParticipantDTO>();
+            if (tournament.Participants != null && tournament.SemiFinalParticipants.Count > 0)
+            {
+                foreach (var participant in tournament.SemiFinalParticipants)
+                {
+                    TournamentParticipantDTO dto = new TournamentParticipantDTO
+                    {
+                        Id = participant.Id,
+                        CharacterId = participant.CharacterId,
+                        IsPlayer = participant.IsPlayer,
+                        SlotIndex = participant.SlotIndex,
+                        TotalStats = participant.TotalStats,
+                        IsEliminated = participant.IsEliminated,
+                    };
+                    semiFinalParDTOs.Add(dto);
+                }
+            }
+
+            List<TournamentParticipantDTO> finalParDTOs = new List<TournamentParticipantDTO>();
+            if (tournament.Participants != null && tournament.FinalParticipants.Count > 0)
+            {
+                foreach (var participant in tournament.FinalParticipants)
+                {
+                    TournamentParticipantDTO dto = new TournamentParticipantDTO
+                    {
+                        Id = participant.Id,
+                        CharacterId = participant.CharacterId,
+                        IsPlayer = participant.IsPlayer,
+                        SlotIndex = participant.SlotIndex,
+                        TotalStats = participant.TotalStats,
+                        IsEliminated = participant.IsEliminated,
+                    };
+                    finalParDTOs.Add(dto);
+                }
+            }
+
+            List<TournamentParticipantDTO> currentRoundParticipantDTOs = new List<TournamentParticipantDTO>();
+            if (tournament.Participants != null && tournament.CurrentRoundParticipants.Count > 0)
+            {
+                foreach (var participant in tournament.CurrentRoundParticipants)
+                {
+                    TournamentParticipantDTO dto = new TournamentParticipantDTO
+                    {
+                        Id = participant.Id,
+                        CharacterId = participant.CharacterId,
+                        IsPlayer = participant.IsPlayer,
+                        SlotIndex = participant.SlotIndex,
+                        TotalStats = participant.TotalStats,
+                        IsEliminated = participant.IsEliminated,
+                    };
+                    currentRoundParticipantDTOs.Add(dto);
+                }
+            }
+
             return new TournamentProgressDataDTO
             {
                 Id = tournament.Id,
                 SessionId = tournament.SessionId,
                 RawTournamentId = tournament.RawTournamentId,
                 CurrentRoundIndex = tournament.CurrentRoundIndex,
-                CurrentRoundParticipants = tournament.CurrentRoundParticipants,
-                Participants = tournament.Participants,
-                SemiFinalParticipants = tournament.SemiFinalParticipants,
-                FinalParticipants = tournament.FinalParticipants,
+                Participants = participantDTOs,
+                CurrentRoundParticipants = currentRoundParticipantDTOs,
+                SemiFinalParticipants = semiFinalParDTOs,
+                FinalParticipants = finalParDTOs,
                 WaitingForPlayerBattle = tournament.WaitingForPlayerBattle,
                 IsBattleFinished = tournament.IsBattleFinished,
                 IsPlayerWon = tournament.IsPlayerWon,

@@ -171,7 +171,7 @@ namespace SEP490G69.Addons.Networking
 
             using (UnityWebRequest request = new UnityWebRequest(endpointUrl, "PUT"))
             {
-                Debug.Log($"PUT Request: {url}");
+                Debug.Log($"PUT Request: {endpointUrl}");
                 Debug.Log($"PUT Body: {json}");
 
                 byte[] bodyRaw = Encoding.UTF8.GetBytes(json);

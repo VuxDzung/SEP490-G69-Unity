@@ -45,16 +45,16 @@ namespace SEP490G69.GameSessions
 
             DeviceInfo deviceInfo = new DeviceInfo
             {
-                PlayerId = playerId,
+                PlayerId = playerId ?? string.Empty,
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 DeviceType = SystemInfo.deviceType.ToString(),
             };
 
             PlayerInfoDTO playerInfo = new PlayerInfoDTO
             {
-                PlayerId = playerId,
-                PlayerName = player.PlayerName,
-                PlayerEmail = player.PlayerEmail,
+                PlayerId = playerId ?? string.Empty,
+                PlayerName = player.PlayerName ?? string.Empty,
+                PlayerEmail = player.PlayerEmail ?? string.Empty,
                 LegacyPoints = player.LegacyPoints,
                 CurrentRun = player.CurrentRun,
                 LastSyncedDevice = deviceInfo,
@@ -71,7 +71,7 @@ namespace SEP490G69.GameSessions
                 Deck = DTOConverter.FromDB2DTO(_deck.GetById(sessionId)),
                 ObtainedItems = DTOConverter.FromDBList2DTO(_inv.GetAllItems(sessionId)),
                 ShopItems = DTOConverter.FromDBList2DTO(_shop.GetAll(sessionId)),
-                TournamentProgressions = DTOConverter.FromDBList2DTO(_tour.GetAllBySessionId(sessionId))
+                Tournaments = DTOConverter.FromDBList2DTO(_tour.GetAllBySessionId(sessionId))
             };
         }
 

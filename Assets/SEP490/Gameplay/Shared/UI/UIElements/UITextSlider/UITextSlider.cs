@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using System;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -19,8 +20,17 @@ namespace SEP490G69
         public void SetValue(float cur, float max)
         {
             //m_Slider.maxValue = max;
-            m_Slider.value = cur / max;
-            m_Tmp.text = $"{cur}/{max}";
+
+            float finalCur = (float)Math.Round(cur, 1);
+            float finalMax = (float)Math.Round(max, 1);
+
+            if (finalCur < 0)
+            {
+                finalCur = 0;
+            }
+
+            m_Slider.value = finalCur / finalMax;
+            m_Tmp.text = $"{finalCur}/{finalMax}";
         }
 
         public void SetRank(string rank)

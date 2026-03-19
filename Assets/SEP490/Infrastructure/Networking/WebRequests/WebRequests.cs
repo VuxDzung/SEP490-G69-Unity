@@ -171,6 +171,9 @@ namespace SEP490G69.Addons.Networking
 
             using (UnityWebRequest request = new UnityWebRequest(endpointUrl, "PUT"))
             {
+                Debug.Log($"PUT Request: {url}");
+                Debug.Log($"PUT Body: {json}");
+
                 byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
@@ -179,8 +182,8 @@ namespace SEP490G69.Addons.Networking
                 request.SetRequestHeader("Content-Type", "application/json");
 
                 var operation = request.SendWebRequest();
-                while (!operation.isDone)
-                    await Task.Yield();
+
+                while (!operation.isDone) await Task.Yield();
 
                 ResponsePacket payload = new ResponsePacket
                 {

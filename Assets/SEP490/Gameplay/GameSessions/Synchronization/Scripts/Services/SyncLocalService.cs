@@ -64,14 +64,14 @@ namespace SEP490G69.GameSessions
             return new OverrideCloudDataRequest
             {
                 PlayerData = playerInfo,
-                Session = session,
-                Character = _char.GetCharacterData(sessionId, session.RawCharacterId),
-                Exercises = _exercise.GetAllBySessionId(sessionId) ?? new(),
-                Cards = _cards.GetAllBySessionId(sessionId) ?? new(),
-                Deck = _deck.GetById(sessionId),
-                ObtainedItems = _inv.GetAllItems(sessionId) ?? new(),
-                ShopItems = _shop.GetAll(sessionId) ?? new(),
-                TournamentProgressions = _tour.GetAllBySessionId(sessionId) ?? new()
+                Session = DTOConverter.FromDB2DTO(session),
+                Character = DTOConverter.FromDB2DTO(_char.GetCharacterData(sessionId, session.RawCharacterId)),
+                Exercises = DTOConverter.FromDBList2DTO(_exercise.GetAllBySessionId(sessionId)),
+                Cards = DTOConverter.FromDBList2DTO(_cards.GetAllBySessionId(sessionId)),
+                Deck = DTOConverter.FromDB2DTO(_deck.GetById(sessionId)),
+                ObtainedItems = DTOConverter.FromDBList2DTO(_inv.GetAllItems(sessionId)),
+                ShopItems = DTOConverter.FromDBList2DTO(_shop.GetAll(sessionId)),
+                TournamentProgressions = DTOConverter.FromDBList2DTO(_tour.GetAllBySessionId(sessionId))
             };
         }
 

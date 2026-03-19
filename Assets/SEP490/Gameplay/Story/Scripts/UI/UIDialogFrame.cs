@@ -69,7 +69,7 @@
 
             BaseCharacterSO character = _characterConfig.GetCharacterById(speakerID);
             m_SpeakerNameTmp.text = character.CharacterName;
-            m_Image.sprite = character.Thumbnail;
+            m_Image.sprite = character.FullBodyImg;
 
             _fullDialogText = dialog;
 

@@ -110,3 +110,29 @@ MonoBehaviour:
     - language: 1
       text: "V\u1ED1n d\u0129 \u0111i\u1EC1u \u0111\xF3 l\xE0 hi\u1EC3n nhi\xEAn,
         r\u1ED3i con s\u1EBD hi\u1EC3u nh\u1EEFng g\xEC ta n\xF3i\u2026"
+  - id: node_0002_0001
+    textList:
+    - language: 0
+      text: 'Oh, not bad at all. Congrats on making it to the finals.
+
+'
+    - language: 1
+      text: "Oh, c\u0169ng kh\xE1 \u0111\u1EA5y nh\u1EC9, ch\xFAc m\u1EEBng c\u1EADu
+        \u0111\xE3 l\u1ECDt v\xE0o tr\u1EADn chung k\u1EBFt."
+  - id: node_0002_0002
+    textList:
+    - language: 0
+      text: Looks like I underestimated you. But don't kid yourself into thinking
+        you actually have what it takes to beat me.
+    - language: 1
+      text: "C\xF3 v\u1EBB t\xF4i \u0111\xE3 \u0111\xE1nh gi\xE1 th\u1EA5p c\u1EADu,
+        nh\u01B0ng c\u0169ng \u0111\u1EEBng ngh\u0129 r\u1EB1ng m\xECnh \u0111\u1EE7
+        kh\u1EA3 n\u0103ng \u0111\xE1nh b\u1EA1i t\xF4i."
+  - id: node_0002_0003
+    textList:
+    - language: 0
+      text: Don't get too cocky. People who talk big usually fall the hardest. We'll
+        see about that...
+    - language: 1
+      text: "\u0110\u1EEBng qu\xE1 t\u1EF1 tin, n\xF3i tr\u01B0\u1EDBc th\u01B0\u1EDDng
+        b\u01B0\u1EDBc kh\xF4ng qua \u0111\xE2u, \u0111\u1EC3 xem..."

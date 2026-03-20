@@ -19,8 +19,6 @@ namespace SEP490G69
 
         public void SetValue(float cur, float max)
         {
-            //m_Slider.maxValue = max;
-
             float finalCur = (float)Math.Round(cur, 0);
             float finalMax = (float)Math.Round(max, 0);
 

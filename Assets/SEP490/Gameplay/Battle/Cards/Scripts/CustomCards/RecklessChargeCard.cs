@@ -2,7 +2,6 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
-    using UnityEngine;
 
     /// <summary>
     /// High damage but receive 20% Damage Dealt for self.
@@ -10,8 +9,6 @@ namespace SEP490G69.Battle
     public class RecklessChargeCard : BaseAttackCard
     {
         public const string VAR_RECEIEVED_DEALT_DMG = "received_dealt_dmg";
-
-        private float _selfDamagePercent = 0.2f;
 
         public RecklessChargeCard(CardSO cardSO) : base(cardSO)
         {

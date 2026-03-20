@@ -11,6 +11,8 @@ namespace SEP490G69.Battle.Combat
     [RequireComponent(typeof(RandomSelectCardStrategy))]
     public class EnemyCombatController : BaseBattleCharacterController
     {
+        [SerializeField] private float m_DelayPerfomAction = 1f;
+
         private List<ISelectCardStrategy> _cardSelectStrategies = new List<ISelectCardStrategy>();
 
         protected override void Awake()
@@ -35,7 +37,6 @@ namespace SEP490G69.Battle.Combat
             _characterData.CurrentDef = characterSO.BaseDef;
             _characterData.CurrentAgi = characterSO.BaseAgi;
 
-            EnemySO enemySO = CharacterConfig.GetCharacterById(characterSO.CharacterId).ConvertAs<EnemySO>();
 
             SessionCharacterData readonlyCharData = _characterData.Clone() as SessionCharacterData;
 
@@ -52,9 +53,11 @@ namespace SEP490G69.Battle.Combat
             SetCharacterDataHolder(runtimeDataHolder);
             InitializeEnergySystem();
 
+            EnemySO enemySO = characterSO.ConvertAs<EnemySO>();
+
             if (enemySO != null)
             {
-                InitializeDeck(enemySO.Deck.ToArray());
+                CombatCardsProcessor.InitializeDeck(enemySO.Deck.ToArray());
             }
             else
             {
@@ -68,11 +71,11 @@ namespace SEP490G69.Battle.Combat
         /// Step 2: Pick a card (Randomly or use specific logic)
         /// Step 3
         /// </summary>
-        public void DetermineCards(BaseBattleCharacterController enemy, Action<string> onCardSelected)
+        public void DetermineCards(BaseBattleCharacterController opponent, Action<string> onCardSelected)
         {
-            OnTurnStart();
+            StartTurn();
 
-            DrawThreeCards(out IReadOnlyList<CardSO> cards);
+            CombatCardsProcessor.DrawThreeCards(out IReadOnlyList<CardSO> cards);
 
             var strategy = GetFirstStrategy();
 
@@ -82,35 +85,33 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            Debug.Log($"CardCount: {cards.Count}");
-
             if (strategy.TrySelectCard(this, cards, out CardSO card))
             {
-                if (CalculateCardCost(card) > GetCombatStatus(EStatusType.Stamina).Value)
+                if (CombatCardsProcessor.CalculateCardCost(card) > GetCombatStatus(EStatusType.Stamina).Value)
                 {
                     onCardSelected?.Invoke("REST");
-                    SelectRest();
+                    CombatCardsProcessor.SelectRest();
                 }
                 else
                 {
                     onCardSelected?.Invoke(card.CardId);
-                    SelectCard(card);
+                    CombatCardsProcessor.SelectCard(card);
                 }
-                StartCoroutine(DelayExecute(enemy));
+                StartCoroutine(DelayExecute(opponent));
             }
             else
             {
                 Debug.LogError("Failed to select card. Choose rest as default!");
                 onCardSelected?.Invoke("REST");
-                SelectRest();
-                StartCoroutine(DelayExecute(enemy));
+                CombatCardsProcessor.SelectRest();
+                StartCoroutine(DelayExecute(opponent));
             }
         }
 
-        private IEnumerator DelayExecute(BaseBattleCharacterController enemy)
+        private IEnumerator DelayExecute(BaseBattleCharacterController opponent)
         {
-            yield return new WaitForSeconds(1f);
-            ExecuteCard(this, enemy);
+            yield return new WaitForSeconds(m_DelayPerfomAction);
+            CombatCardsProcessor.ExecuteCard(opponent);
         }
 
         public ISelectCardStrategy GetFirstStrategy()

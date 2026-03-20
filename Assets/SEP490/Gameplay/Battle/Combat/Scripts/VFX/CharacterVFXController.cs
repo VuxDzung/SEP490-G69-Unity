@@ -14,7 +14,6 @@ namespace SEP490G69.Battle.Combat
             {
                 m_AtkVFX.Play();
             }
-            
         }
 
         public void PlayStunVFX()
@@ -45,7 +44,6 @@ namespace SEP490G69.Battle.Combat
             {
                 m_BuffEffectVFX.Stop();
             }
-            
         }
     }
 }

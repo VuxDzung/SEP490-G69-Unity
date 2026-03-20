@@ -24,7 +24,7 @@
 
         private Coroutine _typingCoroutine;
         private string _fullDialogText;
-        private bool _isTyping;
+
         private bool _autoMode;
 
         protected override void OnFrameShown()
@@ -90,7 +90,7 @@
 
             foreach (var choiceData in choices)
             {
-                var item = Spawn("Choices", m_ChoicePrefab, m_ChoiceContainer.transform);
+                var item = Spawn(GameConstants.POOL_UI_DIALOG_CHOICES, m_ChoicePrefab, m_ChoiceContainer.transform);
                 UIDialogChoiceItem choice = item.GetComponent<UIDialogChoiceItem>();
                 if (choice != null)
                 {
@@ -103,7 +103,7 @@
 
         public void ClearChoices()
         {
-            DespawnAll("Choices");
+            DespawnAll(GameConstants.POOL_UI_DIALOG_CHOICES);
             m_ChoiceRoot.SetActive(false);
         }
 
@@ -127,7 +127,6 @@
 
         private IEnumerator TypeText(string dialog)
         {
-            _isTyping = true;
             m_DialogTmp.text = string.Empty;
 
             for (int i = 0; i < dialog.Length; i++)
@@ -141,7 +140,6 @@
 
         private void FinishTyping()
         {
-            _isTyping = false;
             m_DialogTmp.text = _fullDialogText;
 
             // Nếu đang auto -> tự next

@@ -24,7 +24,7 @@
             Debug.Log($"{self.name} skips action");
 
             self.SelectNoAction();
-            self.ExecuteCard(self, null);
+            self.ExecuteCard(null);
         }
 
         public void OnAfterAction(BaseBattleCharacterController self, BaseBattleCharacterController target) { }

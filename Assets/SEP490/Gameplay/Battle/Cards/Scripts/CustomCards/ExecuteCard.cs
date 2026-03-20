@@ -14,7 +14,9 @@ namespace SEP490G69.Battle
         {
         }
 
-        protected override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
+        public override float CalculateExtraDmg(float curDmg, 
+                                                BaseBattleCharacterController source, 
+                                                BaseBattleCharacterController target)
         {
             if (target.StatEffectManager.GetById(StatusEffectConstants.STATUS_EFFECT_ID_0018) != null)
             {

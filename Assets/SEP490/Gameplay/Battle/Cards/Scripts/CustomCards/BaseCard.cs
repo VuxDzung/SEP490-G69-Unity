@@ -8,6 +8,8 @@ namespace SEP490G69.Battle
     {
         protected CardSO Data;
 
+        public string RawCardId => Data.CardId;
+
         public BaseCard(CardSO data)
         {
             Data = data;
@@ -82,6 +84,11 @@ namespace SEP490G69.Battle
         protected virtual bool ExecuteCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             return true;
+        }
+
+        public virtual float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
+        {
+            return 0;
         }
 
         protected virtual bool CheckGainCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)

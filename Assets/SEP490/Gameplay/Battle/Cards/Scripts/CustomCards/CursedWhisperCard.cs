@@ -2,7 +2,6 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
-    using UnityEngine;
 
     public class CursedWhisperCard : BaseAttackCard
     {
@@ -10,7 +9,7 @@ namespace SEP490G69.Battle
         {
         }
 
-        protected override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
+        public override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             if (target.StatEffectManager.Count(EEffectType.Debuff) > 0)
             {

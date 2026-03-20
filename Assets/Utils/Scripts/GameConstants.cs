@@ -164,6 +164,8 @@ namespace SEP490G69
         public const string POOL_UI_SHOP_ITEM = "UIShopItem";
 
         public const string POOL_UI_LEGACY_STATS = "UILegacyStats";
+
+        public const string POOL_UI_DIALOG_CHOICES = "Choices";
         #endregion
 
         public const string COMBAT_TYPE_TOURNAMENT = "Tournament";

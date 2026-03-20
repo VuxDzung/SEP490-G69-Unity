@@ -31,6 +31,8 @@
 
         [SerializeField] private Transform m_EnemyCardActiveDisplayPoint;
         [SerializeField] private Transform m_EnemyCardActiveSpawnPoint;
+        [SerializeField] private float m_EnemyCardMoveTime = 0.5f;
+        [SerializeField] private float m_DelayEnemyCardDespawnTime = 0.3f;
 
         private Transform _enemySelectedCardTrans;
 
@@ -144,7 +146,6 @@
         /// <param name="cards"></param>
         public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
         {
-            Debug.Log("DisplayDrawnCards");
             ClearAllCards();
             StartCoroutine(CoDisplayCards(cards));
         }
@@ -176,12 +177,14 @@
             }
 
             rect.position = spawnPoint.position;
-            rect.DOMove(targetPosition, 0.55f)
+            rect.DOMove(targetPosition, m_EnemyCardMoveTime)
                     .SetEase(Ease.OutCubic)
                     .OnComplete(() =>
                     {
                         if (layout != null)
+                        {
                             layout.ignoreLayout = false;
+                        }
 
                         StartCoroutine(DelayDespawn());
                     });
@@ -189,7 +192,7 @@
 
         private IEnumerator DelayDespawn()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(m_DelayEnemyCardDespawnTime);
             if (_enemySelectedCardTrans != null)
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
@@ -204,14 +207,14 @@
                 Debug.Log("No card of player");
                 yield return null; ;
             }
-            //m_CardContainer.GetComponent<HorizontalLayoutGroup>().enabled = false;
+
             for (int i = 0; i < cards.Count; i++)
             {
                 CardSO card = cards[i];
-                Debug.Log($"<color=green>[UICombatFrame.CoDisplayCards]</color> Card id: {card.CardId} - Name: {card.CardName}");
+
                 Transform slotTrans = m_CardSlots[i];
 
-                Transform cardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, m_CardContainer);
+                Transform cardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, slotTrans);
                 RectTransform rect = cardTrans.GetComponent<RectTransform>();
                 LayoutElement layout = rect.GetComponent<LayoutElement>();
 
@@ -240,8 +243,6 @@
                     cardUI._onDragParent = m_DraggingArea;
                 }
 
-
-
                 // Offset spawn so animation visible
                 rect.position = m_UISpawnPoint.position;
 
@@ -257,7 +258,6 @@
 
                 yield return new WaitForSeconds(0.05f); // card draw delay
             }
-            //m_CardContainer.GetComponent<HorizontalLayoutGroup>().enabled = true;
         }
 
         public void ClearAllCards()

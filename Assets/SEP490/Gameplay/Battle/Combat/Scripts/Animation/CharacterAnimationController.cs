@@ -30,6 +30,7 @@ namespace SEP490G69.Battle.Combat
         private float _startTime;
         private Transform _poseTrans;
 
+        [Tooltip("This field only use when in testing. Do not drag & drop any Transform into this field except for testing.")]
         [SerializeField] private Transform _combatPos;
 
         public void SetCombatPosition(Transform poseTrans)
@@ -130,7 +131,7 @@ namespace SEP490G69.Battle.Combat
 
                 m_SpriteRenderer.enabled = true;
                 _poseTrans?.gameObject.SetActive(false);
-                CombatCameraController.Singleton.ZoomCamera(false);
+
                 _onAnimationCompleted?.Invoke(_animationData.AnimationName);
 
                 _animationData = null;

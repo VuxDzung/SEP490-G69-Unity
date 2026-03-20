@@ -8,14 +8,15 @@ namespace SEP490G69.Battle
     /// </summary>
     public class NatureWrathCard : BaseAttackCard
     {
-        private readonly float _extraDmgMulValue = 0.5f;
         private const string VAR_EXTRA_DMG = "extra_dmg";
 
         public NatureWrathCard(CardSO cardSO) : base(cardSO)
         {
         }
 
-        protected override float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
+        public override float CalculateExtraDmg(float curDmg, 
+                                                BaseBattleCharacterController source, 
+                                                BaseBattleCharacterController target)
         {
             if (source.StatEffectManager.GetById(StatusEffectConstants.STATUS_EFFECT_ID_0023) != null)
             {

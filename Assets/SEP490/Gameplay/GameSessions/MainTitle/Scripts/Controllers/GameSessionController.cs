@@ -1,7 +1,5 @@
 namespace SEP490G69.GameSessions
 {
-    using Newtonsoft.Json;
-    using NUnit.Framework;
     using SEP490G69.Addons.Networking;
     using SEP490G69.Battle.Cards;
     using SEP490G69.Economy;
@@ -9,15 +7,11 @@ namespace SEP490G69.GameSessions
     using SEP490G69.PlayerProfile;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
-    using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using UnityEngine;
 
     public class GameSessionController : MonoBehaviour, ISceneContext
     {
-        [SerializeField] private bool m_DeleteAll = true;
-
         private StarterCardConfigSO _starterCardConfig;
 
         private IGameSessionCreator _sessionCreator;

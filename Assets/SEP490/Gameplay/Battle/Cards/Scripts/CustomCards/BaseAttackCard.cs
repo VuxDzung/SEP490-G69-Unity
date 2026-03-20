@@ -10,34 +10,9 @@ namespace SEP490G69.Battle
     {
         public BaseAttackCard(CardSO cardSO) : base(cardSO) { }
 
-        //protected override void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
-        //{
-        //    source.CalculateBaseDmg();
-
-        //    float damage = source.GetCombatStatus(EStatusType.Damage).Value;
-
-        //    Debug.Log($"Damage: {damage}");
-        //    damage += CalculateExtraDmg(damage, source, target);
-
-        //    source.StatOutputDmg.SetCurrentValue(damage);
-
-        //    source.AnimationController.PlayAnimation("atk", (animName) => { });
-
-        //    source.VFXController.PlayAtkVFX();
-
-        //    target.AnimationController.PlayAnimation("take_dmg", (animName) => { });
-
-        //    for (int i = 0; i < Data.AtkCount; i++)
-        //    {
-        //        target.ReceiveDamage(source.StatOutputDmg.Value, source);
-        //    }
-
-        //    OnAfterAttack(damage, source, target);
-        //}
-
         protected override void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            source.CalculateBaseDmg();
+            source.CalculateSelectedCardDmg();
 
             float damage = source.GetCombatStatus(EStatusType.Damage).Value;
             damage += CalculateExtraDmg(damage, source, target);
@@ -85,11 +60,6 @@ namespace SEP490G69.Battle
         }
 
         protected virtual void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target) { }
-
-        protected virtual float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
-        {
-            return 0;
-        }
 
         protected override void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {

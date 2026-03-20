@@ -138,7 +138,7 @@ namespace SEP490G69
             {
                 if (string.IsNullOrEmpty(playerId))
                 {
-                    Debug.LogError("[UpdateDBChangeTime] Player id is empty");
+                    Debug.LogError("[LocalDBOrchestrator.UpdateDBChangeTime] Player id is empty");
                     return false;
                 }
 
@@ -148,7 +148,7 @@ namespace SEP490G69
 
                 if (playerData == null)
                 {
-                    Debug.LogError($"[UpdateDBChangeTime] Player data with id {playerId} not found");
+                    Debug.LogError($"[LocalDBOrchestrator.UpdateDBChangeTime] Player data with id {playerId} not found");
                     return false;
                 }
 
@@ -158,14 +158,14 @@ namespace SEP490G69
 
                 if (result)
                 {
-                    Debug.Log($"[UpdateDBChangeTime] Updated time: {playerData.LastUpdatedTime}");
+                    Debug.Log($"<color=green>[LocalDBOrchestrator.UpdateDBChangeTime]</color> Updated time: {playerData.LastUpdatedTime}");
                 }
 
                 return result;
             }
             catch (Exception ex)
             {
-                Debug.LogError("[UpdateDBChangeTime] Exception");
+                Debug.LogError("[LocalDBOrchestrator.UpdateDBChangeTime] Exception occurs. See next log for more details");
                 Debug.LogException(ex);
                 return false;
             }

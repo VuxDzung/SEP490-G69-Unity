@@ -168,6 +168,8 @@ namespace SEP490G69
         public const string POOL_UI_DIALOG_CHOICES = "Choices";
 
         public const string POOL_COMBAT_VFX = "CombatVFX";
+
+        public const string POOL_TOAST = "Toast";
         #endregion
 
         public const string COMBAT_TYPE_TOURNAMENT = "Tournament";

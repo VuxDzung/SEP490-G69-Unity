@@ -1,6 +1,7 @@
 namespace SEP490G69
 {
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     [DefaultExecutionOrder(-100)]
@@ -210,6 +211,27 @@ namespace SEP490G69
                     Destroy(obj.gameObject);
                     break;
             }
+        }
+
+        public bool IsDespawned(Transform prefab)
+        {
+            if (prefab == null)
+            {
+                return true;
+            }
+
+            foreach (var instance in activeList)
+            {
+                PooledIdentity indentity = instance.GetComponent<PooledIdentity>();
+                if (indentity != null)
+                {
+                    if (indentity.PrefabId == prefab.gameObject.GetInstanceID())
+                    {
+                        return instance.gameObject.activeSelf;
+                    }
+                }
+            }
+            return false;
         }
 
         private Transform GetAvailableObject(Transform prefab)

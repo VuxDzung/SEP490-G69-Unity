@@ -13,7 +13,7 @@ namespace SEP490G69.Battle.Combat
         {
             if (m_VfxConfig == null)
             {
-                m_VfxConfig = Resources.Load<CharacterVFXConfigSO>("CharacterVFXConfig");
+                m_VfxConfig = Resources.Load<CharacterVFXConfigSO>("VFX/CharacterVFXConfig");
             }
         }
 

@@ -17,6 +17,11 @@ namespace SEP490G69
         {
             base.CreateNewInstance();
 
+            if (m_GameContextConfig == null)
+            {
+                m_GameContextConfig = Resources.Load<GameContextConfigSO>("Contexts/GameContextConfig");
+            }
+
             foreach (var context in m_GameContextConfig.GameContexts)
             {
                 GameObject contextGO = Instantiate(context, transform);

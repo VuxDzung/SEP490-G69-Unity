@@ -36,5 +36,15 @@ namespace SEP490G69
         {
             return string.Format(FORMAT_DB_ENTITY_ID, sessionId, rawEntityId);
         }
+
+        public static string ExtractRawEntityId(string sessionEntityId)
+        {
+            string[] parts = sessionEntityId.Split(':');
+            if (parts.Length == 2)
+            {
+                return parts[1];
+            }
+            return string.Empty;
+        }
     }
 }

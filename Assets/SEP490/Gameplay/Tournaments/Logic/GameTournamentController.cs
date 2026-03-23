@@ -107,7 +107,7 @@
         public void LoadTournamentData(string tournamentId)
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            _sessionTournamentId = $"{sessionId}:{tournamentId}";
+            _sessionTournamentId = EntityIdConstructor.ConstructDBEntityId(sessionId, tournamentId);// $"{sessionId}:{tournamentId}";
 
             TournamentProgressData saved = _tournamentDAO.GetById(_sessionTournamentId);
 
@@ -589,6 +589,8 @@
 
                 foreach (var reward in rewardList)
                 {
+                    Debug.Log($"Received: {reward.RewardTargetId} -amount: {reward.RewardAmount}");
+
                     switch (reward.RewardType)
                     {
                         case ERewardType.Gold:
@@ -605,25 +607,24 @@
                             cardInventory.AddObtainedCard(reward.RewardTargetId, reward.RewardAmount);
                             break;
                     }
-                    Debug.Log($"Received: {reward.RewardTargetId} -amount: {reward.RewardAmount}");
                 }
 
                 if (charUpdated) _characterRepo.Update(character);
             }
 
             Debug.Log("Clear tournament progress");
-            _tournamentDAO.Delete(_sessionTournamentId);
+            //_tournamentDAO.Delete(_sessionTournamentId);
 
-            if (sessionData != null)
-            {
-                sessionData.ActiveTournamentId = string.Empty;
-                _sessionDAO.Update(sessionData);
-                Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated as empty because the tournament has ended!");
-            }
-            else
-            {
-                Debug.LogError($"[GameTournamentController.SaveProgress error] Session data with id {sessionId} does not exist in the database.");
-            }
+            //if (sessionData != null)
+            //{
+            //    sessionData.ActiveTournamentId = string.Empty;
+            //    _sessionDAO.Update(sessionData);
+            //    Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated as empty because the tournament has ended!");
+            //}
+            //else
+            //{
+            //    Debug.LogError($"[GameTournamentController.SaveProgress error] Session data with id {sessionId} does not exist in the database.");
+            //}
 
             Debug.Log("Ready to go back to main menu");
         }
@@ -639,8 +640,11 @@
 
         private IEnumerator DelayGoToNextWeek()
         {
-            yield return new WaitForSeconds(0.2f);
-            _eventManager.Publish(new EndTournamentEvent());
+            yield return new WaitForSeconds(0.25f);
+            _eventManager.Publish(new EndTournamentEvent
+            {
+                SessionTournamentId = _sessionTournamentId,
+            });
         }
 
         public IReadOnlyList<RewardDataSO> GetPlayerRewards()

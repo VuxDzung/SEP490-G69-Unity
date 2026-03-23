@@ -537,6 +537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadingController
       objectReference: {fileID: 0}
+    - target: {fileID: 2141889048761566532, guid: f52867a2d1e955b40abdd8d34a7e4738, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9067262289656386568, guid: f52867a2d1e955b40abdd8d34a7e4738, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -590,6 +594,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3508204229726048776, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508204229726048776, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3603792490361406874, guid: 9be07a90752bcf74c83f5449e8425e59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

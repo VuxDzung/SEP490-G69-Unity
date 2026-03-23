@@ -14,7 +14,7 @@ namespace SEP490G69.Battle
         {
             source.CalculateSelectedCardDmg();
 
-            float damage = source.GetCombatStatus(EStatusType.Damage).Value;
+            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (source.HasCrit() ? source.CaculateCritMul() : 1f);
             damage += CalculateExtraDmg(damage, source, target);
 
             source.StatOutputDmg.SetCurrentValue(damage);
@@ -46,16 +46,25 @@ namespace SEP490G69.Battle
 
             source.VFXController.PlayAtkVFX();
 
-            // Target animation
-            target.AnimationController.PlayAnimation("take_dmg", (_) =>
+            if (target.CanEvade(source))
             {
-                barrier.Signal();
-            });
-
-            // Damage apply
-            for (int i = 0; i < Data.AtkCount; i++)
+                target.AnimationController.PlayAnimation("dodge", (_) =>
+                {
+                    barrier.Signal();
+                });
+            }
+            else
             {
-                target.ReceiveDamage(source.StatOutputDmg.Value, source);
+                // Target animation
+                target.AnimationController.PlayAnimation("take_dmg", (_) =>
+                {
+                    barrier.Signal();
+                });
+                // Damage apply
+                for (int i = 0; i < Data.AtkCount; i++)
+                {
+                    target.ReceiveDamage(source.StatOutputDmg.Value, source);
+                }
             }
         }
 

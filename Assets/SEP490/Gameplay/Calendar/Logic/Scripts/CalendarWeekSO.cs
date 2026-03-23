@@ -27,5 +27,15 @@ namespace SEP490G69.Calendar
 
             return m_Tournaments.FirstOrDefault(t => t.TournamentId.Equals(id));
         }
+
+        public TournamentSO GetMandatoryTournament()
+        {
+            if (m_Tournaments.Count == 0)
+            {
+                return null;
+            }
+
+            return m_Tournaments.FirstOrDefault(t => t.IsCheckpointTournament);
+        }
     }
 }

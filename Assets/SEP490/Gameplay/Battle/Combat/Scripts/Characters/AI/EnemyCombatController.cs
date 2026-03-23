@@ -111,7 +111,7 @@ namespace SEP490G69.Battle.Combat
         private IEnumerator DelayExecute(BaseBattleCharacterController opponent)
         {
             yield return new WaitForSeconds(m_DelayPerfomAction);
-            CombatCardsProcessor.ExecuteCard(opponent);
+            ExecuteCard(opponent);
         }
 
         public ISelectCardStrategy GetFirstStrategy()

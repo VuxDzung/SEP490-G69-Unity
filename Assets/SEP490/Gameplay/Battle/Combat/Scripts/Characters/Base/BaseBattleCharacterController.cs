@@ -64,6 +64,8 @@
 
         private ICombatCardsProcessor _cardsProcessor;
         private IActionGaugeProcessor _gaugeProcessor;
+        private ICritCalculator _critCalculator;
+        private IEvasionCalculator _evasionCalculator;
 
         protected ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
         #endregion
@@ -116,6 +118,7 @@
                     return;
                 }
             }
+            _cardsProcessor.SetOwner(this);
 
             if (_gaugeProcessor == null)
             {
@@ -127,8 +130,10 @@
                     return;
                 }
             }
-
             _gaugeProcessor.onEnergyFull += HandleActionGaugeFullEvent;
+
+            _critCalculator = new CombatCritCalculator(this);
+            _evasionCalculator = new EvasionCalculator(this);
         }
 
         private void OnDestroy()
@@ -193,8 +198,7 @@
             
             if (!_cardsProcessor.ExecuteCard(target))
             {
-                TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
-                StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
+                TriggerAfterCardResolved(target);
             }
         }
 
@@ -217,20 +221,6 @@
         {
             _cardsProcessor.SelectNoAction();
         }
-
-        public virtual void EndCurrentTurn()
-        {
-            // Triggers the status effect's end-turn event.
-            StatEffectManager.EndTurn();
-
-            // Discard cards.
-            _cardsProcessor.DiscardCurrentDraw();
-
-            // Reset energy charged.
-            _gaugeProcessor.ResetActionGauge();
-
-            TriggerTurnFlowEvent(ETurnFlowEvent.AfterResetActionGaugue);
-        }
         #endregion
 
         #region Damage Methods
@@ -238,6 +228,7 @@
         public void ReceiveDamage(float damage, BaseBattleCharacterController attacker)
         {
             LastAttacker = attacker;
+
             Debug.Log($"{gameObject.name} received pure dmg: {damage}");
             float finalDamage = Mathf.Max(0, damage - StatDEF.Value);
 
@@ -256,6 +247,43 @@
             PauseBar();
 
             onDead?.Invoke();
+        }
+
+        #endregion
+
+        #region Crit APIs
+        public float CalculateCritRate()
+        {
+            return _critCalculator.CalculateCritChance();
+        }
+        public float CaculateCritMul()
+        {
+            return _critCalculator.CalculateCritMul();
+        }
+
+        public bool HasCrit()
+        {
+            float critChance = CalculateCritRate();
+            critChance = (float)Math.Round(critChance, 2);
+            return UnityEngine.Random.Range(0, 1f) <= critChance;
+        }
+
+        #endregion
+
+        #region Evasion APIs
+        public float CalculateEvasionRate(BaseBattleCharacterController attacker)
+        {
+            return _evasionCalculator.CalculateEvasionRate(attacker);
+        }
+        public bool CanEvade(BaseBattleCharacterController attacker)
+        {
+            float evadeChance = CalculateEvasionRate(attacker);
+
+            evadeChance = (float)Math.Round(evadeChance, 2);
+
+            float rollNum = UnityEngine.Random.Range(0, 1f);
+
+            return rollNum <= evadeChance;
         }
 
         #endregion
@@ -367,6 +395,22 @@
 
             TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
             StatEffectManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
+
+            EndCurrentTurn();
+        }
+
+        public virtual void EndCurrentTurn()
+        {
+            // Triggers the status effect's end-turn event.
+            StatEffectManager.EndTurn();
+
+            // Discard cards.
+            _cardsProcessor.DiscardCurrentDraw();
+
+            // Reset energy charged.
+            _gaugeProcessor.ResetActionGauge();
+
+            TriggerTurnFlowEvent(ETurnFlowEvent.AfterResetActionGaugue);
         }
 
         private void TriggerTurnFlowEvent(ETurnFlowEvent flowEvent)

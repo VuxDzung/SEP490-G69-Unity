@@ -131,6 +131,9 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_LEGACY_STAT_NAMES = "LegacyStatNames";
         public const string LOCALIZE_CATEGORY_LEGACY_STAT_DESCS = "LegacyStatDescs";
 
+        public const string LOCALIZE_CATEGORY_TOURNAMENT_OBJECTIVES = "TournamentObjectiveDecs";
+        public const string LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_NAMES = "TournamentEntryConditionNames";
+        public const string LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_DESCS = "TournamentEntryConditionDescs";
         #endregion
 
         #region Currencies id

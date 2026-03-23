@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: tor_0011_con_0001
   m_EditorClassIdentifier: 
   m_ConditionId: tor_0011_con_0001
-  m_ConditionName: 
-  m_TournamentDesc: 
+  m_ConditionName: tor_0011_con_0001_name
+  m_TournamentDesc: tor_0011_con_0001_desc
   m_DisplayToUI: 1
   m_EntryParams:
   - m_StatusType: 11

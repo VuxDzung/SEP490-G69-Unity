@@ -29,6 +29,11 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
+            if (_owner == null)
+            {
+                Debug.Log("[CharacterCardsProcessor.InitializeDeck fatal error] Owner instance is null");
+            }
+
             _deckPool.Clear();
             _discardPool.Clear();
             _currentDrawPool.Clear();
@@ -54,7 +59,8 @@ namespace SEP490G69.Battle.Combat
         {
             if (_selectedCard != null)
             {
-                BaseCard runtimeCard = _runtimeCardPool.FirstOrDefault(card => card.RawCardId == _selectedCard.CardId);
+                BaseCard runtimeCard = GetRuntimeInstanceById(_selectedCard.CardId);
+
                 if (runtimeCard == null)
                 {
                     Debug.LogError($"[CharacterCardsProcessor.ExecuteCard fatail error] Failed to find the runtime instance of card {_selectedCard.CardId} of {_owner.gameObject.name}");

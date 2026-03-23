@@ -30,16 +30,20 @@ namespace SEP490G69.Battle.Combat
 
         private void _enemy_onFlowEventChanged(ETurnFlowEvent arg1, BaseBattleCharacterController arg2)
         {
-            _enemy.EndCurrentTurn();
-            _enemy.UnpauseBar();
-            _player.UnpauseBar();
+            if (arg1 == ETurnFlowEvent.AfterResetActionGaugue)
+            {
+                _enemy.UnpauseBar();
+                _player.UnpauseBar();
+            }
         }
 
         private void _player_onFlowEventChanged(ETurnFlowEvent ev, BaseBattleCharacterController owner)
         {
-            _player.EndCurrentTurn();
-            _enemy.UnpauseBar();
-            _player.UnpauseBar();
+            if (ev == ETurnFlowEvent.AfterResetActionGaugue)
+            {
+                _enemy.UnpauseBar();
+                _player.UnpauseBar();
+            }
         }
 
         public void Update(float dt)
@@ -65,6 +69,7 @@ namespace SEP490G69.Battle.Combat
         {
             _player.PauseBar();
             _enemy.PauseBar();
+
             _enemy.DetermineCards(_player, (selectedCardId) =>
             {
                 if (selectedCardId.Equals("REST"))

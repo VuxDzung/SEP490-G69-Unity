@@ -24,5 +24,7 @@ namespace SEP490G69
     {
         public string vfxId;
         public Transform vfxTransform;
+        public Vector3 spawnOffset;
+        public string spawnParent;
     }
 }

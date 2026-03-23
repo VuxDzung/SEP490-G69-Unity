@@ -1,10 +1,13 @@
 namespace SEP490G69.Battle.Combat
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class CharacterVFXController : MonoBehaviour
     {
         [SerializeField] private CharacterVFXConfigSO m_VfxConfig;
+        [SerializeField] private List<Transform> m_VfxParentList = new List<Transform>();
         [SerializeField] private ParticleSystem m_AtkVFX;
         [SerializeField] private ParticleSystem m_StunVFX;
         [SerializeField] private ParticleSystem m_BuffEffectVFX;
@@ -70,7 +73,15 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            Transform vfxTrans = PoolManager.Pools[GameConstants.POOL_COMBAT_VFX].Spawn(data.vfxTransform);
+            Transform parent = GetParentByName(data.spawnParent);
+            if (parent == null)
+            {
+                parent = this.transform;
+            }
+
+            Vector3 position = parent.position + data.spawnOffset;
+
+            Transform vfxTrans = PoolManager.Pools[GameConstants.POOL_COMBAT_VFX].Spawn(data.vfxTransform, position, Quaternion.identity, parent);
             ParticleSystem vfx = vfxTrans.GetComponent<ParticleSystem>();
             if (vfx != null)
             {
@@ -94,10 +105,19 @@ namespace SEP490G69.Battle.Combat
             }
 
             if (!PoolManager.Pools[GameConstants.POOL_COMBAT_VFX]
-                            .IsDespawned(data.vfxTransform))
+                            .IsDespawned(data.vfxTransform.gameObject))
             {
                 PoolManager.Pools[GameConstants.POOL_COMBAT_VFX].DespawnObject(data.vfxTransform);
             }
+        }
+
+        private Transform GetParentByName(string vfxParentName)
+        {
+            if (string.IsNullOrEmpty(vfxParentName))
+            {
+                return null;
+            }
+            return m_VfxParentList.FirstOrDefault(parent => parent.gameObject.name == vfxParentName);
         }
     }
 }

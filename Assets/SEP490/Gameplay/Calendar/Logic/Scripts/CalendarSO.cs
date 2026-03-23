@@ -10,6 +10,8 @@ namespace SEP490G69.Calendar
     {
         [SerializeField] private List<CalendarWeekSO> m_Week;
 
+        public IReadOnlyList<CalendarWeekSO> Weeks => m_Week;
+
         public CalendarWeekSO GetWeek(int week)
         {
             return m_Week.FirstOrDefault(w => w.Week == week);
@@ -43,7 +45,7 @@ namespace SEP490G69.Calendar
                 }
                 foreach (var tournament in week.Tournaments)
                 {
-                    if (!tournament.IsMandatory)
+                    if (!tournament.IsCheckpointTournament)
                         continue;
 
                     if (week.Week < minWeek)

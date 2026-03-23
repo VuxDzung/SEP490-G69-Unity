@@ -43,6 +43,8 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private string[] m_ExtraActions;
         [SerializeField] private List<CustomVariable> m_CustomVariables;
 
+        [SerializeField] private string[] m_VfxIdArray;
+
         public string CardId => cardId;
         public string CardName => cardName;
         public string CardDescription => cardDescription;
@@ -81,6 +83,8 @@ namespace SEP490G69.Battle.Cards
         public StatusEffectSO[] StatusInflicts => m_StatusInflicts.ToArray();
 
         public IReadOnlyList<CustomVariable> CustomVariables => m_CustomVariables;
+
+        public string[] VfxIdArray => m_VfxIdArray;
 
         /// <summary>
         /// Get custom/external variable.

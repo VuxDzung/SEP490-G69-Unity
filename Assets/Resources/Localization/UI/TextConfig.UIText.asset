@@ -119,3 +119,15 @@ MonoBehaviour:
       text: 'Playtime:'
     - language: 1
       text: "Th\u1EDDi gian ch\u01A1i:"
+  - id: txt_entry_criteria
+    textList:
+    - language: 0
+      text: 'Entry Criteria:'
+    - language: 1
+      text: "Ti\xEAu ch\xED tham gia:"
+  - id: txt_objective
+    textList:
+    - language: 0
+      text: 'Objective:'
+    - language: 1
+      text: "M\u1EE5c ti\xEAu:"

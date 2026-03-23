@@ -16,6 +16,12 @@ namespace SEP490G69.Addons.LoadScreenSystem
         [SerializeField] TextMeshProUGUI loadingText;
         [SerializeField] private Sprite[] backgroundList;
 
+        protected override void CreateNewInstance()
+        {
+            base.CreateNewInstance();
+            loadingPanel.SetActive(false);
+        }
+
         /// <summary>
         /// Load tasks only.
         /// </summary>

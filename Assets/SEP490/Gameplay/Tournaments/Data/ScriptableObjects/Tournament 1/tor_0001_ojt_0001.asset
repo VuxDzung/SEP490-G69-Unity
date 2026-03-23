@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5ffb1f5cc6c654d87f22658d91290d, type: 3}
-  m_Name: CalendarWeek_48
+  m_Script: {fileID: 11500000, guid: da1495eda20b72546a52c6f24d5384f4, type: 3}
+  m_Name: tor_0001_ojt_0001
   m_EditorClassIdentifier: 
-  m_Week: 48
-  m_Tournaments:
-  - {fileID: 11400000, guid: 504ea9dc9affcc64b9c1beb8e4d14482, type: 2}
+  m_ObjectiveId: tor_0001_ojt_0001
+  m_ObjectiveName: 
+  m_ObjectiveDescription: 
+  m_ObjectiveParam: 0
+  m_RequiredAmount: 0

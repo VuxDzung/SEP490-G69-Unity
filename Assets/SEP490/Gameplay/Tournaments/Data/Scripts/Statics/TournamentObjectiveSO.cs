@@ -5,7 +5,7 @@ namespace SEP490G69.Tournament
     public enum EObjectiveParam
     {
         None = 0,
-        TournamentRank = 1,
+        TournamentPlace = 1,
     }
 
     [CreateAssetMenu(fileName = "TournamentOjt_", menuName = OrganizationConstants.NAMESPACE + "/Tournaments/Objective data")]

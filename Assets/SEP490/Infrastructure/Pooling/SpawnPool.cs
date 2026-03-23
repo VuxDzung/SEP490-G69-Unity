@@ -213,7 +213,7 @@ namespace SEP490G69
             }
         }
 
-        public bool IsDespawned(Transform prefab)
+        public bool IsDespawned(GameObject prefab)
         {
             if (prefab == null)
             {

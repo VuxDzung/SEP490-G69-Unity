@@ -16,6 +16,10 @@ namespace SEP490G69.Training
         [SerializeField] private TextMeshProUGUI m_CurrentTurnTmp;
         [SerializeField] private TextMeshProUGUI m_RemainGoldTmp;
 
+        [SerializeField] private GameObject m_TournamentInfoGO;
+        [SerializeField] private TextMeshProUGUI m_TournamentOjtTmp;
+        [SerializeField] private TextMeshProUGUI m_TournamentEntryTmp;
+
         [Header("Right vertical fields")]
         [SerializeField] private Button m_SettingsBtn;
         [SerializeField] private Button m_NoAdsBtn;
@@ -136,8 +140,8 @@ namespace SEP490G69.Training
 
             LoadCharacterStats();
             LoadCalendarTime();
-            LoadObjectives();
             LoadRemainGold();
+            LoadObjectivesWithConditon();
         }
 
         protected override void OnFrameHidden()
@@ -176,15 +180,31 @@ namespace SEP490G69.Training
         private void LoadCalendarTime()
         {
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
-            m_RemainTimeTmp.text = CalendarController.GetRemainTimeOfYear().ToString();
 
             string turnStr = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_TEXT, "txt_turn");
 
             m_CurrentTurnTmp.text = $"{turnStr}: {CalendarController.GetCurrentWeek()}";
         }
-        private void LoadObjectives()
-        {
 
+        private void LoadObjectivesWithConditon()
+        {
+            CalendarController.GetNextObjective(out TournamentObjectiveSO objective, out TournamentConditionSO condition, out int remainWeeks);
+
+            if (objective == null && condition == null)
+            {
+                m_TournamentInfoGO.SetActive(false);
+
+                m_TournamentOjtTmp.text = string.Empty;
+                m_TournamentEntryTmp.text = string.Empty;
+
+                return;
+            }
+
+            m_TournamentInfoGO.SetActive(true);
+            m_RemainTimeTmp.text = remainWeeks.ToString();
+
+            m_TournamentOjtTmp.text = objective != null ? LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOURNAMENT_OBJECTIVES, objective.ObjectiveDesc) : string.Empty;
+            m_TournamentEntryTmp.text = condition != null ? LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_DESCS, condition.ConditionDesc) : string.Empty;            
         }
 
         public void SetEnergy(float cur, float max)

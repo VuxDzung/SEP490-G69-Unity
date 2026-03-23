@@ -68,6 +68,19 @@ namespace SEP490G69.Calendar
             }
         }
 
+        protected PlayerTrainingSession CurrentSession
+        {
+            get
+            {
+                if (_currentSesssion == null)
+                {
+                    string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+                    _currentSesssion = _sessionDAO.GetById(sessionId);
+                }
+                return _currentSesssion;
+            }
+        }
+
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
@@ -127,6 +140,34 @@ namespace SEP490G69.Calendar
         {
             float fadeDur = 1f;
             float inFadeDur = 1f;
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+
+            if (sessionData == null)
+            {
+                return;
+            }
+
+            if (IsMandatoryTournament(sessionData.ActiveTournamentId, out string error))
+            {
+                // Check if the player has passed the tournament objective.
+
+                // If the player failed to pass the tournament objective -> game over.
+
+                // If the player success in passing the tournament objective -> continue/victory.
+            }
+            else
+            {
+                // If the function return false and has error message -> an error occurs, not a non-mandatory tournament.
+                if (!string.IsNullOrEmpty(error))
+                {
+                    return;
+                }
+            }
+
+            string sessionTournamentId = sessionData.ActiveTournamentId;
+
             FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
             {
                 TrainingController.HideTrainingMenuBG();
@@ -292,6 +333,88 @@ namespace SEP490G69.Calendar
             }
             PlayerPrefs.SetString(GameConstants.PREF_KEY_TOURNAMENT_ID, tournamentId);
             return true;
+        }
+
+        public bool IsMandatoryTournament(string sessionTournamentId, out string error)
+        {
+            error = string.Empty;
+            string rawTournamentId = EntityIdConstructor.ExtractRawEntityId(sessionTournamentId);
+            if (string.IsNullOrEmpty(rawTournamentId))
+            {
+                error = $"Failed to extract raw tournament id from {sessionTournamentId}";
+                Debug.LogError($"[GameCalendarController.IsMandatoryTournament fatal error] Failed to extract raw tournament id from {sessionTournamentId}");
+                return false;
+            }
+            TournamentSO tournament = TournamentConfig.GetTournamentById(rawTournamentId);
+            if (tournament == null)
+            {
+                error = $"TournamentSO with id {sessionTournamentId} does not exist!";
+
+                Debug.LogError($"[GameCalendarController.IsMandatoryTournament fatal error] TournamentSO with id {sessionTournamentId} does not exist!");
+                return false;
+            }
+            return tournament.IsCheckpointTournament;
+        }
+
+        /// <summary>
+        /// Get the next objective.
+        /// Ex: Current week = 4
+        /// Next mandatory tournament is in week 10 -> get that tournament's first objective
+        /// </summary>
+        /// <returns></returns>
+        public void GetNextObjective(out TournamentObjectiveSO objective, out TournamentConditionSO condition, out int remainWeeks)
+        {
+            objective = null;
+            condition = null;
+            remainWeeks = 0;
+
+            if (CurrentSession == null)
+            {
+                return;
+            }
+
+            int currentWeek = CurrentSession.CurrentWeek + 1;
+            int checkpointWeek = currentWeek;
+
+            TournamentSO tournament = null;
+            CalendarWeekSO checkpointWeekSO = null;
+
+            foreach (var week in CalendarConfig.Weeks)
+            {
+                if (week.Week < currentWeek)
+                    continue;
+
+                tournament = week.GetMandatoryTournament();
+
+                if (tournament == null)
+                {
+                    continue;
+                }
+
+                checkpointWeekSO = week;
+                break;
+            }
+
+            if (tournament == null)
+            {
+                Debug.Log("[GameCalendarController.GetNextObjective] No checkpoint tournament existed");
+                return;
+            }
+
+            checkpointWeek = checkpointWeekSO.Week;
+            remainWeeks = checkpointWeek - currentWeek;
+            Debug.Log($"Next checkpoint tournament: {tournament.TournamentId}");
+            objective = tournament.Objectives.Count > 0 ? tournament.Objectives[0] : null;
+            condition = tournament.EntryConditions.Count > 0 ? tournament.EntryConditions[0] : null;
+        }
+
+        public TournamentObjectiveSO GetTournamentObjective(string rawTournamentId)
+        {
+            if (string.IsNullOrEmpty(rawTournamentId))
+            {
+                return null;
+            }
+            return TournamentConfig.GetTournamentById(rawTournamentId).Objectives[0];
         }
     }
 

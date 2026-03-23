@@ -12,7 +12,7 @@ namespace SEP490G69.Battle
 
         protected override void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            source.CalculateSelectedCardDmg();
+            source.CalculateSelectedCardDmg(true);
 
             float damage = source.GetCombatStatus(EStatusType.Damage).Value * (source.HasCrit() ? source.CaculateCritMul() : 1f);
             damage += CalculateExtraDmg(damage, source, target);

@@ -100,7 +100,7 @@ namespace SEP490G69.Battle.Combat
             }
         }
 
-        public float CalculateSelectedCardDmg()
+        public float CalculateSelectedCardDmg(bool writeToDmgOutput)
         {
             if (_selectedCard == null)
             {

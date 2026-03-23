@@ -44,6 +44,8 @@ namespace SEP490G69
         public const string FRAME_ID_CARD_DETAILS = "Frame.CardDetails";
 
         public const string FRAME_ID_LEGACY_UPGRADE = "Frame.LegacyUpgrade";
+
+        public const string FRAME_ID_PENDING_GRADUATE = "Frame.PendingGraduate";
         #endregion
 
         #region Scene names

@@ -186,9 +186,14 @@
             _cardsProcessor.InitializeDeck(deckCardIdArray);
         }
 
-        public float CalculateSelectedCardDmg()
+        public float CalculateSelectedCardDmg(bool writeToOutputDmg)
         {
-            return _cardsProcessor.CalculateSelectedCardDmg();
+            return _cardsProcessor.CalculateSelectedCardDmg(writeToOutputDmg);
+        }
+
+        public float CalculateBaseCardDMG(CardSO card)
+        {
+            return _cardsProcessor.CalculateBaseDmg(card);
         }
 
         public void ExecuteCard(BaseBattleCharacterController target)

@@ -1,5 +1,7 @@
 namespace SEP490G69.Calendar
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using SEP490G69.Addons.Localization;
     using SEP490G69.GameSessions;
     using SEP490G69.Tournament;
@@ -14,6 +16,7 @@ namespace SEP490G69.Calendar
         };
 
         private GameSessionDAO _sessionDAO;
+        private TournamentProgressDAO _tournamentDAO;
         private PlayerTrainingSession _currentSesssion;
         private CalendarSO _calendarConfig;
         private EventManager _eventManager;
@@ -86,6 +89,7 @@ namespace SEP490G69.Calendar
             ContextManager.Singleton.AddSceneContext(this);
 
             _sessionDAO = new GameSessionDAO();
+            _tournamentDAO = new TournamentProgressDAO();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
@@ -136,6 +140,16 @@ namespace SEP490G69.Calendar
             });
         }
 
+        /// <summary>
+        /// If the tournament is a checkpoint tournament, check whether the player has passed the tournament objective or not.
+        ///     If the player failed to complete the objective, show a notification which notifies that the player has lost.
+        ///     If the player pass the objective, check whether that is the final tournament or not.
+        ///         If it's the final tournament, pending the player to prepare to graduate.
+        ///         If not, go to next week and create a snapshot for that week.
+        ///         
+        /// This method needs to call when the player end the tournament and when the player enters the Main Menu scene when he/she enters from the Title screen in case the player finishs the tournament and close the app.
+        /// </summary>
+        /// <param name="ev"></param>
         private void HandleEndTournamentEvent(EndTournamentEvent ev)
         {
             float fadeDur = 1f;
@@ -146,7 +160,40 @@ namespace SEP490G69.Calendar
 
             if (sessionData == null)
             {
+                Debug.Log($"<color=red>[GameCalendarController.HandleEndTournamentEvent error]</color> No session data exist with id {sessionData.SessionId}");
                 return;
+            }
+
+            // Only clear the active tournament if the logic does not have any error or
+            // it does not have any pending condition such as lose the checkpoint tournament or pass the final tournament.
+            bool canClearActiveTournament = DetermineTournamentResult(sessionData, out bool needToCreateSnapshot);
+
+            // Delete the tournament progression and continue to next week.
+            if (canClearActiveTournament) DeleteActiveTournamentData(sessionData);
+
+            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            {
+                TrainingController.HideTrainingMenuBG();
+                TrainingController.OpenMainMenuBG();
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+                GoToNextWeek(true);
+
+                if (needToCreateSnapshot == true)
+                {
+                    // Create snapshot here.
+                }
+
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+            });
+        }
+
+        private bool DetermineTournamentResult(PlayerTrainingSession sessionData, out bool needToCreateSnapshot)
+        {
+            needToCreateSnapshot = false;
+
+            if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
+            {
+                return false;
             }
 
             if (IsMandatoryTournament(sessionData.ActiveTournamentId, out string error))
@@ -156,26 +203,94 @@ namespace SEP490G69.Calendar
                 // If the player failed to pass the tournament objective -> game over.
 
                 // If the player success in passing the tournament objective -> continue/victory.
-            }
-            else
-            {
-                // If the function return false and has error message -> an error occurs, not a non-mandatory tournament.
-                if (!string.IsNullOrEmpty(error))
+
+                bool objectiveCompleted = false;
+
+                TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
+                if (tournamentData == null)
                 {
-                    return;
+                    Debug.LogError($"[GameCalendarController.HandleEndTournamentEvent error] No tournament data exist with id {sessionData.ActiveTournamentId}");
+                    return false;
+                }
+                TournamentSO tournamentSO = TournamentConfig.GetTournamentById(tournamentData.RawTournamentId);
+                if (tournamentSO == null)
+                {
+                    Debug.LogError($"[GameCalendarController.HandleEndTournamentEvent error] No tournament SO exist with id {tournamentData.RawTournamentId}");
+                    return false;
+                }
+                TournamentObjectiveSO objectiveSO = tournamentSO.Objectives.Count > 0 ? tournamentSO.Objectives[0] : null;
+
+                int playerTournamentPlace = 1;
+                string sessionCharId = EntityIdConstructor.ConstructDBEntityId(sessionData.SessionId, sessionData.RawCharacterId);
+
+                if (tournamentData.IsPlayerWon)
+                {
+                    playerTournamentPlace = 1;
+                }
+                else if (GetPlayerTournamentData(tournamentData.FinalParticipants, sessionCharId) != null) // Lose final, win semi-final.
+                {
+                    playerTournamentPlace = 2;
+                }
+                else if (GetPlayerTournamentData(tournamentData.SemiFinalParticipants, sessionCharId) != null) // Lose semi-final, win elimination
+                {
+                    playerTournamentPlace = 3;
+                }
+                else // Lose at the elimination round.
+                {
+                    playerTournamentPlace = 4;
+                }
+
+                if (objectiveSO != null)
+                {
+                    if (objectiveSO.ObjectiveParam == EObjectiveParam.TournamentPlace &&
+                        playerTournamentPlace <= objectiveSO.RequiredAmount)
+                    {
+                        // Pass the objective
+                        objectiveCompleted = true;
+                        needToCreateSnapshot = true;
+                    }
+                    else
+                    {
+                        // Lose the objective
+                        objectiveCompleted = false;
+                    }
+                }
+
+                if (objectiveCompleted == false)
+                {
+                    // Show a notification here.
+                    // Message: You have failed the checkpoint tournament. Do you want to rollback to the previous checkpoint?
+                    return false; // Pending: (Clear tournament progress data when the player press Rollback)
                 }
             }
-
-            string sessionTournamentId = sessionData.ActiveTournamentId;
-
-            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            else if (!string.IsNullOrEmpty(error)) // If the function return false and has error message -> an error occurs, not a non-mandatory tournament.
             {
-                TrainingController.HideTrainingMenuBG();
-                TrainingController.OpenMainMenuBG();
-                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
-                GoToNextWeek(true);
-                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
-            });
+                Debug.LogError($"[GameCalendarController.HandleEndTournamentEvent error] {error}");
+                return false;
+            }
+
+            if (sessionData.CurrentWeek + 1 >= CalendarConfig.GetTotalWeeks())
+            {
+                // Final week reached.
+                // Graduate here.
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_PENDING_GRADUATE);
+                return false; // Pending (Clear tournament progress data when the player press Graduate)
+            }
+
+            return true;
+        }
+
+        private void DeleteActiveTournamentData(PlayerTrainingSession sessionData)
+        {
+            if (sessionData == null)
+            {
+                return;
+            }
+
+            _tournamentDAO.Delete(sessionData.ActiveTournamentId);
+
+            sessionData.ActiveTournamentId = string.Empty;
+            _sessionDAO.Update(sessionData);
         }
 
         public void GoToNextWeek(bool saveToDB = true)
@@ -415,6 +530,17 @@ namespace SEP490G69.Calendar
                 return null;
             }
             return TournamentConfig.GetTournamentById(rawTournamentId).Objectives[0];
+        }
+
+        public TournamentParticipantData GetPlayerTournamentData(List<TournamentParticipantData> participants, string sessionCharacterId)
+        {
+            if (participants == null || 
+                participants.Count == 0 || 
+                string.IsNullOrEmpty(sessionCharacterId))
+            {
+                return null;
+            }
+            return participants.FirstOrDefault(par => par.Id == sessionCharacterId);    
         }
     }
 

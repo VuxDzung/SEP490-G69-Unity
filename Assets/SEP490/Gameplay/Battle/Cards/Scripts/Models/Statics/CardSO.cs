@@ -121,6 +121,15 @@ namespace SEP490G69.Battle.Cards
 
             return 0f;
         }
+
+        public List<StatusEffectSO> GetAllStatusEffects()
+        {
+            List<StatusEffectSO> effectList = new List<StatusEffectSO>();
+            effectList.AddRange(StatusGains);
+            effectList.AddRange(StatusInflicts);
+
+            return effectList;
+        }
     }
 
     public enum ECompareOperator

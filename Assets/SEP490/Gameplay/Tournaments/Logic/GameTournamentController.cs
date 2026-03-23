@@ -754,7 +754,7 @@
 
             return new TournamentProgressData
             {
-                Id = $"{sessionId}:{_currentTournamentSO.TournamentId}",
+                Id = EntityIdConstructor.ConstructDBEntityId(sessionId, _currentTournamentSO.TournamentId),
                 SessionId = sessionId,
                 RawTournamentId = _currentTournamentSO.TournamentId,
                 CurrentRoundIndex = m_CurrentRoundIndex,

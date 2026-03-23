@@ -274,7 +274,9 @@ namespace SEP490G69.Tournament
             try
             {
                 if (string.IsNullOrEmpty(id))
+                {
                     return false;
+                }
 
                 var col = GetCollection<TournamentProgressData>(db, COLLECTION_NAME);
                 return col.Delete(id);

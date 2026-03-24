@@ -11454,8 +11454,8 @@ MonoBehaviour:
   m_MainMenuBG: {fileID: 1578307709}
   m_TrainingMenuBG: {fileID: 1229295397}
   m_TrainingCharContainer: {fileID: 923788789}
+  m_TrainingAnimContainer: {fileID: 212950174}
   m_TrainingAnimConfig: {fileID: 11400000, guid: b4799d9ec1b110a4b99e228dd5ffaace, type: 2}
-  _sakuraAnimPrefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
   m_OverlayPrefab: {fileID: 7954338484560110503, guid: c3bdf2cec9b76db47a3aca8c44793a70, type: 3}
   m_UICanvas: {fileID: 291789441}
 --- !u!114 &1612326926

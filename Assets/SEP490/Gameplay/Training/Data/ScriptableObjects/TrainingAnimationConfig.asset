@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AnimationList:
   - characterId: ch_0003
-    prefab: {fileID: 1895671332267702525, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
+    prefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
+  - characterId: ch_0001
+    prefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}

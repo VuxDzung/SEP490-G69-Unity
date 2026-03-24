@@ -5,7 +5,7 @@ using SEP490G69;
 using SEP490G69.Training;
 using System;
 
-public class SakuraTrainingAnimationController : MonoBehaviour
+public class SakuraTrainingAnimationController : BaseTrainingAnimationController
 {
     [Header("Thành phần của Sakura")]
     [SerializeField] private SpriteRenderer sakuraRenderer;
@@ -96,6 +96,10 @@ public class SakuraTrainingAnimationController : MonoBehaviour
             }
         }
     }
+    public override void StopAllAnimations()
+    {
+        StopAllSakuraAnimations();
+    }
 
     private void StopAllSakuraAnimations()
     {
@@ -146,7 +150,7 @@ public class SakuraTrainingAnimationController : MonoBehaviour
     }
 
     // ================== HÀM GỌI TỪ BÊN NGOÀI (GAME CONTROLLER) ==================
-    public void PlayTrainingAnim(ETrainingType trainingType, Action onComplete)
+    public override void PlayTrainingAnim(ETrainingType trainingType, Action onComplete)
     {
         StopAllSakuraAnimations();
         sakuraRenderer.gameObject.SetActive(true); // Bật model Sakura lên

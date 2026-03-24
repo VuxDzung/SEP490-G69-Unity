@@ -22,10 +22,12 @@ namespace SEP490G69.Training
         [SerializeField] private GameObject m_MainMenuBG;
         [SerializeField] private GameObject m_TrainingMenuBG;
         [SerializeField] private Transform m_TrainingCharContainer;
+        [SerializeField] private Transform m_TrainingAnimContainer;
 
         [Header("Training Animation Prefabs")]
         [SerializeField] private TrainingAnimationConfigSO m_TrainingAnimConfig;
-        [SerializeField] private SakuraTrainingAnimationController _sakuraAnimPrefab;
+        // Đã xóa biến _sakuraAnimPrefab bị hardcode
+        private BaseTrainingAnimationController _currentAnimController; // Biến lưu trữ controller đang chạy
 
         [Header("UI System")]
         [SerializeField] private GameObject m_OverlayPrefab;     // Kéo Prefab Overlay vào đây
@@ -182,20 +184,33 @@ namespace SEP490G69.Training
                 _activeOverlayInstance.transform.SetAsLastSibling(); // Ép xuống đáy để che mọi thứ
             }
 
+            // Lấy data animation từ Config dựa trên ID nhân vật đang huấn luyện
             TrainingAnimData animData = m_TrainingAnimConfig.GetById(_characterHolder.GetRawId());
 
-            if (animData != null)
+            if (animData != null && animData.prefab != null)
             {
                 if (menuFrame != null) menuFrame.HideUIForAnimation();
                 _characterAnimator.gameObject.SetActive(false);
 
-                Transform animTrans = Instantiate(animData.prefab);
-
-                SakuraTrainingAnimationController animController = animTrans.GetComponent<SakuraTrainingAnimationController>();
-
-                animController.PlayTrainingAnim(strategy.TrainingType, () =>
+                // Dọn dẹp animation controller cũ nếu người dùng nhấn liên tục (đề phòng)
+                if (_currentAnimController != null)
                 {
-                    Destroy(animTrans.gameObject);
+                    _currentAnimController.StopAllAnimations();
+                    Destroy(_currentAnimController.gameObject);
+                }
+
+                // Sinh ra Prefab Animation mới dựa vào cấu hình của nhân vật
+                // Instantiate trả về BaseTrainingAnimationController
+                _currentAnimController = Instantiate(animData.prefab, m_TrainingAnimContainer);
+
+                _currentAnimController.PlayTrainingAnim(strategy.TrainingType, () =>
+                {
+                    // Hủy instance hoạt ảnh sau khi chạy xong
+                    if (_currentAnimController != null)
+                    {
+                        Destroy(_currentAnimController.gameObject);
+                        _currentAnimController = null;
+                    }
 
                     _characterAnimator.gameObject.SetActive(true);
                     if (menuFrame != null) menuFrame.ShowUIAfterAnimation();
@@ -213,6 +228,7 @@ namespace SEP490G69.Training
             }
             else
             {
+                // Fallback: Nếu nhân vật không có config animation thì hiển thị ngay bảng Result
                 if (_activeOverlayInstance != null) _activeOverlayInstance.transform.SetAsLastSibling();
 
                 var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();

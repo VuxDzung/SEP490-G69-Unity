@@ -25,6 +25,6 @@ namespace SEP490G69.Training
     public class TrainingAnimData
     {
         public string characterId;
-        public Transform prefab;
+        public BaseTrainingAnimationController prefab;
     }
 }

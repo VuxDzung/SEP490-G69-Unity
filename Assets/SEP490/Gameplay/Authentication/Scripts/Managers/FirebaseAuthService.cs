@@ -2,7 +2,6 @@
 {
     using Firebase;
     using Firebase.Auth;
-    using Google;
     using SEP490G69.Training;
     using System;
     using System.Threading.Tasks;
@@ -12,12 +11,12 @@
     {
         private FirebaseAuth _auth;
 
+#if UNITY_ANDROID || UNITY_IOS
         private const string WEB_CLIENT_ID = "849240330897-kblvrpuo44u3o785pjtfq9br4khi3h9f.apps.googleusercontent.com";
+#endif
 
         private FirebaseUser _currentUser;
         private bool _initialized = false;
-
-        //private bool _isAutoLoginChecking = false;
 
         public event Action OnAutoLoginStarted;
         public event Action<FirebaseUser> OnAutoLoginSuccess;
@@ -37,16 +36,11 @@
         {
             _auth = FirebaseAuth.DefaultInstance;
 
-            if (Application.platform == RuntimePlatform.WindowsEditor || 
-                Application.platform == RuntimePlatform.WindowsPlayer)
-            {
-                _authProvider = new WindowsGoogleAuthProvider();
-            }
-            else
-            {
-                _authProvider = new AndroidGoogleAuthProvider(WEB_CLIENT_ID);
-            }
-
+#if UNITY_ANDROID || UNITY_IOS
+            _authProvider = new AndroidGoogleAuthProvider(WEB_CLIENT_ID);
+#else
+            _authProvider = new WindowsGoogleAuthProvider();
+#endif
             InitializeFirebase();
         }
 

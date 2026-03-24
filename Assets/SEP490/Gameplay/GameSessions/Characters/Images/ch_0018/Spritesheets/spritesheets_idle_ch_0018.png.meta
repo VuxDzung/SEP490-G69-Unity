@@ -1,115 +1,115 @@
 fileFormatVersion: 2
-guid: 1518591ae1a42914fbd75353e04bf132
+guid: 352c7e83d149e9e48964c494d0b39edb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5206874504475578088
-    second: spritesheets_idle_ch_0018_0
+      213: -2627815976479114376
+    second: leon_idle_0
   - first:
-      213: 3503816082688100286
-    second: spritesheets_idle_ch_0018_1
+      213: -996149043879273462
+    second: leon_idle_1
   - first:
-      213: 8688229716058679608
-    second: spritesheets_idle_ch_0018_2
+      213: 6009239076327853921
+    second: leon_idle_2
   - first:
-      213: -6907974563045844988
-    second: spritesheets_idle_ch_0018_3
+      213: -1494156148959037841
+    second: leon_idle_3
   - first:
-      213: 434083620524315033
-    second: spritesheets_idle_ch_0018_4
+      213: 8081956886540866351
+    second: leon_idle_4
   - first:
-      213: 5700433726162749487
-    second: spritesheets_idle_ch_0018_5
+      213: 5476330423328229518
+    second: leon_idle_5
   - first:
-      213: 3650943001626800874
-    second: spritesheets_idle_ch_0018_6
+      213: 7375212674536032190
+    second: leon_idle_6
   - first:
-      213: -825204592288508021
-    second: spritesheets_idle_ch_0018_7
+      213: -3809077292027363868
+    second: leon_idle_7
   - first:
-      213: -4719249788153549756
-    second: spritesheets_idle_ch_0018_8
+      213: -8060681481053565523
+    second: leon_idle_8
   - first:
-      213: 1410513116632542806
-    second: spritesheets_idle_ch_0018_9
+      213: 7785572432138161780
+    second: leon_idle_9
   - first:
-      213: -5899142750854692468
-    second: spritesheets_idle_ch_0018_10
+      213: -8532775342814307579
+    second: leon_idle_10
   - first:
-      213: -4660825649179308575
-    second: spritesheets_idle_ch_0018_11
+      213: 2043644836853391593
+    second: leon_idle_11
   - first:
-      213: 5101059339345768776
-    second: spritesheets_idle_ch_0018_12
+      213: 5905803687815976657
+    second: leon_idle_12
   - first:
-      213: 3251142032426002103
-    second: spritesheets_idle_ch_0018_13
+      213: -3762369754209675558
+    second: leon_idle_13
   - first:
-      213: 3902730511646844122
-    second: spritesheets_idle_ch_0018_14
+      213: 1848637091918888764
+    second: leon_idle_14
   - first:
-      213: -8019995081893160025
-    second: spritesheets_idle_ch_0018_15
+      213: 6106103729007934495
+    second: leon_idle_15
   - first:
-      213: 5002738479171152958
-    second: spritesheets_idle_ch_0018_16
+      213: 8826329686594823480
+    second: leon_idle_16
   - first:
-      213: 3461152581817180648
-    second: spritesheets_idle_ch_0018_17
+      213: 1960457353693498348
+    second: leon_idle_17
   - first:
-      213: 364212345332653497
-    second: spritesheets_idle_ch_0018_18
+      213: 4476114280171958502
+    second: leon_idle_18
   - first:
-      213: -4832790865073567438
-    second: spritesheets_idle_ch_0018_19
+      213: -6000844652191598461
+    second: leon_idle_19
   - first:
-      213: -4687271119762656801
-    second: spritesheets_idle_ch_0018_20
+      213: -7812846620782956820
+    second: leon_idle_20
   - first:
-      213: 26715890664849115
-    second: spritesheets_idle_ch_0018_21
+      213: -5504871509321864012
+    second: leon_idle_21
   - first:
-      213: 4039992894760732807
-    second: spritesheets_idle_ch_0018_22
+      213: 3366262263501857986
+    second: leon_idle_22
   - first:
-      213: -714053798591241686
-    second: spritesheets_idle_ch_0018_23
+      213: -7196085676141404237
+    second: leon_idle_23
   - first:
-      213: 5503529427536133707
-    second: spritesheets_idle_ch_0018_24
+      213: -5392137983565372645
+    second: leon_idle_24
   - first:
-      213: -6242291452497070307
-    second: spritesheets_idle_ch_0018_25
+      213: -8968485581811967633
+    second: leon_idle_25
   - first:
-      213: 927028542186475555
-    second: spritesheets_idle_ch_0018_26
+      213: 5407484982093642531
+    second: leon_idle_26
   - first:
-      213: -4992812620124322327
-    second: spritesheets_idle_ch_0018_27
+      213: 1827322346974905347
+    second: leon_idle_27
   - first:
-      213: -7511793383489329846
-    second: spritesheets_idle_ch_0018_28
+      213: -6544723445050400284
+    second: leon_idle_28
   - first:
-      213: -2292823961193308147
-    second: spritesheets_idle_ch_0018_29
+      213: 4478305963107454204
+    second: leon_idle_29
   - first:
-      213: -1889362962990915756
-    second: spritesheets_idle_ch_0018_30
+      213: 4744056680470815036
+    second: leon_idle_30
   - first:
-      213: 7631931508009456229
-    second: spritesheets_idle_ch_0018_31
+      213: 1749061925682511788
+    second: leon_idle_31
   - first:
-      213: 1698959640620551155
-    second: spritesheets_idle_ch_0018_32
+      213: -4980306469166018572
+    second: leon_idle_32
   - first:
-      213: 2524901947227373302
-    second: spritesheets_idle_ch_0018_33
+      213: 2568411336761656454
+    second: leon_idle_33
   - first:
-      213: -4949095822955834019
-    second: spritesheets_idle_ch_0018_34
+      213: 1145176639550585613
+    second: leon_idle_34
   - first:
-      213: -5723999189329533951
-    second: spritesheets_idle_ch_0018_35
+      213: -7671612257635289773
+    second: leon_idle_35
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -177,7 +177,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -190,27 +190,27 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -231,7 +231,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_0
+      name: leon_idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -246,14 +246,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8ee0e4d46c8824840800000000000000
-      internalID: 5206874504475578088
+      spriteID: 87bbddaca4f188bd0800000000000000
+      internalID: -2627815976479114376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_1
+      name: leon_idle_1
       rect:
         serializedVersion: 2
         x: 456
@@ -268,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb7cce6c92e00a030800000000000000
-      internalID: 3503816082688100286
+      spriteID: a0c1b30f8b7fc22f0800000000000000
+      internalID: -996149043879273462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_2
+      name: leon_idle_2
       rect:
         serializedVersion: 2
         x: 912
@@ -290,14 +290,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 839aba005eac29870800000000000000
-      internalID: 8688229716058679608
+      spriteID: 16f0be20a1b156350800000000000000
+      internalID: 6009239076327853921
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_3
+      name: leon_idle_3
       rect:
         serializedVersion: 2
         x: 1368
@@ -312,14 +312,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 408d7342cb1f120a0800000000000000
-      internalID: -6907974563045844988
+      spriteID: f66b45e16e0b34be0800000000000000
+      internalID: -1494156148959037841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_4
+      name: leon_idle_4
       rect:
         serializedVersion: 2
         x: 1824
@@ -334,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 991da24c0cc260600800000000000000
-      internalID: 434083620524315033
+      spriteID: f235a40e7f0e82070800000000000000
+      internalID: 8081956886540866351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_5
+      name: leon_idle_5
       rect:
         serializedVersion: 2
         x: 2280
@@ -356,14 +356,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f28469195420c1f40800000000000000
-      internalID: 5700433726162749487
+      spriteID: e88c4235185dffb40800000000000000
+      internalID: 5476330423328229518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_6
+      name: leon_idle_6
       rect:
         serializedVersion: 2
         x: 0
@@ -378,14 +378,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ae2f9230151caa230800000000000000
-      internalID: 3650943001626800874
+      spriteID: eb7cda81ad40a5660800000000000000
+      internalID: 7375212674536032190
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_7
+      name: leon_idle_7
       rect:
         serializedVersion: 2
         x: 456
@@ -400,14 +400,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b875f91abc84c84f0800000000000000
-      internalID: -825204592288508021
+      spriteID: 4edb3be5260732bc0800000000000000
+      internalID: -3809077292027363868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_8
+      name: leon_idle_8
       rect:
         serializedVersion: 2
         x: 912
@@ -422,14 +422,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 44c25c2425bd18eb0800000000000000
-      internalID: -4719249788153549756
+      spriteID: dad8b3a76e4b22090800000000000000
+      internalID: -8060681481053565523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_9
+      name: leon_idle_9
       rect:
         serializedVersion: 2
         x: 1368
@@ -444,14 +444,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65e69e3d436239310800000000000000
-      internalID: 1410513116632542806
+      spriteID: 47e4ba690e8eb0c60800000000000000
+      internalID: 7785572432138161780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_10
+      name: leon_idle_10
       rect:
         serializedVersion: 2
         x: 1824
@@ -466,14 +466,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c814cff4ce8022ea0800000000000000
-      internalID: -5899142750854692468
+      spriteID: 50b5757c80e759980800000000000000
+      internalID: -8532775342814307579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_11
+      name: leon_idle_11
       rect:
         serializedVersion: 2
         x: 2280
@@ -488,14 +488,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ed43a424cb615fb0800000000000000
-      internalID: -4660825649179308575
+      spriteID: 9e025b3c62c7c5c10800000000000000
+      internalID: 2043644836853391593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_12
+      name: leon_idle_12
       rect:
         serializedVersion: 2
         x: 0
@@ -510,14 +510,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 841b4eb417a9ac640800000000000000
-      internalID: 5101059339345768776
+      spriteID: 1d6967de921a5f150800000000000000
+      internalID: 5905803687815976657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_13
+      name: leon_idle_13
       rect:
         serializedVersion: 2
         x: 456
@@ -532,14 +532,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b6e71504706e1d20800000000000000
-      internalID: 3251142032426002103
+      spriteID: ad698a674a069cbc0800000000000000
+      internalID: -3762369754209675558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_14
+      name: leon_idle_14
       rect:
         serializedVersion: 2
         x: 912
@@ -554,14 +554,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad4e9c809b8492630800000000000000
-      internalID: 3902730511646844122
+      spriteID: c3fbf6ef3ada7a910800000000000000
+      internalID: 1848637091918888764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_15
+      name: leon_idle_15
       rect:
         serializedVersion: 2
         x: 1368
@@ -576,14 +576,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7abd06bf6f043b090800000000000000
-      internalID: -8019995081893160025
+      spriteID: f1cb4317dfc3db450800000000000000
+      internalID: 6106103729007934495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_16
+      name: leon_idle_16
       rect:
         serializedVersion: 2
         x: 1824
@@ -598,14 +598,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3cac23242c4d6540800000000000000
-      internalID: 5002738479171152958
+      spriteID: 83528f7061c6d7a70800000000000000
+      internalID: 8826329686594823480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_17
+      name: leon_idle_17
       rect:
         serializedVersion: 2
         x: 2280
@@ -620,14 +620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e1a3a86feb780030800000000000000
-      internalID: 3461152581817180648
+      spriteID: ceb04348391f43b10800000000000000
+      internalID: 1960457353693498348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_18
+      name: leon_idle_18
       rect:
         serializedVersion: 2
         x: 0
@@ -642,14 +642,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9bd5d5ac231fd0500800000000000000
-      internalID: 364212345332653497
+      spriteID: 6e0f3bbe83a5e1e30800000000000000
+      internalID: 4476114280171958502
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_19
+      name: leon_idle_19
       rect:
         serializedVersion: 2
         x: 456
@@ -664,14 +664,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 239898d305a7eecb0800000000000000
-      internalID: -4832790865073567438
+      spriteID: 38831d92597b8bca0800000000000000
+      internalID: -6000844652191598461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_20
+      name: leon_idle_20
       rect:
         serializedVersion: 2
         x: 912
@@ -686,14 +686,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fd1799430c773feb0800000000000000
-      internalID: -4687271119762656801
+      spriteID: ceeee938461339390800000000000000
+      internalID: -7812846620782956820
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_21
+      name: leon_idle_21
       rect:
         serializedVersion: 2
         x: 1368
@@ -708,14 +708,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdebfe406f9ee5000800000000000000
-      internalID: 26715890664849115
+      spriteID: 4bca3b04784ca93b0800000000000000
+      internalID: -5504871509321864012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_22
+      name: leon_idle_22
       rect:
         serializedVersion: 2
         x: 1824
@@ -730,14 +730,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 788c05b0220f01830800000000000000
-      internalID: 4039992894760732807
+      spriteID: 2c4a4d481bd57be20800000000000000
+      internalID: 3366262263501857986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_23
+      name: leon_idle_23
       rect:
         serializedVersion: 2
         x: 2280
@@ -752,14 +752,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a2263787adb2716f0800000000000000
-      internalID: -714053798591241686
+      spriteID: 3bf905c343e522c90800000000000000
+      internalID: -7196085676141404237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_24
+      name: leon_idle_24
       rect:
         serializedVersion: 2
         x: 0
@@ -774,14 +774,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4e333bfad6706c40800000000000000
-      internalID: 5503529427536133707
+      spriteID: b13e1bd92174b25b0800000000000000
+      internalID: -5392137983565372645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_25
+      name: leon_idle_25
       rect:
         serializedVersion: 2
         x: 456
@@ -796,14 +796,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d17747d3ffcee59a0800000000000000
-      internalID: -6242291452497070307
+      spriteID: f6992e261e9898380800000000000000
+      internalID: -8968485581811967633
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_26
+      name: leon_idle_26
       rect:
         serializedVersion: 2
         x: 912
@@ -818,14 +818,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3205ca92c877ddc00800000000000000
-      internalID: 927028542186475555
+      spriteID: 32b73fde0fe3b0b40800000000000000
+      internalID: 5407484982093642531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_27
+      name: leon_idle_27
       rect:
         serializedVersion: 2
         x: 1368
@@ -840,14 +840,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e507630067f5bab0800000000000000
-      internalID: -4992812620124322327
+      spriteID: 30482953ef3fb5910800000000000000
+      internalID: 1827322346974905347
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_28
+      name: leon_idle_28
       rect:
         serializedVersion: 2
         x: 1824
@@ -862,14 +862,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a452df687bfb0c790800000000000000
-      internalID: -7511793383489329846
+      spriteID: 4e1a990c3b87c25a0800000000000000
+      internalID: -6544723445050400284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_29
+      name: leon_idle_29
       rect:
         serializedVersion: 2
         x: 2280
@@ -884,14 +884,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d00a19451c04e20e0800000000000000
-      internalID: -2292823961193308147
+      spriteID: cfc888edb83262e30800000000000000
+      internalID: 4478305963107454204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_30
+      name: leon_idle_30
       rect:
         serializedVersion: 2
         x: 0
@@ -906,14 +906,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 45f952b3562a7c5e0800000000000000
-      internalID: -1889362962990915756
+      spriteID: c3128c17a6646d140800000000000000
+      internalID: 4744056680470815036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_31
+      name: leon_idle_31
       rect:
         serializedVersion: 2
         x: 456
@@ -928,14 +928,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 562d30555411ae960800000000000000
-      internalID: 7631931508009456229
+      spriteID: caf7772fd8ae54810800000000000000
+      internalID: 1749061925682511788
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_32
+      name: leon_idle_32
       rect:
         serializedVersion: 2
         x: 912
@@ -950,14 +950,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3fbc9eaaacae39710800000000000000
-      internalID: 1698959640620551155
+      spriteID: 4ff87c037a562eab0800000000000000
+      internalID: -4980306469166018572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_33
+      name: leon_idle_33
       rect:
         serializedVersion: 2
         x: 1368
@@ -972,14 +972,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fefd2981f04a0320800000000000000
-      internalID: 2524901947227373302
+      spriteID: 684c3c4b084d4a320800000000000000
+      internalID: 2568411336761656454
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_34
+      name: leon_idle_34
       rect:
         serializedVersion: 2
         x: 1824
@@ -994,14 +994,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d5519590297415bb0800000000000000
-      internalID: -4949095822955834019
+      spriteID: d0bfc75161c74ef00800000000000000
+      internalID: 1145176639550585613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheets_idle_ch_0018_35
+      name: leon_idle_35
       rect:
         serializedVersion: 2
         x: 2280
@@ -1016,8 +1016,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 104a36970154090b0800000000000000
-      internalID: -5723999189329533951
+      spriteID: 355bd113c45f88590800000000000000
+      internalID: -7671612257635289773
       vertices: []
       indices: 
       edges: []
@@ -1026,7 +1026,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4c48c81f0edb83b468e52389bec29dad
+    spriteID: 4f0a777f55c898543a8181ef38746a4e
     internalID: 0
     vertices: []
     indices: 
@@ -1036,42 +1036,42 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spritesheets_idle_ch_0018_0: 5206874504475578088
-      spritesheets_idle_ch_0018_1: 3503816082688100286
-      spritesheets_idle_ch_0018_10: -5899142750854692468
-      spritesheets_idle_ch_0018_11: -4660825649179308575
-      spritesheets_idle_ch_0018_12: 5101059339345768776
-      spritesheets_idle_ch_0018_13: 3251142032426002103
-      spritesheets_idle_ch_0018_14: 3902730511646844122
-      spritesheets_idle_ch_0018_15: -8019995081893160025
-      spritesheets_idle_ch_0018_16: 5002738479171152958
-      spritesheets_idle_ch_0018_17: 3461152581817180648
-      spritesheets_idle_ch_0018_18: 364212345332653497
-      spritesheets_idle_ch_0018_19: -4832790865073567438
-      spritesheets_idle_ch_0018_2: 8688229716058679608
-      spritesheets_idle_ch_0018_20: -4687271119762656801
-      spritesheets_idle_ch_0018_21: 26715890664849115
-      spritesheets_idle_ch_0018_22: 4039992894760732807
-      spritesheets_idle_ch_0018_23: -714053798591241686
-      spritesheets_idle_ch_0018_24: 5503529427536133707
-      spritesheets_idle_ch_0018_25: -6242291452497070307
-      spritesheets_idle_ch_0018_26: 927028542186475555
-      spritesheets_idle_ch_0018_27: -4992812620124322327
-      spritesheets_idle_ch_0018_28: -7511793383489329846
-      spritesheets_idle_ch_0018_29: -2292823961193308147
-      spritesheets_idle_ch_0018_3: -6907974563045844988
-      spritesheets_idle_ch_0018_30: -1889362962990915756
-      spritesheets_idle_ch_0018_31: 7631931508009456229
-      spritesheets_idle_ch_0018_32: 1698959640620551155
-      spritesheets_idle_ch_0018_33: 2524901947227373302
-      spritesheets_idle_ch_0018_34: -4949095822955834019
-      spritesheets_idle_ch_0018_35: -5723999189329533951
-      spritesheets_idle_ch_0018_4: 434083620524315033
-      spritesheets_idle_ch_0018_5: 5700433726162749487
-      spritesheets_idle_ch_0018_6: 3650943001626800874
-      spritesheets_idle_ch_0018_7: -825204592288508021
-      spritesheets_idle_ch_0018_8: -4719249788153549756
-      spritesheets_idle_ch_0018_9: 1410513116632542806
+      leon_idle_0: -2627815976479114376
+      leon_idle_1: -996149043879273462
+      leon_idle_10: -8532775342814307579
+      leon_idle_11: 2043644836853391593
+      leon_idle_12: 5905803687815976657
+      leon_idle_13: -3762369754209675558
+      leon_idle_14: 1848637091918888764
+      leon_idle_15: 6106103729007934495
+      leon_idle_16: 8826329686594823480
+      leon_idle_17: 1960457353693498348
+      leon_idle_18: 4476114280171958502
+      leon_idle_19: -6000844652191598461
+      leon_idle_2: 6009239076327853921
+      leon_idle_20: -7812846620782956820
+      leon_idle_21: -5504871509321864012
+      leon_idle_22: 3366262263501857986
+      leon_idle_23: -7196085676141404237
+      leon_idle_24: -5392137983565372645
+      leon_idle_25: -8968485581811967633
+      leon_idle_26: 5407484982093642531
+      leon_idle_27: 1827322346974905347
+      leon_idle_28: -6544723445050400284
+      leon_idle_29: 4478305963107454204
+      leon_idle_3: -1494156148959037841
+      leon_idle_30: 4744056680470815036
+      leon_idle_31: 1749061925682511788
+      leon_idle_32: -4980306469166018572
+      leon_idle_33: 2568411336761656454
+      leon_idle_34: 1145176639550585613
+      leon_idle_35: -7671612257635289773
+      leon_idle_4: 8081956886540866351
+      leon_idle_5: 5476330423328229518
+      leon_idle_6: 7375212674536032190
+      leon_idle_7: -3809077292027363868
+      leon_idle_8: -8060681481053565523
+      leon_idle_9: 7785572432138161780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

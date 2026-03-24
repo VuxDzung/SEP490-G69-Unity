@@ -1,7 +1,6 @@
 namespace SEP490G69
 {
     using LiteDB;
-    using UnityEditor.U2D.Animation;
     using UnityEngine;
 
     public class PlayerCharacterRepository 

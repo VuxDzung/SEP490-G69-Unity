@@ -24,9 +24,9 @@ namespace SEP490G69.Training
         [SerializeField] private Transform m_TrainingCharContainer;
 
         [Header("Training Animation Prefabs")]
+        [SerializeField] private TrainingAnimationConfigSO m_TrainingAnimConfig;
         [SerializeField] private SakuraTrainingAnimationController _sakuraAnimPrefab;
 
-        // THAY ĐỔI: Chuyển sang dùng Prefab và sinh ra động
         [Header("UI System")]
         [SerializeField] private GameObject m_OverlayPrefab;     // Kéo Prefab Overlay vào đây
         [SerializeField] private Transform m_UICanvas;           // Kéo UICanvas trên Scene vào đây
@@ -154,7 +154,6 @@ namespace SEP490G69.Training
             m_TrainingMenuBG.SetActive(false);
         }
 
-        // ================== LOGIC GỌI TRAINING VÀ HOẠT ẢNH ==================
         public void StartTraining(ETrainingType trainingType)
         {
             ITrainingStrategy strategy = GetExerciseByType(trainingType);
@@ -172,7 +171,8 @@ namespace SEP490G69.Training
         private void ProcessTrainingLogic(ITrainingStrategy strategy)
         {
             TrainingResult result = strategy.StartTraining(_characterHolder);
-            UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU) as UITrainingMenuFrame;
+
+            UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU).AsFrame<UITrainingMenuFrame>();
 
             // 1. SPAWN OVERLAY VÀO CANVAS NGAY KHI VỪA BẤM TẬP
             if (m_OverlayPrefab != null && m_UICanvas != null && _activeOverlayInstance == null)
@@ -182,16 +182,20 @@ namespace SEP490G69.Training
                 _activeOverlayInstance.transform.SetAsLastSibling(); // Ép xuống đáy để che mọi thứ
             }
 
-            if (_characterHolder.GetRawId() == "ch_0003" && _sakuraAnimPrefab != null)
+            TrainingAnimData animData = m_TrainingAnimConfig.GetById(_characterHolder.GetRawId());
+
+            if (animData != null)
             {
                 if (menuFrame != null) menuFrame.HideUIForAnimation();
                 _characterAnimator.gameObject.SetActive(false);
 
-                SakuraTrainingAnimationController animInstance = Instantiate(_sakuraAnimPrefab);
+                Transform animTrans = Instantiate(animData.prefab);
 
-                animInstance.PlayTrainingAnim(strategy.TrainingType, () =>
+                SakuraTrainingAnimationController animController = animTrans.GetComponent<SakuraTrainingAnimationController>();
+
+                animController.PlayTrainingAnim(strategy.TrainingType, () =>
                 {
-                    Destroy(animInstance.gameObject);
+                    Destroy(animTrans.gameObject);
 
                     _characterAnimator.gameObject.SetActive(true);
                     if (menuFrame != null) menuFrame.ShowUIAfterAnimation();

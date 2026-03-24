@@ -2,6 +2,7 @@
 {
     using SEP490G69.Battle.Cards;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -434,6 +435,29 @@
         public InCombatStatus GetCombatStatus(EStatusType statusType)
         {
             return _statusContainer[statusType];
+        }
+
+        public void SpawnDmgToast(float dmg)
+        {
+            StartCoroutine(DelaySpawnToast(dmg));
+        }
+
+        private IEnumerator DelaySpawnToast(float dmg)
+        {
+            yield return new WaitForSeconds(0.15f);
+
+            string message = $"{dmg.ToString()}";
+
+            Vector3 position = transform.position + new Vector3(0, 0.75f, 0f);
+
+            GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
+            {
+                Message = message,
+                TextColor = Color.red,
+                SpawnPosition = position,
+                DelaySpawnTime = 0.01f,
+                TextSize = 27f
+            });
         }
 
         #endregion

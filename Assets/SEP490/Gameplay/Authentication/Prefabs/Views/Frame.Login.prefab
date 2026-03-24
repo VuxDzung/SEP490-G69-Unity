@@ -1977,7 +1977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1323601125673409249, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: elementId
-      value: btn_login
+      value: btn_login_as_guest
       objectReference: {fileID: 0}
     - target: {fileID: 2765167433930829732, guid: a3ec7d59a4e61a945ade3575935d9f8f, type: 3}
       propertyPath: m_Pivot.x

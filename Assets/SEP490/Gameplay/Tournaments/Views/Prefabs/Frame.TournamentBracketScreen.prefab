@@ -413,7 +413,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: 154.5, y: 81}
+  m_SizeDelta: {x: 185, y: 70}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1770361508923803962
 CanvasRenderer:
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2913238592758277715, guid: 99eee996177ef684799fd28752874542, type: 3}
+  m_Sprite: {fileID: 6457810092876435251, guid: 142acb818d0a9e14fa61e2f782ee71e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: Finish
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: UIButtonText
-  elementId: btn_continue
+  elementId: btn_finish
   tmp: {fileID: 7338788889753831843}
 --- !u!1 &1874344304377045951
 GameObject:

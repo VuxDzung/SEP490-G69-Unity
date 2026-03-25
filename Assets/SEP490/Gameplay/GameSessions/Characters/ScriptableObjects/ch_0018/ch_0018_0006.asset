@@ -25,18 +25,9 @@ MonoBehaviour:
   basePow: 200
   baseInt: 65
   baseSta: 190
-  baseDef: 110
+  baseDef: 33
   baseAgi: 165
   baseEnergy: 0
   baseMood: 0
   baseRP: 0
-  m_Deck:
-  - card_0001
-  - card_0001
-  - card_0001
-  - card_0002
-  - card_0002
-  - card_0002
-  - card_0011
-  - card_0008
-  - card_0015
+  m_EnemyDeck: {fileID: 0}

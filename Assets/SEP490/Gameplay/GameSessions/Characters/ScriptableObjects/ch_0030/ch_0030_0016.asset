@@ -25,7 +25,7 @@ MonoBehaviour:
   basePow: 360
   baseInt: 220
   baseSta: 665
-  baseDef: 500
+  baseDef: 150
   baseAgi: 320
   baseEnergy: 0
   baseMood: 0

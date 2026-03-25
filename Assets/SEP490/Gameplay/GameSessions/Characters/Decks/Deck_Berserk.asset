@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba53517965a8274cb67e38faca2b8b7, type: 3}
+  m_Name: Deck_Berserk
+  m_EditorClassIdentifier: 
+  cardIdList:
+  - card_0006
+  - card_0010
+  - card_0012
+  - card_0014
+  - card_0015
+  - card_0016
+  - card_0018
+  - card_0020
+  - card_0030

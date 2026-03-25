@@ -2,6 +2,7 @@ namespace SEP490G69.Economy
 {
     using LiteDB;
     using SEP490G69.Addons.Localization;
+    using SEP490G69.Calendar;
     using SEP490G69.GameSessions;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,7 +17,7 @@ namespace SEP490G69.Economy
     /// </summary>
     public class GameShopManager : MonoBehaviour, ISceneContext
     {
-        public const int MAX_ITEMS_PER_SESSION = 2;
+        public const int MAX_ITEMS_PER_SESSION = 6;
 
         private GameShopDAO _shopDAO;
         private GameSessionDAO _sessionDAO;
@@ -54,10 +55,15 @@ namespace SEP490G69.Economy
                 return;
             }
             SetSessionId(sessionId);
+
+            if (_eventManager) _eventManager.Subscribe<NextWeekEvent>(HandleNewWeekEvent);
+
+            LoadStarterShop();
         }
         private void OnDestroy()
         {
             ContextManager.Singleton.RemoveSceneContext(this);
+            if (_eventManager) _eventManager.Unsubscribe<NextWeekEvent>(HandleNewWeekEvent);
         }
 
         private void LoadShopItemPool()
@@ -67,6 +73,19 @@ namespace SEP490G69.Economy
             Debug.Log($"Load {items.Length} shop items");
             _shopItemPool.AddRange(items);
         }
+        private void LoadStarterShop()
+        {
+            if (string.IsNullOrEmpty(_sessionId))
+            {
+                return;
+            }
+
+            if (_shopDAO.GetAll(_sessionId).Count == 0)
+            {
+                RefreshShop(true);
+            }
+        }
+
         public void SetSessionId(string sessionId)
         {
             _sessionId = sessionId;
@@ -92,6 +111,21 @@ namespace SEP490G69.Economy
             }
         }
 
+        private void HandleNewWeekEvent(NextWeekEvent ev)
+        {
+            if (ev.IsNewMonth)
+            {
+                RefreshShop(true);
+                PlayerTrainingSession sessionData = GetSessionData();
+                if (sessionData == null)
+                {
+                    return;
+                }
+                sessionData.RefreshShopCount = 0;
+                _sessionDAO.Update(sessionData);
+            }
+        }
+
         /// <summary>
         /// Get all current shop items.
         /// </summary>
@@ -109,15 +143,15 @@ namespace SEP490G69.Economy
         /// <summary>
         /// Buy an item with a specific amount.
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="rawItemId"></param>
         /// <param name="amount"></param>
-        public void BuyItem(string itemId, int amount)
+        public void BuyItem(string rawItemId, int amount)
         {
-            ShopItemDataHolder shopItem = _shopItems.FirstOrDefault(x => x.GetRawItemId() == itemId);
+            ShopItemDataHolder shopItem = _shopItems.FirstOrDefault(x => x.GetRawItemId() == rawItemId);
 
             if (shopItem == null)
             {
-                Debug.LogError($"Shop item {itemId} does not exist!");
+                Debug.LogError($"Shop item {rawItemId} does not exist!");
                 return;
             }
             if (shopItem.GetRemainAmount() < amount)
@@ -133,7 +167,7 @@ namespace SEP490G69.Economy
                 return;
             }
 
-            ItemDataSO itemSO = _itemConfig.GetItemById(itemId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(rawItemId);
 
             int totalCost = itemSO.Cost * amount;
 
@@ -145,7 +179,7 @@ namespace SEP490G69.Economy
 
             session.CurrentGoldAmount -= totalCost;
 
-            _inventoryManager.AddItem(itemId, amount);
+            _inventoryManager.AddItem(rawItemId, amount);
 
             shopItem.TryDecreaseAmount(amount);
 
@@ -155,7 +189,7 @@ namespace SEP490G69.Economy
 
             LocalDBOrchestrator.UpdateDBChangeTime();
 
-            Debug.Log($"<color=green>[GameShopManager.BuyItem]</color> Purchase item {itemId} successfully!");
+            Debug.Log($"<color=green>[GameShopManager.BuyItem]</color> Purchase item {rawItemId} successfully!");
         }
 
         /// <summary>
@@ -187,8 +221,23 @@ namespace SEP490G69.Economy
         /// - Reset all shop items amount.
         /// - Fetch 6 random items.
         /// </summary>
-        public void RefreshShop()
+        public void RefreshShop(bool auto = false)
         {
+            if (!auto)
+            {
+                PlayerTrainingSession session = GetSessionData();
+
+                if (session == null) return;
+
+                float refreshCost = CalculateRefreshCost(session);
+
+                if (refreshCost > session.CurrentGoldAmount)
+                {
+                    // Cannot refresh notification.
+                    return;
+                }
+            }
+
             _shopDAO.DeleteManyBySessionId(_sessionId);
 
             _shopItems.Clear();
@@ -202,7 +251,7 @@ namespace SEP490G69.Economy
             {
                 ShopItemData data = new ShopItemData
                 {
-                    SessionItemId = string.Format(GameInventoryManager.FORMAT_INVENTORY_ITEM_ID, _sessionId, item.ItemID),
+                    SessionItemId = EntityIdConstructor.ConstructDBEntityId(_sessionId, item.ItemID),
                     SessionId = _sessionId,
                     RawItemId = item.ItemID,
                     RemainAmount = UnityEngine.Random.Range(1, 5)
@@ -226,6 +275,26 @@ namespace SEP490G69.Economy
                 _sessionData = _sessionDAO.GetById(_sessionId);
             }
             return _sessionData;
+        }
+
+        public float CalculateRefreshCost()
+        {
+            PlayerTrainingSession session = GetSessionData();
+
+            return CalculateRefreshCost(session);
+        }
+
+        private float CalculateRefreshCost(PlayerTrainingSession session)
+        {
+            if (session == null) return -1f;
+
+            int refreshCount = session.RefreshShopCount;
+
+            float refreshCost = GameConstants.CalculateRefreshCost(refreshCount);
+
+            refreshCost = (float)System.Math.Round(refreshCost, 0);
+
+            return refreshCost;
         }
     }
 }

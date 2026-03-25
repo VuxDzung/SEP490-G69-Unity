@@ -139,3 +139,15 @@ MonoBehaviour:
       text: You have been defeated.
     - language: 1
       text: "B\u1EA1n \u0111\xE3 b\u1ECB \u0111\xE1nh b\u1EA1i"
+  - id: msg_relic
+    textList:
+    - language: 0
+      text: Relic
+    - language: 1
+      text: "Di v\u1EADt"
+  - id: msg_usable
+    textList:
+    - language: 0
+      text: Usable
+    - language: 1
+      text: "\u0110\u1ED3 ti\xEAu hao"

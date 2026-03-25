@@ -5,6 +5,14 @@ namespace SEP490G69
     using SEP490G69.Economy;
     using UnityEngine;
 
+    public enum EEequipRelicResult
+    {
+        None = 0,
+        FatalError = 1,
+        NoSlotAvailable = 2,
+        Success = 3,
+    }
+
     /// <summary>
     /// Handle business logic of inventory.
     /// Logic includes:
@@ -16,9 +24,6 @@ namespace SEP490G69
     /// </summary>
     public class GameInventoryManager : MonoBehaviour, IGameContext
     {
-        public const string FORMAT_INVENTORY_ITEM_ID = "{0}:{1}";
-        public const int EMPTY_RELIC_SLOT = -1;
-
         private EventManager _eventManager;
         private ContextManager _contextManager;
 
@@ -77,9 +82,9 @@ namespace SEP490G69
         /// If the item already in the inventory, increase the stack.
         /// If not, create the item data and add to database.
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="rawItemId"></param>
         /// <param name="amount"></param>
-        public void AddItem(string itemId, int amount)
+        public void AddItem(string rawItemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
             {
@@ -92,7 +97,7 @@ namespace SEP490G69
                 }
             }
 
-            ItemDataHolder item = GetItemBy(itemId);
+            ItemDataHolder item = GetItemByRawId(rawItemId);
 
             if (item != null)
             {
@@ -101,17 +106,34 @@ namespace SEP490G69
             }
             else
             {
-                ItemData newItem = new ItemData
+                ItemDataSO so = _itemConfig.GetItemById(rawItemId);
+
+                ItemData newItem = null;
+
+                if (so.ItemType == EItemType.Consumable)
                 {
-                    SessionItemId = string.Format(FORMAT_INVENTORY_ITEM_ID, _sessionId, itemId),
-                    SessionId = _sessionId,
-                    RawItemId = itemId,
-                    RemainAmount = amount
-                };
+                    newItem = new ItemData
+                    {
+                        SessionItemId = EntityIdConstructor.ConstructDBEntityId(_sessionId, rawItemId),//string.Format(FORMAT_INVENTORY_ITEM_ID, _sessionId, itemId),
+                        SessionId = _sessionId,
+                        RawItemId = rawItemId,
+                        RemainAmount = amount
+                    };
+                }
+                else
+                {
+                    newItem = new EquipmentData
+                    {
+                        SessionItemId = EntityIdConstructor.ConstructDBEntityId(_sessionId, rawItemId),//string.Format(FORMAT_INVENTORY_ITEM_ID, _sessionId, itemId),
+                        SessionId = _sessionId,
+                        RawItemId = rawItemId,
+                        RemainAmount = amount,
+                        Slot = GameConstants.EMPTY_RELIC_SLOT
+                    };
+                }
 
                 _inventoryDAO.Insert(newItem);
 
-                ItemDataSO so = _itemConfig.GetItemById(itemId);
 
                 item = new ItemDataHolder.Builder()
                     .WithRuntimeData(newItem)
@@ -130,10 +152,10 @@ namespace SEP490G69
         /// Consumable item only.
         /// Use the item for the players's character.
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="sessionItemId"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool UseItem(string itemId, int amount)
+        public bool UseItem(string sessionItemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
             {
@@ -141,23 +163,28 @@ namespace SEP490G69
                 return false;
             }
 
-            if (string.IsNullOrEmpty(itemId))
+            if (string.IsNullOrEmpty(sessionItemId))
             {
                 Debug.LogError("[GameInventoryManager.UseItem] Item id is null!");
                 return false;
             }
 
-            ItemDataHolder item = GetItemBy(itemId);
+            ItemDataHolder item = GetItemByEntityId(sessionItemId);
 
             if (item == null)
             {
-                Debug.LogError($"[GameInventoryManager.UseItem] Item SO with id {itemId} is not configured!");
+                Debug.LogError($"[GameInventoryManager.UseItem] Item SO with id {sessionItemId} is not configured!");
+                return false;
+            }
+
+            if (item.IsRelic())
+            {
                 return false;
             }
 
             if (!item.DecreaseItemAmount(amount))
             {
-                Debug.Log($"<color=red>[GameInventoryManager.UseItem]</color> Failed to decrease item {itemId} amount");
+                Debug.Log($"<color=red>[GameInventoryManager.UseItem]</color> Failed to decrease item {sessionItemId} amount");
                 return false;
             }
 
@@ -191,7 +218,7 @@ namespace SEP490G69
                 return false;
             }
 
-            ItemDataHolder item = GetItemBy(itemId);
+            ItemDataHolder item = GetItemByRawId(itemId);
 
             if (item == null)
             {
@@ -200,7 +227,9 @@ namespace SEP490G69
             }
 
             if (!item.DecreaseItemAmount(amount))
+            {
                 return false;
+            }
 
             if (item.GetRemainAmount() == 0)
             {
@@ -216,44 +245,79 @@ namespace SEP490G69
         }
 
         /// <summary>
+        /// Equip relic at any available slot. If not slot is available, return error.
+        /// </summary>
+        /// <param name="relicId"></param>
+        public EEequipRelicResult EquipRelic(string sessionRelicId)
+        {
+            if (string.IsNullOrEmpty(sessionRelicId))
+            {
+                return EEequipRelicResult.FatalError;
+            }
+
+            // Get available slot.
+            int slot = GetRemainEmptySlot();
+
+            if (slot == GameConstants.EMPTY_RELIC_SLOT)
+            {
+                return EEequipRelicResult.NoSlotAvailable;
+            }
+
+            
+            return EquipRelic(sessionRelicId, slot) == true ? EEequipRelicResult.Success : 
+                                                              EEequipRelicResult.FatalError;
+        }
+
+        /// <summary>
         /// Relic only. equip the relic to the specific slot.
         /// If that slot has already had a relic, remove the existed relic from the slot 
         /// and then equip the selected relic.
         /// </summary>
         /// <param name="relicId"></param>
         /// <param name="slot"></param>
-        public void EquipRelic(string relicId, int slot)
+        public bool EquipRelic(string sessionRelicId, int slot)
         {
             if (string.IsNullOrEmpty(_sessionId))
             {
                 Debug.LogError("[GameInventoryManager.EquipRelic error] Session id is null");
-                return;
+                return false;
             }
 
-            ItemDataHolder holder = GetItemBy(relicId);
+            ItemDataHolder holder = GetItemByEntityId(sessionRelicId);
 
             if (holder == null)
-                return;
+            {
+                Debug.Log($"<color=red>[GameInventoryManager.EquipRelic error]</color> Enity with id {sessionRelicId} does not exist!");
+                return false;
+            }
 
             if (!holder.TryConvertAsRelic(out EquipmentData relic))
-                return;
+            {
+                Debug.Log($"<color=red>[GameInventoryManager.EquipRelic error]</color> Failed to convert {sessionRelicId} as relic");
+                return false;
+            }
 
             EquipmentData currentRelic = _inventoryDAO.GetEquippedRelic(_sessionId, slot);
 
             if (currentRelic != null)
             {
-                currentRelic.Slot = EMPTY_RELIC_SLOT;
-                _inventoryDAO.Update(currentRelic);
+                Debug.Log($"<color=yellow>[GameInventoryManager.EquipRelic]</color> A relic has already in slot {slot}. Remove it by default/nExisted relic: {currentRelic.SessionItemId}");
+                UnequipRelic(currentRelic.SessionItemId, slot);
             }
 
-            relic.Slot = slot;
+            holder.EquipRelic(slot);
+            
 
-            _inventoryDAO.Update(relic);
+            Debug.Log($"[GameInventoryManager.EquipRelic] Equip relic {sessionRelicId} at slot {relic.Slot}");
+
+            holder.UpdateChanges(_inventoryDAO);
 
             _eventManager.Publish(new EquipRelicEvent
             {
                 ItemData = holder
             });
+
+            return true;
         }
 
         /// <summary>
@@ -261,28 +325,25 @@ namespace SEP490G69
         /// </summary>
         /// <param name="relic"></param>
         /// <param name="slot"></param>
-        public void UnequipRelic(string relicId, int slot)
+        public bool UnequipRelic(string sessionRelicId, int slot)
         {
-            if (string.IsNullOrEmpty(_sessionId))
+            if (string.IsNullOrEmpty(sessionRelicId))
             {
-                Debug.LogError("[GameInventoryManager.UnequipRelic error] Session id is null");
-                return;
+                return false;
             }
 
-            EquipmentData relic = _inventoryDAO.GetRelic(_sessionId, relicId);
+            ItemDataHolder item = GetItemByEntityId(sessionRelicId);
 
-            if (relic == null) return;
+            if (item == null) return false;
 
-            if (relic.Slot != slot) return;
-
-            relic.Slot = EMPTY_RELIC_SLOT;
-
-            _inventoryDAO.Update(relic);
+            item.UnequipRelic();
+            item.UpdateChanges(_inventoryDAO);
 
             _eventManager.Publish(new UnequipRelicEvent());
+            return true;
         }
 
-        public ItemDataHolder GetItemBy(string sessionId, string rawId)
+        public ItemDataHolder GetItemById(string sessionId, string rawId)
         {
             if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
             {
@@ -294,7 +355,7 @@ namespace SEP490G69
             return item;
         }
 
-        public ItemDataHolder GetItemBy(string rawId)
+        public ItemDataHolder GetItemByRawId(string rawId)
         {
             if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
             {
@@ -303,6 +364,27 @@ namespace SEP490G69
             }
 
             return _inventoryItems.FirstOrDefault(x => x.GetRawId() == rawId);
+        }
+
+        public ItemDataHolder GetItemByEntityId(string entityId)
+        {
+            if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(entityId))
+            {
+                Debug.LogError("[GameInventoryManager.GetItemBy error] Session id/entity id is null");
+                return null;
+            }
+
+            return _inventoryItems.FirstOrDefault(x => x.GetSessionItemId() == entityId);
+        }
+
+        private int GetRemainEmptySlot()
+        {
+            if (string.IsNullOrEmpty(_sessionId))
+            {
+                return GameConstants.EMPTY_RELIC_SLOT;
+            }
+
+            return _inventoryDAO.GetRemainEquipSlot(_sessionId);
         }
     }
 }

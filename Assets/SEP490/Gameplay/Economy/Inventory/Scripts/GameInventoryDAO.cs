@@ -122,7 +122,7 @@ namespace SEP490G69.Economy
         {
             try
             {
-                return LocalDBOrchestrator.Execute(db => GetEquippedRelic(db, sessionId, slot));
+                return LocalDBOrchestrator.Execute(db => GetEquippedRelicAtSlot(db, sessionId, slot));
             }
             catch (Exception e)
             {
@@ -141,6 +141,32 @@ namespace SEP490G69.Economy
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        public EquipmentData GetRelic(string sessionRelicId)
+        {
+            try
+            {
+                return LocalDBOrchestrator.Execute(db => GetRelic(db, sessionRelicId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public int GetRemainEquipSlot(string sessionId)
+        {
+            try
+            {
+                return LocalDBOrchestrator.Execute(db => GetRemainEquipSlot(db, sessionId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return GameConstants.EMPTY_RELIC_SLOT;
             }
         }
 
@@ -287,18 +313,18 @@ namespace SEP490G69.Economy
             }
         }
 
-        public EquipmentData GetEquippedRelic(LiteDatabase db, string sessionId, int slot)
+        public EquipmentData GetEquippedRelicAtSlot(LiteDatabase db, string sessionId, int slot)
         {
             try
             {
-                if (string.IsNullOrEmpty(sessionId))
+                if (string.IsNullOrEmpty(sessionId) || slot == GameConstants.EMPTY_RELIC_SLOT)
+                {
                     return null;
+                }
 
                 var col = GetCollection<ItemData>(db, COLLECTION_NAME);
 
-                return col.Find(x => x.SessionId == sessionId)
-                          .OfType<EquipmentData>()
-                          .FirstOrDefault(x => x.Slot == slot);
+                return col.Find(x => x.SessionId == sessionId).OfType<EquipmentData>().FirstOrDefault(x => x.Slot == slot);
             }
             catch (Exception e)
             {
@@ -312,18 +338,82 @@ namespace SEP490G69.Economy
             try
             {
                 if (string.IsNullOrEmpty(sessionId) || string.IsNullOrEmpty(relicId))
+                {
                     return null;
+                }
 
-                var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                string sessionRelicId = EntityIdConstructor.ConstructDBEntityId(sessionId, relicId);
 
-                return col.Find(x => x.SessionId == sessionId && x.RawItemId == relicId)
-                          .OfType<EquipmentData>()
-                          .FirstOrDefault();
+                return GetRelic(db, sessionRelicId);
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
                 return null;
+            }
+        }
+
+        public EquipmentData GetRelic(LiteDatabase db, string sessionRelicId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sessionRelicId))
+                {
+                    return null;
+                }
+
+                var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                Debug.Log($"SessionRelicId: {sessionRelicId}");
+
+                ItemData item = col.FindById(sessionRelicId);
+
+                if (item == null)
+                {
+                    return null;
+                }
+
+                return item as EquipmentData;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public int GetRemainEquipSlot(LiteDatabase db, string sessionId)
+        {
+            try
+            {
+                int slot = 0;
+
+                var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+
+                List<EquipmentData> relics = col.Find(x => x.SessionId == sessionId).OfType<EquipmentData>().OrderBy(r => r.Slot).ToList();
+
+                if (relics.Count > 0)
+                {
+                    var usedSlots = new HashSet<int>(relics.Select(x => x.Slot));
+
+                    for (int i = 0; i < GameConstants.MAX_RELIC_SLOTS; i++)
+                    {
+                        if (!usedSlots.Contains(i))
+                        {
+                            return i;
+                        }
+                    }
+
+                    return GameConstants.EMPTY_RELIC_SLOT;
+                }
+                else
+                {
+                    return slot;
+                }
+            }
+            catch(System.Exception e)
+            {
+                Debug.LogException(e);
+                return GameConstants.EMPTY_RELIC_SLOT;
             }
         }
     }

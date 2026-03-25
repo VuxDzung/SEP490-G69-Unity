@@ -1,4 +1,5 @@
 using SEP490G69.Addons.Localization.Enums;
+using SEP490G69.Economy;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -189,6 +190,13 @@ namespace SEP490G69
 
         public const int STARTER_MONEY_AMOUNT = 100000000;
 
+        public const int EMPTY_RELIC_SLOT = -1;
+        public const int MAX_RELIC_SLOTS = 3;
+
+        public const int REFRESH_SHOP_BASE_COST = 10;
+
+        public const float REFRESH_SHOP_COST_STEP = 0.2f;
+
         public static readonly int[] RP_CHECKPOINTS =
         {
             200,
@@ -264,6 +272,22 @@ namespace SEP490G69
             }
         }
         #endregion
+
+        public static string ConvertItemType2LocalizeId(EItemType itemType)
+        {
+            return itemType switch
+            {
+                EItemType.None => string.Empty,
+                EItemType.Consumable => "msg_usable",
+                EItemType.Relic => "msg_relic",
+                _ => string.Empty,
+            };
+        }
+
+        public static float CalculateRefreshCost(int refreshCount)
+        {
+            return REFRESH_SHOP_BASE_COST + REFRESH_SHOP_COST_STEP * refreshCount;
+        }
     }
     public enum ERectPivot
     {

@@ -13,6 +13,8 @@ namespace SEP490G69.GameSessions
         public int CurrentWeek { get; set; } = 0;
         public int CurrentGoldAmount { get; set; } = 0;
 
+        public int RefreshShopCount { get; set; } = 0;
+
         public string ActiveTournamentId { get; set; } = string.Empty;
     }
 }

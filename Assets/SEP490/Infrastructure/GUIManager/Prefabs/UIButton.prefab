@@ -274,8 +274,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_SFXId: sfx_click
-  m_ScaleDuration: 0.15
+  m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
-  m_HighlightedScale: {x: 1, y: 1}
+  m_HighlightedScale: {x: 1.05, y: 1.05}
+  m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}

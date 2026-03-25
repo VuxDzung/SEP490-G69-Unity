@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: 1be3ac52aa8740c41bed98a2d37f3358
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3194513061326666060
+    second: SeriasRunningSpriteSheet_0
+  - first:
+      213: 7266543778495349067
+    second: SeriasRunningSpriteSheet_1
+  - first:
+      213: 6954160957875376788
+    second: SeriasRunningSpriteSheet_2
+  - first:
+      213: 3228246242247973685
+    second: SeriasRunningSpriteSheet_3
+  - first:
+      213: -7723094113062522808
+    second: SeriasRunningSpriteSheet_4
+  - first:
+      213: 7283504367641866829
+    second: SeriasRunningSpriteSheet_5
+  - first:
+      213: 4698203836089878460
+    second: SeriasRunningSpriteSheet_6
+  - first:
+      213: -4250703139160250535
+    second: SeriasRunningSpriteSheet_7
+  - first:
+      213: -2716869803224392536
+    second: SeriasRunningSpriteSheet_8
+  - first:
+      213: 840409060203809406
+    second: SeriasRunningSpriteSheet_9
+  - first:
+      213: -6891599159309071160
+    second: SeriasRunningSpriteSheet_10
+  - first:
+      213: -5701007207708666294
+    second: SeriasRunningSpriteSheet_11
+  - first:
+      213: -4867192708589274985
+    second: SeriasRunningSpriteSheet_12
+  - first:
+      213: 8356419368841978150
+    second: SeriasRunningSpriteSheet_13
+  - first:
+      213: 1662072919483045844
+    second: SeriasRunningSpriteSheet_14
+  - first:
+      213: -7933742611342398709
+    second: SeriasRunningSpriteSheet_15
+  - first:
+      213: -3030899757280486119
+    second: SeriasRunningSpriteSheet_16
+  - first:
+      213: -692211005931199403
+    second: SeriasRunningSpriteSheet_17
+  - first:
+      213: -3546883159510423027
+    second: SeriasRunningSpriteSheet_18
+  - first:
+      213: 1543466672604682881
+    second: SeriasRunningSpriteSheet_19
+  - first:
+      213: -369905533001463597
+    second: SeriasRunningSpriteSheet_20
+  - first:
+      213: 2582276762295266135
+    second: SeriasRunningSpriteSheet_21
+  - first:
+      213: 6577846109719576299
+    second: SeriasRunningSpriteSheet_22
+  - first:
+      213: -1107625225497118496
+    second: SeriasRunningSpriteSheet_23
+  - first:
+      213: -5269843735392748562
+    second: SeriasRunningSpriteSheet_24
+  - first:
+      213: 5557002172016993074
+    second: SeriasRunningSpriteSheet_25
+  - first:
+      213: 7183881604472297329
+    second: SeriasRunningSpriteSheet_26
+  - first:
+      213: -6203280034208417360
+    second: SeriasRunningSpriteSheet_27
+  - first:
+      213: -9161841410514167765
+    second: SeriasRunningSpriteSheet_28
+  - first:
+      213: 5688767413161798570
+    second: SeriasRunningSpriteSheet_29
+  - first:
+      213: 7846690018740857131
+    second: SeriasRunningSpriteSheet_30
+  - first:
+      213: -678067188689563895
+    second: SeriasRunningSpriteSheet_31
+  - first:
+      213: 1634256339015103827
+    second: SeriasRunningSpriteSheet_32
+  - first:
+      213: 1583743642472308537
+    second: SeriasRunningSpriteSheet_33
+  - first:
+      213: 2105383174151686462
+    second: SeriasRunningSpriteSheet_34
+  - first:
+      213: -2747055549837452662
+    second: SeriasRunningSpriteSheet_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b64745cb4fcaa3d0800000000000000
+      internalID: -3194513061326666060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b414a061113f7d460800000000000000
+      internalID: 7266543778495349067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4925d05eb84228060800000000000000
+      internalID: 6954160957875376788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b1ea47ad80dcc20800000000000000
+      internalID: 3228246242247973685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8407ff7a2de02d490800000000000000
+      internalID: -7723094113062522808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 2870
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42bc49f1a4341560800000000000000
+      internalID: 7283504367641866829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb7c38c2f7f533140800000000000000
+      internalID: 4698203836089878460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95727b024087205c0800000000000000
+      internalID: -4250703139160250535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ac13ddfe4dbb4ad0800000000000000
+      internalID: -2716869803224392536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ac77b669bb9ab00800000000000000
+      internalID: 840409060203809406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cc800fe31f1c50a0800000000000000
+      internalID: -6891599159309071160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 2296
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a46559a5624f1e0b0800000000000000
+      internalID: -5701007207708666294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7983a2fd402447cb0800000000000000
+      internalID: -4867192708589274985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 621250a4427f7f370800000000000000
+      internalID: 8356419368841978150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d75594a38ed01710800000000000000
+      internalID: 1662072919483045844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b6e87312fa5e190800000000000000
+      internalID: -7933742611342398709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d9a79aab410f5d0800000000000000
+      internalID: -3030899757280486119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 1722
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 554ead1f1c5c466f0800000000000000
+      internalID: -692211005931199403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0ae0910f80f6cec0800000000000000
+      internalID: -3546883159510423027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18a9147d2ce7b6510800000000000000
+      internalID: 1543466672604682881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d80ff8a0e4dddaf0800000000000000
+      internalID: -369905533001463597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75bea58a80716d320800000000000000
+      internalID: 2582276762295266135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bee35059f24394b50800000000000000
+      internalID: 6577846109719576299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 1148
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e87bf1d9bce0a0f0800000000000000
+      internalID: -1107625225497118496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eebf8122b01cdd6b0800000000000000
+      internalID: -5269843735392748562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_25
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 233a52f78007e1d40800000000000000
+      internalID: 5557002172016993074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_26
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 177d807e14642b360800000000000000
+      internalID: 7183881604472297329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_27
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b9fbbedca589e9a0800000000000000
+      internalID: -6203280034208417360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_28
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b28d6d557c99ad080800000000000000
+      internalID: -9161841410514167765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 574
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaba35762df82fe40800000000000000
+      internalID: 5688767413161798570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b29e6ad9ffa05ec60800000000000000
+      internalID: 7846690018740857131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_31
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f8f440c750796f0800000000000000
+      internalID: -678067188689563895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 355fcee4b7b0ea610800000000000000
+      internalID: 1634256339015103827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f58d8a3769af510800000000000000
+      internalID: 1583743642472308537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e39456397d2d73d10800000000000000
+      internalID: 2105383174151686462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeriasRunningSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 0
+        width: 472
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8a5cad288f70e9d0800000000000000
+      internalID: -2747055549837452662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8f5362e8c87be374286a8eb91a1b4e3b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SeriasRunningSpriteSheet_0: -3194513061326666060
+      SeriasRunningSpriteSheet_1: 7266543778495349067
+      SeriasRunningSpriteSheet_10: -6891599159309071160
+      SeriasRunningSpriteSheet_11: -5701007207708666294
+      SeriasRunningSpriteSheet_12: -4867192708589274985
+      SeriasRunningSpriteSheet_13: 8356419368841978150
+      SeriasRunningSpriteSheet_14: 1662072919483045844
+      SeriasRunningSpriteSheet_15: -7933742611342398709
+      SeriasRunningSpriteSheet_16: -3030899757280486119
+      SeriasRunningSpriteSheet_17: -692211005931199403
+      SeriasRunningSpriteSheet_18: -3546883159510423027
+      SeriasRunningSpriteSheet_19: 1543466672604682881
+      SeriasRunningSpriteSheet_2: 6954160957875376788
+      SeriasRunningSpriteSheet_20: -369905533001463597
+      SeriasRunningSpriteSheet_21: 2582276762295266135
+      SeriasRunningSpriteSheet_22: 6577846109719576299
+      SeriasRunningSpriteSheet_23: -1107625225497118496
+      SeriasRunningSpriteSheet_24: -5269843735392748562
+      SeriasRunningSpriteSheet_25: 5557002172016993074
+      SeriasRunningSpriteSheet_26: 7183881604472297329
+      SeriasRunningSpriteSheet_27: -6203280034208417360
+      SeriasRunningSpriteSheet_28: -9161841410514167765
+      SeriasRunningSpriteSheet_29: 5688767413161798570
+      SeriasRunningSpriteSheet_3: 3228246242247973685
+      SeriasRunningSpriteSheet_30: 7846690018740857131
+      SeriasRunningSpriteSheet_31: -678067188689563895
+      SeriasRunningSpriteSheet_32: 1634256339015103827
+      SeriasRunningSpriteSheet_33: 1583743642472308537
+      SeriasRunningSpriteSheet_34: 2105383174151686462
+      SeriasRunningSpriteSheet_35: -2747055549837452662
+      SeriasRunningSpriteSheet_4: -7723094113062522808
+      SeriasRunningSpriteSheet_5: 7283504367641866829
+      SeriasRunningSpriteSheet_6: 4698203836089878460
+      SeriasRunningSpriteSheet_7: -4250703139160250535
+      SeriasRunningSpriteSheet_8: -2716869803224392536
+      SeriasRunningSpriteSheet_9: 840409060203809406
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,143 +1,387 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class SeriasTrainingTester : MonoBehaviour
 {
     [Header("Giao diện nút bấm")]
-    [SerializeField] private Button buttonTrainPower; // Nút để test bài tập Pow
+    [SerializeField] private Button buttonTrainPower;
+    [SerializeField] private Button buttonTrainDodge;
+    [SerializeField] private Button buttonTrainRun;
+    [SerializeField] private Button buttonTrainIntelligence;
 
     [Header("Thành phần của Serias")]
     [SerializeField] private SpriteRenderer seriasRenderer;
+    [SerializeField] private Animator seriasAnimator;
     [SerializeField] private Sprite spriteSeriasWindUp;
+
+    [Header("Sprites - POW")]
     [SerializeField] private Sprite spriteSeriasHurricaneKick;
 
-    [Header("Môi trường")]
-    [SerializeField] private GameObject bgPower;
+    [Header("Sprites - DODGE")]
+    [SerializeField] private Sprite spriteSeriasLanding;
+    [SerializeField] private Sprite spriteSeriasSpinning;
 
-    [Header("Tương tác - Bao cát")]
+    [Header("Sprites - STUDY")]
+    [SerializeField] private Sprite spriteSeriasStudy;
+
+    [Header("Môi trường")]
+    [SerializeField] private GameObject bgPowerAndDodge;
+    [SerializeField] private GameObject bgRunning;
+    [SerializeField] private GameObject bgStudy;
+
+    [Header("Môi trường - Cuộn (Parallax cho Running)")]
+    [SerializeField] private SpriteRenderer[] scrollingLayers;
+    [SerializeField] private float[] scrollSpeeds = { 0.05f, 0.2f, 0.5f, 0.8f };
+
+    [Header("Tương tác - Bao cát (POW)")]
     [SerializeField] private SpriteRenderer bagRenderer;
     [SerializeField] private Sprite spriteBagNormal;
     [SerializeField] private Sprite spriteBagDeform;
 
+    [Header("Đạo cụ - Bóng bay (DODGE)")]
+    [SerializeField] private GameObject tennisBallPrefab;
+    [SerializeField] private string tennisBallPoolName = "TennisBallPool";
+    [SerializeField] private float ballFlySpeed = 0.5f;
+    [SerializeField] private Transform posBallSpawnLeft;
+    [SerializeField] private Transform posBallSpawnRight;
+    [SerializeField] private Transform ballContainer;
+
     [Header("Các vị trí - POW")]
     [SerializeField] private Transform positionStart;
-    [SerializeField] private Transform positionBackWindUp; // Điểm lùi nhẹ về sau lấy đà
-    [SerializeField] private Transform positionImpact;     // Điểm lơ lửng va chạm bao cát
-    [SerializeField] private Transform positionLanding;    // THÊM MỚI: Điểm rớt xuống đất sau khi đá xong
+    [SerializeField] private Transform positionBackWindUp;
+    [SerializeField] private Transform positionImpact;
+    [SerializeField] private Transform positionLanding;
+
+    [Header("Các vị trí - DODGE")]
+    [SerializeField] private Transform posEvadeLeft;
+    [SerializeField] private Transform posEvadeRight;
+
+    [Header("Các vị trí - RUN")]
+    [SerializeField] private Transform posRunCenter;
+
+    [Header("Các vị trí - STUDY")]
+    [SerializeField] private Transform posStudy;
+
+    [Header("Cấu hình - DODGE")]
+    [SerializeField] private float evadeJumpPower = 2.5f;
+    [SerializeField] private float evadeMoveDuration = 0.5f;
+    [SerializeField] private float evadePauseDuration = 0.4f;
+    [SerializeField] private int evadeSpins = 3;
+    [SerializeField] private float evadeRandomYRange = 0.5f;
 
     private Vector3 bagOriginalPosition;
     private Vector3 bagOriginalScale;
 
+    private Vector3 seriasOriginalScale;
+
     private Sequence activeTrainingSequence;
+    private int currentEvadeStep = 0;
+    private List<Transform> activeBalls = new List<Transform>();
+
+    private bool isScrolling = false;
 
     void Start()
     {
-        bagOriginalPosition = bagRenderer.transform.position;
-        bagOriginalScale = bagRenderer.transform.localScale;
+        if (bagRenderer != null)
+        {
+            bagOriginalPosition = bagRenderer.transform.position;
+            bagOriginalScale = bagRenderer.transform.localScale;
+        }
+
+        if (seriasRenderer != null)
+        {
+            seriasOriginalScale = seriasRenderer.transform.localScale;
+        }
 
         if (buttonTrainPower) buttonTrainPower.onClick.AddListener(PlayHurricaneKickTraining);
+        if (buttonTrainDodge) buttonTrainDodge.onClick.AddListener(PlayDodgeTraining);
+        if (buttonTrainRun) buttonTrainRun.onClick.AddListener(PlayRunTraining);
+        if (buttonTrainIntelligence) buttonTrainIntelligence.onClick.AddListener(PlayStudyTraining);
 
         StopAllAnimations();
+    }
+
+    void Update()
+    {
+        if (isScrolling && scrollingLayers != null)
+        {
+            for (int i = 0; i < scrollingLayers.Length; i++)
+            {
+                if (scrollingLayers[i] != null && scrollingLayers[i].material != null)
+                {
+                    Vector2 offset = scrollingLayers[i].material.mainTextureOffset;
+                    offset.x += scrollSpeeds[i] * Time.deltaTime;
+                    scrollingLayers[i].material.mainTextureOffset = offset;
+                }
+            }
+        }
     }
 
     private void StopAllAnimations()
     {
         if (activeTrainingSequence != null) activeTrainingSequence.Kill();
-        DOTween.Kill(seriasRenderer.transform);
-        DOTween.Kill(bagRenderer.transform);
 
-        seriasRenderer.transform.position = positionStart.position;
-        seriasRenderer.transform.rotation = Quaternion.identity;
-        seriasRenderer.flipX = false;
+        if (seriasRenderer != null)
+        {
+            DOTween.Kill(seriasRenderer.transform);
+            seriasRenderer.transform.localScale = seriasOriginalScale;
+        }
 
-        bagRenderer.transform.position = bagOriginalPosition;
-        bagRenderer.transform.localScale = bagOriginalScale;
-        bagRenderer.sprite = spriteBagNormal;
-        bagRenderer.enabled = false;
+        if (seriasAnimator != null) DOTween.Kill(seriasAnimator.transform);
+        if (bagRenderer != null) DOTween.Kill(bagRenderer.transform);
+
+        foreach (var ball in activeBalls)
+        {
+            if (ball != null) DOTween.Kill(ball);
+        }
+        activeBalls.Clear();
+
+        if (SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName))
+        {
+            SEP490G69.PoolManager.Pools[tennisBallPoolName].DespawnAll();
+        }
+
+        isScrolling = false;
+
+        if (seriasRenderer != null)
+        {
+            seriasRenderer.gameObject.SetActive(true);
+            seriasRenderer.transform.position = positionStart.position;
+            seriasRenderer.transform.rotation = Quaternion.identity;
+            seriasRenderer.flipX = false;
+        }
+
+        if (seriasAnimator != null)
+        {
+            seriasAnimator.gameObject.SetActive(false);
+        }
+
+        if (bagRenderer != null)
+        {
+            bagRenderer.transform.position = bagOriginalPosition;
+            bagRenderer.transform.localScale = bagOriginalScale;
+            bagRenderer.sprite = spriteBagNormal;
+            bagRenderer.enabled = false;
+        }
     }
 
     private void SetActiveBackground(GameObject activeBg)
     {
-        if (bgPower) bgPower.SetActive(false);
+        if (bgPowerAndDodge) bgPowerAndDodge.SetActive(false);
+        if (bgRunning) bgRunning.SetActive(false);
+        if (bgStudy) bgStudy.SetActive(false);
+
         if (activeBg) activeBg.SetActive(true);
+    }
+
+    // ================= BÀI TẬP STUDY (HỌC TẬP) =================
+    private void PlayStudyTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgStudy);
+
+        seriasRenderer.sprite = spriteSeriasStudy;
+        seriasRenderer.transform.position = posStudy != null ? posStudy.position : positionStart.position;
+        seriasRenderer.flipX = false;
+
+        activeTrainingSequence = DOTween.Sequence();
+
+        Vector3 targetScale = new Vector3(
+            seriasOriginalScale.x * 1.07f,
+            seriasOriginalScale.y * 0.93f,
+            seriasOriginalScale.z
+        );
+
+        activeTrainingSequence.Append(seriasRenderer.transform.DOScale(targetScale, 0.35f).SetEase(Ease.InOutCubic));
+
+        activeTrainingSequence.SetLoops(-1, LoopType.Yoyo);
+    }
+
+    // ================= BÀI TẬP RUN (CHẠY BỘ) =================
+    private void PlayRunTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgRunning);
+        isScrolling = true;
+
+        if (seriasRenderer != null) seriasRenderer.gameObject.SetActive(false);
+
+        if (seriasAnimator != null)
+        {
+            seriasAnimator.gameObject.SetActive(true);
+            seriasAnimator.transform.position = posRunCenter.position;
+            seriasAnimator.transform.rotation = Quaternion.identity;
+            seriasAnimator.Play("SeriasRunning");
+
+            activeTrainingSequence = DOTween.Sequence();
+            activeTrainingSequence.Append(seriasAnimator.transform.DOMoveY(posRunCenter.position.y + 0.1f, 0.3f).SetEase(Ease.InOutSine));
+            activeTrainingSequence.SetLoops(-1, LoopType.Yoyo);
+        }
     }
 
     // ================= BÀI TẬP POW (HURRICANE KICK) =================
     private void PlayHurricaneKickTraining()
     {
         StopAllAnimations();
-        SetActiveBackground(bgPower);
+        SetActiveBackground(bgPowerAndDodge);
         bagRenderer.enabled = true;
 
         activeTrainingSequence = DOTween.Sequence();
 
-        // Lấy các vị trí (nếu chưa kéo thả transform thì dùng fallback tự tính toán)
         Vector3 windUpPos = positionBackWindUp != null ? positionBackWindUp.position : positionStart.position + new Vector3(-0.5f, 0, 0);
         Vector3 landingPos = positionLanding != null ? positionLanding.position : positionStart.position + new Vector3(0.5f, 0, 0);
 
-        // --- CÁC MỐC THỜI GIAN (Điều chỉnh ở đây) ---
         float tSetup = 0f;
-        float tStartAttack = 0.2f;               // Nghỉ 0.2s để gom lực
-        float flyDuration = 0.3f;                // Thời gian bay từ Windup đến Impact
-        float hoverDuration = 0.6f;              // Thời gian lơ lửng xoay ở Impact
-        float dropDuration = 0.15f;              // Thời gian rớt từ Impact xuống Landing
-        float slideBackDuration = 0.3f;          // Thời gian lướt về lại Windup
+        float tStartAttack = 0.2f;
+        float flyDuration = 0.3f;
+        float hoverDuration = 0.6f;
+        float dropDuration = 0.15f;
+        float slideBackDuration = 0.3f;
 
-        int totalSpins = 6;                      // Tổng số vòng xoay theo trục Y
-        float totalSpinDuration = flyDuration + hoverDuration; // Vừa bay vừa lơ lửng đều xoay
+        int totalSpins = 6;
+        float totalSpinDuration = flyDuration + hoverDuration;
 
-        // 1. SETUP: Đứng ở chỗ Windup
         activeTrainingSequence.InsertCallback(tSetup, () => {
             seriasRenderer.transform.position = windUpPos;
             seriasRenderer.sprite = spriteSeriasWindUp;
             seriasRenderer.transform.rotation = Quaternion.identity;
         });
 
-        // 2. BẮT ĐẦU BAY VÀ XOAY
         activeTrainingSequence.InsertCallback(tStartAttack, () => {
             if (spriteSeriasHurricaneKick != null) seriasRenderer.sprite = spriteSeriasHurricaneKick;
         });
 
-        // Di chuyển dần đến Impact
         activeTrainingSequence.Insert(tStartAttack, seriasRenderer.transform.DOMove(positionImpact.position, flyDuration).SetEase(Ease.OutSine));
-        // Xoay liên tục theo trục Y (bao phủ cả lúc bay và lúc lơ lửng)
         activeTrainingSequence.Insert(tStartAttack, seriasRenderer.transform.DORotate(new Vector3(0, 360f * totalSpins, 0), totalSpinDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
 
-        // 3. IMPACT (Chạm bao cát)
         float tImpact = tStartAttack + flyDuration;
         activeTrainingSequence.InsertCallback(tImpact, () => {
             bagRenderer.sprite = spriteBagDeform;
-
-            // Rung bao cát dựa theo số vòng đã xoay
             int impactVibrato = totalSpins * 6;
             bagRenderer.transform.DOShakePosition(hoverDuration, strength: new Vector3(0.35f, 0, 0), vibrato: impactVibrato);
             bagRenderer.transform.DOShakeScale(hoverDuration, strength: 0.15f, vibrato: impactVibrato);
         });
 
-        // 4. HẠ CÁNH (Rớt xuống Landing Pos)
         float tDrop = tImpact + hoverDuration;
-        activeTrainingSequence.Insert(tDrop, seriasRenderer.transform.DOMove(landingPos, dropDuration).SetEase(Ease.InQuad));
-
-        // 5. TRƯỢT VỀ (Reset sprite và trượt về Windup)
-        float tResetAndSlide = tDrop + dropDuration;
-        activeTrainingSequence.InsertCallback(tResetAndSlide, () => {
-            // Dừng xoay, chạm đất
+        activeTrainingSequence.InsertCallback(tDrop, () => {
             seriasRenderer.transform.rotation = Quaternion.identity;
             seriasRenderer.sprite = spriteSeriasWindUp;
+        });
 
-            // Reset bao cát
+        activeTrainingSequence.Insert(tDrop, seriasRenderer.transform.DOMove(landingPos, dropDuration).SetEase(Ease.InQuad));
+
+        float tResetAndSlide = tDrop + dropDuration;
+        activeTrainingSequence.InsertCallback(tResetAndSlide, () => {
             bagRenderer.sprite = spriteBagNormal;
             bagRenderer.transform.position = bagOriginalPosition;
             bagRenderer.transform.localScale = bagOriginalScale;
         });
 
-        // Trượt lùi từ Landing về Windup
         activeTrainingSequence.Insert(tResetAndSlide, seriasRenderer.transform.DOMove(windUpPos, slideBackDuration).SetEase(Ease.OutExpo));
 
-        // 6. KẾT THÚC SEQUENCE & LẶP LẠI
-        float tEnd = tResetAndSlide + slideBackDuration + 0.1f; // Nghỉ 0.1s trước vòng mới
-        activeTrainingSequence.InsertCallback(tEnd, () => { }); // Trick nhỏ để DOTween biết Sequence dài bao lâu
+        float tEnd = tResetAndSlide + slideBackDuration + 0.1f;
+        activeTrainingSequence.InsertCallback(tEnd, () => { });
         activeTrainingSequence.SetLoops(-1, LoopType.Restart);
+    }
+
+    // ================= BÀI TẬP DODGE (NÉ TRÁNH) =================
+    private void PlayDodgeTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgPowerAndDodge);
+
+        seriasRenderer.transform.position = posEvadeLeft.position;
+        seriasRenderer.sprite = spriteSeriasLanding;
+        seriasRenderer.flipX = false;
+
+        currentEvadeStep = 0;
+        RunNextDodgeStep();
+    }
+
+    private void RunNextDodgeStep()
+    {
+        if (this == null || !gameObject.activeInHierarchy) return;
+
+        activeTrainingSequence = DOTween.Sequence();
+
+        bool isMovingRight = (currentEvadeStep % 2 == 0);
+        Transform startPos = isMovingRight ? posEvadeLeft : posEvadeRight;
+        Transform endPos = isMovingRight ? posEvadeRight : posEvadeLeft;
+
+        float spinAngleZ = isMovingRight ? -360f * evadeSpins : 360f * evadeSpins;
+
+        // 1. CHUẨN BỊ NHẢY
+        activeTrainingSequence.AppendCallback(() => {
+            seriasRenderer.sprite = spriteSeriasSpinning;
+            seriasRenderer.flipX = !isMovingRight;
+            seriasRenderer.transform.position = startPos.position;
+            seriasRenderer.transform.rotation = Quaternion.identity;
+        });
+
+        // 2. NHẢY & CUỘN
+        activeTrainingSequence.Append(seriasRenderer.transform.DOJump(endPos.position, evadeJumpPower, 1, evadeMoveDuration).SetEase(Ease.Linear));
+        activeTrainingSequence.Insert(0, seriasRenderer.transform.DORotate(new Vector3(0, 0, spinAngleZ), evadeMoveDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
+
+        // 3. SINH BÓNG BAY
+        int totalBalls = Random.Range(3, 6);
+        float timeStep = evadeMoveDuration / totalBalls;
+        bool isLeftTurn = Random.value > 0.5f;
+
+        for (int i = 0; i < totalBalls; i++)
+        {
+            float spawnDelay = timeStep * i;
+            Transform spawnPoint = isLeftTurn ? posBallSpawnLeft : posBallSpawnRight;
+            Transform destPoint = isLeftTurn ? posBallSpawnRight : posBallSpawnLeft;
+
+            activeTrainingSequence.InsertCallback(spawnDelay, () => ShootTennisBall(spawnPoint, destPoint));
+            isLeftTurn = !isLeftTurn;
+        }
+
+        // 4. TIẾP ĐẤT VÀ TẠO LỰC RUNG NHẸ NHÀNG
+        activeTrainingSequence.AppendCallback(() => {
+            seriasRenderer.transform.rotation = Quaternion.identity;
+            seriasRenderer.sprite = spriteSeriasLanding;
+            seriasRenderer.flipX = !isMovingRight;
+        });
+
+        // Nhún cực kỳ nhẹ: lún xuống 0.05 rồi nảy nhẹ (Vibrato = 2, Thời gian = 0.15s)
+        activeTrainingSequence.Append(seriasRenderer.transform.DOPunchScale(new Vector3(0.02f, -0.05f, 0), 0.15f, 2, 0.5f));
+        // Rung nhẹ biên độ thấp theo trục Y (0.05) trong 0.1s
+        activeTrainingSequence.Join(seriasRenderer.transform.DOShakePosition(0.1f, new Vector3(0f, 0.05f, 0f), 10));
+
+        // 5. NGHỈ TRƯỚC VÒNG TIẾP THEO
+        activeTrainingSequence.AppendInterval(evadePauseDuration);
+        activeTrainingSequence.OnComplete(() => {
+            currentEvadeStep++;
+            RunNextDodgeStep();
+        });
+    }
+
+    private void ShootTennisBall(Transform spawnPoint, Transform destPoint)
+    {
+        if (tennisBallPrefab == null || spawnPoint == null || destPoint == null) return;
+        if (!SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName)) return;
+
+        float randomY = Random.Range(-evadeRandomYRange, evadeRandomYRange);
+        Vector3 spawnPos = new Vector3(spawnPoint.position.x, spawnPoint.position.y + randomY, spawnPoint.position.z);
+        Vector3 endPos = new Vector3(destPoint.position.x, destPoint.position.y + randomY, destPoint.position.z);
+
+        Transform ball = SEP490G69.PoolManager.Pools[tennisBallPoolName].Spawn(tennisBallPrefab.transform, spawnPos, Quaternion.identity, ballContainer);
+
+        if (ball != null)
+        {
+            activeBalls.Add(ball);
+            ball.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            ball.DOMove(endPos, ballFlySpeed).SetEase(Ease.Linear).OnComplete(() => {
+                DOTween.Kill(ball);
+                activeBalls.Remove(ball);
+                if (SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName))
+                {
+                    SEP490G69.PoolManager.Pools[tennisBallPoolName].DespawnObject(ball);
+                }
+            });
+        }
     }
 }

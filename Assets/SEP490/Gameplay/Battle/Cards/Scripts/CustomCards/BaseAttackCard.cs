@@ -31,6 +31,8 @@ namespace SEP490G69.Battle
             CombatCameraController.Singleton.ShakeCamera();
             CombatCameraController.Singleton.ZoomCamera(true);
 
+            source.SpawnDmgToast(damage);
+
             // Has animation -> create 2 barriers to wait for 2 animations.
             AnimationBarrier barrier = new AnimationBarrier(2, () =>
             {

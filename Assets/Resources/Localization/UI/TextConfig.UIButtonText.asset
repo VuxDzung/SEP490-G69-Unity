@@ -68,6 +68,12 @@ MonoBehaviour:
       text: Login
     - language: 1
       text: "\u0110\u0103ng nh\u1EADp"
+  - id: btn_login_as_guest
+    textList:
+    - language: 0
+      text: Login as Guest
+    - language: 1
+      text: "\u0110\u0103ng nh\u1EADp t\xE0i kho\u1EA3n kh\xE1ch"
   - id: btn_register
     textList:
     - language: 0
@@ -218,3 +224,9 @@ MonoBehaviour:
       text: Sync now
     - language: 1
       text: "\u0110\u1ED3ng b\u1ED9"
+  - id: btn_finish
+    textList:
+    - language: 0
+      text: Finish
+    - language: 1
+      text: "K\u1EBFt th\xFAc"

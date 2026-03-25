@@ -1,5 +1,7 @@
 namespace SEP490G69.Battle.Combat
 {
+    using SEP490G69.Battle.Cards;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -55,6 +57,21 @@ namespace SEP490G69.Battle.Combat
             if(m_BuffEffectVFX != null)
             {
                 m_BuffEffectVFX.Stop();
+            }
+        }
+
+        public void PlayVfxList(IReadOnlyList<CardSpawnVfxData> vfxList)
+        {
+            StartCoroutine(SpawnVfxListCoroutine(vfxList));
+        }
+
+        private IEnumerator SpawnVfxListCoroutine(IReadOnlyList<CardSpawnVfxData> vfxList)
+        {
+            foreach (var vfx in vfxList)
+            {
+                yield return new WaitForSeconds(vfx.delay);
+
+                PlayVFXById(vfx.vfxId);
             }
         }
 

@@ -1,3 +1,4 @@
+#if UNITY_ANDROID || UNITY_IOS
 namespace SEP490G69.Authentication
 {
     using Google;
@@ -33,3 +34,4 @@ namespace SEP490G69.Authentication
         }
     }
 }
+#endif

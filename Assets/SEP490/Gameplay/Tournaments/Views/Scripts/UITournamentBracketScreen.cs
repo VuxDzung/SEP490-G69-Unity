@@ -13,15 +13,19 @@
 
         [Header("Elimination Slots (Starting 8)")]
         [SerializeField] private Image[] m_EliminationSlots = new Image[8]; // Order: L1,L2,... R1,R2,..
+        [SerializeField] private UITournamentSlot[] m_Eliminations;
 
         [Header("Quarter Final Slots (Winners 4)")]
         [SerializeField] private Image[] m_QuarterSlots = new Image[4]; // Gắn 4 Image: QL1, QL2, QR1, QR2
+        [SerializeField] private UITournamentSlot[] m_SemiFinals;
 
         [Header("Final Slots (Winners 2)")]
         [SerializeField] private Image[] m_FinalSlots = new Image[2]; // Gắn 2 Image: FinalL, FinalR
+        [SerializeField] private UITournamentSlot[] m_Finals;
 
         [Header("Champion")]
         [SerializeField] private Image m_ChampionSlot;
+        [SerializeField] private UITournamentSlot m_Champion;
 
         [Header("Controls")]
         [SerializeField] private Button m_BtnContinue; // Nút để ấn Next Match
@@ -55,23 +59,26 @@
 
             m_TmpTournamentName.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOUR_NAMES, tournamentNameKey);
 
-            ClearSlots(m_QuarterSlots);
-            ClearSlots(m_FinalSlots);
+            ClearSlots(m_SemiFinals);
+            ClearSlots(m_Finals);
             ClearChampion();
+
             Debug.Log("ELIMINATION_ROUND");
             // Setup 8 participants
-            for (int i = 0; i < m_EliminationSlots.Length; i++)
+            for (int i = 0; i < m_Eliminations.Length; i++)
             {
                 if (i < participants.Count)
                 {
                     Debug.Log($"Participant: {participants[i].Name}. Slot: {i}");
-                    m_EliminationSlots[i].sprite = participants[i].Avatar;
-                    m_EliminationSlots[i].color = Color.white;
+                    m_Eliminations[i].SetSlot(participants[i].Avatar, participants[i].IsPlayer);
+                    //m_EliminationSlots[i].sprite = participants[i].Avatar;
+                    //m_EliminationSlots[i].color = Color.white;
                 }
                 else
                 {
-                    m_EliminationSlots[i].sprite = null;
-                    m_EliminationSlots[i].color = new Color(1, 1, 1, 0);
+                    m_Eliminations[i].SetSlot(null, false);
+                    //m_EliminationSlots[i].sprite = null;
+                    //m_EliminationSlots[i].color = new Color(1, 1, 1, 0);
                 }
             }
         }
@@ -99,18 +106,19 @@
             }
 
             // Left side
-            SetSlot(m_QuarterSlots[0], winners[0]);
-            SetSlot(m_QuarterSlots[1], winners[1]);
+            SetSlot(m_SemiFinals[0], winners[0]);
+            SetSlot(m_SemiFinals[1], winners[1]);
 
             // Right side
-            SetSlot(m_QuarterSlots[2], winners[2]);
-            SetSlot(m_QuarterSlots[3], winners[3]);
+            SetSlot(m_SemiFinals[2], winners[2]);
+            SetSlot(m_SemiFinals[3], winners[3]);
         }
 
-        private void SetSlot(Image slot, TournamentParticipant participant)
+        private void SetSlot(UITournamentSlot slot, TournamentParticipant participant)
         {
-            slot.sprite = participant.Avatar;
-            slot.color = Color.white;
+            slot.SetSlot(participant.Avatar, participant.IsPlayer);
+            //slot.sprite = participant.Avatar;
+            //slot.color = Color.white;
         }
 
         public void UpdateSemiFinals(List<TournamentParticipant> winners)
@@ -125,8 +133,8 @@
             //}
             if (winners.Count < 2) return;
 
-            SetSlot(m_FinalSlots[0], winners[0]); // Left semi winner
-            SetSlot(m_FinalSlots[1], winners[1]); // Right semi winner
+            SetSlot(m_Finals[0], winners[0]); // Left semi winner
+            SetSlot(m_Finals[1], winners[1]); // Right semi winner
         }
 
         public void UpdateFinal(List<TournamentParticipant> winners)
@@ -161,8 +169,9 @@
 
         public void ShowChampion(TournamentParticipant champion)
         {
-            m_ChampionSlot.sprite = champion.Avatar;
-            m_ChampionSlot.color = Color.white;
+            m_Champion.SetSlot(champion.Avatar, champion.IsPlayer);
+            //m_ChampionSlot.sprite = champion.Avatar;
+            //m_ChampionSlot.color = Color.white;
 
             m_BtnContinue.interactable = false;
         }
@@ -171,19 +180,21 @@
         // HELPERS
         // ==========================================
 
-        private void ClearSlots(Image[] slots)
+        private void ClearSlots(UITournamentSlot[] slots)
         {
-            foreach (var img in slots)
+            foreach (var slot in slots)
             {
-                img.sprite = null;
-                img.color = new Color(1, 1, 1, 0);
+                slot.SetSlot(null, false);
+                //img.sprite = null;
+                //img.color = new Color(1, 1, 1, 0);
             }
         }
 
         private void ClearChampion()
         {
-            m_ChampionSlot.sprite = null;
-            m_ChampionSlot.color = new Color(1, 1, 1, 0);
+            m_Champion.SetSlot(null, false);
+            //m_ChampionSlot.sprite = null;
+            //m_ChampionSlot.color = new Color(1, 1, 1, 0);
         }
 
         private void OnContinueClicked()

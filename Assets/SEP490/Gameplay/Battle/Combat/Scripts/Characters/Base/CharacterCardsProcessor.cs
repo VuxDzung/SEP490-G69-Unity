@@ -107,7 +107,7 @@ namespace SEP490G69.Battle.Combat
                 return 0;
             }
             float baseDmg = CalculateBaseDmg(_selectedCard);
-            _owner.StatOutputDmg.SetCurrentValue(baseDmg);
+            if (writeToDmgOutput) _owner.StatOutputDmg.SetCurrentValue(baseDmg);
             return baseDmg;
         }
 
@@ -127,7 +127,7 @@ namespace SEP490G69.Battle.Combat
             }
 
             float damage = card.BaseValue + card.GetDelta(status.Value);
-
+            damage = (float) System.Math.Round(damage, 0);
             Debug.Log($"{gameObject.name} deal pure dmg: {damage}\nExtra final dmg: {_owner.StatOutputDmg.Value}");
 
             return damage;

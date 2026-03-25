@@ -33,11 +33,11 @@ public class SakuraTrainingTester : MonoBehaviour
     [SerializeField] private float ballFlySpeed = 0.5f;
 
     [Header("Cấu hình Bóng bay & Mask")]
-    [SerializeField] private Transform posBallSpawnLeft;   // Điểm bắn bóng bên trái
-    [SerializeField] private Transform posBallSpawnRight;  // Điểm bắn bóng bên phải
-    [SerializeField] private Transform ballContainer;      // Nơi chứa bóng để gắn Sprite Mask
+    [SerializeField] private Transform posBallSpawnLeft;   // Điểm bắn bóng bên trái
+    [SerializeField] private Transform posBallSpawnRight;  // Điểm bắn bóng bên phải
+    [SerializeField] private Transform ballContainer;      // Nơi chứa bóng để gắn Sprite Mask
 
-    [Header("Các Backgrounds (Môi trường)")]
+    [Header("Các Backgrounds (Môi trường)")]
     [SerializeField] private GameObject bgPowAndEvade;
     [SerializeField] private GameObject bgStudy;
     [SerializeField] private GameObject bgRunning;
@@ -67,7 +67,7 @@ public class SakuraTrainingTester : MonoBehaviour
 
     [SerializeField] private float evadeRandomYRange = 0.5f;
     [SerializeField] private float evadeMoveDuration = 0.4f; // Tăng nhẹ thời gian di chuyển để nhìn rõ mưa bóng
-    [SerializeField] private float evadePauseDuration = 0.4f;
+    [SerializeField] private float evadePauseDuration = 0.4f;
     [SerializeField] private int evadeSpins = 3;
 
     private Vector3 bagOriginalPosition;
@@ -148,8 +148,8 @@ public class SakuraTrainingTester : MonoBehaviour
         if (activeBg) activeBg.SetActive(true);
     }
 
-    // ================= CÁC BÀI TẬP BÌNH THƯỜNG =================
-    private void PlayPowerTraining()
+    // ================= CÁC BÀI TẬP BÌNH THƯỜNG =================
+    private void PlayPowerTraining()
     {
         StopAllAnimations();
         SetActiveBackground(bgPowAndEvade);
@@ -223,8 +223,8 @@ public class SakuraTrainingTester : MonoBehaviour
         t.DOLocalRotate(new Vector3(0, 0, 10f), 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 
-    // ================== BÀI TẬP NÉ TRÁNH (EVADE) ==================
-    private void PlayEvadeTraining()
+    // ================== BÀI TẬP NÉ TRÁNH (EVADE) ==================
+    private void PlayEvadeTraining()
     {
         StopAllAnimations();
         SetActiveBackground(bgPowAndEvade);
@@ -258,31 +258,31 @@ public class SakuraTrainingTester : MonoBehaviour
             sakuraRenderer.transform.rotation = Quaternion.identity;
         });
 
-        // Di chuyển và quay
-        activeTrainingSequence.Append(sakuraRenderer.transform.DOMove(targetPosition, evadeMoveDuration).SetEase(Ease.OutSine));
+        // Di chuyển và quay
+        activeTrainingSequence.Append(sakuraRenderer.transform.DOMove(targetPosition, evadeMoveDuration).SetEase(Ease.OutSine));
         activeTrainingSequence.Insert(0, sakuraRenderer.transform.DORotate(new Vector3(0, 360f * evadeSpins, 0), evadeMoveDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
 
-        // ---------------- THAY ĐỔI LOGIC BẮN BÓNG SO LE ----------------
-        int totalBalls = Random.Range(3, 6); // Bắn từ 3 đến 5 quả bóng mỗi lượt
-        float timeStep = evadeMoveDuration / totalBalls; // Chia đều khoảng thời gian
-        bool isLeftTurn = Random.value > 0.5f; // Random xem bên nào (Trái/Phải) được bắn quả đầu tiên
+        // ---------------- THAY ĐỔI LOGIC BẮN BÓNG SO LE ----------------
+        int totalBalls = Random.Range(3, 6); // Bắn từ 3 đến 5 quả bóng mỗi lượt
+        float timeStep = evadeMoveDuration / totalBalls; // Chia đều khoảng thời gian
+        bool isLeftTurn = Random.value > 0.5f; // Random xem bên nào (Trái/Phải) được bắn quả đầu tiên
 
-        for (int i = 0; i < totalBalls; i++)
+        for (int i = 0; i < totalBalls; i++)
         {
             float spawnDelay = timeStep * i;
 
-            // Luân phiên đảo bên bắn
-            Transform spawnPoint = isLeftTurn ? posBallSpawnLeft : posBallSpawnRight;
+            // Luân phiên đảo bên bắn
+            Transform spawnPoint = isLeftTurn ? posBallSpawnLeft : posBallSpawnRight;
             Transform destPoint = isLeftTurn ? posBallSpawnRight : posBallSpawnLeft;
 
             activeTrainingSequence.InsertCallback(spawnDelay, () => ShootTennisBall(spawnPoint, destPoint));
 
-            // Đổi cờ để quả bóng kế tiếp bắn từ hướng ngược lại
-            isLeftTurn = !isLeftTurn;
+            // Đổi cờ để quả bóng kế tiếp bắn từ hướng ngược lại
+            isLeftTurn = !isLeftTurn;
         }
-        // -------------------------------------------------------------
+        // -------------------------------------------------------------
 
-        activeTrainingSequence.AppendCallback(() => {
+        activeTrainingSequence.AppendCallback(() => {
             sakuraRenderer.transform.rotation = Quaternion.identity;
             sakuraRenderer.sprite = targetSprite;
             sakuraRenderer.flipX = isMovingRight;
@@ -295,8 +295,8 @@ public class SakuraTrainingTester : MonoBehaviour
         });
     }
 
-    // ================= LOGIC SINH BÓNG TỪ 2 BÊN =================
-    private void ShootTennisBall(Transform spawnPoint, Transform destPoint)
+    // ================= LOGIC SINH BÓNG TỪ 2 BÊN =================
+    private void ShootTennisBall(Transform spawnPoint, Transform destPoint)
     {
         if (tennisBallPrefab == null || spawnPoint == null || destPoint == null) return;
 
@@ -306,8 +306,8 @@ public class SakuraTrainingTester : MonoBehaviour
             return;
         }
 
-        // Random vị trí Y để bóng bay so le trên/dưới
-        float randomY = Random.Range(-evadeRandomYRange, evadeRandomYRange);
+        // Random vị trí Y để bóng bay so le trên/dưới
+        float randomY = Random.Range(-evadeRandomYRange, evadeRandomYRange);
         Vector3 spawnPos = new Vector3(spawnPoint.position.x, spawnPoint.position.y + randomY, spawnPoint.position.z);
         Vector3 endPos = new Vector3(destPoint.position.x, destPoint.position.y + randomY, destPoint.position.z);
 
@@ -318,8 +318,8 @@ public class SakuraTrainingTester : MonoBehaviour
             activeBalls.Add(ball);
 
             ball.DORotate(new Vector3(0, 0, 360f), 0.5f, RotateMode.FastBeyond360)
-                .SetEase(Ease.Linear)
-                .SetLoops(-1, LoopType.Restart);
+              .SetEase(Ease.Linear)
+              .SetLoops(-1, LoopType.Restart);
 
             ball.DOMove(endPos, ballFlySpeed).SetEase(Ease.Linear).OnComplete(() => {
                 DOTween.Kill(ball);
@@ -333,3 +333,4 @@ public class SakuraTrainingTester : MonoBehaviour
         }
     }
 }
+

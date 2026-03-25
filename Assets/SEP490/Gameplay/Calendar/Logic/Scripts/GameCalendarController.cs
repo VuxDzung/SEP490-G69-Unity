@@ -1,5 +1,6 @@
 namespace SEP490G69.Calendar
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using SEP490G69.Addons.Localization;
@@ -124,6 +125,25 @@ namespace SEP490G69.Calendar
             {
                 Debug.Log("Current session data is null");
             }
+
+            CheckPendingTournamentResult(sessionId, out bool needCreateSnapshot, () =>
+            {
+                float fadeDur = 1f;
+                float inFadeDur = 1f;
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_MAIN_MENU);
+
+                FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+                {
+                    TrainingController.OpenMainMenuBG();
+                    GoToNextWeek(true);
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+                });
+            }, () => { });
+
+            if (needCreateSnapshot == true)
+            {
+                // Create snapshot here.
+            }
         }
 
         private void HandleTrainingCompleteEvent(TrainingCompletedEvent trainingCompletedEvent)
@@ -152,39 +172,56 @@ namespace SEP490G69.Calendar
         /// <param name="ev"></param>
         private void HandleEndTournamentEvent(EndTournamentEvent ev)
         {
-            float fadeDur = 1f;
-            float inFadeDur = 1f;
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            //float fadeDur = 1f;
+            //float inFadeDur = 1f;
+            //string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
-            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+            //CheckPendingTournamentResult(sessionId, out bool needToCreateSnapshot, () => { }, () => { });
 
-            if (sessionData == null)
+            //FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            //{
+            //    TrainingController.HideTrainingMenuBG();
+            //    TrainingController.OpenMainMenuBG();
+            //    GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+            //    GoToNextWeek(true);
+
+            //    if (needToCreateSnapshot == true)
+            //    {
+            //        // Create snapshot here.
+            //    }
+
+            //    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+            //});
+        }
+
+        private void CheckPendingTournamentResult(string sessionId, out bool needCreateSnapshot, Action onTournamentDeleted, Action onCancelDeleteTournament)
+        {
+            needCreateSnapshot = false;
+
+            _currentSesssion = _sessionDAO.GetById(sessionId);
+
+            if (_currentSesssion == null)
             {
-                Debug.Log($"<color=red>[GameCalendarController.HandleEndTournamentEvent error]</color> No session data exist with id {sessionData.SessionId}");
+                Debug.Log($"<color=red>[GameCalendarController.HandleEndTournamentEvent error]</color> No session data exist with id {_currentSesssion.SessionId}");
                 return;
             }
 
             // Only clear the active tournament if the logic does not have any error or
             // it does not have any pending condition such as lose the checkpoint tournament or pass the final tournament.
-            bool canClearActiveTournament = DetermineTournamentResult(sessionData, out bool needToCreateSnapshot);
+            bool canClearActiveTournament = DetermineTournamentResult(_currentSesssion, out bool needToCreateSnapshot);
 
             // Delete the tournament progression and continue to next week.
-            if (canClearActiveTournament) DeleteActiveTournamentData(sessionData);
-
-            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            if (canClearActiveTournament)
             {
-                TrainingController.HideTrainingMenuBG();
-                TrainingController.OpenMainMenuBG();
-                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
-                GoToNextWeek(true);
-
-                if (needToCreateSnapshot == true)
-                {
-                    // Create snapshot here.
-                }
-
-                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
-            });
+                Debug.Log("Can delete tournament data");
+                DeleteActiveTournamentData(_currentSesssion);
+                onTournamentDeleted?.Invoke();
+            }
+            else
+            {
+                Debug.Log("No deletation is allowed.");
+                onCancelDeleteTournament?.Invoke();
+            }
         }
 
         private bool DetermineTournamentResult(PlayerTrainingSession sessionData, out bool needToCreateSnapshot)

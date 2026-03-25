@@ -2,6 +2,8 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     public class BaseCard
@@ -24,6 +26,18 @@ namespace SEP490G69.Battle
             ApplyStatModifiers(source, target, Data.PreStatModifiers);
 
             ExecuteAction(source, target);
+
+            if (Data.VfxList.Count > 0)
+            {
+                List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
+                List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
+
+                if (selfVfxList.Count > 0)
+                    source.VFXController.PlayVfxList(selfVfxList);
+
+                if (opponentVfxList.Count > 0)
+                    target.VFXController.PlayVfxList(opponentVfxList);
+            }
 
             ApplyStatModifiers(source, target, Data.PostStatModifiers);
 

@@ -38,6 +38,15 @@ namespace SEP490G69.GameSessions
             try
             {
                 string playerId = _auth.GetUserId();
+
+                string deviceId = _auth.GetDeviceId();
+
+                if (playerId == deviceId)
+                {
+                    Debug.Log("<color=red>[GameSyncController.SyncPlayerData warning] You are using a Guest account. By our rule, guest account cannot sync data accross devices.</color>");
+                    return;
+                }
+
                 string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
                 var state = await _decisionService.Decide(playerId, sessionId);

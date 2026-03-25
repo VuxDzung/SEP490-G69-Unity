@@ -26,15 +26,16 @@ namespace SEP490G69
             }
         }
 
-        public void SetMessage(string message, Color color, float aliveTime)
+        public void SetMessage(string message, Color color, float aliveTime, float endYValue, float textSize)
         {
             if (m_MsgTmp != null)
             {
                 m_MsgTmp.color = color;
                 m_MsgTmp.text = message;
                 _aliveTime = aliveTime;
+                m_MsgTmp.fontSize = textSize;
 
-                float targetY = transform.position.y + 3f;
+                float targetY = transform.position.y + endYValue;
 
                 transform.DOMoveY(targetY, _aliveTime).OnComplete(() =>
                 {

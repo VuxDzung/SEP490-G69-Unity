@@ -192,12 +192,12 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -205,12 +205,12 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -231,793 +231,793 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: img_sakura_idle_anim_0
+      name: spritesheet_idle_ch_0003_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c7b28fdff57c04530800000000000000
-      internalID: 3837286097616382844
+      spriteID: 487383237dcf3d14fa2bee2d8c60ad18
+      internalID: 2146612928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_1
+      name: spritesheet_idle_ch_0003_1
       rect:
         serializedVersion: 2
         x: 270
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ae806d93e81ffd280800000000000000
-      internalID: -9016222335814465302
+      spriteID: fe5c20a339b29274c9a796a47c7e98b8
+      internalID: 1981063739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_2
+      name: spritesheet_idle_ch_0003_2
       rect:
         serializedVersion: 2
         x: 540
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ec3ee5e1ef286cd60800000000000000
-      internalID: 7910153823465694158
+      spriteID: c6ec4c4c40aefea4aacf7f6d1a327af2
+      internalID: 269048491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_3
+      name: spritesheet_idle_ch_0003_3
       rect:
         serializedVersion: 2
         x: 810
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 53ae77aa7b4ae3090800000000000000
-      internalID: -8052817974945912267
+      spriteID: 1ba99ec6c39aed9479218f787ff03839
+      internalID: -145469083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_4
+      name: spritesheet_idle_ch_0003_4
       rect:
         serializedVersion: 2
         x: 1080
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b26a4725f39d32a90800000000000000
-      internalID: -7339784101694233045
+      spriteID: 924f559f349a06b46ad3e8f4f1f0093b
+      internalID: -1629362937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_5
+      name: spritesheet_idle_ch_0003_5
       rect:
         serializedVersion: 2
         x: 1350
-        y: 1415
+        y: 1414
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6dc7501103e9266a0800000000000000
-      internalID: -6457424986414678826
+      spriteID: 82997b85564c85b448c4a07ba1cfba6d
+      internalID: -1553187149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_6
+      name: spritesheet_idle_ch_0003_6
       rect:
         serializedVersion: 2
         x: 0
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2f02a5a385e539fe0800000000000000
-      internalID: -1183498544039190286
+      spriteID: 7d1b9504d1775b940aee9e74fee2e18a
+      internalID: -1718579159
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_7
+      name: spritesheet_idle_ch_0003_7
       rect:
         serializedVersion: 2
         x: 270
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 14313777c87c0df10800000000000000
-      internalID: 2292551616444961601
+      spriteID: 4dde3f74605861043a828eb90d4752f4
+      internalID: 898910069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_8
+      name: spritesheet_idle_ch_0003_8
       rect:
         serializedVersion: 2
         x: 540
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ab02d948e2d788050800000000000000
-      internalID: 5803025758613741754
+      spriteID: 9ab7e1969029d3b40af6747ac80d7793
+      internalID: 415445456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_9
+      name: spritesheet_idle_ch_0003_9
       rect:
         serializedVersion: 2
         x: 810
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2add24b6b159a3fa0800000000000000
-      internalID: -5820175623426744926
+      spriteID: c4baaad3d806ba742820b0379cf99a4b
+      internalID: 1016600794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_10
+      name: spritesheet_idle_ch_0003_10
       rect:
         serializedVersion: 2
         x: 1080
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f8499d6151ad7e2d0800000000000000
-      internalID: -3249388822011997041
+      spriteID: ac49e3787c5268547956e0beb7d90172
+      internalID: 198299557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_11
+      name: spritesheet_idle_ch_0003_11
       rect:
         serializedVersion: 2
         x: 1350
         y: 1132
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bcf9e4f3b9f514990800000000000000
-      internalID: -7403531192033697845
+      spriteID: 29de6faad765d424ead95e010e91b403
+      internalID: 1421356321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_12
+      name: spritesheet_idle_ch_0003_12
       rect:
         serializedVersion: 2
         x: 0
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 34dad71849ae5ada0800000000000000
-      internalID: -5934079010442203837
+      spriteID: e24853bc8ae5ef4488aad4650da73eed
+      internalID: 1252528198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_13
+      name: spritesheet_idle_ch_0003_13
       rect:
         serializedVersion: 2
         x: 270
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a4bcdaef45efe9310800000000000000
-      internalID: 1413846974044425034
+      spriteID: b45983b1345873444b77368f02878209
+      internalID: 2080614184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_14
+      name: spritesheet_idle_ch_0003_14
       rect:
         serializedVersion: 2
         x: 540
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 756a384797cef6500800000000000000
-      internalID: 391791698994505303
+      spriteID: ec8a0bf573b007043a6afa728118558b
+      internalID: 1109219726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_15
+      name: spritesheet_idle_ch_0003_15
       rect:
         serializedVersion: 2
         x: 810
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1d6d9940606b5e150800000000000000
-      internalID: 5901323023702152913
+      spriteID: 2d24dc51dd151dd45b431a17f64103de
+      internalID: -1256937911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_16
+      name: spritesheet_idle_ch_0003_16
       rect:
         serializedVersion: 2
         x: 1080
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d1947d06420510e30800000000000000
-      internalID: 4467940422502009117
+      spriteID: a2d0a5e255893044b97c9fe52d535047
+      internalID: -246109182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_17
+      name: spritesheet_idle_ch_0003_17
       rect:
         serializedVersion: 2
         x: 1350
-        y: 849
+        y: 850
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a01b4611d9c07d430800000000000000
-      internalID: 3807525878706254090
+      spriteID: 4a6f0f9613201d54cbbc3260e1d9decc
+      internalID: 1347845351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_18
+      name: spritesheet_idle_ch_0003_18
       rect:
         serializedVersion: 2
         x: 0
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 327f679ba716ae500800000000000000
-      internalID: 426260294465419043
+      spriteID: 62fba35ee6fa29140b25d5c8a67d7021
+      internalID: 1276658458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_19
+      name: spritesheet_idle_ch_0003_19
       rect:
         serializedVersion: 2
         x: 270
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 80ee572e721b9fc10800000000000000
-      internalID: 2087894687124155912
+      spriteID: eb431e91b1b241f4b9d25ddf44cd0cf3
+      internalID: -34365218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_20
+      name: spritesheet_idle_ch_0003_20
       rect:
         serializedVersion: 2
         x: 540
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f139ee6e639e0af70800000000000000
-      internalID: 9196606861102453535
+      spriteID: 8929f7490e7dd104b99c85f055b5b584
+      internalID: -1746824110
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_21
+      name: spritesheet_idle_ch_0003_21
       rect:
         serializedVersion: 2
         x: 810
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2c2281b721e131740800000000000000
-      internalID: 5121470265973809858
+      spriteID: a6503443d6c1a0b429e23563967695b8
+      internalID: 1694484852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_22
+      name: spritesheet_idle_ch_0003_22
       rect:
         serializedVersion: 2
         x: 1080
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 22e4b857f68378d60800000000000000
-      internalID: 7892338923354672674
+      spriteID: 1186f918653da3043840176d0c2ef7bd
+      internalID: 281295324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_23
+      name: spritesheet_idle_ch_0003_23
       rect:
         serializedVersion: 2
         x: 1350
-        y: 566
+        y: 568
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: eeb29ce3e2cc347a0800000000000000
-      internalID: -6394042546942039058
+      spriteID: 07f5f1a63ae0fce4ab15d82e4b45f73e
+      internalID: -987397283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_24
+      name: spritesheet_idle_ch_0003_24
       rect:
         serializedVersion: 2
         x: 0
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aef93ad4652d0f2d0800000000000000
-      internalID: -3246864063222538262
+      spriteID: 4675bdc77defaf74684760b4314901fe
+      internalID: 321614590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_25
+      name: spritesheet_idle_ch_0003_25
       rect:
         serializedVersion: 2
         x: 270
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a34cbe566a71162c0800000000000000
-      internalID: -4440241754168638406
+      spriteID: 98bc281da29479341b30d69257481ae5
+      internalID: 836884495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_26
+      name: spritesheet_idle_ch_0003_26
       rect:
         serializedVersion: 2
         x: 540
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7ce7131639c4d6740800000000000000
-      internalID: 5146854145028882119
+      spriteID: 348bea04cba7e684e8bac5d3a0e21b72
+      internalID: 1421537239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_27
+      name: spritesheet_idle_ch_0003_27
       rect:
         serializedVersion: 2
         x: 810
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 807795adcb257b7a0800000000000000
-      internalID: -6361524977566910712
+      spriteID: 022e9054816eac84d955ca01cb3c536a
+      internalID: 714124093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_28
+      name: spritesheet_idle_ch_0003_28
       rect:
         serializedVersion: 2
         x: 1080
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e1cbc084565f4b190800000000000000
-      internalID: -7947457627052786658
+      spriteID: f2da279921642af4697310baaa68303d
+      internalID: -1637405947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_29
+      name: spritesheet_idle_ch_0003_29
       rect:
         serializedVersion: 2
         x: 1350
-        y: 283
+        y: 286
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 602aae9b1f89a0290800000000000000
-      internalID: -7923352430431264250
+      spriteID: 9d0484fefe8effd4a9de91d445a6d5c1
+      internalID: -2126874676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_30
+      name: spritesheet_idle_ch_0003_30
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d7cb32773b3b0dfe0800000000000000
-      internalID: -1166234720109609859
+      spriteID: 4775b0b2d2799a74e8261905f5552824
+      internalID: 1068631072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_31
+      name: spritesheet_idle_ch_0003_31
       rect:
         serializedVersion: 2
         x: 270
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aacaaad7732e550f0800000000000000
-      internalID: -1128747403627025238
+      spriteID: f470232dcd768bb4abf8585313047540
+      internalID: 437949284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_32
+      name: spritesheet_idle_ch_0003_32
       rect:
         serializedVersion: 2
         x: 540
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c04628b27e2305700800000000000000
-      internalID: 526977124851147788
+      spriteID: ba87264e5794c0d42a87db66faa50a1b
+      internalID: -1893194785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_33
+      name: spritesheet_idle_ch_0003_33
       rect:
         serializedVersion: 2
         x: 810
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 145835b1e650d77e0800000000000000
-      internalID: -1766249508396366527
+      spriteID: d8a2e6174f6de1542b2972f18d00ef48
+      internalID: 1588688727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_34
+      name: spritesheet_idle_ch_0003_34
       rect:
         serializedVersion: 2
         x: 1080
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c86533f0234e97070800000000000000
-      internalID: 8104759908084438668
+      spriteID: 0083f919e56ee2048ad9bbd046009818
+      internalID: -804729614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: img_sakura_idle_anim_35
+      name: spritesheet_idle_ch_0003_35
       rect:
         serializedVersion: 2
         x: 1350
-        y: 0
+        y: 4
         width: 270
-        height: 283
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e873971ba080fd7d0800000000000000
-      internalID: -2891583593728362610
+      spriteID: ed15f0d96813e6a419b2738472d77a9d
+      internalID: -2034481478
       vertices: []
       indices: 
       edges: []
@@ -1036,42 +1036,42 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      img_sakura_idle_anim_0: 3837286097616382844
-      img_sakura_idle_anim_1: -9016222335814465302
-      img_sakura_idle_anim_10: -3249388822011997041
-      img_sakura_idle_anim_11: -7403531192033697845
-      img_sakura_idle_anim_12: -5934079010442203837
-      img_sakura_idle_anim_13: 1413846974044425034
-      img_sakura_idle_anim_14: 391791698994505303
-      img_sakura_idle_anim_15: 5901323023702152913
-      img_sakura_idle_anim_16: 4467940422502009117
-      img_sakura_idle_anim_17: 3807525878706254090
-      img_sakura_idle_anim_18: 426260294465419043
-      img_sakura_idle_anim_19: 2087894687124155912
-      img_sakura_idle_anim_2: 7910153823465694158
-      img_sakura_idle_anim_20: 9196606861102453535
-      img_sakura_idle_anim_21: 5121470265973809858
-      img_sakura_idle_anim_22: 7892338923354672674
-      img_sakura_idle_anim_23: -6394042546942039058
-      img_sakura_idle_anim_24: -3246864063222538262
-      img_sakura_idle_anim_25: -4440241754168638406
-      img_sakura_idle_anim_26: 5146854145028882119
-      img_sakura_idle_anim_27: -6361524977566910712
-      img_sakura_idle_anim_28: -7947457627052786658
-      img_sakura_idle_anim_29: -7923352430431264250
-      img_sakura_idle_anim_3: -8052817974945912267
-      img_sakura_idle_anim_30: -1166234720109609859
-      img_sakura_idle_anim_31: -1128747403627025238
-      img_sakura_idle_anim_32: 526977124851147788
-      img_sakura_idle_anim_33: -1766249508396366527
-      img_sakura_idle_anim_34: 8104759908084438668
-      img_sakura_idle_anim_35: -2891583593728362610
-      img_sakura_idle_anim_4: -7339784101694233045
-      img_sakura_idle_anim_5: -6457424986414678826
-      img_sakura_idle_anim_6: -1183498544039190286
-      img_sakura_idle_anim_7: 2292551616444961601
-      img_sakura_idle_anim_8: 5803025758613741754
-      img_sakura_idle_anim_9: -5820175623426744926
+      spritesheet_idle_ch_0003_0: 2146612928
+      spritesheet_idle_ch_0003_1: 1981063739
+      spritesheet_idle_ch_0003_10: 198299557
+      spritesheet_idle_ch_0003_11: 1421356321
+      spritesheet_idle_ch_0003_12: 1252528198
+      spritesheet_idle_ch_0003_13: 2080614184
+      spritesheet_idle_ch_0003_14: 1109219726
+      spritesheet_idle_ch_0003_15: -1256937911
+      spritesheet_idle_ch_0003_16: -246109182
+      spritesheet_idle_ch_0003_17: 1347845351
+      spritesheet_idle_ch_0003_18: 1276658458
+      spritesheet_idle_ch_0003_19: -34365218
+      spritesheet_idle_ch_0003_2: 269048491
+      spritesheet_idle_ch_0003_20: -1746824110
+      spritesheet_idle_ch_0003_21: 1694484852
+      spritesheet_idle_ch_0003_22: 281295324
+      spritesheet_idle_ch_0003_23: -987397283
+      spritesheet_idle_ch_0003_24: 321614590
+      spritesheet_idle_ch_0003_25: 836884495
+      spritesheet_idle_ch_0003_26: 1421537239
+      spritesheet_idle_ch_0003_27: 714124093
+      spritesheet_idle_ch_0003_28: -1637405947
+      spritesheet_idle_ch_0003_29: -2126874676
+      spritesheet_idle_ch_0003_3: -145469083
+      spritesheet_idle_ch_0003_30: 1068631072
+      spritesheet_idle_ch_0003_31: 437949284
+      spritesheet_idle_ch_0003_32: -1893194785
+      spritesheet_idle_ch_0003_33: 1588688727
+      spritesheet_idle_ch_0003_34: -804729614
+      spritesheet_idle_ch_0003_35: -2034481478
+      spritesheet_idle_ch_0003_4: -1629362937
+      spritesheet_idle_ch_0003_5: -1553187149
+      spritesheet_idle_ch_0003_6: -1718579159
+      spritesheet_idle_ch_0003_7: 898910069
+      spritesheet_idle_ch_0003_8: 415445456
+      spritesheet_idle_ch_0003_9: 1016600794
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

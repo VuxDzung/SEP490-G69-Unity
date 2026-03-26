@@ -151,3 +151,21 @@ MonoBehaviour:
       text: Usable
     - language: 1
       text: "\u0110\u1ED3 ti\xEAu hao"
+  - id: msg_easy
+    textList:
+    - language: 0
+      text: Easy
+    - language: 1
+      text: "D\u1EC5"
+  - id: msg_medium
+    textList:
+    - language: 0
+      text: Medium
+    - language: 1
+      text: "Trung b\xECnh"
+  - id: msg_hard
+    textList:
+    - language: 0
+      text: Hard
+    - language: 1
+      text: "Kh\xF3"

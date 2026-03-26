@@ -10,14 +10,14 @@ namespace SEP490G69.Battle
     {
         protected CardSO Data;
 
-        protected readonly AnimationBarrier _barrier;
+        protected AnimationBarrier _vfxBarrier;
 
         public string RawCardId => Data.CardId;
 
         public BaseCard(CardSO data)
         {
             Data = data;
-            _barrier = new AnimationBarrier();
+            _vfxBarrier = new AnimationBarrier();
         }
 
         public virtual void Execute(BaseBattleCharacterController source, BaseBattleCharacterController target)
@@ -29,19 +29,14 @@ namespace SEP490G69.Battle
             ApplyStatModifiers(source, target, Data.PreStatModifiers);
 
             ExecuteAction(source, target);
-
-            ExecuteVfxs(source, target);
-
-            ApplyStatModifiers(source, target, Data.PostStatModifiers);
-
-            ApplyStatusEffects(source, target);
         }
 
         protected virtual void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            Debug.Log("Do nothing");
+            Debug.Log("Do nothing by defaut.");
 
             // Trigger flow event now.
+            OnAnimationCompleted(source, target);
         }
 
         protected void ApplyStatModifiers(BaseBattleCharacterController source, BaseBattleCharacterController target, CombatStatModifierSO[] modifiers)
@@ -108,49 +103,58 @@ namespace SEP490G69.Battle
 
         protected virtual void OnVfxCompleted()
         {
-            _barrier.Signal();
+            _vfxBarrier.Signal();
         }
 
         protected virtual void ExecuteVfxs(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            if (Data.VfxList.Count > 0)
+            if (Data.VfxList == null || Data.VfxList.Count == 0)
             {
-                List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
-                List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
-
-                _barrier.AddCount(Data.VfxList.Count);
-                _barrier.SetOnCompletedCallback(() =>
-                {
-                    OnAnimationCompleted(source, target);
-                });
-
-                if (selfVfxList.Count > 0)
-                {
-                    List<SpawnVfxSettings> selfVfxSettings = selfVfxList.Select(vfx => new SpawnVfxSettings
-                    {
-                        data = vfx,
-                        onCompleted = OnVfxCompleted
-                    }).ToList();
-
-                    source.VFXController.PlayVfxList(selfVfxSettings);
-                }
-
-                if (opponentVfxList.Count > 0)
-                {
-                    List<SpawnVfxSettings> opponentVfxSettings = opponentVfxList.Select(vfx => new SpawnVfxSettings
-                    {
-                        data = vfx,
-                        onCompleted = OnVfxCompleted
-                    }).ToList();
-                    target.VFXController.PlayVfxList(opponentVfxSettings);
-                }
+                FinalizeCard(source, target);
+                return;
             }
+
+            List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
+            List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
+
+            _vfxBarrier = new AnimationBarrier();
+            _vfxBarrier.SetCount(Data.VfxList.Count);
+            _vfxBarrier.SetOnCompletedCallback(() =>
+            {
+                FinalizeCard(source, target);
+            });
+
+            if (selfVfxList.Count > 0)
+            {
+                source.VFXController.PlayVfxList(selfVfxList.Select(vfx => new SpawnVfxSettings
+                {
+                    data = vfx,
+                    onCompleted = OnVfxCompleted
+                }).ToList());
+            }
+
+            if (opponentVfxList.Count > 0)
+            {
+                target.VFXController.PlayVfxList(opponentVfxList.Select(vfx => new SpawnVfxSettings
+                {
+                    data = vfx,
+                    onCompleted = OnVfxCompleted
+                }).ToList());
+            }
+        }
+
+        protected virtual void FinalizeCard(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        {
+            ApplyStatModifiers(source, target, Data.PostStatModifiers);
+            ApplyStatusEffects(source, target);
+
+            source.TriggerAfterCardResolved(target);
+            target.CheckDeath();
         }
 
         protected virtual void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            source.TriggerAfterCardResolved(target);
-            target.CheckDeath();
+            ExecuteVfxs(source, target);
         }
     }
 }

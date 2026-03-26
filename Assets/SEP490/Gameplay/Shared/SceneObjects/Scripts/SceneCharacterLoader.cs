@@ -7,6 +7,8 @@ namespace SEP490G69
     {
         [SerializeField] private Transform[] m_Containers;
 
+        private Transform _characterTrans;
+
         private GameSessionDAO _sessionDAO;
         private PlayerCharacterRepository _characterRepo;
 
@@ -58,7 +60,16 @@ namespace SEP490G69
                 return;
             }
 
-            PoolManager.Pools["Character"].Spawn(characterSO.Prefab, m_Containers.Length > 0 ? m_Containers[0] : this.transform);
+            _characterTrans = PoolManager.Pools["Character"].Spawn(characterSO.Prefab, m_Containers.Length > 0 ? m_Containers[0] : this.transform);
+        }
+
+        public void DespawnCharacter()
+        {
+            if (_characterTrans != null)
+            {
+                PoolManager.Pools["Character"].DespawnObject(_characterTrans);
+                _characterTrans = null;
+            }
         }
     }
 }

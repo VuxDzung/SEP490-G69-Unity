@@ -14,8 +14,8 @@ namespace SEP490G69.Battle
 
         protected override bool ExecuteCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
-            float currentVit = source.StatVit.Value;
-            float maxVit = source.ReadonlyDataHolder.GetVIT();
+            float currentVit = source.GetCombatStatus(EStatusType.HP).Value;
+            float maxVit = source.GetCombatStatus(EStatusType.HP).MaxValue;
             if ((currentVit / maxVit) < 0.25f)
             {
                 return true;

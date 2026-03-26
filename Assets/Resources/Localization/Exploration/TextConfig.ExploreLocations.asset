@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.ExploreLocations
+  m_EditorClassIdentifier: 
+  category: ExploreLocations
+  textDataList:
+  - id: epl_0001_name
+    textList:
+    - language: 0
+      text: Whispering Woods
+    - language: 1
+      text: "Th\xEC Th\u1EA7m M\u1ED9c L\xE2m"
+  - id: epl_0002_name
+    textList:
+    - language: 0
+      text: Crystal Caves
+    - language: 1
+      text: "\u0110\u1ED9ng Tinh Th\u1EA1ch"
+  - id: epl_0003_name
+    textList:
+    - language: 0
+      text: "Dragon\u2019s Peak"
+    - language: 1
+      text: "\u0110\u1EC9nh Long S\u01A1n"

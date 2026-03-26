@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using SEP490G69.Battle.Combat;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "CharacterSO_", menuName = OrganizationConstants.NAMESPACE + "/Characters/Base character data")]
@@ -15,6 +16,7 @@ namespace SEP490G69
         [SerializeField] private GameObject m_Prefab;
         [SerializeField] private GameObject m_CombatPrefab;
         [SerializeField] private ECharacterType m_CharacterType;
+        [SerializeField] private EAttackType m_AtkType;
 
         [Header("Character stats")]
         [SerializeField] private int baseVit;
@@ -34,7 +36,7 @@ namespace SEP490G69
         public Sprite Thumbnail => m_Thumbnail;
         public Sprite FullBodyImg => m_FullBodyImg;
         public ECharacterType CharacterType => m_CharacterType;
-
+        public EAttackType AtkType => m_AtkType;
         public int BaseVit => baseVit;
         public int BasePow => basePow;
         public int BaseInt => baseInt;

@@ -54,11 +54,13 @@
         public InCombatStatus StatInt { get; private set; } = new InCombatStatus();
         public InCombatStatus StatStamina { get; private set; } = new InCombatStatus();
         public InCombatStatus StatDEF { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatHP { get; private set; } = new InCombatStatus();
 
         public InCombatStatus StatOutputDmg { get; private set; } = new InCombatStatus();
         public InCombatStatus StatReceivedDmg { get; private set; } = new InCombatStatus();
         public InCombatStatus StatActionCost { get; private set; } = new InCombatStatus();
-        public InCombatStatus StatHitRate { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatEvadeRate { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatCritChance { get; private set; } = new InCombatStatus();
 
 
         private readonly Dictionary<EStatusType, InCombatStatus> _statusContainer = new Dictionary<EStatusType, InCombatStatus>();
@@ -67,6 +69,8 @@
         private IActionGaugeProcessor _gaugeProcessor;
         private ICritCalculator _critCalculator;
         private IEvasionCalculator _evasionCalculator;
+        private IMaxHPCalculator _maxHPCalculator;
+        private IMaxStaminaCalculator _maxStaminaCalculator;
 
         protected ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
         #endregion
@@ -149,16 +153,22 @@
         {
             //_currentDataHolder = holder;
 
+            float hpValue = _maxHPCalculator.Calculate(holder.GetVIT());
+            float maxStaminaValue = _maxStaminaCalculator.CalculateMax(holder.GetStamina());
+
             StatVit.SetCurrentValue(holder.GetVIT());
+            StatHP.SetCurrentValue(hpValue);
             StatPow.SetCurrentValue(holder.GetPower());
             StatAgi.SetCurrentValue(holder.GetAgi());
             StatInt.SetCurrentValue(holder.GetINT());
-            StatStamina.SetCurrentValue(holder.GetStamina());
+            StatStamina.SetCurrentValue(maxStaminaValue);
             StatDEF.SetCurrentValue(holder.GetDef());
 
             StatOutputDmg.SetCurrentValue(0f);
             StatReceivedDmg.SetCurrentValue(0f);
             StatActionCost.SetCurrentValue(0f);
+            StatEvadeRate.SetCurrentValue(0f);
+            StatCritChance.SetCurrentValue(0f);
 
             _statusContainer.Clear();
 
@@ -168,10 +178,13 @@
             _statusContainer.Add(EStatusType.Intelligence, StatInt);
             _statusContainer.Add(EStatusType.Stamina, StatStamina);
             _statusContainer.Add(EStatusType.Defense, StatDEF);
+            _statusContainer.Add(EStatusType.HP, StatHP);
 
             _statusContainer.Add(EStatusType.Damage, StatOutputDmg);
             _statusContainer.Add(EStatusType.ReceivedDmg, StatReceivedDmg);
             _statusContainer.Add(EStatusType.ActionCost, StatActionCost);
+            _statusContainer.Add(EStatusType.EvadeRate, StatEvadeRate);
+            _statusContainer.Add(EStatusType.CriticalChance, StatCritChance);
         }
 
         public void SetReadonlyDataHolder(CharacterDataHolder holder)
@@ -239,8 +252,8 @@
             float finalDamage = Mathf.Max(0, damage - StatDEF.Value);
 
             StatReceivedDmg.SetCurrentValue(finalDamage);
-            float finalVit = StatVit.Value - StatReceivedDmg.Value;
-            StatVit.SetCurrentValue(finalVit);
+            float finalVit = StatHP.Value - StatReceivedDmg.Value;
+            StatHP.SetCurrentValue(finalVit);
 
             StatEffectManager.OnAfterReceiveDamage(damage);
         }
@@ -258,18 +271,24 @@
         #endregion
 
         #region Crit APIs
-        public float CalculateCritRate()
+        public float CalculateCritRate(bool writeToStat)
         {
-            return _critCalculator.CalculateCritChance();
+            float baseValue = _critCalculator.CalculateCritChance();
+            if (writeToStat) StatCritChance.SetCurrentValue(baseValue);
+            return StatCritChance.Value;
         }
         public float CaculateCritMul()
         {
             return _critCalculator.CalculateCritMul();
         }
 
-        public bool HasCrit()
+        public bool HasCrit(bool forceUseCrit)
         {
-            float critChance = CalculateCritRate();
+            if (forceUseCrit)
+            {
+                return true;
+            }
+            float critChance = CalculateCritRate(true);
             critChance = (float)Math.Round(critChance, 2);
             return UnityEngine.Random.Range(0, 1f) <= critChance;
         }
@@ -277,13 +296,15 @@
         #endregion
 
         #region Evasion APIs
-        public float CalculateEvasionRate(BaseBattleCharacterController attacker)
+        public float CalculateEvasionRate(BaseBattleCharacterController attacker, bool writeToStat)
         {
-            return _evasionCalculator.CalculateEvasionRate(attacker);
+            float baseValue = _evasionCalculator.CalculateEvasionRate(attacker);
+            if (writeToStat) StatEvadeRate.SetCurrentValue(baseValue);
+            return StatEvadeRate.Value;
         }
-        public bool CanEvade(BaseBattleCharacterController attacker)
+        public bool CanEvade(BaseBattleCharacterController attacker, bool writeToStat = true)
         {
-            float evadeChance = CalculateEvasionRate(attacker);
+            float evadeChance = CalculateEvasionRate(attacker, writeToStat);
 
             evadeChance = (float)Math.Round(evadeChance, 2);
 
@@ -315,7 +336,7 @@
             if (_statusContainer.TryGetValue(modifierSO.StatType, out var status) == false)
                 return;
 
-            float maxValue = ReadonlyDataHolder.GetStatus(modifierSO.StatType);
+            float maxValue = GetMaxStatus(modifierSO.StatType);
             float currentValue = status.Value;
 
             float calculationValue = modifierSO.CalculateSource switch
@@ -361,6 +382,26 @@
             foreach (var status in _statusContainer.Values)
             {
                 status.RemoveModifiersByOwner(statusEffectId);
+            }
+        }
+
+        public float GetMaxStatus(EStatusType statType)
+        {
+            switch(statType)
+            {
+                case EStatusType.Power:
+                case EStatusType.Intelligence:
+                case EStatusType.Defense:
+                case EStatusType.Agi:
+                case EStatusType.Vitality:
+                    return ReadonlyDataHolder.GetStatus(statType);
+                case EStatusType.HP:
+                    return GetCombatStatus(EStatusType.HP).MaxValue;
+                case EStatusType.Stamina:
+                    return GetCombatStatus(EStatusType.Stamina).MaxValue;
+                default:
+                    Debug.Log($"Unsupported in-combat status {statType.ToString()}");
+                    return -1f;
             }
         }
         #endregion

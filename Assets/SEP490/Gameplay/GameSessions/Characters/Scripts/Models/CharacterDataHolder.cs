@@ -88,12 +88,12 @@ namespace SEP490G69
                     return GetDef();
                     case EStatusType.Agi:
                     return GetAgi();
+                case EStatusType.Stamina:
+                    return GetStamina();
                 case EStatusType.Energy:
                     return GetEnergy();
                 case EStatusType.Mood:
                     return GetMood();
-                case EStatusType.Stamina:
-                    return GetStamina();
                 default:
                     return -1;
             }

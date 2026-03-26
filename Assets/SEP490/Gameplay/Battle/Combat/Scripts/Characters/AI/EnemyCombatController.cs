@@ -8,18 +8,17 @@ namespace SEP490G69.Battle.Combat
     using SEP490G69.Tournament;
     using System.Linq;
 
-    [RequireComponent(typeof(RandomSelectCardStrategy))]
+    //[RequireComponent(typeof(RandomSelectCardStrategy))]
     public class EnemyCombatController : BaseBattleCharacterController
     {
         [SerializeField] private float m_DelayPerfomAction = 1f;
 
-        private List<ISelectCardStrategy> _cardSelectStrategies = new List<ISelectCardStrategy>();
+        private ISelectCardStrategy _selectionStrategy;
 
         protected override void Awake()
         {
             base.Awake();
-            _cardSelectStrategies.Clear();
-            _cardSelectStrategies.AddRange(GetComponents<ISelectCardStrategy>());
+            _selectionStrategy = new CardContextWeightStrategy(this);
         }
 
         /// <summary>
@@ -77,15 +76,13 @@ namespace SEP490G69.Battle.Combat
 
             CombatCardsProcessor.DrawThreeCards(out IReadOnlyList<CardSO> cards);
 
-            var strategy = GetFirstStrategy();
-
-            if (strategy == null)
+            if (_selectionStrategy == null)
             {
                 Debug.Log("Failed to fetch card selection strategy!");
                 return;
             }
 
-            if (strategy.TrySelectCard(this, cards, out CardSO card))
+            if (_selectionStrategy.TrySelectCard(this, cards, out CardSO card))
             {
                 if (CombatCardsProcessor.CalculateCardCost(card) > GetCombatStatus(EStatusType.Stamina).Value)
                 {
@@ -112,27 +109,6 @@ namespace SEP490G69.Battle.Combat
         {
             yield return new WaitForSeconds(m_DelayPerfomAction);
             ExecuteCard(opponent);
-        }
-
-        public ISelectCardStrategy GetFirstStrategy()
-        {
-            if (_cardSelectStrategies.Count == 0)
-            {
-                return null;
-            }
-            return _cardSelectStrategies[0];
-        }
-
-        public ISelectCardStrategy GetStrategyByType<T>() where T : ISelectCardStrategy
-        {
-            foreach (var strategy in _cardSelectStrategies)
-            {
-                if (strategy is T _strategy)
-                {
-                    return _strategy;
-                }
-            }
-            return null;
         }
     }
 }

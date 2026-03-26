@@ -17,7 +17,8 @@ MonoBehaviour:
   m_EffectDesc: ste_0017_desc
   m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
   m_ApplyType: 5
-  m_AliveTurnCount: 3
+  m_EffectType: 0
+  m_AliveTurnCount: 1
   m_Modifiers:
   - {fileID: 11400000, guid: 2092cd463a695914bb44d0d867d694b9, type: 2}
   m_DevNote: 'Regeneration

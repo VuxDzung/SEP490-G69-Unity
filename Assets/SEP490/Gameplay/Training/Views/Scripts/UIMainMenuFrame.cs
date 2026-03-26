@@ -32,6 +32,7 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_DeckBtn;
         [SerializeField] private Button m_InventoryBtn;
         [SerializeField] private Button m_TournamentBtn;
+        [SerializeField] private Button m_ExploreBtn;
         [SerializeField] private Button m_CharacterDetailsBtn;
         [SerializeField] private Button m_PlayerProfileBtn;
 
@@ -126,6 +127,7 @@ namespace SEP490G69.Training
             m_DeckBtn.onClick.AddListener(ShowDeck);
             m_CharacterDetailsBtn.onClick.AddListener(ShowCharacterDetails);
             m_InventoryBtn.onClick.AddListener(ShowInventory);
+            m_ExploreBtn.onClick.AddListener(ShowExploration);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
@@ -158,6 +160,7 @@ namespace SEP490G69.Training
             m_DeckBtn.onClick.RemoveListener(ShowDeck);
             m_CharacterDetailsBtn.onClick.RemoveListener(ShowCharacterDetails);
             m_InventoryBtn.onClick.RemoveListener(ShowInventory);
+            m_ExploreBtn.onClick.RemoveListener(ShowExploration);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
 
@@ -321,6 +324,13 @@ namespace SEP490G69.Training
             if (HasAnyActiveTournament()) return;
 
             UIManager.ShowFrame(GameConstants.FRAME_ID_INVENTORY);
+        }
+
+        private void ShowExploration()
+        {
+            if (HasAnyActiveTournament()) return;
+
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_EXPLORATION);
         }
         #endregion
 

@@ -2,6 +2,7 @@ namespace SEP490G69.Training
 {
     using System.Collections.Generic;
     using System.Linq;
+    using SEP490G69.Calendar;
     using SEP490G69.Economy;
     using SEP490G69.GameSessions;
     using UnityEngine;
@@ -37,6 +38,8 @@ namespace SEP490G69.Training
 
         private EventManager _eventManager;
 
+        private string _sessionId;
+
         // CONFIGs
         private TrainingExerciseConfigSO _exercisesConfig;
         private CharacterConfigSO _characterConfig;
@@ -66,13 +69,13 @@ namespace SEP490G69.Training
             LoadDAOs();
             LoadExerciseStrategies();
 
-            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            if (string.IsNullOrEmpty(sessionId)) return;
+            _sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(_sessionId)) return;
 
-            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(_sessionId);
             if (sessionData == null) return;
 
-            SessionCharacterData characterData = _characterRepo.GetCharacterData(sessionId, sessionData.RawCharacterId);
+            SessionCharacterData characterData = _characterRepo.GetCharacterData(_sessionId, sessionData.RawCharacterId);
             BaseCharacterSO characterSO = _characterConfig.GetCharacterById(sessionData.RawCharacterId);
 
             _characterHolder = new CharacterDataHolder.Builder()
@@ -83,11 +86,12 @@ namespace SEP490G69.Training
             _exerciseList.ForEach(ex =>
             {
                 TrainingExerciseSO _so = _exercisesConfig.GetExercise(ex.ExerciseId);
-                ex.Initialize(_exercisesDAO, _characterDAO, sessionId, _so);
+                ex.Initialize(_exercisesDAO, _characterDAO, _sessionId, _so);
             });
 
             _eventManager.Subscribe<UseItemEvent>(HandeUseItemEvent);
             _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompletedEvent);
+            _eventManager.Subscribe<NextWeekEvent>(HandleNextWeekEvent);
         }
 
         private void Start()
@@ -100,6 +104,7 @@ namespace SEP490G69.Training
             ContextManager.Singleton.RemoveSceneContext(this);
             _eventManager.Unsubscribe<UseItemEvent>(HandeUseItemEvent);
             _eventManager.Unsubscribe<TrainingCompletedEvent>(HandleTrainingCompletedEvent);
+            _eventManager.Unsubscribe<NextWeekEvent>(HandleNextWeekEvent);
         }
 
         private void LoadExerciseStrategies()
@@ -291,31 +296,50 @@ namespace SEP490G69.Training
 
         private void HandeUseItemEvent(UseItemEvent ev)
         {
-            if (ev.ItemData.GetItemType() == EItemType.Consumable)
+            if (ev == null || ev.ItemData == null)
             {
-                foreach (var mod in ev.ItemData.GetUsableModifiers())
-                {
-                    if (mod.StatType == EStatusType.TrainingEffective)
+                return;
+            }
+
+            switch (ev.ItemData.GetItemType())
+            {
+                case EItemType.Consumable:
+                    foreach (var mod in ev.ItemData.GetUsableModifiers())
                     {
-                        if (_supportItemsService.StackSupportItem(ev.ItemData.GetSessionId(), ev.ItemData.GetRawId()))
+                        if (mod.StatType == EStatusType.TrainingEffective)
                         {
-                            Debug.Log($"<color=green>[GameTrainingController]</color> Upsert support training modifier completed");
+                            if (_supportItemsService.StackSupportItem(ev.ItemData.GetSessionId(), ev.ItemData.GetRawId()))
+                            {
+                                Debug.Log($"<color=green>[GameTrainingController]</color> Upsert support training modifier completed");
+                            }
+                            else
+                            {
+                                Debug.Log($"<color=red>[GameTrainingController]</color> Upsert support training modifier failed");
+                            }
+                            continue;
                         }
-                        else
-                        {
-                            Debug.Log($"<color=red>[GameTrainingController]</color> Upsert support training modifier failed");
-                        }
-                        continue;
+
+                        EStatusType statType = mod.StatType;
+                        float modValue = mod.GetModifiedStatus(_characterHolder.GetStatus(statType));
+                        _characterHolder.SetStatus(statType, modValue);
                     }
 
-                    EStatusType statType = mod.StatType;
-                    float modValue = mod.GetModifiedStatus(_characterHolder.GetStatus(statType));
-                    _characterHolder.SetStatus(statType, modValue);
-                }
-
-                _characterHolder.UpdateChanges(_characterDAO);
-                LocalDBOrchestrator.UpdateDBChangeTime();
+                    _characterHolder.UpdateChanges(_characterDAO);
+                    LocalDBOrchestrator.UpdateDBChangeTime();
+                    break;
+                default:
+                    Debug.Log($"<color=yellow>[GameTrainingController.HandleUseItemEvent]</color> Unsupported item type {ev.ItemData.GetItemType().ToString()}");
+                    break;
             }
+        }
+
+        private void HandleNextWeekEvent(NextWeekEvent ev)
+        {
+            if (string.IsNullOrEmpty(_sessionId))
+            {
+                return;
+            }
+            _supportItemsService.ClearAllItems(_sessionId);
         }
     }
 

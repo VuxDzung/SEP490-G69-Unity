@@ -4,7 +4,7 @@ namespace SEP490G69.Exploration
     using UnityEngine;
     using UnityEngine.UI;
 
-    public class UIExplorationFrame : GameUIFrame
+    public class UIExplorationHomeFrame : GameUIFrame
     {
         [SerializeField] private Button m_PrevBtn;
         [SerializeField] private Button m_NextBtn;
@@ -112,7 +112,7 @@ namespace SEP490G69.Exploration
         /// </summary>
         private void StartExplore()
         {
-
+            ExploreController.StartExplore();
         }
 
         private void ShowPossibleRewardDetails(string rewardId)

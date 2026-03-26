@@ -3,6 +3,7 @@ namespace SEP490G69.Battle
     using SEP490G69.Battle.Combat;
     using System.Collections.Generic;
     using System.Linq;
+    using UnityEngine;
 
     /// <summary>
     /// This class represent a status in combat includes:
@@ -12,6 +13,7 @@ namespace SEP490G69.Battle
     public class InCombatStatus 
     {
         private float _currentValue;
+        private float _maxValue;
         private List<InCombatStatModifier> _modifierPool = new List<InCombatStatModifier>();
 
         public InCombatStatus()
@@ -26,10 +28,12 @@ namespace SEP490G69.Battle
         public void SetCurrentValue(float value)
         {
             _currentValue = value;
+
+            _maxValue = Mathf.Max(_currentValue, _maxValue);
         }
 
         public float BaseValue => _currentValue;
-
+        public float MaxValue => _maxValue;
         public float Value
         {
             get
@@ -42,6 +46,11 @@ namespace SEP490G69.Battle
                     {
                         value = mod.ModifierSO.GetModifiedStatus(value);
                     }
+                }
+
+                if (value < 0f)
+                {
+                    value = 0f;
                 }
 
                 return value;

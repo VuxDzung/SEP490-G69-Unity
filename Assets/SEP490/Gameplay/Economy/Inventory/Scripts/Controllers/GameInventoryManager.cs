@@ -77,6 +77,11 @@ namespace SEP490G69
             return _inventoryItems.ToArray();
         }
 
+        public IReadOnlyList<ItemDataHolder> GetAllRelics()
+        {
+            return _inventoryItems.Where(itm => itm.GetItemType() == EItemType.Relic).ToList();
+        }
+
         /// <summary>
         /// Add item.
         /// If the item already in the inventory, increase the stack.

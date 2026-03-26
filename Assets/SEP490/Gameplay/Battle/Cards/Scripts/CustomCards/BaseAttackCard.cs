@@ -14,7 +14,7 @@ namespace SEP490G69.Battle
         {
             source.CalculateSelectedCardDmg(true);
 
-            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (source.HasCrit() ? source.CaculateCritMul() : 1f);
+            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (source.HasCrit(CheckForceCritCondition(source)) ? source.CaculateCritMul() : 1f);
             damage += CalculateExtraDmg(damage, source, target);
 
             source.StatOutputDmg.SetCurrentValue(damage);
@@ -23,7 +23,6 @@ namespace SEP490G69.Battle
 
             if (!hasAttack)
             {
-                // No animation -> skip action -> trigger immediately.
                 OnAnimationCompleted(source, target);
                 return;
             }
@@ -46,7 +45,7 @@ namespace SEP490G69.Battle
                 barrier.Signal();
             });
 
-            source.VFXController.PlayAtkVFX();
+            source.VFXController.PlayVFXById("vfx_atk");
 
             if (target.CanEvade(source))
             {
@@ -76,6 +75,17 @@ namespace SEP490G69.Battle
         {
             OnAfterAttack(source.StatOutputDmg.Value, source, target);
             base.OnAnimationCompleted(source, target);
+        }
+        
+
+        /// <summary>
+        /// This method ensure to have 100% crit chance in a specific condition.
+        /// By default, there's no 100% crit.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool CheckForceCritCondition(BaseBattleCharacterController source)
+        {
+            return false;
         }
     }
 }

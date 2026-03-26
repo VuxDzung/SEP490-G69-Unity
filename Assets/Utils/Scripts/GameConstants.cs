@@ -56,6 +56,7 @@ namespace SEP490G69
         public const string SCENE_COMBAT = "Scene.Combat";
         public const string SCENE_TOURNAMENT = "Scene.Tournament";
         public const string SCENE_DECK = "Scene.Deck";
+        public const string SCENE_EXPLORATION = "Scene.Exploration";
 
         #endregion
 

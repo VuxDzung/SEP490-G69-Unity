@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Id: mod_card_26_0001
   m_DisplayOnUI: 0
-  m_StatType: 5
+  m_StatType: 16
   m_Operator: 1
   m_Value: 0.15
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: 'Card 26: heal 15% max vitality'
+  m_Description: 'Card 26: heal 15% max HP'
   m_ApplyTarget: 0
   m_CalculateSource: 2
   m_ApplyValueType: 0

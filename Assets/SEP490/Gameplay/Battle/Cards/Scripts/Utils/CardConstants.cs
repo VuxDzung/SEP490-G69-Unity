@@ -18,6 +18,10 @@ namespace SEP490G69.Battle
         /// </summary>
         public const string CARD_ID_16 = "card_0016";
 
+        /// <summary>
+        /// Berserker Slash
+        /// </summary>
+        public const string CARD_ID_18 = "card_0018";
 
         /// <summary>
         /// Last Resort

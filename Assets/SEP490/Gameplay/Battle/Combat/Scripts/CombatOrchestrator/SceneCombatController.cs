@@ -2,8 +2,10 @@
 {
     using SEP490G69.GameSessions;
     using SEP490G69.Tournament;
+    using System.Collections.Generic;
     using System;
     using UnityEngine;
+    using System.Linq;
 
     public enum EBattleState
     {
@@ -13,15 +15,33 @@
         Finish = 3,
     }
 
+    public enum EAttackType
+    {
+        None = 0,
+        Melee = 1,
+        Ranged = 2,
+        Both = 3,
+    }
+
+    [System.Serializable]
+    public class CharacterCombatPosition
+    {
+        [SerializeField] private EAttackType m_AtkType;
+        [SerializeField] private Transform m_CombatPosition;
+
+        public EAttackType AtkType => m_AtkType;
+        public Transform CombatPosition => m_CombatPosition;
+    }
+
     public class SceneCombatController : MonoBehaviour, ISceneContext
     {
         public event Action<EBattleState> OnStateChanged;
 
         [Header("Scene References")]
+        [SerializeField] private List<CharacterCombatPosition> m_EnemyCombatPositions;
+        [SerializeField] private List<CharacterCombatPosition> m_PlayerCombatPositions;
         [SerializeField] private Transform m_PlayerContainer;
         [SerializeField] private Transform m_EnemyContainer;
-        [SerializeField] private Transform m_PlayerCombatPos;
-        [SerializeField] private Transform m_EnemyCombatPos;
         [SerializeField] private string m_CharacterPoolName = "CombatCharacter";
 
         private BattleStateMachine _battleState;
@@ -88,8 +108,22 @@
                 return;
             }
 
-            _player.AnimationController.SetCombatPosition(m_PlayerCombatPos);
-            _enemy.AnimationController.SetCombatPosition(m_EnemyCombatPos);
+            PlayerCharacterDataSO playerSO = _player.CharacterConfig.GetCharacterById(_player.ReadonlyDataHolder.GetRawId()).ConvertAs<PlayerCharacterDataSO>();
+            EnemySO enemySO = _player.CharacterConfig.GetCharacterById(_enemy.ReadonlyDataHolder.GetRawId()).ConvertAs<EnemySO>();
+
+            if (playerSO == null || enemySO == null)
+            {
+                return;
+            }
+
+            EAttackType playerAtkType = playerSO.AtkType;
+            EAttackType enemyAtkType = enemySO.AtkType;
+
+            Transform playerCombatPos = m_PlayerCombatPositions.FirstOrDefault(p => p.AtkType == playerAtkType).CombatPosition;
+            Transform enemyCombatPos = m_EnemyCombatPositions.FirstOrDefault(p => p.AtkType == enemyAtkType).CombatPosition;
+
+            _player.AnimationController.SetCombatPosition(playerCombatPos);
+            _enemy.AnimationController.SetCombatPosition(enemyCombatPos);
 
             _turnProcessor.Initialize(_player, _enemy);
             _uiUpdater.ShowCombatPreview(_player, _enemy);

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Id: mod_ste_0021_01
   m_DisplayOnUI: 0
   m_StatType: 14
-  m_Operator: 2
+  m_Operator: 4
   m_Value: 0.2
   m_RandomNumber: 0
   m_Min: 0
@@ -23,4 +23,6 @@ MonoBehaviour:
   m_Description: 
   m_ApplyTarget: 0
   m_CalculateSource: 1
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 0
+  m_TurnFlowEvent: 0

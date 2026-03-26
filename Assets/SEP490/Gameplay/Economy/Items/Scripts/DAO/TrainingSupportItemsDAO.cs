@@ -210,7 +210,8 @@ namespace SEP490G69
                     return false;
 
                 var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-                return col.Upsert(item);
+                col.Upsert(item);
+                return true;
             }
             catch (Exception e)
             {
@@ -229,7 +230,8 @@ namespace SEP490G69
                     return false;
 
                 var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-                return col.Update(item);
+                col.Update(item);
+                return true;
             }
             catch (Exception e)
             {
@@ -248,7 +250,8 @@ namespace SEP490G69
                     return false;
 
                 var col = GetCollection<TrainingSupportItem>(db, COLLECTION_NAME);
-                return col.Delete(entityId);
+                col.Delete(entityId);
+                return true;
             }
             catch (Exception e)
             {

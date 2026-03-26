@@ -28,9 +28,11 @@ namespace SEP490G69
         RP = 11, // Reputation point.
         Damage = 12,
         ActionCost = 13, // Action cost is based on the card's cost.
-        HitRate = 14,
+        EvadeRate = 14,
         #endregion
 
         TrainingEffective = 15,
+        HP = 16,
+        CriticalChance = 17,
     }
 }

@@ -1,6 +1,7 @@
 namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Battle.Cards;
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -60,22 +61,22 @@ namespace SEP490G69.Battle.Combat
             }
         }
 
-        public void PlayVfxList(IReadOnlyList<CardSpawnVfxData> vfxList)
+        public void PlayVfxList(IReadOnlyList<SpawnVfxSettings> vfxList)
         {
             StartCoroutine(SpawnVfxListCoroutine(vfxList));
         }
 
-        private IEnumerator SpawnVfxListCoroutine(IReadOnlyList<CardSpawnVfxData> vfxList)
+        private IEnumerator SpawnVfxListCoroutine(IReadOnlyList<SpawnVfxSettings> vfxList)
         {
             foreach (var vfx in vfxList)
             {
-                yield return new WaitForSeconds(vfx.delay);
+                yield return new WaitForSeconds(vfx.data.delay);
 
-                PlayVFXById(vfx.vfxId);
+                PlayVFXById(vfx.data.vfxId, vfx.onCompleted);
             }
         }
 
-        public void PlayVFXById(string vfxId)
+        public void PlayVFXById(string vfxId, Action onCompleted = null)
         {
             if (m_VfxConfig == null)
             {
@@ -99,10 +100,14 @@ namespace SEP490G69.Battle.Combat
             Vector3 position = parent.position + data.spawnOffset;
 
             Transform vfxTrans = PoolManager.Pools[GameConstants.POOL_COMBAT_VFX].Spawn(data.vfxTransform, position, Quaternion.identity, parent);
-            ParticleSystem vfx = vfxTrans.GetComponent<ParticleSystem>();
-            if (vfx != null)
+
+            EntityVfxHandler vfxHandler = vfxTrans.GetComponent<EntityVfxHandler>();
+            if (vfxHandler != null)
             {
-                vfx.Play();
+                vfxHandler.SetOnCompletedCallback(() =>
+                {
+                    onCompleted?.Invoke();
+                }).StartPlayVfx();
             }
         }
 

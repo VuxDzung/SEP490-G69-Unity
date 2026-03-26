@@ -133,6 +133,11 @@ namespace SEP490G69.Economy
             return _dataSO.UsableModifiers;
         }
 
+        public float CalculateRelicModValue(EStatusType statType, float baseValue)
+        {
+            return _dataSO.CalculateModifiedStat(statType, baseValue);
+        }
+
         #region Builder 
         public class Builder
         {

@@ -16,10 +16,9 @@ MonoBehaviour:
   m_EffectName: ste_0018_name
   m_EffectDesc: ste_0018_desc
   m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
-  m_IsSpecial: 0
   m_ApplyType: 3
   m_EffectType: 1
-  m_AliveTurnCount: 0
+  m_AliveTurnCount: 1
   m_Modifiers:
   - {fileID: 11400000, guid: 3202eba19c2ad6b47ac83b4cf3ab8300, type: 2}
   m_DevNote: 'Vulnerable

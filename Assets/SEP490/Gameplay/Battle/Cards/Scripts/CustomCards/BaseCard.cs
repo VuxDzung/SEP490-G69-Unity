@@ -10,11 +10,14 @@ namespace SEP490G69.Battle
     {
         protected CardSO Data;
 
+        protected readonly AnimationBarrier _barrier;
+
         public string RawCardId => Data.CardId;
 
         public BaseCard(CardSO data)
         {
             Data = data;
+            _barrier = new AnimationBarrier();
         }
 
         public virtual void Execute(BaseBattleCharacterController source, BaseBattleCharacterController target)
@@ -27,17 +30,7 @@ namespace SEP490G69.Battle
 
             ExecuteAction(source, target);
 
-            if (Data.VfxList.Count > 0)
-            {
-                List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
-                List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
-
-                if (selfVfxList.Count > 0)
-                    source.VFXController.PlayVfxList(selfVfxList);
-
-                if (opponentVfxList.Count > 0)
-                    target.VFXController.PlayVfxList(opponentVfxList);
-            }
+            ExecuteVfxs(source, target);
 
             ApplyStatModifiers(source, target, Data.PostStatModifiers);
 
@@ -49,7 +42,6 @@ namespace SEP490G69.Battle
             Debug.Log("Do nothing");
 
             // Trigger flow event now.
-            OnAnimationCompleted(source, target);
         }
 
         protected void ApplyStatModifiers(BaseBattleCharacterController source, BaseBattleCharacterController target, CombatStatModifierSO[] modifiers)
@@ -112,6 +104,47 @@ namespace SEP490G69.Battle
         protected virtual bool CheckInflictCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
         {
             return true;
+        }
+
+        protected virtual void OnVfxCompleted()
+        {
+            _barrier.Signal();
+        }
+
+        protected virtual void ExecuteVfxs(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        {
+            if (Data.VfxList.Count > 0)
+            {
+                List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
+                List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
+
+                _barrier.AddCount(Data.VfxList.Count);
+                _barrier.SetOnCompletedCallback(() =>
+                {
+                    OnAnimationCompleted(source, target);
+                });
+
+                if (selfVfxList.Count > 0)
+                {
+                    List<SpawnVfxSettings> selfVfxSettings = selfVfxList.Select(vfx => new SpawnVfxSettings
+                    {
+                        data = vfx,
+                        onCompleted = OnVfxCompleted
+                    }).ToList();
+
+                    source.VFXController.PlayVfxList(selfVfxSettings);
+                }
+
+                if (opponentVfxList.Count > 0)
+                {
+                    List<SpawnVfxSettings> opponentVfxSettings = opponentVfxList.Select(vfx => new SpawnVfxSettings
+                    {
+                        data = vfx,
+                        onCompleted = OnVfxCompleted
+                    }).ToList();
+                    target.VFXController.PlayVfxList(opponentVfxSettings);
+                }
+            }
         }
 
         protected virtual void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)

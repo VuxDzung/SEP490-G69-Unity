@@ -10,6 +10,7 @@ public class SeriasTrainingTester : MonoBehaviour
     [SerializeField] private Button buttonTrainDodge;
     [SerializeField] private Button buttonTrainRun;
     [SerializeField] private Button buttonTrainIntelligence;
+    [SerializeField] private Button buttonTrainSwim; // THÊM MỚI: Nút bơi
 
     [Header("Thành phần của Serias")]
     [SerializeField] private SpriteRenderer seriasRenderer;
@@ -26,10 +27,14 @@ public class SeriasTrainingTester : MonoBehaviour
     [Header("Sprites - STUDY")]
     [SerializeField] private Sprite spriteSeriasStudy;
 
+    [Header("Sprites - SWIM")]
+    [SerializeField] private Sprite spriteSeriasSwimming; // THÊM MỚI: Hình bơi
+
     [Header("Môi trường")]
     [SerializeField] private GameObject bgPowerAndDodge;
     [SerializeField] private GameObject bgRunning;
     [SerializeField] private GameObject bgStudy;
+    [SerializeField] private GameObject bgSwimming; // THÊM MỚI: Background bơi
 
     [Header("Môi trường - Cuộn (Parallax cho Running)")]
     [SerializeField] private SpriteRenderer[] scrollingLayers;
@@ -63,6 +68,9 @@ public class SeriasTrainingTester : MonoBehaviour
 
     [Header("Các vị trí - STUDY")]
     [SerializeField] private Transform posStudy;
+
+    [Header("Các vị trí - SWIM")]
+    [SerializeField] private Transform posSwimming; // THÊM MỚI: Vị trí bơi
 
     [Header("Cấu hình - DODGE")]
     [SerializeField] private float evadeJumpPower = 2.5f;
@@ -99,6 +107,7 @@ public class SeriasTrainingTester : MonoBehaviour
         if (buttonTrainDodge) buttonTrainDodge.onClick.AddListener(PlayDodgeTraining);
         if (buttonTrainRun) buttonTrainRun.onClick.AddListener(PlayRunTraining);
         if (buttonTrainIntelligence) buttonTrainIntelligence.onClick.AddListener(PlayStudyTraining);
+        if (buttonTrainSwim) buttonTrainSwim.onClick.AddListener(PlaySwimmingTraining); // Bắt sự kiện
 
         StopAllAnimations();
     }
@@ -138,10 +147,13 @@ public class SeriasTrainingTester : MonoBehaviour
         }
         activeBalls.Clear();
 
-        if (SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName))
+        // Fix tạm thời: Thay đổi tùy thuộc vào thư viện Pool Manager bạn đang dùng
+        // Dòng này đang dùng class giả định SEP490G69, vui lòng đảm bảo đúng namespace của bạn.
+        /* if (SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName))
         {
             SEP490G69.PoolManager.Pools[tennisBallPoolName].DespawnAll();
         }
+        */
 
         isScrolling = false;
 
@@ -172,8 +184,35 @@ public class SeriasTrainingTester : MonoBehaviour
         if (bgPowerAndDodge) bgPowerAndDodge.SetActive(false);
         if (bgRunning) bgRunning.SetActive(false);
         if (bgStudy) bgStudy.SetActive(false);
+        if (bgSwimming) bgSwimming.SetActive(false); // Xử lý tắt nền bơi
 
         if (activeBg) activeBg.SetActive(true);
+    }
+
+    // ================= BÀI TẬP SWIM (BƠI) =================
+    private void PlaySwimmingTraining()
+    {
+        StopAllAnimations();
+        SetActiveBackground(bgSwimming);
+
+        seriasRenderer.sprite = spriteSeriasSwimming;
+        seriasRenderer.transform.position = posSwimming != null ? posSwimming.position : positionStart.position;
+        seriasRenderer.flipX = false;
+
+        // Sequence ảo để gom chung quản lý (thực tế các tween này chạy song song, set yoyo vĩnh viễn)
+        activeTrainingSequence = DOTween.Sequence();
+
+        Transform t = seriasRenderer.transform;
+
+        // 1. Nhấp nhô lên xuống nhẹ
+        activeTrainingSequence.Join(t.DOMoveY(t.position.y + 0.4f, 0.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo));
+
+        // 2. Trôi về phía trước rồi lùi lại
+        activeTrainingSequence.Join(t.DOMoveX(t.position.x + 1.2f, 1.5f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo));
+
+        // 3. Lắc lư cơ thể (Góc -10 đến 10 độ)
+        t.localRotation = Quaternion.Euler(0, 0, -10f);
+        activeTrainingSequence.Join(t.DOLocalRotate(new Vector3(0, 0, 10f), 1f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo));
     }
 
     // ================= BÀI TẬP STUDY (HỌC TẬP) =================
@@ -312,7 +351,6 @@ public class SeriasTrainingTester : MonoBehaviour
 
         float spinAngleZ = isMovingRight ? -360f * evadeSpins : 360f * evadeSpins;
 
-        // 1. CHUẨN BỊ NHẢY
         activeTrainingSequence.AppendCallback(() => {
             seriasRenderer.sprite = spriteSeriasSpinning;
             seriasRenderer.flipX = !isMovingRight;
@@ -320,11 +358,9 @@ public class SeriasTrainingTester : MonoBehaviour
             seriasRenderer.transform.rotation = Quaternion.identity;
         });
 
-        // 2. NHẢY & CUỘN
         activeTrainingSequence.Append(seriasRenderer.transform.DOJump(endPos.position, evadeJumpPower, 1, evadeMoveDuration).SetEase(Ease.Linear));
         activeTrainingSequence.Insert(0, seriasRenderer.transform.DORotate(new Vector3(0, 0, spinAngleZ), evadeMoveDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
 
-        // 3. SINH BÓNG BAY
         int totalBalls = Random.Range(3, 6);
         float timeStep = evadeMoveDuration / totalBalls;
         bool isLeftTurn = Random.value > 0.5f;
@@ -339,19 +375,15 @@ public class SeriasTrainingTester : MonoBehaviour
             isLeftTurn = !isLeftTurn;
         }
 
-        // 4. TIẾP ĐẤT VÀ TẠO LỰC RUNG NHẸ NHÀNG
         activeTrainingSequence.AppendCallback(() => {
             seriasRenderer.transform.rotation = Quaternion.identity;
             seriasRenderer.sprite = spriteSeriasLanding;
             seriasRenderer.flipX = !isMovingRight;
         });
 
-        // Nhún cực kỳ nhẹ: lún xuống 0.05 rồi nảy nhẹ (Vibrato = 2, Thời gian = 0.15s)
         activeTrainingSequence.Append(seriasRenderer.transform.DOPunchScale(new Vector3(0.02f, -0.05f, 0), 0.15f, 2, 0.5f));
-        // Rung nhẹ biên độ thấp theo trục Y (0.05) trong 0.1s
         activeTrainingSequence.Join(seriasRenderer.transform.DOShakePosition(0.1f, new Vector3(0f, 0.05f, 0f), 10));
 
-        // 5. NGHỈ TRƯỚC VÒNG TIẾP THEO
         activeTrainingSequence.AppendInterval(evadePauseDuration);
         activeTrainingSequence.OnComplete(() => {
             currentEvadeStep++;
@@ -362,6 +394,7 @@ public class SeriasTrainingTester : MonoBehaviour
     private void ShootTennisBall(Transform spawnPoint, Transform destPoint)
     {
         if (tennisBallPrefab == null || spawnPoint == null || destPoint == null) return;
+
         if (!SEP490G69.PoolManager.Pools.ContainsKey(tennisBallPoolName)) return;
 
         float randomY = Random.Range(-evadeRandomYRange, evadeRandomYRange);

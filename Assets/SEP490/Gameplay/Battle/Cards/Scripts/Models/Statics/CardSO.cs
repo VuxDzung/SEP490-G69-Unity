@@ -1,5 +1,6 @@
 namespace SEP490G69.Battle.Cards
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -138,6 +139,12 @@ namespace SEP490G69.Battle.Cards
         public string vfxId;
         public float delay;
         public ETargetType target;
+    }
+
+    public class SpawnVfxSettings
+    {
+        public CardSpawnVfxData data;
+        public Action onCompleted;
     }
 
     public enum ECompareOperator

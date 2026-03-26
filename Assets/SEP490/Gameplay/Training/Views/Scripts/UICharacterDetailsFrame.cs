@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using SEP490G69.Economy;
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -21,7 +22,6 @@ namespace SEP490G69.Training
         [SerializeField] private Image m_CharacterImg;
 
         private GameTrainingController _trainingController;
-
         private GameTrainingController TrainingController
         {
             get
@@ -31,6 +31,19 @@ namespace SEP490G69.Training
                     ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
                 }
                 return _trainingController;
+            }
+        }
+
+        private GameInventoryManager _inventoryManager;
+        private GameInventoryManager InventoryManager
+        {
+            get
+            {
+                if (_inventoryManager == null)
+                {
+                    _inventoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
+                }
+                return _inventoryManager;
             }
         }
 
@@ -71,11 +84,31 @@ namespace SEP490G69.Training
 
         private void LoadCharacterStats()
         {
-            SetVitality(TrainingController.CharacterData.GetVIT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetVIT()));
-            SetPower(TrainingController.CharacterData.GetPower(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetPower()));
-            SetINT(TrainingController.CharacterData.GetINT(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetINT()));
-            SetAgility(TrainingController.CharacterData.GetAgi(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetAgi()));
-            SetStamina(TrainingController.CharacterData.GetStamina(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetStamina()));
+            IReadOnlyList<ItemDataHolder> relics = InventoryManager.GetAllRelics();
+
+            float currentVit = TrainingController.CharacterData.GetVIT();
+            float currentPow = TrainingController.CharacterData.GetPower();
+            float currentInt = TrainingController.CharacterData.GetINT();
+            float currentAgi = TrainingController.CharacterData.GetAgi();
+            float currentSta = TrainingController.CharacterData.GetStamina();
+
+            if (relics.Count > 0)
+            {
+                foreach (var relic in relics)
+                {
+                    currentVit += relic.CalculateRelicModValue(EStatusType.Vitality, currentVit);
+                    currentPow += relic.CalculateRelicModValue(EStatusType.Power, currentPow);
+                    currentInt += relic.CalculateRelicModValue(EStatusType.Intelligence, currentInt);
+                    currentAgi += relic.CalculateRelicModValue(EStatusType.Agi, currentAgi);
+                    currentSta += relic.CalculateRelicModValue(EStatusType.Agi, currentSta);
+                }
+            }
+
+            SetVitality(currentVit, CharacterStatUtils.GetStatRankMaxValue(currentVit));
+            SetPower(currentPow, CharacterStatUtils.GetStatRankMaxValue(currentPow));
+            SetINT(currentInt, CharacterStatUtils.GetStatRankMaxValue(currentInt));
+            SetAgility(currentAgi, CharacterStatUtils.GetStatRankMaxValue(currentAgi));
+            SetStamina(currentSta, CharacterStatUtils.GetStatRankMaxValue(currentSta));
         }
 
         public void SetVitality(float cur, float max)

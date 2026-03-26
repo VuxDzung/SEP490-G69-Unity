@@ -1,11 +1,14 @@
 namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
-    using System.Collections.Generic;
-    using UnityEngine;
 
     public class CardFactory
     {
+        /// <summary>
+        /// Create a runtime-instance of a card.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static BaseCard Create(CardSO data)
         {
             if (data == null)
@@ -20,6 +23,8 @@ namespace SEP490G69.Battle
                     return new RecklessChargeCard(data);
                 case CardConstants.CARD_ID_16:
                     return new ExecuteCard(data);
+                case CardConstants.CARD_ID_18:
+                    return new BerserkerSlashCard(data);
                 case CardConstants.CARD_ID_20:
                     return new LastResortCard(data);
                 case CardConstants.CARD_ID_25:

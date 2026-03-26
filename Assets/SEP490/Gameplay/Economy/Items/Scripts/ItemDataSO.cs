@@ -55,5 +55,15 @@ namespace SEP490G69.Economy
             Debug.Log($"Item: {m_ItemID}. IsShopItem: {m_OwnershipMethods.Contains(EOwnershipMethod.Shop)}");
             return m_OwnershipMethods.Contains(EOwnershipMethod.Shop);
         }
+
+        public float CalculateModifiedStat(EStatusType statType, float baseValue)
+        {
+            IReadOnlyList<StatusModifierSO> modifiers = GetModifiersByStatType(statType);
+            foreach (var modifier in modifiers)
+            {
+                baseValue = modifier.GetModifiedStatus(baseValue);
+            }
+            return baseValue;
+        }
     }
 }

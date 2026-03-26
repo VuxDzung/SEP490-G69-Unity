@@ -20,7 +20,9 @@ MonoBehaviour:
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: 
+  m_Description: Receive extra +20% damage.
   m_ApplyTarget: 0
   m_CalculateSource: 1
-  m_ApplyDiscardType: 0
+  m_ApplyValueType: 0
+  m_TriggerType: 0
+  m_TurnFlowEvent: 0

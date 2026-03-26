@@ -16,4 +16,4 @@ MonoBehaviour:
   - characterId: ch_0003
     prefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
   - characterId: ch_0001
-    prefab: {fileID: 8086604776399590609, guid: 1d5f59917fe418d4394c29f0b1e691b2, type: 3}
+    prefab: {fileID: 6028235491512542086, guid: 08a9a7e0587559e4ea3ac820cec84533, type: 3}

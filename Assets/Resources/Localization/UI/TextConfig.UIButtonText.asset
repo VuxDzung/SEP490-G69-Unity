@@ -254,3 +254,9 @@ MonoBehaviour:
       text: Relics
     - language: 1
       text: "Di v\u1EADt"
+  - id: btn_exploration
+    textList:
+    - language: 0
+      text: Exploration
+    - language: 1
+      text: "Kh\xE1m ph\xE1"

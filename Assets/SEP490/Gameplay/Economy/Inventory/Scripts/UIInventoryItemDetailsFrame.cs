@@ -49,7 +49,7 @@ namespace SEP490G69.Economy
         {
             _selectedItemId = itemId;
 
-            ItemDataHolder item = InventoryManager.GetItemBy(itemId);
+            ItemDataHolder item = InventoryManager.GetItemByRawId(itemId);
 
             if (item == null)
                 return;
@@ -63,8 +63,8 @@ namespace SEP490G69.Economy
 
             if (isRelic)
             {
-                m_EquipBtn.gameObject.SetActive(item.GetEquipmentSlot() == GameInventoryManager.EMPTY_RELIC_SLOT);
-                m_UnequipBtn.gameObject.SetActive(item.GetEquipmentSlot() != GameInventoryManager.EMPTY_RELIC_SLOT);
+                m_EquipBtn.gameObject.SetActive(item.GetEquipmentSlot() == GameConstants.EMPTY_RELIC_SLOT);
+                m_UnequipBtn.gameObject.SetActive(item.GetEquipmentSlot() != GameConstants.EMPTY_RELIC_SLOT);
                 return;
             }
             m_EquipBtn.gameObject.SetActive(false);

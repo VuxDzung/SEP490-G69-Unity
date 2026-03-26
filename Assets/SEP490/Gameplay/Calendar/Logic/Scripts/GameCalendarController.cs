@@ -355,8 +355,9 @@ namespace SEP490G69.Calendar
                     _eventManager.Publish(new NextWeekEvent
                     {
                         Week = _currentSesssion.CurrentWeek,
-                        IsCheckpoint = _currentSesssion.CurrentWeek % 144 == 0,
-                        IsFinal = false
+                        IsCheckpoint = _currentSesssion.CurrentWeek + 1 % 144 == 0,
+                        IsNewMonth = _currentSesssion.CurrentWeek % 4 == 0,
+                        IsFinal = false,
                     });
                 }
                 else
@@ -586,5 +587,6 @@ namespace SEP490G69.Calendar
         public int Week { get; set; }
         public bool IsCheckpoint { get; set; }
         public bool IsFinal { get; set; }
+        public bool IsNewMonth { get; set; }
     }
 }

@@ -13,12 +13,25 @@ namespace SEP490G69.Economy
         private ItemData _data;
         private ItemDataSO _dataSO;
 
+        private EquipmentData _relicData;
+
         #region Getters
-        public string GetSessionItemId() => _data.SessionItemId;
-        public string GetRawId() => _data.RawItemId;
-        public string GetSessionId() => _data.SessionId;
+        public string GetSessionItemId()
+        {
+            return _data != null ? _data.SessionItemId : string.Empty;
+        }
+        public string GetRawId()
+        {
+            return _dataSO != null ? _dataSO.ItemID : string.Empty;
+        }
+
+        public string GetSessionId()
+        {
+            return _data != null ? _data.SessionId : string.Empty;
+        }
+
         public Sprite GetIcon() => _dataSO == null ? null : _dataSO.ItemImage;
-        public EItemType GetItemType() => _dataSO.ItemType;
+        public EItemType GetItemType() => _dataSO != null ? _dataSO.ItemType : EItemType.None;
         public string GetItemNameKey()
         {
             return _dataSO == null ? string.Empty : _dataSO.ItemNameKey;
@@ -29,7 +42,7 @@ namespace SEP490G69.Economy
         }
         public int GetRemainAmount()
         {
-            return _data.RemainAmount;
+            return _data != null ? _data.RemainAmount : 0;
         }
 
         #endregion
@@ -56,13 +69,54 @@ namespace SEP490G69.Economy
 
         public bool TryConvertAsRelic(out EquipmentData equipmentData)
         {
-            equipmentData = _data as EquipmentData;
-            return equipmentData != null;
+            if (_relicData == null)
+            {
+                equipmentData = _data as EquipmentData;
+                return equipmentData != null;
+            }
+            else
+            {
+                equipmentData = _relicData;
+                return true;
+            }
         }
 
         public bool IsRelic()
         {
             return TryConvertAsRelic(out EquipmentData relic);
+        }
+
+        public void EquipRelic(int slot)
+        {
+            if (TryConvertAsRelic(out EquipmentData relic))
+            {
+                relic.Slot = slot;
+                relic.RemainAmount--;
+                if (relic.RemainAmount < 0)
+                {
+                    relic.RemainAmount = 0;
+                }
+            }
+        }
+
+        public void UnequipRelic()
+        {
+            if (TryConvertAsRelic(out EquipmentData relic))
+            {
+                relic.Slot = GameConstants.EMPTY_RELIC_SLOT;
+                relic.RemainAmount++;
+            }
+        }
+
+        public bool IsRelicEquipped()
+        {
+            if (!IsRelic()) return false;
+
+            if (TryConvertAsRelic(out EquipmentData relic))
+            {
+                return relic.Slot != GameConstants.EMPTY_RELIC_SLOT;
+            }
+            return false;
         }
 
         public int GetEquipmentSlot()

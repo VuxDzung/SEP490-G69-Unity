@@ -1,7 +1,6 @@
 namespace SEP490G69.Economy
 {
     using SEP490G69.Addons.Localization;
-    using System.Drawing;
     using TMPro;
     using UnityEngine;
 
@@ -13,11 +12,11 @@ namespace SEP490G69.Economy
 
         public UIShopItemElement BindShopItem(ShopItemDataHolder item, LocalizationManager localizeManager)
         {
-            _itemId = item.GetRawItemId();
+            _rawItemId = item.GetRawItemId();
 
             if (m_Icon != null) m_Icon.sprite = item.GetIcon();
             if (m_NameTmp != null) m_NameTmp.text = localizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES , item.GetItemName());
-            if (m_AmountTmp != null) m_AmountTmp.text = item.GetRemainAmount().ToString();
+            if (m_AmountTmp != null) m_AmountTmp.text = $"x{item.GetRemainAmount().ToString()}";
             if (m_CostTmp != null) m_CostTmp.text = $"{item.GetPrice().ToString()}G";
             return this;
         }

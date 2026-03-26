@@ -230,3 +230,27 @@ MonoBehaviour:
       text: Finish
     - language: 1
       text: "K\u1EBFt th\xFAc"
+  - id: btn_details
+    textList:
+    - language: 0
+      text: Details
+    - language: 1
+      text: "Chi ti\u1EBFt"
+  - id: btn_all
+    textList:
+    - language: 0
+      text: All
+    - language: 1
+      text: "T\u1EA5t c\u1EA3"
+  - id: btn_usable
+    textList:
+    - language: 0
+      text: Usable
+    - language: 1
+      text: "\u0110\u1ED3 ti\xEAu hao"
+  - id: btn_relics
+    textList:
+    - language: 0
+      text: Relics
+    - language: 1
+      text: "Di v\u1EADt"

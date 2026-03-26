@@ -7,9 +7,10 @@ namespace SEP490G69
     public class GameUIButton : Button
     {
         [SerializeField] private string m_SFXId;
-        [SerializeField] private float m_ScaleDuration = 0.15f;
+        [SerializeField] private float m_ScaleDuration = 0.1f;
         [SerializeField] private Vector2 m_NormalScale = Vector2.one;
-        [SerializeField] private Vector2 m_HighlightedScale = Vector2.one;
+        [SerializeField] private Vector2 m_HighlightedScale = new Vector2(1.05f, 1.05f);
+        [SerializeField] private Vector2 m_PressedScale = new Vector2(0.95f, 0.95f);
         [SerializeField] private Vector2 m_SelectedScale = Vector2.one;
         [SerializeField] private Vector2 m_DisabledScale = Vector2.one;
 
@@ -48,7 +49,7 @@ namespace SEP490G69
                     transform.DOScale(m_HighlightedScale, m_ScaleDuration);
                     break;
                 case SelectionState.Pressed:
-                    transform.DOScale(m_HighlightedScale, m_ScaleDuration);
+                    transform.DOScale(m_PressedScale, m_ScaleDuration);
                     break;
                 case SelectionState.Selected:
                     transform.DOScale(m_SelectedScale, m_ScaleDuration);

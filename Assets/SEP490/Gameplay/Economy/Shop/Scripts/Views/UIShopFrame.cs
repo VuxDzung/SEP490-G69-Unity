@@ -15,11 +15,13 @@ namespace SEP490G69.Economy
         [SerializeField] private TextMeshProUGUI m_RemainGoldTmp;
 
         [Header("Item Details")]
+        [SerializeField] private TextMeshProUGUI m_ItemType;
         [SerializeField] private Image m_ItemIcon;
         [SerializeField] private GameObject m_ItemDetailsGO;
         [SerializeField] private TextMeshProUGUI m_ItemNameTmp;
         [SerializeField] private TextMeshProUGUI m_ItemDescTmp;
         [SerializeField] private TextMeshProUGUI m_ItemCostTmp;
+        [SerializeField] private TextMeshProUGUI m_RefreshCostTmp;
 
         [Header("Buttons")]
         [SerializeField] private Button m_BackBtn;
@@ -30,7 +32,7 @@ namespace SEP490G69.Economy
 
         private List<UIShopItemElement> _slots = new();
 
-        private string _selectedItemId;
+        private string _selectedRawItemId;
 
         private GameShopManager ShopManager
         {
@@ -62,6 +64,7 @@ namespace SEP490G69.Economy
             m_BackBtn.onClick.AddListener(Back);
             LoadShopItems();
             LoadRemainGold();
+            ReloadRefreshCost();
         }
         protected override void OnFrameHidden()
         {
@@ -109,16 +112,21 @@ namespace SEP490G69.Economy
             ShopManager.RefreshShop();
 
             LoadShopItems();
+            ReloadRefreshCost();
         }
+
         private void BuyItem()
         {
-            if (string.IsNullOrEmpty(_selectedItemId))
+            if (string.IsNullOrEmpty(_selectedRawItemId))
                 return;
 
-            ShopManager.BuyItem(_selectedItemId, 1);
+            ShopManager.BuyItem(_selectedRawItemId, 1);
 
-            UpdateItemSlot(_selectedItemId);
+            UpdateItemSlot(_selectedRawItemId);
+            SelectItem(_selectedRawItemId, "");
+            LoadRemainGold();
         }
+
         private void UpdateItemSlot(string itemId)
         {
             var item = ShopManager.GetAllAvailableShopItems()
@@ -128,31 +136,34 @@ namespace SEP490G69.Economy
 
             foreach (var slot in _slots)
             {
-                if (slot.name.Contains(itemId))
+                if (slot.RawItemId == itemId)
                 {
                     slot.BindShopItem(item, LocalizeManager);
 
                     if (item.GetRemainAmount() <= 0)
+                    {
                         slot.ShowSoldOut();
+                    }
                 }
             }
         }
 
-        private void SelectItem(string itemId)
+        private void SelectItem(string rawItemId, string sessionItemId)
         {
-            _selectedItemId = itemId;
+            _selectedRawItemId = rawItemId;
 
             var items = ShopManager.GetAllAvailableShopItems();
-            var item = items.FirstOrDefault(x => x.GetRawItemId() == itemId);
+            var item = items.FirstOrDefault(x => x.GetRawItemId() == _selectedRawItemId);
 
             if (item == null) return;
 
             m_ItemDetailsGO.SetActive(true);
 
+            m_ItemType.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, GameConstants.ConvertItemType2LocalizeId(item.GetItemType()));
             m_ItemIcon.sprite = item.GetIcon();
-            m_ItemNameTmp.text = item.GetItemName();
-            m_ItemDescTmp.text = item.GetItemDescription();
-            m_ItemCostTmp.text = item.GetPrice().ToString();
+            m_ItemNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, item.GetItemName());
+            m_ItemDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, item.GetItemDescription());
+            m_ItemCostTmp.text = $"{item.GetPrice().ToString()}G";
 
             m_BuyBtn.interactable = item.GetRemainAmount() > 0;
         }
@@ -182,8 +193,13 @@ namespace SEP490G69.Economy
                 Debug.LogError($"[UIMainMenuFrame] Session data with id {sessionId} does not exist");
                 return;
             }
-
+            Debug.Log($"[UIShopFrame.LoadRemainGold] Gold: {sessionData.CurrentGoldAmount}");
             m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
+        }
+
+        private void ReloadRefreshCost()
+        {
+            m_RefreshCostTmp.text = $"({ShopManager.CalculateRefreshCost().ToString()}G)";
         }
     }
 }

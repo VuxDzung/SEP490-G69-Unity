@@ -71,6 +71,11 @@ namespace SEP490G69.Economy
             _data.RemainAmount = remainAmount;
         }
 
+        public EItemType GetItemType()
+        {
+            return _dataSO != null ? _dataSO.ItemType : EItemType.None;
+        }
+
         public void UpdateChanges(GameShopDAO dao)
         {
             dao.Update(_data);

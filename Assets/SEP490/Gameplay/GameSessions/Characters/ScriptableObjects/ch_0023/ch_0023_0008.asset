@@ -30,4 +30,4 @@ MonoBehaviour:
   baseEnergy: 0
   baseMood: 0
   baseRP: 0
-  m_EnemyDeck: {fileID: 0}
+  m_EnemyDeck: {fileID: 11400000, guid: b884e2544b2ec294daca9d632a0805f1, type: 2}

@@ -111,12 +111,14 @@
 
                 UIEditableCardElement deckCardElement = deckCardUITrans.GetComponent<UIEditableCardElement>();
                 Sprite cardTypeSprite = GetCardTypeImg(staticCardData.ActionType);
+                string rawDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription);
+                string finalDes = FormatCardDescription(rawDesc, staticCardData);
 
                 deckCardElement.SetContent(
                     rawId,
                     deckCardId,
                     LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, staticCardData.CardName),
-                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription),
+                    finalDes,
                     staticCardData.Icon,
                     1);
 
@@ -154,11 +156,14 @@
                 UIEditableCardElement cardElement = cardUITransform.GetComponent<UIEditableCardElement>();
                 Sprite cardTypeSprite = GetCardTypeImg(staticCardData.ActionType);
 
+                string rawDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription);
+                string finalDes = FormatCardDescription(rawDesc, staticCardData);
+
                 cardElement.SetContent(
                     card.RawCardId,
                     "",
                     LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, staticCardData.CardName),
-                    LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, staticCardData.CardDescription),
+                    finalDes,
                     staticCardData.Icon,
                     card.ObtainedAmount);
 
@@ -257,6 +262,53 @@
             {
                 Debug.Log("<color=green>[UIEditDeckFrame.ClearSpawnedCards]</color> Clear all card deck");
                 PoolManager.Pools["UIDeckCard"].DespawnAll();
+            }
+        }
+
+        private string FormatCardDescription(string rawDesc, CardSO cardData)
+        {
+            if (string.IsNullOrEmpty(rawDesc)) return rawDesc;
+
+            // Nếu là thẻ Attack và mô tả có chứa thẻ {{DMG}}
+            if (cardData.ActionType == EActionType.Attack && rawDesc.Contains("{{DMG}}"))
+            {
+                string statColorHex = GetStatColorHex(cardData.ModifyStatType);
+                string statName = GetStatShortName(cardData.ModifyStatType);
+
+                // Giả sử giá trị modifier đang là số thập phân (0.5), nhân 100 để ra %. 
+                float scalePercent = cardData.ModifierValue * 100f;
+
+                string dynamicDmgString = $"{cardData.BaseValue} + <color={statColorHex}>({scalePercent}% {statName})</color>";
+
+                return rawDesc.Replace("{{DMG}}", dynamicDmgString);
+            }
+
+            return rawDesc;
+        }
+
+        private string GetStatColorHex(EStatusType statType)
+        {
+            switch (statType)
+            {
+                case EStatusType.Power: return "#FF3B30"; // Đỏ
+                case EStatusType.Intelligence: return "#007AFF"; // Xanh dương
+                case EStatusType.Vitality: return "#AF52DE"; // Tím
+                case EStatusType.Agi: return "#34C759"; // Xanh lá
+
+                default: return "#FFFFFF"; // Mặc định trắng
+            }
+        }
+
+        private string GetStatShortName(EStatusType statType)
+        {
+            switch (statType)
+            {
+                case EStatusType.Power: return "POW";
+                case EStatusType.Intelligence: return "INT";
+                case EStatusType.Vitality: return "VIT";
+                case EStatusType.Agi: return "AGI";
+
+                default: return statType.ToString(); // Trả về tên gốc nếu không map được
             }
         }
 

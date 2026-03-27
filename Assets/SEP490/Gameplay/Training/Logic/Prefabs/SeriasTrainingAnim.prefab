@@ -83,7 +83,7 @@ MonoBehaviour:
   posStudy: {fileID: 1938073497290794503}
   posSwimming: {fileID: 3087984345473160327}
   posEvadeLeft: {fileID: 7886671252462411399}
-  posEvadeRight: {fileID: 2338034242772028646}
+  posEvadeRight: {fileID: 3993279809285880878}
   posRunCenter: {fileID: 6134725773044844533}
   evadeJumpPower: 3
   evadeMoveDuration: 0.5

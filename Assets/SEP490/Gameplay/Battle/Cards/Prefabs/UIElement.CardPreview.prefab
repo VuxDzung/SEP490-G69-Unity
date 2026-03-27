@@ -243,6 +243,7 @@ MonoBehaviour:
   m_CardDescTmp: {fileID: 8301344020117857386}
   m_BtnRef: {fileID: 4363232324602421710}
   m_CostTmp: {fileID: 0}
+  m_CardTypeImg: {fileID: 6263104860193509207}
 --- !u!114 &4363232324602421710
 MonoBehaviour:
   m_ObjectHideFlags: 0

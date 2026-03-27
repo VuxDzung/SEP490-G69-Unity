@@ -119,7 +119,7 @@ MonoBehaviour:
   - id: btn_tournament_schedule
     textList:
     - language: 0
-      text: Tournament Schedule
+      text: Schedule
     - language: 1
       text: "L\u1ECBch thi \u0111\u1EA5u"
   - id: btn_deck

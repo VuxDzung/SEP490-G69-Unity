@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: CalendarWeek_54
   m_EditorClassIdentifier: 
   m_Week: 54
-  m_Tournaments: []
+  m_Tournaments:
+  - {fileID: 11400000, guid: a663c16875b4df54aba69e159e0a476b, type: 2}
+  - {fileID: 11400000, guid: e9cd373a32272f24db12df04e146d568, type: 2}

@@ -1,6 +1,7 @@
 namespace SEP490G69.Economy
 {
     using System;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -11,18 +12,24 @@ namespace SEP490G69.Economy
         [SerializeField] private Image m_ItemImg;
         [SerializeField] private Button m_Button;
         [SerializeField] private int m_Slot;
+        [SerializeField] private TextMeshProUGUI m_ItemNameTmp;
 
         private string _relicId;
 
         public int Slot => m_Slot;
 
-        public UIRelicSlot SetRelicInfo(string relicId, Sprite itemImg)
+        public UIRelicSlot SetRelicInfo(string relicId, Sprite itemImg, string relicName = "")
         {
             _relicId = relicId;
             if (itemImg != null)
             {
                 m_ItemImg.sprite = itemImg;
                 m_ItemImg.enabled = true;
+            }
+            if (m_ItemNameTmp != null && !string.IsNullOrEmpty(relicName))
+            {
+                m_ItemNameTmp.text = relicName;
+                m_ItemNameTmp.enabled = !string.IsNullOrEmpty(relicName);
             }
             return this;
         }

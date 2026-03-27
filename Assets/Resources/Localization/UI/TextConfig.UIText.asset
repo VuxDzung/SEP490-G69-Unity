@@ -131,3 +131,15 @@ MonoBehaviour:
       text: 'Objective:'
     - language: 1
       text: "M\u1EE5c ti\xEAu:"
+  - id: txt_explore_location
+    textList:
+    - language: 0
+      text: Explore Locations
+    - language: 1
+      text: "\u0110\u1ECBa \u0110i\u1EC3m Kh\xE1m Ph\xE1"
+  - id: txt_expected_rewards
+    textList:
+    - language: 0
+      text: Expected Rewards
+    - language: 1
+      text: "Ph\u1EA7n th\u01B0\u1EDFng \u0111\u1EA1t \u0111\u01B0\u1EE3c"

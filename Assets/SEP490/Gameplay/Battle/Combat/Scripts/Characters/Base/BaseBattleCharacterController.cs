@@ -137,7 +137,7 @@
             }
             _gaugeProcessor.onEnergyFull += HandleActionGaugeFullEvent;
 
-            _critCalculator = new CombatCritCalculator(this);
+            _critCalculator = new CombatCritCalculator();
             _evasionCalculator = new EvasionCalculator(this);
         }
 
@@ -273,13 +273,13 @@
         #region Crit APIs
         public float CalculateCritRate(bool writeToStat)
         {
-            float baseValue = _critCalculator.CalculateCritChance();
+            float baseValue = _critCalculator.CalculateCritChance(StatInt.Value);
             if (writeToStat) StatCritChance.SetCurrentValue(baseValue);
             return StatCritChance.Value;
         }
         public float CaculateCritMul()
         {
-            return _critCalculator.CalculateCritMul();
+            return _critCalculator.CalculateCritMul(StatPow.Value);
         }
 
         public bool HasCrit(bool forceUseCrit)

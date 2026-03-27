@@ -217,6 +217,7 @@
                         if (!removed)
                         {
                             Debug.LogError("Failed to remove from deck");
+                            LoadAllCards(false);
                             return;
                         }
 

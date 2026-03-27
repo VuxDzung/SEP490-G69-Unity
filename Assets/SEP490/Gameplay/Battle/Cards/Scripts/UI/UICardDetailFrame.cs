@@ -17,6 +17,14 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private TextMeshProUGUI m_CardDescTmp;
         [SerializeField] private TextMeshProUGUI m_CardCostTmp;
 
+        // ================= THÊM MỚI: PHẦN CARD TYPE =================
+        [Header("Card Type Config")]
+        [SerializeField] private Image m_CardTypeImage; // Kéo object Field.CardType vào đây
+        [SerializeField] private Sprite m_TypeSpriteAttack;
+        [SerializeField] private Sprite m_TypeSpriteEffect;
+        [SerializeField] private Sprite m_TypeSpriteRecovery;
+        // ==========================================================
+
         [Header("Tooltips")]
         [SerializeField] private Transform m_DescriptionContainer;
         [SerializeField] private GameObject m_StatusTooltipPrefab;
@@ -55,18 +63,114 @@ namespace SEP490G69.Battle.Cards
             // 1. Gán thông tin trực quan của thẻ bài
             if (m_CardIcon != null) m_CardIcon.sprite = cardData.Icon;
             if (m_CardNameTmp != null) m_CardNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, cardData.CardName);
-            if (m_CardDescTmp != null) m_CardDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, cardData.CardDescription);
             if (m_CardCostTmp != null) m_CardCostTmp.text = cardData.Cost.ToString();
 
-            // 2. Tự động quét và Load các Tooltip giải thích trạng thái bằng PoolManager
+            // Xử lý Description động (Hiển thị công thức kèm màu sắc)
+            if (m_CardDescTmp != null)
+            {
+                string rawDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, cardData.CardDescription);
+                m_CardDescTmp.text = FormatCardDescription(rawDesc, cardData);
+            }
+
+            // 2. THÊM MỚI: Xử lý đổi icon Card Type
+            SetupCardTypeIcon(cardData);
+
+            // 3. Tự động quét và Load các Tooltip giải thích trạng thái bằng PoolManager
             LoadStatusTooltips(cardData);
         }
 
+        /// <summary>
+        /// Logic thay đổi hình ảnh Card Type dựa trên ActionType của thẻ
+        /// </summary>
+        private void SetupCardTypeIcon(CardSO cardData)
+        {
+            if (m_CardTypeImage == null) return;
+
+            switch (cardData.ActionType)
+            {
+                case EActionType.Attack:
+                    m_CardTypeImage.sprite = m_TypeSpriteAttack;
+                    m_CardTypeImage.gameObject.SetActive(true);
+                    break;
+
+                case EActionType.Effect:
+                    m_CardTypeImage.sprite = m_TypeSpriteEffect;
+                    m_CardTypeImage.gameObject.SetActive(true);
+                    break;
+
+                case EActionType.HPRecover:
+                case EActionType.StatRecover:
+                    // Cả hồi máu và hồi stat đều dùng chung icon Recovery
+                    m_CardTypeImage.sprite = m_TypeSpriteRecovery;
+                    m_CardTypeImage.gameObject.SetActive(true);
+                    break;
+
+                default:
+                    // Các type khác (ví dụ Other) có thể ẩn đi hoặc bạn có thể gán 1 icon mặc định
+                    m_CardTypeImage.gameObject.SetActive(false);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Hàm format hiển thị công thức Base Damage + Scale Stats kèm màu sắc
+        /// </summary>
+        private string FormatCardDescription(string rawDesc, CardSO cardData)
+        {
+            if (string.IsNullOrEmpty(rawDesc)) return rawDesc;
+
+            // Nếu là thẻ Attack và mô tả có chứa thẻ {{DMG}}
+            if (cardData.ActionType == EActionType.Attack && rawDesc.Contains("{{DMG}}"))
+            {
+                string statColorHex = GetStatColorHex(cardData.ModifyStatType);
+                string statName = GetStatShortName(cardData.ModifyStatType);
+
+                // Giả sử giá trị modifier đang là số thập phân (0.5), nhân 100 để ra %. 
+                float scalePercent = cardData.ModifierValue * 100f;
+
+                string dynamicDmgString = $"{cardData.BaseValue} + <color={statColorHex}>({scalePercent}% {statName})</color>";
+
+                return rawDesc.Replace("{{DMG}}", dynamicDmgString);
+            }
+
+            return rawDesc;
+        }
+
+        // ================= CÁC HÀM BỔ TRỢ MÀU SẮC & TEXT =================
+
+        private string GetStatColorHex(EStatusType statType)
+        {
+            switch (statType)
+            {
+                case EStatusType.Power: return "#FF3B30"; // Đỏ
+                case EStatusType.Intelligence: return "#007AFF"; // Xanh dương
+                case EStatusType.Vitality: return "#AF52DE"; // Tím
+                case EStatusType.Agi: return "#34C759"; // Xanh lá
+
+                default: return "#FFFFFF"; // Mặc định trắng
+            }
+        }
+
+        private string GetStatShortName(EStatusType statType)
+        {
+            switch (statType)
+            {
+                case EStatusType.Power: return "POW";
+                case EStatusType.Intelligence: return "INT";
+                case EStatusType.Vitality: return "VIT";
+                case EStatusType.Agi: return "AGI";
+
+                default: return statType.ToString(); // Trả về tên gốc nếu không map được
+            }
+        }
+
+        // =================================================================
+
         private void LoadStatusTooltips(CardSO cardData)
         {
+            // [GIỮ NGUYÊN ĐOẠN CODE LOAD TOOLTIPS CỦA BẠN]
             Debug.Log($"<color=yellow>[Tooltip Debug]</color> 1. Bắt đầu load Tooltip cho thẻ: {cardData.CardName}");
 
-            // 1. Dọn dẹp Tooltip UI cũ
             string poolKey = "UIStatusTooltip";
             if (PoolManager.Pools.ContainsKey(poolKey))
             {
@@ -74,102 +178,53 @@ namespace SEP490G69.Battle.Cards
             }
             else
             {
-                // Fallback nếu Pool chưa cấu hình
                 for (int i = m_DescriptionContainer.childCount - 1; i >= 0; i--)
                 {
                     Destroy(m_DescriptionContainer.GetChild(i).gameObject);
                 }
             }
 
-            if (m_StatusTooltipPrefab == null)
-            {
-                Debug.LogError("<color=red>[Tooltip Debug]</color> LỖI: Chưa kéo m_StatusTooltipPrefab vào Inspector!");
-                return;
-            }
-            if (m_DescriptionContainer == null)
-            {
-                Debug.LogError("<color=red>[Tooltip Debug]</color> LỖI: Chưa kéo m_DescriptionContainer vào Inspector!");
-                return;
-            }
+            if (m_StatusTooltipPrefab == null || m_DescriptionContainer == null) return;
 
-            // Gộp tất cả Status Effect mà thẻ bài này có thể Gây ra (Inflicts) hoặc Nhận được (Gains)
             var allStatuses = new List<StatusEffectSO>();
 
-            // Try-catch đề phòng trường hợp CardSO chưa khởi tạo List gây lỗi ToArray()
             try
             {
-                if (cardData.StatusGains != null)
-                {
-                    allStatuses.AddRange(cardData.StatusGains);
-                    Debug.Log($"<color=yellow>[Tooltip Debug]</color> 2. Thẻ có {cardData.StatusGains.Length} hiệu ứng Gains.");
-                }
-
-                if (cardData.StatusInflicts != null)
-                {
-                    allStatuses.AddRange(cardData.StatusInflicts);
-                    Debug.Log($"<color=yellow>[Tooltip Debug]</color> 3. Thẻ có {cardData.StatusInflicts.Length} hiệu ứng Inflicts.");
-                }
+                if (cardData.StatusGains != null) allStatuses.AddRange(cardData.StatusGains);
+                if (cardData.StatusInflicts != null) allStatuses.AddRange(cardData.StatusInflicts);
             }
             catch (System.Exception e)
             {
                 Debug.LogError($"<color=red>[Tooltip Debug]</color> LỖI khi đọc mảng Status từ CardSO: {e.Message}");
             }
 
-            // Lọc trùng và LOẠI BỎ các phần tử NULL (nếu Inspector bị để trống)
             var uniqueStatuses = allStatuses.Where(s => s != null).Distinct().ToList();
 
-            Debug.Log($"<color=yellow>[Tooltip Debug]</color> 4. Tổng số Tooltip trạng thái cần hiển thị (sau khi lọc trùng & null): {uniqueStatuses.Count}");
+            if (uniqueStatuses.Count == 0) return;
 
-            if (uniqueStatuses.Count == 0)
-            {
-                Debug.Log($"<color=yellow>[Tooltip Debug]</color> 5. Thẻ này KHÔNG CÓ Status Effect nào. Kết thúc load.");
-                return; // Dừng luôn nếu không có gì để hiện
-            }
-
-            int spawnedCount = 0;
-
-            // Sinh Prefab Tooltip cho từng Status
             foreach (var status in uniqueStatuses)
             {
-                Debug.Log($"<color=yellow>[Tooltip Debug]</color> ---> Đang tiến hành spawn Tooltip cho: {status.EffectName}");
                 Transform tooltipTrans = null;
 
-                // Cố gắng Spawn bằng PoolManager trước
                 if (PoolManager.Pools.ContainsKey(poolKey))
                 {
                     tooltipTrans = PoolManager.Pools[poolKey].Spawn(m_StatusTooltipPrefab.transform, m_DescriptionContainer);
                 }
                 else
                 {
-                    // Fallback
-                    Debug.LogWarning($"<color=orange>[Tooltip Debug]</color> PoolManager không chứa key '{poolKey}', dùng Instantiate mặc định...");
                     tooltipTrans = Instantiate(m_StatusTooltipPrefab, m_DescriptionContainer).transform;
                 }
 
-                if (tooltipTrans == null)
-                {
-                    Debug.LogError($"<color=red>[Tooltip Debug]</color> LỖI: Spawn thất bại cho trạng thái {status.EffectName}");
-                    continue;
-                }
+                if (tooltipTrans == null) continue;
 
                 UIStatusTooltipElement tooltipElement = tooltipTrans.GetComponent<UIStatusTooltipElement>();
                 if (tooltipElement != null)
                 {
                     string locName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_STATUS_EFFECT_NAMES, status.EffectName);
                     string locDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_STATUS_EFFECT_DESC, status.EffectDesc);
-                    spawnedCount++;
                     tooltipElement.Setup(status.Icon, locName, locDesc);
-                    Debug.Log($"<color=green>[Tooltip Debug]</color> ---> Đổ data THÀNH CÔNG cho Tooltip: {status.EffectName}");
-
-                    
-                }
-                else
-                {
-                    Debug.LogError($"<color=red>[Tooltip Debug]</color> LỖI: Prefab Tooltip KHÔNG GẮN script 'UIStatusTooltipElement'!");
                 }
             }
-
-            Debug.Log($"<color=yellow>[Tooltip Debug]</color> 6. Hoàn tất quá trình Load Tooltip. Tổng cộng đã spawn: {spawnedCount}");
         }
     }
 }

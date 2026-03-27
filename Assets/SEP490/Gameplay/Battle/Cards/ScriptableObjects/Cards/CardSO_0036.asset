@@ -19,7 +19,7 @@ MonoBehaviour:
   cost: 45
   m_IsReady: 0
   m_Stackable: 0
-  m_ActionType: 1
+  m_ActionType: 0
   m_BaseDmg: 30
   m_ModifyStatType: 2
   m_DmgModOp: 5
@@ -30,11 +30,8 @@ MonoBehaviour:
   m_PostStatModifiers:
   - {fileID: 11400000, guid: 7e7fcd912f76d08458004fab9d1a8172, type: 2}
   - {fileID: 11400000, guid: 0c7f0058b5e1bf147b764aef28d05635, type: 2}
-  m_StatusGains:
-  - {fileID: 11400000, guid: 8c64d5348a8ef284ba728a1faf1d41bd, type: 2}
-  - {fileID: 11400000, guid: 8c64d5348a8ef284ba728a1faf1d41bd, type: 2}
+  m_StatusGains: []
   m_StatusInflicts: []
-  m_ExtraActions:
-  - 
-  - 
+  m_ExtraActions: []
   m_CustomVariables: []
+  m_VfxList: []

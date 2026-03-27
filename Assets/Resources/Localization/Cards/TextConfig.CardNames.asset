@@ -296,3 +296,39 @@ MonoBehaviour:
       text: Meteor Shower
     - language: 1
       text: "M\u01B0a Thi\xEAn Th\u1EA1ch"
+  - id: card_0048_name
+    textList:
+    - language: 0
+      text: Immovable Root
+    - language: 1
+      text: "B\u1EA5t \u0110\u1ED9ng Th\u1EE5 C\u0103n"
+  - id: card_0049_name
+    textList:
+    - language: 0
+      text: Petal Counter
+    - language: 1
+      text: "Phi Hoa Ph\u1EA3n K\xEDch"
+  - id: card_0050_name
+    textList:
+    - language: 0
+      text: Spring Bloom
+    - language: 1
+      text: "V\u1EA1n V\u1EADt H\u1ED3i Xu\xE2n"
+  - id: card_0051_name
+    textList:
+    - language: 0
+      text: Quiet Calculation
+    - language: 1
+      text: "T\u0129nh M\u1EB7c Th\u1EA7n To\xE1n"
+  - id: card_0052_name
+    textList:
+    - language: 0
+      text: Phantom Strike
+    - language: 1
+      text: "Huy\u1EC5n \u1EA2nh Tr\u1ECDng Quy\u1EC1n"
+  - id: card_0053_name
+    textList:
+    - language: 0
+      text: Isolation
+    - language: 1
+      text: "Tuy\u1EC7t \u0110\u1ECBa C\xF4 L\u1EADp"

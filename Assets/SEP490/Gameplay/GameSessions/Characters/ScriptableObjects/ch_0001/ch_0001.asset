@@ -21,6 +21,7 @@ MonoBehaviour:
   m_Prefab: {fileID: 7588631248940926599, guid: d81d08bb21f7dc147973218529770977, type: 3}
   m_CombatPrefab: {fileID: 3757362601013503452, guid: a77e553fd741a454ea15684f6f41d404, type: 3}
   m_CharacterType: 0
+  m_AtkType: 0
   baseVit: 15
   basePow: 10
   baseInt: 35
@@ -29,16 +30,16 @@ MonoBehaviour:
   baseAgi: 30
   baseEnergy: 100
   baseMood: 100
+  baseRP: 0
   m_TrainingModifiers:
   - {fileID: 11400000, guid: 70176bba0cecd2f42b7d7f057e270b77, type: 2}
   - {fileID: 11400000, guid: 91b029e184aa87f4b869f43b6cbbb9dd, type: 2}
   - {fileID: 11400000, guid: eb531ea2ffc965e4db2731259af18d2d, type: 2}
   - {fileID: 11400000, guid: dcbf80d3c85a27d499b041fff03f30d2, type: 2}
   m_UniqueCardId:
-  - card_0001
-  - card_0002
-  - card_0003
-  - card_0047
+  - card_0051
+  - card_0052
+  - card_0053
   m_StartingCardId:
   - card_0003
   - card_0004

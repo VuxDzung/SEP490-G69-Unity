@@ -72,6 +72,8 @@
         private IMaxHPCalculator _maxHPCalculator;
         private IMaxStaminaCalculator _maxStaminaCalculator;
 
+        private IDmgReductionCalculator _dmgReduceCalculator = new IDmgReductionCalculator();
+
         protected ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
         #endregion
 
@@ -252,7 +254,7 @@
             LastAttacker = attacker;
 
             Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} received pure dmg: {damage}");
-            float finalDamage = Mathf.Max(0, damage - StatDEF.Value);
+            float finalDamage = damage - damage * _dmgReduceCalculator.Calculate(StatDEF.Value);// Mathf.Max(0, damage - StatDEF.Value);
 
             StatReceivedDmg.SetCurrentValue(finalDamage);
             float finalVit = StatHP.Value - StatReceivedDmg.Value;

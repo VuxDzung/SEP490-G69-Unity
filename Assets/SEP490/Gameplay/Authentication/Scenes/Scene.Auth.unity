@@ -781,6 +781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 7260037597217444589, guid: 39c42839e4fcb194aa50869aa17ca3ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7655087635362202933, guid: 39c42839e4fcb194aa50869aa17ca3ea, type: 3}
       propertyPath: m_IsActive
       value: 0

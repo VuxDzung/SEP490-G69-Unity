@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ch_0002
   m_EditorClassIdentifier: 
   m_CharacterId: ch_0002
-  m_IsAvailable: 1
+  m_IsAvailable: 0
   m_CharacterName: Tauroused
   m_CharacterDescription: ch_0002_desc
   m_Thumbnail: {fileID: 21300000, guid: b25f78b8b0901b54ba1625f22e6bd299, type: 3}

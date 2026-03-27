@@ -137,6 +137,9 @@
             }
             _gaugeProcessor.onEnergyFull += HandleActionGaugeFullEvent;
 
+            _maxHPCalculator = new MaxHPCalculator();
+            _maxStaminaCalculator = new MaxStaminaCalculator();
+
             _critCalculator = new CombatCritCalculator();
             _evasionCalculator = new EvasionCalculator(this);
         }
@@ -248,19 +251,22 @@
         {
             LastAttacker = attacker;
 
-            Debug.Log($"{gameObject.name} received pure dmg: {damage}");
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} received pure dmg: {damage}");
             float finalDamage = Mathf.Max(0, damage - StatDEF.Value);
 
             StatReceivedDmg.SetCurrentValue(finalDamage);
             float finalVit = StatHP.Value - StatReceivedDmg.Value;
-            StatHP.SetCurrentValue(finalVit);
 
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} receive pure dmg = {finalDamage} and final damage = {StatReceivedDmg.Value}");
+
+            StatHP.SetCurrentValue(finalVit);
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} remain health: {StatHP.Value}");
             StatEffectManager.OnAfterReceiveDamage(damage);
         }
 
         public void CheckDeath()
         {
-            if (StatVit.Value > 0) return;
+            if (StatHP.Value > 0) return;
 
             Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} has died.");
             PauseBar();
@@ -362,6 +368,7 @@
 
         public void AddStatusEffect(StatusEffectSO effectSO)
         {
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} receives effect {effectSO.EffectId}");
             StatEffectManager.AddStatusEffect(effectSO);
         }
 
@@ -379,6 +386,8 @@
         /// <param name="statusEffectId"></param>
         public void RemoveStatusEffect(string statusEffectId)
         {
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} remove effect {statusEffectId}");
+
             foreach (var status in _statusContainer.Values)
             {
                 status.RemoveModifiersByOwner(statusEffectId);

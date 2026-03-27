@@ -17,11 +17,11 @@ MonoBehaviour:
   cardDescription: card_0039_desc
   icon: {fileID: 21300000, guid: 63c17b4e7883bd54b9fc282b24057025, type: 3}
   cost: 35
-  m_IsReady: 0
+  m_IsReady: 1
   m_Stackable: 0
   m_ActionType: 1
   m_BaseDmg: 0
-  m_ModifyStatType: 13
+  m_ModifyStatType: 0
   m_DmgModOp: 0
   dmgModifierValue: 0
   m_AtkCount: 0
@@ -34,3 +34,4 @@ MonoBehaviour:
   m_StatusInflicts: []
   m_ExtraActions: []
   m_CustomVariables: []
+  m_VfxList: []

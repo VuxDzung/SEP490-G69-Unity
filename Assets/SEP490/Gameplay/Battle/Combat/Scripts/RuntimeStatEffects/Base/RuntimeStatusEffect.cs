@@ -68,7 +68,7 @@ namespace SEP490G69.Battle
             // Handle reflect dmg logic.
             foreach (var modifier in Data.Modifiers)
             {
-                if (modifier.StatType == EStatusType.ReceivedDmg)
+                if (modifier.StatType == EStatusType.RelectedDmg)
                 {
                     float reflect = modifier.GetModifiedStatus(damage);
 

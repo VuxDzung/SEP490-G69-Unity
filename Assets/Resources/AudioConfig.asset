@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AudioList:
   - id: sfx_click
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+  - id: sfx_begin_battle
+    clip: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
+  - id: sfx_enter_tournament
+    clip: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}

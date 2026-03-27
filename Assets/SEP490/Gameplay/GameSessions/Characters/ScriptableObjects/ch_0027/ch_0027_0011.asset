@@ -20,7 +20,9 @@ MonoBehaviour:
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 1647430779239574558, guid: 8f8c5e4e7a711ce4f8ac636cb59d8b31, type: 3}
   m_CombatPrefab: {fileID: 4081124354491220285, guid: 82d451beb850811429cbbcb747cb6d76, type: 3}
+  m_RunningPrefab: {fileID: 0}
   m_CharacterType: 1
+  m_AtkType: 2
   baseVit: 999
   basePow: 999
   baseInt: 999
@@ -30,4 +32,4 @@ MonoBehaviour:
   baseEnergy: 0
   baseMood: 0
   baseRP: 0
-  m_EnemyDeck: {fileID: 11400000, guid: d353b51757d3b564998fdf24edc0b4f6, type: 2}
+  m_EnemyDeck: {fileID: 11400000, guid: 5683c50bd4155d74c9fc4ce72d70a2ab, type: 2}

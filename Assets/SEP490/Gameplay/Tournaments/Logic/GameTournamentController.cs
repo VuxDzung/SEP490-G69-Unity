@@ -419,7 +419,7 @@
 
         private void ResumeAfterCombat(TournamentProgressData data)
         {
-            bool playerWon = data.IsPlayerWon;//PlayerPrefs.GetInt(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN, 0) == 1;
+            bool playerWon = data.IsPlayerWon;
 
             List<TournamentParticipant> winners = new();
 
@@ -484,8 +484,6 @@
             {
                 OnTournamentFinished(winners[0]);
             }
-
-            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_TOURNAMENT_PLAYER_WIN);
         }
 
         private TournamentParticipant ResolveNPCMatch(TournamentParticipant p1, TournamentParticipant p2)
@@ -631,6 +629,8 @@
 
         public void GoBackToMainMenu()
         {
+            ClearAllPrefKeys();
+
             List<LoadTask> loadTaskList = new List<LoadTask>();
             LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
             loadTaskList.Add(goToNextWeekTask);
@@ -710,7 +710,7 @@
             _tournamentDAO.Upsert(data);
             LocalDBOrchestrator.UpdateDBChangeTime();
 
-            PlayerPrefs.SetString(GameConstants.PREF_KEY_TOURNAMENT_ENEMY_ID, enemyId);
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_COMBAT_TYPE, GameConstants.COMBAT_TYPE_TOURNAMENT);
 
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_COMBAT);
         }
@@ -788,6 +788,13 @@
         }
 
         #endregion
+
+
+        public void ClearAllPrefKeys()
+        {
+            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_COMBAT_TYPE);
+            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_TOURNAMENT_ID);
+        }
     }
 
     public enum TournamentRewardTier

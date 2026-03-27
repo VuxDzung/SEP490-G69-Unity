@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7901271372487975591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 6444587176415234548}
   - component: {fileID: 6747325244129018791}
   - component: {fileID: 57726115588349060}
+  - component: {fileID: 5324638256877383510}
   m_Layer: 0
   m_Name: Button.ExploreReward.Item
   m_TagString: Untagged
@@ -257,3 +258,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5324638256877383510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7709565018516925374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6e5fce83f273a4fbb6bf8f64b84375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Image: {fileID: 6747325244129018791}
+  m_Button: {fileID: 57726115588349060}

@@ -47,8 +47,10 @@ namespace SEP490G69.Training
         [SerializeField] private UITextSlider m_INTSlider;
         [SerializeField] private UITextSlider m_StaminaSlider;
 
+        [Header("Testing")]
         [SerializeField] private Button m_TestCombatBtn;
         [SerializeField] private Button m_TestTournamentBtn;
+        [SerializeField] private TestEnemyIdSO m_TestEnemySO;
 
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
@@ -336,6 +338,8 @@ namespace SEP490G69.Training
 
         private void TestShowCombat()
         {
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_TEST_ENEMY_ID, m_TestEnemySO.EnemyId);
+            PlayerPrefs.SetString(GameConstants.PREF_KEY_COMBAT_TYPE, GameConstants.COMBAT_TYPE_TESTING);
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_COMBAT);
         }
         private void TestTournament()

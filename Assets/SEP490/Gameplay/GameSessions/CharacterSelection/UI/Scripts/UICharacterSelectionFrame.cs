@@ -113,8 +113,8 @@ namespace SEP490G69.GameSessions
             base.OnFrameShown();
 
             // Gắn sự kiện nút cơ bản
-            m_PrevCharBtn.onClick.AddListener(ShowPrevChar);
-            m_NextCharBtn.onClick.AddListener(ShowNextChar);
+            //m_PrevCharBtn.onClick.AddListener(ShowPrevChar);
+            //m_NextCharBtn.onClick.AddListener(ShowNextChar);
             m_BackBtn.onClick.AddListener(Back);
             m_NextBtn.onClick.AddListener(Next);
 
@@ -132,8 +132,8 @@ namespace SEP490G69.GameSessions
         {
             base.OnFrameHidden();
 
-            m_PrevCharBtn.onClick.RemoveListener(ShowPrevChar);
-            m_NextCharBtn.onClick.RemoveListener(ShowNextChar);
+            //m_PrevCharBtn.onClick.RemoveListener(ShowPrevChar);
+            //m_NextCharBtn.onClick.RemoveListener(ShowNextChar);
             m_BackBtn.onClick.RemoveListener(Back);
             m_NextBtn.onClick.RemoveListener(Next);
 
@@ -172,6 +172,7 @@ namespace SEP490G69.GameSessions
                 UICharacterElement characterUI = charUITrans.GetComponent<UICharacterElement>();
                 if (characterUI != null)
                 {
+                    characterUI.SetSelectCallback(SelectCharacter);
                     characterUI.SetContent(characterData.CharacterId, characterData.Thumbnail);
                 }
             }

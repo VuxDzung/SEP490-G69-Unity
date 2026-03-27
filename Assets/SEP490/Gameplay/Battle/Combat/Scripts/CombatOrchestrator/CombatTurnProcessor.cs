@@ -7,6 +7,9 @@ namespace SEP490G69.Battle.Combat
 
     public class CombatTurnProcessor : IDisposable
     {
+        public event Action onPlayerEndTurn;
+        public event Action onEnemyEndTurn;
+
         private PlayerBattleCharaterController _player;
         private EnemyCombatController _enemy;
 
@@ -32,6 +35,7 @@ namespace SEP490G69.Battle.Combat
         {
             if (arg1 == ETurnFlowEvent.AfterResetActionGaugue)
             {
+                onPlayerEndTurn?.Invoke();
                 _enemy.UnpauseBar();
                 _player.UnpauseBar();
             }
@@ -41,6 +45,7 @@ namespace SEP490G69.Battle.Combat
         {
             if (ev == ETurnFlowEvent.AfterResetActionGaugue)
             {
+                onEnemyEndTurn?.Invoke();
                 _enemy.UnpauseBar();
                 _player.UnpauseBar();
             }

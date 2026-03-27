@@ -34,5 +34,6 @@ namespace SEP490G69
         TrainingEffective = 15,
         HP = 16,
         CriticalChance = 17,
+        RelectedDmg = 18,
     }
 }

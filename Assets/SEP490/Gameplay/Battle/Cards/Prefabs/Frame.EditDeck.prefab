@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Content: {fileID: 1529409651893616681}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -2820,7 +2820,7 @@ MonoBehaviour:
   m_Content: {fileID: 3593212896344521193}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -3375,7 +3375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3383,15 +3383,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_LocalScale.z
@@ -3427,11 +3427,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 408
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3488,6 +3488,10 @@ PrefabInstance:
     - target: {fileID: 6843102440068982230, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_Name
       value: UIButton.RemoveDeck
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843102440068982230, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3634,6 +3638,10 @@ PrefabInstance:
     - target: {fileID: 6843102440068982230, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_Name
       value: UIButton.Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219683021088238281, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
+      propertyPath: elementId
+      value: btn_save_deck
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

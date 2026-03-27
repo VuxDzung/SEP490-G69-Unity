@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EffectId: ste_0020
   m_EffectName: ste_0020_name
   m_EffectDesc: ste_0020_desc
-  m_Icon: {fileID: -6540866889378144496, guid: a3d8cbde22d788249a2c1c04478333b2, type: 3}
+  m_Icon: {fileID: 21300000, guid: 38781e70013842c4db666b9b8fa1792c, type: 3}
   m_ApplyType: 5
   m_EffectType: 1
   m_AliveTurnCount: 1

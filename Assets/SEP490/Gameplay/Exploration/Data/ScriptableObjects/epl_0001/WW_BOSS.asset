@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
+  m_Name: WW_BOSS
+  m_EditorClassIdentifier: 
+  m_EventId: WW_BOSS
+  m_EventType: 1
+  m_Description: A massive Taurus spirit blocks the academy's training exit. It snorts
+    loudly, ready to test your strength!
+  m_ExploreEventType: 1
+  m_Choices:
+  - choiceName: '[Challenge]  Face the guardian.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 3
+      outcomeMsg: You brace yourself. The guardian roars, accepting your challenge!
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: ch_0012_0004
+      m_DisplayRewardOrder: 0
+      m_RewardList:
+      - {fileID: 11400000, guid: bbacb9d610512cf40920f7c61f8a02cb, type: 2}
+      - {fileID: 11400000, guid: 7ddd766c7a65ada44a755360f29b520a, type: 2}
+      m_GetMoreFromPool: 0
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []

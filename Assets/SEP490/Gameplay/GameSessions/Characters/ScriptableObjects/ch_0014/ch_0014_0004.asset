@@ -18,9 +18,11 @@ MonoBehaviour:
   m_CharacterDescription: ch_0014_desc
   m_Thumbnail: {fileID: 7221545958360956117, guid: 8082e40b96104fd4b81bf81c97c7b1c1, type: 3}
   m_FullBodyImg: {fileID: 7221545958360956117, guid: 8082e40b96104fd4b81bf81c97c7b1c1, type: 3}
-  m_Prefab: {fileID: 0}
-  m_CombatPrefab: {fileID: 0}
+  m_Prefab: {fileID: 1647430779239574558, guid: f4f5df90223032b4289c9fe3372bbbe0, type: 3}
+  m_CombatPrefab: {fileID: 4977648610135399173, guid: 63ca66d95146ccb4a9606f8451c4016d, type: 3}
+  m_RunningPrefab: {fileID: 0}
   m_CharacterType: 1
+  m_AtkType: 1
   baseVit: 65
   basePow: 45
   baseInt: 98

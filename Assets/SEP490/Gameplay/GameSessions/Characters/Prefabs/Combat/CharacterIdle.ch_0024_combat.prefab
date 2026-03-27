@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7196626468681258898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078533647567030711}
+  m_Layer: 0
+  m_Name: vfx_atk_melee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2078533647567030711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7196626468681258898}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4366776808937298339}
+  m_Father: {fileID: 7080590956859939939}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &582467302772983261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,7 +184,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7080590956859939939}
+    m_TransformParent: {fileID: 2078533647567030711}
     m_Modifications:
     - target: {fileID: 436544853417563415, guid: b39c19c283a1bc547939ebd014261a2e, type: 3}
       propertyPath: m_LocalScale.x
@@ -293,7 +325,7 @@ PrefabInstance:
       addedObject: {fileID: 2287299010825974913}
     - targetCorrespondingSourceObject: {fileID: 1408138231777935794, guid: 5e1ac1b3064d5ba45b65a41ac418baa7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4366776808937298339}
+      addedObject: {fileID: 2078533647567030711}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 5e1ac1b3064d5ba45b65a41ac418baa7, type: 3}
       insertIndex: -1
@@ -356,6 +388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b946434cde926ae4ba5c990420635cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_VfxConfig: {fileID: 0}
+  m_VfxParentList:
+  - {fileID: 2078533647567030711}
   m_AtkVFX: {fileID: 8469766675581305167}
 --- !u!114 &6824527825133170302
 MonoBehaviour:
@@ -369,3 +404,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DelayPerfomAction: 1

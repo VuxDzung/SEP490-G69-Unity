@@ -112,7 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b946434cde926ae4ba5c990420635cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_VfxConfig: {fileID: 11400000, guid: df112ac8590e9174aae305370f4cee95, type: 2}
+  m_VfxParentList: []
   m_AtkVFX: {fileID: 29754672262117797}
+  m_StunVFX: {fileID: 0}
+  m_BuffEffectVFX: {fileID: 0}
 --- !u!114 &1334507159133407382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DelayPerfomAction: 1
 --- !u!4 &5033926218410627223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1408138231777935794, guid: cd9590f5b34e4cc40a4d9ff6818de355, type: 3}

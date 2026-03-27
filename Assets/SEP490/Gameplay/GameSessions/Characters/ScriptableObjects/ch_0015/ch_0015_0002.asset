@@ -20,7 +20,9 @@ MonoBehaviour:
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 0}
   m_CombatPrefab: {fileID: 0}
+  m_RunningPrefab: {fileID: 0}
   m_CharacterType: 1
+  m_AtkType: 2
   baseVit: 30
   basePow: 18
   baseInt: 40

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d235a90d5647845ad40053f7d02f24, type: 3}
+  m_Name: POOL_RELIC_C
+  m_EditorClassIdentifier: 
+  m_PoolId: POOL_RELIC_C
+  m_RewardCategory: 4
+  m_RewardIdArray:
+  - rel_0004
+  - rel_0005
+  - rel_0006
+  - rel_0007

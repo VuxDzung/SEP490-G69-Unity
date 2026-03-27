@@ -38,12 +38,17 @@ namespace SEP490G69.Battle.Combat
             _discardPool.Clear();
             _currentDrawPool.Clear();
 
+            CardSO restCard = _owner.CardConfig.GetCardById(CardConstants.CARD_ID_0000);
+
+            _runtimeCardPool.Add(CardFactory.Create(restCard));
+
             foreach (var deckCardId in deckCardIdArray)
             {
                 Debug.Log($"Initialize deck card: {deckCardId}");
 
                 string rawCardId = CardUtils.ExtractRawCardId(deckCardId);
                 CardSO card = _owner.CardConfig.GetCardById(rawCardId);
+
 
                 if (card != null)
                 {
@@ -129,6 +134,8 @@ namespace SEP490G69.Battle.Combat
             float damage = card.BaseValue + card.GetDelta(status.Value);
             damage = (float) System.Math.Round(damage, 0);
             Debug.Log($"{gameObject.name} deal pure dmg: {damage}\nExtra final dmg: {_owner.StatOutputDmg.Value}");
+
+            damage = (float)System.Math.Round(damage, 0);
 
             return damage;
         }

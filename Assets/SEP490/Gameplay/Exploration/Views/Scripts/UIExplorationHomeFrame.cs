@@ -1,25 +1,88 @@
 namespace SEP490G69.Exploration
 {
+    using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
+    using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
+    using static UnityEditor.FilePathAttribute;
 
     public class UIExplorationHomeFrame : GameUIFrame
     {
+        [SerializeField] private Button m_BackBtn;
         [SerializeField] private Button m_PrevBtn;
         [SerializeField] private Button m_NextBtn;
-        [SerializeField] private Button m_BackBtn;
+
 
         [SerializeField] private TextMeshProUGUI m_LocatationNameTmp;
         [SerializeField] private TextMeshProUGUI m_DifficultyTmp;
         [SerializeField] private TextMeshProUGUI m_FinalBossNameTmp;
 
         [SerializeField] private Transform m_RewardContainer;
+        [SerializeField] private Transform m_CardRewardPrefab;
         [SerializeField] private Transform m_RewardPrefab;
 
         [SerializeField] private Button m_StartExploreBtn;
 
+        private string _selectedLocationId;
+
+        private IReadOnlyList<ExploreLocationDataHolder> locations = new List<ExploreLocationDataHolder>();
+
         private int _currentLocationIndex;
+        private CharacterConfigSO _characterConfig;
+        private CharacterConfigSO CharacterConfig
+        {
+            get
+            {
+                if (_characterConfig == null)
+                {
+                    _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
+                }
+                return _characterConfig;
+            }
+        }
+
+        private ImageMasterConfigSO m_ImgMasterConfig;
+
+        private ItemDataConfigSO _itemConfig;
+        private ItemDataConfigSO ItemConfig
+        {
+            get
+            {
+                if (_itemConfig == null)
+                {
+                    _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
+                }
+                return _itemConfig;
+            }
+        }
+
+        private CardConfigSO _cardConfig;
+        private CardConfigSO CardConfig
+        {
+            get
+            {
+                if (_cardConfig == null)
+                {
+                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
+                }
+                return _cardConfig;
+            }
+        }
+
+        private ImageMasterConfigSO ImgMasterConfig
+        {
+            get
+            {
+                if (m_ImgMasterConfig == null)
+                {
+                    m_ImgMasterConfig = Resources.Load<ImageMasterConfigSO>("Images/ImageMasterConfig");
+                }
+                return m_ImgMasterConfig;
+            }
+        }
 
         #region Lazy initialization
         private GameExploreController _exploreController;
@@ -49,10 +112,16 @@ namespace SEP490G69.Exploration
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
+            _currentLocationIndex = 0;
+
             if (m_BackBtn) m_BackBtn.onClick.AddListener(Back);
             if (m_PrevBtn) m_PrevBtn.onClick.AddListener(ShowPrevLocation);
             if (m_NextBtn) m_NextBtn.onClick.AddListener(ShowNextLocation);
-            if (m_StartExploreBtn) m_StartExploreBtn.onClick.AddListener(StartExplore);    
+            if (m_StartExploreBtn) m_StartExploreBtn.onClick.AddListener(StartExplore);
+
+            locations = ExploreController.GetAllLocations();
+
+            ShowLocation(_currentLocationIndex);
         }
         protected override void OnFrameHidden()
         {
@@ -70,7 +139,7 @@ namespace SEP490G69.Exploration
         /// </summary>
         private void Back()
         {
-
+            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
         }
 
         private void ShowPrevLocation()
@@ -78,33 +147,61 @@ namespace SEP490G69.Exploration
             _currentLocationIndex--;
             if (_currentLocationIndex < 0)
             {
-
+                _currentLocationIndex = 0;
             }
 
-            // Call ShowLocation(locationId:string) here.
-
+            ShowLocation(_currentLocationIndex);
         }
 
         private void ShowNextLocation()
         {
             _currentLocationIndex++;
-            
-            // Call ShowLocation(locationId:string) here.
+            if (_currentLocationIndex > locations.Count - 1)
+            {
+                _currentLocationIndex = locations.Count - 1;
+            }
 
+            ShowLocation(_currentLocationIndex);
         }
 
-        private void ShowLocation(string locationId)
+        private void ShowLocation(int index)
         {
-            // Load Exploration Scriptable Object data here.
+            ExploreLocationDataHolder location = locations[index];
 
-            // Display location name here.
+            if (location == null)
+            {
+                m_LocatationNameTmp.text = string.Empty;
+                m_DifficultyTmp.text = string.Empty;
+                m_FinalBossNameTmp.text = string.Empty;
+                return;
+            }
 
-            // Display location difficulty here.
+            _selectedLocationId = location.GetEntityId();
 
-            // Display final boss name here.
+            m_LocatationNameTmp.text = !string.IsNullOrEmpty(location.GetLocationName()) ?
+                                       LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXPLORE_LOCATIONS, location.GetLocationName()) :
+                                       string.Empty;
 
-            // Load possbile reward here.
+            m_DifficultyTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, GameConstants.ConvertDifficulty2LocalizeId(location.GetDifficulty()));
 
+            BaseCharacterSO enemySO = CharacterConfig.GetCharacterById(location.GetBossId());
+            m_FinalBossNameTmp.text = enemySO != null ? enemySO.CharacterName : string.Empty;
+
+            // Load rewards.
+
+            if (location != null && location.GetBossEvent() != null)
+            {
+                foreach (var reward in location.GetBossEvent().Choices[0].Outcomes[0].Rewards)
+                {
+                    Transform rewardUITrans = PoolManager.Pools["PossibleRewards"].Spawn(reward.RewardType == ERewardType.Card ? m_CardRewardPrefab : m_RewardPrefab, m_RewardContainer);
+                    UIPossibleRewardElement rewardUI = rewardUITrans.GetComponent<UIPossibleRewardElement>();
+                    if (rewardUI != null)
+                    {
+                        rewardUI.SetOnClickCallback(ShowPossibleRewardDetails)
+                                .SetContent(reward.RewardTargetId, reward.RewardType, GetIcon(reward.RewardType, reward.RewardTargetId));
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -112,12 +209,24 @@ namespace SEP490G69.Exploration
         /// </summary>
         private void StartExplore()
         {
-            ExploreController.StartExplore();
+            ExploreController.StartExplore(_selectedLocationId);
         }
 
-        private void ShowPossibleRewardDetails(string rewardId)
+        private void ShowPossibleRewardDetails(ERewardType rewardType, string rewardId)
         {
             
+        }
+
+        private Sprite GetIcon(ERewardType type, string id)
+        {
+            return type switch
+            {
+                ERewardType.Gold => ImgMasterConfig.GetImage("general_icons", "ic_coin")?.image,
+                ERewardType.ReputationPoint => null,
+                ERewardType.Item => ItemConfig.GetItemById(id)?.ItemImage,
+                ERewardType.Card => CardConfig.GetCardById(id)?.Icon,
+                _ => null
+            };
         }
     }
 }

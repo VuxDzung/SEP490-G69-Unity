@@ -68,16 +68,16 @@ namespace SEP490G69.Battle
                     //source.StatEffectManager.AddStatusEffect(s);
                     source.AddStatusEffect(s);
                 }
+            }
 
-                if (Data.StatusInflicts != null &&
-                    Data.StatusInflicts.Length > 0 &&
-                    CheckInflictCondition(source, target))
+            if (Data.StatusInflicts != null &&
+                Data.StatusInflicts.Length > 0 &&
+                CheckInflictCondition(source, target))
+            {
+                foreach (var s in Data.StatusInflicts)
                 {
-                    foreach (var s in Data.StatusInflicts)
-                    {
-                        //target.StatEffectManager.AddStatusEffect(s);
-                        target.AddStatusEffect(s);
-                    }
+                    //target.StatEffectManager.AddStatusEffect(s);
+                    target.AddStatusEffect(s);
                 }
             }
         }

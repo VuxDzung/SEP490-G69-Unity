@@ -11,6 +11,7 @@ namespace SEP490G69.Battle.Combat
         [SerializeField] private Image m_Image;
         [SerializeField] private TextMeshProUGUI m_StackAmountTmp;
         [SerializeField] private Button m_BtnRef;
+        [SerializeField] private TextMeshProUGUI m_StatusEffectName;
 
         private string _id;
 
@@ -45,6 +46,14 @@ namespace SEP490G69.Battle.Combat
         public UIStatusEffectElement SetRemainAmount(int amount)
         {
             m_StackAmountTmp.text = amount.ToString();
+            return this;
+        }
+        public UIStatusEffectElement SetStatusName(string name)
+        {
+            if (m_StatusEffectName != null)
+            {
+                m_StatusEffectName.text = name;
+            }
             return this;
         }
 

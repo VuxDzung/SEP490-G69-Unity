@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Id: mod_ste_0023_01
   m_DisplayOnUI: 0
-  m_StatType: 10
+  m_StatType: 18
   m_Operator: 5
   m_Value: 0.15
   m_RandomNumber: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   m_Max: 0
   m_Description: Reflect 15% damage.
   m_ApplyTarget: 1
-  m_CalculateSource: 1
+  m_CalculateSource: 0
   m_ApplyValueType: 1
-  m_TriggerType: 2
+  m_TriggerType: 0
   m_TurnFlowEvent: 3

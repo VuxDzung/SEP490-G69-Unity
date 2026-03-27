@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUIManager.Title
       objectReference: {fileID: 0}
+    - target: {fileID: 6405197906043185241, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405197906043185241, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6834127060891604642, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
       propertyPath: m_Config
       value: 

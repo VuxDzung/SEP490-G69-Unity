@@ -440,7 +440,7 @@
                     else
                     {
                         winner = p1.IsPlayer ? p2 : p1;
-                        (p1.IsPlayer ? p1 : p2).IsEliminated = true;
+                        (p1.IsPlayer ? p1 : p2).IsEliminated = false;
                     }
 
                     winners.Add(winner);

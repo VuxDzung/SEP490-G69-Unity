@@ -279,8 +279,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TreasureSprite: {fileID: 21300000, guid: f9d4682d218497244b2973f80c181161, type: 3}
   m_EncounterSprite: {fileID: 21300000, guid: 4f412b60a8f4a0248b7126c2af1e11b5, type: 3}
-  m_BossSprite: {fileID: 21300000, guid: 4f412b60a8f4a0248b7126c2af1e11b5, type: 3}
-  m_CombatSprite: {fileID: 21300000, guid: 4f412b60a8f4a0248b7126c2af1e11b5, type: 3}
+  m_BossSprite: {fileID: 21300000, guid: 4e36dc71238485c40840666746e9b16a, type: 3}
+  m_CombatSprite: {fileID: 21300000, guid: a09caa95a996ce54598589f6ffa3a06d, type: 3}
   m_Image: {fileID: 2900332659109699875}
   m_Button: {fileID: 8073178342298446918}
   m_EventTypeTmp: {fileID: 3525520251425292013}

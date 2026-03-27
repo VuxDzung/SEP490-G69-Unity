@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0049
   cardName: card_0049_name
   cardDescription: card_0049_desc
-  icon: {fileID: -9021972421974951280, guid: 38bd8ea7698315a4d98948b49e6431e7, type: 3}
+  icon: {fileID: 21300000, guid: 38bd8ea7698315a4d98948b49e6431e7, type: 3}
   cost: 65
   m_IsReady: 0
   m_Stackable: 0

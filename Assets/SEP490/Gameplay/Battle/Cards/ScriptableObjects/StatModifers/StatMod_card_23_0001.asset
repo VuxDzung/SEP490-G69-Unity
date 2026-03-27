@@ -20,7 +20,7 @@ MonoBehaviour:
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0
-  m_Description: 'Card 23: gain 10% action gauge'
+  m_Description: 'Card 23, 48: gain 10% action gauge'
   m_ApplyTarget: 0
   m_CalculateSource: 2
   m_ApplyValueType: 0

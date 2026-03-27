@@ -1,5 +1,6 @@
 namespace SEP490G69.Battle
 {
+    using NUnit.Framework;
     using SEP490G69.Battle.Cards;
 
     public class CardFactory
@@ -28,6 +29,7 @@ namespace SEP490G69.Battle
                 case CardConstants.CARD_ID_20:
                     return new LastResortCard(data);
                 case CardConstants.CARD_ID_25:
+                case "card_0049":
                     return new NatureWrathCard(data);
                 case CardConstants.CARD_ID_31:
                     return new GuardianImpact(data);

@@ -17,7 +17,7 @@ MonoBehaviour:
   cardDescription: card_0047_desc
   icon: {fileID: 21300000, guid: b6aefdea12bc7374da9eee9826836e70, type: 3}
   cost: 150
-  m_IsReady: 0
+  m_IsReady: 1
   m_Stackable: 0
   m_ActionType: 0
   m_BaseDmg: 70
@@ -35,3 +35,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d22e8606c099fc64dae0e548ced6b9a4, type: 2}
   m_ExtraActions: []
   m_CustomVariables: []
+  m_VfxList: []

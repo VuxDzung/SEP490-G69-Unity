@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5158493323279255038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8481183665298088450}
+  m_Layer: 0
+  m_Name: vfx_atk_melee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8481183665298088450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158493323279255038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 102132946963369389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1360209258286205983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108912023163548709, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62,6 +93,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1408138231777935794, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 718792626205163540}
+    - targetCorrespondingSourceObject: {fileID: 1408138231777935794, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8481183665298088450}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
       insertIndex: -1
@@ -69,6 +103,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6214117802093509044}
+    - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7736374123820562995}
   m_SourcePrefab: {fileID: 100100000, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
 --- !u!4 &102132946963369389 stripped
 Transform:
@@ -111,6 +148,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DelayPerfomAction: 1
+--- !u!114 &7736374123820562995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305319594292568065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b946434cde926ae4ba5c990420635cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_VfxConfig: {fileID: 0}
+  m_VfxParentList:
+  - {fileID: 8481183665298088450}
+  m_AtkVFX: {fileID: 0}
 --- !u!212 &4162869900857210938 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3108912023163548709, guid: 9b34237dfbb67c641b672f19ea276eb3, type: 3}
@@ -151,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 619707478727326362, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1021779745233800679, guid: 0863d226e8d2ecd4eab4c9d060b23714, type: 3}
       propertyPath: m_LocalScale.x

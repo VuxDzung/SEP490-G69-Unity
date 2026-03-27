@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
   m_Name: FramesConfig_Exploration
   m_EditorClassIdentifier: 
-  m_StarterFrameId: Frame.Exploration
+  m_StarterFrameId: 
   m_Frames:
   - {fileID: 6727498533720324051, guid: 86b3b5b4e4d4e744c8745406e18c7168, type: 3}
+  - {fileID: 4849390081607560622, guid: 7f2c1312f9d7c6442b8f9008fb52a6d0, type: 3}
+  - {fileID: 6512280172543625584, guid: 8dd2adb2fc2be454b8b537dc94d1d21f, type: 3}
+  - {fileID: 7156082999576306151, guid: 34a9f9ff8daa43f4e86d98d9fef4550f, type: 3}

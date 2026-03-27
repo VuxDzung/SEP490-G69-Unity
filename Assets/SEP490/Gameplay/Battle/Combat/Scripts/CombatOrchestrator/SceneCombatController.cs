@@ -206,7 +206,15 @@
 
         private void OnVictorious()
         {
-            _uiUpdater.ShowVictory();
+            string combatType = PlayerPrefs.GetString(GameConstants.PREF_KEY_COMBAT_TYPE, string.Empty);
+
+            if (string.IsNullOrEmpty(combatType))
+            {
+                Debug.LogError("[SceneCombatController.OnVictorious fatal error] Combat type value string is empty");
+                return;
+            }
+
+            _uiUpdater.ShowVictory(combatType);
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -224,28 +232,27 @@
                 return;
             }
 
-            TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
 
-            if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
+            switch (combatType)
             {
-                Debug.LogError($"[SceneCombatController.OnVictorious] Active tournament id in session {sessionData.SessionId} is null/empty");
-                return;
+                case GameConstants.COMBAT_TYPE_TOURNAMENT:
+                    HandleCombatTournamentCompleted(sessionData, true);
+                    break;
+                case GameConstants.COMBAT_TYPE_EXPLORATION:
+                    HandleCombatExploreCompleted(sessionData, true);
+                    break;
             }
-
-            if (tournamentData == null)
-            {
-                Debug.LogError($"[SceneCombatController.OnVictorious] Tournament data with id {sessionData.ActiveTournamentId} does not exist in the database");
-                return;
-            }
-
-            tournamentData.IsBattleFinished = true;
-            tournamentData.IsPlayerWon = true;
-
-            _tournamentDAO.Upsert(tournamentData);          
         }
         private void OnDefeated()
         {
-            _uiUpdater.ShowDefeat();
+            string combatType = PlayerPrefs.GetString(GameConstants.PREF_KEY_COMBAT_TYPE, string.Empty);
+            if (string.IsNullOrEmpty(combatType))
+            {
+                Debug.LogError("[SceneCombatController.OnVictorious fatal error] Combat type value string is empty");
+                return;
+            }
+
+            _uiUpdater.ShowDefeat(combatType);
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -263,6 +270,19 @@
                 return;
             }
 
+            switch (combatType)
+            {
+                case GameConstants.COMBAT_TYPE_TOURNAMENT:
+                    HandleCombatTournamentCompleted(sessionData, true);
+                    break;
+                case GameConstants.COMBAT_TYPE_EXPLORATION:
+                    HandleCombatExploreCompleted(sessionData, true);
+                    break;
+            }
+        }
+
+        private void HandleCombatTournamentCompleted(PlayerTrainingSession sessionData, bool isPlayerWon)
+        {
             TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
 
             if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
@@ -278,9 +298,14 @@
             }
 
             tournamentData.IsBattleFinished = true;
-            tournamentData.IsPlayerWon = false;
+            tournamentData.IsPlayerWon = isPlayerWon;
 
             _tournamentDAO.Upsert(tournamentData);
+        }
+
+        private void HandleCombatExploreCompleted(PlayerTrainingSession sessionData, bool isPlayerWon)
+        {
+            PlayerPrefs.SetInt(GameConstants.PREF_KEY_IS_BATTLE_WON, isPlayerWon ? 1 : 0);
         }
     }
 }

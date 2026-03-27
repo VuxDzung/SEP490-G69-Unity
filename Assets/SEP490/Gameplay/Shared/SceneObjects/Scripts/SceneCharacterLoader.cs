@@ -36,30 +36,8 @@ namespace SEP490G69
             _characterRepo = new PlayerCharacterRepository();
         }
 
-        public void LoadPlayerCharacter(string sessionId)
+        public void LoadPlayerCharacter(BaseCharacterSO characterSO)
         {
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                return;
-            }
-
-            PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
-
-            if (sessionData == null)
-            {
-                return;
-            }
-            if (string.IsNullOrEmpty(sessionData.RawCharacterId))
-            {
-                return;
-            }
-
-            BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(sessionData.RawCharacterId);
-            if (characterSO == null)
-            {
-                return;
-            }
-
             _characterTrans = PoolManager.Pools["Character"].Spawn(characterSO.Prefab, m_Containers.Length > 0 ? m_Containers[0] : this.transform);
         }
 

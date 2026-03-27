@@ -12,6 +12,9 @@ namespace SEP490G69.Exploration
         [SerializeField] private string m_BossId;
         [SerializeField] private Material m_ScrollableMat;
 
+        [SerializeField] private ExploreEventSO m_BossEvent;
+        [SerializeField] private List<ExploreEventSO> m_OtherEvents;
+
         [SerializeField] private List<RewardDataSO> m_PossibleRewards;
 
         public string ExplorationId => explorationId;
@@ -20,6 +23,9 @@ namespace SEP490G69.Exploration
         public string BossId => m_BossId;
         public Material ScrollableMat => m_ScrollableMat;
         public IReadOnlyList<RewardDataSO> PossibleRewards => m_PossibleRewards;
+
+        public ExploreEventSO BossEvent => m_BossEvent;
+        public IReadOnlyList<ExploreEventSO> OtherEvents => m_OtherEvents;
     }
 
     [System.Serializable]

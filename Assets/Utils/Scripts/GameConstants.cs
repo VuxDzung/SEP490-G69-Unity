@@ -1,5 +1,7 @@
 using SEP490G69.Addons.Localization.Enums;
+using SEP490G69.Battle;
 using SEP490G69.Economy;
+using SEP490G69.Exploration;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,6 +49,14 @@ namespace SEP490G69
         public const string FRAME_ID_LEGACY_UPGRADE = "Frame.LegacyUpgrade";
 
         public const string FRAME_ID_PENDING_GRADUATE = "Frame.PendingGraduate";
+
+        public const string FRAME_ID_EXPLORE_EVENTS_SELECT = "Frame.ExploreEventSelection";
+
+        public const string FRAME_ID_EXPLORE_CHOICE_SELECT = "Frame.ChoiceEvent";
+
+        public const string FRAME_ID_CHOICE_OUTCOME = "Frame.ChoiceOutcome";
+
+        public const string FRAME_ID_EXPLORATION = "Frame.Exploration";
         #endregion
 
         #region Scene names
@@ -66,9 +76,14 @@ namespace SEP490G69
         public const string PREF_KEY_AUTH_ACTION = "AuthAction";
 
         public const string PREF_KEY_TOURNAMENT_ID = "tournament_id";
-        public const string PREF_KEY_TOURNAMENT_ENEMY_ID = "tournament_enemy_id";
+
         public const string PREF_KEY_COMBAT_TYPE = "combat_type";
-        public const string PREF_KEY_TOURNAMENT_PLAYER_WIN = "tournament_player_win";
+        public const string PREF_KEY_IS_BATTLE_WON = "is_battle_won";
+
+        public const string PREF_KEY_EXPLORE_LOCATION_ID = "explore_location_id";
+        public const string PREF_KEY_EXPLORE_ENEMY_ID = "explore_enemy_id";
+        public const string PREF_KEY_IS_IN_EXPLORE = "is_in_explore";
+        public const string PREF_KEY_OUTCOME_ID = "explore_outcome_id";
 
         public const string PREF_KEY_SOUND = "Sound";
         public const string PREF_KEY_QUALITY = "Quality";
@@ -138,6 +153,8 @@ namespace SEP490G69
         public const string LOCALIZE_CATEGORY_TOURNAMENT_OBJECTIVES = "TournamentObjectiveDecs";
         public const string LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_NAMES = "TournamentEntryConditionNames";
         public const string LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_DESCS = "TournamentEntryConditionDescs";
+
+        public const string LOCALIZE_CATEGORY_EXPLORE_LOCATIONS = "ExploreLocations";
         #endregion
 
         #region Currencies id
@@ -281,6 +298,29 @@ namespace SEP490G69
                 EItemType.None => string.Empty,
                 EItemType.Consumable => "msg_usable",
                 EItemType.Relic => "msg_relic",
+                _ => string.Empty,
+            };
+        }
+
+        public static string ConvertDifficulty2LocalizeId(EDifficulty difficulty)
+        {
+            return difficulty switch
+            {
+                EDifficulty.Easy => "msg_easy",
+                EDifficulty.Medium => "msg_medium",
+                EDifficulty.Hard => "msg_hard",
+                _ => string.Empty,
+            };
+        }
+
+        public static string ConvertExploreEventType2LocalizeId(EExploreEventType eventType)
+        {
+            return eventType switch
+            {
+                EExploreEventType.Encounter => "msg_encounter",
+                EExploreEventType.Chest => "msg_treasure",
+                EExploreEventType.Boss => "msg_boss",
+                EExploreEventType.Combat => "msg_combat",
                 _ => string.Empty,
             };
         }

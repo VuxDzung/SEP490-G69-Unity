@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c082aa0bf59c5914e88b37e9969b6722, type: 3}
+  m_Name: epl_0001
+  m_EditorClassIdentifier: 
+  explorationId: epl_0001
+  m_LocationName: epl_0001_name
+  m_Difficulty: 0
+  m_BossId: 
+  m_ScrollableMat: {fileID: 2100000, guid: 537fd54fa938fb044bc3031f92f83ae4, type: 2}
+  m_BossEvent: {fileID: 11400000, guid: 355985f5a90ca6b429a49b9e0bdc0725, type: 2}
+  m_OtherEvents:
+  - {fileID: 11400000, guid: c2e18bb5acf427848b907031abc071c2, type: 2}
+  - {fileID: 11400000, guid: 846c4d2e5bc65fe4c8c509e5d73595b1, type: 2}
+  - {fileID: 11400000, guid: 16f211339ee8fa441a6e82ea66f8caff, type: 2}
+  - {fileID: 11400000, guid: 5ad0f4279c955f34599e0643a7a4fa0a, type: 2}
+  m_PossibleRewards: []

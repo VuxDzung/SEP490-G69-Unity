@@ -15,6 +15,7 @@ namespace SEP490G69
         [SerializeField] private Sprite m_FullBodyImg;
         [SerializeField] private GameObject m_Prefab;
         [SerializeField] private GameObject m_CombatPrefab;
+        [SerializeField] private GameObject m_RunningPrefab;
         [SerializeField] private ECharacterType m_CharacterType;
         [SerializeField] private EAttackType m_AtkType;
 
@@ -49,6 +50,7 @@ namespace SEP490G69
 
         public GameObject CombatPrefab => m_CombatPrefab;
         public GameObject Prefab => m_Prefab;
+        public GameObject RunningPrefab => m_RunningPrefab;
 
         public T ConvertAs<T>() where T : BaseCharacterSO
         {

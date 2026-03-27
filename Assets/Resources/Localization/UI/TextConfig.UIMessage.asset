@@ -169,3 +169,27 @@ MonoBehaviour:
       text: Hard
     - language: 1
       text: "Kh\xF3"
+  - id: msg_encounter
+    textList:
+    - language: 0
+      text: Encounter
+    - language: 1
+      text: "Ch\u1EA1m tr\xE1n"
+  - id: msg_treasure
+    textList:
+    - language: 0
+      text: Treasure
+    - language: 1
+      text: "Kho b\xE1u"
+  - id: msg_boss
+    textList:
+    - language: 0
+      text: Boss
+    - language: 1
+      text: "Tr\xF9m"
+  - id: msg_combat
+    textList:
+    - language: 0
+      text: Combat
+    - language: 1
+      text: "Chi\u1EBFn \u0111\u1EA5u"

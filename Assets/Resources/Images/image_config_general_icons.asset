@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3938f101f98dca34aa3adba6b9408129, type: 3}
+  m_Name: image_config_general_icons
+  m_EditorClassIdentifier: 
+  m_Category: general_icons
+  m_Images:
+  - id: ic_coin
+    image: {fileID: 2221050456173090873, guid: 50a5b687443d9f644bed0e2bf9cea7ca, type: 3}

@@ -5,7 +5,7 @@ namespace SEP490G69
     public enum EEventType
     {
         None = 0,
-
+        ExploreEvent = 1,
     }
 
     [CreateAssetMenu(fileName = "gev_")]
@@ -13,8 +13,11 @@ namespace SEP490G69
     {
         [SerializeField] private string m_EventId;
         [SerializeField] private EEventType m_EventType;
+        [TextArea]
+        [SerializeField] private string m_Description;
 
         public string EventId => m_EventId;
         public EEventType EventType => m_EventType;
+        public string Description => m_Description;
     }
 }

@@ -137,6 +137,9 @@
             }
             _gaugeProcessor.onEnergyFull += HandleActionGaugeFullEvent;
 
+            _maxHPCalculator = new MaxHPCalculator();
+            _maxStaminaCalculator = new MaxStaminaCalculator();
+
             _critCalculator = new CombatCritCalculator();
             _evasionCalculator = new EvasionCalculator(this);
         }
@@ -254,13 +257,13 @@
             StatReceivedDmg.SetCurrentValue(finalDamage);
             float finalVit = StatHP.Value - StatReceivedDmg.Value;
             StatHP.SetCurrentValue(finalVit);
-
+            Debug.Log($"{gameObject.name} remain health: {StatHP.Value}");
             StatEffectManager.OnAfterReceiveDamage(damage);
         }
 
         public void CheckDeath()
         {
-            if (StatVit.Value > 0) return;
+            if (StatHP.Value > 0) return;
 
             Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} has died.");
             PauseBar();

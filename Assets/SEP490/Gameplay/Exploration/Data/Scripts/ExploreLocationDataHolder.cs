@@ -12,6 +12,8 @@ namespace SEP490G69.Exploration
         public string GetBossId() => _dataSO != null ? _dataSO.BossId : string.Empty;
         public EDifficulty GetDifficulty() => _dataSO != null ? _dataSO.Difficulty : EDifficulty.Easy;
 
+        public ExploreEventSO GetBossEvent() => _dataSO != null ? _dataSO.BossEvent : null;
+
         public class Builder
         {
             private ExplorationSO dataSO;

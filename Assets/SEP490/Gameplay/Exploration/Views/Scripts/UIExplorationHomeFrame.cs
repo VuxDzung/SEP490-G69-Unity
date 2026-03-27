@@ -1,6 +1,8 @@
 namespace SEP490G69.Exploration
 {
     using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -19,6 +21,7 @@ namespace SEP490G69.Exploration
         [SerializeField] private TextMeshProUGUI m_FinalBossNameTmp;
 
         [SerializeField] private Transform m_RewardContainer;
+        [SerializeField] private Transform m_CardRewardPrefab;
         [SerializeField] private Transform m_RewardPrefab;
 
         [SerializeField] private Button m_StartExploreBtn;
@@ -38,6 +41,46 @@ namespace SEP490G69.Exploration
                     _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
                 }
                 return _characterConfig;
+            }
+        }
+
+        private ImageMasterConfigSO m_ImgMasterConfig;
+
+        private ItemDataConfigSO _itemConfig;
+        private ItemDataConfigSO ItemConfig
+        {
+            get
+            {
+                if (_itemConfig == null)
+                {
+                    _itemConfig = ContextManager.Singleton.GetDataSO<ItemDataConfigSO>();
+                }
+                return _itemConfig;
+            }
+        }
+
+        private CardConfigSO _cardConfig;
+        private CardConfigSO CardConfig
+        {
+            get
+            {
+                if (_cardConfig == null)
+                {
+                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
+                }
+                return _cardConfig;
+            }
+        }
+
+        private ImageMasterConfigSO ImgMasterConfig
+        {
+            get
+            {
+                if (m_ImgMasterConfig == null)
+                {
+                    m_ImgMasterConfig = Resources.Load<ImageMasterConfigSO>("Images/ImageMasterConfig");
+                }
+                return m_ImgMasterConfig;
             }
         }
 
@@ -145,6 +188,20 @@ namespace SEP490G69.Exploration
             m_FinalBossNameTmp.text = enemySO != null ? enemySO.CharacterName : string.Empty;
 
             // Load rewards.
+
+            if (location != null && location.GetBossEvent() != null)
+            {
+                foreach (var reward in location.GetBossEvent().Choices[0].Outcomes[0].Rewards)
+                {
+                    Transform rewardUITrans = PoolManager.Pools["PossibleRewards"].Spawn(reward.RewardType == ERewardType.Card ? m_CardRewardPrefab : m_RewardPrefab, m_RewardContainer);
+                    UIPossibleRewardElement rewardUI = rewardUITrans.GetComponent<UIPossibleRewardElement>();
+                    if (rewardUI != null)
+                    {
+                        rewardUI.SetOnClickCallback(ShowPossibleRewardDetails)
+                                .SetContent(reward.RewardTargetId, reward.RewardType, GetIcon(reward.RewardType, reward.RewardTargetId));
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -155,9 +212,21 @@ namespace SEP490G69.Exploration
             ExploreController.StartExplore(_selectedLocationId);
         }
 
-        private void ShowPossibleRewardDetails(string rewardId)
+        private void ShowPossibleRewardDetails(ERewardType rewardType, string rewardId)
         {
             
+        }
+
+        private Sprite GetIcon(ERewardType type, string id)
+        {
+            return type switch
+            {
+                ERewardType.Gold => ImgMasterConfig.GetImage("general_icons", "ic_coin")?.image,
+                ERewardType.ReputationPoint => null,
+                ERewardType.Item => ItemConfig.GetItemById(id)?.ItemImage,
+                ERewardType.Card => CardConfig.GetCardById(id)?.Icon,
+                _ => null
+            };
         }
     }
 }

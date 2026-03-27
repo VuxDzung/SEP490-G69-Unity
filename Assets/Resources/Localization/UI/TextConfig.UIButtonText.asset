@@ -266,3 +266,9 @@ MonoBehaviour:
       text: Start Explore
     - language: 1
       text: "B\u1EAFt \u0110\u1EA7u"
+  - id: btn_save_deck
+    textList:
+    - language: 0
+      text: Save Deck
+    - language: 1
+      text: "L\u01B0u b\u1ED9 b\xE0i"

@@ -15,4 +15,4 @@ MonoBehaviour:
   m_Category: general_icons
   m_Images:
   - id: ic_coin
-    image: {fileID: 2221050456173090873, guid: 50a5b687443d9f644bed0e2bf9cea7ca, type: 3}
+    image: {fileID: 21300000, guid: 45ab2fa21ecc57d41a6b823ef84fc68e, type: 3}

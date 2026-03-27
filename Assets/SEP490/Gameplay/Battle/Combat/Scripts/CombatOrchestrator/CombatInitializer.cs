@@ -96,6 +96,7 @@ namespace SEP490G69.Battle.Combat
             {
                 GameConstants.COMBAT_TYPE_TOURNAMENT => GetTournamentEnemyId(sessionData),
                 GameConstants.COMBAT_TYPE_EXPLORATION => GetExploreEnemyId(),
+                GameConstants.COMBAT_TYPE_TESTING => GetTestEnemyId(),
                 _ => string.Empty
             };
         }
@@ -114,6 +115,12 @@ namespace SEP490G69.Battle.Combat
         private string GetExploreEnemyId()
         {
             string enemyId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID, string.Empty);
+            return enemyId;
+        }
+
+        private string GetTestEnemyId()
+        {
+            string enemyId = PlayerPrefs.GetString(GameConstants.PREF_KEY_TEST_ENEMY_ID, string.Empty);
             return enemyId;
         }
     }

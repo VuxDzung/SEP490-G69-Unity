@@ -114,6 +114,7 @@
             LoadStatEffects("UIPlayerStatusEffect", effectList, true);
             return this;
         }
+
         public UICombatFrame LoadEnemyStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
         {
             LoadStatEffects("UIEnemyStatusEffect", effectList, false);
@@ -133,7 +134,11 @@
                 UIStatusEffectElement effectUI = effectTrans.GetComponent<UIStatusEffectElement>();
                 if (effectUI != null)
                 {
-                    effectUI.SetId(isPlayer ? "player" : "enemy").SetImg(effect.Data.Icon).SetRemainAmount(effect.Stack).SetOnClickCallback(SelectStatEffect);
+                    effectUI.SetId(isPlayer ? "player" : "enemy")
+                            .SetImg(effect.Data.Icon)
+                            .SetRemainAmount(effect.Stack)
+                            .SetStatusName(LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_STATUS_EFFECT_NAMES, effect.Data.EffectName))
+                            .SetOnClickCallback(SelectStatEffect);
                 }
             }
         }

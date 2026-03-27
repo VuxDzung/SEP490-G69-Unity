@@ -19,7 +19,7 @@ MonoBehaviour:
   cost: 20
   m_IsReady: 1
   m_Stackable: 0
-  m_ActionType: 2
+  m_ActionType: 1
   m_BaseDmg: 0
   m_ModifyStatType: 0
   m_DmgModOp: 0

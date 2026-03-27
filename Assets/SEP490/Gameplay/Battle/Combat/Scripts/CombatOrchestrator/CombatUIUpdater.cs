@@ -2,6 +2,7 @@ namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Shared;
+    using System.Collections.Generic;
 
     public class CombatUIUpdater
     {
@@ -59,6 +60,20 @@ namespace SEP490G69.Battle.Combat
                          .SetEnemyCharGauge(enemy.GetCurrentEnergyValue(), enemy.GetMaxEnergyValue());
         }
 
+        public void ShowEnemyStatusEffects(EnemyCombatController enemy)
+        {
+            GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
+                                   .AsFrame<UICombatFrame>()
+                                   .LoadEnemyStatEffects(enemy.StatEffectManager.ActiveStatEffects);
+        }
+
+        public void ShowPlayerStatusEffects(PlayerBattleCharaterController player)
+        {
+            GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
+                       .AsFrame<UICombatFrame>()
+                       .LoadEnemyStatEffects(player.StatEffectManager.ActiveStatEffects);
+        }
+
         public void ShowVictory(string combatType)
         {
             GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
@@ -92,6 +107,9 @@ namespace SEP490G69.Battle.Combat
                             break;
                         case GameConstants.COMBAT_TYPE_EXPLORATION:
                             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_EXPLORATION);
+                            break;
+                        case GameConstants.COMBAT_TYPE_TESTING:
+                            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
                             break;
                     }
                 });

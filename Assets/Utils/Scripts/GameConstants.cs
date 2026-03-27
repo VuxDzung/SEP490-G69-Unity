@@ -80,6 +80,8 @@ namespace SEP490G69
         public const string PREF_KEY_COMBAT_TYPE = "combat_type";
         public const string PREF_KEY_IS_BATTLE_WON = "is_battle_won";
 
+        public const string PREF_KEY_TEST_ENEMY_ID = "test_enemy_id";
+
         public const string PREF_KEY_EXPLORE_LOCATION_ID = "explore_location_id";
         public const string PREF_KEY_EXPLORE_ENEMY_ID = "explore_enemy_id";
         public const string PREF_KEY_IS_IN_EXPLORE = "is_in_explore";
@@ -196,6 +198,7 @@ namespace SEP490G69
         public const string POOL_TOAST = "Toast";
         #endregion
 
+        public const string COMBAT_TYPE_TESTING = "TestCombat";
         public const string COMBAT_TYPE_TOURNAMENT = "Tournament";
         public const string COMBAT_TYPE_EXPLORATION = "Exploration";
         public const int TRAINING_STARTER_LEVEL = 1;

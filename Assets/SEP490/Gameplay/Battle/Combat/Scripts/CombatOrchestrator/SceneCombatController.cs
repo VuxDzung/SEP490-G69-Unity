@@ -142,6 +142,9 @@
                 OnStateChanged?.Invoke(state);
             };
 
+            _turnProcessor.onPlayerEndTurn += _turnProcessor_onPlayerEndTurn;
+            _turnProcessor.onEnemyEndTurn += _turnProcessor_onEnemyEndTurn;
+
             OnStateChanged += SceneCombatController_OnStateChanged;
         }
 
@@ -152,6 +155,9 @@
 
             if (_enemy != null) _enemy.onEnergyFull -= HandleEnemyTurn;
             if (_enemy != null) _enemy.onDead -= HandleEnemyDefeated;
+
+            _turnProcessor.onPlayerEndTurn -= _turnProcessor_onPlayerEndTurn;
+            _turnProcessor.onEnemyEndTurn -= _turnProcessor_onEnemyEndTurn;
         }
 
         public void StartBattle()
@@ -172,12 +178,16 @@
         {
             _turnProcessor.PlayerTurn();
             _uiUpdater.UpdateStats(_player, _enemy);
+            _uiUpdater.ShowPlayerStatusEffects(_player);
+            _uiUpdater.ShowEnemyStatusEffects(_enemy);
         }
 
         private void HandleEnemyTurn(BaseBattleCharacterController character)
         {
             _turnProcessor.EnemyTurn();
             _uiUpdater.UpdateStats(_player, _enemy);
+            _uiUpdater.ShowPlayerStatusEffects(_player);
+            _uiUpdater.ShowEnemyStatusEffects(_enemy);
         }
 
         private void HandleEnemyDefeated()
@@ -306,6 +316,18 @@
         private void HandleCombatExploreCompleted(PlayerTrainingSession sessionData, bool isPlayerWon)
         {
             PlayerPrefs.SetInt(GameConstants.PREF_KEY_IS_BATTLE_WON, isPlayerWon ? 1 : 0);
+        }
+
+        private void _turnProcessor_onEnemyEndTurn()
+        {
+            _uiUpdater.ShowPlayerStatusEffects(_player);
+            _uiUpdater.ShowEnemyStatusEffects(_enemy);
+        }
+
+        private void _turnProcessor_onPlayerEndTurn()
+        {
+            _uiUpdater.ShowPlayerStatusEffects(_player);
+            _uiUpdater.ShowEnemyStatusEffects(_enemy);
         }
     }
 }

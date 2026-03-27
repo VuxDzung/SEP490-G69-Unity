@@ -56,7 +56,9 @@ namespace SEP490G69
         public void OnAfterReceiveDamage(float dmg)
         {
             foreach (var s in _statusEffects.ToList())
+            {
                 s.OnAfterReceiveDamage(dmg);
+            }
         }
 
         public void Remove(RuntimeStatusEffect effect)

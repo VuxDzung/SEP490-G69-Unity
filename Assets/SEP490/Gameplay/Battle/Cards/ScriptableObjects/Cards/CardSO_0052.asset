@@ -20,10 +20,10 @@ MonoBehaviour:
   m_IsReady: 0
   m_Stackable: 0
   m_ActionType: 0
-  m_BaseDmg: 40
+  m_BaseDmg: 35
   m_ModifyStatType: 2
   m_DmgModOp: 5
-  dmgModifierValue: 1.3
+  dmgModifierValue: 1.2
   m_AtkCount: 1
   m_DamageType: 3
   m_PreStatModifiers: []

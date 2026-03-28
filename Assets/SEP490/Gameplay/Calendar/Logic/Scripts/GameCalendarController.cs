@@ -128,8 +128,8 @@ namespace SEP490G69.Calendar
 
             CheckPendingTournamentResult(sessionId, out bool needCreateSnapshot, () =>
             {
-                float fadeDur = 1f;
-                float inFadeDur = 1f;
+                float fadeDur = 0.25f;
+                float inFadeDur = 0.5f;
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_MAIN_MENU);
 
                 FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>

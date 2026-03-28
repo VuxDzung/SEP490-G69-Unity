@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 36070543102660055}
   - component: {fileID: 1611132656582033101}
   m_Layer: 0
-  m_Name: Frame.CardDetails
+  m_Name: Popup.CardDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac867ec21f1a934da634a2ddac901f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameId: Frame.CardDetails
+  frameId: Popup.CardDetails
   m_BackgroundOverlayBtn: {fileID: 7458944036327134334}
   m_CardIcon: {fileID: 3737770314861980015}
   m_CardNameTmp: {fileID: 3643801113423066606}

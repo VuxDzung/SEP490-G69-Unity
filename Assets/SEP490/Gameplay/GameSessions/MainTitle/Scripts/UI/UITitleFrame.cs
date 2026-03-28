@@ -179,7 +179,10 @@ namespace SEP490G69.GameSessions
 
         private void StartNew()
         {
-            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration);
+            CinematicCameraController.Instance.DOZoom(m_ZoomInCamOrthSize, m_FadeDuration, () =>
+            {
+
+            });
             PerformCinematic(() =>
             {
                 ShowCutscene();
@@ -197,7 +200,11 @@ namespace SEP490G69.GameSessions
 
         private void PerformCinematic(Action onAction)
         {
-            CinematicCameraController.Instance.StartZoomIn(m_ZoomInCamOrthSize, m_FadeDuration - 0.1f);
+            CinematicCameraController.Instance.DOZoom(m_ZoomInCamOrthSize, m_FadeDuration - 0.1f, () =>
+            {
+
+            });
+
             FadingController.Singleton.FadeIn2Out(m_FadeDuration, m_DelayFadeOutDur, Color.black, "", () =>
             {
                 onAction?.Invoke();

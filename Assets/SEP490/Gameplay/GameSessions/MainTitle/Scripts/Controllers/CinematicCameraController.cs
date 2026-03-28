@@ -1,5 +1,6 @@
 namespace SEP490G69
 {
+    using DG.Tweening;
     using UnityEngine;
 
     public class CinematicCameraController : MonoBehaviour
@@ -9,12 +10,10 @@ namespace SEP490G69
 
         [SerializeField] private Camera m_Camera;
 
-        private bool _isZooming;
+        private Tween _currentTween;
+        private bool _isPlaying;
 
-        private float _startSize;
-        private float _targetSize;
-        private float _duration;
-        private float _elapsedTime;
+        public bool IsPlaying => _isPlaying;
 
         //-----------------------------------------
         // UNITY
@@ -30,45 +29,45 @@ namespace SEP490G69
             _instance = this;
         }
 
-        private void Update()
-        {
-            if (!_isZooming)
-                return;
+        //private void Update()
+        //{
+        //    if (!_isZooming)
+        //        return;
 
-            _elapsedTime += Time.deltaTime;
+        //    _elapsedTime += Time.deltaTime;
 
-            float t = Mathf.Clamp01(_elapsedTime / _duration);
+        //    float t = Mathf.Clamp01(_elapsedTime / _duration);
 
-            // Cinematic easing (smooth in-out)
-            float easedT = EaseInOut(t);
+        //    // Cinematic easing (smooth in-out)
+        //    float easedT = EaseInOut(t);
 
-            float newSize = Mathf.Lerp(_startSize, _targetSize, easedT);
-            SetOrthSize(newSize);
+        //    float newSize = Mathf.Lerp(_startSize, _targetSize, easedT);
+        //    SetOrthSize(newSize);
 
-            if (t >= 1f)
-            {
-                _isZooming = false;
-            }
-        }
+        //    if (t >= 1f)
+        //    {
+        //        _isZooming = false;
+        //    }
+        //}
 
         //-----------------------------------------
         // PUBLIC API
         //-----------------------------------------
-        public void StartZoomIn(float size, float duration)
-        {
-            if (m_Camera == null)
-            {
-                Debug.LogWarning("Camera not assigned!");
-                return;
-            }
+        //public void StartZoomIn(float size, float duration)
+        //{
+        //    if (m_Camera == null)
+        //    {
+        //        Debug.LogWarning("Camera not assigned!");
+        //        return;
+        //    }
 
-            _startSize = m_Camera.orthographicSize;
-            _targetSize = size;
-            _duration = Mathf.Max(0.01f, duration);
-            _elapsedTime = 0f;
+        //    _startSize = m_Camera.orthographicSize;
+        //    _targetSize = size;
+        //    _duration = Mathf.Max(0.01f, duration);
+        //    _elapsedTime = 0f;
 
-            _isZooming = true;
-        }
+        //    _isZooming = true;
+        //}
 
         public void SetOrthSize(float size)
         {
@@ -78,10 +77,61 @@ namespace SEP490G69
         //-----------------------------------------
         // EASING
         //-----------------------------------------
-        private float EaseInOut(float t)
+        //private float EaseInOut(float t)
+        //{
+        //    // SmoothStep cinematic feel
+        //    return t * t * (3f - 2f * t);
+        //}
+
+        public Tween DOZoom(float targetSize, float duration, System.Action onComplete)
         {
-            // SmoothStep cinematic feel
-            return t * t * (3f - 2f * t);
+            if (m_Camera == null)
+            {
+                Debug.LogWarning("Camera not assigned!");
+                onComplete?.Invoke();
+                return null;
+            }
+
+            _currentTween?.Kill();
+            _isPlaying = true;
+
+            _currentTween = DOTween.To(
+                    () => m_Camera.orthographicSize,
+                    x => m_Camera.orthographicSize = x,
+                    targetSize,
+                    duration)
+                .SetEase(Ease.InOutSine)
+                .OnComplete(() =>
+                {
+                    _currentTween = null;
+                    onComplete?.Invoke();
+                    _isPlaying = false;
+                });
+
+            return _currentTween;
+        }
+
+        public Tween DOMove(Vector3 direction, float duration, System.Action onComplete)
+        {
+            _currentTween?.Kill();
+
+            Vector3 target = transform.position + direction;
+            _isPlaying = true;
+            _currentTween = transform.DOMove(target, duration)
+                .SetEase(Ease.InOutSine)
+                .OnComplete(() =>
+                {
+                    _currentTween = null;
+                    onComplete?.Invoke();
+                    _isPlaying = false;
+                });
+
+            return _currentTween;
+        }
+
+        public float GetSize()
+        {
+            return m_Camera.orthographicSize;
         }
     }
 }

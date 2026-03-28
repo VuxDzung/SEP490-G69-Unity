@@ -239,6 +239,16 @@
             {
                 frame.ShowChoices(choiceNode.Choices);
             }
+
+            if (!string.IsNullOrEmpty(node.BgmId))
+            {
+                _audioManager.SetBG(node.BgmId);
+            }
+
+            if (!string.IsNullOrEmpty(node.SfxId))
+            {
+                _audioManager.PlaySFX(node.SfxId);
+            }
         }
 
         public bool HasChoice(BaseDialogNodeSO node)

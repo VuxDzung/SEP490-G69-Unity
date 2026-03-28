@@ -48,6 +48,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4361719539512031250, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361719539512031250, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4733143449821946934, guid: f6f8560a543a7db47a050ce1f631aee5, type: 3}
       propertyPath: m_Name
       value: GameUIManager.Title

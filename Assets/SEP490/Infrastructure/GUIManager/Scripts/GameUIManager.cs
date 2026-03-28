@@ -7,7 +7,8 @@ namespace SEP490G69
     public class GameUIManager : GlobalSingleton<GameUIManager>
     {
         #region Serialize Fields
-        [SerializeField] private Transform frameContainer;
+        [SerializeField] private Transform screenContainer;
+        [SerializeField] private Transform popupContainer;
         [SerializeField] private FramesConfigSO m_Config;
         #endregion
 
@@ -27,7 +28,8 @@ namespace SEP490G69
             base.CreateNewInstance();
             foreach (var frame in m_Config.Frames)
             {
-                GameUIFrame frameUI = Instantiate(frame, frameContainer);
+                bool isPopup = frame.FrameId.StartsWith("Popup");
+                GameUIFrame frameUI = Instantiate(frame, isPopup ? popupContainer : screenContainer);
                 frameUILookUp.Add(frame.FrameId, frameUI);
                 frameUI.gameObject.SetActive(false);
                 frameUI.SetManager(this);

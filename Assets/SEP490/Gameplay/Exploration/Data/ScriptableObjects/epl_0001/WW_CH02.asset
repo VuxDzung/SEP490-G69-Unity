@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
-  m_Name: WW_CH01
+  m_Name: WW_CH02
   m_EditorClassIdentifier: 
-  m_EventId: WW_CH01
+  m_EventId: WW_CH02
   m_EventType: 1
-  m_Description: You stumble upon an old wooden chest left by previous academy explorers.
+  m_Description: You find a slightly dusty backpack hanging on a tree branch, likely
+    forgotten by a senior.
   m_ExploreEventType: 3
   m_Choices:
-  - choiceName: '[Open]
+  - choiceName: '[Search]
 
-      Claim the contents.'
+      Take what''s inside.'
     m_Condition:
       m_SuccessCondition: 0
       m_ConditionStat: 0
@@ -27,21 +28,20 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 1
-      outcomeMsg: You pry open the old chest. It's full of handy supplies left for
-        junior students!
+      outcomeMsg: You unzip the bag and find some leftover training supplies!
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0
       m_RewardList:
-      - {fileID: 11400000, guid: 138b8ce48053e1343a6779cc113fed7d, type: 2}
+      - {fileID: 11400000, guid: df8e96750a02cd64a8517718cc663d23, type: 2}
       m_GetMoreFromPool: 1
       m_PoolId: POOL_CONS_BASIC
-      m_PoolRewardAmount: 1
+      m_PoolRewardAmount: 2
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
   - choiceName: '[Leave]
 
-      Ignore it.'
+      Leave it for the owner.'
     m_Condition:
       m_SuccessCondition: 0
       m_ConditionStat: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 1
-      outcomeMsg: You leave the chest untouched and continue your journey.
+      outcomeMsg: You leave it hanging. Hopefully, the owner finds it later.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0

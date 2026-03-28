@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
+  m_Name: CC_EV02
+  m_EditorClassIdentifier: 
+  m_EventId: CC_EV02
+  m_EventType: 1
+  m_Description: Click. You stepped on a pressure plate. The stone gates slam shut,
+    trapping you inside a testing arena!
+  m_ExploreEventType: 2
+  m_Choices:
+  - choiceName: '[Force]
+
+      (POW >= 160)'
+    m_Condition:
+      m_SuccessCondition: 1
+      m_ConditionStat: 1
+      m_RequiredValue: 160
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 1
+      outcomeMsg: With a mighty push, the gates groan and slide open. You find some
+        dropped gold!
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: 
+      m_DisplayRewardOrder: 0
+      m_RewardList:
+      - {fileID: 11400000, guid: 297ef89b9a3075c428c6e7516f01fecf, type: 2}
+      m_GetMoreFromPool: 0
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+    - outcomeType: 2
+      outcomeMsg: The gates won't budge. A grumpy exam proctor steps out to test
+        you!
+      m_RandomEnemyFromPool: 1
+      m_EnemyId: POOL_ENEMY_CC
+      m_DisplayRewardOrder: 2
+      m_RewardList: []
+      m_GetMoreFromPool: 0
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+  - choiceName: '[Wait]
+
+      Wait for a rescue team.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 0
+      outcomeMsg: You sit down and relax. Eventually, a staff member opens the gate,
+        scolding you slightly.
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: 
+      m_DisplayRewardOrder: 0
+      m_RewardList: []
+      m_GetMoreFromPool: 0
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []

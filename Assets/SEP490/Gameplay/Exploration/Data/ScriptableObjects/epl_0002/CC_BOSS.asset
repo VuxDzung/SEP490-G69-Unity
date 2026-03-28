@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
-  m_Name: WW_CB01
+  m_Name: CC_BOSS
   m_EditorClassIdentifier: 
-  m_EventId: WW_CB01
+  m_EventId: CC_BOSS
   m_EventType: 1
-  m_Description: A playful but aggressive wild spirit beast leaps out of the tall
-    grass, demanding a training battle!
-  m_ExploreEventType: 4
+  m_Description: The Elite Senior steps forward. "You've come far, rookie. Let's
+    see if you have what it takes!"
+  m_ExploreEventType: 1
   m_Choices:
-  - choiceName: '[Fight] Show them your skills.'
+  - choiceName: '[Challenge]
+
+      Fight for glory.'
     m_Condition:
       m_SuccessCondition: 0
       m_ConditionStat: 0
@@ -26,15 +28,16 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 3
-      outcomeMsg: You ready to fight. The wild spirit bounces around excitedly, waiting
-        for your first move!
-      m_RandomEnemyFromPool: 1
-      m_EnemyId: POOL_ENEMY_WW
+      outcomeMsg: The air grows heavy with competitive tension!
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: ch_0025_0009
       m_DisplayRewardOrder: 2
       m_RewardList:
-      - {fileID: 11400000, guid: e335cde9e3915b54988efc251584a734, type: 2}
-      m_GetMoreFromPool: 1
-      m_PoolId: POOL_CARD_BASIC
-      m_PoolRewardAmount: 1
-      m_DisplayPenaltyOrder: 0
+      - {fileID: 11400000, guid: 9af064a978739794ca3f72574f85bf76, type: 2}
+      - {fileID: 11400000, guid: 438812d2f6d9f6d48bf3f7863b01bee6, type: 2}
+      m_GetMoreFromPool: 0
+      m_RewardPoolList: []
+      m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

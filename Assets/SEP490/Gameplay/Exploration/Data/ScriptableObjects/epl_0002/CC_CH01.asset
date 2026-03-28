@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
-  m_Name: WW_CH01
+  m_Name: CC_CH01
   m_EditorClassIdentifier: 
-  m_EventId: WW_CH01
+  m_EventId: CC_CH01
   m_EventType: 1
-  m_Description: You stumble upon an old wooden chest left by previous academy explorers.
-  m_ExploreEventType: 3
+  m_Description: A shiny silver chest rests on a glowing pedestal. It's an official
+    academy reward box.
+  m_ExploreEventType: 2
   m_Choices:
   - choiceName: '[Open]
 
@@ -27,18 +28,18 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 1
-      outcomeMsg: You pry open the old chest. It's full of handy supplies left for
-        junior students!
+      outcomeMsg: The chest opens with a satisfying click, revealing a rare relic.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0
       m_RewardList:
-      - {fileID: 11400000, guid: 138b8ce48053e1343a6779cc113fed7d, type: 2}
+      - {fileID: 11400000, guid: 24bea921780af2342b1dca2859db6a67, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CONS_BASIC
-      m_PoolRewardAmount: 1
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: POOL_RELIC_C
+      m_PoolRewardAmount: 1
   - choiceName: '[Leave]
 
       Ignore it.'
@@ -48,14 +49,15 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 0
       outcomeMsg: You leave the chest untouched and continue your journey.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

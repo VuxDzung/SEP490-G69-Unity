@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
-  m_Name: WW_CH01
+  m_Name: CC_CH02
   m_EditorClassIdentifier: 
-  m_EventId: WW_CH01
+  m_EventId: CC_CH02
   m_EventType: 1
-  m_Description: You stumble upon an old wooden chest left by previous academy explorers.
-  m_ExploreEventType: 3
+  m_Description: You find a sealed box radiating strange, heavy energy. A warning
+    label advises caution.
+  m_ExploreEventType: 2
   m_Choices:
-  - choiceName: '[Open]
+  - choiceName: '[Accept Risk]
 
-      Claim the contents.'
+      Break the seal.'
     m_Condition:
       m_SuccessCondition: 0
       m_ConditionStat: 0
@@ -27,18 +28,22 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 1
-      outcomeMsg: You pry open the old chest. It's full of handy supplies left for
-        junior students!
+      outcomeMsg: The chest opens with a satisfying click, revealing a rare relic.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0
-      m_RewardList:
-      - {fileID: 11400000, guid: 138b8ce48053e1343a6779cc113fed7d, type: 2}
+      m_RewardList: []
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CONS_BASIC
+      m_PoolId: POOL_RELIC_C
       m_PoolRewardAmount: 1
       m_DisplayPenaltyOrder: 0
-      m_PenatyModifiers: []
+      m_PenatyModifiers:
+      - {fileID: 11400000, guid: e4c94896ae3df4a429bba44cbbd890e6, type: 2}
+      - {fileID: 11400000, guid: d2196e8719a2abf4698b2d2b25db8716, type: 2}
+      - {fileID: 11400000, guid: a240501c370e5f84e83524a44f60d678, type: 2}
+      - {fileID: 11400000, guid: 0a020ea5180807041b87cc0f0e7e1904, type: 2}
+      - {fileID: 11400000, guid: 952a75225937203488311be4d726b715, type: 2}
+      - {fileID: 11400000, guid: 691d2381b2e9b3940bc827403e13c300, type: 2}
   - choiceName: '[Leave]
 
       Ignore it.'
@@ -48,7 +53,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 0
       outcomeMsg: You leave the chest untouched and continue your journey.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 

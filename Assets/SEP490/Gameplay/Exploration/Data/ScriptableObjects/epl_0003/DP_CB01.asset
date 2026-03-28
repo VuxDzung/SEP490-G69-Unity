@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
-  m_Name: WW_CB01
+  m_Name: DP_CB01
   m_EditorClassIdentifier: 
-  m_EventId: WW_CB01
+  m_EventId: CC_CB01
   m_EventType: 1
-  m_Description: A playful but aggressive wild spirit beast leaps out of the tall
-    grass, demanding a training battle!
+  m_Description: The majestic Peak Guardian Spirit descends from the sky, initiating
+    the final test before the summit.
   m_ExploreEventType: 4
   m_Choices:
-  - choiceName: '[Fight] Show them your skills.'
+  - choiceName: '[Prove Worth]
+
+      Engage the Guardian.'
     m_Condition:
       m_SuccessCondition: 0
       m_ConditionStat: 0
@@ -26,15 +28,18 @@ MonoBehaviour:
       m_RandomValue: 0
     m_Outcomes:
     - outcomeType: 3
-      outcomeMsg: You ready to fight. The wild spirit bounces around excitedly, waiting
-        for your first move!
+      outcomeMsg: You take a combat stance. The golem beeps mechanically and charges
+        forward!
       m_RandomEnemyFromPool: 1
-      m_EnemyId: POOL_ENEMY_WW
+      m_EnemyId: POOL_ENEMY_DP
       m_DisplayRewardOrder: 2
       m_RewardList:
-      - {fileID: 11400000, guid: e335cde9e3915b54988efc251584a734, type: 2}
-      m_GetMoreFromPool: 1
-      m_PoolId: POOL_CARD_BASIC
-      m_PoolRewardAmount: 1
+      - {fileID: 11400000, guid: c8fc9cde853d58343949f800eb2b1a44, type: 2}
+      m_GetMoreFromPool: 0
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_VIT
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

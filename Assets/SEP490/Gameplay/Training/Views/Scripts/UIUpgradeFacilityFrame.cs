@@ -15,12 +15,14 @@ namespace SEP490G69.Training
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_FacilityUIContainer;
         [Header("Details")]
+        [SerializeField] private Transform m_StatChangesContainer;
         [SerializeField] private TextMeshProUGUI m_ExerciseNameTmp;
         [SerializeField] private Image m_ExerciseIcon;
         [SerializeField] private TextMeshProUGUI m_ExerciseLvTmp;
         [SerializeField] private TextMeshProUGUI m_ExerciseBaseStatsTmp;
         [SerializeField] private TextMeshProUGUI m_UpgradeCostTmp;
         [SerializeField] private TextMeshProUGUI m_RequiredRankTmp;
+        [SerializeField] private Transform m_StatChangesPrefab;
 
         [SerializeField] private Button m_UpgradeBtn;
 
@@ -48,6 +50,18 @@ namespace SEP490G69.Training
                     _exercisesConfig = ContextManager.Singleton.GetDataSO<TrainingExerciseConfigSO>();
                 }
                 return _exercisesConfig;
+            }
+        }
+        private ImageMasterConfigSO m_ImgMasterConfig;
+        private ImageMasterConfigSO ImgMasterConfig
+        {
+            get
+            {
+                if (m_ImgMasterConfig == null)
+                {
+                    m_ImgMasterConfig = Resources.Load<ImageMasterConfigSO>("Images/ImageMasterConfig");
+                }
+                return m_ImgMasterConfig;
             }
         }
         #endregion
@@ -122,12 +136,28 @@ namespace SEP490G69.Training
                 m_ExerciseNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, exercise.GetName());
                 m_ExerciseIcon.sprite = exercise.GetImage();
 
+                bool isMaxLevel = exercise.GetLevel() >= GameConstants.FACIILITY_MAX_LV;
+
                 int currentLevel = exercise.GetLevel();
-                int nextLevel = exercise.GetLevel() >= GameConstants.FACIILITY_MAX_LV ? exercise.GetLevel() + 1 : exercise.GetLevel();
-                m_ExerciseLvTmp.text = currentLevel == nextLevel ? "Max" : $"{currentLevel} -> {nextLevel}";
-                m_ExerciseBaseStatsTmp.text = "";
-                m_UpgradeCostTmp.text = "";
-                m_RequiredRankTmp.text = "";
+                int nextLevel = isMaxLevel ? exercise.GetLevel() + 1 : exercise.GetLevel();
+                m_ExerciseLvTmp.text = isMaxLevel == true ? "Max" : $"{currentLevel} -> {nextLevel}";
+                m_UpgradeCostTmp.text = isMaxLevel == false ? GameConstants.GetUpgradeFacilityCost(nextLevel).ToString() : "Max";
+                m_RequiredRankTmp.text = isMaxLevel == false ? FacilityUpgradeManager.GetRequirementForNextLevel(currentLevel).Value.RequiredRank.ToString() : "Max";
+
+                foreach (var statChanges in exercise.GetSuccessRewards())
+                {
+                    Transform statChangesUITrans = PoolManager.Pools["UIStatChanges"].Spawn(m_StatChangesPrefab, m_StatChangesContainer);
+                    UIFacilityStatChangesElement statChangesUI = statChangesUITrans.GetComponent<UIFacilityStatChangesElement>();   
+
+                    if (statChangesUI != null)
+                    {
+                        float current = statChanges.Modifier.Value;
+                        float next = current + statChanges.BonusPerLevel * exercise.GetLevel();
+                        string iconId = GameConstants.GetStatIconId(statChanges.Modifier.StatType);
+                        ImageData iconData = ImgMasterConfig.GetImage("stat_icons", iconId);
+                        statChangesUI.SetContent(iconData?.image, current, next, isMaxLevel);
+                    }
+                }
             }
         }
 

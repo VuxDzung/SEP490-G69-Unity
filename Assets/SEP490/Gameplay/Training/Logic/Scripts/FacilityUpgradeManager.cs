@@ -36,6 +36,8 @@ namespace SEP490G69.Training
             }
         }
 
+        public CharacterDataHolder CharacterHolder { get; private set; }
+
 
         private readonly Dictionary<int, FacilityUpgradeRequirement> _upgradeConfigs = new Dictionary<int, FacilityUpgradeRequirement>()
         {
@@ -64,8 +66,8 @@ namespace SEP490G69.Training
 
         public EUpgradeResult TryUpgradeFacility(string sessionId, string rawExerciseId)
         {
-            CharacterDataHolder holder = _trainingController.CharacterData;
-            return TryUpgradeFacility(sessionId, rawExerciseId, holder);
+            CharacterHolder = _trainingController.CharacterData;
+            return TryUpgradeFacility(sessionId, rawExerciseId, CharacterHolder);
         }
 
         public EUpgradeResult TryUpgradeFacility(string sessionId, string rawExerciseId, CharacterDataHolder character)
@@ -126,7 +128,7 @@ namespace SEP490G69.Training
 
         public FacilityUpgradeRequirement? GetRequirementForNextLevel(int currentLevel)
         {
-            if (currentLevel >= 5)
+            if (currentLevel >= GameConstants.FACIILITY_MAX_LV)
             {
                 return null;
             }

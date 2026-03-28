@@ -1,13 +1,14 @@
 ﻿namespace SEP490G69
 {
     using System.Collections;
+    using UnityEditor.Experimental.GraphView;
     using UnityEngine;
-    using UnityEngine.UIElements;
 
     public class DialogEvent : IEvent
     {
         public string Receiver { get; set; }
         public string Action { get; set; }
+        public string BackgroundId { get; set; }
         public ParameterInspectorData[] Parameters { get; set; }
     }
 
@@ -17,6 +18,21 @@
         [SerializeField] private DialogTreeConfigSO m_Config;
 
         private NarrativeEventDispatcher _eventDispatcher;
+        private AudioManager _audioManager;
+        private ContextManager _contextManager;
+        private SceneBGSetter _bgSetter;
+
+        private SceneBGSetter BGSetter
+        {
+            get
+            {
+                if (_bgSetter == null)
+                {
+                    _bgSetter = _contextManager.GetSceneContext<SceneBGSetter>();
+                }
+                return _bgSetter;
+            }
+        }
 
         /// <summary>
         /// A reference of EventManager use to publish, listen to event(s).
@@ -39,6 +55,7 @@
 
         public void SetManager(ContextManager manager)
         {
+            _contextManager = manager;
             _eventManager = manager.ResolveGameContext<EventManager>();
 
             if (manager == null) return;
@@ -47,13 +64,15 @@
             {
                 new FadeInHandler(manager),
                 new FadeIn2OutHandler(manager),
-                new StartNewGameHandler(manager)
+                new StartNewGameHandler(manager),
+                new CameraCinematicHandler(manager),
             });
 
             _eventManager.Subscribe<NextDialogEvent>(DispatchNextEvent);
             _eventManager.Subscribe<AutoPlayDialogEvent>(DispatchAutoEvent);
             _eventManager.Subscribe<SkipDialogEvent>(DispatchSkipEvent);
             _eventManager.Subscribe<SelectChoice>(DispatchChoiceSelectionEvent);
+            _audioManager = manager.ResolveGameContext<AudioManager>();
         }
 
         private void DispatchNextEvent(NextDialogEvent nextEvent)
@@ -200,17 +219,32 @@
             {
                 DialogEvent _event = new DialogEvent
                 {
+                    BackgroundId = eventNode.BackgroundId,
                     Receiver = eventNode.Receiver,
                     Action = eventNode.Action,
                     Parameters = eventNode.Parameters
                 };
+
                 _eventManager.Publish(_event);
                 _eventDispatcher.Dispatch(_event);
+
+                //if (!string.IsNullOrEmpty(eventNode.BackgroundId))
+                //{
+                //    BGSetter.SetBgById(eventNode.BackgroundId);
+                //}
+
+                //if (CinematicCameraController.Instance != null &&
+                //    CinematicCameraController.Instance.IsPlaying)
+                //{
+                //    return; 
+                //}
 
                 _currentNode = eventNode.NextNode;
 
                 if (_currentNode == null)
+                {
                     break;
+                }
             }
         }
 
@@ -233,7 +267,12 @@
 
             UIDialogFrame frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_DIALOG)
                                    .AsFrame<UIDialogFrame>()
-                                   .RenderDialog(node.SpeakerID, node.DialogID, node.BackgroundImage);
+                                   .RenderDialog(node.SpeakerID, node.DialogID);
+
+            if (!string.IsNullOrEmpty(node.BackgroundId))
+            {
+                BGSetter.SetBgById(node.BackgroundId);
+            }
 
             if (node is ChoiceNodeSO choiceNode)
             {

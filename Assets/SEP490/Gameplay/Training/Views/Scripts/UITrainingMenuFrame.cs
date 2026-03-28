@@ -100,7 +100,7 @@ namespace SEP490G69.Training
             {
                 ITrainingStrategy strategy = strategies[i];
                 m_ExercisesUI[i - 1].SetOnClick(PerformExercise)
-                                .SetContent(strategy.DataHolder.GetId(), strategy.DataHolder.GetImage(),
+                                .SetContent(strategy.DataHolder.GetRawId(), strategy.DataHolder.GetImage(),
                                 strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
                 m_ExercisesUI[i - 1].Spawn();
             }
@@ -148,7 +148,8 @@ namespace SEP490G69.Training
 
         private void UpgradeFacilityNav()
         {
-
+            UIManager.ShowFrame(GameConstants.FRAME_ID_UPGRADE_FACILITY);
+            UIManager.HideFrame(FrameId);
         }
 
         private void PerformExercise(string id)

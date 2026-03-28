@@ -37,7 +37,15 @@ namespace SEP490G69
                 if (data != null)
                 {
                     m_BgRenderer.sprite = data.BgSprite;
+                    m_BgRenderer.transform.localScale = data.BGScale;
                 }
+            }
+        }
+        public void SetBg(Sprite bgSprite)
+        {
+            if (m_BgRenderer != null && bgSprite != null)
+            {
+                m_BgRenderer.sprite = bgSprite;
             }
         }
     }

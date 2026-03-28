@@ -4,6 +4,7 @@ namespace SEP490G69.Calendar
     using System.Collections.Generic;
     using System.Linq;
     using SEP490G69.Addons.Localization;
+    using SEP490G69.Exploration;
     using SEP490G69.GameSessions;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -15,6 +16,9 @@ namespace SEP490G69.Calendar
             "month_jan", "month_feb", "month_mar", "month_apr", "month_may", "month_jun",
             "month_jul", "month_aug", "month_sep", "month_oct", "month_nov", "month_dec"
         };
+
+        private const float FADE_TIME = 0.25f;
+        private const float IN_FADE_TIME = 0.25f;
 
         private GameSessionDAO _sessionDAO;
         private TournamentProgressDAO _tournamentDAO;
@@ -103,6 +107,7 @@ namespace SEP490G69.Calendar
 
             _eventManager.Subscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
             _eventManager.Subscribe<EndTournamentEvent>(HandleEndTournamentEvent);
+            _eventManager.Subscribe<ExploreCompleteEvent>(HandleExploreCompleted);
         }
 
         private void OnDestroy()
@@ -110,6 +115,7 @@ namespace SEP490G69.Calendar
             ContextManager.Singleton.RemoveSceneContext(this);
             _eventManager.Unsubscribe<TrainingCompletedEvent>(HandleTrainingCompleteEvent);
             _eventManager.Unsubscribe<EndTournamentEvent>(HandleEndTournamentEvent);
+            _eventManager.Unsubscribe<ExploreCompleteEvent>(HandleExploreCompleted);
         }
 
         private void Start()
@@ -128,11 +134,9 @@ namespace SEP490G69.Calendar
 
             CheckPendingTournamentResult(sessionId, out bool needCreateSnapshot, () =>
             {
-                float fadeDur = 0.25f;
-                float inFadeDur = 0.5f;
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_MAIN_MENU);
 
-                FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+                FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
                 {
                     TrainingController.OpenMainMenuBG();
                     GoToNextWeek(true);
@@ -146,11 +150,21 @@ namespace SEP490G69.Calendar
             }
         }
 
+        private void HandleExploreCompleted(ExploreCompleteEvent ev)
+        {
+            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            {
+                TrainingController.HideTrainingMenuBG();
+                TrainingController.OpenMainMenuBG();
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
+                GoToNextWeek(true);
+                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
+            });
+        }
+
         private void HandleTrainingCompleteEvent(TrainingCompletedEvent trainingCompletedEvent)
         {
-            float fadeDur = 1f;
-            float inFadeDur = 1f;
-            FadingController.Singleton.FadeIn2Out(fadeDur, inFadeDur, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
             {
                 TrainingController.HideTrainingMenuBG();
                 TrainingController.OpenMainMenuBG();

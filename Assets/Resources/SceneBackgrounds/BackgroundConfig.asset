@@ -31,3 +31,18 @@ MonoBehaviour:
   - backgroundId: bg_arena_default
     backgroundSprite: {fileID: 0}
     bgScale: {x: 0, y: 0, z: 0}
+  - backgroundId: bg_cs_0001
+    backgroundSprite: {fileID: 21300000, guid: 7f7cf528935a4e040a9e355a6d061d8e, type: 3}
+    bgScale: {x: 2.8, y: 2.8, z: 0}
+  - backgroundId: bg_cs_0002
+    backgroundSprite: {fileID: 21300000, guid: 08adda6781833794993fb1e222336330, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: bg_cs_0003
+    backgroundSprite: {fileID: 21300000, guid: 66ed0c61e3dc4254b8851155de4f2198, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: bg_cs_0004
+    backgroundSprite: {fileID: 21300000, guid: 6451766b9483f604bae40ba65f9a365f, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: bg_cs_0005
+    backgroundSprite: {fileID: 21300000, guid: 4b72b86b867c6584089c6711fecf73b3, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}

@@ -9,10 +9,16 @@ namespace SEP490G69.Training
         private TrainingExerciseSO _so;
         private SessionTrainingExercise _trainingData;
 
-        public string GetId()
+        public string GetRawId()
         {
-            return _so.ExerciseId;
+            return _so != null ? _so.ExerciseId : string.Empty;
         }
+
+        public string GetEntityId()
+        {
+            return _trainingData != null ? _trainingData.Id : string.Empty;
+        }
+
         public string GetName()
         {
             return _so.ExerciseName;
@@ -34,16 +40,6 @@ namespace SEP490G69.Training
         public SessionTrainingExercise GetSessionData()
         {
             return _trainingData;
-        }
-
-        public bool CanTrainingSuccess(float energy, float mood)
-        {
-            return true;
-        }
-
-        public float CalculateTrainingSuccessPercentage()
-        {
-            return 0;
         }
 
         public List<TrainingRewardConfig> GetSuccessRewards()

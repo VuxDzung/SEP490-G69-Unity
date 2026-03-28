@@ -46,15 +46,15 @@
             ClearChoices();
         }
 
-        public UIDialogFrame RenderDialog(string speakerID, string dialogID, Sprite bgSprite)
+        public UIDialogFrame RenderDialog(string speakerID, string dialogID)
         {
             string dialog = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_DIALOG, dialogID);
 
-            if (bgSprite != null)
-            {
-                m_BgImage.sprite = bgSprite;
-                m_BgImage.enabled = true;
-            }
+            //if (bgSprite != null)
+            //{
+            //    m_BgImage.sprite = bgSprite;
+            //    m_BgImage.enabled = true;
+            //}
             //else
             //{
             //    m_BgImage.sprite = null;
@@ -68,17 +68,20 @@
             }
 
             BaseCharacterSO character = _characterConfig.GetCharacterById(speakerID);
-            m_SpeakerNameTmp.text = character.CharacterName;
-            m_Image.sprite = character.FullBodyImg;
+            if (character != null)
+            {
+                m_SpeakerNameTmp.text = character.CharacterName;
+                m_Image.sprite = character.FullBodyImg;
+            }
 
             _fullDialogText = dialog;
 
             if (_typingCoroutine != null)
+            {
                 StopCoroutine(_typingCoroutine);
+            }
 
             _typingCoroutine = StartCoroutine(TypeText(dialog));
-
-
 
             return this;
         }
@@ -127,6 +130,10 @@
 
         private IEnumerator TypeText(string dialog)
         {
+            if (string.IsNullOrEmpty(dialog))
+            {
+                FinishTyping();
+            }
             m_DialogTmp.text = string.Empty;
 
             for (int i = 0; i < dialog.Length; i++)

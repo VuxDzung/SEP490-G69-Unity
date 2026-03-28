@@ -136,3 +136,534 @@ MonoBehaviour:
     - language: 1
       text: "\u0110\u1EEBng qu\xE1 t\u1EF1 tin, n\xF3i tr\u01B0\u1EDBc th\u01B0\u1EDDng
         b\u01B0\u1EDBc kh\xF4ng qua \u0111\xE2u, \u0111\u1EC3 xem..."
+  - id: node_0003_0001
+    textList:
+    - language: 0
+      text: "Still not calling it quits, Seiras? That\u2019s your 10,000th punch
+        today already."
+    - language: 1
+      text: "V\u1EABn ch\u01B0a ch\u1ECBu d\u1EEBng l\u1EA1i sao, Seiras? \u0110\xE3
+        l\xE0 c\xFA \u0111\u1EA5m th\u1EE9 10,000 trong ng\xE0y h\xF4m nay r\u1ED3i
+        \u0111\u1EA5y."
+  - id: node_0003_0002
+    textList:
+    - language: 0
+      text: "I can't stop... For someone like me, who can\u2019t even leave a scratch
+        on an opponent, what else is there to do but persist?"
+    - language: 1
+      text: "T\xF4i kh\xF4ng th\u1EC3 d\u1EEBng l\u1EA1i... M\u1ED9t k\u1EBB kh\xF4ng
+        th\u1EC3 g\xE2y ra d\xF9 ch\u1EC9 m\u1ED9t v\u1EBFt x\u01B0\u1EDBc cho \u0111\u1ED1i
+        th\u1EE7 nh\u01B0 t\xF4i, ngo\xE0i vi\u1EC7c ki\xEAn tr\xEC ra th\xEC c\xF2n
+        l\xE0m \u0111\u01B0\u1EE3c g\xEC n\u1EEFa?\r\n"
+  - id: node_0003_0003
+    textList:
+    - language: 0
+      text: "But look, that sandbag isn\u2019t torn, yet you haven\u2019t collapsed
+        either. In this entire academy, is there anyone else with the stamina to
+        stay standing after 10,000 consecutive punches?"
+    - language: 1
+      text: "Nh\u01B0ng nh\xECn xem, c\xE1i bao c\xE1t \u0111\xF3 kh\xF4ng h\u1EC1
+        r\xE1ch, nh\u01B0ng c\u1EADu c\u0169ng kh\xF4ng h\u1EC1 ng\xE3 xu\u1ED1ng.
+        C\u1EA3 h\u1ECDc vi\u1EC7n n\xE0y,\r\n c\xF3 ai \u0111\u1EE7 s\u1EE9c tr\u1EE5
+        v\u1EEFng sau 10,000 c\xFA \u0111\u1EA5m li\xEAn t\u1EE5c nh\u01B0 c\u1EADu
+        kh\xF4ng?"
+  - id: node_0003_0004
+    textList:
+    - language: 0
+      text: They call me the 'disgrace'. A warrior without explosive power is nothing
+        more than a walking target.
+    - language: 1
+      text: "H\u1ECD g\u1ECDi t\xF4i l\xE0 'n\u1ED7i h\u1ED5 th\u1EB9n'. M\u1ED9t
+        chi\u1EBFn binh m\xE0 kh\xF4ng c\xF3 s\u1EE9c m\u1EA1nh b\xF9ng n\u1ED5 th\xEC
+        ch\u1EC9 l\xE0 t\u1EA5m bia \u0111\u1EE1 \u0111\u1EA1n di \u0111\u1ED9ng
+        th\xF4i."
+  - id: node_0003_0005
+    textList:
+    - language: 0
+      text: "They\u2019re wrong. Strength isn't just about taking an opponent down
+        in one blow; it\u2019s about being able to fight on forever when everyone
+        else is exhausted. You aren't an outcast\u2014you are an eternal shield."
+    - language: 1
+      text: "H\u1ECD sai r\u1ED3i. S\u1EE9c m\u1EA1nh kh\xF4ng ch\u1EC9 n\u1EB1m
+        \u1EDF vi\u1EC7c h\u1EA1 g\u1EE5c \u0111\u1ED1i ph\u01B0\u01A1ng trong m\u1ED9t
+        \u0111\xF2n, m\xE0 l\xE0 vi\u1EC7c c\u1EADu c\xF3 th\u1EC3 chi\u1EBFn \u0111\u1EA5u
+        m\xE3i m\xE3i khi t\u1EA5t c\u1EA3 \u0111\xE3 ki\u1EC7t s\u1EE9c. C\u1EADu
+        kh\xF4ng ph\u1EA3i k\u1EBB b\u1ECB ru\u1ED3ng b\u1ECF, c\u1EADu l\xE0 l\xE1
+        ch\u1EAFn b\u1EA5t di\u1EC7t."
+  - id: node_0003_0006
+    textList:
+    - language: 0
+      text: Fight forever? You mean... this 'weakness' of mine could actually be
+        a weapon?
+    - language: 1
+      text: "Chi\u1EBFn \u0111\u1EA5u m\xE3i m\xE3i sao? \xDD anh l\xE0... s\u1EF1
+        'b\u1EA5t l\u1EF1c' n\xE0y c\u1EE7a t\xF4i th\u1EF1c s\u1EF1 c\xF3 th\u1EC3
+        tr\u1EDF th\xE0nh v\u0169 kh\xED?"
+  - id: node_0003_0007
+    textList:
+    - language: 0
+      text: "Exactly. When every formation crumbles, the last one standing is the
+        one who leads. I\u2019ll stay right here until you finish your next punch."
+    - language: 1
+      text: "\u0110\xFAng v\u1EADy. Khi m\u1ECDi \u0111\u1ED9i h\xECnh tan r\xE3,
+        k\u1EBB cu\u1ED1i c\xF9ng c\xF2n \u0111\u1EE9ng v\u1EEFng ch\xEDnh l\xE0
+        ng\u01B0\u1EDDi d\u1EABn d\u1EAFt. T\xF4i s\u1EBD \u0111\u1EE9ng \u0111\xE2y
+        cho \u0111\u1EBFn khi c\u1EADu ho\xE0n th\xE0nh c\xFA \u0111\u1EA5m ti\u1EBFp
+        theo."
+  - id: node_0003_0008
+    textList:
+    - language: 0
+      text: "Alright... Then for this 10,001st punch, I won\u2019t be hitting the
+        sandbag. I\u2019m striking at my own limits!"
+    - language: 1
+      text: "\u0110\u01B0\u1EE3c... V\u1EADy th\xEC c\xFA \u0111\u1EA5m th\u1EE9
+        10,001 n\xE0y, t\xF4i s\u1EBD kh\xF4ng \u0111\u1EA5m v\xE0o bao c\xE1t n\u1EEFa.
+        T\xF4i \u0111\u1EA5m v\xE0o ch\xEDnh gi\u1EDBi h\u1EA1n c\u1EE7a m\xECnh!"
+  - id: node_0004_0001
+    textList:
+    - language: 0
+      text: Look at this moron, he can't even see the exit right in front of him.
+        Truly just a slab of meat meant to be a human shield!
+    - language: 1
+      text: "Nh\xECn k\xECa, g\xE3 \u0111\u1EA7n n\xE0y th\u1EADm ch\xED c\xF2n kh\xF4ng
+        bi\u1EBFt l\u1ED1i tho\xE1t ngay tr\u01B0\u1EDBc m\u1EAFt. \u0110\xFAng l\xE0
+        m\u1ED9t t\u1EA3ng th\u1ECBt ch\u1EC9 \u0111\u1EC3 l\xE0m bia \u0111\u1EE1
+        \u0111\u1EA1n!"
+  - id: node_0004_0003
+    textList:
+    - language: 0
+      text: Stop it. This cheap game is over.
+    - language: 1
+      text: "D\u1EEBng tay l\u1EA1i. Tr\xF2 ch\u01A1i r\u1EBB ti\u1EC1n n\xE0y k\u1EBFt
+        th\xFAc \u0111\u01B0\u1EE3c r\u1ED3i."
+  - id: node_0004_0005
+    textList:
+    - language: 0
+      text: 'I... I think. I think i can''t, I tried to find the patterns... but
+        my head hurts so much. I really am just a fool, aren''t I?"
+
+'
+    - language: 1
+      text: "T\xF4i... t\xF4i ngh\u0129 l\xE0 t\xF4i kh\xF4ng l\xE0m \u0111\u01B0\u1EE3c.
+        T\xF4i \u0111\xE3 c\u1ED1 t\xECm ra quy lu\u1EADt c\u1EE7a ch\xFAng... nh\u01B0ng
+        \u0111\u1EA7u t\xF4i \u0111au qu\xE1. T\xF4i th\u1EADt s\u1EF1 l\xE0 m\u1ED9t
+        k\u1EBB ng\u1ED1c ph\u1EA3i kh\xF4ng?"
+  - id: node_0004_0006
+    textList:
+    - language: 0
+      text: "You\u2019re wrong, Tauroused. Your head hurts because you\u2019re trying
+        to use your weakest weapon: 'calculation.' Listen to me\u2014from this moment
+        on, stop thinking entirely.\r\n"
+    - language: 1
+      text: "Sai r\u1ED3i, Tauroused. C\u1EADu \u0111au \u0111\u1EA7u v\xEC anh \u0111ang
+        c\u1ED1 d\xF9ng th\u1EE9 v\u0169 kh\xED y\u1EBFu nh\u1EA5t c\u1EE7a m\xECnh
+        l\xE0 's\u1EF1 t\xEDnh to\xE1n'. H\xE3y nghe t\xF4i, t\u1EEB gi\u1EDD ph\xFAt
+        n\xE0y... \u0111\u1EEBng suy ngh\u0129 g\xEC n\u1EEFa c\u1EA3."
+  - id: node_0004_0008
+    textList:
+    - language: 0
+      text: 'Tactics are for the weak. For you, an illusion only exists if you acknowledge
+        it. Let your instincts lead. Close your eyes and feel the ground beneath
+        your feet. When you stop thinking, nothing can deceive you.
+
+'
+    - language: 1
+      text: "Chi\u1EBFn thu\u1EADt l\xE0 d\xE0nh cho k\u1EBB y\u1EBFu. V\u1EDBi c\u1EADu,
+        \u1EA3o \u1EA3nh ch\u1EC9 t\u1ED3n t\u1EA1i khi anh th\u1EEBa nh\u1EADn n\xF3.
+        H\xE3y \u0111\u1EC3 b\u1EA3n n\u0103ng d\u1EABn d\u1EAFt, nh\u1EAFm m\u1EAFt
+        l\u1EA1i v\xE0 c\u1EA3m nh\u1EADn m\u1EB7t \u0111\u1EA5t d\u01B0\u1EDBi ch\xE2n.
+        Khi c\u1EADu kh\xF4ng ngh\u0129, kh\xF4ng c\xF3 g\xEC c\xF3 th\u1EC3 l\u1EEBa
+        \u0111\u01B0\u1EE3c c\u1EADu.\"\r\n"
+  - id: node_0004_0009
+    textList:
+    - language: 0
+      text: Don't think... just feel... I see it now. These rays of light... they
+        carry no weight at all.
+    - language: 1
+      text: "Kh\xF4ng ngh\u0129... ch\u1EC9 c\u1EA3m nh\u1EADn... T\xF4i th\u1EA5y
+        r\u1ED3i. Nh\u1EEFng lu\u1ED3ng s\xE1ng n\xE0y... ch\xFAng ch\u1EB3ng c\xF3
+        tr\u1ECDng l\u01B0\u1EE3ng g\xEC c\u1EA3."
+  - id: node_0005_0001
+    textList:
+    - language: 0
+      text: "Another all-nighter with those numbers, Sakura? You\u2019ve recorded
+        the trajectories of every single student in the academy."
+    - language: 1
+      text: "L\u1EA1i m\u1ED9t \u0111\xEAm tr\u1EAFng v\u1EDBi nh\u1EEFng con s\u1ED1
+        sao, Sakura? Em \u0111\xE3 ghi ch\xE9p l\u1EA1i qu\u1EF9 \u0111\u1EA1o c\u1EE7a
+        t\u1EA5t c\u1EA3 h\u1ECDc vi\xEAn trong h\u1ECDc vi\u1EC7n r\u1ED3i \u0111\u1EA5y."
+  - id: node_0005_0002
+    textList:
+    - language: 0
+      text: "I have to... because I\u2019m too slow. If I don't pre-calculate their
+        every move, I can't even last three seconds in the ring. I\u2019m a failure
+        of a Virgo..."
+    - language: 1
+      text: "Em ph\u1EA3i l\xE0m v\u1EADy... V\xEC em qu\xE1 ch\u1EADm. N\u1EBFu
+        kh\xF4ng t\xEDnh to\xE1n tr\u01B0\u1EDBc t\u1EEBng b\u01B0\u1EDBc di chuy\u1EC3n
+        c\u1EE7a h\u1ECD, em th\u1EADm ch\xED kh\xF4ng th\u1EC3 \u0111\u1EE9ng v\u1EEFng
+        qu\xE1 ba gi\xE2y tr\xEAn s\xE0n \u0111\u1EA5u. Em l\xE0 m\u1ED9t X\u1EED
+        N\u1EEF th\u1EA5t b\u1EA1i...\r\n"
+  - id: node_0005_0003
+    textList:
+    - language: 0
+      text: "You\u2019re forcing yourself into a race that isn't yours. Why should
+        a 'Lentus' try to outrun the wind?"
+    - language: 1
+      text: "Em \u0111ang c\u1ED1 g\u1EAFng \xE9p m\xECnh v\xE0o m\u1ED9t cu\u1ED9c
+        \u0111ua t\u1ED1c \u0111\u1ED9 kh\xF4ng d\xE0nh cho m\xECnh. T\u1EA1i sao
+        m\u1ED9t 'b\xF4ng hoa ch\u1EADm ch\u1EA1p' l\u1EA1i ph\u1EA3i c\u1ED1 ch\u1EA1y
+        \u0111ua v\u1EDBi nh\u1EEFng c\u01A1n gi\xF3?"
+  - id: node_0005_0004
+    textList:
+    - language: 0
+      text: "Because if I don't run, I\u2019ll be left behind. Everyone says I\u2019m
+        a burden. What good is a warrior who can\u2019t even dodge an attack?"
+    - language: 1
+      text: "V\xEC n\u1EBFu kh\xF4ng ch\u1EA1y, em s\u1EBD b\u1ECB b\u1ECF l\u1EA1i
+        ph\xEDa sau. M\u1ECDi ng\u01B0\u1EDDi \u0111\u1EC1u n\xF3i em l\xE0 g\xE1nh
+        n\u1EB7ng. M\u1ED9t chi\u1EBFn binh kh\xF4ng th\u1EC3 n\xE9 \u0111\xF2n th\xEC
+        c\xF3 \xEDch g\xEC ch\u1EE9?"
+  - id: node_0005_0005
+    textList:
+    - language: 0
+      text: 'They see slowness, but I see the steadfastness of a mountain. Listen,
+        Sakura: Why run, when you can make the world come to a halt before you?'
+    - language: 1
+      text: "H\u1ECD nh\xECn th\u1EA5y s\u1EF1 ch\u1EADm ch\u1EA1p, nh\u01B0ng t\xF4i
+        th\u1EA5y s\u1EF1 ki\xEAn \u0111\u1ECBnh c\u1EE7a m\u1ED9t ng\u1ECDn n\xFAi.
+        Nghe n\xE0y Sakura: T\u1EA1i sao ph\u1EA3i ch\u1EA1y, khi em c\xF3 th\u1EC3
+        khi\u1EBFn th\u1EBF gi\u1EDBi ph\u1EA3i d\u1EEBng l\u1EA1i tr\u01B0\u1EDBc
+        m\u1EB7t em?"
+  - id: node_0005_0006
+    textList:
+    - language: 0
+      text: Make the world... stop? You mean instead of trying to catch up, I should
+        force them into my rhythm?
+    - language: 1
+      text: "Khi\u1EBFn th\u1EBF gi\u1EDBi... d\u1EEBng l\u1EA1i sao? \xDD th\u1EA7y
+        l\xE0 thay v\xEC c\u1ED1 b\u1EAFt k\u1ECBp h\u1ECD, em n\xEAn khi\u1EBFn
+        h\u1ECD ph\u1EA3i r\u01A1i v\xE0o nh\u1ECBp \u0111i\u1EC7u c\u1EE7a em?"
+  - id: node_0005_0007
+    textList:
+    - language: 0
+      text: Exactly. Don't strive to be faster. Turn your stillness into a domain
+        where anyone who enters must slow down to your will. That is the absolute
+        perfection a Virgo should truly strive for.
+    - language: 1
+      text: "\u0110\xFAng v\u1EADy. \u0110\u1EEBng c\u1ED1 nhanh h\u01A1n. H\xE3y
+        bi\u1EBFn s\u1EF1 t\u0129nh l\u1EB7ng c\u1EE7a em th\xE0nh m\u1ED9t v\xF9ng
+        kh\xF4ng gian m\xE0 b\u1EA5t c\u1EE9 ai b\u01B0\u1EDBc v\xE0o c\u0169ng ph\u1EA3i
+        ch\u1EADm l\u1EA1i theo \xFD em. \u0110\xF3 m\u1EDBi l\xE0 s\u1EF1 ho\xE0n
+        h\u1EA3o tuy\u1EC7t \u0111\u1ED1i m\xE0 m\u1ED9t X\u1EED N\u1EEF n\xEAn h\u01B0\u1EDBng
+        t\u1EDBi."
+  - id: node_0004_0010
+    textList:
+    - language: 0
+      text: Exactly. Now, stop looking for an exit. Become the exit. Charge straight
+        ahead and crush everything in your path!
+    - language: 1
+      text: "\u0110\xFAng th\u1EBF. Gi\u1EDD th\xEC, \u0111\u1EEBng t\xECm l\u1ED1i
+        tho\xE1t n\u1EEFa. H\xE3y bi\u1EBFn m\xECnh th\xE0nh l\u1ED1i tho\xE1t. Lao
+        th\u1EB3ng v\u1EC1 ph\xEDa tr\u01B0\u1EDBc v\xE0 nghi\u1EC1n n\xE1t m\u1ECDi
+        th\u1EE9 c\u1EA3n \u0111\u01B0\u1EDDng anh!"
+  - id: node_0004_0007
+    textList:
+    - language: 0
+      text: "Stop thinking? But the instructor said that without tactics, I\u2019m
+        just a wild beast, easily led by the nose...\r\n"
+    - language: 1
+      text: "Ng\u1EEBng suy ngh\u0129? Nh\u01B0ng HLV n\xF3i n\u1EBFu kh\xF4ng c\xF3
+        chi\u1EBFn thu\u1EADt, t\xF4i ch\u1EC9 l\xE0 m\u1ED9t con th\xFA hoang d\u1EC5
+        b\u1ECB d\u1EAFt m\u0169i..."
+  - id: node_0006_0001
+    textList:
+    - language: 0
+      text: That's pretty good, but guys like him can't really accomplish anything...
+    - language: 1
+      text: "Kh\xE1 \u0111\u1EA5y, nh\u01B0ng nh\u1EEFng k\u1EBB nh\u01B0 c\u1EADu
+        ta c\u0169ng ch\u1EA3 l\xE0m \u0111\u01B0\u1EE3c g\xEC \u0111\xE2u..."
+  - id: node_0007_0001
+    textList:
+    - language: 0
+      text: Looks like I was mistaken,he's pretty talented
+    - language: 1
+      text: "C\xF3 v\u1EBB m\xECnh \u0111\xE3 l\u1EA7m, c\u1EADu ta kh\xE1 t\xE0i
+        n\u0103ng \u0111\u1EA5y."
+  - id: node_0007_0002
+    textList:
+    - language: 0
+      text: Time to start viewing him as a real threat.
+    - language: 1
+      text: "\u0110\xE3 \u0111\u1EBFn l\xFAc c\u1EA7n xem c\u1EADu ta l\xE0 m\u1ED9t
+        \u0111\u1ED1i th\u1EE7 ti\u1EC1m n\u0103ng r\u1ED3i...\r\n"
+  - id: node_0008_0001
+    textList:
+    - language: 0
+      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
+        Seiras, who has reached the pinnacle of glory with unshakable courage and
+        will!"
+    - language: 1
+      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
+        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Seiras, ng\u01B0\u1EDDi
+        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
+        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
+  - id: node_0008_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0009_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0010_0001
+    textList:
+    - language: 0
+      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
+        Sakura, who has reached the pinnacle of glory with unshakable courage and
+        will!"
+    - language: 1
+      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
+        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Sakura, ng\u01B0\u1EDDi
+        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
+        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
+  - id: node_0010_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0011_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0011_0001
+    textList:
+    - language: 0
+      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
+        Tari, who has reached the pinnacle of glory with unshakable courage and will!"
+    - language: 1
+      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
+        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Tari , ng\u01B0\u1EDDi
+        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
+        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
+  - id: node_0011_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0009_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0010_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0008_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0008_0005
+    textList:
+    - language: 0
+      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
+        to continue helping those spirit beasts deemed 'worthless' or cast aside
+        by everyone else.
+    - language: 1
+      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
+        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
+        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
+        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
+        c\u1EA7n n\u1EEFa"
+  - id: node_0009_0005
+    textList:
+    - language: 0
+      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
+        to continue helping those spirit beasts deemed 'worthless' or cast aside
+        by everyone else.
+    - language: 1
+      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
+        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
+        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
+        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
+        c\u1EA7n n\u1EEFa"
+  - id: node_0010_0005
+    textList:
+    - language: 0
+      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
+        to continue helping those spirit beasts deemed 'worthless' or cast aside
+        by everyone else.
+    - language: 1
+      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
+        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
+        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
+        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
+        c\u1EA7n n\u1EEFa"
+  - id: node_0008_0006
+    textList:
+    - language: 0
+      text: "I am proud of you\u2014not merely for this victory, but for the compassion
+        you show to all living beings. Go forth and use your own two hands to redefine
+        the meaning of strength for the entire world to see."
+    - language: 1
+      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
+        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
+        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
+        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
+        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
+  - id: node_0009_0006
+    textList:
+    - language: 0
+      text: "I am proud of you\u2014not merely for this victory, but for the compassion
+        you show to all living beings. Go forth and use your own two hands to redefine
+        the meaning of strength for the entire world to see."
+    - language: 1
+      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
+        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
+        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
+        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
+        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
+  - id: node_0010_0006
+    textList:
+    - language: 0
+      text: "I am proud of you\u2014not merely for this victory, but for the compassion
+        you show to all living beings. Go forth and use your own two hands to redefine
+        the meaning of strength for the entire world to see."
+    - language: 1
+      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
+        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
+        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
+        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
+        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
+  - id: node_0008_0007
+    textList:
+    - language: 0
+      text: Yes, Father. I will prove that no spirit beast is truly useless; there
+        are only souls that have yet to find understanding and a place where they
+        truly belong.
+    - language: 1
+      text: "V\xE2ng th\u01B0a cha, con s\u1EBD ch\u1EE9ng minh r\u1EB1ng kh\xF4ng
+        c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
+        t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
+        m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0009_0007
+    textList:
+    - language: 0
+      text: Yes, Father. I will prove that no spirit beast is truly useless; there
+        are only souls that have yet to find understanding and a place where they
+        truly belong.
+    - language: 1
+      text: "V\xE2ng th\u01B0a cha, con s\u1EBD ch\u1EE9ng minh r\u1EB1ng kh\xF4ng
+        c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
+        t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
+        m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0010_0007
+    textList:
+    - language: 0
+      text: Yes, Father. I will prove that no spirit beast is truly useless; there
+        are only souls that have yet to find understanding and a place where they
+        truly belong.
+    - language: 1
+      text: "V\xE2ng th\u01B0a cha, con s\u1EBD ch\u1EE9ng minh r\u1EB1ng kh\xF4ng
+        c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
+        t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
+        m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0011_0004
+    textList:
+    - language: 0
+      text: I am not grieving the loss, Father. I have simply realized that whether
+        I win or lose, this world only sees spirit beasts as tools for glory, and
+        I no longer wish to be a part of that cycle.
+    - language: 1
+      text: "Con kh\xF4ng bu\u1ED3n v\xEC tr\u1EADn thua, th\u01B0a cha. Con ch\u1EC9
+        nh\u1EADn ra r\u1EB1ng, d\xF9 con c\xF3 th\u1EAFng hay thua, th\u1EBF gi\u1EDBi
+        n\xE0y v\u1EABn ch\u1EC9 coi linh th\xFA l\xE0 c\xF4ng c\u1EE5 \u0111\u1EC3
+        \u0111o\u1EA1t l\u1EA5y vinh quang, v\xE0 con kh\xF4ng mu\u1ED1n l\xE0 m\u1ED9t
+        ph\u1EA7n c\u1EE7a gu\u1ED3ng quay \u0111\xF3 n\u1EEFa."
+  - id: node_0011_0005
+    textList:
+    - language: 0
+      text: I am not grieving the loss, Father. I have simply realized that whether
+        I win or lose, this world only sees spirit beasts as tools for glory, and
+        I no longer wish to be a part of that cycle.
+    - language: 1
+      text: "Con kh\xF4ng bu\u1ED3n v\xEC tr\u1EADn thua, th\u01B0a cha. Con ch\u1EC9
+        nh\u1EADn ra r\u1EB1ng, d\xF9 con c\xF3 th\u1EAFng hay thua, th\u1EBF gi\u1EDBi
+        n\xE0y v\u1EABn ch\u1EC9 coi linh th\xFA l\xE0 c\xF4ng c\u1EE5 \u0111\u1EC3
+        \u0111o\u1EA1t l\u1EA5y vinh quang, v\xE0 con kh\xF4ng mu\u1ED1n l\xE0 m\u1ED9t
+        ph\u1EA7n c\u1EE7a gu\u1ED3ng quay \u0111\xF3 n\u1EEFa."
+  - id: node_0011_0006
+    textList:
+    - language: 0
+      text: The Academy can change if you stay! Do not throw away your future as
+        a trainer just when I am finally ready to stand by you. You have the talent,
+        and they need to see it.
+    - language: 1
+      text: "H\u1ECDc vi\u1EC7n s\u1EBD thay \u0111\u1ED5i n\u1EBFu c\xF3 con \u1EDF
+        l\u1EA1i! \u0110\u1EEBng v\u1EE9t b\u1ECF t\u01B0\u01A1ng lai l\xE0m hu\u1EA5n
+        luy\u1EC7n vi\xEAn ngay l\xFAc ta \u0111\xE3 s\u1EB5n s\xE0ng \u0111\u1EE9ng
+        v\u1EC1 ph\xEDa con. Con c\xF3 t\xE0i n\u0103ng, v\xE0 h\u1ECD c\u1EA7n th\u1EA5y
+        \u0111i\u1EC1u \u0111\xF3."
+  - id: node_0011_0007
+    textList:
+    - language: 0
+      text: "I am done being a trainer, for I no longer wish to 'train' anyone. I
+        will find a land where they can live freely\u2014where they are friends,
+        not warriors who must bleed just to earn someone's validation."
+    - language: 1
+      text: "Con s\u1EBD kh\xF4ng l\xE0m hu\u1EA5n luy\u1EC7n vi\xEAn n\u1EEFa, v\xEC
+        con kh\xF4ng mu\u1ED1n 'hu\u1EA5n luy\u1EC7n' b\u1EA5t k\u1EF3 ai c\u1EA3.
+        Con s\u1EBD \u0111i t\xECm m\u1ED9t v\xF9ng \u0111\u1EA5t m\xE0 ch\xFAng
+        c\xF3 th\u1EC3 s\u1ED1ng t\u1EF1 do, n\u01A1i ch\xFAng l\xE0 nh\u1EEFng ng\u01B0\u1EDDi
+        b\u1EA1n, kh\xF4ng ph\u1EA3i l\xE0 nh\u1EEFng chi\u1EBFn binh ph\u1EA3i \u0111\u1ED5
+        m\xE1u \u0111\u1EC3 \u0111\u1ED5i l\u1EA5y s\u1EF1 c\xF4ng nh\u1EADn."

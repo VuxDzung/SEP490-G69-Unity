@@ -1,5 +1,8 @@
 namespace SEP490G69.Training
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using SEP490G69.Shared;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -11,6 +14,7 @@ namespace SEP490G69.Training
 
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_FacilityUIContainer;
+        [Header("Details")]
         [SerializeField] private TextMeshProUGUI m_ExerciseNameTmp;
         [SerializeField] private Image m_ExerciseIcon;
         [SerializeField] private TextMeshProUGUI m_ExerciseLvTmp;
@@ -21,6 +25,7 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_UpgradeBtn;
 
         private string _selectedFacilityId;
+        private List<TrainingExerciseDataHolder> _exerciseList = new List<TrainingExerciseDataHolder>();
 
         #region Lazy properties
         private FacilityUpgradeManager _facilityManager;
@@ -53,7 +58,7 @@ namespace SEP490G69.Training
 
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeBtn.onClick.AddListener(UpgradeSelectedFacility);
-
+            ClearDetailsContent();
             LoadFacilities();
         }
         protected override void OnFrameHidden()
@@ -67,30 +72,63 @@ namespace SEP490G69.Training
         private void Back()
         {
             HideThisView();
+            UIManager.ShowFrame(GameConstants.FRAME_ID_TRAINING_MENU);
         }
 
         private void LoadFacilities()
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-            foreach (var facility in FacilityUpgradeManager.GetAllExercises(sessionId))
+            _exerciseList.Clear();
+            _exerciseList = FacilityUpgradeManager.GetAllExercises(sessionId);
+
+            foreach (TrainingExerciseDataHolder facility in _exerciseList)
             {
                 Transform facilityUITrans = PoolManager.Pools["UIFacility"].Spawn(m_ExerciseUIPrefab, m_FacilityUIContainer);
                 UIFacilityElement facilityUI = facilityUITrans.GetComponent<UIFacilityElement>();
                 if (facilityUI != null)
                 {
                     facilityUI.SetOnClickCallback(SelectFacility)
-                              .SetContent(facility.ExerciseId, 
+                              .SetContent(facility.GetRawId(), 
                               LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, 
-                                                      ExerciseConfig.GetExercise(facility.ExerciseId).ExerciseName),
-                              facility.Level);
+                                                      ExerciseConfig.GetExercise(facility.GetRawId()).ExerciseName),
+                              facility.GetLevel());
                 }
             }
+        }
+
+        private void ClearDetailsContent()
+        {
+            m_ExerciseNameTmp.text = string.Empty;
+            m_ExerciseIcon.sprite = null;
+            m_ExerciseIcon.enabled = false;
+            m_ExerciseLvTmp.text = string.Empty;
+            m_ExerciseBaseStatsTmp.text = string.Empty;
+            m_UpgradeCostTmp.text = string.Empty;
+            m_RequiredRankTmp.text = string.Empty;
         }
 
         public void SelectFacility(string facilityId)
         {
             Debug.Log($"<color=green>[UIUpgradeFacilityFrame]</color> Select facility {facilityId}");
             _selectedFacilityId = facilityId;
+
+            if (string.IsNullOrEmpty(_selectedFacilityId))
+            {
+                return;
+            }
+            TrainingExerciseDataHolder exercise = _exerciseList.FirstOrDefault(ex => ex.GetRawId() == _selectedFacilityId);
+            if (exercise != null)
+            {
+                m_ExerciseNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, exercise.GetName());
+                m_ExerciseIcon.sprite = exercise.GetImage();
+
+                int currentLevel = exercise.GetLevel();
+                int nextLevel = exercise.GetLevel() >= GameConstants.FACIILITY_MAX_LV ? exercise.GetLevel() + 1 : exercise.GetLevel();
+                m_ExerciseLvTmp.text = currentLevel == nextLevel ? "Max" : $"{currentLevel} -> {nextLevel}";
+                m_ExerciseBaseStatsTmp.text = "";
+                m_UpgradeCostTmp.text = "";
+                m_RequiredRankTmp.text = "";
+            }
         }
 
         private void UpgradeSelectedFacility()
@@ -108,6 +146,40 @@ namespace SEP490G69.Training
             }
             EUpgradeResult result = FacilityUpgradeManager.TryUpgradeFacility(sessionId, _selectedFacilityId);
 
+            string resultStrId = string.Empty;
+            string title = string.Empty;
+            switch(result)
+            {
+                case EUpgradeResult.Success:
+                    title = "title_success";
+                    resultStrId = "msg_upgrade_success";
+                    break;
+                case EUpgradeResult.MaxLevel:
+                    title = "title_failed";
+                    resultStrId = "msg_upgrade_max_level";
+                    break;
+                case EUpgradeResult.NotEnoughGold:
+                    title = "title_failed";
+                    resultStrId = "msg_not_enough_gold";
+                    break;
+                case EUpgradeResult.RankTooLow:
+                    title = "title_failed";
+                    resultStrId = "msg_rank_too_low";
+                    break;
+                case EUpgradeResult.Error:
+                    title = "title_error";
+                    resultStrId = "msg_upgrade_error";
+                    break;
+                default:
+                    Debug.LogError($"[UIUpgradeFacilityFrame error] Unsupported upgrade result {result.ToString()}");
+                    break;
+            }
+            if (!string.IsNullOrEmpty(resultStrId))
+            {
+                UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                         .AsFrame<UIMessagePopup>()
+                         .SetContent(title, resultStrId, true, false);
+            }
         }
     }
 }

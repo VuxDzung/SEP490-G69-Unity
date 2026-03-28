@@ -58,20 +58,27 @@ namespace SEP490G69.Exploration
         [SerializeField] private ERewardPenaltyOrder m_DisplayRewardOrder;
         [SerializeField] private List<RewardDataSO> m_RewardList;
         [SerializeField] private bool m_GetMoreFromPool;
-        [SerializeField] private string m_PoolId;
-        [SerializeField] private int m_PoolRewardAmount;
+
+        [SerializeField] private List<PoolRewardData> m_RewardPoolList;
 
         [Header("Penaty modifiers")]
         [SerializeField] private ERewardPenaltyOrder m_DisplayPenaltyOrder;
         [SerializeField] private List<StatusModifierSO> m_PenatyModifiers;
+
+        [Header("[Deprecated]")]
+        [Tooltip("[Deprectated] Configuring in RewardPoolList instead.")]
+        [SerializeField] private string m_PoolId;
+        [Tooltip("[Deprectated] Configuring in RewardPoolList instead.")]
+        [SerializeField] private int m_PoolRewardAmount;
 
         public EExploreEventOutcome OutcomeType => outcomeType;
         public string OutcomeMsg => outcomeMsg;
         public bool RandomEnemyFromPool => m_RandomEnemyFromPool; 
         public string EnemyId => m_EnemyId;
         public bool GetMoreFromPool => m_GetMoreFromPool;
-        public string PoolId => m_PoolId;
-        public int PoolRewardAmount => m_PoolRewardAmount;  
+        //public string PoolId => m_PoolId;
+        //public int PoolRewardAmount => m_PoolRewardAmount;  
+        public IReadOnlyList<PoolRewardData> RewardPoolList => m_RewardPoolList;
         public ERewardPenaltyOrder DisplayRewardOrder => m_DisplayRewardOrder;
         public IReadOnlyList<RewardDataSO> Rewards => m_RewardList;
         public ERewardPenaltyOrder DisplayPenaltyOrder => m_DisplayPenaltyOrder;
@@ -108,5 +115,15 @@ namespace SEP490G69.Exploration
         Immedite = 0,
         DisplayBeforeBattle = 1,
         DisplayAfterBattle = 2,
+    }
+
+    [System.Serializable]
+    public class PoolRewardData
+    {
+        [SerializeField] private string m_PoolId;
+        [SerializeField] private int m_AmountFromPool;
+
+        public string PoolId => m_PoolId;
+        public int AmountFromPool => m_AmountFromPool;
     }
 }

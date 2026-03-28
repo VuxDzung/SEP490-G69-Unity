@@ -189,6 +189,14 @@ namespace SEP490G69
             }
             return false;
         }
+        public bool UpdateChanges(PlayerCharacterRepository characterRepo)
+        {
+            if (_characterData != null)
+            {
+                return characterRepo.Update(_characterData);
+            }
+            return false;
+        }
 
         #region Training modifiers (Playable character only)
         public StatusModifierSO GetModifierByType(EStatusType statusType)

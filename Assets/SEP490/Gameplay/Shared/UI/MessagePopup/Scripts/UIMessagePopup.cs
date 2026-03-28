@@ -1,6 +1,5 @@
 namespace SEP490G69.Shared
 {
-    using SEP490G69.Addons.Localization;
     using System;
     using TMPro;
     using UnityEngine;
@@ -13,14 +12,19 @@ namespace SEP490G69.Shared
 
         [SerializeField] private TextMeshProUGUI m_TitleTmp;
         [SerializeField] private TextMeshProUGUI m_MessageTmp;
+        [SerializeField] private string m_DefaultConfirmMsg;
+        [SerializeField] private string m_DefaultCancelMsg;
         [SerializeField] private Button m_ConfirmBtn;
         [SerializeField] private Button m_CancelBtn;
+        [SerializeField] private TextMeshProUGUI m_ConfirmTmp;
+        [SerializeField] private TextMeshProUGUI m_CancelTmp;
 
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
             m_ConfirmBtn.onClick.AddListener(Confirm);
             m_CancelBtn.onClick.AddListener(Cancel);
+            SetOptionMessage();
         }
         protected override void OnFrameHidden()
         {
@@ -29,15 +33,29 @@ namespace SEP490G69.Shared
             m_CancelBtn.onClick.RemoveListener(Cancel);
         }
 
-        public void SetContent(string titleId, string messageId, bool hasConfirm = true, bool hasCancel = true, Action onConfirm = null, Action onCancel = null)
+        public UIMessagePopup SetContent(string titleId, string messageId, bool hasConfirm = true, bool hasCancel = true, Action onConfirm = null, Action onCancel = null)
         {
             m_TitleTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, titleId);
             m_MessageTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, messageId);
+
             this.onConfirm = onConfirm;
             this.onCancel = onCancel;
 
             m_ConfirmBtn.gameObject.SetActive(hasConfirm);
             m_CancelBtn.gameObject.SetActive(hasCancel);
+
+            return this;
+        }
+
+        public UIMessagePopup SetOptionMessage(string confirmIdMsg = "", string cancelIdMsg = "")
+        {
+            string confirmMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, string.IsNullOrEmpty(confirmIdMsg) ? m_DefaultConfirmMsg : confirmIdMsg);
+            string cancelMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, string.IsNullOrEmpty(cancelIdMsg) ? m_DefaultConfirmMsg : cancelIdMsg);
+
+            m_ConfirmTmp.text = confirmMsg;
+            m_CancelTmp.text = cancelMsg;
+
+            return this;
         }
 
         private void Confirm()

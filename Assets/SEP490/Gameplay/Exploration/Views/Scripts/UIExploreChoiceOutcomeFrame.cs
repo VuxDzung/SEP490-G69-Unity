@@ -94,7 +94,7 @@ namespace SEP490G69.Exploration
             return this;
         }
 
-        public UIExploreChoiceOutcomeFrame LoadRewards(IReadOnlyList<RewardDataSO> rewardList, KeyValuePair<ERewardType, string[]> extraRewards)
+        public UIExploreChoiceOutcomeFrame LoadRewards(IReadOnlyList<RewardDataSO> rewardList, Dictionary<ERewardType, string[]> extraRewards)
         {
             ClearRewards();
             foreach (var reward in rewardList)
@@ -110,19 +110,24 @@ namespace SEP490G69.Exploration
                 }
             }
 
-            if (extraRewards.Value != null && 
-                extraRewards.Value.Length > 0)
+            if (extraRewards != null && extraRewards.Count > 0)
             {
-                foreach (var rewardID in extraRewards.Value)
+                foreach (var rewardPool in extraRewards)
                 {
-                    Transform rewardUITrans = PoolManager.Pools["UIReward"].Spawn(extraRewards.Key == ERewardType.Card ?
-                                                                                  m_CardRewardPrefab : m_RewardUIPrefab, m_ContentContainer);
-                    UIOutcomeResultElement rewardUI = rewardUITrans.GetComponent<UIOutcomeResultElement>();
-                    if (rewardUI != null)
+                    if (rewardPool.Value != null && rewardPool.Value.Length > 0)
                     {
-                        string rewardName = DetermineRewardName(extraRewards.Key, rewardID);
-                        Sprite icon = GetIcon(extraRewards.Key, rewardID);
-                        rewardUI.SetContent(rewardName, icon, 1);
+                        foreach (var rewardID in rewardPool.Value)
+                        {
+                            Transform rewardUITrans = PoolManager.Pools["UIReward"].Spawn(rewardPool.Key == ERewardType.Card ?
+                                                                                          m_CardRewardPrefab : m_RewardUIPrefab, m_ContentContainer);
+                            UIOutcomeResultElement rewardUI = rewardUITrans.GetComponent<UIOutcomeResultElement>();
+                            if (rewardUI != null)
+                            {
+                                string rewardName = DetermineRewardName(rewardPool.Key, rewardID);
+                                Sprite icon = GetIcon(rewardPool.Key, rewardID);
+                                rewardUI.SetContent(rewardName, icon, 1);
+                            }
+                        }
                     }
                 }
             }

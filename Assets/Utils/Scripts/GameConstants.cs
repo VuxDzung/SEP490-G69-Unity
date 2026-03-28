@@ -35,6 +35,7 @@ namespace SEP490G69
         public const string FRAME_ID_TRAINING_RESULT = "Frame.TrainingResult";
         public const string FRAME_ID_TOURNAMENT_BRACKET = "Frame.TournamentBracket";
         public const string FRAME_ID_STAT_EFFECT_DETAILS = "Frame.StatEffectDetails";
+        public const string FRAME_ID_UPGRADE_FACILITY = "Frame.UpgradeFacility";
 
         public const string FRAME_ID_INVENTORY = "Frame.Inventory";
         public const string FRAME_ID_INVENTORY_ITEM_DETAILS = "Frame.InventoryItemDetails";
@@ -209,6 +210,8 @@ namespace SEP490G69
         public const float DEFAULT_CAM_ORTH_SIZE = 5f;
 
         public const int LEGACY_STATS_MAX_LV = 10;
+        public const int FACIILITY_MAX_LV = 10;
+        public const float DELAY_PERFORM_ACTION = 1f;
 
         public const int STARTER_MONEY_AMOUNT = 100000000;
 

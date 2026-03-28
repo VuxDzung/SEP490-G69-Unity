@@ -6,6 +6,7 @@ namespace SEP490G69.Exploration
     using SEP490G69.GameSessions;
     using UnityEngine;
     using System.Collections;
+    using SEP490G69.Battle.Cards;
 
     public class GameExploreController : MonoBehaviour, ISceneContext
     {
@@ -22,6 +23,9 @@ namespace SEP490G69.Exploration
         [SerializeField] private ScrollingBackground m_Scroller;
         [SerializeField] private ExplorePoolConfigSO m_PoolConfig;
 
+        private readonly Timer _delayEventTimer = new Timer();
+        private readonly Timer _delayCombatTimer = new Timer();
+
         private GameSessionDAO _sessionDAO;
         private GameExploreLocationDAO _explorationDAO;
         private PlayerCharacterRepository _characterRepo;
@@ -29,11 +33,18 @@ namespace SEP490G69.Exploration
         private IBossContactPercentCalculator _bossContactCalculator;
 
         private string _sessionId;
+        private string _selectedLocationId;
+        private string _characterId;
 
-        private readonly Timer _delayEventTimer = new Timer();
-        private readonly Timer _delayCombatTimer = new Timer();
+        private EventManager _eventManager;
+        private GameInventoryManager _inventoryManager;
+        private GameDeckController _deckController;
+        private CharacterDataHolder _characterHolder;
 
+        private CharacterConfigSO _characterConfig;
         private ExplorationConfigSO _exploreConfig;
+
+        #region Lazy properties
         private ExplorationConfigSO ExploreConfig
         {
             get
@@ -45,8 +56,6 @@ namespace SEP490G69.Exploration
                 return _exploreConfig;
             }
         }
-
-        private CharacterConfigSO _characterConfig;
         private CharacterConfigSO CharacterConfig
         {
             get
@@ -58,10 +67,42 @@ namespace SEP490G69.Exploration
                 return _characterConfig;
             }
         }
+        private GameInventoryManager InventoryController
+        {
+            get
+            {
+                if (_inventoryManager == null)
+                {
+                    _inventoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
+                }
+                return _inventoryManager;
+            }
+        }
+        private GameDeckController DeckController
+        {
+            get
+            {
+                if (_deckController == null)
+                {
+                    _deckController = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
+                }
+                return _deckController;
+            }
+        }
+        private EventManager EventManager
+        {
+            get
+            {
+                if (_eventManager == null)
+                {
+                    _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
+                }
+                return _eventManager;
+            }
+        }
+        #endregion
 
-        private string _selectedLocationId;
-
-        private CharacterDataHolder _characterHolder;
+        #region Unity methods
 
         private void Awake()
         {
@@ -98,6 +139,7 @@ namespace SEP490G69.Exploration
                 HandleCombatResult();
             }
         }
+        #endregion
 
         private void LoadServices()
         {
@@ -192,9 +234,10 @@ namespace SEP490G69.Exploration
                 return;
             }
 
-            string exploreEnemyId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID, string.Empty);
-            if (string.IsNullOrEmpty(exploreEnemyId))
+            _selectedLocationId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID, string.Empty);
+            if (string.IsNullOrEmpty(_selectedLocationId))
             {
+                Debug.LogError("location id is empty");
                 return;
             }
 
@@ -206,17 +249,6 @@ namespace SEP490G69.Exploration
             string eventId = idParts[EVENT_ID_INDEX];
             int choiceIndex = int.Parse(idParts[CHOICE_INDEX]);
             int outcomeIndex = int.Parse(idParts[OUTCOME_INDEX]);
-
-            if (string.IsNullOrEmpty(_selectedLocationId))
-            {
-                _selectedLocationId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_LOCATION_ID, string.Empty);
-            }
-
-            if (string.IsNullOrEmpty(_selectedLocationId))
-            {
-                Debug.LogError("location id is empty");
-                return;
-            }
 
             string rawLocationId = EntityIdConstructor.ExtractRawEntityId(_selectedLocationId);
 
@@ -255,17 +287,21 @@ namespace SEP490G69.Exploration
             {
                 if (outcomeData.DisplayRewardOrder == ERewardPenaltyOrder.DisplayAfterBattle)
                 {
-                    KeyValuePair<ERewardType, string[]> extraRewards = new KeyValuePair<ERewardType, string[]>();
+                    Dictionary<ERewardType, string[]> extraRewards = new Dictionary<ERewardType, string[]>();
 
                     if (outcomeData.GetMoreFromPool)
                     {
-                        extraRewards = GetRewardIdFromPool(outcomeData.PoolId, outcomeData.PoolRewardAmount);
+                        foreach (var pool in outcomeData.RewardPoolList)
+                        {
+                            GetRewardIdFromPool(pool.PoolId, pool.AmountFromPool, out ERewardType rewardCategory, out string[] rewardIdArray);
+                            extraRewards.Add(rewardCategory, rewardIdArray);
+                        }
                     }
 
                     GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_CHOICE_OUTCOME)
                            .AsFrame<UIExploreChoiceOutcomeFrame>()
                            .LoadRewards(outcomeData.Rewards, extraRewards);
-
+                    ReceiveRewards(outcomeData.Rewards, extraRewards);
                     StartCoroutine(DelayBeforeEnd());
                 }
             }
@@ -276,7 +312,7 @@ namespace SEP490G69.Exploration
                     GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_CHOICE_OUTCOME)
                            .AsFrame<UIExploreChoiceOutcomeFrame>()
                            .LoadPenalties(outcomeData.PenatyModifiers);
-
+                    ReceivePenalties(outcomeData.PenatyModifiers);
                     StartCoroutine(DelayBeforeEnd());
                 }
             }
@@ -285,7 +321,8 @@ namespace SEP490G69.Exploration
         private IEnumerator DelayBeforeEnd()
         {
             yield return new WaitForSeconds(1f);
-            FadingController.Singleton.FadeIn2Out(1f, 1f, () =>
+            IncreaseExploreCount();
+            FadingController.Singleton.FadeIn2Out(0.5f, 0.5f, () =>
             {
                 OnEventCompleted();
             });
@@ -337,31 +374,6 @@ namespace SEP490G69.Exploration
             {
                 GenerateEvent();
             });
-        }
-
-        public ExplorationSO GetExploreLocation(string locationId)
-        {
-            if (string.IsNullOrEmpty(locationId))
-            {
-                return null;
-            }
-            ExplorationSO exploreSO = ExploreConfig.GetById(locationId);
-
-            return exploreSO;
-        }
-
-        public ExplorationSO GetByIndex(int index)
-        {
-            if (index < 0 || index > GetMaxExploreLocations() - 1)
-            {
-                return null;
-            }
-            return ExploreConfig.ExplorationLocations[index];
-        }
-
-        public int GetMaxExploreLocations()
-        {
-            return ExploreConfig.ExplorationLocations.Count;
         }
 
         public IReadOnlyList<ExploreLocationDataHolder> GetAllLocations()
@@ -630,16 +642,21 @@ namespace SEP490G69.Exploration
             if (outcome.DisplayRewardOrder == ERewardPenaltyOrder.DisplayBeforeBattle ||
                 outcome.DisplayRewardOrder == ERewardPenaltyOrder.Immedite)
             {
-                KeyValuePair<ERewardType, string[]> extraRewards = new KeyValuePair<ERewardType, string[]>();
+                Dictionary<ERewardType, string[]> extraRewards = new Dictionary<ERewardType, string[]>();
 
                 if (outcome.GetMoreFromPool)
                 {
-                    extraRewards = GetRewardIdFromPool(outcome.PoolId, outcome.PoolRewardAmount);
+                    foreach (var pool in outcome.RewardPoolList)
+                    {
+                        GetRewardIdFromPool(pool.PoolId, pool.AmountFromPool, out ERewardType rewardCategory, out string[] rewardIdArray);
+                        extraRewards.Add(rewardCategory, rewardIdArray);
+                    }
                 }
 
                 GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_CHOICE_OUTCOME)
                        .AsFrame<UIExploreChoiceOutcomeFrame>()
                        .LoadRewards(outcome.Rewards, extraRewards);
+                ReceiveRewards(outcome.Rewards, extraRewards);
             }
 
             if (outcome.DisplayPenaltyOrder == ERewardPenaltyOrder.DisplayBeforeBattle ||
@@ -648,6 +665,7 @@ namespace SEP490G69.Exploration
                 GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_CHOICE_OUTCOME)
                        .AsFrame<UIExploreChoiceOutcomeFrame>()
                        .LoadPenalties(outcome.PenatyModifiers);
+                ReceivePenalties(outcome.PenatyModifiers);
             }
 
             if (hasCombat == true)
@@ -674,7 +692,18 @@ namespace SEP490G69.Exploration
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_CHOICE_OUTCOME);
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_EXPLORE_EVENTS_SELECT);
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_EXPLORE_CHOICE_SELECT);
-            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_EXPLORATION);
+            //GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_EXPLORATION);
+
+            List<LoadTask> postLoadTasks = new List<LoadTask>();
+            postLoadTasks.Add(new LoadTask("Go to next week", DelayIncreaseWeek));
+
+            SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, postLoadTasks);
+        }
+
+        private IEnumerator DelayIncreaseWeek()
+        {
+            yield return new WaitForSeconds(0.1f);
+            EventManager.Publish(new ExploreCompleteEvent());
         }
 
         private void CloseRunningBg()
@@ -693,23 +722,27 @@ namespace SEP490G69.Exploration
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID);
         }
 
-        public KeyValuePair<ERewardType, string[]> GetRewardIdFromPool(string poolId, int amount)
+        public void GetRewardIdFromPool(string poolId, int amount, out ERewardType type, out string[] rewardIdArray)
         {
+            type = ERewardType.None;
+            rewardIdArray = new string[0];
+
             ExplorePoolSO poolSO = m_PoolConfig.GetById(poolId);
 
             if (poolSO == null)
             {
-                return default;
+                return;
             }
 
-            string[] idArray = poolSO.GetRandomUniqueElements(amount).ToArray();
+            type = poolSO.RewardCategory;
+            rewardIdArray = poolSO.GetRandomUniqueElements(amount).ToArray();
 
-            if (idArray == null)
+            if (rewardIdArray == null)
             {
-                idArray = new string[0];
+                rewardIdArray = new string[0];
             }
 
-            return new KeyValuePair<ERewardType, string[]>(poolSO.RewardCategory, idArray);
+            //return new KeyValuePair<ERewardType, string[]>(poolSO.RewardCategory, idArray);
         }
 
         public string GetEnemyFromPool(string poolId)
@@ -724,20 +757,129 @@ namespace SEP490G69.Exploration
             return poolSO.GetRandomElement();
         }
 
-        private void OnApplicationQuit()
+        private void IncreaseExploreCount()
         {
-            ClearAllExplorePrefs();
+            if (string.IsNullOrEmpty(_selectedLocationId))
+            {
+                return;
+            }
+            ExploreLocationData location = _explorationDAO.GetById(_selectedLocationId);
+            IncreaseExploreCount(location);
         }
-    }
 
-    public static class ExplorationHelper
-    {
-        public const string FORMAT_PENDING_EVENT_OUTCOME_ID = "{0}:{1}:{2}";
-
-        public static string ConstructPendingEventOutcomeId(string eventId, int choiceIndex, int outcomeIndex)
+        private void IncreaseExploreCount(ExploreLocationData location)
         {
-            string outcomeId = string.Format(FORMAT_PENDING_EVENT_OUTCOME_ID, eventId, choiceIndex, outcomeIndex);// $"{eventId}:{choiceIndex}:{outcomeIndex}";
-            return outcomeId;
+            if (location == null)
+            {
+                return;
+            }
+            location.ExplorationCount++;
+            _explorationDAO.Update(location);
         }
+
+        #region Result methods
+        private void ReceiveRewards(IReadOnlyList<RewardDataSO> rewardList, Dictionary<ERewardType, string[]> extraRewards)
+        {
+            foreach (var reward in rewardList)
+            {
+                ReceiveReward(reward.RewardType, reward.RewardTargetId, reward.RewardAmount, reward.StatModifiers);
+            }
+
+            foreach (var rewardPool in extraRewards)
+            {
+                if (rewardPool.Value != null && rewardPool.Value.Length > 0)
+                {
+                    foreach (var rewardID in rewardPool.Value)
+                    {
+                        ReceiveReward(rewardPool.Key, rewardID, 1, null);
+                    }
+                }
+            }
+        }
+
+        private void ReceivePenalties(IReadOnlyList<StatusModifierSO> modifiers)
+        {
+            UpdateCharacterStatChanges(modifiers);
+        }
+
+        private void ReceiveReward(ERewardType rewardType, string rewardId, int amount, IReadOnlyList<StatusModifierSO> modifiers)
+        {
+            switch (rewardType)
+            {
+                case ERewardType.Gold:
+                    UpdateGold(amount);
+                    break;
+                case ERewardType.ReputationPoint:
+                    UpdateCharacterRP(amount);
+                    break;
+                case ERewardType.Stats:
+                    if (modifiers != null && modifiers.Count > 0)
+                    {
+                        UpdateCharacterStatChanges(modifiers);
+                    }
+                    break;
+                case ERewardType.Item:
+                    InventoryController.AddItem(rewardId, amount);
+                    break;
+                case ERewardType.Card:
+                    DeckController.AddObtainedCard(rewardId, amount);
+                    break;
+                default:
+                    Debug.LogError($"[GameExploreController error] Unsupported reward type {rewardType}");
+                    break;
+            }
+        }
+
+        private void UpdateCharacterStatChanges(IReadOnlyList<StatusModifierSO> modifiers)
+        {
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(_sessionId);
+            if (sessionData == null)
+            {
+                return;
+            }
+            SessionCharacterData characterData = _characterRepo.GetCharacterData(_sessionId, sessionData.RawCharacterId);
+            CharacterDataHolder characterHolder = new CharacterDataHolder.Builder().WithCharacterData(characterData).Build();
+
+            if (characterData == null)
+            {
+                return;
+            }
+            foreach (var modifier in modifiers)
+            {
+                float modValue = modifier.GetModifiedStatus(characterHolder.GetStatus(modifier.StatType));
+                characterHolder.SetStatus(modifier.StatType, modValue);
+            }
+            characterHolder.UpdateChanges(_characterRepo);
+        }
+
+        private void UpdateCharacterRP(int amount)
+        {
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(_sessionId);
+            if (sessionData == null)
+            {
+                return;
+            }
+            SessionCharacterData characterData = _characterRepo.GetCharacterData(_sessionId, sessionData.RawCharacterId);
+            CharacterDataHolder characterHolder = new CharacterDataHolder.Builder().WithCharacterData(characterData).Build();
+
+            if (characterData == null)
+            {
+                return;
+            }
+            characterHolder.SetStatus(EStatusType.RP, characterHolder.GetRP() + amount);
+            characterHolder.UpdateChanges(_characterRepo);
+        }
+
+        private void UpdateGold(int amount)
+        {
+            PlayerTrainingSession sessionData = _sessionDAO.GetById(_sessionId);
+            if (sessionData == null)
+            {
+                return;
+            }
+            sessionData.CurrentGoldAmount += amount;
+            _sessionDAO.Update(sessionData);
+        }
+        #endregion
     }
 }

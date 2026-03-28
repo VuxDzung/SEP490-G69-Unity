@@ -129,6 +129,11 @@ namespace SEP490G69
             return _currentTween;
         }
 
+        public void SetCameraXPosition(float x)
+        {
+            m_Camera.transform.position = new Vector3(x, m_Camera.transform.position.y, m_Camera.transform.position.z);
+        }
+
         public float GetSize()
         {
             return m_Camera.orthographicSize;

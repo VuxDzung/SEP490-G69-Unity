@@ -38,14 +38,17 @@ namespace SEP490G69
                 return;
             }
 
-            if (playerData.LegacyPoints > 0.5f)
+            FadingController.Singleton.FadeIn2Out(0.5f, 0.25f, () =>
             {
-                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
-            }
-            else
-            {
-                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
-            }
+                if (playerData.LegacyPoints > 0.5f)
+                {
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_LEGACY_UPGRADE);
+                }
+                else
+                {
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_CHAR_SELECT);
+                }
+            });
         }
     }
 }

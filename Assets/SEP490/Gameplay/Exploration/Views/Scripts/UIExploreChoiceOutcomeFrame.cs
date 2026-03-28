@@ -78,7 +78,7 @@ namespace SEP490G69.Exploration
                 if (rewardUI != null)
                 {
                     string rewardName = penalty.StatType.ToString();
-                    string iconId = GetStatIconId(penalty.StatType);
+                    string iconId =  GameConstants.GetStatIconId(penalty.StatType);
                     ImageData iconData = ImgMasterConfig.GetImage("stat_icons", iconId);
 
                     int amount = 0;
@@ -186,20 +186,6 @@ namespace SEP490G69.Exploration
                 ERewardType.Item => ItemConfig.GetItemById(id)?.ItemImage,
                 ERewardType.Card => CardConfig.GetCardById(id)?.Icon,
                 _ => null
-            };
-        }
-
-        private string GetStatIconId(EStatusType statType)
-        {
-            return statType switch
-            {
-                EStatusType.Defense => "ic_def",
-                EStatusType.Vitality => "ic_vit",
-                EStatusType.Power => "ic_pow",
-                EStatusType.Stamina => "ic_sta",
-                EStatusType.Intelligence => "ic_int",
-                EStatusType.Agi => "ic_agi",
-                _ => string.Empty
             };
         }
     }

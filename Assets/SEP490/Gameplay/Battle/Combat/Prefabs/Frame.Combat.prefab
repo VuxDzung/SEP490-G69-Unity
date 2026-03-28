@@ -999,10 +999,12 @@ MonoBehaviour:
   - {fileID: 462428551185644217}
   - {fileID: 7554132630145727179}
   - {fileID: 398764884289045332}
+  m_PlayerCardActiveDisplayPoint: {fileID: 1864855930381885265}
+  m_PlayerCardActiveSpawnPoint: {fileID: 1538001628186970744}
   m_EnemyCardActiveDisplayPoint: {fileID: 6317040071545765281}
   m_EnemyCardActiveSpawnPoint: {fileID: 5422458989498877124}
-  m_EnemyCardMoveTime: 0.5
-  m_DelayEnemyCardDespawnTime: 0.3
+  m_CardMoveTime: 0.5
+  m_DelayCardDespawnTime: 0.3
 --- !u!1 &1614114416926145550
 GameObject:
   m_ObjectHideFlags: 0
@@ -3480,6 +3482,8 @@ RectTransform:
   - {fileID: 2818978957191391505}
   - {fileID: 8237673522324304373}
   - {fileID: 4139994327781339177}
+  - {fileID: 1864855930381885265}
+  - {fileID: 1538001628186970744}
   m_Father: {fileID: 915899201818781515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -4468,6 +4472,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7753514467409685990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538001628186970744}
+  m_Layer: 0
+  m_Name: PlayerActiveCardSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1538001628186970744
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753514467409685990}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1638129656065966444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -500, y: -270}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &7893073648116498735
 GameObject:
   m_ObjectHideFlags: 0
@@ -5384,6 +5423,41 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &9214495599503715596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1864855930381885265}
+  m_Layer: 0
+  m_Name: PlayerActiveCardDisplayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1864855930381885265
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214495599503715596}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1638129656065966444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -270}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &5353629739072669442
 PrefabInstance:
   m_ObjectHideFlags: 0

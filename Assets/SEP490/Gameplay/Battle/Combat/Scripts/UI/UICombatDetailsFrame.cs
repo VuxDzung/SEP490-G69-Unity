@@ -1,5 +1,6 @@
 namespace SEP490G69.Battle.Combat
 {
+    using SEP490G69.Shared;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
@@ -69,7 +70,15 @@ namespace SEP490G69.Battle.Combat
 
         private void StartBattle()
         {
-            CombatController.StartBattle();
+            UIMessagePopup messagePopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+
+            messagePopup.SetContent("title_noti", "msg_auto_or_manual_battle", true, true, () =>
+                     {
+                         CombatController.StartBattle(SceneCombatController.IS_MANUAL_COMBAT);
+                     }, () =>
+                     {
+                         CombatController.StartBattle(SceneCombatController.IS_AUTO_COMBAT);
+                     }).SetOptionMessage("msg_manual_combat", "msg_auto_combat");
         }
 
         #region Player Stats

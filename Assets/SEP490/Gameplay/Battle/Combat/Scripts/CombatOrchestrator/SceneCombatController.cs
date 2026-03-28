@@ -35,6 +35,9 @@
 
     public class SceneCombatController : MonoBehaviour, ISceneContext
     {
+        public const bool IS_AUTO_COMBAT = true;
+        public const bool IS_MANUAL_COMBAT = false;
+
         public event Action<EBattleState> OnStateChanged;
 
         [Header("Scene References")]
@@ -160,7 +163,7 @@
             _turnProcessor.onEnemyEndTurn -= _turnProcessor_onEnemyEndTurn;
         }
 
-        public void StartBattle()
+        public void StartBattle(bool isAutoCombat = false)
         {
             if (_player == null || _enemy == null)
             {
@@ -169,6 +172,7 @@
             }
             _battleState.ChangeState(EBattleState.InProgress);
             _uiUpdater.ShowCombatHUD(_player, _enemy);
+            _player.SetCombatMode(isAutoCombat);
         }
 
         public void PauseBattle() => _battleState.ChangeState(EBattleState.Pause);

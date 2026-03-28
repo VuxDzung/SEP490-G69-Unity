@@ -5,6 +5,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Purchasing;
     using UnityEngine.UI;
 
     public class UICombatFrame : BaseCombatFrame
@@ -29,12 +30,16 @@
 
         [SerializeField] private Transform[] m_CardSlots;
 
+        [Header("Auto-combat")]
+        [SerializeField] private Transform m_PlayerCardActiveDisplayPoint;
+        [SerializeField] private Transform m_PlayerCardActiveSpawnPoint;
         [SerializeField] private Transform m_EnemyCardActiveDisplayPoint;
         [SerializeField] private Transform m_EnemyCardActiveSpawnPoint;
-        [SerializeField] private float m_EnemyCardMoveTime = 0.5f;
-        [SerializeField] private float m_DelayEnemyCardDespawnTime = 0.3f;
+        [SerializeField] private float m_CardMoveTime = 0.5f;
+        [SerializeField] private float m_DelayCardDespawnTime = 0.3f;
 
         private Transform _enemySelectedCardTrans;
+        private Transform _playerSelectedCardTrans;
 
         protected override void OnFrameShown()
         {
@@ -157,32 +162,60 @@
 
         public void SpawnEnemyCard(CardSO card)
         {
-            if (_enemySelectedCardTrans != null)
+            SpawnSelectedCard(card, true);
+        }
+
+        public void SpawnPlayerAutoCard(CardSO card)
+        {
+            SpawnSelectedCard(card, false);
+        }
+
+        private void SpawnSelectedCard(CardSO card, bool isEnemy)
+        {
+            Transform selectedCardTrans = isEnemy ? _enemySelectedCardTrans : _playerSelectedCardTrans;
+
+            if (selectedCardTrans != null)
             {
-                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(selectedCardTrans);
+                selectedCardTrans = null;
             }
 
-            Transform spawnPoint = m_EnemyCardActiveSpawnPoint;
-            Transform targetPoint = m_EnemyCardActiveDisplayPoint;
+            Transform spawnPoint = isEnemy ? m_EnemyCardActiveSpawnPoint : m_PlayerCardActiveSpawnPoint;
+            Transform targetPoint = isEnemy ? m_EnemyCardActiveDisplayPoint : m_PlayerCardActiveSpawnPoint;
 
             Vector3 targetPosition = targetPoint.position;
 
-            _enemySelectedCardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, spawnPoint);
-            RectTransform rect = _enemySelectedCardTrans.GetComponent<RectTransform>();
-            LayoutElement layout = rect.GetComponent<LayoutElement>();
-            rect.DOKill();
+            UICardElement cardUI = null;
+            RectTransform rect = null;
+            LayoutElement layout = null;
 
-            UICardElement cardUI = _enemySelectedCardTrans.GetComponent<UICardElement>();
+            Transform cardUITrans = null;
+
+            if (isEnemy)
+            {
+                _enemySelectedCardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, spawnPoint);
+                cardUITrans = _enemySelectedCardTrans;
+            }
+            else
+            {
+                _playerSelectedCardTrans = PoolManager.Pools[GameConstants.POOL_UI_CARD].Spawn(m_CardPrefab, spawnPoint);
+                cardUITrans = _playerSelectedCardTrans;
+            }
+
+            rect = cardUITrans.GetComponent<RectTransform>();
+            layout = rect.GetComponent<LayoutElement>();
+            rect.DOKill();
+            cardUI = cardUITrans.GetComponent<UICardElement>();
+
             if (cardUI != null)
             {
                 string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
                 string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
-
                 cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon);
             }
 
             rect.position = spawnPoint.position;
-            rect.DOMove(targetPosition, m_EnemyCardMoveTime)
+            rect.DOMove(targetPosition, m_CardMoveTime)
                     .SetEase(Ease.OutCubic)
                     .OnComplete(() =>
                     {
@@ -197,7 +230,7 @@
 
         private IEnumerator DelayDespawn()
         {
-            yield return new WaitForSeconds(m_DelayEnemyCardDespawnTime);
+            yield return new WaitForSeconds(m_DelayCardDespawnTime);
             if (_enemySelectedCardTrans != null)
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);

@@ -23,6 +23,19 @@ namespace SEP490G69.Training
         private GameSessionDAO _sessionDAO;
         private GameTrainingController _trainingController;
 
+        private TrainingExerciseConfigSO _exercisesConfig;
+        private TrainingExerciseConfigSO ExercisesConfig
+        {
+            get
+            {
+                if (this._exercisesConfig == null)
+                {
+                    _exercisesConfig = ContextManager.Singleton.GetDataSO<TrainingExerciseConfigSO>();
+                }
+                return this._exercisesConfig;
+            }
+        }
+
 
         private readonly Dictionary<int, FacilityUpgradeRequirement> _upgradeConfigs = new Dictionary<int, FacilityUpgradeRequirement>()
         {
@@ -49,25 +62,25 @@ namespace SEP490G69.Training
             _sessionDAO = new GameSessionDAO();
         }
 
-        public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId)
+        public EUpgradeResult TryUpgradeFacility(string sessionId, string rawExerciseId)
         {
             CharacterDataHolder holder = _trainingController.CharacterData;
-            return TryUpgradeFacility(sessionId, exerciseId, holder);
+            return TryUpgradeFacility(sessionId, rawExerciseId, holder);
         }
 
-        public EUpgradeResult TryUpgradeFacility(string sessionId, string exerciseId, CharacterDataHolder character)
+        public EUpgradeResult TryUpgradeFacility(string sessionId, string rawExerciseId, CharacterDataHolder character)
         {
-            SessionTrainingExercise currentFacility = _trainingDAO.GetById(sessionId, exerciseId);
+            SessionTrainingExercise currentFacility = _trainingDAO.GetById(sessionId, rawExerciseId);
             if (currentFacility == null)
             {
-                Debug.Log($"<color=red>[FacilityUpgradeManager error]</color> No facility with id {exerciseId} existed.");
+                Debug.Log($"<color=red>[FacilityUpgradeManager error]</color> No facility with id {rawExerciseId} existed.");
                 return EUpgradeResult.Error;
             }
 
 
             if (currentFacility.Level >= 5)
             {
-                Debug.Log($"<color=red>[FacilityUpgradeManager]</color> Max level of facility {exerciseId} exceeded.");
+                Debug.Log($"<color=red>[FacilityUpgradeManager]</color> Max level of facility {rawExerciseId} exceeded.");
                 return EUpgradeResult.MaxLevel;
             }
 
@@ -101,7 +114,7 @@ namespace SEP490G69.Training
 
             if (isSessionSaved && isFacilitySaved)
             {
-                Debug.Log($"Upgrade {exerciseId} to level {nextLevel} successful!");
+                Debug.Log($"Upgrade {rawExerciseId} to level {nextLevel} successful!");
                 return EUpgradeResult.Success;
             }
             else
@@ -120,9 +133,25 @@ namespace SEP490G69.Training
             return _upgradeConfigs[currentLevel + 1];
         }
 
-        public List<SessionTrainingExercise> GetAllExercises(string sessionId)
+        public List<TrainingExerciseDataHolder> GetAllExercises(string sessionId)
         {
-            return _trainingDAO.GetAllBySessionId(sessionId);
+            List<TrainingExerciseDataHolder> holderList = new List<TrainingExerciseDataHolder>();
+            List<SessionTrainingExercise> exerciseDataList = _trainingDAO.GetAllBySessionId(sessionId);
+
+            foreach (var exercise in exerciseDataList)
+            {
+                TrainingExerciseSO exerciseSO = ExercisesConfig.GetExercise(exercise.ExerciseId);
+                if (exerciseSO != null)
+                {
+                    TrainingExerciseDataHolder holder = new TrainingExerciseDataHolder.Builder()
+                                                                                      .WithExerciseSO(exerciseSO)
+                                                                                      .WithSessionTrainingData(exercise)
+                                                                                      .Build();
+                    holderList.Add(holder);
+                }
+            }
+
+            return holderList;
         }
     }
 }

@@ -72,7 +72,7 @@
         private IMaxHPCalculator _maxHPCalculator;
         private IMaxStaminaCalculator _maxStaminaCalculator;
 
-        private IDmgReductionCalculator _dmgReduceCalculator = new IDmgReductionCalculator();
+        private IDmgReductionCalculator _dmgReduceCalculator;
 
         protected ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
         #endregion
@@ -141,7 +141,7 @@
 
             _maxHPCalculator = new MaxHPCalculator();
             _maxStaminaCalculator = new MaxStaminaCalculator();
-
+            _dmgReduceCalculator = new DmgReductionCalculator();
             _critCalculator = new CombatCritCalculator();
             _evasionCalculator = new EvasionCalculator(this);
         }

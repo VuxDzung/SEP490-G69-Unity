@@ -1,9 +1,7 @@
-using UnityEngine;
-
-public class IDmgReductionCalculator 
+namespace SEP490G69.Battle.Combat
 {
-    public float Calculate(float defValue)
+    public interface IDmgReductionCalculator
     {
-        return defValue / 400f;
+        public float Calculate(float defValue);
     }
 }

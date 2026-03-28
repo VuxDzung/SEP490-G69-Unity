@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8837258f31db4d4fb7ffb27f78ef6c5, type: 3}
+  m_Name: node_0004_0004
+  m_EditorClassIdentifier: 
+  m_NodeID: node_0004_0004
+  m_SpeakerID: 
+  m_DialogID: 
+  m_BackgroundId: 
+  m_BgmId: 
+  m_SfxId: 
+  m_BgImage: {fileID: 0}
+  m_NextNode: {fileID: 0}
+  m_Receiver: 
+  m_Action: FADE_IN_2_OUT
+  m_Parameters:
+  - m_ParameterName: fadeTime
+    m_ParameterType: 2
+    m_Value: 1
+  - m_ParameterName: inFadeTime
+    m_ParameterType: 2
+    m_Value: 2
+  - m_ParameterName: onFadeInCompleted
+    m_ParameterType: 0
+    m_Value: StartDialogTree
+  - m_ParameterName: dialogTreeId
+    m_ParameterType: 0
+    m_Value: dt_0001
+  - m_ParameterName: dialogId
+    m_ParameterType: 0
+    m_Value: node_0001_0003

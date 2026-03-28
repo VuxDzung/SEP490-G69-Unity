@@ -4,7 +4,6 @@
     using UnityEngine;
     using SEP490G69.GameSessions;
     using SEP490G69.Addons.LoadScreenSystem;
-    using SEP490G69.Addons.Localization;
     using System.Collections;
     using SEP490G69.Battle.Cards;
 

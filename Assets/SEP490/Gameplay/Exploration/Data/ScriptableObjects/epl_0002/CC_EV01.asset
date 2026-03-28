@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
+  m_Name: CC_EV01
+  m_EditorClassIdentifier: 
+  m_EventId: CC_EV01
+  m_EventType: 1
+  m_Description: A crystal pillar pulses with ancient runes. It seems to hold advanced
+    training techniques.
+  m_ExploreEventType: 2
+  m_Choices:
+  - choiceName: '[Decode]
+
+      (INT >= 150)'
+    m_Condition:
+      m_SuccessCondition: 1
+      m_ConditionStat: 2
+      m_RequiredValue: 150
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 1
+      outcomeMsg: The runes rearrange into a readable spell formula. You memorize
+        it instantly!
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: 
+      m_DisplayRewardOrder: 0
+      m_RewardList: []
+      m_GetMoreFromPool: 1
+      m_RewardPoolList: []
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+      m_PoolId: POOL_CARD_INT
+      m_PoolRewardAmount: 1
+    - outcomeType: 2
+      outcomeMsg: The runes flash a harsh red light. The magic forms into a hostile
+        hologram!
+      m_RandomEnemyFromPool: 1
+      m_EnemyId: POOL_ENEMY_CC
+      m_DisplayRewardOrder: 0
+      m_RewardList: []
+      m_GetMoreFromPool: 0
+      m_RewardPoolList: []
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+  - choiceName: '[Ignore]
+
+      Magic is a headache.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes: []

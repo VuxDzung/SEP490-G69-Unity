@@ -11,8 +11,6 @@ namespace SEP490G69.Battle.Combat
     //[RequireComponent(typeof(RandomSelectCardStrategy))]
     public class EnemyCombatController : BaseBattleCharacterController
     {
-        [SerializeField] private float m_DelayPerfomAction = 1f;
-
         private ISelectCardStrategy _selectionStrategy;
 
         protected override void Awake()
@@ -107,7 +105,7 @@ namespace SEP490G69.Battle.Combat
 
         private IEnumerator DelayExecute(BaseBattleCharacterController opponent)
         {
-            yield return new WaitForSeconds(m_DelayPerfomAction);
+            yield return new WaitForSeconds(GameConstants.DELAY_PERFORM_ACTION);
             ExecuteCard(opponent);
         }
     }

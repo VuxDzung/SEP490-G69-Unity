@@ -304,11 +304,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   m_Camera: {fileID: 519420031}
-  m_InCombatSize: 4
+  m_InCombatSize: 4.5
   m_DefaultSize: 6
-  m_CombatShake: {x: 0.2, y: 0.2, z: 0}
-  m_ShakeDuration: 0.2
-  m_ZoomSpeed: 7.5
+  m_CombatShake: {x: 0.75, y: 0.75, z: 0}
+  m_ShakeDuration: 0.25
+  m_ZoomSpeed: 9
 --- !u!1 &540460584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,8 +1035,6 @@ MonoBehaviour:
     m_CombatPosition: {fileID: 1060902672}
   m_PlayerContainer: {fileID: 5637653827438158798}
   m_EnemyContainer: {fileID: 8524398606036371613}
-  m_PlayerCombatPos: {fileID: 1060902672}
-  m_EnemyCombatPos: {fileID: 1269569374}
   m_CharacterPoolName: CombatCharacter
 --- !u!1 &1432482710004096691
 GameObject:

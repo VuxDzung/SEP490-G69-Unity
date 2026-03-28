@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EventId: WW_CH01
   m_EventType: 1
   m_Description: You stumble upon an old wooden chest left by previous academy explorers.
-  m_ExploreEventType: 2
+  m_ExploreEventType: 3
   m_Choices:
   - choiceName: '[Open]
 

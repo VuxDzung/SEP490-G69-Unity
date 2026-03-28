@@ -60,14 +60,42 @@ namespace SEP490G69.Battle.Combat
         public void PlayerTurn()
         {
             _enemy.PauseBar();
+            _player.PauseBar();
 
-            _player.StartTurn();
-            _player.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+            if (_player.IsAuto)
+            {
+                _player.DetermineCards(_enemy, (selectedCardId) =>
+                {
+                    if (selectedCardId.Equals("REST"))
+                    {
+                        Debug.Log("Player choose rest");
+                    }
+                    else
+                    {
+                        CardSO card = _cardConfig.GetCardById(selectedCardId);
 
-            GameUIManager.Singleton
-                .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                .AsFrame<UICombatFrame>()
-                .DisplayDrawnCards(cards);
+                        if (card == null)
+                        {
+                            return;
+                        }
+
+                        GameUIManager.Singleton
+                                     .GetFrame(GameConstants.FRAME_ID_COMBAT)
+                                     .AsFrame<UICombatFrame>()
+                                     .SpawnPlayerAutoCard(card);
+                    }
+                });
+            }
+            else
+            {
+                _player.StartTurn();
+                _player.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+
+                GameUIManager.Singleton
+                    .GetFrame(GameConstants.FRAME_ID_COMBAT)
+                    .AsFrame<UICombatFrame>()
+                    .DisplayDrawnCards(cards);
+            }
         }
 
         public void EnemyTurn()

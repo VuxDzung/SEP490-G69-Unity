@@ -1,5 +1,4 @@
 using SEP490G69.Addons.Localization.Enums;
-using SEP490G69.Battle;
 using SEP490G69.Economy;
 using SEP490G69.Exploration;
 using System.Collections.Generic;
@@ -210,7 +209,7 @@ namespace SEP490G69
         public const float DEFAULT_CAM_ORTH_SIZE = 5f;
 
         public const int LEGACY_STATS_MAX_LV = 10;
-        public const int FACIILITY_MAX_LV = 10;
+        public const int FACIILITY_MAX_LV = 5;
         public const float DELAY_PERFORM_ACTION = 1f;
 
         public const int STARTER_MONEY_AMOUNT = 100000000;
@@ -335,6 +334,32 @@ namespace SEP490G69
         public static float CalculateRefreshCost(int refreshCount)
         {
             return REFRESH_SHOP_BASE_COST + REFRESH_SHOP_COST_STEP * refreshCount;
+        }
+
+        public static string GetStatIconId(EStatusType statType)
+        {
+            return statType switch
+            {
+                EStatusType.Defense => "ic_def",
+                EStatusType.Vitality => "ic_vit",
+                EStatusType.Power => "ic_pow",
+                EStatusType.Stamina => "ic_sta",
+                EStatusType.Intelligence => "ic_int",
+                EStatusType.Agi => "ic_agi",
+                _ => string.Empty
+            };
+        }
+
+        public static int GetUpgradeFacilityCost(int level)
+        {
+            return level switch
+            {
+                2 => 500,
+                3 => 1500,
+                4 => 3000,
+                5 => 5000,
+                _ => 0,
+            };
         }
     }
     public enum ERectPivot

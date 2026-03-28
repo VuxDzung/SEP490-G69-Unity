@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EventType: 1
   m_Description: A playful but aggressive wild spirit beast leaps out of the tall
     grass, demanding a training battle!
-  m_ExploreEventType: 2
+  m_ExploreEventType: 4
   m_Choices:
   - choiceName: '[Fight] Show them your skills.'
     m_Condition:

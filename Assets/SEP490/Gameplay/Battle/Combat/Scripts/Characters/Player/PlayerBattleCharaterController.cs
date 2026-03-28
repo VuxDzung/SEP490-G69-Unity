@@ -1,7 +1,10 @@
 namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Battle.Cards;
+    using System.Collections.Generic;
+    using System;
     using UnityEngine;
+    using System.Collections;
 
     public class PlayerBattleCharaterController : BaseBattleCharacterController
     {
@@ -10,6 +13,12 @@ namespace SEP490G69.Battle.Combat
 
         private SessionPlayerDeck _playerDeckData;
         private TestObtainedCardSO _test;
+
+        private ISelectCardStrategy _selectionStrategy = new RandomSelectCardStrategy();
+
+        private bool _isAuto;
+        public bool IsAuto => _isAuto;
+
         public void SetSampleDeck(TestObtainedCardSO obtainedCards)
         {
             _test = obtainedCards;
@@ -74,15 +83,58 @@ namespace SEP490G69.Battle.Combat
                 CardIds = _test.Ids
             };
         }
-        private void Update()
+
+        public void SetCombatMode(bool isAuto)
         {
-            // testing
-            // Decrease health.
-            if (Input.GetKeyDown(KeyCode.Space))
+            _isAuto = isAuto;
+        }
+
+        /// <summary>
+        /// All of enemy brain are handled here.
+        /// Step 1: Draw 3 random cards.
+        /// Step 2: Pick a card (Randomly or use specific logic)
+        /// Step 3
+        /// </summary>
+        public void DetermineCards(BaseBattleCharacterController opponent, Action<string> onCardSelected)
+        {
+            StartTurn();
+
+            CombatCardsProcessor.DrawThreeCards(out IReadOnlyList<CardSO> cards);
+
+            if (_selectionStrategy == null)
             {
-                //CurrentDataHolder.ModifyStat(EStatusType.Vitality, -20);
-                //Debug.Log($"Curren health: {CurrentDataHolder.GetStatus(EStatusType.Vitality)}");
+                Debug.Log("Failed to fetch card selection strategy!");
+                return;
             }
+
+            if (_selectionStrategy.TrySelectCard(this, cards, out CardSO card))
+            {
+                if (CombatCardsProcessor.CalculateCardCost(card) > GetCombatStatus(EStatusType.Stamina).Value)
+                {
+                    onCardSelected?.Invoke("REST");
+                    CombatCardsProcessor.SelectRest();
+                }
+                else
+                {
+                    onCardSelected?.Invoke(card.CardId);
+                    CombatCardsProcessor.SelectCard(card);
+                }
+
+                StartCoroutine(DelayExecute(opponent));
+            }
+            else
+            {
+                Debug.LogError("Failed to select card. Choose rest as default!");
+                onCardSelected?.Invoke("REST");
+                CombatCardsProcessor.SelectRest();
+                StartCoroutine(DelayExecute(opponent));
+            }
+        }
+
+        private IEnumerator DelayExecute(BaseBattleCharacterController opponent)
+        {
+            yield return new WaitForSeconds(GameConstants.DELAY_PERFORM_ACTION);
+            ExecuteCard(opponent);
         }
     }
 }

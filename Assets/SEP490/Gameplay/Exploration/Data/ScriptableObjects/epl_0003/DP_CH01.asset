@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
+  m_Name: DP_CH01
+  m_EditorClassIdentifier: 
+  m_EventId: DP_CH01
+  m_EventType: 1
+  m_Description: An ornate silver chest stands proudly on a pedestal. It's a reward
+    for reaching the peak!
+  m_ExploreEventType: 2
+  m_Choices:
+  - choiceName: '[Open]
+
+      Claim the contents.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 1
+      outcomeMsg: You open the grand chest and find a legendary academy relic inside!
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: 
+      m_DisplayRewardOrder: 0
+      m_RewardList:
+      - {fileID: 11400000, guid: a96dcad160d70ed4a98314a6bdbbfc95, type: 2}
+      m_GetMoreFromPool: 1
+      m_RewardPoolList:
+      - m_PoolId: POOL_RELIC_A
+        m_AmountFromPool: 1
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
+  - choiceName: '[Leave]
+
+      Ignore it.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 0
+      outcomeMsg: You leave the grand chest untouched.
+      m_RandomEnemyFromPool: 0
+      m_EnemyId: 
+      m_DisplayRewardOrder: 0
+      m_RewardList: []
+      m_GetMoreFromPool: 0
+      m_RewardPoolList: []
+      m_DisplayPenaltyOrder: 2
+      m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

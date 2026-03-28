@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0aedb9c27b24447bcab98e75a6f121, type: 3}
+  m_Name: DP_CB01
+  m_EditorClassIdentifier: 
+  m_EventId: CC_CB01
+  m_EventType: 1
+  m_Description: The majestic Peak Guardian Spirit descends from the sky, initiating
+    the final test before the summit.
+  m_ExploreEventType: 4
+  m_Choices:
+  - choiceName: '[Prove Worth]
+
+      Engage the Guardian.'
+    m_Condition:
+      m_SuccessCondition: 0
+      m_ConditionStat: 0
+      m_RequiredValue: 0
+      m_RandomValue: 0
+    m_Outcomes:
+    - outcomeType: 3
+      outcomeMsg: You take a combat stance. The golem beeps mechanically and charges
+        forward!
+      m_RandomEnemyFromPool: 1
+      m_EnemyId: POOL_ENEMY_DP
+      m_DisplayRewardOrder: 2
+      m_RewardList:
+      - {fileID: 11400000, guid: c8fc9cde853d58343949f800eb2b1a44, type: 2}
+      m_GetMoreFromPool: 0
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_VIT
+        m_AmountFromPool: 1
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

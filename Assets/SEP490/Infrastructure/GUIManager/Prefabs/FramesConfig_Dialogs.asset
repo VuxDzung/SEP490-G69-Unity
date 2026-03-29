@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a5dda7ebd04f34693f3c0a5e329b78, type: 3}
-  m_Name: TestEnemyIdSO
+  m_Script: {fileID: 11500000, guid: d7d9cb7f4d58e0241aa28b85d812c707, type: 3}
+  m_Name: FramesConfig_Dialogs
   m_EditorClassIdentifier: 
-  m_EnemyId: ch_0012_0004
+  m_StarterFrameId: 
+  m_Frames:
+  - {fileID: 8248288711004666034, guid: 7b3ead519b3980749ae95d4c00adcd5f, type: 3}

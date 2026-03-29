@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SEP490G69;
+using System.Collections;
 using UnityEngine;
 
 public class WindProjectileCardGame : MonoBehaviour
@@ -34,7 +35,8 @@ public class WindProjectileCardGame : MonoBehaviour
         // 1. Sinh ra vụ nổ (Impact)
         if (impactVFXPrefab != null)
         {
-            Instantiate(impactVFXPrefab, transform.position, Quaternion.identity);
+            PoolManager.Pools["CombatVFX"].Spawn(impactVFXPrefab, transform.position, Quaternion.identity);
+            //Instantiate(impactVFXPrefab, transform.position, Quaternion.identity);
         }
 
         // 2. Tắt TẤT CẢ hình ảnh quả cầu (Tìm cả trong vật thể Cha lẫn Con)
@@ -57,5 +59,6 @@ public class WindProjectileCardGame : MonoBehaviour
 
         // 5. Xóa sổ hoàn toàn khỏi Hierarchy
         Destroy(gameObject);
+        PoolManager.Pools["CombatVFX"].DespawnObject(this.transform);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d235a90d5647845ad40053f7d02f24, type: 3}
   m_Name: POOL_ENEMY_DP
   m_EditorClassIdentifier: 
-  m_PoolId: 
+  m_PoolId: POOL_ENEMY_DP
   m_RewardCategory: 0
   m_RewardIdArray:
   - ch_0024_0010

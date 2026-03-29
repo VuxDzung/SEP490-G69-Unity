@@ -19,10 +19,10 @@ MonoBehaviour:
   m_Thumbnail: {fileID: -7828177005652277977, guid: 42f255af31d3bc346bfc081b0ed16b33, type: 3}
   m_FullBodyImg: {fileID: 0}
   m_Prefab: {fileID: 0}
-  m_CombatPrefab: {fileID: 0}
+  m_CombatPrefab: {fileID: 3305291122063973305, guid: 1e01b76346eb7aa4d85224ecb77f1c8e, type: 3}
   m_RunningPrefab: {fileID: 0}
   m_CharacterType: 1
-  m_AtkType: 2
+  m_AtkType: 1
   baseVit: 105
   basePow: 75
   baseInt: 160
@@ -32,4 +32,6 @@ MonoBehaviour:
   baseEnergy: 0
   baseMood: 0
   baseRP: 0
+  m_MeleeSfxId: 
+  m_RangedSfxId: 
   m_EnemyDeck: {fileID: 11400000, guid: c376b0028d1606949a697d545667ab00, type: 2}

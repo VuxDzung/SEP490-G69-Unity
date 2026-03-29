@@ -264,6 +264,13 @@ namespace SEP490G69.Economy
                 _shopItems.Add(holder);
             }
 
+            PlayerTrainingSession sessionData = GetSessionData();
+            if (sessionData != null)
+            {
+                sessionData.RefreshShopCount++;
+                _sessionDAO.Upsert(sessionData);
+            }
+
             LocalDBOrchestrator.UpdateDBChangeTime();
             Debug.Log($"<color=green>[GameShopManager]</color> Refresh {randomItems.Count} shop items.");
         }

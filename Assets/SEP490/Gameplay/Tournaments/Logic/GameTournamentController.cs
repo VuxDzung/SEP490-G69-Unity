@@ -6,6 +6,8 @@
     using SEP490G69.Addons.LoadScreenSystem;
     using System.Collections;
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Shared;
+    using System.Linq;
 
     public class GameTournamentController : MonoBehaviour, ISceneContext
     {
@@ -614,31 +616,137 @@
             }
 
             Debug.Log("Clear tournament progress");
-            //_tournamentDAO.Delete(_sessionTournamentId);
-
-            //if (sessionData != null)
-            //{
-            //    sessionData.ActiveTournamentId = string.Empty;
-            //    _sessionDAO.Update(sessionData);
-            //    Debug.Log($"<color=green>[GameTournamentController.SaveProgress]</color> Session's active tournament id is updated as empty because the tournament has ended!");
-            //}
-            //else
-            //{
-            //    Debug.LogError($"[GameTournamentController.SaveProgress error] Session data with id {sessionId} does not exist in the database.");
-            //}
 
             Debug.Log("Ready to go back to main menu");
         }
 
+        string dialogId = string.Empty;
+
+        private void DetermineTournamentResult(TournamentSO tournamentSO, TournamentProgressData tournamentData, PlayerTrainingSession sessionData)
+        {
+            if (tournamentSO.IsCheckpointTournament == true)
+            {
+                // Check if the player has passed the tournament objective.
+
+                // If the player failed to pass the tournament objective -> game over.
+
+                // If the player success in passing the tournament objective -> continue/victory.
+
+                bool objectiveCompleted = false;
+
+                TournamentObjectiveSO objectiveSO = tournamentSO.Objectives.Count > 0 ? tournamentSO.Objectives[0] : null;
+
+                int playerTournamentPlace = 1;
+                string sessionCharId = EntityIdConstructor.ConstructDBEntityId(sessionData.SessionId, sessionData.RawCharacterId);
+
+                if (tournamentData.IsPlayerWon)
+                {
+                    playerTournamentPlace = 1;
+                }
+                else if (GetPlayerTournamentData(tournamentData.FinalParticipants, sessionCharId) != null) // Lose final, win semi-final.
+                {
+                    playerTournamentPlace = 2;
+                }
+                else if (GetPlayerTournamentData(tournamentData.SemiFinalParticipants, sessionCharId) != null) // Lose semi-final, win elimination
+                {
+                    playerTournamentPlace = 3;
+                }
+                else // Lose at the elimination round.
+                {
+                    playerTournamentPlace = 4;
+                }
+
+                if (objectiveSO != null)
+                {
+                    if (objectiveSO.ObjectiveParam == EObjectiveParam.TournamentPlace &&
+                        playerTournamentPlace <= objectiveSO.RequiredAmount)
+                    {
+                        // Pass the objective
+                        objectiveCompleted = true;
+                    }
+                    else
+                    {
+                        // Lose the objective
+                        objectiveCompleted = false;
+                    }
+                }
+
+                if (objectiveCompleted == false)
+                {
+                    if (tournamentSO.IsFinalTournament)
+                    {
+                        dialogId = GameConstants.GetCh0027Ending();
+                    }
+                }
+                else
+                {
+                    if (tournamentSO.IsFinalTournament)
+                    {
+                        switch (sessionData.RawCharacterId)
+                        {
+                            case "ch_0001":
+                                dialogId = GameConstants.GetCh0001Ending();
+                                break;
+                            case "ch_0002":
+                                dialogId = GameConstants.GetCh0002Ending();
+                                break;
+                            case "ch_0003":
+                                dialogId = GameConstants.GetCh0003Ending();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // Objective success.
+                        if (!string.IsNullOrEmpty(tournamentSO.PassObjectiveDialogId))
+                        {
+                            dialogId = tournamentSO.PassObjectiveDialogId;
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(dialogId))
+                {
+                    FadingController.Singleton.FadeIn2Out(1f, 1f, () => {
+                        SceneLoader.Singleton.StartLoad("Scene.Cutscene", null, new List<LoadTask>
+                    {
+                        new LoadTask("Load dialog", DelayLoadDialog)
+                    });
+                    });
+                }
+            }
+        }
+
+        private IEnumerator DelayLoadDialog()
+        {
+            yield return new WaitForSeconds(0.02f);
+            ContextManager.Singleton.ResolveGameContext<NarrativeManager>().StartTree(dialogId);
+        }
+
+        public TournamentParticipantData GetPlayerTournamentData(List<TournamentParticipantData> participants, string sessionCharacterId)
+        {
+            if (participants == null ||
+                participants.Count == 0 ||
+                string.IsNullOrEmpty(sessionCharacterId))
+            {
+                return null;
+            }
+            return participants.FirstOrDefault(par => par.Id == sessionCharacterId);
+        }
+
+
+
         public void GoBackToMainMenu()
         {
+            TournamentProgressData data = _tournamentDAO.GetById(_sessionTournamentId);
+            PlayerTrainingSession sesionData = _sessionDAO.GetById(PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID));
             ClearAllPrefKeys();
+            DetermineTournamentResult(_currentTournamentSO, data, sesionData);
 
-            List<LoadTask> loadTaskList = new List<LoadTask>();
-            LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
-            loadTaskList.Add(goToNextWeekTask);
+            //List<LoadTask> loadTaskList = new List<LoadTask>();
+            //LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
+            //loadTaskList.Add(goToNextWeekTask);
 
-            SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
+            //SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
         }
 
         private IEnumerator DelayGoToNextWeek()
@@ -792,6 +900,7 @@
 
         #endregion
 
+        
 
         public void ClearAllPrefKeys()
         {

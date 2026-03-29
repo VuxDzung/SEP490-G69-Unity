@@ -353,23 +353,17 @@ namespace SEP490G69.Calendar
                                  .SetContent("title_game_over", "msg_game_over", true, false, () =>
                                  {
                                      GraduateController.Graduate();
-                                     //bool success = DeleteAllCurrentSessionData();
-                                     //if (success == false)
-                                     //{
-                                     //    Debug.Log("[GraduateController error] Failed to clear session data");
-                                     //    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
-                                     //                 .AsFrame<UIMessagePopup>()
-                                     //                 .SetContent("title_error", "msg_delete_session_db_error", true);
-                                     //}
-                                     //else
-                                     //{
-                                     //    Debug.Log("[GraduateController] Clear session data completed");
-
-                                         
-                                     //}
                                  })
                                  .SetOptionMessage("msg_end");
                     return false; // Pending: (Clear tournament progress data when the player press Rollback)
+                }
+                else
+                {
+                    // Objective success.
+                    if (!string.IsNullOrEmpty(tournamentSO.PassObjectiveDialogId))
+                    {
+                        
+                    }
                 }
             }
             else if (!string.IsNullOrEmpty(error)) // If the function return false and has error message -> an error occurs, not a non-mandatory tournament.

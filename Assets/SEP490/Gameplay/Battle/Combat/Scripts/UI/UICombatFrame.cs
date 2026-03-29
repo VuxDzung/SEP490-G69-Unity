@@ -158,6 +158,7 @@
         {
             ClearAllCards();
             StartCoroutine(CoDisplayCards(cards, cardProcessor, stamina));
+            m_RestBtn.gameObject.SetActive(true);
         }
 
         public void SpawnEnemyCard(CardSO card, ICombatCardsProcessor cardProcessor)
@@ -322,6 +323,7 @@
         public void ClearAllCards()
         {
             Debug.Log("ClearAllCards");
+            m_RestBtn.gameObject.SetActive(false);
 
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)
             {

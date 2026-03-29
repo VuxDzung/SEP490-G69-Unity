@@ -21,6 +21,10 @@ namespace SEP490G69.Tournament
         [SerializeField] private List<RewardDataSO> m_SemiFinalRewards;
         [SerializeField] private List<RewardDataSO> m_EliminationRewards;
 
+        [SerializeField] private string m_BeforeEnterDialogId;
+        [SerializeField] private string m_PassObjectiveDialogId;
+        [SerializeField] private string m_FailedObjectiveDialogId;
+ 
         public string TournamentId => tournamentId;
         public string Name => tournamentName;
         public bool IsCheckpointTournament => m_IsCheckpointTournament;
@@ -33,6 +37,10 @@ namespace SEP490G69.Tournament
         public IReadOnlyList<RewardDataSO> ChampionRewards => m_ChampionRewards;
         public IReadOnlyList<RewardDataSO> SemiFinalRewards => m_SemiFinalRewards;
         public IReadOnlyList<RewardDataSO> EliminationRewards => m_EliminationRewards;
+
+        public string BeforeEnterDialogId => m_BeforeEnterDialogId;
+        public string PassObjectiveDialogId => m_PassObjectiveDialogId;
+        public string FailedObjectiveDialogId => m_FailedObjectiveDialogId;
     }
 
     [System.Serializable]

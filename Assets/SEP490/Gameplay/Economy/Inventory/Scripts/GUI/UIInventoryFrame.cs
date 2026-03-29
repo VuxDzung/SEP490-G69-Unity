@@ -122,15 +122,11 @@ namespace SEP490G69.Economy
 
             IReadOnlyList<ItemDataHolder> items = InventoryManager.GetAllItems();
 
-            foreach (var slot in m_RelicSlotArray)
-            {
-                slot.SetEmpty();
-            }
-
             foreach (ItemDataHolder item in items)
             {
                 if (itemType != EItemType.None && item.GetItemType() != itemType)
                     continue;
+
                 if (item.GetRemainAmount() == 0) continue;
 
                 Transform slotTrans = PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].Spawn(m_ItemSlotPrefab, m_ItemContainer);
@@ -142,6 +138,10 @@ namespace SEP490G69.Economy
                 slot.BindInventoryItem(item).SetClickAction(SelectItem);
 
                 _slots.Add(slot);
+            }
+            foreach (var slot in m_RelicSlotArray)
+            {
+                slot.SetEmpty();
             }
             LoadRelicSlots();
             CloseDetails();

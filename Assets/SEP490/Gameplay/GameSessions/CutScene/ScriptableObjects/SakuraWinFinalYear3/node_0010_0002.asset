@@ -15,7 +15,7 @@ MonoBehaviour:
   m_NodeID: node_0010_0002
   m_SpeakerID: 
   m_DialogID: node_0010_0002
-  m_BackgroundId: 
+  m_BackgroundId: cs_0019
   m_BgmId: 
   m_SfxId: 
   m_BgImage: {fileID: 21300000, guid: c3e586697b486c84db3a7e8d2721fbc4, type: 3}

@@ -163,6 +163,7 @@ public class SakuraTrainingAnimationController : BaseTrainingAnimationController
             case ETrainingType.Run: PlaySakuraRunTraining(); break;
             case ETrainingType.Swim: PlaySakuraSwimTraining(); break;
             case ETrainingType.Dodge: PlaySakuraDodgeTraining(); break;
+            case ETrainingType.Rest: break;
             default: PlaySakuraStudyTraining(); break;
         }
 

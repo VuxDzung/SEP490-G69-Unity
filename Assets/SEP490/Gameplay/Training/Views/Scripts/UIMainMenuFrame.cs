@@ -313,6 +313,8 @@ namespace SEP490G69.Training
             TooltipController.Hide();
             TrainingController.StartTraining(ETrainingType.Rest);
             LoadCharacterStats();
+            LoadCalendarTime();
+            LoadObjectivesWithConditon();
         }
 
         private void ShowCalendar()

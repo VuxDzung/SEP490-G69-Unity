@@ -189,6 +189,7 @@ public class SeriasTrainingAnimationController : BaseTrainingAnimationController
             case ETrainingType.Run: PlayRunTraining(); break;
             case ETrainingType.Swim: PlaySwimmingTraining(); break;
             case ETrainingType.Dodge: PlayDodgeTraining(); break;
+            case ETrainingType.Rest: break;
             default: PlayStudyTraining(); break;
         }
 

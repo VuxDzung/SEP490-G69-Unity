@@ -187,8 +187,26 @@ namespace SEP490G69.Training
         private void ProcessTrainingLogic(ITrainingStrategy strategy)
         {
             TrainingResult result = strategy.StartTraining(_characterHolder);
-
             UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU).AsFrame<UITrainingMenuFrame>();
+
+            // ========================================================================
+            // XỬ LÝ RIÊNG CHO CHẾ ĐỘ NGHỈ NGƠI (REST)
+            // ========================================================================
+            if (strategy.TrainingType == ETrainingType.Rest)
+            {
+                if (menuFrame != null)
+                {
+                    menuFrame.LoadStats();
+                }
+
+
+                if (_eventManager != null)
+                {
+                    _eventManager.Publish(new TrainingCompletedEvent());
+                }
+
+                return; // NGẮT LUỒNG TẠI ĐÂY
+            }
 
             if (m_OverlayPrefab != null && m_UICanvas != null && _activeOverlayInstance == null)
             {

@@ -36,8 +36,8 @@ MonoBehaviour:
   m_CustomVariables: []
   m_VfxList:
   - vfxId: vfx_staminaUp
-    delay: 0.5
+    delay: 0.1
     target: 0
   - vfxId: vfx_healing
-    delay: 0.5
+    delay: 0.1
     target: 0

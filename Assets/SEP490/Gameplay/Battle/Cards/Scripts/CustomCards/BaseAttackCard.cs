@@ -39,9 +39,7 @@ namespace SEP490G69.Battle
 
             source.VFXController.PlayAtkVFX(0.15f);
 
-            target.SpawnDmgToast(source.StatOutputDmg.GetValue(true));
-
-            if (hasCrit == true) target.SpawnCritToats(critMul);
+            if (hasCrit == true) source.SpawnCritToats(critMul);
 
             // Has animation -> create 2 barriers to wait for 2 animations.
             AnimationBarrier barrier = new AnimationBarrier(2, () =>

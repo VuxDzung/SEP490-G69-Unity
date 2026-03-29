@@ -36,5 +36,5 @@ MonoBehaviour:
   m_CustomVariables: []
   m_VfxList:
   - vfxId: vfx_staminaDown
-    delay: 0.5
+    delay: 0.1
     target: 1

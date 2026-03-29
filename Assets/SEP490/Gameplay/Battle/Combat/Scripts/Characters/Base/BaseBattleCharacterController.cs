@@ -6,6 +6,8 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using static Unity.VisualScripting.Member;
+    using static UnityEngine.GraphicsBuffer;
 
     [RequireComponent(typeof(CharacterVFXController))]
     [RequireComponent(typeof(CharacterAnimationController))]
@@ -307,9 +309,12 @@
             float finalDamage = damage - damage * _dmgReduceCalculator.Calculate(StatDEF.Value);// Mathf.Max(0, damage - StatDEF.Value);
 
             StatReceivedDmg.SetCurrentValue(finalDamage);
-            float finalVit = StatHP.Value - StatReceivedDmg.Value;
+            float roundedDmg = (float)System.Math.Round(finalDamage, 0);
+            float finalVit = StatHP.Value - roundedDmg;
 
-            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} receive pure dmg = {finalDamage} and final damage = {StatReceivedDmg.Value}");
+            SpawnDmgToast(roundedDmg);
+
+            Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} receive pure dmg = {finalDamage} and final damage = {roundedDmg}");
 
             StatHP.SetCurrentValue(finalVit);
             Debug.Log($"{ReadonlyDataHolder.GetCharacterName()} remain health: {StatHP.Value}");
@@ -582,7 +587,7 @@
             GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
             {
                 Message = message,
-                TextColor = Color.red,
+                TextColor = Color.yellow,
                 SpawnPosition = position,
                 DelaySpawnTime = 0.01f,
                 TextSize = 40f

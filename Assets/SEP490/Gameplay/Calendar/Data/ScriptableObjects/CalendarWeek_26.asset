@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: CalendarWeek_26
   m_EditorClassIdentifier: 
   m_Week: 26
-  m_Tournaments: []
+  m_Tournaments:
+  - {fileID: 11400000, guid: f540d6cf1539abc4cba5d7ddcd3b41f5, type: 2}

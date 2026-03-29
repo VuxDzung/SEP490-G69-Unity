@@ -20,5 +20,7 @@ MonoBehaviour:
   m_OwnershipMethods: 02000000
   m_CurrencyID: 
   m_Cost: 0
-  m_UsableModifiers: []
+  m_UsableModifiers:
+  - {fileID: 11400000, guid: 3fab2d712927a654ea876eec0d6fbba9, type: 2}
+  - {fileID: 11400000, guid: 35c0b571440002344b25660ecc8375fd, type: 2}
   m_RelicModifiers: []

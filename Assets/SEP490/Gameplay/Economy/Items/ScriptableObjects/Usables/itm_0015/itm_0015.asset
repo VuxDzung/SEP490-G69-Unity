@@ -20,5 +20,10 @@ MonoBehaviour:
   m_OwnershipMethods: 00000000
   m_CurrencyID: gold
   m_Cost: 800
-  m_UsableModifiers: []
+  m_UsableModifiers:
+  - {fileID: 11400000, guid: 9baaaaa5bbac4c241b82c9fe40e3ba49, type: 2}
+  - {fileID: 11400000, guid: fd90537b3b54488449d5d17f4c1c4647, type: 2}
+  - {fileID: 11400000, guid: c63f8ca8ea00bd5438334a61a27771a1, type: 2}
+  - {fileID: 11400000, guid: add2138ef125c9c43abead5d3a0d03af, type: 2}
+  - {fileID: 11400000, guid: 548b7e653c11a74489173dcc4f8f6b0c, type: 2}
   m_RelicModifiers: []

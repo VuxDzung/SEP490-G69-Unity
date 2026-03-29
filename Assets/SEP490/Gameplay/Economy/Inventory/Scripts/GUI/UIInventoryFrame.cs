@@ -120,7 +120,7 @@ namespace SEP490G69.Economy
 
             ClearAllUIElements();
 
-            ItemDataHolder[] items = InventoryManager.GetAllItems();
+            IReadOnlyList<ItemDataHolder> items = InventoryManager.GetAllItems();
 
             foreach (var slot in m_RelicSlotArray)
             {

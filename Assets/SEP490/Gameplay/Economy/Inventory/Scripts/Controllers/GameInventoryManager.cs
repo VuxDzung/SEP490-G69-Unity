@@ -32,7 +32,7 @@ namespace SEP490G69
 
         private string _sessionId;
 
-        private List<ItemDataHolder> _inventoryItems = new();
+        //private List<ItemDataHolder> _inventoryItems = new();
 
 
         public void SetManager(ContextManager manager)
@@ -50,15 +50,12 @@ namespace SEP490G69
         public void SetSessionId(string sessionId)
         {
             _sessionId = sessionId;
-            LoadInventory();
         }
 
-        private void LoadInventory()
+        public IReadOnlyList<ItemDataHolder> GetAllItems()
         {
-            _inventoryItems.Clear();
-
             List<ItemData> items = _inventoryDAO.GetAllItems(_sessionId);
-
+            List<ItemDataHolder> holderList = new List<ItemDataHolder>();
             foreach (ItemData data in items)
             {
                 ItemDataSO so = _itemConfig.GetItemById(data.RawItemId);
@@ -67,19 +64,14 @@ namespace SEP490G69
                                                .WithRuntimeData(data)
                                                .WithDataSO(so)
                                                .Build();
-
-                _inventoryItems.Add(holder);
+                holderList.Add(holder);
             }
-        }
-
-        public ItemDataHolder[] GetAllItems()
-        {
-            return _inventoryItems.ToArray();
+            return holderList;
         }
 
         public IReadOnlyList<ItemDataHolder> GetAllRelics()
         {
-            return _inventoryItems.Where(itm => itm.GetItemType() == EItemType.Relic && itm.GetEquipmentSlot() != GameConstants.EMPTY_RELIC_SLOT).ToList();
+            return GetAllItems().Where(itm => itm.GetItemType() == EItemType.Relic && itm.GetEquipmentSlot() != GameConstants.EMPTY_RELIC_SLOT).ToList();
         }
 
         /// <summary>
@@ -138,14 +130,6 @@ namespace SEP490G69
                 }
 
                 _inventoryDAO.Insert(newItem);
-
-
-                item = new ItemDataHolder.Builder()
-                    .WithRuntimeData(newItem)
-                    .WithDataSO(so)
-                    .Build();
-
-                _inventoryItems.Add(item);
             }
             _eventManager.Publish(new AddItemEvent
             {
@@ -196,7 +180,7 @@ namespace SEP490G69
             if (item.GetRemainAmount() == 0)
             {
                 _inventoryDAO.Delete(item.GetSessionItemId());
-                _inventoryItems.Remove(item);
+                //_inventoryItems.Remove(item);
             }
             else
             {
@@ -239,7 +223,7 @@ namespace SEP490G69
             if (item.GetRemainAmount() == 0)
             {
                 _inventoryDAO.Delete(item.GetSessionItemId());
-                _inventoryItems.Remove(item);
+                //_inventoryItems.Remove(item);
             }
             else
             {
@@ -355,8 +339,12 @@ namespace SEP490G69
                 Debug.LogError("[GameInventoryManager.GetItemBy error] Session id/raw item id is null");
                 return null;
             }
-            ItemDataHolder item = _inventoryItems.FirstOrDefault(item => item.GetSessionId().Equals(_sessionId) &&
-                                                  item.GetRawId().Equals(rawId));
+            ItemData itemData = _inventoryDAO.GetItem(sessionId, rawId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(rawId);
+            ItemDataHolder item = new ItemDataHolder.Builder()
+                                                    .WithRuntimeData(itemData)
+                                                    .WithDataSO(itemSO)
+                                                    .Build();
             return item;
         }
 
@@ -367,8 +355,13 @@ namespace SEP490G69
                 Debug.LogError("[GameInventoryManager.GetItemBy error] Raw item id is null");
                 return null;
             }
-
-            return _inventoryItems.FirstOrDefault(x => x.GetRawId() == rawId);
+            ItemData itemData = _inventoryDAO.GetItem(_sessionId, rawId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(rawId);
+            ItemDataHolder item = new ItemDataHolder.Builder()
+                                                    .WithRuntimeData(itemData)
+                                                    .WithDataSO(itemSO)
+                                                    .Build();
+            return item;
         }
 
         public ItemDataHolder GetItemByEntityId(string entityId)
@@ -378,8 +371,14 @@ namespace SEP490G69
                 Debug.LogError("[GameInventoryManager.GetItemBy error] Session id/entity id is null");
                 return null;
             }
-
-            return _inventoryItems.FirstOrDefault(x => x.GetSessionItemId() == entityId);
+            ItemData itemData = _inventoryDAO.GetItem(entityId);
+            string rawItemId = EntityIdConstructor.ExtractRawEntityId(entityId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(rawItemId);
+            ItemDataHolder item = new ItemDataHolder.Builder()
+                                                    .WithRuntimeData(itemData)
+                                                    .WithDataSO(itemSO)
+                                                    .Build();
+            return item;
         }
 
         private int GetRemainEmptySlot()

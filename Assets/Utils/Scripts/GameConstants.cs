@@ -217,7 +217,7 @@ namespace SEP490G69
         public const int FACIILITY_MAX_LV = 5;
         public const float DELAY_PERFORM_ACTION = 1f;
 
-        public const int STARTER_MONEY_AMOUNT = 100000000;
+        public const int STARTER_MONEY_AMOUNT = 1000;
 
         public const int EMPTY_RELIC_SLOT = -1;
         public const int MAX_RELIC_SLOTS = 3;

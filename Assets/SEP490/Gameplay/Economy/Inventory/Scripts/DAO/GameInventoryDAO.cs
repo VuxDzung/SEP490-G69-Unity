@@ -27,6 +27,19 @@ namespace SEP490G69.Economy
             }
         }
 
+        public ItemData GetItem(string entityId)
+        {
+            try
+            {
+                return LocalDBOrchestrator.Execute(db => GetItem(db, entityId));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
         public List<ItemData> GetAllItems(string sessionId)
         {
             try
@@ -182,6 +195,23 @@ namespace SEP490G69.Economy
                     return null;
 
                 string entityId = EntityIdConstructor.ConstructDBEntityId(sessionId, rawItemId);
+                var col = GetCollection<ItemData>(db, COLLECTION_NAME);
+                return col.FindById(entityId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return null;
+            }
+        }
+
+        public ItemData GetItem(LiteDatabase db, string entityId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(entityId))
+                    return null;
+
                 var col = GetCollection<ItemData>(db, COLLECTION_NAME);
                 return col.FindById(entityId);
             }

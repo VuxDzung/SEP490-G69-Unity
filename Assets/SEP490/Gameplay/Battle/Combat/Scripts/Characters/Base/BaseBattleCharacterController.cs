@@ -184,8 +184,10 @@
 
             if (relics != null && relics.Count > 0)
             {
+                Debug.Log($"----------{ReadonlyDataHolder.GetCharacterName()}----------");
                 foreach (ItemDataHolder relic in relics)
                 {
+                    Debug.Log($"Relic: {relic.GetRawId()}");
                     extraVit = relic.CalculateRelicModValue(EStatusType.Vitality, currentVit);
                     finalVit += extraVit;
 

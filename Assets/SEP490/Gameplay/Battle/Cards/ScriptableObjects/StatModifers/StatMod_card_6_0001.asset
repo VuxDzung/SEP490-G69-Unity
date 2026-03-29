@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Id: mod_card_6_0001
   m_DisplayOnUI: 0
   m_StatType: 8
-  m_Operator: 1
-  m_Value: 0.2
+  m_Operator: 3
+  m_Value: 20
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0

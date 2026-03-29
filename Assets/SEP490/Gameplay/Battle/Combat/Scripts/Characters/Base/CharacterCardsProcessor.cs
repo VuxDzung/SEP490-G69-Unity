@@ -216,7 +216,7 @@ namespace SEP490G69.Battle.Combat
             _owner.StatActionCost.SetCurrentValue(card.Cost);
 
             float cost = _owner.StatActionCost.Value;
-
+            Debug.Log($"{_owner.ReadonlyDataHolder.GetCharacterName()}, Card: {card.CardId}. Base cost: {card.Cost} - Final cost: {_owner.StatActionCost.Value}");
             return Mathf.Max(0, Mathf.RoundToInt(cost));
         }
 

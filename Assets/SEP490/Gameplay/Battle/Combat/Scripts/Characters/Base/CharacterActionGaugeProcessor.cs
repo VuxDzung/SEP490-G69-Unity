@@ -16,11 +16,13 @@ namespace SEP490G69.Battle.Combat
         private bool _paused;
 
         private readonly List<CombatStatModifierSO> _pendingGaugeModifiers = new List<CombatStatModifierSO>();
+        private InCombatStatus _agiStatus;
 
-        public void InitializeActionGauge(BaseBattleCharacterController owner, float agilityValue)
+        public void InitializeActionGauge(BaseBattleCharacterController owner, InCombatStatus agilityStatus)
         {
             _owner = owner;
-            var strategy = new AgiBasedChargeStrategy(GameConstants.BASE_FILL_SPEED, agilityValue);
+            _agiStatus = agilityStatus;
+            var strategy = new AgiBasedChargeStrategy(GameConstants.BASE_FILL_SPEED);
             _energyTurnBar = new EnergyTurnBar(strategy);
         }
 
@@ -56,7 +58,7 @@ namespace SEP490G69.Battle.Combat
             if (_energyTurnBar == null || _paused || _energyTurnBar.IsFull)
                 return;
 
-            _energyTurnBar.Update(deltaTime);
+            _energyTurnBar.Update(_agiStatus.Value, deltaTime);
 
             if (_energyTurnBar.IsFull)
                 onEnergyFull?.Invoke();

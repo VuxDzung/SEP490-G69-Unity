@@ -14,6 +14,19 @@ namespace SEP490G69.Battle.Combat
         private SessionPlayerDeck _playerDeckData;
         private TestObtainedCardSO _test;
 
+        private GameInventoryManager _inventoryManager;
+        private GameInventoryManager InventoryManager
+        {
+            get
+            {
+                if (_inventoryManager == null)
+                {
+                    _inventoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
+                }
+                return _inventoryManager;
+            }
+        }
+
         private ISelectCardStrategy _selectionStrategy = new RandomSelectCardStrategy();
 
         private bool _isAuto;
@@ -69,7 +82,7 @@ namespace SEP490G69.Battle.Combat
                                                       .WithCharacterData(readonlyCharData).Build();
 
             SetReadonlyDataHolder(readonlyDataHolder);
-            SetCharacterDataHolder(characterHolder);
+            SetCharacterDataHolder(characterHolder, InventoryManager.GetAllRelics());
 
             InitializeEnergySystem();
 

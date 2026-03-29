@@ -234,12 +234,14 @@ namespace SEP490G69.Exploration
                 return;
             }
 
-            _selectedLocationId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID, string.Empty);
+            _selectedLocationId = PlayerPrefs.GetString(GameConstants.PREF_KEY_EXPLORE_LOCATION_ID, string.Empty);
+
             if (string.IsNullOrEmpty(_selectedLocationId))
             {
                 Debug.LogError("location id is empty");
                 return;
             }
+            Debug.Log($"Selected location id: {_selectedLocationId}");
 
             bool isBattleWon = PlayerPrefs.GetInt(GameConstants.PREF_KEY_IS_BATTLE_WON, 0) == 1;
 

@@ -135,8 +135,10 @@ namespace SEP490G69.Economy
                 if (item.IsRelicEquipped() == true)
                 {
                     LoadRelicToEquipSlot(item);
-                    continue;
+                    //continue;
                 }
+
+                if (item.GetRemainAmount() == 0) continue;
 
                 Transform slotTrans = PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].Spawn(m_ItemSlotPrefab, m_ItemContainer);
 
@@ -227,6 +229,7 @@ namespace SEP490G69.Economy
         private void Back()
         {
             HideThisView();
+            UIManager.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
         }
 
         private void ClearAllUIElements()

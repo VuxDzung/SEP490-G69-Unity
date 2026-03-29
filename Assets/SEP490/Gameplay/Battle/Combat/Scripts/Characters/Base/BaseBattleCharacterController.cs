@@ -1,6 +1,7 @@
 ﻿namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -156,20 +157,65 @@
 
         public abstract void Initialize(BaseCharacterSO characterSO);
 
-        public void SetCharacterDataHolder(CharacterDataHolder holder)
+        public void SetCharacterDataHolder(CharacterDataHolder holder, IReadOnlyList<ItemDataHolder> relics)
         {
             //_currentDataHolder = holder;
 
-            float hpValue = _maxHPCalculator.Calculate(holder.GetVIT());
-            float maxStaminaValue = _maxStaminaCalculator.CalculateMax(holder.GetStamina());
+            float currentVit = holder.GetVIT();
+            float currentPow = holder.GetPower();
+            float currentInt = holder.GetINT();
+            float currentAgi = holder.GetAgi();
+            float currentSta = holder.GetStamina();
+            float currentDef = holder.GetDef();
 
-            StatVit.SetCurrentValue(holder.GetVIT());
+            float finalVit = currentVit;
+            float finalPow = currentPow;
+            float finalInt = currentInt;
+            float finalAgi = currentAgi;
+            float finalSta = currentSta;
+            float finalDef = currentDef;
+
+            float extraVit = 0;
+            float extraPow = 0;
+            float extraInt = 0;
+            float extraAgi = 0;
+            float extraSta = 0;
+            float extraDef = 0;
+
+            if (relics.Count > 0)
+            {
+                foreach (ItemDataHolder relic in relics)
+                {
+                    extraVit = relic.CalculateRelicModValue(EStatusType.Vitality, currentVit);
+                    finalVit += extraVit;
+
+                    extraPow = relic.CalculateRelicModValue(EStatusType.Power, currentPow);
+                    finalPow += extraPow;
+
+                    extraInt = relic.CalculateRelicModValue(EStatusType.Intelligence, currentInt);
+                    finalInt += extraInt;
+
+                    extraAgi = relic.CalculateRelicModValue(EStatusType.Agi, currentAgi);
+                    finalAgi += extraAgi;
+
+                    extraSta = relic.CalculateRelicModValue(EStatusType.Agi, currentSta);
+                    finalSta += extraSta;
+
+                    extraDef = relic.CalculateRelicModValue(EStatusType.Defense, currentDef);
+                    finalDef += extraDef;
+                }
+            }
+
+            float hpValue = _maxHPCalculator.Calculate(finalVit);
+            float maxStaminaValue = _maxStaminaCalculator.CalculateMax(finalSta);
+
+            StatVit.SetCurrentValue(finalVit);
             StatHP.SetCurrentValue(hpValue);
-            StatPow.SetCurrentValue(holder.GetPower());
-            StatAgi.SetCurrentValue(holder.GetAgi());
-            StatInt.SetCurrentValue(holder.GetINT());
+            StatPow.SetCurrentValue(finalPow);
+            StatAgi.SetCurrentValue(finalAgi);
+            StatInt.SetCurrentValue(finalInt);
             StatStamina.SetCurrentValue(maxStaminaValue);
-            StatDEF.SetCurrentValue(holder.GetDef());
+            StatDEF.SetCurrentValue(finalDef);
 
             StatOutputDmg.SetCurrentValue(0f);
             StatReceivedDmg.SetCurrentValue(0f);
@@ -423,7 +469,7 @@
 
         protected void InitializeEnergySystem()
         {
-            _gaugeProcessor.InitializeActionGauge(this, StatAgi.Value);
+            _gaugeProcessor.InitializeActionGauge(this, StatAgi);
         }
 
         public float GetCurrentEnergyValue() => _gaugeProcessor.GetCurrentGaugeValue();

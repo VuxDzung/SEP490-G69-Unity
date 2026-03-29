@@ -104,7 +104,7 @@ namespace SEP490G69.Battle.Combat
                 GameUIManager.Singleton
                     .GetFrame(GameConstants.FRAME_ID_COMBAT)
                     .AsFrame<UICombatFrame>()
-                    .DisplayDrawnCards(cards, _player.CombatCardsProcessor);
+                    .DisplayDrawnCards(cards, _player.CombatCardsProcessor, _player.GetCombatStatus(EStatusType.Stamina).Value);
             }
         }
 

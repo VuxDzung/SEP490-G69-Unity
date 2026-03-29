@@ -2,6 +2,6 @@ namespace SEP490G69.Battle.Combat
 {
     public interface IChargeStrategy 
     {
-        public float ChargeEnergy(float deltaTime);
+        public float ChargeEnergy(float agility, float deltaTime);
     }
 }

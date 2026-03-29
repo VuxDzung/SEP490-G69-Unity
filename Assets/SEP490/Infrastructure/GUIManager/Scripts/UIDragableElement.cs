@@ -17,7 +17,7 @@
         [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public bool IsDraggable { get; set; }
+        public bool IsDraggable { get; set; } = true;
 
         private void Awake()
         {

@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: 19a3e0af1697f74488f3001e2aa1903b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 727477869462967079
+    second: shattered_energy_02_0
+  - first:
+      213: -1583675539310860041
+    second: shattered_energy_02_1
+  - first:
+      213: 1908521436256292136
+    second: shattered_energy_02_2
+  - first:
+      213: -8646371363473201101
+    second: shattered_energy_02_3
+  - first:
+      213: -2066000253707913764
+    second: shattered_energy_02_4
+  - first:
+      213: 3465206901238966359
+    second: shattered_energy_02_5
+  - first:
+      213: 7801748320368564200
+    second: shattered_energy_02_6
+  - first:
+      213: 2408025892541200580
+    second: shattered_energy_02_7
+  - first:
+      213: -1144422316218379648
+    second: shattered_energy_02_8
+  - first:
+      213: 7653449904561278341
+    second: shattered_energy_02_9
+  - first:
+      213: -1799472605984796653
+    second: shattered_energy_02_10
+  - first:
+      213: 1104389992870026996
+    second: shattered_energy_02_11
+  - first:
+      213: 857865367619060779
+    second: shattered_energy_02_12
+  - first:
+      213: -7122569285689537492
+    second: shattered_energy_02_13
+  - first:
+      213: 7881481661729755362
+    second: shattered_energy_02_14
+  - first:
+      213: 7765922108689872309
+    second: shattered_energy_02_15
+  - first:
+      213: -1238898381798907229
+    second: shattered_energy_02_16
+  - first:
+      213: -424260849454903789
+    second: shattered_energy_02_17
+  - first:
+      213: -6818706838412586276
+    second: shattered_energy_02_18
+  - first:
+      213: 8727469861968669435
+    second: shattered_energy_02_19
+  - first:
+      213: 4843934526256937884
+    second: shattered_energy_02_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shattered_energy_02_0
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 837
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7235c479445881a00800000000000000
+      internalID: 727477869462967079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_1
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 745
+        width: 130
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f8a6e7dc77a50ae0800000000000000
+      internalID: -1583675539310860041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_2
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 871
+        width: 176
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82d464e622e6c7a10800000000000000
+      internalID: 1908521436256292136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_3
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 795
+        width: 278
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338e11c2e0be10880800000000000000
+      internalID: -8646371363473201101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_4
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 713
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd57fd327b71453e0800000000000000
+      internalID: -2066000253707913764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_5
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 813
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 758a4953153e61030800000000000000
+      internalID: 3465206901238966359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_6
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 759
+        width: 66
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e7919e03c0654c60800000000000000
+      internalID: 7801748320368564200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_7
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 769
+        width: 54
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c87cde7ac60b6120800000000000000
+      internalID: 2408025892541200580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_8
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 669
+        width: 106
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08216c087f13e10f0800000000000000
+      internalID: -1144422316218379648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_9
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 725
+        width: 36
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58d4f937324863a60800000000000000
+      internalID: 7653449904561278341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_10
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 499
+        width: 232
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 310da39e23df607e0800000000000000
+      internalID: -1799472605984796653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_11
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 499
+        width: 154
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fe9382e8d4935f00800000000000000
+      internalID: 1104389992870026996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_12
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 587
+        width: 132
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b244b06b100c7eb00800000000000000
+      internalID: 857865367619060779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_13
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 553
+        width: 284
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c0e5eb8fc872d90800000000000000
+      internalID: -7122569285689537492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_14
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 221
+        width: 130
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0582f30d5a06d60800000000000000
+      internalID: 7881481661729755362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_15
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 497
+        width: 80
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5ffc1230916cb60800000000000000
+      internalID: 7765922108689872309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_16
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 399
+        width: 58
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2e1185c7c8ecee0800000000000000
+      internalID: -1238898381798907229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_17
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 35
+        width: 112
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31e82285109bc1af0800000000000000
+      internalID: -424260849454903789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_18
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 233
+        width: 68
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd214ece1461f51a0800000000000000
+      internalID: -6818706838412586276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_19
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 133
+        width: 28
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfae19e69933e1970800000000000000
+      internalID: 8727469861968669435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shattered_energy_02_20
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 187
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b7bc099cc193340800000000000000
+      internalID: 4843934526256937884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      shattered_energy_02_0: 727477869462967079
+      shattered_energy_02_1: -1583675539310860041
+      shattered_energy_02_10: -1799472605984796653
+      shattered_energy_02_11: 1104389992870026996
+      shattered_energy_02_12: 857865367619060779
+      shattered_energy_02_13: -7122569285689537492
+      shattered_energy_02_14: 7881481661729755362
+      shattered_energy_02_15: 7765922108689872309
+      shattered_energy_02_16: -1238898381798907229
+      shattered_energy_02_17: -424260849454903789
+      shattered_energy_02_18: -6818706838412586276
+      shattered_energy_02_19: 8727469861968669435
+      shattered_energy_02_2: 1908521436256292136
+      shattered_energy_02_20: 4843934526256937884
+      shattered_energy_02_3: -8646371363473201101
+      shattered_energy_02_4: -2066000253707913764
+      shattered_energy_02_5: 3465206901238966359
+      shattered_energy_02_6: 7801748320368564200
+      shattered_energy_02_7: 2408025892541200580
+      shattered_energy_02_8: -1144422316218379648
+      shattered_energy_02_9: 7653449904561278341
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

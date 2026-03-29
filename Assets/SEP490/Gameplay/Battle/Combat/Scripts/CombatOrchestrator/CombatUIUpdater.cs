@@ -70,7 +70,7 @@ namespace SEP490G69.Battle.Combat
         {
             GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
                        .AsFrame<UICombatFrame>()
-                       .LoadEnemyStatEffects(player.StatEffectManager.ActiveStatEffects);
+                       .LoadPlayerStatEffects(player.StatEffectManager.ActiveStatEffects);
         }
 
         public void ShowVictory(string combatType)

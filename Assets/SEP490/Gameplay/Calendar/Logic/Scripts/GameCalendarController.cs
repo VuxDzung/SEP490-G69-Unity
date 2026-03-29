@@ -187,6 +187,7 @@ namespace SEP490G69.Calendar
         {
             GoToNextWeek(true);
             string message = GetCalendarTime();
+            GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
             FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, message, () =>
             {
                 //TrainingController.HideTrainingMenuBG();

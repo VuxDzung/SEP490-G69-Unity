@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f352cb248ebba408e37215d53859f0, type: 3}
+  m_Name: tor_0039
+  m_EditorClassIdentifier: 
+  tournamentId: tor_0039
+  tournamentName: tor_0039_name
+  m_IsCheckpointTournament: 0
+  EnemyIdArray: []
+  m_EntryConditions:
+  - {fileID: 11400000, guid: 476af6df694425d448028119bfe313f6, type: 2}
+  m_Objectives: []
+  m_ChampionRewards:
+  - {fileID: 11400000, guid: 34b50bcb16a4be8498dd5b00ff65235b, type: 2}
+  - {fileID: 11400000, guid: 3d27825ccaf1c4b48a929e6902d294c1, type: 2}
+  m_SemiFinalRewards: []
+  m_EliminationRewards: []

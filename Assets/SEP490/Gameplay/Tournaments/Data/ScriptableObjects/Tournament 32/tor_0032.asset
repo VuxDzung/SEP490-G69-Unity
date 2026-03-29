@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f352cb248ebba408e37215d53859f0, type: 3}
+  m_Name: tor_0032
+  m_EditorClassIdentifier: 
+  tournamentId: tor_0032
+  tournamentName: tor_0032_name
+  m_IsCheckpointTournament: 0
+  EnemyIdArray:
+  - ch_0010_0001
+  - ch_0012_0001
+  - ch_0014_0001
+  - ch_0028_0001
+  - ch_0018_0001
+  - ch_0020_0001
+  - ch_0022_0001
+  m_EntryConditions:
+  - {fileID: 11400000, guid: 33c7dcda59fb83347b68c47edb3aadee, type: 2}
+  m_Objectives: []
+  m_ChampionRewards:
+  - {fileID: 11400000, guid: 0c20ce32fd97c96489caa47f943040a9, type: 2}
+  - {fileID: 11400000, guid: 1357a53d5ad521d4c9105d243e654397, type: 2}
+  - {fileID: 11400000, guid: ca90cc987da27a24b874ed8f02ad22ff, type: 2}
+  m_SemiFinalRewards:
+  - {fileID: 11400000, guid: 982d236a9f80a2843a269bf2a465d24a, type: 2}
+  - {fileID: 11400000, guid: 557312e10a6829a43924e3c17f6386ce, type: 2}
+  - {fileID: 11400000, guid: 5d9ea1f8d77420f47bc40f9ddc6900fe, type: 2}
+  m_EliminationRewards:
+  - {fileID: 11400000, guid: ae8b200c920dec0468d2877c21eb7343, type: 2}

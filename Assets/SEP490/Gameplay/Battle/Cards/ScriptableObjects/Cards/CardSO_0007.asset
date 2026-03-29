@@ -33,4 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d22e8606c099fc64dae0e548ced6b9a4, type: 2}
   m_ExtraActions: []
   m_CustomVariables: []
-  m_VfxList: []
+  m_VfxList:
+  - vfxId: vfx_analyze
+    delay: 0.5
+    target: 1

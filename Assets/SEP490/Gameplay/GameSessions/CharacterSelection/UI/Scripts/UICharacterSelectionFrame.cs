@@ -504,6 +504,7 @@ namespace SEP490G69.GameSessions
                 {
                     FadingController.Singleton.FadeIn2Out(1f, 1f, () =>
                     {
+                        CharacterSpawnHandler.Instance.DespawnCharacter();
                         UIManager.HideFrame(FrameId);
                         NarrativeManager.StartTree(dialogTreeId);
                     });

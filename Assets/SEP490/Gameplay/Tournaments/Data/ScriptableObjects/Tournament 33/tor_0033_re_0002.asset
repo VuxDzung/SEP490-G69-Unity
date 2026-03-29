@@ -16,5 +16,5 @@ MonoBehaviour:
   m_RewardName: 
   m_RewardType: 1
   m_RewardTargetId: gold
-  m_RewardAmount: 300
+  m_RewardAmount: 350
   m_StatModifiers: []

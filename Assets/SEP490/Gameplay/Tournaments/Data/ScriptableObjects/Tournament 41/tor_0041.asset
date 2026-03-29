@@ -15,6 +15,7 @@ MonoBehaviour:
   tournamentId: tor_0041
   tournamentName: tor_0041_name
   m_IsCheckpointTournament: 0
+  m_IsFinalTournament: 0
   EnemyIdArray: []
   m_EntryConditions:
   - {fileID: 11400000, guid: 941dd3d7f794e594aa1246fdf44053a8, type: 2}
@@ -22,5 +23,7 @@ MonoBehaviour:
   m_ChampionRewards:
   - {fileID: 11400000, guid: 39d5f9d9190fdef468eca6e82b25b572, type: 2}
   - {fileID: 11400000, guid: c1786f6238cf4c547ad57660460f6832, type: 2}
+  - {fileID: 11400000, guid: 3002260d99c0cc54fbadda9c1ae2b879, type: 2}
+  - {fileID: 11400000, guid: cf84e528add35944c884273c47e4792d, type: 2}
   m_SemiFinalRewards: []
   m_EliminationRewards: []

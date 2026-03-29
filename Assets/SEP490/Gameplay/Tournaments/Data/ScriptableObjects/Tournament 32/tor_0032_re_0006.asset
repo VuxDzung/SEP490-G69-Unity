@@ -16,5 +16,5 @@ MonoBehaviour:
   m_RewardName: re_tour_0003_0001_name
   m_RewardType: 4
   m_RewardTargetId: itm_0006
-  m_RewardAmount: 2
+  m_RewardAmount: 1
   m_StatModifiers: []

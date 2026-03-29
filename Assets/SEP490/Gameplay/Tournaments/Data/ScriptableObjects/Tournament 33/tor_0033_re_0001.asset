@@ -16,5 +16,5 @@ MonoBehaviour:
   m_RewardName: 
   m_RewardType: 2
   m_RewardTargetId: rp
-  m_RewardAmount: 40
+  m_RewardAmount: 50
   m_StatModifiers: []

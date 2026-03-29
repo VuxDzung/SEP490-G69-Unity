@@ -23,4 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 846c4d2e5bc65fe4c8c509e5d73595b1, type: 2}
   - {fileID: 11400000, guid: 16f211339ee8fa441a6e82ea66f8caff, type: 2}
   - {fileID: 11400000, guid: 5ad0f4279c955f34599e0643a7a4fa0a, type: 2}
+  - {fileID: 11400000, guid: 94fefabb9d45e4540ae83c28fcacaf92, type: 2}
+  - {fileID: 11400000, guid: ba79af1eb3751c3448dc65730aa556c6, type: 2}
   m_PossibleRewards: []

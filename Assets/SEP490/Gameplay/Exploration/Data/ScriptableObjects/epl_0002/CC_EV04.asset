@@ -49,11 +49,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 865ca101d3de9264ba83b241ed58f629, type: 2}
       m_GetMoreFromPool: 1
-      m_RewardPoolList: []
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_AGI
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
-      m_PoolId: POOL_CARD_AGI
-      m_PoolRewardAmount: 1
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Ambush]
 
       Jump out & surprise!'
@@ -63,7 +65,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 0
+    - outcomeType: 3
       outcomeMsg: You leap out with a loud yell! The student stumbles backward in
         shock as the battle begins!
       m_RandomEnemyFromPool: 1
@@ -72,8 +74,10 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 865ca101d3de9264ba83b241ed58f629, type: 2}
       m_GetMoreFromPool: 1
-      m_RewardPoolList: []
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_AGI
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
-      m_PoolId: POOL_CARD_AGI
-      m_PoolRewardAmount: 1
+      m_PoolId: 
+      m_PoolRewardAmount: 0

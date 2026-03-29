@@ -66,7 +66,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 0
+    - outcomeType: 3
       outcomeMsg: You kick the altar down. The flames roar and form into an angry
         guardian spirit!
       m_RandomEnemyFromPool: 1

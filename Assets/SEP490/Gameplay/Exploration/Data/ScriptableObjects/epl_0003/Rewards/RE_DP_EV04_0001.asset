@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdc328cb49c8af4383107ab984ced71, type: 3}
   m_Name: RE_DP_EV04_0001
   m_EditorClassIdentifier: 
-  m_Id: RE_DP_EV02_0002
+  m_Id: RE_DP_EV04_0001
   m_RewardName: 
   m_RewardType: 1
   m_RewardTargetId: Gold
-  m_RewardAmount: 800
+  m_RewardAmount: 1200
   m_StatModifiers: []

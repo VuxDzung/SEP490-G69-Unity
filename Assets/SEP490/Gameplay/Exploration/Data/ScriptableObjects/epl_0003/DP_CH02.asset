@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EventType: 1
   m_Description: 'A glowing, chained box sits before you. A mysterious voice whispers:
     "Power demands sacrifice..."'
-  m_ExploreEventType: 2
+  m_ExploreEventType: 3
   m_Choices:
   - choiceName: '[Accept]
 

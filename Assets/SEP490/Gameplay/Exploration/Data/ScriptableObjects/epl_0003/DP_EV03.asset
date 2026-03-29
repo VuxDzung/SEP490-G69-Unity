@@ -67,7 +67,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 0
+    - outcomeType: 3
       outcomeMsg: You shout and jump into the circle. The surprised students drop
         their supplies as they prepare to fight!
       m_RandomEnemyFromPool: 1

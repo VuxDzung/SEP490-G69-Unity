@@ -27,7 +27,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 3
+    - outcomeType: 0
       outcomeMsg: The cool water is incredibly soothing. You feel reinvigorated
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
@@ -36,10 +36,11 @@ MonoBehaviour:
       - {fileID: 11400000, guid: c11756620f13202479f42bb45c19a491, type: 2}
       - {fileID: 11400000, guid: e9426dc60cde19e498a6fdfe2d476ecb, type: 2}
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Fish]
 
       (VIT >= 40)'
@@ -57,10 +58,13 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_RELIC_D
-      m_PoolRewardAmount: 0
+      m_RewardPoolList:
+      - m_PoolId: POOL_RELIC_D
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
     - outcomeType: 1
       outcomeMsg: You slip and fall into the water with a loud splash! You climb
         out exhausted.
@@ -69,8 +73,9 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_RELIC_D
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers:
       - {fileID: 11400000, guid: 529955798c5a34e4aa752a9bf824a5f9, type: 2}
+      m_PoolId: 
+      m_PoolRewardAmount: 0

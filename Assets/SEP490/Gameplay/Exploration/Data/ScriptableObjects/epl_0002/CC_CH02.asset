@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EventType: 1
   m_Description: You find a sealed box radiating strange, heavy energy. A warning
     label advises caution.
-  m_ExploreEventType: 2
+  m_ExploreEventType: 3
   m_Choices:
   - choiceName: '[Accept Risk]
 
@@ -27,15 +27,16 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 0
       outcomeMsg: The chest opens with a satisfying click, revealing a rare relic.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_RELIC_C
-      m_PoolRewardAmount: 1
+      m_RewardPoolList:
+      - m_PoolId: POOL_RELIC_C
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers:
       - {fileID: 11400000, guid: e4c94896ae3df4a429bba44cbbd890e6, type: 2}
@@ -44,6 +45,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 0a020ea5180807041b87cc0f0e7e1904, type: 2}
       - {fileID: 11400000, guid: 952a75225937203488311be4d726b715, type: 2}
       - {fileID: 11400000, guid: 691d2381b2e9b3940bc827403e13c300, type: 2}
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Leave]
 
       Ignore it.'
@@ -60,7 +63,8 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

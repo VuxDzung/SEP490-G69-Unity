@@ -36,10 +36,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 482e1c9d6ea46cb44a44a3a66319a2a6, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: 'POOL_CARD_VIT '
-      m_PoolRewardAmount: 1
+      m_RewardPoolList:
+      - m_PoolId: 'POOL_CARD_VIT '
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 'POOL_CARD_VIT '
+      m_PoolRewardAmount: 1
     - outcomeType: 2
       outcomeMsg: You touch it, and it instantly shatters in a volatile explosion
         of energy
@@ -48,11 +51,12 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers:
       - {fileID: 11400000, guid: 1517549ef6798f2409cdf48cf8cae1b9, type: 2}
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Throw Stone]
 
       Trigger it from afar.'
@@ -62,7 +66,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 0
+    - outcomeType: 3
       outcomeMsg: You toss a rock. It shatters loudly, and an angry spirit beast
         emerges from a nearby cavern!
       m_RandomEnemyFromPool: 1
@@ -70,7 +74,8 @@ MonoBehaviour:
       m_DisplayRewardOrder: 2
       m_RewardList: []
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_RELIC_C
-      m_PoolRewardAmount: 1
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: POOL_RELIC_C
+      m_PoolRewardAmount: 1

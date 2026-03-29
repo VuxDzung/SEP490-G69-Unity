@@ -34,7 +34,10 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: e335cde9e3915b54988efc251584a734, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CARD_BASIC
-      m_PoolRewardAmount: 1
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_BASIC
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

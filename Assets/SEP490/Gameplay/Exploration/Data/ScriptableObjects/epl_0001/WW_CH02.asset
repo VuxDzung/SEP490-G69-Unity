@@ -35,10 +35,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: df8e96750a02cd64a8517718cc663d23, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CONS_BASIC
-      m_PoolRewardAmount: 2
+      m_RewardPoolList:
+      - m_PoolId: POOL_CONS_BASIC
+        m_AmountFromPool: 2
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Leave]
 
       Leave it for the owner.'
@@ -55,7 +58,8 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

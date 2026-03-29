@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SEP490G69.Training
 {
     public interface ITrainingStrategy 
@@ -9,5 +11,6 @@ namespace SEP490G69.Training
         public void Initialize(TrainingExerciseDAO dao, PlayerCharacterDAO characterDAO, string sessionId, TrainingExerciseSO exerciseSO);
         //public bool CanTraining(CharacterDataHolder character);
         public TrainingResult StartTraining(CharacterDataHolder characterHolder);
+        public List<StatChange> SimulateTrainingRewards(CharacterDataHolder characterHolder);
     }
 }

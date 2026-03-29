@@ -278,3 +278,33 @@ MonoBehaviour:
       text: Complete
     - language: 1
       text: "Ho\xE0n t\u1EA5t"
+  - id: btn_boxing_excersie
+    textList:
+    - language: 0
+      text: Boxing
+    - language: 1
+      text: "\u0110\u1EA5m B\u1ED1c"
+  - id: btn_running_excersie
+    textList:
+    - language: 0
+      text: "Ch\u1EA1y"
+    - language: 1
+      text: Running
+  - id: btn_dodge_excersie
+    textList:
+    - language: 0
+      text: Dodge
+    - language: 1
+      text: "N\xE9"
+  - id: btn_study_excersie
+    textList:
+    - language: 0
+      text: Study
+    - language: 1
+      text: "H\u1ECDc"
+  - id: btn_swim_excersie
+    textList:
+    - language: 0
+      text: Swimming
+    - language: 1
+      text: "B\u01A1i L\u1ED9i"

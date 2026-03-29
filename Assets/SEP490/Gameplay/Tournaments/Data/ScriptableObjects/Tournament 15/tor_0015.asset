@@ -15,7 +15,15 @@ MonoBehaviour:
   tournamentId: tor_0015
   tournamentName: tor_0015_name
   m_IsCheckpointTournament: 0
-  EnemyIdArray: []
+  m_IsFinalTournament: 0
+  EnemyIdArray:
+  - ch_0010_0006
+  - ch_0012_0006
+  - ch_0014_0006
+  - ch_0028_0011
+  - ch_0022_0006
+  - ch_0024_0006
+  - ch_0026_0006
   m_EntryConditions:
   - {fileID: 11400000, guid: d4cdc66777c72824893d3acaba13b0dd, type: 2}
   m_Objectives: []

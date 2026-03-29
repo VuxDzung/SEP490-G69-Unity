@@ -9684,6 +9684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4810035948865778099}
+  - component: {fileID: -6595255186802540982}
   m_Layer: 0
   m_Name: vfx_powerUp
   m_TagString: Untagged
@@ -9709,6 +9710,19 @@ Transform:
   - {fileID: 3196282417627734360}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6595255186802540982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2670061283059637213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e56e98448676374f828833679a581d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AliveTime: 0.8
 --- !u!1 &3707334725126289674
 GameObject:
   m_ObjectHideFlags: 0

@@ -19617,6 +19617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6760398201121514263}
+  - component: {fileID: 8811119318700092296}
   m_Layer: 0
   m_Name: vfx_staminaDown
   m_TagString: Untagged
@@ -19643,6 +19644,19 @@ Transform:
   - {fileID: 6783305055014107053}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8811119318700092296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344093661776063690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e56e98448676374f828833679a581d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AliveTime: 0.8
 --- !u!1 &7493359055081307774
 GameObject:
   m_ObjectHideFlags: 0

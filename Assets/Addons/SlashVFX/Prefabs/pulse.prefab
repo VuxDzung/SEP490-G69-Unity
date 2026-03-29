@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2677467694742016362}
   - component: {fileID: 9117136141202073265}
   - component: {fileID: 7945348162064508269}
+  - component: {fileID: -649537981202855535}
   m_Layer: 0
   m_Name: pulse
   m_TagString: Untagged
@@ -4891,3 +4892,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-649537981202855535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026636273318120087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e56e98448676374f828833679a581d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AliveTime: 0.8

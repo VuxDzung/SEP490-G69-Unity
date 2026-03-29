@@ -1,6 +1,7 @@
 namespace SEP490G69.GameSessions
 {
     using UnityEngine;
+    using UnityEngine.TextCore.Text;
 
     public class CharacterSpawnHandler : MonoBehaviour
     {
@@ -9,6 +10,8 @@ namespace SEP490G69.GameSessions
 
         [SerializeField] private string poolName;
         [SerializeField] private Transform m_CharacterHolder;
+
+        private Transform _character;
 
         private void Awake()
         {
@@ -20,11 +23,17 @@ namespace SEP490G69.GameSessions
 
         public void SpawnCharacter(GameObject prefab)
         {
-            if (PoolManager.Pools[poolName].Count > 0)
+            DespawnCharacter();
+            _character = PoolManager.Pools[poolName].Spawn(prefab, m_CharacterHolder);
+        }
+
+        public void DespawnCharacter()
+        {
+            if (_character != null)
             {
-                PoolManager.Pools[poolName].DespawnAll();
+                PoolManager.Pools[poolName].DespawnObject(_character);
+                _character = null;
             }
-            PoolManager.Pools[poolName].Spawn(prefab, m_CharacterHolder);
         }
     }
 }

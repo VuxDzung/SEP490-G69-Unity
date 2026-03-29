@@ -37,8 +37,8 @@ MonoBehaviour:
   m_CustomVariables: []
   m_VfxList:
   - vfxId: vfx_agiUp
-    delay: 0.5
+    delay: 0.1
     target: 0
   - vfxId: vfx_gaugeUp
-    delay: 0.5
+    delay: 0.1
     target: 0

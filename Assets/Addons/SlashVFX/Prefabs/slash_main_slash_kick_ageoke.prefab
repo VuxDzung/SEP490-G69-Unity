@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2364607017777846661}
   - component: {fileID: 7575311518881820713}
   - component: {fileID: 8591314708292162342}
+  - component: {fileID: -584204765002612125}
   m_Layer: 0
   m_Name: slash_main_slash_kick_ageoke
   m_TagString: Untagged
@@ -4892,6 +4893,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-584204765002612125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239636534085035025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e56e98448676374f828833679a581d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AliveTime: 0.8
 --- !u!1 &3698823455431836526
 GameObject:
   m_ObjectHideFlags: 0

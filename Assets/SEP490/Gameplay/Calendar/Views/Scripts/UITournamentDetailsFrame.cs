@@ -38,6 +38,18 @@
                 return _itemConfig;
             }
         }
+        private CardConfigSO _cardConfig;
+        private CardConfigSO CardConfig
+        {
+            get
+            {
+                if (_cardConfig == null)
+                {
+                    _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
+                }
+                return _cardConfig;
+            }
+        }
 
         private GameCalendarController _calendarController;
         protected GameCalendarController CalendarController
@@ -136,15 +148,11 @@
                             // Bóc tách thông tin thẻ bài
                             if (rewardSO.RewardType == ERewardType.Card)
                             {
-                                CardConfigSO cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
-                                if (cardConfig != null)
+                                CardSO cardData = CardConfig.GetCardById(rewardSO.RewardTargetId);
+                                if (cardData != null)
                                 {
-                                    CardSO cardData = cardConfig.GetCardById(rewardSO.RewardTargetId);
-                                    if (cardData != null)
-                                    {
-                                        itemName = cardData.CardName; // Lấy tên thật của thẻ
-                                        itemIcon = cardData.Icon;     // Lấy icon của thẻ
-                                    }
+                                    itemName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, cardData.CardName); // Lấy tên thật của thẻ
+                                    itemIcon = cardData.Icon;     // Lấy icon của thẻ
                                 }
                             }
                             else if (rewardSO.RewardType == ERewardType.Item)

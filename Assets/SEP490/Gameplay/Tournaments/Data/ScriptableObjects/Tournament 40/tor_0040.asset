@@ -16,7 +16,14 @@ MonoBehaviour:
   tournamentName: tor_0040_name
   m_IsCheckpointTournament: 0
   m_IsFinalTournament: 0
-  EnemyIdArray: []
+  EnemyIdArray:
+  - ch_0018_0005
+  - ch_0020_0005
+  - ch_0027_0005
+  - ch_0028_0010
+  - ch_0030_0009
+  - ch_0019_0005
+  - ch_0021_0005
   m_EntryConditions:
   - {fileID: 11400000, guid: efe380a5c4d3a124d8ff81c49ebccd18, type: 2}
   m_Objectives: []

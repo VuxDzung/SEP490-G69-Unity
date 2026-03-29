@@ -26,6 +26,10 @@ namespace SEP490G69
 
             if (exist != null)
             {
+                if (exist.Data.ApplyType == EApplyDiscardType.Fovever)
+                {
+                    return;
+                }
                 exist.AddStack();
                 return;
             }

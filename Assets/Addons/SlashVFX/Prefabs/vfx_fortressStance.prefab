@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.8745098, b: 0, a: 1}
+      maxColor: {r: 0.81960785, g: 0.85882354, b: 0.83229506, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1394,8 +1394,8 @@ ParticleSystem:
         atime0: 0
         atime1: 32768
         atime2: 65535
-        atime3: 0
-        atime4: 0
+        atime3: 65535
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
@@ -5157,7 +5157,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.83137256, g: 0.6862745, b: 0.21568628, a: 0.5882353}
+      maxColor: {r: 0.5411765, g: 0.58431375, b: 0.64705884, a: 0.5882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10057,7 +10057,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.98039216, b: 0.8039216, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.9098039}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14807,9 +14807,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5724073094283137048, guid: d57da93189cc6594e82a42e75047461c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.6671342
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724073094283137048, guid: d57da93189cc6594e82a42e75047461c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.98490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724073094283137048, guid: d57da93189cc6594e82a42e75047461c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.68111205
+      objectReference: {fileID: 0}
     - target: {fileID: 6657790552907824343, guid: d57da93189cc6594e82a42e75047461c, type: 3}
       propertyPath: m_Name
       value: spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542280737881108109, guid: d57da93189cc6594e82a42e75047461c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14929,6 +14945,10 @@ PrefabInstance:
     - target: {fileID: 6026636273318120087, guid: 8b9d430f0e9891f4d97edfaa287c71c3, type: 3}
       propertyPath: m_Name
       value: pulse
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945348162064508269, guid: 8b9d430f0e9891f4d97edfaa287c71c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

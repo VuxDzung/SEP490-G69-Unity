@@ -26,7 +26,8 @@ MonoBehaviour:
   - ch_0023_0009
   m_EntryConditions:
   - {fileID: 11400000, guid: 00cffc2f14c12c245a23c1d287b07496, type: 2}
-  m_Objectives: []
+  m_Objectives:
+  - {fileID: 11400000, guid: 0c544b0fe5f1f1b4d8eb10cbb3551daf, type: 2}
   m_ChampionRewards:
   - {fileID: 11400000, guid: c8672fef310c7f14694112c16b1e1778, type: 2}
   - {fileID: 11400000, guid: 516a452d45a54c24e9478f0d3dca308c, type: 2}

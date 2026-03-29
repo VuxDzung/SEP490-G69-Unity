@@ -26,7 +26,8 @@ MonoBehaviour:
   - ch_0030_0007
   m_EntryConditions:
   - {fileID: 11400000, guid: 3d72dcf8a3228854484496818252fdee, type: 2}
-  m_Objectives: []
+  m_Objectives:
+  - {fileID: 11400000, guid: f4180cba10f092e49bfeede7dafceb7a, type: 2}
   m_ChampionRewards:
   - {fileID: 11400000, guid: a6192c5820cda9a43b52dd04cc274223, type: 2}
   - {fileID: 11400000, guid: cc621ce83ed21204a9f1a9d38303140a, type: 2}

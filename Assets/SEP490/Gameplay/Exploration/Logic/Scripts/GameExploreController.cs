@@ -304,8 +304,8 @@ namespace SEP490G69.Exploration
                            .AsFrame<UIExploreChoiceOutcomeFrame>()
                            .LoadRewards(outcomeData.Rewards, extraRewards);
                     ReceiveRewards(outcomeData.Rewards, extraRewards);
-                    StartCoroutine(DelayBeforeEnd());
                 }
+                StartCoroutine(DelayBeforeEnd());
             }
             else
             {
@@ -315,8 +315,8 @@ namespace SEP490G69.Exploration
                            .AsFrame<UIExploreChoiceOutcomeFrame>()
                            .LoadPenalties(outcomeData.PenatyModifiers);
                     ReceivePenalties(outcomeData.PenatyModifiers);
-                    StartCoroutine(DelayBeforeEnd());
                 }
+                StartCoroutine(DelayBeforeEnd());
             }
         }
 

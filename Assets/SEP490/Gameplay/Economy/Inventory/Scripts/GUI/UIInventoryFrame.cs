@@ -132,6 +132,37 @@ namespace SEP490G69.Economy
                 if (itemType != EItemType.None && item.GetItemType() != itemType)
                     continue;
 
+                //if (item.IsRelicEquipped() == true)
+                //{
+                //    LoadRelicToEquipSlot(item);
+                //    //continue;
+                //}
+
+                if (item.GetRemainAmount() == 0) continue;
+
+                Transform slotTrans = PoolManager.Pools[GameConstants.POOL_UI_INVENTORY_ITEM].Spawn(m_ItemSlotPrefab, m_ItemContainer);
+
+                UIInventoryItemSlot slot = slotTrans.GetComponent<UIInventoryItemSlot>();
+
+                if (slot == null) continue;
+
+                slot.BindInventoryItem(item).SetClickAction(SelectItem);
+
+                _slots.Add(slot);
+            }
+            LoadRelicSlots();
+            CloseDetails();
+        }
+
+        private void LoadRelicSlots()
+        {
+            IReadOnlyList<ItemDataHolder> items = InventoryManager.GetAllRelics();
+
+            foreach (ItemDataHolder item in items)
+            {
+                if (item.GetItemType() != EItemType.Relic)
+                    continue;
+
                 if (item.IsRelicEquipped() == true)
                 {
                     LoadRelicToEquipSlot(item);
@@ -150,8 +181,6 @@ namespace SEP490G69.Economy
 
                 _slots.Add(slot);
             }
-
-            CloseDetails();
         }
 
         private void SetupRelicSlots()

@@ -172,9 +172,8 @@ namespace SEP490G69.Economy
         {
             foreach (var slot in _slots)
             {
-                Destroy(slot.gameObject);
+                PoolManager.Pools[GameConstants.POOL_UI_SHOP_ITEM].DespawnObject(slot.transform);
             }
-
             _slots.Clear();
         }
 

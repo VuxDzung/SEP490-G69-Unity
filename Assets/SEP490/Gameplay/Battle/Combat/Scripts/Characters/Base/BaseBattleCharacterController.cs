@@ -182,7 +182,7 @@
             float extraSta = 0;
             float extraDef = 0;
 
-            if (relics.Count > 0)
+            if (relics != null && relics.Count > 0)
             {
                 foreach (ItemDataHolder relic in relics)
                 {

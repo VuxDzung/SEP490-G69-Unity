@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SEP490G69.Battle.Combat 
 {
-    public class RandomSelectCardStrategy : MonoBehaviour, ISelectCardStrategy
+    public class RandomSelectCardStrategy : ISelectCardStrategy
     {
         public bool TrySelectCard(BaseBattleCharacterController owner, IReadOnlyList<CardSO> currentDrawPool, out CardSO card)
         {

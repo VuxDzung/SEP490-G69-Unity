@@ -188,7 +188,7 @@ namespace SEP490G69.Exploration
             m_FinalBossNameTmp.text = enemySO != null ? enemySO.CharacterName : string.Empty;
 
             // Load rewards.
-
+            ClearPossibleRewards();
             if (location != null && location.GetBossEvent() != null)
             {
                 foreach (var reward in location.GetBossEvent().Choices[0].Outcomes[0].Rewards)
@@ -227,6 +227,14 @@ namespace SEP490G69.Exploration
                 ERewardType.Card => CardConfig.GetCardById(id)?.Icon,
                 _ => null
             };
+        }
+
+        private void ClearPossibleRewards()
+        {
+            if (PoolManager.Pools["PossibleRewards"].Count > 0)
+            {
+                PoolManager.Pools["PossibleRewards"].DespawnAll();
+            }
         }
     }
 }

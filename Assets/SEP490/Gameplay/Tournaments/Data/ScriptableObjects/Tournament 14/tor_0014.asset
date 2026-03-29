@@ -15,14 +15,14 @@ MonoBehaviour:
   tournamentId: tor_0014
   tournamentName: tor_0014_name
   m_IsCheckpointTournament: 0
-  m_IsMandatory: 0
   EnemyIdArray: []
   m_EntryConditions:
   - {fileID: 11400000, guid: 16cc37b8207891a498e79dee64efbc51, type: 2}
   m_Objectives: []
-  m_RewardRanks: []
   m_ChampionRewards:
   - {fileID: 11400000, guid: 0a370b1caf0b82944b920b3a8dcbb128, type: 2}
   - {fileID: 11400000, guid: 4911bb548ca25bd43a1bb194813a99b1, type: 2}
+  - {fileID: 11400000, guid: a9163b522513ba748ab942b8a77fed43, type: 2}
+  - {fileID: 11400000, guid: 3c46622d8783a51469f8466727225217, type: 2}
   m_SemiFinalRewards: []
   m_EliminationRewards: []

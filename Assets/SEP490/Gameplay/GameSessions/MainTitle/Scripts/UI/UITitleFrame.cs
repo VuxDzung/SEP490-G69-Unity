@@ -140,6 +140,12 @@ namespace SEP490G69.GameSessions
                         SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
                     });
                 }
+                else
+                {
+                    UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                             .AsFrame<UIMessagePopup>()
+                             .SetContent("title_noti", "msg_no_active_session", true, false);
+                }
             }
             catch (System.Exception e)
             {

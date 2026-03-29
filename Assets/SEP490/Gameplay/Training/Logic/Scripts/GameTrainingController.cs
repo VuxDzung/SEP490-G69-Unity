@@ -27,14 +27,13 @@ namespace SEP490G69.Training
 
         [Header("Training Animation Prefabs")]
         [SerializeField] private TrainingAnimationConfigSO m_TrainingAnimConfig;
-        // Đã xóa biến _sakuraAnimPrefab bị hardcode
-        private BaseTrainingAnimationController _currentAnimController; // Biến lưu trữ controller đang chạy
+        private BaseTrainingAnimationController _currentAnimController;
 
         [Header("UI System")]
-        [SerializeField] private GameObject m_OverlayPrefab;     // Kéo Prefab Overlay vào đây
-        [SerializeField] private Transform m_UICanvas;           // Kéo UICanvas trên Scene vào đây
+        [SerializeField] private GameObject m_OverlayPrefab;
+        [SerializeField] private Transform m_UICanvas;
 
-        private GameObject _activeOverlayInstance;               // Biến lưu trữ Overlay đang hiển thị
+        private GameObject _activeOverlayInstance;
 
         private EventManager _eventManager;
 
@@ -175,21 +174,28 @@ namespace SEP490G69.Training
             ProcessTrainingLogic(strategy);
         }
 
+        public List<StatChange> GetSimulatedStatChanges(string id)
+        {
+            ITrainingStrategy strategy = GetExerciseById(id);
+            if (strategy != null)
+            {
+                return strategy.SimulateTrainingRewards(_characterHolder);
+            }
+            return null;
+        }
+
         private void ProcessTrainingLogic(ITrainingStrategy strategy)
         {
             TrainingResult result = strategy.StartTraining(_characterHolder);
 
             UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU).AsFrame<UITrainingMenuFrame>();
 
-            // 1. SPAWN OVERLAY VÀO CANVAS NGAY KHI VỪA BẤM TẬP
             if (m_OverlayPrefab != null && m_UICanvas != null && _activeOverlayInstance == null)
             {
-                // Instantiate sinh ra Overlay và tự động nhét vào làm con của UICanvas
                 _activeOverlayInstance = Instantiate(m_OverlayPrefab, m_UICanvas);
-                _activeOverlayInstance.transform.SetAsLastSibling(); // Ép xuống đáy để che mọi thứ
+                _activeOverlayInstance.transform.SetAsLastSibling();
             }
 
-            // Lấy data animation từ Config dựa trên ID nhân vật đang huấn luyện
             TrainingAnimData animData = m_TrainingAnimConfig.GetById(_characterHolder.GetRawId());
 
             if (animData != null && animData.prefab != null)
@@ -197,20 +203,16 @@ namespace SEP490G69.Training
                 if (menuFrame != null) menuFrame.HideUIForAnimation();
                 _characterAnimator.gameObject.SetActive(false);
 
-                // Dọn dẹp animation controller cũ nếu người dùng nhấn liên tục (đề phòng)
                 if (_currentAnimController != null)
                 {
                     _currentAnimController.StopAllAnimations();
                     Destroy(_currentAnimController.gameObject);
                 }
 
-                // Sinh ra Prefab Animation mới dựa vào cấu hình của nhân vật
-                // Instantiate trả về BaseTrainingAnimationController
                 _currentAnimController = Instantiate(animData.prefab, m_TrainingAnimContainer);
 
                 _currentAnimController.PlayTrainingAnim(strategy.TrainingType, () =>
                 {
-                    // Hủy instance hoạt ảnh sau khi chạy xong
                     if (_currentAnimController != null)
                     {
                         Destroy(_currentAnimController.gameObject);
@@ -220,20 +222,17 @@ namespace SEP490G69.Training
                     _characterAnimator.gameObject.SetActive(true);
                     if (menuFrame != null) menuFrame.ShowUIAfterAnimation();
 
-                    // 2. ÉP OVERLAY XUỐNG DƯỚI CÙNG 1 LẦN NỮA TRƯỚC KHI BUNG POPUP
                     if (_activeOverlayInstance != null)
                     {
                         _activeOverlayInstance.transform.SetAsLastSibling();
                     }
 
-                    // Hệ thống UIManager sẽ tự động nhét Popup này nằm DƯỚI cái Overlay trong Hierarchy (nghĩa là nổi lên trên cùng)
                     var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
                     frame.SetResult(strategy.DataHolder.GetName(), result);
                 });
             }
             else
             {
-                // Fallback: Nếu nhân vật không có config animation thì hiển thị ngay bảng Result
                 if (_activeOverlayInstance != null) _activeOverlayInstance.transform.SetAsLastSibling();
 
                 var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
@@ -241,17 +240,14 @@ namespace SEP490G69.Training
             }
         }
 
-        // ================== HỦY OVERLAY KHI ĐÓNG POPUP ==================
         private void HandleTrainingCompletedEvent(TrainingCompletedEvent ev)
         {
-            // Xóa sổ cái Overlay khỏi Scene
             if (_activeOverlayInstance != null)
             {
                 Destroy(_activeOverlayInstance);
                 _activeOverlayInstance = null;
             }
 
-            // Cập nhật lại thanh máu
             UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU) as UITrainingMenuFrame;
             if (menuFrame != null)
             {

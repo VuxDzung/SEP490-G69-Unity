@@ -25,13 +25,29 @@ namespace SEP490G69.Training
         [SerializeField] private TextMeshProUGUI m_FailRateTmp;
 
         [SerializeField] private List<UIExerciseElement> m_ExercisesUI;
-
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_Container;
 
-        // Biến quản lý làm mờ/ẩn cụm nút bấm
         [Header("UI Control")]
         [SerializeField] private CanvasGroup m_MenuCanvasGroup;
+
+        [Header("Stats Preview UI")]
+        [SerializeField] private GameObject m_StatsPreviewVitObj;
+        [SerializeField] private TextMeshProUGUI m_TmpVitNumber;
+
+        [SerializeField] private GameObject m_StatsPreviewPowObj;
+        [SerializeField] private TextMeshProUGUI m_TmpPowNumber;
+
+        [SerializeField] private GameObject m_StatsPreviewAgiObj;
+        [SerializeField] private TextMeshProUGUI m_TmpAgiNumber;
+
+        [SerializeField] private GameObject m_StatsPreviewIntObj;
+        [SerializeField] private TextMeshProUGUI m_TmpIntNumber;
+
+        [SerializeField] private GameObject m_StatsPreviewStaObj;
+        [SerializeField] private TextMeshProUGUI m_TmpStaNumber;
+
+        private string _currentPreviewId = string.Empty;
 
         private GameTrainingController _trainingController;
         private GameTrainingController TrainingController
@@ -52,6 +68,9 @@ namespace SEP490G69.Training
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeFacilityBtn.onClick.AddListener(UpgradeFacilityNav);
 
+            _currentPreviewId = string.Empty;
+            HideAllPreviews();
+
             LoadStats();
             LoadExercisesUI();
         }
@@ -62,10 +81,11 @@ namespace SEP490G69.Training
             m_BackBtn.onClick.RemoveListener(Back);
             m_UpgradeFacilityBtn.onClick.RemoveListener(UpgradeFacilityNav);
 
+            _currentPreviewId = string.Empty;
+            HideAllPreviews();
             ClearAllExercisesUI();
         }
 
-        // HÀM CHO GAME CONTROLLER GỌI: ẨN/HIỆN NÚT MÀ KHÔNG TẮT BG
         public void HideUIForAnimation()
         {
             if (m_MenuCanvasGroup != null)
@@ -84,6 +104,10 @@ namespace SEP490G69.Training
                 m_MenuCanvasGroup.blocksRaycasts = true;
                 m_MenuCanvasGroup.interactable = true;
             }
+
+            // Xoá preview sau khi tập xong
+            _currentPreviewId = string.Empty;
+            HideAllPreviews();
         }
 
         private void LoadExercisesUI()
@@ -154,10 +178,72 @@ namespace SEP490G69.Training
 
         private void PerformExercise(string id)
         {
-            if (TrainingController.CanJoinTraining())
+            if (!TrainingController.CanJoinTraining()) return;
+
+            if (_currentPreviewId != id)
             {
+                // Bước 1: Hiện Preview
+                _currentPreviewId = id;
+                ShowPreviewForExercise(id);
+            }
+            else
+            {
+                // Bước 2: Thực hiện Training
+                _currentPreviewId = string.Empty;
+                HideAllPreviews();
                 TrainingController.StartTraining(id);
             }
+        }
+        private void ShowPreviewForExercise(string id)
+        {
+            HideAllPreviews(); // Reset state
+
+            List<StatChange> simulatedChanges = TrainingController.GetSimulatedStatChanges(id);
+            if (simulatedChanges == null) return;
+
+            foreach (var change in simulatedChanges)
+            {
+                if (Mathf.Approximately(change.Delta, 0f)) continue; // Bỏ qua nếu không tăng/giảm
+
+                string prefix = change.Delta > 0 ? "+" : "";
+                string colorHex = change.Delta > 0 ? "#00FF00" : "#FF4444"; // Xanh lục nếu tăng, Đỏ nếu giảm
+                string formattedText = $"<color={colorHex}><b>{prefix}{change.Delta}</b></color>";
+
+                // Đã sửa change.StatType thành change.StatusType
+                // Đã sửa VIT, POW... thành tên đầy đủ tương ứng với Enum của bạn
+                switch (change.StatusType)
+                {
+                    case EStatusType.Vitality:
+                        if (m_StatsPreviewVitObj) m_StatsPreviewVitObj.SetActive(true);
+                        if (m_TmpVitNumber) m_TmpVitNumber.text = formattedText;
+                        break;
+                    case EStatusType.Power:
+                        if (m_StatsPreviewPowObj) m_StatsPreviewPowObj.SetActive(true);
+                        if (m_TmpPowNumber) m_TmpPowNumber.text = formattedText;
+                        break;
+                    case EStatusType.Agi:
+                        if (m_StatsPreviewAgiObj) m_StatsPreviewAgiObj.SetActive(true);
+                        if (m_TmpAgiNumber) m_TmpAgiNumber.text = formattedText;
+                        break;
+                    case EStatusType.Intelligence:
+                        if (m_StatsPreviewIntObj) m_StatsPreviewIntObj.SetActive(true);
+                        if (m_TmpIntNumber) m_TmpIntNumber.text = formattedText;
+                        break;
+                    case EStatusType.Stamina:
+                        if (m_StatsPreviewStaObj) m_StatsPreviewStaObj.SetActive(true);
+                        if (m_TmpStaNumber) m_TmpStaNumber.text = formattedText;
+                        break;
+                }
+            }
+        }
+
+        private void HideAllPreviews()
+        {
+            if (m_StatsPreviewVitObj) m_StatsPreviewVitObj.SetActive(false);
+            if (m_StatsPreviewPowObj) m_StatsPreviewPowObj.SetActive(false);
+            if (m_StatsPreviewAgiObj) m_StatsPreviewAgiObj.SetActive(false);
+            if (m_StatsPreviewIntObj) m_StatsPreviewIntObj.SetActive(false);
+            if (m_StatsPreviewStaObj) m_StatsPreviewStaObj.SetActive(false);
         }
     }
 }

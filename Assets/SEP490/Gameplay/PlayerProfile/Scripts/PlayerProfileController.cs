@@ -88,7 +88,11 @@ namespace SEP490G69.PlayerProfile
 
         public string GetPlayerName(string playerId)
         {
-            if (string.IsNullOrEmpty(playerId)) return string.Empty;
+            Debug.Log($"Player id: {playerId}");
+            if (string.IsNullOrEmpty(playerId))
+            {
+                return string.Empty;
+            }
 
             PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
@@ -108,7 +112,14 @@ namespace SEP490G69.PlayerProfile
             }
             if (string.IsNullOrEmpty(playerData.PlayerEmail))
             {
-                return _firebase.CurrentUser.Email;
+                if (_firebase != null && _firebase.CurrentUser != null)
+                {
+                    return _firebase.CurrentUser.Email;
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
             return playerData.PlayerEmail;
         }

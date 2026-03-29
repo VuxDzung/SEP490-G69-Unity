@@ -37,4 +37,7 @@ MonoBehaviour:
   m_StatusInflicts: []
   m_ExtraActions: []
   m_CustomVariables: []
-  m_VfxList: []
+  m_VfxList:
+  - vfxId: vfx_spikeArmor
+    delay: 0.5
+    target: 0

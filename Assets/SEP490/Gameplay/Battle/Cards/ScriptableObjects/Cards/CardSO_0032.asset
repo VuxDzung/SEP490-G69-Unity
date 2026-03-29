@@ -33,4 +33,7 @@ MonoBehaviour:
   m_ExtraActions:
   - REMOVE_DEBUFF_SELF
   m_CustomVariables: []
-  m_VfxList: []
+  m_VfxList:
+  - vfxId: vfx_purify
+    delay: 0.5
+    target: 0

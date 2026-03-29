@@ -2,13 +2,11 @@ namespace SEP490G69.Battle.Combat
 {
     public class AgiBasedChargeStrategy : IChargeStrategy
     {
-        private readonly float _agility;
         private readonly float _baseSpeed;
         private const float K = 400f;
 
-        public AgiBasedChargeStrategy(float baseSpeed, float agility)
+        public AgiBasedChargeStrategy(float baseSpeed)
         {
-            _agility = agility;
             _baseSpeed = baseSpeed;
         }
 
@@ -17,9 +15,9 @@ namespace SEP490G69.Battle.Combat
         /// </summary>
         /// <param name="deltaTime"></param>
         /// <returns></returns>
-        public float ChargeEnergy(float deltaTime)
+        public float ChargeEnergy(float agility, float deltaTime)
         {
-            float multiplier = 1f + (2f * _agility) / (_agility + K);
+            float multiplier = 1f + (2f * agility) / (agility + K);
 
             float finalSpeed = _baseSpeed * multiplier;
 

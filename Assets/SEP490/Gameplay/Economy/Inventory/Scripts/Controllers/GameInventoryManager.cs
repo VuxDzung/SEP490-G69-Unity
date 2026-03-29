@@ -79,8 +79,7 @@ namespace SEP490G69
 
         public IReadOnlyList<ItemDataHolder> GetAllRelics()
         {
-            return _inventoryItems.Where(itm => itm.GetItemType() == EItemType.Relic &&
-                                        itm.GetEquipmentSlot() != GameConstants.EMPTY_RELIC_SLOT).ToList();
+            return _inventoryItems.Where(itm => itm.GetItemType() == EItemType.Relic && itm.GetEquipmentSlot() != GameConstants.EMPTY_RELIC_SLOT).ToList();
         }
 
         /// <summary>

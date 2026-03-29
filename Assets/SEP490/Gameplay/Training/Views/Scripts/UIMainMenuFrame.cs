@@ -339,7 +339,8 @@ namespace SEP490G69.Training
         private void ShowInventory()
         {
             if (HasAnyActiveTournament()) return;
-
+            TooltipController.Hide();
+            UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_INVENTORY);
         }
 

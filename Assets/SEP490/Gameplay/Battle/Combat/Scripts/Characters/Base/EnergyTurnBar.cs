@@ -18,14 +18,14 @@ namespace SEP490G69.Battle.Combat
             this.chargeStrategy = strategy;
         }
 
-        public void Update(float deltaTime)
+        public void Update(float agility, float deltaTime)
         {
             if (IsFull)
             {
                 return;
             }
 
-            float amount = chargeStrategy.ChargeEnergy(deltaTime);
+            float amount = chargeStrategy.ChargeEnergy(agility, deltaTime);
             CurrentValue += amount;
             CurrentValue = Mathf.Clamp(CurrentValue, 0, MaxValue);
 

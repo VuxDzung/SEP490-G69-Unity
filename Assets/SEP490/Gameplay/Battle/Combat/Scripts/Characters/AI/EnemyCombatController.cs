@@ -47,7 +47,7 @@ namespace SEP490G69.Battle.Combat
                                                       .WithCharacterData(readonlyCharData).Build();
 
             SetReadonlyDataHolder(readonlyDataHolder);
-            SetCharacterDataHolder(runtimeDataHolder);
+            SetCharacterDataHolder(runtimeDataHolder, null);
             InitializeEnergySystem();
 
             EnemySO enemySO = characterSO.ConvertAs<EnemySO>();

@@ -8,7 +8,7 @@ namespace SEP490G69.Battle.Combat
         /// </summary>
         public event Action onEnergyFull;
 
-        public void InitializeActionGauge(BaseBattleCharacterController owner, float agilityValue);
+        public void InitializeActionGauge(BaseBattleCharacterController owner, InCombatStatus agilityValue);
         public void UpdateActionGauge(float deltaTime);
         public void ResetActionGauge();
         public float GetCurrentGaugeValue();

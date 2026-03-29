@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_ItemImg: {fileID: 8067539838909070222}
   m_Button: {fileID: 1700731366162189533}
   m_Slot: 1
+  m_ItemNameTmp: {fileID: 0}
 --- !u!1 &2176416352252481760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,11 +1089,11 @@ RectTransform:
   - {fileID: 1908845075390099162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1280, y: 720}
-  m_Pivot: {x: 0, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7262174142147512652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,6 +1253,7 @@ MonoBehaviour:
   m_ItemImg: {fileID: 7209746437758773224}
   m_Button: {fileID: 5555348253025754443}
   m_Slot: 2
+  m_ItemNameTmp: {fileID: 0}
 --- !u!1 &2744635720446015703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,6 +2438,7 @@ MonoBehaviour:
   m_ItemImg: {fileID: 9190475869515466170}
   m_Button: {fileID: 2246366915717632782}
   m_Slot: 0
+  m_ItemNameTmp: {fileID: 0}
 --- !u!1 &5170442487627818202
 GameObject:
   m_ObjectHideFlags: 0

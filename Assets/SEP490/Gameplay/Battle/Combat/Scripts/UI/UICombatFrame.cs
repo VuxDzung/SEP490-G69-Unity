@@ -154,10 +154,10 @@
         /// In m_CardContainer, there's a Horizontal Layout Group Component.
         /// </summary>
         /// <param name="cards"></param>
-        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor)
+        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor, float stamina)
         {
             ClearAllCards();
-            StartCoroutine(CoDisplayCards(cards, cardProcessor));
+            StartCoroutine(CoDisplayCards(cards, cardProcessor, stamina));
         }
 
         public void SpawnEnemyCard(CardSO card, ICombatCardsProcessor cardProcessor)
@@ -248,7 +248,7 @@
             }
         }
 
-        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor)
+        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor, float currentStamina)
         {
             if (cards.Count == 0)
             {
@@ -278,6 +278,7 @@
                 rect.localScale = Vector3.one * 0.7f;
 
                 UICardElement cardUI = cardTrans.GetComponent<UICardElement>();
+
                 if (cardUI != null)
                 {
                     string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
@@ -287,6 +288,16 @@
                           .SetOnDragEnd(PerformCardAction)
                           .SetContent(card.CardId, cardName, cardDesc, card.Icon)
                           .SetCost(card.Cost);
+
+                    float cardCost = cardProcessor.CalculateCardCost(card);
+                    if (cardCost > currentStamina)
+                    {
+                        cardUI.IsDraggable = false;
+                    }
+                    else
+                    {
+                        cardUI.IsDraggable = true;
+                    }
 
                     cardUI._onDragParent = m_DraggingArea;
                 }

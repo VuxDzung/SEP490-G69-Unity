@@ -2,7 +2,6 @@ namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Shared;
-    using System.Collections.Generic;
 
     public class CombatUIUpdater
     {
@@ -21,10 +20,10 @@ namespace SEP490G69.Battle.Combat
                                                .AsFrame<UICombatFrame>();
 
             frame.SetPlayerCharVit(player.GetCombatStatus(EStatusType.HP).Value, player.GetMaxStatus(EStatusType.HP))
-                 .SetPlayerCharStamina(player.GetCombatStatus(EStatusType.Stamina).Value, player.ReadonlyDataHolder.GetStamina());
+                 .SetPlayerCharStamina(player.GetCombatStatus(EStatusType.Stamina).Value, player.GetMaxStatus(EStatusType.Stamina));
 
             frame.SetEnemyCharVit(enemy.GetCombatStatus(EStatusType.HP).Value, enemy.GetMaxStatus(EStatusType.HP))
-                 .SetEnemyCharStamina(enemy.GetCombatStatus(EStatusType.Stamina).Value, enemy.ReadonlyDataHolder.GetStamina());
+                 .SetEnemyCharStamina(enemy.GetCombatStatus(EStatusType.Stamina).Value, enemy.GetMaxStatus(EStatusType.Stamina));
         }
 
         public void ShowCombatPreview(PlayerBattleCharaterController player, EnemyCombatController enemy)

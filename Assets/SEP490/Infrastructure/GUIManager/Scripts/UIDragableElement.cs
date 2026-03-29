@@ -17,6 +17,8 @@
         [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
 
+        public bool IsDraggable { get; set; }
+
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
@@ -31,6 +33,7 @@
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (IsDraggable == false) return;
             _originalParent = transform.parent;
 
             _dropParent = null;
@@ -42,11 +45,15 @@
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (IsDraggable == false) return;
+
             _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (IsDraggable == false) return;
+
             _canvasGroup.blocksRaycasts = true;
 
             Transform finalParent = _dropParent != null ? _dropParent : _originalParent;

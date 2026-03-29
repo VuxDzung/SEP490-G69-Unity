@@ -20,3 +20,105 @@ MonoBehaviour:
       text: Libra cup
     - language: 1
       text: "C\xFAp Thi\xEAn B\xECnh"
+  - id: tor_0033_name
+    textList:
+    - language: 0
+      text: Blossom Festival
+    - language: 1
+      text: "L\u1EC5 H\u1ED9i M\xF9a Xu\xE2n"
+  - id: tor_0034_name
+    textList:
+    - language: 0
+      text: Mid-Year Challenger
+    - language: 1
+      text: "Th\xE1ch \u0110\u1EA5u Gi\u1EEFa N\u0103m"
+  - id: tor_0035_name
+    textList:
+    - language: 0
+      text: Summer Heat Wave
+    - language: 1
+      text: "S\u1EE9c N\xF3ng M\xF9a H\u1EA1"
+  - id: tor_0036_name
+    textList:
+    - language: 0
+      text: Fall Harvest Cup
+    - language: 1
+      text: "C\xFAp M\xF9a Thu Ho\u1EA1ch"
+  - id: tor_0037_name
+    textList:
+    - language: 0
+      text: Winter Prelude
+    - language: 1
+      text: "Kh\xFAc D\u1EA1o \u0110\u1EA7u M\xF9a \u0110\xF4ng"
+  - id: tor_0038_name
+    textList:
+    - language: 0
+      text: New Year Frost
+    - language: 1
+      text: "B\u0103ng Gi\xE1 \u0110\u1EA7u N\u0103m"
+  - id: tor_0039_name
+    textList:
+    - language: 0
+      text: Spring Equinox
+    - language: 1
+      text: "L\u1EC5 Ti\u1EBFt Xu\xE2n Ph\xE2n"
+  - id: tor_0040_name
+    textList:
+    - language: 0
+      text: Terra Clash
+    - language: 1
+      text: "\u0110\u1ECBa Chi\u1EBFn \u0110\u1EA5t M\u1EB9"
+  - id: tor_0041_name
+    textList:
+    - language: 0
+      text: Roaring Lion Bout
+    - language: 1
+      text: "S\u01B0 T\u1EED H\u1ED1ng Tranh T\xE0i"
+  - id: tor_0042_name
+    textList:
+    - language: 0
+      text: Equinox Trophy
+    - language: 1
+      text: "C\xFAp Ph\xE2n \u0110i\u1EC3m"
+  - id: tor_0043_name
+    textList:
+    - language: 0
+      text: Knight Honor
+    - language: 1
+      text: "Danh D\u1EF1 Hi\u1EC7p S\u0129"
+  - id: tor_0044_name
+    textList:
+    - language: 0
+      text: Alpha Predator Cup
+    - language: 1
+      text: "C\xFAp D\xE3 Th\xFA Th\u01B0\u1EE3ng \u0110\u1EB3ng"
+  - id: tor_0045_name
+    textList:
+    - language: 0
+      text: Lightning Dash
+    - language: 1
+      text: "T\u1ED1c Chi\u1EBFn Tia Ch\u1EDBp"
+  - id: tor_0046_name
+    textList:
+    - language: 0
+      text: Gladiator Crucible
+    - language: 1
+      text: "L\xF2 Luy\u1EC7n Gi\xE1c \u0110\u1EA5u"
+  - id: tor_0047_name
+    textList:
+    - language: 0
+      text: Midsummer Champ
+    - language: 1
+      text: "Qu\xE1n Qu\xE2n Gi\u1EEFa H\xE8"
+  - id: tor_0048_name
+    textList:
+    - language: 0
+      text: Titan Clash
+    - language: 1
+      text: "Tr\u1EADn Chi\u1EBFn Titan"
+  - id: tor_0049_name
+    textList:
+    - language: 0
+      text: Meteor Shower Stakes
+    - language: 1
+      text: "Tranh T\xE0i M\u01B0a Sao B\u0103ng"

@@ -434,12 +434,16 @@
                     if (playerWon)
                     {
                         winner = p1.IsPlayer ? p1 : p2;
+
+                        // enemy bị loại
                         (p1.IsPlayer ? p2 : p1).IsEliminated = true;
                     }
                     else
                     {
                         winner = p1.IsPlayer ? p2 : p1;
-                        (p1.IsPlayer ? p1 : p2).IsEliminated = false;
+
+                        // player bị loại
+                        (p1.IsPlayer ? p1 : p2).IsEliminated = true;
                     }
 
                     winners.Add(winner);

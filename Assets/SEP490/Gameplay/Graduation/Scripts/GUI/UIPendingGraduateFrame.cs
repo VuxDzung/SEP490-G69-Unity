@@ -1,8 +1,5 @@
 namespace SEP490G69.Graduation
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using SEP490G69.Addons.LoadScreenSystem;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -39,19 +36,6 @@ namespace SEP490G69.Graduation
 
         private void Graduate()
         {
-            FadingController.Singleton.FadeIn2Out(1f, 1f, () =>
-            {
-                List<LoadTask> postLoadTasks = new List<LoadTask>
-            {
-                new LoadTask("Graduating", DelayGraduation),
-            };
-                SceneLoader.Singleton.StartLoad(GameConstants.SCENE_GRADUATION, null, postLoadTasks);
-            });
-        }
-
-        private IEnumerator DelayGraduation()
-        {
-            yield return new WaitForSeconds(0.5f);
             GraduateController.Graduate();
         }
     }

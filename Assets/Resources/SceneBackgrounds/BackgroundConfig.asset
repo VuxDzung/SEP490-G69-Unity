@@ -31,18 +31,66 @@ MonoBehaviour:
   - backgroundId: bg_arena_default
     backgroundSprite: {fileID: 0}
     bgScale: {x: 0, y: 0, z: 0}
-  - backgroundId: bg_cs_0001
+  - backgroundId: cs_0001
     backgroundSprite: {fileID: 21300000, guid: 7f7cf528935a4e040a9e355a6d061d8e, type: 3}
     bgScale: {x: 2.8, y: 2.8, z: 0}
-  - backgroundId: bg_cs_0002
+  - backgroundId: cs_0002
     backgroundSprite: {fileID: 21300000, guid: 08adda6781833794993fb1e222336330, type: 3}
     bgScale: {x: 0.67, y: 0.67, z: 0}
-  - backgroundId: bg_cs_0003
+  - backgroundId: cs_0003
     backgroundSprite: {fileID: 21300000, guid: 66ed0c61e3dc4254b8851155de4f2198, type: 3}
     bgScale: {x: 0.67, y: 0.67, z: 0}
-  - backgroundId: bg_cs_0004
+  - backgroundId: cs_0004
     backgroundSprite: {fileID: 21300000, guid: 6451766b9483f604bae40ba65f9a365f, type: 3}
     bgScale: {x: 0.67, y: 0.67, z: 0}
-  - backgroundId: bg_cs_0005
+  - backgroundId: cs_0005
     backgroundSprite: {fileID: 21300000, guid: 4b72b86b867c6584089c6711fecf73b3, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0006
+    backgroundSprite: {fileID: 21300000, guid: 8f907d422fde86648a5cf8e09477de90, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0007
+    backgroundSprite: {fileID: 21300000, guid: f784f859f3e436348bcc5ef1d8e29a56, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0008
+    backgroundSprite: {fileID: 21300000, guid: 6d5b4a4b07451cd42bfce9ca8ca1b6b9, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0009
+    backgroundSprite: {fileID: 21300000, guid: 685cc27a7c5b2fb4f8bbddb53f0344c0, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0010
+    backgroundSprite: {fileID: 21300000, guid: 7b55afc91f02b13439d9e7320983b506, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0011
+    backgroundSprite: {fileID: 21300000, guid: 16741a5d3d4370d4b88e1d26b3b2bab8, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0012
+    backgroundSprite: {fileID: 21300000, guid: 156d2dd1a3a223b46a0ae7033929a9e1, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0013
+    backgroundSprite: {fileID: 21300000, guid: ca8a6ed5a0441a9409961b73b8506549, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0014
+    backgroundSprite: {fileID: 21300000, guid: 87195e19c47d20847b6164c54a9bd24b, type: 3}
+    bgScale: {x: 1.4, y: 1.4, z: 0}
+  - backgroundId: cs_0015
+    backgroundSprite: {fileID: 21300000, guid: 40ae02243df44d04fa3238fac643de68, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0016
+    backgroundSprite: {fileID: 21300000, guid: fa5cfca9513cf0940a71d506128f9fa2, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0017
+    backgroundSprite: {fileID: 21300000, guid: bc68711bd92ccea4fa860229c69ba634, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0018
+    backgroundSprite: {fileID: 21300000, guid: bb530183c466c4c4d8f13fc3905adb86, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0019
+    backgroundSprite: {fileID: 21300000, guid: c3e586697b486c84db3a7e8d2721fbc4, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0020
+    backgroundSprite: {fileID: 21300000, guid: 2e75b93aca9ae4c4cb7d13910b678367, type: 3}
+    bgScale: {x: 0.67, y: 0.67, z: 0}
+  - backgroundId: cs_0020
+    backgroundSprite: {fileID: 21300000, guid: 2e75b93aca9ae4c4cb7d13910b678367, type: 3}
     bgScale: {x: 0.67, y: 0.67, z: 0}

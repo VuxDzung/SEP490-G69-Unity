@@ -12,10 +12,11 @@ namespace SEP490G69
     using System.Linq;
     using UnityEngine;
     using SEP490G69.Addons.LoadScreenSystem;
+    using SEP490G69.Shared;
 
     public class GameGraduationController : MonoBehaviour, IGameContext
     {
-        private const bool PERFORM_DB_ACTION = false;
+        private const bool PERFORM_DB_ACTION = true;
 
         private IGraduationService _service;
         private ContextManager _contextManager;
@@ -66,6 +67,24 @@ namespace SEP490G69
         }
 
         public void Graduate()
+        {
+            FadingController.Singleton.FadeIn2Out(1f, 1f, () =>
+            {
+                List<LoadTask> postLoadTasks = new List<LoadTask>
+            {
+                new LoadTask("Graduating", DelayGraduation),
+            };
+                SceneLoader.Singleton.StartLoad(GameConstants.SCENE_GRADUATION, null, postLoadTasks);
+            });
+        }
+
+        private IEnumerator DelayGraduation()
+        {
+            yield return new WaitForSeconds(0.5f);
+            PerformGraduate();
+        }
+
+        private void PerformGraduate()
         {
             PlayerData playerData = _playerDAO.GetById(_authManager.GetUserId());
             if (playerData == null)
@@ -173,7 +192,7 @@ namespace SEP490G69
                          .LoadRecords(playerRecords);
         }
 
-        private void DeleteAllCurrentSessionData(string sessionId)
+        private bool DeleteAllCurrentSessionData(string sessionId)
         {
             bool success = LocalDBOrchestrator.Execute(db =>
             {
@@ -189,14 +208,7 @@ namespace SEP490G69
                 db.Commit();
                 return true;
             });
-            if (success == false)
-            {
-                Debug.Log("[GraduateController error] Failed to clear session data");
-            }
-            else
-            {
-                Debug.Log("[GraduateController] Clear session data completed");
-            }
+            return success;
         }
 
         private bool ClearSession(LiteDatabase db, string sessionId)

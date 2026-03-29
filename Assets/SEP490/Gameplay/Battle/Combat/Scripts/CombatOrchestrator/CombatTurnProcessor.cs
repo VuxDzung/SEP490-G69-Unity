@@ -92,7 +92,7 @@ namespace SEP490G69.Battle.Combat
                         GameUIManager.Singleton
                                      .GetFrame(GameConstants.FRAME_ID_COMBAT)
                                      .AsFrame<UICombatFrame>()
-                                     .SpawnPlayerAutoCard(card);
+                                     .SpawnPlayerAutoCard(card, _player.CombatCardsProcessor);
                     }
                 });
             }
@@ -104,7 +104,7 @@ namespace SEP490G69.Battle.Combat
                 GameUIManager.Singleton
                     .GetFrame(GameConstants.FRAME_ID_COMBAT)
                     .AsFrame<UICombatFrame>()
-                    .DisplayDrawnCards(cards);
+                    .DisplayDrawnCards(cards, _player.CombatCardsProcessor);
             }
         }
 
@@ -141,7 +141,7 @@ namespace SEP490G69.Battle.Combat
                     GameUIManager.Singleton
                                  .GetFrame(GameConstants.FRAME_ID_COMBAT)
                                  .AsFrame<UICombatFrame>()
-                                 .SpawnEnemyCard(card);
+                                 .SpawnEnemyCard(card, _enemy.CombatCardsProcessor);
                 }
             });
         }

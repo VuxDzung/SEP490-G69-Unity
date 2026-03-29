@@ -3,9 +3,14 @@ namespace SEP490G69.Calendar
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using LiteDB;
+    using SEP490G69.Addons.LoadScreenSystem;
     using SEP490G69.Addons.Localization;
+    using SEP490G69.Battle.Cards;
+    using SEP490G69.Economy;
     using SEP490G69.Exploration;
     using SEP490G69.GameSessions;
+    using SEP490G69.Graduation;
     using SEP490G69.Shared;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
@@ -21,8 +26,23 @@ namespace SEP490G69.Calendar
         private const float FADE_TIME = 0.25f;
         private const float IN_FADE_TIME = 0.3f;
 
-        private GameSessionDAO _sessionDAO;
-        private TournamentProgressDAO _tournamentDAO;
+        #region DAOs
+        private GameSessionDAO _sessionDAO = new GameSessionDAO();
+
+        private PlayerCharacterRepository _characterRepo = new PlayerCharacterRepository();
+        private TrainingExerciseDAO _exerciseDAO = new();
+
+        private GameCardsDAO _cardsDAO = new GameCardsDAO();
+        private GameDeckDAO _deckDAO = new();
+
+        private GameInventoryDAO _inventoryDAO = new GameInventoryDAO();
+        private GameShopDAO _shopDAO = new();
+
+        private TournamentProgressDAO _tournamentsDAO = new();
+
+        private GraduateRecordsDAO _graduateDAO = new GraduateRecordsDAO();
+        #endregion
+
         private PlayerTrainingSession _currentSesssion;
         private CalendarSO _calendarConfig;
         private EventManager _eventManager;
@@ -107,7 +127,7 @@ namespace SEP490G69.Calendar
             ContextManager.Singleton.AddSceneContext(this);
 
             _sessionDAO = new GameSessionDAO();
-            _tournamentDAO = new TournamentProgressDAO();
+            _tournamentsDAO = new TournamentProgressDAO();
             _eventManager = ContextManager.Singleton.ResolveGameContext<EventManager>();
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
@@ -273,7 +293,7 @@ namespace SEP490G69.Calendar
 
                 bool objectiveCompleted = false;
 
-                TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
+                TournamentProgressData tournamentData = _tournamentsDAO.GetById(sessionData.ActiveTournamentId);
                 if (tournamentData == null)
                 {
                     Debug.LogError($"[GameCalendarController.HandleEndTournamentEvent error] No tournament data exist with id {sessionData.ActiveTournamentId}");
@@ -329,10 +349,25 @@ namespace SEP490G69.Calendar
                     // Message: You have failed the checkpoint tournament. Do you want to rollback to the previous checkpoint?
                     GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
                                  .AsFrame<UIMessagePopup>()
-                                 .SetContent("title_game_over", "msg_lose_checkpoint_tournament", true, false, () =>
+                                 .SetContent("title_game_over", "msg_game_over", true, false, () =>
                                  {
+                                     GraduateController.Graduate();
+                                     //bool success = DeleteAllCurrentSessionData();
+                                     //if (success == false)
+                                     //{
+                                     //    Debug.Log("[GraduateController error] Failed to clear session data");
+                                     //    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                                     //                 .AsFrame<UIMessagePopup>()
+                                     //                 .SetContent("title_error", "msg_delete_session_db_error", true);
+                                     //}
+                                     //else
+                                     //{
+                                     //    Debug.Log("[GraduateController] Clear session data completed");
 
-                                 });
+                                         
+                                     //}
+                                 })
+                                 .SetOptionMessage("msg_end");
                     return false; // Pending: (Clear tournament progress data when the player press Rollback)
                 }
             }
@@ -360,7 +395,7 @@ namespace SEP490G69.Calendar
                 return;
             }
 
-            _tournamentDAO.Delete(sessionData.ActiveTournamentId);
+            _tournamentsDAO.Delete(sessionData.ActiveTournamentId);
 
             sessionData.ActiveTournamentId = string.Empty;
             _sessionDAO.Update(sessionData);
@@ -615,6 +650,38 @@ namespace SEP490G69.Calendar
                 return null;
             }
             return participants.FirstOrDefault(par => par.Id == sessionCharacterId);    
+        }
+
+        private bool DeleteAllCurrentSessionData()
+        {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, string.Empty);
+            bool success = LocalDBOrchestrator.Execute(db =>
+            {
+                db.BeginTrans();
+
+                // DELETE SESSION RECORD
+                if (ClearSession(db, sessionId) == false)
+                {
+                    db.Rollback();
+                    return false;
+                }
+
+                db.Commit();
+                return true;
+            });
+            return success;
+        }
+
+        private bool ClearSession(LiteDatabase db, string sessionId)
+        {
+            return _sessionDAO.DeleteById(db, sessionId)
+                && _characterRepo.DeleteManyBySessionId(db, sessionId)
+                && _exerciseDAO.DeleteAllBySessionId(db, sessionId)
+                && _inventoryDAO.DeleteManyBySessionId(db, sessionId)
+                && _shopDAO.DeleteManyBySessionId(db, sessionId)
+                && _cardsDAO.DeleteAllBySessionId(db, sessionId)
+                && _deckDAO.Delete(db, sessionId)
+                && _tournamentsDAO.DeleteAllBySessionId(db, sessionId);
         }
     }
 

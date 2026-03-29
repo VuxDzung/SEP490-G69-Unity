@@ -21,7 +21,7 @@ MonoBehaviour:
   m_Stackable: 0
   m_ActionType: 2
   m_BaseDmg: 0
-  m_ModifyStatType: 9
+  m_ModifyStatType: 0
   m_DmgModOp: 0
   dmgModifierValue: 0
   m_AtkCount: 0

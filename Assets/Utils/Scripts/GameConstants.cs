@@ -381,6 +381,34 @@ namespace SEP490G69
 
             return "SS";
         }
+
+        public static string GetCharacterIntroCutsceneId(string characterId)
+        {
+            return characterId switch
+            {
+                "ch_0001" => "dt_0003",
+                "ch_0002" => "dt_0004",
+                "ch_0003" => "dt_0005",
+                _ => string.Empty
+            };
+        }
+
+        public static string GetCh0001Ending()
+        {
+            return "dt_0008";
+        }
+        public static string GetCh0002Ending()
+        {
+            return "dt_0009";
+        }
+        public static string GetCh0003Ending()
+        {
+            return "dt_0010";
+        }
+        public static string GetCh0027Ending()
+        {
+            return "dt_0011";
+        }
     }
     public enum ERectPivot
     {

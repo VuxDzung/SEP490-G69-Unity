@@ -76,7 +76,7 @@
 
         private IDmgReductionCalculator _dmgReduceCalculator;
 
-        protected ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
+        public ICombatCardsProcessor CombatCardsProcessor => _cardsProcessor;
         #endregion
 
         #region Properties
@@ -488,7 +488,11 @@
         #region Helpers
         public InCombatStatus GetCombatStatus(EStatusType statusType)
         {
-            return _statusContainer[statusType];
+            if (_statusContainer.ContainsKey(statusType))
+            {
+                return _statusContainer[statusType];
+            }
+            return null;
         }
 
         public void SpawnDmgToast(float dmg)

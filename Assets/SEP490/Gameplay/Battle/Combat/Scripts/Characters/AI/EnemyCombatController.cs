@@ -16,7 +16,7 @@ namespace SEP490G69.Battle.Combat
         protected override void Awake()
         {
             base.Awake();
-            _selectionStrategy = new CardContextWeightStrategy(this);
+            _selectionStrategy = new RandomSelectCardStrategy();// new CardContextWeightStrategy(this);
         }
 
         /// <summary>

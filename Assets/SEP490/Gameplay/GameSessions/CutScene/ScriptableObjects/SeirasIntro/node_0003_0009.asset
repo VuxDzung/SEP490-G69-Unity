@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8837258f31db4d4fb7ffb27f78ef6c5, type: 3}
-  m_Name: node_0004_0002
+  m_Name: node_0003_0009
   m_EditorClassIdentifier: 
-  m_NodeID: node_0004_0002
+  m_NodeID: node_0003_0009
   m_SpeakerID: 
   m_DialogID: 
-  m_BackgroundId: cs_0007
+  m_BackgroundId: cs_0006
   m_BgmId: 
   m_SfxId: 
   m_BgImage: {fileID: 0}
@@ -31,10 +31,7 @@ MonoBehaviour:
     m_Value: 2
   - m_ParameterName: onFadeInCompleted
     m_ParameterType: 0
-    m_Value: StartDialogTree
-  - m_ParameterName: dialogTreeId
+    m_Value: LoadScene
+  - m_ParameterName: sceneName
     m_ParameterType: 0
-    m_Value: dt_0001
-  - m_ParameterName: dialogId
-    m_ParameterType: 0
-    m_Value: node_0001_0003
+    m_Value: Scene.MainMenu

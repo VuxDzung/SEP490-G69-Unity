@@ -110,6 +110,20 @@ namespace SEP490G69
 
         private void OnApplicationQuit()
         {
+            // Player
+            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_PLAYER_ID);
+
+            // Auth
+            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_AUTH_ACTION);
+
+            DeleteInSessionPrefKeys();
+        }
+
+        public void DeleteInSessionPrefKeys()
+        {   
+            // Session
+            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+
             // Combat
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_COMBAT_TYPE);
 
@@ -122,15 +136,6 @@ namespace SEP490G69
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_IS_IN_EXPLORE);
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_IS_BATTLE_WON);
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_EXPLORE_ENEMY_ID);
-
-            // Session
-            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-
-            // Player
-            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_PLAYER_ID);
-
-            // Auth
-            PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_AUTH_ACTION);
 
             // Testing
             PlayerPrefs.DeleteKey(GameConstants.PREF_KEY_TEST_ENEMY_ID);

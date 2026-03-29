@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69
 {
+    using SEP490G69.Addons.LoadScreenSystem;
     using UnityEngine;
 
     public class FadeIn2OutHandler : NarrativeActionHandlerBase
@@ -38,14 +39,23 @@
             var onCompleted = parameters.GetParameter("onFadeInCompleted");
             if (onCompleted == null) return;
 
-            if (onCompleted.GetStringValue() == "StartDialogTree")
+            string onCompleteAction = onCompleted.GetStringValue();
+            switch (onCompleteAction)
             {
-                var treeId = parameters.GetParameter("dialogTreeId");
-                var dialogId = parameters.GetParameter("dialogId");
-                if (treeId != null)
-                {
-                    _dialogManager.StartTree(treeId.GetStringValue(), dialogId != null ? dialogId.GetStringValue() : "");
-                }
+                case "LoadScene":
+                    string sceneName = parameters.GetParameter("sceneName").GetStringValue();
+                    SceneLoader.Singleton.StartLoadScene(sceneName);
+                    break;
+                case "StartDialogTree":
+                    var treeId = parameters.GetParameter("dialogTreeId");
+                    var dialogId = parameters.GetParameter("dialogId");
+                    if (treeId != null)
+                    {
+                        _dialogManager.StartTree(treeId.GetStringValue(), dialogId != null ? dialogId.GetStringValue() : "");
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 

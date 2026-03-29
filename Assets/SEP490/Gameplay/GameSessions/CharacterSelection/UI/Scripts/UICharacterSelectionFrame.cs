@@ -54,7 +54,19 @@ namespace SEP490G69.GameSessions
 
         private CharacterConfigSO _characterConfig;
         private GameSessionController _sessionController;
+        private NarrativeManager _narrativeManager;
 
+        private NarrativeManager NarrativeManager
+        {
+            get
+            {
+                if (_narrativeManager == null)
+                {
+                    _narrativeManager = ContextManager.Singleton.ResolveGameContext<NarrativeManager>();
+                }
+                return _narrativeManager;
+            }
+        }
         private CharacterConfigSO CharacterConfig
         {
             get
@@ -483,7 +495,19 @@ namespace SEP490G69.GameSessions
         {
             if (SessionController.CreateNewSession(_currentCharId, out string sessionId, out string error))
             {
-                SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                string dialogTreeId = GameConstants.GetCharacterIntroCutsceneId(_currentCharId);
+                if (string.IsNullOrEmpty(dialogTreeId))
+                {
+                    SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
+                }
+                else
+                {
+                    FadingController.Singleton.FadeIn2Out(1f, 1f, () =>
+                    {
+                        UIManager.HideFrame(FrameId);
+                        NarrativeManager.StartTree(dialogTreeId);
+                    });
+                }
             }
             else
             {

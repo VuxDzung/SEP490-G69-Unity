@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NodeID: node_0004_0010
   m_SpeakerID: ch_0004
-  m_DialogID: node_0004_00010
-  m_BackgroundId: 
+  m_DialogID: node_0004_0010
+  m_BackgroundId: cs_0009
   m_BgmId: 
   m_SfxId: 
   m_BgImage: {fileID: 21300000, guid: 685cc27a7c5b2fb4f8bbddb53f0344c0, type: 3}
-  m_NextNode: {fileID: 0}
+  m_NextNode: {fileID: 11400000, guid: 0d0da0e164d96094a894ddc1f3a28928, type: 2}

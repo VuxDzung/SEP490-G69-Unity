@@ -96,6 +96,13 @@ namespace SEP490G69.Battle.Combat
             _selectedCard = null;
         }
 
+        public string GetFinalCardDescription(CardSO cardSO, string localizedCardDesc)
+        {
+            float damage = CalculateBaseDmg(cardSO);
+            localizedCardDesc = localizedCardDesc.Replace("{{DMG}}", damage.ToString());
+            return localizedCardDesc;
+        }
+
         private void Shuffle(List<CardSO> list)
         {
             for (int i = 0; i < list.Count; i++)

@@ -571,7 +571,7 @@
 
         private IEnumerator DelaySpawnCritToast(float critMul)
         {
-            yield return new WaitForSeconds(0.165f);
+            yield return new WaitForSeconds(0.2f);
 
             string message = $"Crit x{critMul.ToString()}";
 

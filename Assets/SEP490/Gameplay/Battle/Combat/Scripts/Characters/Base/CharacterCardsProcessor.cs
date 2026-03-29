@@ -235,7 +235,7 @@ namespace SEP490G69.Battle.Combat
         {
             float cur = _owner.StatStamina.BaseValue;
             cur -= stamina;
-            cur = Mathf.Clamp(cur, 0, _owner.ReadonlyDataHolder.GetStamina());
+            cur = Mathf.Clamp(cur, 0, _owner.GetMaxStatus(EStatusType.Stamina));
 
             _owner.StatStamina.SetCurrentValue((float)cur);
         }

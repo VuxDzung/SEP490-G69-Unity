@@ -49,6 +49,7 @@ namespace SEP490G69.Training
 
         [Header("Testing")]
         [SerializeField] private Button m_TestCombatBtn;
+        [SerializeField] private Button m_TestGraduateBt;
         [SerializeField] private Button m_TestTournamentBtn;
         [SerializeField] private TestEnemyIdSO m_TestEnemySO;
 
@@ -109,6 +110,18 @@ namespace SEP490G69.Training
                 return _sessionDAO;
             }
         }
+        private GameGraduationController _graduateController;
+        private GameGraduationController GraduateController
+        {
+            get
+            {
+                if (_graduateController == null)
+                {
+                    _graduateController = ContextManager.Singleton.ResolveGameContext<GameGraduationController>();
+                }
+                return _graduateController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -134,6 +147,7 @@ namespace SEP490G69.Training
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.AddListener(ShowPlayerProfile);
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.AddListener(TestTournament);
+            if (m_TestGraduateBt) m_TestGraduateBt.onClick.AddListener(TestGraduate);
 
             m_ShopBtn.interactable = !HasAnyActiveTournament();
             m_TrainingBtn.interactable = !HasAnyActiveTournament();
@@ -165,6 +179,7 @@ namespace SEP490G69.Training
             m_ExploreBtn.onClick.RemoveListener(ShowExploration);
 
             if (m_PlayerProfileBtn) m_PlayerProfileBtn.onClick.RemoveListener(ShowPlayerProfile);
+            if (m_TestGraduateBt) m_TestGraduateBt.onClick.RemoveListener(TestGraduate);
 
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.RemoveListener(TestTournament);
@@ -270,7 +285,7 @@ namespace SEP490G69.Training
         }
         private void ShowHallOfFame()
         {
-
+            GraduateController.ShowHallOfFrame();
         }
         private void ShowShop()
         {
@@ -371,6 +386,11 @@ namespace SEP490G69.Training
             }
 
             m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
+        }
+
+        private void TestGraduate()
+        {
+            UIManager.ShowFrame(GameConstants.FRAME_ID_PENDING_GRADUATE);
         }
     }
 }

@@ -35,10 +35,11 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: c7da332a00dd8c544886506c3d739946, type: 2}
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
     - outcomeType: 0
       outcomeMsg: Ugh, it's incredibly bitter! Your stomach churns violently.
       m_RandomEnemyFromPool: 0
@@ -46,12 +47,13 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers:
       - {fileID: 11400000, guid: d121fc9f5fba5e143b5fab8fde14a985, type: 2}
       - {fileID: 11400000, guid: 7fdd2f26df84a03498413f452ca5c2cb, type: 2}
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Harvest]
 
       Take the bush to sell.'
@@ -61,7 +63,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 3
       outcomeMsg: As you pull the bush from the ground, a protective spirit leaps
         from the canopy to defend its food!
       m_RandomEnemyFromPool: 1
@@ -70,7 +72,8 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 352c9937916a41247ba776a40a5d84f3, type: 2}
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0

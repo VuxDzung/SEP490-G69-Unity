@@ -19,3 +19,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
   - id: sfx_enter_tournament
     clip: {fileID: 8300000, guid: a0ca8964c08d54c5dbebf245bdc474ca, type: 3}
+  - id: sfx_slash_stab
+    clip: {fileID: 8300000, guid: d0ad69f7d7c17dc4197908c94b8d000d, type: 3}
+  - id: sfx_punch
+    clip: {fileID: 8300000, guid: 7ae3935e0f8f6e04b95e54fbdb78fe14, type: 3}
+  - id: sfx_arrow
+    clip: {fileID: 8300000, guid: f3aff23089bd4d541b8ece8aef707f8d, type: 3}

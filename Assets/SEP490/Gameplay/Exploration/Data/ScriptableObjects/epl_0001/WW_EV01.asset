@@ -36,10 +36,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 315bec4e8b4527940bce4e726602d7c8, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CARD_BASIC
-      m_PoolRewardAmount: 1
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_BASIC
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
     - outcomeType: 2
       outcomeMsg: You strain your muscles, but it barely budges. The toxic sap leaves
         you drained.
@@ -48,12 +51,13 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 0
-      m_PoolId: 
-      m_PoolRewardAmount: 0
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers:
       - {fileID: 11400000, guid: 62b6dd7d0c5ce984d97495909a4f8db0, type: 2}
       - {fileID: 11400000, guid: a0cc5f91d480f164c82be5ebeb617ec3, type: 2}
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Smash]
 
       Break it with raw power.'
@@ -72,7 +76,8 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: f9dfdf2b220d86647800ac63a8d46929, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CONS_BASIC
-      m_PoolRewardAmount: 1
+      m_RewardPoolList: []
       m_DisplayPenaltyOrder: 2
       m_PenatyModifiers: []
+      m_PoolId: POOL_CONS_BASIC
+      m_PoolRewardAmount: 1

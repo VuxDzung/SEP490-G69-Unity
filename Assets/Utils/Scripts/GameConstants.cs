@@ -57,6 +57,9 @@ namespace SEP490G69
         public const string FRAME_ID_CHOICE_OUTCOME = "Frame.ChoiceOutcome";
 
         public const string FRAME_ID_EXPLORATION = "Frame.Exploration";
+
+        public const string FRAME_ID_GRADUAION = "Frame.Graduation";
+        public const string FRAME_ID_HALL_OF_FAME = "Frame.HallOfFrame";
         #endregion
 
         #region Scene names
@@ -67,6 +70,8 @@ namespace SEP490G69
         public const string SCENE_TOURNAMENT = "Scene.Tournament";
         public const string SCENE_DECK = "Scene.Deck";
         public const string SCENE_EXPLORATION = "Scene.Exploration";
+        public const string SCENE_GRADUATION = "Scene.Graduation";
+        public const string SCENE_HALL_OF_FAME = "Scene.HallOfFrame";
 
         #endregion
 
@@ -360,6 +365,49 @@ namespace SEP490G69
                 5 => 5000,
                 _ => 0,
             };
+        }
+
+        public static string GetEndGameRank(float score)
+        {
+            if (score < 0) return "F";
+
+            if (score <= 2999) return "F";
+            if (score <= 3999) return "E";
+            if (score <= 4999) return "D";
+            if (score <= 5999) return "C";
+            if (score <= 6999) return "B";
+            if (score <= 8499) return "A";
+            if (score <= 9999) return "S";
+
+            return "SS";
+        }
+
+        public static string GetCharacterIntroCutsceneId(string characterId)
+        {
+            return characterId switch
+            {
+                "ch_0001" => "dt_0003",
+                "ch_0002" => "dt_0004",
+                "ch_0003" => "dt_0005",
+                _ => string.Empty
+            };
+        }
+
+        public static string GetCh0001Ending()
+        {
+            return "dt_0008";
+        }
+        public static string GetCh0002Ending()
+        {
+            return "dt_0009";
+        }
+        public static string GetCh0003Ending()
+        {
+            return "dt_0010";
+        }
+        public static string GetCh0027Ending()
+        {
+            return "dt_0011";
         }
     }
     public enum ERectPivot

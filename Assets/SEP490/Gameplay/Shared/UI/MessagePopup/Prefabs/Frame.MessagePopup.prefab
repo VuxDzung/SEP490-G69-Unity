@@ -167,12 +167,12 @@ MonoBehaviour:
   frameId: Frame.MessagePopup
   m_TitleTmp: {fileID: 3941575379987748258}
   m_MessageTmp: {fileID: 6982163923872767222}
-  m_DefaultConfirmMsg: msg_yes
-  m_DefaultCancelMsg: msg_no
+  m_DefaultConfirmMsg: msg_confirm
+  m_DefaultCancelMsg: msg_cancel
   m_ConfirmBtn: {fileID: 1323743193266147875}
   m_CancelBtn: {fileID: 7180364816595909233}
-  m_ConfirmTmp: {fileID: 462561716001710451}
-  m_CancelTmp: {fileID: 8615526568064387361}
+  m_ConfirmTmp: {fileID: 8615526568064387361}
+  m_CancelTmp: {fileID: 462561716001710451}
 --- !u!1 &4610443774285941032
 GameObject:
   m_ObjectHideFlags: 0

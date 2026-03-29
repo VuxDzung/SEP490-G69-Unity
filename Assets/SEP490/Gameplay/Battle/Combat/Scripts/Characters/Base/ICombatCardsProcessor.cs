@@ -23,6 +23,7 @@ namespace SEP490G69.Battle.Combat
 
         public void DiscardCurrentDraw();
 
+        public string GetFinalCardDescription(CardSO cardSO, string localizedCardDesc);
         public float CalculateSelectedCardDmg(bool writeToDmgOutput);
         public float CalculateBaseDmg(CardSO cardSO);
 

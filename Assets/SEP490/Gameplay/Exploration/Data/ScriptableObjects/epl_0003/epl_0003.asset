@@ -17,4 +17,14 @@ MonoBehaviour:
   m_Difficulty: 2
   m_BossId: 
   m_ScrollableMat: {fileID: 2100000, guid: 537fd54fa938fb044bc3031f92f83ae4, type: 2}
+  m_BossEvent: {fileID: 0}
+  m_OtherEvents:
+  - {fileID: 11400000, guid: eab089ff295b5ea4aa195e29ee3c3279, type: 2}
+  - {fileID: 11400000, guid: 97e36ce9458153140bc8243c3fb8ee79, type: 2}
+  - {fileID: 11400000, guid: 56d3de3ad3d556245a2c40fb59d00f73, type: 2}
+  - {fileID: 11400000, guid: 9a5422226b8308848b74e21950b2ae19, type: 2}
+  - {fileID: 11400000, guid: 318719d2fa7245c439fc9cd30d997174, type: 2}
+  - {fileID: 11400000, guid: 093ac1e4ccc60034ca5a3ed093a2d8b7, type: 2}
+  - {fileID: 11400000, guid: 3393e449db468d54099d3fa7b13b71ae, type: 2}
+  - {fileID: 11400000, guid: 20e5e715bdb30f9438f5604bfb7f6107, type: 2}
   m_PossibleRewards: []

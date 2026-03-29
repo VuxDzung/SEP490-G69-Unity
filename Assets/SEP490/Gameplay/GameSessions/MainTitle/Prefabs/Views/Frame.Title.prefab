@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}
@@ -1488,7 +1488,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}
@@ -3149,7 +3149,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}
@@ -3429,7 +3429,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}
@@ -3951,7 +3951,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_SFXId: 
+  m_SFXId: sfx_click
   m_ScaleDuration: 0.1
   m_NormalScale: {x: 1, y: 1}
   m_HighlightedScale: {x: 1.05, y: 1.05}

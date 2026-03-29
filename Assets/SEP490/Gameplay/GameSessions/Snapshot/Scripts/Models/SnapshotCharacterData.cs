@@ -1,0 +1,21 @@
+﻿namespace SEP490G69.GameSessions
+{
+    public class SnapshotCharacterData
+    {
+        /// <summary>
+        /// Entity id
+        /// </summary>
+        public string Id { get; set; }
+        public string SessionId { get; set; }
+
+        public float CurrentMaxVitality { get; set; }
+        public float CurrentPower { get; set; }
+        public float CurrentIntelligence { get; set; }
+        public float CurrentStamina { get; set; }
+        public float CurrentDef { get; set; }
+        public float CurrentAgi { get; set; }
+        public float CurrentEnergy { get; set; }
+        public float CurrentMood { get; set; }
+        public int CurrentRP { get; set; }
+    }
+}

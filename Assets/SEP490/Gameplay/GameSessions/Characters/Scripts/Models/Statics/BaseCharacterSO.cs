@@ -30,6 +30,10 @@ namespace SEP490G69
         [SerializeField] private float baseMood;
         [SerializeField] private int baseRP = 0;
 
+        [Header("Sfx")]
+        [SerializeField] private string m_MeleeSfxId;
+        [SerializeField] private string m_RangedSfxId;
+
         public string CharacterId => m_CharacterId;
         public bool IsAvailable => m_IsAvailable;
         public string CharacterName => m_CharacterName;
@@ -47,6 +51,9 @@ namespace SEP490G69
         public float BaseEnergy => baseEnergy;
         public float BaseMood => baseMood;
         public int BaseRP => baseRP;
+
+        public string MeleeSfxId => m_MeleeSfxId;
+        public string RangedSfxId => m_RangedSfxId;
 
         public GameObject CombatPrefab => m_CombatPrefab;
         public GameObject Prefab => m_Prefab;

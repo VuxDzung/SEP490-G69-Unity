@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EventType: 1
   m_Description: A shiny silver chest rests on a glowing pedestal. It's an official
     academy reward box.
-  m_ExploreEventType: 2
+  m_ExploreEventType: 3
   m_Choices:
   - choiceName: '[Open]
 
@@ -27,7 +27,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 0
       outcomeMsg: The chest opens with a satisfying click, revealing a rare relic.
       m_RandomEnemyFromPool: 0
       m_EnemyId: 
@@ -35,11 +35,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 24bea921780af2342b1dca2859db6a67, type: 2}
       m_GetMoreFromPool: 1
-      m_RewardPoolList: []
+      m_RewardPoolList:
+      - m_PoolId: POOL_RELIC_C
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
-      m_PoolId: POOL_RELIC_C
-      m_PoolRewardAmount: 1
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Leave]
 
       Ignore it.'

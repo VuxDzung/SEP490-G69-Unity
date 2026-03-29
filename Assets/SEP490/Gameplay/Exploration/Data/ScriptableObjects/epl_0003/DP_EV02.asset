@@ -66,7 +66,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 0
+    - outcomeType: 3
       outcomeMsg: The senior grins, eyes gleaming with excitement. 'Finally, a real
         challenge!' they shout.
       m_RandomEnemyFromPool: 1

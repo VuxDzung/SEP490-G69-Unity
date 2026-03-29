@@ -154,23 +154,23 @@
         /// In m_CardContainer, there's a Horizontal Layout Group Component.
         /// </summary>
         /// <param name="cards"></param>
-        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards)
+        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor)
         {
             ClearAllCards();
-            StartCoroutine(CoDisplayCards(cards));
+            StartCoroutine(CoDisplayCards(cards, cardProcessor));
         }
 
-        public void SpawnEnemyCard(CardSO card)
+        public void SpawnEnemyCard(CardSO card, ICombatCardsProcessor cardProcessor)
         {
-            SpawnSelectedCard(card, true);
+            SpawnSelectedCard(card, true, cardProcessor);
         }
 
-        public void SpawnPlayerAutoCard(CardSO card)
+        public void SpawnPlayerAutoCard(CardSO card, ICombatCardsProcessor cardProcessor)
         {
-            SpawnSelectedCard(card, false);
+            SpawnSelectedCard(card, false, cardProcessor);
         }
 
-        private void SpawnSelectedCard(CardSO card, bool isEnemy)
+        private void SpawnSelectedCard(CardSO card, bool isEnemy, ICombatCardsProcessor cardProcessor)
         {
             Transform selectedCardTrans = isEnemy ? _enemySelectedCardTrans : _playerSelectedCardTrans;
 
@@ -181,7 +181,7 @@
             }
 
             Transform spawnPoint = isEnemy ? m_EnemyCardActiveSpawnPoint : m_PlayerCardActiveSpawnPoint;
-            Transform targetPoint = isEnemy ? m_EnemyCardActiveDisplayPoint : m_PlayerCardActiveSpawnPoint;
+            Transform targetPoint = isEnemy ? m_EnemyCardActiveDisplayPoint : m_PlayerCardActiveDisplayPoint;
 
             Vector3 targetPosition = targetPoint.position;
 
@@ -210,8 +210,13 @@
             if (cardUI != null)
             {
                 string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
-                string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
+                string cardDesc = cardProcessor.GetFinalCardDescription(card, LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription));
+                Debug.Log($"Card name: {cardName}");
                 cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon);
+            }
+            else
+            {
+                Debug.Log("Card UI Element is null");
             }
 
             rect.position = spawnPoint.position;
@@ -236,9 +241,14 @@
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
                 _enemySelectedCardTrans = null;
             }
+            if (_playerSelectedCardTrans != null)
+            {
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_playerSelectedCardTrans);
+                _playerSelectedCardTrans = null;
+            }
         }
 
-        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards)
+        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor)
         {
             if (cards.Count == 0)
             {
@@ -271,7 +281,7 @@
                 if (cardUI != null)
                 {
                     string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
-                    string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
+                    string cardDesc = cardProcessor.GetFinalCardDescription(card, LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription));
 
                     cardUI.SetOnSelectCallback(SelectCard)
                           .SetOnDragEnd(PerformCardAction)

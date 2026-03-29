@@ -35,11 +35,13 @@ MonoBehaviour:
       m_DisplayRewardOrder: 0
       m_RewardList: []
       m_GetMoreFromPool: 1
-      m_RewardPoolList: []
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_INT
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
-      m_PoolId: POOL_CARD_INT
-      m_PoolRewardAmount: 1
+      m_PoolId: 
+      m_PoolRewardAmount: 0
     - outcomeType: 2
       outcomeMsg: The runes flash a harsh red light. The magic forms into a hostile
         hologram!

@@ -415,90 +415,6 @@ MonoBehaviour:
     - language: 1
       text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
         v\u1EC1 b\u1EA1n"
-  - id: node_0009_0002
-    textList:
-    - language: 0
-      text: The victory is yours, the glory is yours
-    - language: 1
-      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
-        v\u1EC1 b\u1EA1n"
-  - id: node_0010_0001
-    textList:
-    - language: 0
-      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
-        Sakura, who has reached the pinnacle of glory with unshakable courage and
-        will!"
-    - language: 1
-      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
-        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Sakura, ng\u01B0\u1EDDi
-        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
-        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
-  - id: node_0010_0002
-    textList:
-    - language: 0
-      text: The victory is yours, the glory is yours
-    - language: 1
-      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
-        v\u1EC1 b\u1EA1n"
-  - id: node_0011_0002
-    textList:
-    - language: 0
-      text: The victory is yours, the glory is yours
-    - language: 1
-      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
-        v\u1EC1 b\u1EA1n"
-  - id: node_0011_0001
-    textList:
-    - language: 0
-      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
-        Tari, who has reached the pinnacle of glory with unshakable courage and will!"
-    - language: 1
-      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
-        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Tari , ng\u01B0\u1EDDi
-        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
-        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
-  - id: node_0011_0004
-    textList:
-    - language: 0
-      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
-        spirit beasts are far from weak; it is true that in the right hands, anything
-        can become the ultimate strength.
-
-'
-    - language: 1
-      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
-        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
-        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
-        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
-        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
-  - id: node_0009_0004
-    textList:
-    - language: 0
-      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
-        spirit beasts are far from weak; it is true that in the right hands, anything
-        can become the ultimate strength.
-
-'
-    - language: 1
-      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
-        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
-        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
-        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
-        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
-  - id: node_0010_0004
-    textList:
-    - language: 0
-      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
-        spirit beasts are far from weak; it is true that in the right hands, anything
-        can become the ultimate strength.
-
-'
-    - language: 1
-      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
-        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
-        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
-        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
-        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
   - id: node_0008_0004
     textList:
     - language: 0
@@ -525,55 +441,7 @@ MonoBehaviour:
         s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
         m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
         c\u1EA7n n\u1EEFa"
-  - id: node_0009_0005
-    textList:
-    - language: 0
-      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
-        to continue helping those spirit beasts deemed 'worthless' or cast aside
-        by everyone else.
-    - language: 1
-      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
-        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
-        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
-        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
-        c\u1EA7n n\u1EEFa"
-  - id: node_0010_0005
-    textList:
-    - language: 0
-      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
-        to continue helping those spirit beasts deemed 'worthless' or cast aside
-        by everyone else.
-    - language: 1
-      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
-        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
-        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
-        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
-        c\u1EA7n n\u1EEFa"
   - id: node_0008_0006
-    textList:
-    - language: 0
-      text: "I am proud of you\u2014not merely for this victory, but for the compassion
-        you show to all living beings. Go forth and use your own two hands to redefine
-        the meaning of strength for the entire world to see."
-    - language: 1
-      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
-        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
-        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
-        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
-        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
-  - id: node_0009_0006
-    textList:
-    - language: 0
-      text: "I am proud of you\u2014not merely for this victory, but for the compassion
-        you show to all living beings. Go forth and use your own two hands to redefine
-        the meaning of strength for the entire world to see."
-    - language: 1
-      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
-        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
-        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
-        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
-        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
-  - id: node_0010_0006
     textList:
     - language: 0
       text: "I am proud of you\u2014not merely for this victory, but for the compassion
@@ -596,6 +464,65 @@ MonoBehaviour:
         c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
         t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
         m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0009_0001
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0009_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0009_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0009_0005
+    textList:
+    - language: 0
+      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
+        to continue helping those spirit beasts deemed 'worthless' or cast aside
+        by everyone else.
+    - language: 1
+      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
+        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
+        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
+        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
+        c\u1EA7n n\u1EEFa"
+  - id: node_0009_0006
+    textList:
+    - language: 0
+      text: "I am proud of you\u2014not merely for this victory, but for the compassion
+        you show to all living beings. Go forth and use your own two hands to redefine
+        the meaning of strength for the entire world to see."
+    - language: 1
+      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
+        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
+        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
+        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
+        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
   - id: node_0009_0007
     textList:
     - language: 0
@@ -607,6 +534,62 @@ MonoBehaviour:
         c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
         t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
         m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0010_0001
+    textList:
+    - language: 0
+      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
+        Sakura, who has reached the pinnacle of glory with unshakable courage and
+        will!"
+    - language: 1
+      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
+        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Sakura, ng\u01B0\u1EDDi
+        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
+        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
+  - id: node_0010_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
+  - id: node_0010_0004
+    textList:
+    - language: 0
+      text: 'Congratulations, my son. I was wrong to doubt your potential. Those
+        spirit beasts are far from weak; it is true that in the right hands, anything
+        can become the ultimate strength.
+
+'
+    - language: 1
+      text: "Ch\xFAc m\u1EEBng con trai, ta \u0111\xE3 sai khi nghi ng\u1EDD v\u1EC1
+        n\u0103ng l\u1EF1c c\u1EE7a con. Nh\u1EEFng linh th\xFA \u0111\xF3, ch\xFAng
+        ho\xE0n to\xE0n kh\xF4ng ph\u1EA3i nh\u1EEFng k\u1EBB y\u1EBFu, \u0111\xFAng
+        l\xE0 khi v\xE0o tay \u0111\xFAng ng\u01B0\u1EDDi, m\u1ECDi th\u1EE9 s\u1EBD
+        tr\u1EDF th\xE0nh m\u1EA1nh nh\u1EA5t."
+  - id: node_0010_0005
+    textList:
+    - language: 0
+      text: Thank you, Father. Thank you for acknowledging my efforts. It is my wish
+        to continue helping those spirit beasts deemed 'worthless' or cast aside
+        by everyone else.
+    - language: 1
+      text: "Con c\u1EA3m \u01A1n cha, c\u1EA3m \u01A1n v\xEC cha \u0111\xE3 c\xF4ng
+        nh\u1EADn nh\u1EEFng g\xEC con \u0111\xE3 l\xE0m, con c\u0169ng mong r\u1EB1ng
+        s\u1EBD \u0111\u01B0\u1EE3c gi\xFAp \u0111\u1EE1 nh\u1EEFng linh th\xFA m\xE0
+        m\u1ECDi ng\u01B0\u1EDDi cho l\xE0 \"b\u1ECF \u0111i\" m\xE0 kh\xF4ng ai
+        c\u1EA7n n\u1EEFa"
+  - id: node_0010_0006
+    textList:
+    - language: 0
+      text: "I am proud of you\u2014not merely for this victory, but for the compassion
+        you show to all living beings. Go forth and use your own two hands to redefine
+        the meaning of strength for the entire world to see."
+    - language: 1
+      text: "Ta t\u1EF1 h\xE0o v\u1EC1 con, kh\xF4ng ch\u1EC9 v\xEC chi\u1EBFn th\u1EAFng
+        n\xE0y, m\xE0 v\xEC tr\xE1i tim bao dung con d\xE0nh cho v\u1EA1n v\u1EADt;
+        h\xE3y \u0111i v\xE0 d\xF9ng ch\xEDnh \u0111\xF4i tay \u1EA5y \u0111\u1EC3
+        vi\u1EBFt l\u1EA1i \u0111\u1ECBnh ngh\u0129a v\u1EC1 s\u1EE9c m\u1EA1nh cho
+        c\u1EA3 th\u1EBF gi\u1EDBi n\xE0y th\u1EA5y."
   - id: node_0010_0007
     textList:
     - language: 0
@@ -618,6 +601,23 @@ MonoBehaviour:
         c\xF3 linh th\xFA n\xE0o l\xE0 v\xF4 d\u1EE5ng, ch\u1EC9 c\xF3 nh\u1EEFng
         t\xE2m h\u1ED3n ch\u01B0a t\xECm th\u1EA5y s\u1EF1 th\u1EA5u hi\u1EC3u v\xE0
         m\u1ED9t n\u01A1i \u0111\u1EC3 thu\u1ED9c v\u1EC1 m\xE0 th\xF4i."
+  - id: node_0011_0001
+    textList:
+    - language: 0
+      text: "Let\u2019s give a thunderous round of applause for our new King \u2013
+        Tari, who has reached the pinnacle of glory with unshakable courage and will!"
+    - language: 1
+      text: "H\xE3y d\xE0nh m\u1ED9t tr\xE0ng ph\xE1o tay n\u1ED3ng nhi\u1EC7t nh\u1EA5t
+        cho T\xE2n V\u01B0\u01A1ng c\u1EE7a ch\xFAng ta \u2013 Tari , ng\u01B0\u1EDDi
+        \u0111\xE3 chinh ph\u1EE5c \u0111\u1EC9nh cao vinh quang b\u1EB1ng b\u1EA3n
+        l\u0129nh v\xE0 \xFD ch\xED kh\xF4ng th\u1EC3 lay chuy\u1EC3n!"
+  - id: node_0011_0002
+    textList:
+    - language: 0
+      text: The victory is yours, the glory is yours
+    - language: 1
+      text: "Chi\u1EBFn th\u1EAFng g\u1ECDi t\xEAn b\u1EA1n, vinh quang thu\u1ED9c
+        v\u1EC1 b\u1EA1n"
   - id: node_0011_0004
     textList:
     - language: 0

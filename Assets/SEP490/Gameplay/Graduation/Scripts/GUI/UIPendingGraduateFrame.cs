@@ -8,7 +8,17 @@ namespace SEP490G69.Graduation
         [SerializeField] private Button m_GraduateBtn;
 
         private GameGraduationController _graduateController;
-
+        private GameGraduationController GraduateController
+        {
+            get
+            {
+                if (_graduateController == null)
+                {
+                    _graduateController = ContextManager.Singleton.ResolveGameContext<GameGraduationController>();
+                }
+                return _graduateController;
+            }
+        }
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -26,7 +36,7 @@ namespace SEP490G69.Graduation
 
         private void Graduate()
         {
-            _graduateController.Graduate();
+            GraduateController.Graduate();
         }
     }
 }

@@ -272,3 +272,9 @@ MonoBehaviour:
       text: Save Deck
     - language: 1
       text: "L\u01B0u b\u1ED9 b\xE0i"
+  - id: btn_complete
+    textList:
+    - language: 0
+      text: Complete
+    - language: 1
+      text: "Ho\xE0n t\u1EA5t"

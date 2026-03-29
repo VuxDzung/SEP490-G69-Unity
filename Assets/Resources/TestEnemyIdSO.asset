@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a5dda7ebd04f34693f3c0a5e329b78, type: 3}
   m_Name: TestEnemyIdSO
   m_EditorClassIdentifier: 
-  m_EnemyId: ch_0012_0001
+  m_EnemyId: ch_0027_0001

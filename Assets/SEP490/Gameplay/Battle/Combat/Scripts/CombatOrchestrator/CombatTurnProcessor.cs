@@ -68,6 +68,16 @@ namespace SEP490G69.Battle.Combat
                 {
                     if (selectedCardId.Equals("REST"))
                     {
+                        GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
+                        {
+                            AliveTime = 0.5f,
+                            DelaySpawnTime = 0.05f,
+                            EndYDistance = 1f,
+                            Message = "Rest",
+                            SpawnPosition = _player.transform.position + new Vector3(0f, 1f, 0),
+                            TextSize = 40f,
+                            TextColor = Color.yellow,
+                        });
                         Debug.Log("Player choose rest");
                     }
                     else
@@ -82,7 +92,7 @@ namespace SEP490G69.Battle.Combat
                         GameUIManager.Singleton
                                      .GetFrame(GameConstants.FRAME_ID_COMBAT)
                                      .AsFrame<UICombatFrame>()
-                                     .SpawnPlayerAutoCard(card);
+                                     .SpawnPlayerAutoCard(card, _player.CombatCardsProcessor);
                     }
                 });
             }
@@ -94,7 +104,7 @@ namespace SEP490G69.Battle.Combat
                 GameUIManager.Singleton
                     .GetFrame(GameConstants.FRAME_ID_COMBAT)
                     .AsFrame<UICombatFrame>()
-                    .DisplayDrawnCards(cards);
+                    .DisplayDrawnCards(cards, _player.CombatCardsProcessor);
             }
         }
 
@@ -108,6 +118,16 @@ namespace SEP490G69.Battle.Combat
                 if (selectedCardId.Equals("REST"))
                 {
                     Debug.Log("Enemy choose rest");
+                    GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
+                    {
+                        AliveTime = 0.5f,
+                        DelaySpawnTime = 0.05f,
+                        EndYDistance = 1f,
+                        Message = "Rest",
+                        SpawnPosition = _enemy.transform.position + new Vector3(0f, 1f, 0),
+                        TextSize = 40f,
+                        TextColor = Color.yellow,
+                    });
                 }
                 else
                 {
@@ -121,7 +141,7 @@ namespace SEP490G69.Battle.Combat
                     GameUIManager.Singleton
                                  .GetFrame(GameConstants.FRAME_ID_COMBAT)
                                  .AsFrame<UICombatFrame>()
-                                 .SpawnEnemyCard(card);
+                                 .SpawnEnemyCard(card, _enemy.CombatCardsProcessor);
                 }
             });
         }

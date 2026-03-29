@@ -36,10 +36,13 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: e335cde9e3915b54988efc251584a734, type: 2}
       m_GetMoreFromPool: 1
-      m_PoolId: POOL_CARD_POW
-      m_PoolRewardAmount: 1
+      m_RewardPoolList:
+      - m_PoolId: POOL_CARD_POW
+        m_AmountFromPool: 1
       m_DisplayPenaltyOrder: 0
       m_PenatyModifiers: []
+      m_PoolId: 
+      m_PoolRewardAmount: 0
   - choiceName: '[Leave]
 
       Respect their privacy.'
@@ -49,7 +52,7 @@ MonoBehaviour:
       m_RequiredValue: 0
       m_RandomValue: 0
     m_Outcomes:
-    - outcomeType: 1
+    - outcomeType: 0
       outcomeMsg: You decide to respect their privacy. Walking away gives you a sense
         of peace and a clearer mind.
       m_RandomEnemyFromPool: 0
@@ -58,7 +61,8 @@ MonoBehaviour:
       m_RewardList:
       - {fileID: 11400000, guid: 86f2d421fceb8d548b0d633b107c836a, type: 2}
       m_GetMoreFromPool: 0
+      m_RewardPoolList: []
+      m_DisplayPenaltyOrder: 0
+      m_PenatyModifiers: []
       m_PoolId: 
       m_PoolRewardAmount: 0
-      m_DisplayPenaltyOrder: 2
-      m_PenatyModifiers: []

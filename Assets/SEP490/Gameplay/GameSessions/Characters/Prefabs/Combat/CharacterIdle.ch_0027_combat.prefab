@@ -71,6 +71,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1408138231777935794, guid: 8f8c5e4e7a711ce4f8ac636cb59d8b31, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408138231777935794, guid: 8f8c5e4e7a711ce4f8ac636cb59d8b31, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408138231777935794, guid: 8f8c5e4e7a711ce4f8ac636cb59d8b31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -187,7 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DelayPerfomAction: 1
 --- !u!114 &5336301382777399738
 MonoBehaviour:
   m_ObjectHideFlags: 0

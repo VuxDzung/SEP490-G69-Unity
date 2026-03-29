@@ -16,7 +16,7 @@ MonoBehaviour:
   m_EventType: 1
   m_Description: An ornate silver chest stands proudly on a pedestal. It's a reward
     for reaching the peak!
-  m_ExploreEventType: 2
+  m_ExploreEventType: 3
   m_Choices:
   - choiceName: '[Open]
 

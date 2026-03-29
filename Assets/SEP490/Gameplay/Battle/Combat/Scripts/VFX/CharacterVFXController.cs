@@ -21,8 +21,26 @@ namespace SEP490G69.Battle.Combat
             }
         }
 
-        public void PlayAtkVFX()
+        public void PlayAtkVFX(float delay)
         {
+            if (delay < 0.01f)
+            {
+                if (m_AtkVFX != null)
+                {
+                    m_AtkVFX.gameObject.SetActive(true);
+                    m_AtkVFX.Play();
+                }
+            }
+            else
+            {
+                StartCoroutine(DelayMeleeAtk(delay));
+            }
+
+        }
+
+        private IEnumerator DelayMeleeAtk(float delay)
+        {
+            yield return new WaitForSeconds(delay);
             if (m_AtkVFX != null)
             {
                 m_AtkVFX.Play();
@@ -67,6 +85,7 @@ namespace SEP490G69.Battle.Combat
             }
 
             Vector3 position = parent.position + data.spawnOffset;
+            if (data.vfxTransform == null) return;
 
             Transform vfxTrans = PoolManager.Pools[GameConstants.POOL_COMBAT_VFX].Spawn(data.vfxTransform, position, Quaternion.identity, parent);
 

@@ -77,6 +77,7 @@
 
         private void Start()
         {
+            FadingController.Singleton.FadeOut(1f, Color.white);
             InitializeBattle();
             BindEvents();
             _battleState.ChangeState(EBattleState.Pending);
@@ -170,6 +171,7 @@
                 Debug.LogError($"[SceneCombatController.StartBattle error] Player or Enemy controller instance(s) is/are null");
                 return;
             }
+
             _battleState.ChangeState(EBattleState.InProgress);
             _uiUpdater.ShowCombatHUD(_player, _enemy);
             _player.SetCombatMode(isAutoCombat);
@@ -287,10 +289,10 @@
             switch (combatType)
             {
                 case GameConstants.COMBAT_TYPE_TOURNAMENT:
-                    HandleCombatTournamentCompleted(sessionData, true);
+                    HandleCombatTournamentCompleted(sessionData, false);
                     break;
                 case GameConstants.COMBAT_TYPE_EXPLORATION:
-                    HandleCombatExploreCompleted(sessionData, true);
+                    HandleCombatExploreCompleted(sessionData, false);
                     break;
             }
         }

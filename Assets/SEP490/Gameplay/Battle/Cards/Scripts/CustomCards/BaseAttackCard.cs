@@ -14,7 +14,11 @@ namespace SEP490G69.Battle
         {
             source.CalculateSelectedCardDmg(true);
 
-            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (source.HasCrit(CheckForceCritCondition(source)) ? source.CaculateCritMul() : 1f);
+            bool hasCrit = source.HasCrit(CheckForceCritCondition(source));
+            float critMul = source.CaculateCritMul();
+            critMul = (float)System.Math.Round(critMul, 1);
+
+            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (hasCrit ? critMul : 1f);
             damage += CalculateExtraDmg(damage, source, target);
 
             source.StatOutputDmg.SetCurrentValue(damage);
@@ -30,7 +34,14 @@ namespace SEP490G69.Battle
             CombatCameraController.Singleton.ShakeCamera();
             CombatCameraController.Singleton.ZoomCamera(true);
 
-            source.SpawnDmgToast(damage);
+
+            source.PlayAtkSfx();
+
+            source.VFXController.PlayAtkVFX(0.15f);
+
+            target.SpawnDmgToast(source.StatOutputDmg.GetValue(true));
+
+            if (hasCrit == true) target.SpawnCritToats(critMul);
 
             // Has animation -> create 2 barriers to wait for 2 animations.
             AnimationBarrier barrier = new AnimationBarrier(2, () =>

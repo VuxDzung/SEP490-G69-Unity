@@ -31,6 +31,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b28330c5efece89439fbb29a72c165d3, type: 2}
   - {fileID: 11400000, guid: a60342aabb758614cb171eb4c486cc3b, type: 2}
   - {fileID: 11400000, guid: 81c3f11cc6b8c864ba49a8ceeeb89c3c, type: 2}
-  - {fileID: 11400000, guid: 0b9c26bb72ae57643ae183f3e0b9bab2, type: 2}
   m_SemiFinalRewards: []
   m_EliminationRewards: []

@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   m_Camera: {fileID: 519420031}
+  m_Config: {fileID: 11400000, guid: 249d6fcce01fa974baba5d076c4965a6, type: 2}
   m_InCombatSize: 4.5
   m_DefaultSize: 6
   m_CombatShake: {x: 0.75, y: 0.75, z: 0}
@@ -561,6 +562,7 @@ GameObject:
   - component: {fileID: 673544272}
   - component: {fileID: 673544273}
   - component: {fileID: 673544274}
+  - component: {fileID: 673544275}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -652,6 +654,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolName: Toast
+  preLoadPrefabs: []
+--- !u!114 &673544275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673544268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332112148a407c647bbc4d202ea1cbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: CombatVFX
   preLoadPrefabs: []
 --- !u!1 &725704682
 GameObject:
@@ -947,7 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a56c42973ece4793a25227b810083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BGM: {fileID: 8300000, guid: 858a625dbfa29684ebb482d632c9ec25, type: 3}
+  m_BGM: {fileID: 8300000, guid: e72efdde24a8840448c3d7003f5bc08c, type: 3}
 --- !u!4 &1922623005
 Transform:
   m_ObjectHideFlags: 0

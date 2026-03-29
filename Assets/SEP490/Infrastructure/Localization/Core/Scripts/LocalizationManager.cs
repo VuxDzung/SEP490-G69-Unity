@@ -84,6 +84,7 @@ namespace SEP490G69.Addons.Localization
 					return textSettings.GetText(languageType);
 				}
 			}
+			Debug.Log($"<color=red>[LocalizationManager]</color> Localization manager does not contain the key {id}");
 			return string.Empty;
 		}
 

@@ -274,3 +274,15 @@ MonoBehaviour:
       text: No
     - language: 1
       text: "Kh\xF4ng"
+  - id: msg_lose_checkpoint_tournament
+    textList:
+    - language: 0
+      text: No
+    - language: 1
+      text: "Kh\xF4ng"
+  - id: title_game_over
+    textList:
+    - language: 0
+      text: Game Over
+    - language: 1
+      text: "Thua cu\u1ED9c"

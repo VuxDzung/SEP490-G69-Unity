@@ -1,9 +1,8 @@
 namespace SEP490G69
 {
-    using UnityEngine;
-
     public interface IGraduationService 
     {
-        public float CalculateFinalScore();
+        public float CalculateFinalRating(SessionCharacterData characterData, int totalCardCount, int totalRelicCount);
+        public int CalculateLPGained(float rating);
     }
 }

@@ -77,6 +77,7 @@
 
         private void Start()
         {
+            FadingController.Singleton.FadeOut(1f, Color.white);
             InitializeBattle();
             BindEvents();
             _battleState.ChangeState(EBattleState.Pending);

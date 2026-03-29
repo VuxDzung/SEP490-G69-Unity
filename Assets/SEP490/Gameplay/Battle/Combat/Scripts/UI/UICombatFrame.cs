@@ -181,7 +181,7 @@
             }
 
             Transform spawnPoint = isEnemy ? m_EnemyCardActiveSpawnPoint : m_PlayerCardActiveSpawnPoint;
-            Transform targetPoint = isEnemy ? m_EnemyCardActiveDisplayPoint : m_PlayerCardActiveSpawnPoint;
+            Transform targetPoint = isEnemy ? m_EnemyCardActiveDisplayPoint : m_PlayerCardActiveDisplayPoint;
 
             Vector3 targetPosition = targetPoint.position;
 
@@ -211,7 +211,12 @@
             {
                 string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
                 string cardDesc = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription);
+                Debug.Log($"Card name: {cardName}");
                 cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon);
+            }
+            else
+            {
+                Debug.Log("Card UI Element is null");
             }
 
             rect.position = spawnPoint.position;
@@ -235,6 +240,11 @@
             {
                 PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_enemySelectedCardTrans);
                 _enemySelectedCardTrans = null;
+            }
+            if (_playerSelectedCardTrans != null)
+            {
+                PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(_playerSelectedCardTrans);
+                _playerSelectedCardTrans = null;
             }
         }
 

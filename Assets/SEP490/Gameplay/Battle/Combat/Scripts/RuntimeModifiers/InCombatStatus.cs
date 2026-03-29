@@ -57,6 +57,11 @@ namespace SEP490G69.Battle
             }
         }
 
+        public float GetValue(bool roundToInt)
+        {
+            return roundToInt ? (float)System.Math.Round(Value, 0) : Value;
+        }
+
         public void AddModifier(CombatStatModifierSO modifier, string ownerId)
         {
             if (modifier.TriggerType == EModifierTriggerType.Immediate)

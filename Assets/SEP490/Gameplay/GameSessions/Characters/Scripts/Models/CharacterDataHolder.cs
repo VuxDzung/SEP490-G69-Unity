@@ -1,5 +1,7 @@
 namespace SEP490G69
 {
+    using SEP490G69.Battle.Combat;
+    using Unity.VisualScripting;
     using UnityEngine;
 
     public class CharacterDataHolder 
@@ -73,6 +75,8 @@ namespace SEP490G69
             return _characterSO.Prefab;
         }
         #endregion
+
+        public EAttackType GetAtkType() => _characterSO != null ? _characterSO.AtkType : EAttackType.None;
 
         public float GetStatus(EStatusType type)
         {
@@ -197,6 +201,11 @@ namespace SEP490G69
             }
             return false;
         }
+
+        #region Sfx
+        public string GetMeleeSfxId() => _characterSO != null ? _characterSO.MeleeSfxId : string.Empty;
+        public string GetRangedSfxId() => _characterSO != null ? _characterSO.RangedSfxId : string.Empty;
+        #endregion
 
         #region Training modifiers (Playable character only)
         public StatusModifierSO GetModifierByType(EStatusType statusType)

@@ -6,6 +6,7 @@ namespace SEP490G69.Battle.Combat
     public class CombatCameraController : GlobalSingleton<CombatCameraController>
     {
         [SerializeField] private Camera m_Camera;
+        [SerializeField] private CombatCameraConfigSO m_Config;
         [SerializeField] private float m_InCombatSize = 4f;
         [SerializeField] private float m_DefaultSize = 6f;
 
@@ -38,7 +39,7 @@ namespace SEP490G69.Battle.Combat
             if (_zoomRoutine != null)
                 StopCoroutine(_zoomRoutine);
 
-            float target = inCombat ? m_InCombatSize : m_DefaultSize;
+            float target = inCombat ? m_Config.InCombatSize : m_Config.DefaultSize;
             _zoomRoutine = StartCoroutine(ZoomRoutine(target));
         }
 
@@ -46,12 +47,12 @@ namespace SEP490G69.Battle.Combat
         {
             float timer = 0f;
 
-            while (timer < m_ShakeDuration)
+            while (timer < m_Config.ShakeDuration)
             {
                 timer += Time.deltaTime;
 
-                float x = Random.Range(-m_CombatShake.x, m_CombatShake.x);
-                float y = Random.Range(-m_CombatShake.y, m_CombatShake.y);
+                float x = Random.Range(-m_Config.CombatShake.x, m_Config.CombatShake.x);
+                float y = Random.Range(-m_Config.CombatShake.y, m_Config.CombatShake.y);
 
                 m_Camera.transform.localPosition = _defaultPos + new Vector3(x, y, 0);
 
@@ -69,7 +70,7 @@ namespace SEP490G69.Battle.Combat
                 m_Camera.orthographicSize = Mathf.Lerp(
                     m_Camera.orthographicSize,
                     targetSize,
-                    Time.deltaTime * m_ZoomSpeed
+                    Time.deltaTime * m_Config.ZoomSpeed
                 );
 
                 yield return null;

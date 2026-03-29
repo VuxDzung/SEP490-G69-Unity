@@ -34,6 +34,8 @@
         #endregion
 
         #region Configs (Lazy Loaded)
+        private AudioManager _audioManager;
+        private AudioManager AudioManager => _audioManager ??= ContextManager.Singleton.ResolveGameContext<AudioManager>();
 
         private CharacterConfigSO _characterConfig;
         public CharacterConfigSO CharacterConfig => _characterConfig ??= ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
@@ -494,6 +496,11 @@
             StartCoroutine(DelaySpawnToast(dmg));
         }
 
+        public void SpawnCritToats(float critMul)
+        {
+            StartCoroutine(DelaySpawnCritToast(critMul));
+        }
+
         private IEnumerator DelaySpawnToast(float dmg)
         {
             yield return new WaitForSeconds(0.15f);
@@ -508,10 +515,60 @@
                 TextColor = Color.red,
                 SpawnPosition = position,
                 DelaySpawnTime = 0.01f,
-                TextSize = 27f
+                TextSize = 40f
             });
         }
 
+        private IEnumerator DelaySpawnCritToast(float critMul)
+        {
+            yield return new WaitForSeconds(0.165f);
+
+            string message = $"Crit x{critMul.ToString()}";
+
+            Vector3 position = transform.position + new Vector3(0, 0.75f, 0f);
+
+            GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
+            {
+                Message = message,
+                TextColor = Color.red,
+                SpawnPosition = position,
+                DelaySpawnTime = 0.01f,
+                TextSize = 40f
+            });
+        }
+
+        #endregion
+
+        #region Sfx
+        public void PlayAtkSfx()
+        {
+            switch (_readonlyDataHolder.GetAtkType())
+            {
+                case EAttackType.Melee:
+                    PlayMeleeSfx();
+                    break;
+                case EAttackType.Ranged:
+                    PlayRangedSfx();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void PlayMeleeSfx()
+        {
+            if (!string.IsNullOrEmpty(_readonlyDataHolder.GetMeleeSfxId()))
+            {
+                AudioManager.PlaySFX(_readonlyDataHolder.GetMeleeSfxId());
+            }
+        }
+        public void PlayRangedSfx()
+        {
+            if (!string.IsNullOrEmpty(_readonlyDataHolder.GetMeleeSfxId()))
+            {
+                AudioManager.PlaySFX(_readonlyDataHolder.GetRangedSfxId());
+            }
+        }
         #endregion
     }
 }

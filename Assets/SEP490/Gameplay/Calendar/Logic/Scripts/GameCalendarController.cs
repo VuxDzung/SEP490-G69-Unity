@@ -6,6 +6,7 @@ namespace SEP490G69.Calendar
     using SEP490G69.Addons.Localization;
     using SEP490G69.Exploration;
     using SEP490G69.GameSessions;
+    using SEP490G69.Shared;
     using SEP490G69.Tournament;
     using SEP490G69.Training;
     using UnityEngine;
@@ -18,13 +19,25 @@ namespace SEP490G69.Calendar
         };
 
         private const float FADE_TIME = 0.25f;
-        private const float IN_FADE_TIME = 0.25f;
+        private const float IN_FADE_TIME = 0.3f;
 
         private GameSessionDAO _sessionDAO;
         private TournamentProgressDAO _tournamentDAO;
         private PlayerTrainingSession _currentSesssion;
         private CalendarSO _calendarConfig;
         private EventManager _eventManager;
+        private GameGraduationController _graduateController;
+        private GameGraduationController GraduateController
+        {
+            get
+            {
+                if (_graduateController == null)
+                {
+                    _graduateController = ContextManager.Singleton.ResolveGameContext<GameGraduationController>();
+                }
+                return _graduateController;
+            }
+        }
 
         private GameTrainingController _trainingController;
         protected GameTrainingController TrainingController
@@ -135,11 +148,11 @@ namespace SEP490G69.Calendar
             CheckPendingTournamentResult(sessionId, out bool needCreateSnapshot, () =>
             {
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_MAIN_MENU);
-
-                FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+                GoToNextWeek(true);
+                string message = GetCalendarTime();
+                FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, message, () =>
                 {
                     TrainingController.OpenMainMenuBG();
-                    GoToNextWeek(true);
                     GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
                 });
             }, () => { });
@@ -152,24 +165,27 @@ namespace SEP490G69.Calendar
 
         private void HandleExploreCompleted(ExploreCompleteEvent ev)
         {
-            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            GoToNextWeek(true);
+            string message = GetCalendarTime();
+            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, message, () =>
             {
-                TrainingController.HideTrainingMenuBG();
-                TrainingController.OpenMainMenuBG();
-                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
-                GoToNextWeek(true);
+                //TrainingController.HideTrainingMenuBG();
+                //TrainingController.OpenMainMenuBG();
+                //GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
             });
         }
 
         private void HandleTrainingCompleteEvent(TrainingCompletedEvent trainingCompletedEvent)
         {
-            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, LocalizationManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_MESSAGE, "msg_new_week_start"), () =>
+            GoToNextWeek(true);
+            string message = GetCalendarTime();
+            FadingController.Singleton.FadeIn2Out(FADE_TIME, IN_FADE_TIME, message, () =>
             {
                 TrainingController.HideTrainingMenuBG();
                 TrainingController.OpenMainMenuBG();
                 GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_TRAINING_MENU);
-                GoToNextWeek(true);
+
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MAIN_MENU);
             });
         }
@@ -311,6 +327,12 @@ namespace SEP490G69.Calendar
                 {
                     // Show a notification here.
                     // Message: You have failed the checkpoint tournament. Do you want to rollback to the previous checkpoint?
+                    GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
+                                 .AsFrame<UIMessagePopup>()
+                                 .SetContent("title_game_over", "msg_lose_checkpoint_tournament", true, false, () =>
+                                 {
+
+                                 });
                     return false; // Pending: (Clear tournament progress data when the player press Rollback)
                 }
             }

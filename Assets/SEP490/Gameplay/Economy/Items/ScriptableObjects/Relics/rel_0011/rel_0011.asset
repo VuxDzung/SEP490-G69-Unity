@@ -22,4 +22,7 @@ MonoBehaviour:
   m_Cost: 1300
   m_UsableModifiers: []
   m_RelicModifiers:
-  - {fileID: 11400000, guid: 01a2b4894d5def5489fe2f91b6f8ef3c, type: 2}
+  - {fileID: 11400000, guid: 0bb6295a9813caf4892f725372b49cb4, type: 2}
+  - {fileID: 11400000, guid: e1965b987bbe1104798561664007781c, type: 2}
+  - {fileID: 11400000, guid: b406eabf5c3672c4c99deab8e807ef15, type: 2}
+  - {fileID: 11400000, guid: 3c9d0bc8e9ff7a34f8ec9b012e14b886, type: 2}

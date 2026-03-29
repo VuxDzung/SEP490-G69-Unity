@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1194986340981204351, guid: 88e2d93e8aac73a4dae7c4aca0777480, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88e2d93e8aac73a4dae7c4aca0777480, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7193243292793824929, guid: 4bf467c788ad4ec4bbc485763607a6ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bf467c788ad4ec4bbc485763607a6ea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6173458785821378425, guid: 5afda6d85110c914896526cc6ca1face, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5afda6d85110c914896526cc6ca1face, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1194986340981204351, guid: 88e2d93e8aac73a4dae7c4aca0777480, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88e2d93e8aac73a4dae7c4aca0777480, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1730462607770148754, guid: 15f74fd23d4efb04cbb60c2d5f528eeb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15f74fd23d4efb04cbb60c2d5f528eeb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2736,7 +2736,7 @@ PrefabInstance:
     - target: {fileID: 2583665709699591372, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5858856084963398382, guid: 5c82152d58d331b458916267e13c8d31, type: 3}
+      objectReference: {fileID: 21300000, guid: 5c82152d58d331b458916267e13c8d31, type: 3}
     - target: {fileID: 3868529045547129218, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SFXId
       value: sfx_enter_tournament

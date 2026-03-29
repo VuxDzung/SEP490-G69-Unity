@@ -8,7 +8,6 @@
     using SEP490G69.Shared;
     using System;
     using System.Threading.Tasks;
-    using Unity.Services.Authentication.PlayerAccounts;
     using UnityEngine;
 
     public class GameAuthManager : MonoBehaviour, IGameContext
@@ -124,23 +123,35 @@
             try
             {
                 string deviceId = GetDeviceId();
-                if (TryCreateNewLocalUser(deviceId, "", "", 0, false) != null)
-                {
-                    PlayerData playerData = _playerDataDAO.GetById(deviceId);
+                PlayerData playerData = _playerDataDAO.GetById(deviceId);
+                string authAction = "Login";
 
-                    if (playerData != null)
+                if (playerData == null)
+                {
+                    authAction = "SignUp";
+                    if (TryCreateNewLocalUser(deviceId, "", "", 0, false) != null)
                     {
-                        if (string.IsNullOrEmpty(playerData.PlayerName))
-                        {
-                            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
-                        }
-                        else
-                        {
-                            SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
-                        }
-                        PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
-                        return true;
+                        playerData = _playerDataDAO.GetById(deviceId);
                     }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                if (playerData != null)
+                {
+                    PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
+                    if (string.IsNullOrEmpty(playerData.PlayerName))
+                    {
+                        GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
+                    }
+                    else
+                    {
+                        SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
+                    }
+                    PlayerPrefs.SetString(GameConstants.PREF_KEY_AUTH_ACTION, authAction);
+                    return true;
                 }
                 return false;
             }
@@ -233,7 +244,6 @@
                 {
                     _authResponse = JsonConvert.DeserializeObject<AuthResponse>(response.Json);
                     _webRequests.SetJwt(_authResponse.Data.AccessToken);
-                    PlayerPrefs.SetString(GameConstants.PREF_KEY_AUTH_ACTION, _authResponse.Data.AuthAction);
                 }
             });
 
@@ -281,6 +291,8 @@
         {
             if (authResponse != null)
             {
+                PlayerPrefs.SetString(GameConstants.PREF_KEY_AUTH_ACTION, authResponse.Data.AuthAction);
+
                 LoadingHandler.Singleton.Hide();
                 Debug.Log("OnAutoLoginSuccess");
 
@@ -335,9 +347,10 @@
             if (_playerDataDAO.GetById(deviceId) != null)
             {
                 PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, deviceId);
+                PlayerPrefs.SetString(GameConstants.PREF_KEY_AUTH_ACTION, "Login");
 
                 Debug.Log("Fallback to device id login");
-
+                Debug.Log($"DeviceId: {deviceId}\nPlayerName: {playerData.PlayerName}");
                 if (string.IsNullOrEmpty(playerData.PlayerName))
                 {
                     GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
@@ -371,7 +384,7 @@
             playerData.IsSynced = isSynced;
             playerData.LegacyPoints = legacyPoints;
 
-            _playerDataDAO.Insert(playerData);
+            _playerDataDAO.Upsert(playerData);
 
             return playerData;
         }

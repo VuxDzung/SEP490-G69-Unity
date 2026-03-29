@@ -46,6 +46,7 @@ namespace SEP490G69.Addons.Localization
 
 			textConfigLookUp.Clear();
 			localizedTextLookUp.Clear();
+			string log = "Setup localized categories\n";
 			foreach (var textConfig in config.ConfigList)
 			{
 				textConfigLookUp.Add(textConfig.Category, textConfig);
@@ -53,8 +54,11 @@ namespace SEP490G69.Addons.Localization
 				{
 					string id = string.Format(LOCALIZED_TEXT_LIST_ID, textConfig.Category, textData.Id);
 					localizedTextLookUp.Add(id, textData);
+					log += $"{id}\n";
 				}
 			}
+			Debug.Log("----------LocalizationManager.Awake----------");
+			Debug.Log(log);
 
 			LoadExistedLanguage();
         }
@@ -83,7 +87,12 @@ namespace SEP490G69.Addons.Localization
 				{
 					return textSettings.GetText(languageType);
 				}
-			}
+				else
+				{
+                    Debug.Log($"<color=red>[LocalizationManager]</color> Text settings of key {id} does not exist!");
+					return string.Empty;
+                }
+            }
 			Debug.Log($"<color=red>[LocalizationManager]</color> Localization manager does not contain the key {id}");
 			return string.Empty;
 		}

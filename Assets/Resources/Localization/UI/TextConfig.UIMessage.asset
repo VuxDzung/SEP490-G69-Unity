@@ -308,3 +308,10 @@ MonoBehaviour:
       text: "C\xF3 l\u1ED7i h\u1EC7 th\u1ED1ng khi\u1EBFn vi\u1EC7c x\xF3a d\u1EEF
         li\u1EC7u phi\xEAn c\u0169 b\u1ECB d\u1EEBng l\u1EA1i. Vui l\xF2ng li\xEAn
         h\u1EC7 v\u1EDBi nh\xE0 ph\xE1t tri\u1EC3n."
+  - id: msg_no_active_session
+    textList:
+    - language: 0
+      text: You don't have any run yet. Go to New Game instead.
+    - language: 1
+      text: "B\u1EA1n \u0111ang ch\u01B0a c\xF3 ph\u1EA7n ch\u01A1i n\xE0o hi\u1EC7n
+        t\u1EA1i. H\xE3y v\xE0o Tr\xF2 ch\u01A1i m\u1EDBi."

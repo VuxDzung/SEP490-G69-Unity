@@ -15,3 +15,4 @@ MonoBehaviour:
   m_StarterFrameId: Frame.EditDeck
   m_Frames:
   - {fileID: 2902401323083316011, guid: d5535fdb0643a024a9ed7a31de138ca9, type: 3}
+  - {fileID: 8287456197134602574, guid: 3521ad8314267c94bba74ba12bab35bf, type: 3}

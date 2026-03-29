@@ -1,5 +1,6 @@
 namespace SEP490G69.Battle.Combat
 {
+    using SEP490G69.Battle.Cards;
     using SEP490G69.Shared;
     using TMPro;
     using UnityEngine;
@@ -32,6 +33,19 @@ namespace SEP490G69.Battle.Combat
         [SerializeField] private TextMeshProUGUI m_PlayerCharNameTmp;
         [SerializeField] private TextMeshProUGUI m_EnemyNameTmp;
         [SerializeField] private Button m_StartBattleBtn;
+
+        private GameDeckController _deckController;
+        protected GameDeckController DeckController
+        {
+            get
+            {
+                if (_deckController == null)
+                {
+                    _deckController = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
+                }
+                return _deckController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -70,15 +84,31 @@ namespace SEP490G69.Battle.Combat
 
         private void StartBattle()
         {
+            // Kiểm tra số lượng bài trong Deck
+            if (DeckController != null && DeckController.GetDeckCardCount() <= 0)
+            {
+                // Hiện cảnh báo không cho đánh
+                UIMessagePopup warningPopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+                warningPopup.SetContent(
+                    "title_warning",
+                    "msg_empty_deck_warning",
+                    true,
+                    false,
+                    null
+                );
+                return; // Ngắt luồng, không cho hiện bảng chọn Auto/Manual
+            }
+
+            // Nếu Deck có bài, tiếp tục luồng cũ
             UIMessagePopup messagePopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
 
             messagePopup.SetContent("title_noti", "msg_auto_or_manual_battle", true, true, () =>
-                     {
-                         CombatController.StartBattle(SceneCombatController.IS_MANUAL_COMBAT);
-                     }, () =>
-                     {
-                         CombatController.StartBattle(SceneCombatController.IS_AUTO_COMBAT);
-                     }).SetOptionMessage("msg_manual_combat", "msg_auto_combat");
+            {
+                CombatController.StartBattle(SceneCombatController.IS_MANUAL_COMBAT);
+            }, () =>
+            {
+                CombatController.StartBattle(SceneCombatController.IS_AUTO_COMBAT);
+            }).SetOptionMessage("msg_manual_combat", "msg_auto_combat");
         }
 
         #region Player Stats

@@ -1,8 +1,9 @@
 ﻿namespace SEP490G69.Battle.Cards
 {
     using SEP490G69.Addons.LoadScreenSystem;
-    using System.Collections.Generic;
+    using SEP490G69.Shared;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using TMPro;
     using UnityEngine;
@@ -211,6 +212,24 @@
                 {
                     if (isInDeck)
                     {
+                        // =========================================================
+                        // THÊM CHẶN Ở ĐÂY: KHÔNG CHO RÚT LÁ BÀI CUỐI CÙNG RA KHỎI DECK
+                        // =========================================================
+                        if (_currentDeckIds.Count <= 1)
+                        {
+                            UIMessagePopup warningPopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+                            warningPopup.SetContent(
+                                "title_warning",            // LƯU Ý: Cấu hình key này trong Localization
+                                "msg_empty_deck_warning",   // (VD: "Không thể tháo lá bài cuối cùng!")
+                                true, false, null
+                            );
+
+                            cardUI.Deselect();
+                            LoadAllCards(false); // Reset lại hình ảnh thẻ bài về chỗ cũ
+                            return; // Ngắt luồng, từ chối Remove
+                        }
+                        // =========================================================
+
                         Debug.Log("<color=green>[UIEditDeckFrame]</color> Move to inventory");
                         bool removed = DeckController.RemoveCardFromDeck(cardUI.DeckCardId, false);
 
@@ -246,10 +265,29 @@
 
         private void SaveDeck()
         {
+            // Kiểm tra nếu deck không có lá bài nào
+            if (_currentDeckIds == null || _currentDeckIds.Count == 0)
+            {
+                // Hiện cảnh báo
+                UIMessagePopup warningPopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+                warningPopup.SetContent(
+                    "title_warning",            // LƯU Ý: Khai báo key này trong file Localize
+                    "msg_empty_deck_warning",   // LƯU Ý: Khai báo key này trong file Localize (VD: "Bộ bài không được để trống!")
+                    true,                       // Hiện nút Confirm
+                    false,                      // Ẩn nút Cancel
+                    null                        // Không làm gì thêm khi đóng
+                );
+                return; // Ngắt luồng, không cho lưu
+            }
+
+            // Nếu qua được bước kiểm tra thì lưu bình thường
             DeckController.SaveDeck(_currentDeckIds);
             DeckController.SaveInventory(_obtainedCards);
             LocalDBOrchestrator.UpdateDBChangeTime();
-            // TODO: Bổ sung hiệu ứng hoặc Toast message báo "Lưu thành công"
+
+            // Hiện thông báo lưu thành công (Tuỳ chọn, nếu bạn muốn UI phản hồi tốt hơn)
+            UIMessagePopup successPopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+            successPopup.SetContent("title_success", "msg_save_deck_success", true, false, null);
         }
 
         private void ClearSpawnedCards()
@@ -342,6 +380,21 @@
 
         private void Back()
         {
+            // =========================================================
+            // THÊM CHẶN Ở ĐÂY: NẾU DECK TRỐNG THÌ KHÔNG CHO BACK
+            // =========================================================
+            if (_currentDeckIds == null || _currentDeckIds.Count == 0)
+            {
+                UIMessagePopup warningPopup = UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP).AsFrame<UIMessagePopup>();
+                warningPopup.SetContent(
+                    "title_warning",
+                    "msg_empty_deck_warning", // Bắt buộc người chơi phải có ít nhất 1 lá
+                    true, false, null
+                );
+                return; // Ngắt luồng, không cho load Scene Main Menu
+            }
+            // =========================================================
+
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_MAIN_MENU);
         }
     }

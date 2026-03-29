@@ -315,3 +315,15 @@ MonoBehaviour:
     - language: 1
       text: "B\u1EA1n \u0111ang ch\u01B0a c\xF3 ph\u1EA7n ch\u01A1i n\xE0o hi\u1EC7n
         t\u1EA1i. H\xE3y v\xE0o Tr\xF2 ch\u01A1i m\u1EDBi."
+  - id: msg_empty_deck_warning
+    textList:
+    - language: 0
+      text: Deck cannot be empty!
+    - language: 1
+      text: "B\u1ED9 b\xE0i kh\xF4ng \u0111\u01B0\u1EE3c \u0111\u1EC3 tr\u1ED1ng"
+  - id: msg_save_deck_success
+    textList:
+    - language: 0
+      text: Save Deck success!
+    - language: 1
+      text: "B\u1ED9 b\xE0i \u0111\xE3 \u0111\u01B0\u1EE3c l\u01B0u!"

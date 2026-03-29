@@ -17,9 +17,195 @@ MonoBehaviour:
   - id: tor_0001_name
     textList:
     - language: 0
-      text: Libra cup
+      text: Novice Debut
     - language: 1
-      text: "C\xFAp Thi\xEAn B\xECnh"
+      text: "T\xE2n Binh Ra M\u1EAFt"
+  - id: tor_0002_name
+    textList:
+    - language: 0
+      text: Iron Boar Bout
+    - language: 1
+      text: "Thi\u1EBFt Tr\u01B0 Tranh T\xE0i"
+  - id: tor_0003_name
+    textList:
+    - language: 0
+      text: Spring Breeze Cup
+    - language: 1
+      text: "C\xFAp Gi\xF3 Xu\xE2n"
+  - id: tor_0004_name
+    textList:
+    - language: 0
+      text: Wild Flora Dash
+    - language: 1
+      text: "V\u01B0\u1EE3t R\u1EEBng Hoang D\xE3"
+  - id: tor_0005_name
+    textList:
+    - language: 0
+      text: Junior Striker Cup
+    - language: 1
+      text: "C\xFAp Ti\u1EC1n \u0110\u1EA1o Tr\u1EBB"
+  - id: tor_0006_name
+    textList:
+    - language: 0
+      text: Summer Solstice Open
+    - language: 1
+      text: "Gi\u1EA3i M\u1EDF R\u1ED9ng H\u1EA1 Ch\xED"
+  - id: tor_0007_name
+    textList:
+    - language: 0
+      text: Coastline Exhibition
+    - language: 1
+      text: "Giao H\u1EEFu Ven Bi\u1EC3n"
+  - id: tor_0008_name
+    textList:
+    - language: 0
+      text: Rising Star Stakes
+    - language: 1
+      text: "Tranh T\xE0i Sao M\u1EDBi"
+  - id: tor_0009_name
+    textList:
+    - language: 0
+      text: Autumn Leaves Trophy
+    - language: 1
+      text: "C\xFAp L\xE1 Thu"
+  - id: tor_0010_name
+    textList:
+    - language: 0
+      text: Minor League Clash
+    - language: 1
+      text: "Tranh T\xE0i H\u1EA1ng B\u1EA1c"
+  - id: tor_0011_name
+    textList:
+    - language: 0
+      text: Star Academy Rookie Cup
+    - language: 1
+      text: "C\xFAp T\xE2n Binh H\u1ECDc Vi\u1EC7n Star"
+  - id: tor_0012_name
+    textList:
+    - language: 0
+      text: Frostbite Challenge
+    - language: 1
+      text: "Th\u1EED Th\xE1ch B\u0103ng Gi\xE1"
+  - id: tor_0013_name
+    textList:
+    - language: 0
+      text: Silver Horn Stakes
+    - language: 1
+      text: "Tranh T\xE0i S\u1EEBng B\u1EA1c"
+  - id: tor_0014_name
+    textList:
+    - language: 0
+      text: Cherry Blossom Sprint
+    - language: 1
+      text: "T\u1ED1c Chi\u1EBFn Hoa Anh \u0110\xE0o"
+  - id: tor_0015_name
+    textList:
+    - language: 0
+      text: Earth Shaker Cup
+    - language: 1
+      text: "C\xFAp \u0110\u1ECBa Ch\u1EA5n"
+  - id: tor_0016_name
+    textList:
+    - language: 0
+      text: Mid-Term Zodiac Clash
+    - language: 1
+      text: "\u0110\u1EA1i Chi\u1EBFn Ho\xE0ng \u0110\u1EA1o Gi\u1EEFa K\u1EF3"
+  - id: tor_0017_name
+    textList:
+    - language: 0
+      text: Golden Mane Bout
+    - language: 1
+      text: "Giao H\u1EEFu B\u1EDDm V\xE0ng"
+  - id: tor_0018_name
+    textList:
+    - language: 0
+      text: Gale Force Invitational
+    - language: 1
+      text: "Gi\u1EA3i Kh\xE1ch M\u1EDDi Cu\u1ED3ng Phong"
+  - id: tor_0019_name
+    textList:
+    - language: 0
+      text: Harvest Moon Trophy
+    - language: 1
+      text: "C\xFAp Tr\u0103ng M\xF9a G\u1EB7t"
+  - id: tor_0020_name
+    textList:
+    - language: 0
+      text: Royal Guard Open
+    - language: 1
+      text: "Gi\u1EA3i M\u1EDF R\u1ED9ng V\u1EC7 Binh"
+  - id: tor_0021_name
+    textList:
+    - language: 0
+      text: Oreaf Kingdom Qualifiers
+    - language: 1
+      text: "V\xF2ng Lo\u1EA1i V\u01B0\u01A1ng Qu\u1ED1c Oreaf"
+  - id: tor_0022_name
+    textList:
+    - language: 0
+      text: Apex Predator Cup
+    - language: 1
+      text: "C\xFAp D\xE3 Th\xFA \u0110\u1EC9nh Cao"
+  - id: tor_0023_name
+    textList:
+    - language: 0
+      text: Mystic Arts Tournament
+    - language: 1
+      text: "Gi\u1EA3i \u0110\u1EA5u Ma Thu\u1EADt"
+  - id: tor_0024_name
+    textList:
+    - language: 0
+      text: Thunderbolt Sprint
+    - language: 1
+      text: "T\u1ED1c Chi\u1EBFn S\u1EA5m S\xE9t"
+  - id: tor_0025_name
+    textList:
+    - language: 0
+      text: Warlord's Crucible
+    - language: 1
+      text: "L\xF2 Luy\u1EC7n Chi\u1EBFn T\u01B0\u1EDBng"
+  - id: tor_0026_name
+    textList:
+    - language: 0
+      text: Summer Championship
+    - language: 1
+      text: "Gi\u1EA3i V\xF4 \u0110\u1ECBch M\xF9a H\xE8"
+  - id: tor_0027_name
+    textList:
+    - language: 0
+      text: Grand Illusionist Bout
+    - language: 1
+      text: "Giao H\u1EEFu B\u1EADc Th\u1EA7y \u1EA2o \u1EA2nh"
+  - id: tor_0028_name
+    textList:
+    - language: 0
+      text: Pre-Zodiac Invitational
+    - language: 1
+      text: "Gi\u1EA3i Kh\xE1ch M\u1EDDi Ti\u1EC1n Ho\xE0ng \u0110\u1EA1o"
+  - id: tor_0029_name
+    textList:
+    - language: 0
+      text: Colossus Clash
+    - language: 1
+      text: "\u0110\u1EA1i Chi\u1EBFn Kh\u1ED5ng L\u1ED3"
+  - id: tor_0030_name
+    textList:
+    - language: 0
+      text: Star-Crossed Masters
+    - language: 1
+      text: "\u0110\u1EA1i Chi\u1EBFn Tinh T\xFA"
+  - id: tor_0031_name
+    textList:
+    - language: 0
+      text: Zodiac Legacy Cup
+    - language: 1
+      text: "C\xFAp Di S\u1EA3n Ho\xE0ng \u0110\u1EA1o"
+  - id: tor_0032_name
+    textList:
+    - language: 0
+      text: Awakening Trial
+    - language: 1
+      text: "Th\u1EED Th\xE1ch Th\u1EE9c T\u1EC9nh"
   - id: tor_0033_name
     textList:
     - language: 0

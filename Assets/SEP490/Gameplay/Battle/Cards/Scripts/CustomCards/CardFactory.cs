@@ -1,6 +1,5 @@
 namespace SEP490G69.Battle
 {
-    using NUnit.Framework;
     using SEP490G69.Battle.Cards;
 
     public class CardFactory

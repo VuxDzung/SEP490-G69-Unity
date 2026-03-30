@@ -25,11 +25,18 @@ namespace SEP490G69.Battle
             _currentValue = baseValue;
         }
 
-        public void SetCurrentValue(float value)
+        public void SetCurrentValue(float value, bool clampMax = false)
         {
             _currentValue = value;
+            if (clampMax)
+            {
+                _currentValue = Mathf.Clamp(_currentValue, 0f, _maxValue);
+            }
+        }
 
-            _maxValue = Mathf.Max(_currentValue, _maxValue);
+        public void SetMaxValue(float maxValue)
+        {
+            _maxValue = maxValue;
         }
 
         public float BaseValue => _currentValue;
@@ -66,7 +73,7 @@ namespace SEP490G69.Battle
         {
             if (modifier.TriggerType == EModifierTriggerType.Immediate)
             {
-                _currentValue = modifier.GetModifiedStatus(_currentValue);
+                SetCurrentValue(modifier.GetModifiedStatus(_currentValue), true);
                 return;
             }
 
@@ -119,7 +126,7 @@ namespace SEP490G69.Battle
                     mod.ModifierSO.TurnFlowEvent == flowEvent &&
                     mod.ModifierSO.ApplyValueType == EApplyValueType.BaseOrCurrentValue)
                 {
-                    _currentValue = mod.ModifierSO.GetModifiedStatus(_currentValue);
+                    SetCurrentValue(mod.ModifierSO.GetModifiedStatus(_currentValue), true);
                 }
             }
         }

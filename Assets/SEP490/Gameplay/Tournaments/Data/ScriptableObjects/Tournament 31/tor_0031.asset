@@ -15,7 +15,7 @@ MonoBehaviour:
   tournamentId: tor_0031
   tournamentName: tor_0031_name
   m_IsCheckpointTournament: 1
-  m_IsFinalTournament: 0
+  m_IsFinalTournament: 1
   EnemyIdArray:
   - ch_0027_0011
   - ch_0011_0010
@@ -35,3 +35,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8613385f57bad8349a95f50b863b7bff, type: 2}
   m_SemiFinalRewards: []
   m_EliminationRewards: []
+  m_BeforeEnterDialogId: 
+  m_PassObjectiveDialogId: 
+  m_FailedObjectiveDialogId: DialogTree.0011

@@ -58,6 +58,7 @@ namespace SEP490G69.Battle
 
             if (target.CanEvade(source))
             {
+                target.SpawnDodgeToast();
                 target.AnimationController.PlayAnimation("dodge", (_) =>
                 {
                     barrier.Signal();

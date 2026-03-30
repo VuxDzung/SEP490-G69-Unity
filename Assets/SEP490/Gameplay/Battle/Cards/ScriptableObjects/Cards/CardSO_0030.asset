@@ -22,7 +22,7 @@ MonoBehaviour:
   m_ActionType: 1
   m_BaseDmg: 0
   m_ModifyStatType: 0
-  m_DmgModOp: 5
+  m_DmgModOp: 0
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 0

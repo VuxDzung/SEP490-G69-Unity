@@ -177,12 +177,7 @@
             float finalSta = currentSta;
             float finalDef = currentDef;
 
-            float extraVit = 0;
-            float extraPow = 0;
-            float extraInt = 0;
-            float extraAgi = 0;
-            float extraSta = 0;
-            float extraDef = 0;
+            float finalHp = _maxHPCalculator.Calculate(finalVit);
 
             if (relics != null && relics.Count > 0)
             {
@@ -190,35 +185,50 @@
                 foreach (ItemDataHolder relic in relics)
                 {
                     Debug.Log($"Relic: {relic.GetRawId()}");
-                    extraVit = relic.CalculateRelicModValue(EStatusType.Vitality, currentVit);
-                    finalVit += extraVit;
+                    finalVit = relic.CalculateRelicModValue(EStatusType.Vitality, currentVit);
 
-                    extraPow = relic.CalculateRelicModValue(EStatusType.Power, currentPow);
-                    finalPow += extraPow;
+                    finalPow = relic.CalculateRelicModValue(EStatusType.Power, currentPow);
 
-                    extraInt = relic.CalculateRelicModValue(EStatusType.Intelligence, currentInt);
-                    finalInt += extraInt;
+                    finalInt = relic.CalculateRelicModValue(EStatusType.Intelligence, currentInt);
 
-                    extraAgi = relic.CalculateRelicModValue(EStatusType.Agi, currentAgi);
-                    finalAgi += extraAgi;
+                    finalAgi = relic.CalculateRelicModValue(EStatusType.Agi, currentAgi);
 
-                    extraSta = relic.CalculateRelicModValue(EStatusType.Agi, currentSta);
-                    finalSta += extraSta;
+                    finalSta = relic.CalculateRelicModValue(EStatusType.Agi, currentSta);
 
-                    extraDef = relic.CalculateRelicModValue(EStatusType.Defense, currentDef);
-                    finalDef += extraDef;
+                    finalDef = relic.CalculateRelicModValue(EStatusType.Defense, currentDef);
+                }
+
+                finalHp = _maxHPCalculator.Calculate(finalVit);
+
+                foreach (ItemDataHolder relic in relics)
+                {
+                    Debug.Log($"Relic: {relic.GetRawId()}");
+                    finalHp = relic.CalculateRelicModValue(EStatusType.HP, finalHp);
                 }
             }
 
             float hpValue = _maxHPCalculator.Calculate(finalVit);
             float maxStaminaValue = _maxStaminaCalculator.CalculateMax(finalSta);
 
+            StatVit.SetMaxValue(finalVit);
             StatVit.SetCurrentValue(finalVit);
-            StatHP.SetCurrentValue(hpValue);
+
+            StatHP.SetMaxValue(finalHp);
+            StatHP.SetCurrentValue(finalHp);
+
+            StatPow.SetMaxValue(finalPow);
             StatPow.SetCurrentValue(finalPow);
+
+            StatAgi.SetMaxValue(finalAgi);
             StatAgi.SetCurrentValue(finalAgi);
+
+            StatInt.SetMaxValue(finalInt);
             StatInt.SetCurrentValue(finalInt);
+
+            StatStamina.SetMaxValue(maxStaminaValue);
             StatStamina.SetCurrentValue(maxStaminaValue);
+
+            StatDEF.SetMaxValue(finalDef);
             StatDEF.SetCurrentValue(finalDef);
 
             StatOutputDmg.SetCurrentValue(0f);
@@ -420,7 +430,7 @@
 
             newValue = Mathf.Clamp(newValue, 0, maxValue);
 
-            status.SetCurrentValue(newValue);
+            status.SetCurrentValue(newValue, true);
         }
 
         public void AddStatusEffect(StatusEffectSO effectSO)
@@ -553,6 +563,11 @@
             StartCoroutine(DelaySpawnToast(dmg));
         }
 
+        public void SpawnDodgeToast()
+        {
+            StartCoroutine(DelaySpawnDodgeToast("MISS"));
+        }
+
         public void SpawnCritToats(float critMul)
         {
             StartCoroutine(DelaySpawnCritToast(critMul));
@@ -575,7 +590,21 @@
                 TextSize = 40f
             });
         }
+        private IEnumerator DelaySpawnDodgeToast(string message)
+        {
+            yield return new WaitForSeconds(0.15f);
 
+            Vector3 position = transform.position + new Vector3(0, 0.75f, 0f);
+
+            GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
+            {
+                Message = message,
+                TextColor = Color.green,
+                SpawnPosition = position,
+                DelaySpawnTime = 0.01f,
+                TextSize = 40f
+            });
+        }
         private IEnumerator DelaySpawnCritToast(float critMul)
         {
             yield return new WaitForSeconds(0.2f);

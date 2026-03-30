@@ -85,6 +85,7 @@ namespace SEP490G69.Economy
 
             DisplayItems(EItemType.None);
             SetupRelicSlots();
+            LoadCharacterInfo();
 
             m_BackBtn.onClick.AddListener(Back);
         }

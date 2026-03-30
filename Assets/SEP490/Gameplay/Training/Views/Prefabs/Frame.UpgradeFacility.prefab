@@ -264,15 +264,14 @@ MonoBehaviour:
   frameId: Frame.UpgradeFacility
   m_BackBtn: {fileID: 7730953567890042629}
   m_RemainGoldTmp: {fileID: 1101283073942323164}
-  m_ExerciseUIPrefab: {fileID: 7147698086408362874, guid: 8fcce7e28abe06441852fa1760466726, type: 3}
+  m_ExerciseUIPrefab: {fileID: 3240868793623732201, guid: 1d5a2ed45011550449316d4ea584b24a, type: 3}
   m_FacilityUIContainer: {fileID: 8767663388405191065}
   m_StatChangesContainer: {fileID: 5763914579259583830}
   m_ExerciseNameTmp: {fileID: 3823614283511563633}
   m_ExerciseIcon: {fileID: 3344238670803279322}
-  m_ExerciseLvTmp: {fileID: 2863006096081810180}
-  m_ExerciseBaseStatsTmp: {fileID: 2060950585579752646}
-  m_UpgradeCostTmp: {fileID: 2257146153595497880}
-  m_RequiredRankTmp: {fileID: 6245741885147060638}
+  m_ExerciseLvTmp: {fileID: 7425659845544717607}
+  m_UpgradeCostTmp: {fileID: 551869811476282959}
+  m_RequiredRankTmp: {fileID: 6260113965435470947}
   m_StatChangesPrefab: {fileID: 6143710321318913647, guid: 0fa83213c34c6d045ac8606623d0ad1b, type: 3}
   m_UpgradeBtn: {fileID: 5659618172315804033}
 --- !u!1 &708341233761720498
@@ -1972,7 +1971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: B
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
@@ -5448,7 +5447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12 - 15
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
@@ -5584,7 +5583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2 - 3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}

@@ -2,6 +2,7 @@ namespace SEP490G69.Training
 {
     using System.Collections.Generic;
     using System.Linq;
+    using SEP490G69.GameSessions;
     using SEP490G69.Shared;
     using TMPro;
     using UnityEngine;
@@ -19,7 +20,6 @@ namespace SEP490G69.Training
         [SerializeField] private TextMeshProUGUI m_ExerciseNameTmp;
         [SerializeField] private Image m_ExerciseIcon;
         [SerializeField] private TextMeshProUGUI m_ExerciseLvTmp;
-        [SerializeField] private TextMeshProUGUI m_ExerciseBaseStatsTmp;
         [SerializeField] private TextMeshProUGUI m_UpgradeCostTmp;
         [SerializeField] private TextMeshProUGUI m_RequiredRankTmp;
         [SerializeField] private Transform m_StatChangesPrefab;
@@ -74,13 +74,16 @@ namespace SEP490G69.Training
             m_UpgradeBtn.onClick.AddListener(UpgradeSelectedFacility);
             ClearDetailsContent();
             LoadFacilities();
+            LoadRemainGold();
         }
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
             m_BackBtn.onClick.RemoveListener(Back);
             m_UpgradeBtn.onClick.RemoveListener(UpgradeSelectedFacility);
-
+            ClearFacilities();
+            ClearUIStatChanges();
+            ClearDetailsContent();
         }
 
         private void Back()
@@ -91,22 +94,37 @@ namespace SEP490G69.Training
 
         private void LoadFacilities()
         {
+            ClearFacilities();
+
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             _exerciseList.Clear();
             _exerciseList = FacilityUpgradeManager.GetAllExercises(sessionId);
+            _exerciseList = _exerciseList.OrderBy(ex => ex.GetRawId()).ToList();
 
             foreach (TrainingExerciseDataHolder facility in _exerciseList)
             {
+                if (facility.CanShowOnUI() == false) continue;
+
                 Transform facilityUITrans = PoolManager.Pools["UIFacility"].Spawn(m_ExerciseUIPrefab, m_FacilityUIContainer);
                 UIFacilityElement facilityUI = facilityUITrans.GetComponent<UIFacilityElement>();
+                Debug.Log($"Faclity id: {facility.GetRawId()}");
+
                 if (facilityUI != null)
                 {
                     facilityUI.SetOnClickCallback(SelectFacility)
                               .SetContent(facility.GetRawId(), 
                               LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, 
                                                       ExerciseConfig.GetExercise(facility.GetRawId()).ExerciseName),
-                              facility.GetLevel());
+                                                      facility.GetLevel());
                 }
+            }
+        }
+
+        private void ClearFacilities()
+        {
+            if (PoolManager.Pools["UIFacility"].Count > 0)
+            {
+                PoolManager.Pools["UIFacility"].DespawnAll();
             }
         }
 
@@ -116,9 +134,16 @@ namespace SEP490G69.Training
             m_ExerciseIcon.sprite = null;
             m_ExerciseIcon.enabled = false;
             m_ExerciseLvTmp.text = string.Empty;
-            m_ExerciseBaseStatsTmp.text = string.Empty;
             m_UpgradeCostTmp.text = string.Empty;
             m_RequiredRankTmp.text = string.Empty;
+        }
+
+        private void ClearUIStatChanges()
+        {
+            if (PoolManager.Pools["UIStatChanges"].Count > 0)
+            {
+                PoolManager.Pools["UIStatChanges"].DespawnAll();
+            }
         }
 
         public void SelectFacility(string facilityId)
@@ -134,17 +159,20 @@ namespace SEP490G69.Training
             if (exercise != null)
             {
                 m_ExerciseNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_EXERCISE_NAMES, exercise.GetName());
+                m_ExerciseIcon.enabled = true;
                 m_ExerciseIcon.sprite = exercise.GetImage();
 
                 bool isMaxLevel = exercise.GetLevel() >= GameConstants.FACIILITY_MAX_LV;
 
                 int currentLevel = exercise.GetLevel();
-                int nextLevel = isMaxLevel ? exercise.GetLevel() + 1 : exercise.GetLevel();
+                int nextLevel = isMaxLevel ? exercise.GetLevel() : exercise.GetLevel() + 1;
                 m_ExerciseLvTmp.text = isMaxLevel == true ? "Max" : $"{currentLevel} -> {nextLevel}";
                 m_UpgradeCostTmp.text = isMaxLevel == false ? GameConstants.GetUpgradeFacilityCost(nextLevel).ToString() : "Max";
                 m_RequiredRankTmp.text = isMaxLevel == false ? FacilityUpgradeManager.GetRequirementForNextLevel(currentLevel).Value.RequiredRank.ToString() : "Max";
 
-                foreach (var statChanges in exercise.GetSuccessRewards())
+                ClearUIStatChanges();
+
+                foreach (var statChanges in exercise.GetSuccessRewards().Where(reward => reward.Modifier.StatType != EStatusType.Energy && reward.Modifier.StatType != EStatusType.Mood))
                 {
                     Transform statChangesUITrans = PoolManager.Pools["UIStatChanges"].Spawn(m_StatChangesPrefab, m_StatChangesContainer);
                     UIFacilityStatChangesElement statChangesUI = statChangesUITrans.GetComponent<UIFacilityStatChangesElement>();   
@@ -208,8 +236,32 @@ namespace SEP490G69.Training
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_MESSAGE_POPUP)
                          .AsFrame<UIMessagePopup>()
-                         .SetContent(title, resultStrId, true, false);
+                         .SetContent(title, resultStrId, true, false, () =>
+                         {
+                             ClearUIStatChanges();
+                             ClearDetailsContent();
+                             LoadFacilities();
+                         });
             }
+        }
+
+        private void LoadRemainGold()
+        {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session id is null/empty");
+                return;
+            }
+            PlayerTrainingSession sessionData = new GameSessionDAO().GetById(sessionId);
+
+            if (sessionData == null)
+            {
+                Debug.LogError($"[UIMainMenuFrame] Session data with id {sessionId} does not exist");
+                return;
+            }
+
+            m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
         }
     }
 }

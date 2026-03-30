@@ -1,7 +1,6 @@
 ﻿namespace SEP490G69
 {
     using System.Collections;
-    using UnityEditor.Experimental.GraphView;
     using UnityEngine;
 
     public class DialogEvent : IEvent

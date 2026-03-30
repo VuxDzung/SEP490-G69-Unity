@@ -20,7 +20,8 @@ namespace SEP490G69.GameSessions
 
         private void Back()
         {
-            UIManager.HideFrame(GameConstants.FRAME_ID_CREDIT);
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_TITLE);
         }
     }
 }

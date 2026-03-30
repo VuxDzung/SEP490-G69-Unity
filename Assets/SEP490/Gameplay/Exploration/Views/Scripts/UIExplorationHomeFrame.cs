@@ -7,7 +7,6 @@ namespace SEP490G69.Exploration
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
-    using static UnityEditor.FilePathAttribute;
 
     public class UIExplorationHomeFrame : GameUIFrame
     {

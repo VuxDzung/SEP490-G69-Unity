@@ -1170,6 +1170,7 @@ MonoBehaviour:
   m_FPSLimitSwitcher: {fileID: 753535758743404605}
   m_ApplyBtn: {fileID: 2856127462895032147}
   m_BackBtn: {fileID: 9111031296855407226}
+  m_PrevFrameId: Frame.MainMenu
   m_BackToMenuBtn: {fileID: 8714994118737046805}
   m_SaveGameBtn: {fileID: 7647483366786191400}
 --- !u!114 &8703109855290283369 stripped

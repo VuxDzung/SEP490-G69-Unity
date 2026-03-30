@@ -5,7 +5,6 @@ namespace SEP490G69.GameSessions
     using SEP490G69.Shared;
     using System;
     using TMPro;
-    using UnityEditor;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -155,18 +154,20 @@ namespace SEP490G69.GameSessions
 
         public void ViewSettings()
         {
+            UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_TITLE_SETTINGS);
         }
 
         public void ViewCredit()
         {
+            UIManager.HideFrame(FrameId);
             UIManager.ShowFrame(GameConstants.FRAME_ID_CREDIT);
         }
 
         public void QuitGame()
         {
 #if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
             return;
 #else
             Application.Quit();

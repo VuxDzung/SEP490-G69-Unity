@@ -2124,6 +2124,7 @@ MonoBehaviour:
   m_FPSLimitSwitcher: {fileID: 669050731954649699}
   m_ApplyBtn: {fileID: 2638803806471793933}
   m_BackBtn: {fileID: 9028882096573366308}
+  m_PrevFrameId: Frame.Title
 --- !u!1 &8629447127798756798
 GameObject:
   m_ObjectHideFlags: 0

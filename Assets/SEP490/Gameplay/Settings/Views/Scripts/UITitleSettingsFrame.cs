@@ -18,6 +18,7 @@
         [SerializeField] private UILinearSwitcher m_FPSLimitSwitcher;
         [SerializeField] private Button m_ApplyBtn;
         [SerializeField] private Button m_BackBtn;
+        [SerializeField] private string m_PrevFrameId;
 
         private int _selectedLangIndex = 0;
         private int _selectedResolutionIndex = 0;
@@ -79,11 +80,15 @@
             ApplyFPS();
             ApplyResolution();
             PlayerPrefs.Save();
+
+            UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(m_PrevFrameId);
         }
 
         private void Back()
         {
             UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(m_PrevFrameId);
         }
 
         private void LoadLanguages()
@@ -144,9 +149,6 @@
             LocalizeManager.SetLanguage(lang);
             // Save language index to data here.
             PlayerPrefs.SetString(GameConstants.PREF_KEY_LANGUAGE, GameConstants.LANGUAGES[_selectedLangIndex].ToString());
-
-            UIManager.HideFrame(FrameId);
-            //UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
 
         private void LoadSwitchers()
@@ -196,8 +198,6 @@
         {
             QualitySettings.SetQualityLevel(_selectedQualityIndex);
             PlayerPrefs.SetInt(GameConstants.PREF_KEY_QUALITY, _selectedQualityIndex);
-
-            UIManager.HideFrame(FrameId);
         }
 
         private void ApplyAudio()
@@ -229,7 +229,6 @@
             }
 
             PlayerPrefs.SetInt(GameConstants.PREF_KEY_FPS, _selectedFPSIndex);
-            UIManager.HideFrame(FrameId);
         }
 
         
@@ -242,10 +241,6 @@
             Screen.fullScreenMode
             );
             PlayerPrefs.SetInt(GameConstants.PREF_KEY_RESOLUTION, _selectedResolutionIndex);
-
-            UIManager.HideFrame(FrameId);
-            UIManager.ShowFrame(GameConstants.FRAME_ID_LOGIN);
         }
-
     }
 }

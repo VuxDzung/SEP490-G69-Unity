@@ -123,6 +123,8 @@ namespace SEP490G69.Training
             }
         }
 
+        private bool _isMandatoryThisWeek = false; 
+
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
@@ -149,17 +151,12 @@ namespace SEP490G69.Training
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.AddListener(TestTournament);
             if (m_TestGraduateBt) m_TestGraduateBt.onClick.AddListener(TestGraduate);
 
-            m_ShopBtn.interactable = !HasAnyActiveTournament();
-            m_TrainingBtn.interactable = !HasAnyActiveTournament();
-            m_RestBtn.interactable = !HasAnyActiveTournament();
-            m_DeckBtn.interactable = !HasAnyActiveTournament();
-            m_CharacterDetailsBtn.interactable = !HasAnyActiveTournament();
-            m_InventoryBtn.interactable = !HasAnyActiveTournament();
-
             LoadCharacterStats();
             LoadCalendarTime();
             LoadRemainGold();
             LoadObjectivesWithConditon();
+
+            UpdateButtonsInteractability();
         }
 
         protected override void OnFrameHidden()
@@ -185,6 +182,42 @@ namespace SEP490G69.Training
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.RemoveListener(TestTournament);
         }
 
+        private void UpdateButtonsInteractability()
+        {
+            bool hasActiveTournament = HasAnyActiveTournament();
+
+            m_ShopBtn.interactable = !hasActiveTournament;
+            m_DeckBtn.interactable = !hasActiveTournament;
+            m_CharacterDetailsBtn.interactable = !hasActiveTournament;
+            m_InventoryBtn.interactable = !hasActiveTournament;
+
+            // NẾU đang kẹt trong một giải đấu HOẶC tuần này bắt buộc phải thi đấu
+            // -> Vô hiệu hóa và làm mờ Training, Rest, Explore
+            bool blockActivities = hasActiveTournament || _isMandatoryThisWeek;
+            
+            SetButtonState(m_TrainingBtn, !blockActivities);
+            SetButtonState(m_RestBtn, !blockActivities);
+            SetButtonState(m_ExploreBtn, !blockActivities);
+        }
+
+        // =========================================================
+        // HÀM HỖ TRỢ: ÉP LÀM MỜ NÚT KHI DÙNG SPRITE SWAP
+        // =========================================================
+        private void SetButtonState(Button btn, bool isInteractable)
+        {
+            if (btn == null) return;
+
+            btn.interactable = isInteractable;
+
+            // Tìm component Image của nút
+            Image btnImage = btn.GetComponent<Image>();
+            if (btnImage != null)
+            {
+                // Nếu vô hiệu hóa -> Chuyển màu xám. Nếu bình thường -> Trở lại màu trắng sáng.
+                btnImage.color = isInteractable ? Color.white : Color.gray;
+            }
+        }
+
         private void LoadCharacterStats()
         {
             SetEnergy(TrainingController.CharacterData.GetEnergy(), GameConstants.MAX_100);
@@ -197,6 +230,7 @@ namespace SEP490G69.Training
             SetAgility(TrainingController.CharacterData.GetAgi(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetAgi()));
             SetStamina(TrainingController.CharacterData.GetStamina(), CharacterStatUtils.GetStatRankMaxValue(TrainingController.CharacterData.GetStamina()));
         }
+
         private void LoadCalendarTime()
         {
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
@@ -209,6 +243,9 @@ namespace SEP490G69.Training
         private void LoadObjectivesWithConditon()
         {
             CalendarController.GetNextObjective(out TournamentObjectiveSO objective, out TournamentConditionSO condition, out int remainWeeks);
+
+            // Kiểm tra xem có giải Mandatory vào tuần này không (remainWeeks <= 0)
+            _isMandatoryThisWeek = (objective != null && remainWeeks <= 0);
 
             if (objective == null && condition == null)
             {
@@ -296,7 +333,8 @@ namespace SEP490G69.Training
 
         private void ShowTrainingMenu()
         {
-            if (HasAnyActiveTournament()) return;
+            // Bổ sung chặn nếu đang là tuần bắt buộc
+            if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             TooltipController.Hide();
             UIManager.HideFrame(FrameId);
@@ -308,13 +346,16 @@ namespace SEP490G69.Training
 
         private void PerformRest()
         {
-            if (HasAnyActiveTournament()) return;
+            // Bổ sung chặn nếu đang là tuần bắt buộc
+            if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             TooltipController.Hide();
             TrainingController.StartTraining(ETrainingType.Rest);
+            
             LoadCharacterStats();
             LoadCalendarTime();
             LoadObjectivesWithConditon();
+            UpdateButtonsInteractability(); // Cập nhật lại UI lỡ tuần mới có giải Mandatory
         }
 
         private void ShowCalendar()
@@ -348,7 +389,8 @@ namespace SEP490G69.Training
 
         private void ShowExploration()
         {
-            if (HasAnyActiveTournament()) return;
+            // Bổ sung chặn nếu đang là tuần bắt buộc
+            if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_EXPLORATION);
         }

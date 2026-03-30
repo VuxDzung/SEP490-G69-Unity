@@ -15,7 +15,7 @@ MonoBehaviour:
   tournamentId: tor_0001
   tournamentName: tor_0001_name
   m_IsCheckpointTournament: 0
-  m_IsMandatory: 0
+  m_IsFinalTournament: 0
   EnemyIdArray:
   - ch_0010_0001
   - ch_0012_0001
@@ -26,7 +26,8 @@ MonoBehaviour:
   - ch_0022_0001
   m_EntryConditions:
   - {fileID: 11400000, guid: 83e3816359f58b344ab4416b34bf0c4c, type: 2}
-  m_Objectives: []
+  m_Objectives:
+  - {fileID: 11400000, guid: 9efcc92be07bc524abb3d148e9bbd5cf, type: 2}
   m_ChampionRewards:
   - {fileID: 11400000, guid: c215485fd50db2043b4e314a0be42f17, type: 2}
   - {fileID: 11400000, guid: d1e960fc7bcbdbc4b91ea5dbd37ad89d, type: 2}
@@ -37,3 +38,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d072773986340548b0315ba1f109dd3, type: 2}
   m_EliminationRewards:
   - {fileID: 11400000, guid: 94e90149abd14144497d9ea7eee75898, type: 2}
+  m_BeforeEnterDialogId: 
+  m_PassObjectiveDialogId: 
+  m_FailedObjectiveDialogId: 

@@ -227,7 +227,9 @@ namespace SEP490G69.Economy
             try
             {
                 if (string.IsNullOrEmpty(sessionId))
+                {
                     return new List<ItemData>();
+                }
 
                 var col = GetCollection<ItemData>(db, COLLECTION_NAME);
                 return col.Find(x => x.SessionId == sessionId).ToList();

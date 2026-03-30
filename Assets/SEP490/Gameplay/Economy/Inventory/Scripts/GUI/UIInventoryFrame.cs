@@ -1,5 +1,6 @@
 namespace SEP490G69.Economy
 {
+    using SEP490G69.GameSessions;
     using System.Collections.Generic;
     using System.Linq;
     using TMPro;
@@ -50,6 +51,19 @@ namespace SEP490G69.Economy
                     _invetoryManager = ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
                 }
                 return _invetoryManager;
+            }
+        }
+
+        private CharacterConfigSO _characterConfig;
+        private CharacterConfigSO CharacterConfig
+        {
+            get
+            {
+                if (_characterConfig == null)
+                {
+                    _characterConfig = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
+                }
+                return _characterConfig;
             }
         }
 
@@ -121,7 +135,7 @@ namespace SEP490G69.Economy
             ClearAllUIElements();
 
             IReadOnlyList<ItemDataHolder> items = InventoryManager.GetAllItems();
-
+            Debug.Log($"DisplayItems: {items.Count}");
             foreach (ItemDataHolder item in items)
             {
                 if (itemType != EItemType.None && item.GetItemType() != itemType)
@@ -320,6 +334,30 @@ namespace SEP490G69.Economy
                 return null;
             }
             return m_RelicSlotArray.FirstOrDefault(r => r.Slot == slot);
+        }
+
+        private void LoadCharacterInfo()
+        {
+            string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID, string.Empty);
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                return;
+            }
+            PlayerTrainingSession sessionData = new GameSessionDAO().GetById(sessionId);
+            if (sessionData == null)
+            {
+                return;
+            }
+
+            BaseCharacterSO characterSO = CharacterConfig.GetCharacterById(sessionData.RawCharacterId);
+
+            if (characterSO == null)
+            {
+                return;
+            }
+
+            m_CharacterImg.sprite = characterSO.Thumbnail;
+            m_CharacterNameTmp.text = characterSO.CharacterName;
         }
     }
 }

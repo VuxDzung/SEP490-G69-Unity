@@ -94,12 +94,14 @@ namespace SEP490G69
                 }
             }
 
-            ItemDataHolder item = GetItemByRawId(rawItemId);
+            ItemData itemData = _inventoryDAO.GetItem(_sessionId, rawItemId);
 
-            if (item != null)
+            if (itemData != null)
             {
-                item.AddItemAmount(amount);
-                item.UpdateChanges(_inventoryDAO);
+                itemData.RemainAmount += amount;
+                _inventoryDAO.Update(itemData);
+                //item.AddItemAmount(amount);
+                //item.UpdateChanges(_inventoryDAO);
             }
             else
             {
@@ -131,10 +133,10 @@ namespace SEP490G69
 
                 _inventoryDAO.Insert(newItem);
             }
-            _eventManager.Publish(new AddItemEvent
-            {
-                ItemData = item
-            });
+            //_eventManager.Publish(new AddItemEvent
+            //{
+            //    ItemData = item
+            //});
         }
 
         /// <summary>

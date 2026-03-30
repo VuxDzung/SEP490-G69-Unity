@@ -108,45 +108,45 @@ namespace SEP490G69
         #region Spawn/Despawn
         public Transform Spawn(string poolName, Transform prefab)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab);
+            return PoolManager.Pools[poolName]?.Spawn(prefab);
         }
         public Transform Spawn(string poolName, Transform prefab, Transform parent)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, parent);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, parent);
         }
         public Transform Spawn(string poolName, Transform prefab, Vector3 position, Quaternion rotation)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, position, rotation);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, position, rotation);
         }
         public Transform Spawn(string poolName, Transform prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, position, rotation, parent);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, position, rotation, parent);
         }
 
         public Transform Spawn(string poolName, GameObject prefab)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab);
+            return PoolManager.Pools[poolName]?.Spawn(prefab);
         }
         public Transform Spawn(string poolName, GameObject prefab, Transform parent)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, parent);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, parent);
         }
         public Transform Spawn(string poolName, GameObject prefab, Vector3 position, Quaternion rotation)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, position, rotation);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, position, rotation);
         }
         public Transform Spawn(string poolName, GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
-            return PoolManager.Pools[poolName].Spawn(prefab, position, rotation, parent);
+            return PoolManager.Pools[poolName]?.Spawn(prefab, position, rotation, parent);
         }
 
         public void Despawn(string poolName, Transform instance)
         {
-            PoolManager.Pools[poolName].DespawnObject(instance);
+            PoolManager.Pools[poolName]?.DespawnObject(instance);
         }
         public void DespawnAll(string poolName)
         {
-            PoolManager.Pools[poolName].DespawnAll();
+            PoolManager.Pools[poolName]?.DespawnAll();
         }
         #endregion
 

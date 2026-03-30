@@ -764,6 +764,7 @@ MonoBehaviour:
   m_DetailsBtn: {fileID: 2082070621494857199}
   m_TournamentNameTmp: {fileID: 1722778989016588822}
   m_RequiredRankTmp: {fileID: 8000841161619957301}
+  m_ObjectiveGO: {fileID: 4929562528214830695}
   m_RewardContainer: {fileID: 3761247089555624576}
   m_NumericRewardPrefab: {fileID: 3387836303059867507, guid: f1d029d3004d10e488bcb3593e2ecadc, type: 3}
   m_ItemRewardPrefab: {fileID: 6057561564407859923, guid: 2a557d0d6942122469a30b80113a691f, type: 3}
@@ -969,7 +970,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Libra cup
+  m_text: Seggs
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
   m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
@@ -996,12 +997,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 24.15
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512

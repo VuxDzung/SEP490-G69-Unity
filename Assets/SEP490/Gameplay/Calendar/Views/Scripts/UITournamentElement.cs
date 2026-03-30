@@ -13,6 +13,11 @@ namespace SEP490G69.Calendar
         [SerializeField] private Button m_DetailsBtn;
         [SerializeField] private TextMeshProUGUI m_TournamentNameTmp;
         [SerializeField] private TextMeshProUGUI m_RequiredRankTmp;
+
+        [Header("Objective Settings")]
+        [SerializeField] private GameObject m_ObjectiveGO; // <-- KÉO CỤC GOAL / OBJECTIVE VÀO ĐÂY
+
+        [Header("Reward Settings")]
         [SerializeField] private Transform m_RewardContainer;
         [SerializeField] private Transform m_NumericRewardPrefab;
         [SerializeField] private Transform m_ItemRewardPrefab;
@@ -40,10 +45,17 @@ namespace SEP490G69.Calendar
             return this;
         }
 
-        public void SetContent(string tournamentName, string requiredRank, IReadOnlyList<RewardDataSO> rewards)
+        // ĐÃ THÊM THAM SỐ bool isObjective VÀO HÀM NÀY
+        public void SetContent(string tournamentName, string requiredRank, IReadOnlyList<RewardDataSO> rewards, bool isObjective)
         {
             m_TournamentNameTmp.text = tournamentName;
             m_RequiredRankTmp.text = requiredRank;
+
+            // Bật / tắt cục Goal tùy thuộc vào việc giải này có phải Objective không
+            if (m_ObjectiveGO != null)
+            {
+                m_ObjectiveGO.SetActive(isObjective);
+            }
 
             if (rewards == null || rewards.Count == 0) return;
 
@@ -52,14 +64,15 @@ namespace SEP490G69.Calendar
 
         private void LoadTop1Rewards(IReadOnlyList<RewardDataSO> rewards)
         {
-            if (!PoolManager.Pools["UIRewardPreview"].IsEmpty)
-            {
-                PoolManager.Pools["UIRewardPreview"].DespawnAll();
-            }
-
             foreach (var rewardSO in rewards)
             {
                 if (rewardSO == null) continue;
+
+                if (rewardSO.RewardType != ERewardType.Gold &&
+                    rewardSO.RewardType != ERewardType.ReputationPoint)
+                {
+                    continue;
+                }
 
                 Transform prefab = GetPrefabByRewardType(rewardSO.RewardType);
 

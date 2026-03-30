@@ -50,7 +50,6 @@ namespace SEP490G69.Calendar
 
         public void LoadCalendarTime()
         {
-            //m_CurrentTimeTmp.text = CalendarController.GetCalendarTime();
             _currentWeek = CalendarController.GetCurrentWeekInt();
             if (_currentWeek < 0)
             {
@@ -89,9 +88,16 @@ namespace SEP490G69.Calendar
             CalendarWeekSO weekSO = CalendarController.GetWeekData(week + 1);
             m_CurrentTimeTmp.text = CalendarController.GetCalendarTime(week);
 
+            // 1. Dọn dẹp các khung thông tin Giải đấu cũ
             if (!PoolManager.Pools["UITournament"].IsEmpty)
             {
                 PoolManager.Pools["UITournament"].DespawnAll();
+            }
+
+            // 2. Dọn dẹp các khung Preview Phần thưởng (Reward) cũ
+            if (PoolManager.Pools.ContainsKey("UIRewardPreview") && !PoolManager.Pools["UIRewardPreview"].IsEmpty)
+            {
+                PoolManager.Pools["UIRewardPreview"].DespawnAll();
             }
 
             if (weekSO.Tournaments.Count > 0)
@@ -120,9 +126,18 @@ namespace SEP490G69.Calendar
 
                     IReadOnlyList<RewardDataSO> rewards = data.ChampionRewards.Count > 0 ? data.ChampionRewards : null;
 
+                    // ========================================================
+                    // XÁC ĐỊNH ĐÂY CÓ PHẢI LÀ GIẢI ĐẤU OBJECTIVE (MANDATORY)
+                    // (Bạn hãy thay đổi data.Objective != null hoặc data.IsMandatory 
+                    // cho khớp với thiết lập trong file TournamentSO.cs của bạn)
+                    // ========================================================
+                    bool isObjectiveTournament = false;
+                    isObjectiveTournament = data.IsCheckpointTournament; 
+
+
                     tournamentUI.SetOnClickDetails(ViewTournamentDetails)
                                 .SetId(data.TournamentId)
-                                .SetContent(tournamentName, requiredRank, rewards);
+                                .SetContent(tournamentName, requiredRank, rewards, isObjectiveTournament); // <-- Truyền isObjective vào đây
                 }
             }
             else
@@ -133,12 +148,10 @@ namespace SEP490G69.Calendar
 
         private void ViewTournamentDetails(string tournamentId)
         {
-            // Show tournament details here by using TournamentConfigSO to get TournamentSO data.
             TournamentSO tournamentSO = CalendarController.TournamentConfig.GetTournamentById(tournamentId);
 
             if (tournamentSO != null)
             {
-                // Show tournament details frame here.
                 UIManager.ShowFrame(GameConstants.FRAME_ID_TOURNAMENT_DETAILS).AsFrame<UITournamentDetailsFrame>().LoadTournamentData(tournamentSO);
             }
             else

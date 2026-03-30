@@ -165,7 +165,7 @@
                                 }
                             }
 
-                            uiElement.SetIdAndType(rewardSO.Id, rewardSO.RewardType)
+                            uiElement.SetIdAndType(rewardSO.RewardTargetId, rewardSO.RewardType)
                                      .SetOnClickDetails(ViewRewardDetails)
                                      .SetContent(itemName, itemType, itemIcon);
                         }

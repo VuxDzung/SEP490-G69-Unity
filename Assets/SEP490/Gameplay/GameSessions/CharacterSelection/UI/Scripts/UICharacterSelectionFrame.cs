@@ -34,7 +34,7 @@ namespace SEP490G69.GameSessions
         [SerializeField] private TextMeshProUGUI m_TmpStaValue;
         [SerializeField] private TextMeshProUGUI m_TmpDefValue;
 
-        [Header("Stats Tab - Growth Rate Fields")] // THÊM MỚI: Biến cho Growth Rate
+        [Header("Stats Tab - Growth Rate Fields")]
         [SerializeField] private TextMeshProUGUI m_TmpVitGrowthRate;
         [SerializeField] private TextMeshProUGUI m_TmpPowGrowthRate;
         [SerializeField] private TextMeshProUGUI m_TmpAgiGrowthRate;

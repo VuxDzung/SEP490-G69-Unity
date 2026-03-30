@@ -32,6 +32,8 @@ MonoBehaviour:
   baseEnergy: 100
   baseMood: 100
   baseRP: 0
+  m_MeleeSfxId: 
+  m_RangedSfxId: 
   m_TrainingModifiers:
   - {fileID: 11400000, guid: 70176bba0cecd2f42b7d7f057e270b77, type: 2}
   - {fileID: 11400000, guid: 91b029e184aa87f4b869f43b6cbbb9dd, type: 2}
@@ -42,6 +44,6 @@ MonoBehaviour:
   - card_0052
   - card_0053
   m_StartingCardId:
-  - card_0003
-  - card_0004
-  - card_0007
+  - card_0039
+  - card_0034
+  - card_0006

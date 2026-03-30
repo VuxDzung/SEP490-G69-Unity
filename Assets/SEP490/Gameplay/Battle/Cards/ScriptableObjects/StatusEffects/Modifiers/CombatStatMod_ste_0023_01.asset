@@ -16,7 +16,7 @@ MonoBehaviour:
   m_DisplayOnUI: 0
   m_StatType: 18
   m_Operator: 5
-  m_Value: 0.15
+  m_Value: 0.5
   m_RandomNumber: 0
   m_Min: 0
   m_Max: 0

@@ -47,7 +47,12 @@ namespace SEP490G69.Economy
 
         public IReadOnlyList<StatusModifierSO> GetModifiersByStatType(EStatusType statType)
         {
-            return m_UsableModifiers.Where(m =>  m.StatType == statType).ToList();
+            return m_UsableModifiers.Where(m => m.StatType == statType).ToList();
+        }
+
+        public IReadOnlyList<StatusModifierSO> GetRelicModifiersByStatType(EStatusType statType)
+        {
+            return m_RelicModifiers.Where(m => m.StatType == statType).ToList();
         }
 
         public bool IsShopItem()
@@ -58,11 +63,13 @@ namespace SEP490G69.Economy
 
         public float CalculateModifiedStat(EStatusType statType, float baseValue)
         {
-            IReadOnlyList<StatusModifierSO> modifiers = GetModifiersByStatType(statType);
+            IReadOnlyList<StatusModifierSO> modifiers = GetRelicModifiersByStatType(statType);
+            Debug.Log($"{m_ItemID} modifier {statType.ToString()} count: {modifiers.Count}\nBaseValue: {baseValue}");
             foreach (var modifier in modifiers)
             {
                 baseValue = modifier.GetModifiedStatus(baseValue);
             }
+            Debug.Log($"{m_ItemID} modifier {statType.ToString()} After value: {baseValue}");
             return baseValue;
         }
     }

@@ -6,8 +6,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using static Unity.VisualScripting.Member;
-    using static UnityEngine.GraphicsBuffer;
 
     [RequireComponent(typeof(CharacterVFXController))]
     [RequireComponent(typeof(CharacterAnimationController))]
@@ -177,6 +175,7 @@
             float finalSta = currentSta;
             float finalDef = currentDef;
 
+            float maxStaminaValue = _maxStaminaCalculator.CalculateMax(finalSta);
             float finalHp = _maxHPCalculator.Calculate(finalVit);
 
             if (relics != null && relics.Count > 0)
@@ -193,7 +192,7 @@
 
                     finalAgi = relic.CalculateRelicModValue(EStatusType.Agi, currentAgi);
 
-                    finalSta = relic.CalculateRelicModValue(EStatusType.Agi, currentSta);
+                    finalSta = relic.CalculateRelicModValue(EStatusType.Stamina, currentSta);
 
                     finalDef = relic.CalculateRelicModValue(EStatusType.Defense, currentDef);
                 }
@@ -202,13 +201,11 @@
 
                 foreach (ItemDataHolder relic in relics)
                 {
-                    Debug.Log($"Relic: {relic.GetRawId()}");
                     finalHp = relic.CalculateRelicModValue(EStatusType.HP, finalHp);
                 }
             }
 
             float hpValue = _maxHPCalculator.Calculate(finalVit);
-            float maxStaminaValue = _maxStaminaCalculator.CalculateMax(finalSta);
 
             StatVit.SetMaxValue(finalVit);
             StatVit.SetCurrentValue(finalVit);

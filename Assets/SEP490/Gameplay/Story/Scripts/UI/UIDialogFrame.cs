@@ -1,5 +1,6 @@
 ﻿namespace SEP490G69
 {
+    using SEP490G69.PlayerProfile;
     using System.Collections;
     using TMPro;
     using UnityEngine;
@@ -26,6 +27,19 @@
         private string _fullDialogText;
 
         private bool _autoMode;
+
+        private PlayerProfileController _profileController;
+        private PlayerProfileController ProfileController
+        {
+            get
+            {
+                if (_profileController == null)
+                {
+                    _profileController = ContextManager.Singleton.ResolveGameContext<PlayerProfileController>();
+                }
+                return _profileController;
+            }
+        }
 
         protected override void OnFrameShown()
         {
@@ -61,17 +75,31 @@
             //    m_BgImage.enabled = false;
             //}
 
-            if (dialog.Contains("<USER_NAME>"))
+            string playerName = ProfileController.GetPlayerName(PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID));
+
+            if (dialog.Contains("ch_0004"))
             {
-                string playerName = "Player 1";
-                dialog = dialog.Replace("<USER_NAME>", playerName);
+                dialog = dialog.Replace("ch_0004", playerName);
             }
 
             BaseCharacterSO character = _characterConfig.GetCharacterById(speakerID);
             if (character != null)
             {
-                m_SpeakerNameTmp.text = character.CharacterName;
+                m_Image.enabled = true;
+                if (speakerID == "ch_0004")
+                {
+                    m_SpeakerNameTmp.text = playerName;
+                }
+                else
+                {
+                    m_SpeakerNameTmp.text = character.CharacterName;
+                }
                 m_Image.sprite = character.FullBodyImg;
+            }
+            else
+            {
+                m_Image.enabled = false;
+                m_SpeakerNameTmp.text = string.Empty;
             }
 
             _fullDialogText = dialog;

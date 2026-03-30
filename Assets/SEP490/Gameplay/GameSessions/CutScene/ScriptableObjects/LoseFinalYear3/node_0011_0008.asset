@@ -28,10 +28,13 @@ MonoBehaviour:
     m_Value: 1
   - m_ParameterName: inFadeTime
     m_ParameterType: 2
-    m_Value: 2
+    m_Value: 1
   - m_ParameterName: onFadeInCompleted
     m_ParameterType: 0
     m_Value: LoadScene
   - m_ParameterName: sceneName
     m_ParameterType: 0
     m_Value: Scene.MainMenu
+  - m_ParameterName: postLoadTask1
+    m_ParameterType: 0
+    m_Value: endTournament

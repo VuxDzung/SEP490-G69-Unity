@@ -360,9 +360,12 @@ namespace SEP490G69.Calendar
                 else
                 {
                     // Objective success.
-                    if (!string.IsNullOrEmpty(tournamentSO.PassObjectiveDialogId))
+                    if (tournamentSO.IsFinalTournament == true)
                     {
-                        
+                        // Final week reached.
+                        // Graduate here.
+                        GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_PENDING_GRADUATE);
+                        return false; // Pending (Clear tournament progress data when the player press Graduate)
                     }
                 }
             }
@@ -370,14 +373,6 @@ namespace SEP490G69.Calendar
             {
                 Debug.LogError($"[GameCalendarController.HandleEndTournamentEvent error] {error}");
                 return false;
-            }
-
-            if (sessionData.CurrentWeek + 1 >= CalendarConfig.GetTotalWeeks())
-            {
-                // Final week reached.
-                // Graduate here.
-                GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_PENDING_GRADUATE);
-                return false; // Pending (Clear tournament progress data when the player press Graduate)
             }
 
             return true;

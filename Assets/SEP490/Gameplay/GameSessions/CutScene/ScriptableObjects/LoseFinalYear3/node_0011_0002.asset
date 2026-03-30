@@ -19,4 +19,4 @@ MonoBehaviour:
   m_BgmId: 
   m_SfxId: 
   m_BgImage: {fileID: 21300000, guid: b93065bc6d9e81541b7aeaa61967b2a6, type: 3}
-  m_NextNode: {fileID: 11400000, guid: ce9fe78502a30b642a3d72816037d239, type: 2}
+  m_NextNode: {fileID: 11400000, guid: d8c3bfe477867fc4f8559bd6356d2a13, type: 2}

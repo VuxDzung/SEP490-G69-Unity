@@ -1,5 +1,7 @@
 ﻿namespace SEP490G69
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using SEP490G69.Addons.LoadScreenSystem;
     using UnityEngine;
 
@@ -44,7 +46,22 @@
             {
                 case "LoadScene":
                     string sceneName = parameters.GetParameter("sceneName").GetStringValue();
-                    SceneLoader.Singleton.StartLoadScene(sceneName);
+                    var postLoadTask1 = parameters.GetParameter("postLoadTask1");
+
+                    List<LoadTask> postLoadTasks = new List<LoadTask>();
+
+                    if (postLoadTask1 != null)
+                    {
+                        switch (postLoadTask1.GetStringValue())
+                        {
+                            case "endTournament":
+                                LoadTask endTournament = new LoadTask("", DelayGoToNextWeek);
+                                postLoadTasks.Add(endTournament);
+                                break;
+                        }
+                    }
+
+                    SceneLoader.Singleton.StartLoad(sceneName, null, postLoadTasks);
                     break;
                 case "StartDialogTree":
                     var treeId = parameters.GetParameter("dialogTreeId");
@@ -62,6 +79,14 @@
         private void OnFadeOutCompleted(ParameterInspectorData[] parameters)
         {
             // Extend later.
+        }
+
+
+
+        private IEnumerator DelayGoToNextWeek()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _contextManager.ResolveGameContext<EventManager>().Publish(new EndTournamentEvent());
         }
     }
 }

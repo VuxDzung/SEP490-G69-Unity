@@ -575,8 +575,15 @@
 
             if (champion.IsPlayer)
             {
-                Debug.Log("Player wins tournament!");
+                TournamentProgressData data = _tournamentDAO.GetById(_sessionTournamentId);
+                if (data != null)
+                {
+                    Debug.Log("Player wins tournament!");
+                    data.IsPlayerWon = champion.IsPlayer;
+                    _tournamentDAO.Upsert(data);
+                }
             }
+
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
             PlayerTrainingSession sessionData = _sessionDAO.GetById(sessionId);
 
@@ -626,13 +633,7 @@
         {
             if (tournamentSO.IsCheckpointTournament == true)
             {
-                // Check if the player has passed the tournament objective.
-
-                // If the player failed to pass the tournament objective -> game over.
-
-                // If the player success in passing the tournament objective -> continue/victory.
-
-                bool objectiveCompleted = false;
+                bool objectiveCompleted = true;
 
                 TournamentObjectiveSO objectiveSO = tournamentSO.Objectives.Count > 0 ? tournamentSO.Objectives[0] : null;
 
@@ -655,11 +656,12 @@
                 {
                     playerTournamentPlace = 4;
                 }
+                Debug.Log($"Tournament place: {playerTournamentPlace}");
 
                 if (objectiveSO != null)
                 {
-                    if (objectiveSO.ObjectiveParam == EObjectiveParam.TournamentPlace &&
-                        playerTournamentPlace <= objectiveSO.RequiredAmount)
+                    Debug.Log($"Objective: {objectiveSO.ObjectiveId}");
+                    if (objectiveSO.ObjectiveParam == EObjectiveParam.TournamentPlace && playerTournamentPlace <= objectiveSO.RequiredAmount)
                     {
                         // Pass the objective
                         objectiveCompleted = true;
@@ -708,11 +710,27 @@
                 {
                     FadingController.Singleton.FadeIn2Out(1f, 1f, () => {
                         SceneLoader.Singleton.StartLoad("Scene.Cutscene", null, new List<LoadTask>
-                    {
-                        new LoadTask("Load dialog", DelayLoadDialog)
-                    });
+                        {
+                            new LoadTask("Load dialog", DelayLoadDialog)
+                        });
                     });
                 }
+                else
+                {
+                    List<LoadTask> loadTaskList = new List<LoadTask>();
+                    LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
+                    loadTaskList.Add(goToNextWeekTask);
+
+                    SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
+                }
+            }
+            else
+            {
+                List<LoadTask> loadTaskList = new List<LoadTask>();
+                LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
+                loadTaskList.Add(goToNextWeekTask);
+
+                SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
             }
         }
 
@@ -724,38 +742,26 @@
 
         public TournamentParticipantData GetPlayerTournamentData(List<TournamentParticipantData> participants, string sessionCharacterId)
         {
-            if (participants == null ||
-                participants.Count == 0 ||
-                string.IsNullOrEmpty(sessionCharacterId))
+            if (participants == null || participants.Count == 0 || string.IsNullOrEmpty(sessionCharacterId))
             {
                 return null;
             }
             return participants.FirstOrDefault(par => par.Id == sessionCharacterId);
         }
 
-
-
         public void GoBackToMainMenu()
         {
             TournamentProgressData data = _tournamentDAO.GetById(_sessionTournamentId);
             PlayerTrainingSession sesionData = _sessionDAO.GetById(PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID));
             ClearAllPrefKeys();
+
             DetermineTournamentResult(_currentTournamentSO, data, sesionData);
-
-            //List<LoadTask> loadTaskList = new List<LoadTask>();
-            //LoadTask goToNextWeekTask = new LoadTask("", DelayGoToNextWeek);
-            //loadTaskList.Add(goToNextWeekTask);
-
-            //SceneLoader.Singleton.StartLoad(GameConstants.SCENE_MAIN_MENU, null, loadTaskList);
         }
 
         private IEnumerator DelayGoToNextWeek()
         {
-            yield return new WaitForSeconds(0.25f);
-            _eventManager.Publish(new EndTournamentEvent
-            {
-                SessionTournamentId = _sessionTournamentId,
-            });
+            yield return new WaitForSeconds(0.1f);
+            _eventManager.Publish(new EndTournamentEvent());
         }
 
         public IReadOnlyList<RewardDataSO> GetPlayerRewards()

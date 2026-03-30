@@ -314,6 +314,7 @@
                 {
                     if (string.IsNullOrEmpty(playerData.PlayerName))
                     {
+                        GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
                         GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_NAME);
                     }
                     else
@@ -363,6 +364,7 @@
             else
             {
                 Debug.Log("No account available. Brandly new user. Show set language id");
+                GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
                 GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_SET_LANG);
             }
         }

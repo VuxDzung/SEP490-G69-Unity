@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIButton.Graduate
       objectReference: {fileID: 0}
+    - target: {fileID: 9219683021088238281, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
+      propertyPath: elementId
+      value: btn_graduate
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

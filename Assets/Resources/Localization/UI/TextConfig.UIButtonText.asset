@@ -308,3 +308,9 @@ MonoBehaviour:
       text: Swimming
     - language: 1
       text: "B\u01A1i L\u1ED9i"
+  - id: btn_graduate
+    textList:
+    - language: 0
+      text: Graduate
+    - language: 1
+      text: "T\u1ED1t nghi\u1EC7p"

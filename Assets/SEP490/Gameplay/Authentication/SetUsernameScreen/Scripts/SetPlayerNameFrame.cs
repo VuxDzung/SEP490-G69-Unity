@@ -1,7 +1,6 @@
 namespace SEP490G69.Shared
 {
     using SEP490G69.Addons.LoadScreenSystem;
-    using SEP490G69.GameSessions;
     using SEP490G69.PlayerProfile;
     using TMPro;
     using UnityEngine;

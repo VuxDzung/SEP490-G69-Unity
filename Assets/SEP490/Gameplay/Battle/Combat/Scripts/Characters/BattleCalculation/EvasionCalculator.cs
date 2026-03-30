@@ -24,7 +24,7 @@ namespace SEP490G69.Battle
 
             float deltaAgi = Mathf.Max(0, defenderAgi.Value - attackerAgi.Value);
 
-            return 0.15f * (deltaAgi / (deltaAgi + 200f));
+            return 0.05f + 0.5f * (deltaAgi / (deltaAgi + 100f));
         }
     }
 }

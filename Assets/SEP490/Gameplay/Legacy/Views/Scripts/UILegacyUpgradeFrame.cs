@@ -55,6 +55,7 @@ namespace SEP490G69.Legacy
             base.OnFrameShown();
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeBtn.onClick.AddListener(UpgradeLegacyStat);
+            m_NextBtn.onClick.AddListener(Next);
 
             LoadLegacyStats();
         }
@@ -63,6 +64,7 @@ namespace SEP490G69.Legacy
             base.OnFrameHidden();
             m_BackBtn.onClick.RemoveListener(Back);
             m_UpgradeBtn.onClick.RemoveListener(UpgradeLegacyStat);
+            m_NextBtn.onClick.RemoveListener(Next);
 
             ClearOldUIElements();
         }

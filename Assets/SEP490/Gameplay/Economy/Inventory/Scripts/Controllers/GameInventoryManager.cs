@@ -160,37 +160,41 @@ namespace SEP490G69
                 return false;
             }
 
-            ItemDataHolder item = GetItemByEntityId(sessionItemId);
+            ItemData itemData = _inventoryDAO.GetItem(sessionItemId);
+            ItemDataSO itemSO = _itemConfig.GetItemById(itemData.RawItemId);
 
-            if (item == null)
+            if (itemData == null)
             {
                 Debug.LogError($"[GameInventoryManager.UseItem] Item SO with id {sessionItemId} is not configured!");
                 return false;
             }
 
-            if (item.IsRelic())
+            if (itemSO.ItemType != EItemType.Consumable)
             {
                 return false;
             }
 
-            if (!item.DecreaseItemAmount(amount))
+            if (itemData.RemainAmount < amount)
             {
-                Debug.Log($"<color=red>[GameInventoryManager.UseItem]</color> Failed to decrease item {sessionItemId} amount");
                 return false;
             }
-
-            if (item.GetRemainAmount() == 0)
+            itemData.RemainAmount -= amount;
+            if (itemData.RemainAmount < 0)
             {
-                _inventoryDAO.Delete(item.GetSessionItemId());
-                //_inventoryItems.Remove(item);
+                itemData.RemainAmount = 0;
+            }
+
+            if (itemData.RemainAmount == 0)
+            {
+                _inventoryDAO.Delete(itemData.SessionItemId);
             }
             else
             {
-                item.UpdateChanges(_inventoryDAO);
+                _inventoryDAO.Update(itemData);
             }
             _eventManager.Publish(new UseItemEvent
             {
-                ItemData = item
+                ItemData = PackData(itemData),
             });
             return true;
         }
@@ -209,27 +213,29 @@ namespace SEP490G69
                 return false;
             }
 
-            ItemDataHolder item = GetItemByRawId(itemId);
+            ItemData itemData = _inventoryDAO.GetItem(_sessionId, itemId);
 
-            if (item == null)
+            if (itemData == null)
             {
                 Debug.LogError($"[GameInventoryManager.GetItemBy error] Item with id {itemId} is null");
                 return false;
             }
 
-            if (!item.DecreaseItemAmount(amount))
+            if (itemData.RemainAmount < amount) return false;
+
+            itemData.RemainAmount -= amount;
+            if (itemData.RemainAmount < 0)
             {
-                return false;
+                itemData.RemainAmount = 0;
             }
 
-            if (item.GetRemainAmount() == 0)
+            if (itemData.RemainAmount == 0)
             {
-                _inventoryDAO.Delete(item.GetSessionItemId());
-                //_inventoryItems.Remove(item);
+                _inventoryDAO.Delete(itemData.SessionItemId);
             }
             else
             {
-                item.UpdateChanges(_inventoryDAO);
+                _inventoryDAO.Update(itemData);
             }
 
             return true;
@@ -334,22 +340,6 @@ namespace SEP490G69
             return true;
         }
 
-        public ItemDataHolder GetItemById(string sessionId, string rawId)
-        {
-            if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
-            {
-                Debug.LogError("[GameInventoryManager.GetItemBy error] Session id/raw item id is null");
-                return null;
-            }
-            ItemData itemData = _inventoryDAO.GetItem(sessionId, rawId);
-            ItemDataSO itemSO = _itemConfig.GetItemById(rawId);
-            ItemDataHolder item = new ItemDataHolder.Builder()
-                                                    .WithRuntimeData(itemData)
-                                                    .WithDataSO(itemSO)
-                                                    .Build();
-            return item;
-        }
-
         public ItemDataHolder GetItemByRawId(string rawId)
         {
             if (string.IsNullOrEmpty(_sessionId) || string.IsNullOrEmpty(rawId))
@@ -391,6 +381,13 @@ namespace SEP490G69
             }
 
             return _inventoryDAO.GetRemainEquipSlot(_sessionId);
+        }
+
+        private ItemDataHolder PackData(ItemData itemData)
+        {
+            ItemDataSO itemSO = _itemConfig.GetItemById(itemData.RawItemId);
+
+            return new ItemDataHolder.Builder().WithRuntimeData(itemData).WithDataSO(itemSO).Build();
         }
     }
 }

@@ -201,11 +201,12 @@
                         if (!added)
                         {
                             Debug.LogError("<color=red>[UIEditDeckFrame]</color> Failed to add to deck");
-                            return;
                         }
-
-                        SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(cardUI.RawCardId));
-                        cardData.ObtainedAmount--;
+                        else
+                        {
+                            SessionCardData cardData = _obtainedCards.FirstOrDefault(c => c.RawCardId.Equals(cardUI.RawCardId));
+                            cardData.ObtainedAmount--;
+                        }
                     }
                 }
                 else

@@ -17,13 +17,13 @@ MonoBehaviour:
   m_IsCheckpointTournament: 0
   m_IsFinalTournament: 0
   EnemyIdArray:
-  - ch_0011_0001
-  - ch_0013_0001
-  - ch_0015_0001
-  - ch_0030_0001
-  - ch_0019_0001
-  - ch_0021_0001
-  - ch_0023_0001
+  - ch_0010_0001
+  - ch_0012_0001
+  - ch_0014_0001
+  - ch_0028_0001
+  - ch_0018_0001
+  - ch_0020_0001
+  - ch_0022_0001
   m_EntryConditions:
   - {fileID: 11400000, guid: 33c7dcda59fb83347b68c47edb3aadee, type: 2}
   m_Objectives: []
@@ -36,3 +36,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 557312e10a6829a43924e3c17f6386ce, type: 2}
   m_EliminationRewards:
   - {fileID: 11400000, guid: ae8b200c920dec0468d2877c21eb7343, type: 2}
+  m_BeforeEnterDialogId: 
+  m_PassObjectiveDialogId: 
+  m_FailedObjectiveDialogId: 

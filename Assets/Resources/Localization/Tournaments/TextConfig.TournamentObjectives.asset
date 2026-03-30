@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c2cf2a4b2c62142a7668242814b230, type: 3}
+  m_Name: TextConfig.TournamentObjectives
+  m_EditorClassIdentifier: 
+  category: TournamentObjectiveDecs
+  textDataList:
+  - id: tor_0011_ojt_0001_desc
+    textList:
+    - language: 0
+      text: Pass the Elimination round of Star Academy Rookie Cup
+    - language: 1
+      text: "V\u01B0\u1EE3t qua v\xF2ng l\u1EA1i c\u1EE7a gi\u1EA3i C\xFAp T\xE2n
+        Binh H\u1ECDc Vi\u1EC7n Star"
+  - id: tor_0016_ojt_0001_desc
+    textList:
+    - language: 0
+      text: Pass the Semi-Final of Mid-Term Zodiac Clash
+    - language: 1
+      text: "V\u01B0\u1EE3t qua v\xF2ng B\xE1n k\u1EBFt c\u1EE7a gi\u1EA3i \u0110\u1EA1i
+        Chi\u1EBFn Ho\xE0ng \u0110\u1EA1o Gi\u1EEFa K\u1EF3"
+  - id: tor_0021_ojt_0001_desc
+    textList:
+    - language: 0
+      text: Win the Oreaf Kingdom Qualifiers
+    - language: 1
+      text: "V\xF4 \u0111\u1ECBch gi\u1EA3i V\xF2ng Lo\u1EA1i V\u01B0\u01A1ng Qu\u1ED1c
+        Oreaf"
+  - id: tor_0028_ojt_0001_desc
+    textList:
+    - language: 0
+      text: Pass the Semi-Final of Pre-Zodiac Invitational
+    - language: 1
+      text: "V\u01B0\u1EE3t qua v\xF2ng b\xE1n k\u1EBFt c\u1EE7a Gi\u1EA3i Kh\xE1ch
+        M\u1EDDi Ti\u1EC1n Ho\xE0ng \u0110\u1EA1o"
+  - id: tor_0031_ojt_0001_desc
+    textList:
+    - language: 0
+      text: Win the Zodiac Legacy Cup tournament
+    - language: 1
+      text: "V\xF4 \u0111\u1ECBch gi\u1EA3i C\xFAp Di S\u1EA3n Ho\xE0ng \u0110\u1EA1o"

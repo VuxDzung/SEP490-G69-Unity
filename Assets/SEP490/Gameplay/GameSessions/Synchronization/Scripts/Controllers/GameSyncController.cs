@@ -37,7 +37,7 @@ namespace SEP490G69.GameSessions
 
             try
             {
-                string playerId = _auth.GetUserId();
+                string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
                 string deviceId = _auth.GetDeviceId();
 

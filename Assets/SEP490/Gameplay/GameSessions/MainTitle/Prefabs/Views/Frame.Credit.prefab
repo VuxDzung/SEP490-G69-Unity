@@ -245,11 +245,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1692022633864144813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 109}
-  m_SizeDelta: {x: 500, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -175}
+  m_SizeDelta: {x: 500, y: 440}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4872013779326670219
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -281,22 +281,26 @@ MonoBehaviour:
   m_text: 'Ngo Duc Hoang
 
 
+
     Vu Duc Dung
 
 
+
     Nguyen Tung Duong
+
 
 
     To Tien
     Manh
 
 
+
     Pham Duc Anh
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
-  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
+  m_sharedMaterial: {fileID: -2777932170018748105, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -412,11 +416,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1692022633864144813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 181}
-  m_SizeDelta: {x: 500, y: 90}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 579.3, y: 90}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3298686146077843599
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -445,12 +449,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Developed By:
-
-    Published By:'
+  m_text: 'Developed & Published By:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
-  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
+  m_sharedMaterial: {fileID: -2777932170018748105, guid: 74fc316661c5c0348b1e3bf79174680e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -566,11 +568,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1692022633864144813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 85}
-  m_SizeDelta: {x: 500, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -210}
+  m_SizeDelta: {x: 500, y: 405}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2471313906652391211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -599,23 +601,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Programming / Game design / Sound
+  m_text: 'Game design / Sound
+
+
+
+    Programming / Game design
+
+
+
+    Tester / Game
+    design
+
 
 
     Programming / Game design
 
-
-    Programming
-    / Game design
-
-
-    Programming / Game design
 
 
     Programming / Game design'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
-  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ddc26c0b34ab7c3429f5a507da8ed3ff, type: 2}
+  m_sharedMaterial: {fileID: -2759287636362104116, guid: ddc26c0b34ab7c3429f5a507da8ed3ff, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -766,8 +772,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
-  m_sharedMaterial: {fileID: 5825638436895041181, guid: 67ea3a0414948ab448e987e932900ab4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 70ac54b15b594c249a9c2de4b86c2b2e, type: 2}
+  m_sharedMaterial: {fileID: -6343989140481968184, guid: 70ac54b15b594c249a9c2de4b86c2b2e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -881,8 +887,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 227247535366494253}
-  - {fileID: 196021256004355862}
   - {fileID: 6094042463491967913}
+  - {fileID: 196021256004355862}
   - {fileID: 2663880658171973228}
   m_Father: {fileID: 7271061126940337988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

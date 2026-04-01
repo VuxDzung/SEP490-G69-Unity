@@ -314,3 +314,27 @@ MonoBehaviour:
       text: Graduate
     - language: 1
       text: "T\u1ED1t nghi\u1EC7p"
+  - id: btn_use
+    textList:
+    - language: 0
+      text: Use
+    - language: 1
+      text: "S\u1EED d\u1EE5ng"
+  - id: btn_equip
+    textList:
+    - language: 0
+      text: Equip
+    - language: 1
+      text: "Trang b\u1ECB"
+  - id: btn_unequip
+    textList:
+    - language: 0
+      text: Unequip
+    - language: 1
+      text: "G\u1EE1 trang b\u1ECB"
+  - id: btn_buy
+    textList:
+    - language: 0
+      text: Buy
+    - language: 1
+      text: Mua

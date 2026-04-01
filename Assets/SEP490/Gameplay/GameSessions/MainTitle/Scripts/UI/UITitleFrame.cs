@@ -102,6 +102,13 @@ namespace SEP490G69.GameSessions
 
         public void NewGame()
         {
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                return;
+            }
+
             if (!SessionController.HasActiveSession())
             {
                 StartNew();
@@ -118,7 +125,7 @@ namespace SEP490G69.GameSessions
                     }
                     else
                     {
-                        Debug.LogError($"Failed to delete session of player {AuthManager.GetUserId()}");
+                        Debug.LogError($"Failed to delete session of player {playerId}");
                     }
                 }, () =>
                 {
@@ -238,7 +245,7 @@ namespace SEP490G69.GameSessions
                     break;
 
             }
-            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             if (string.IsNullOrEmpty(playerId))
             {

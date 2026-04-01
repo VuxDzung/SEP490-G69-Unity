@@ -1,21 +1,20 @@
 ﻿namespace SEP490G69.GameSessions
 {
-    using SEP490G69.Addons.Localization;
     using SEP490G69.Addons.Localization.Enums;
-    using SEP490G69.Shared;
     using System.Linq;
     using System;
     using UnityEngine;
     using UnityEngine.UI;
+    using TMPro;
 
     public class UITitleSettingsFrame : GameUIFrame
     {
-        [SerializeField] private UILinearSwitcher m_ResolutionSwitcher;
-        [SerializeField] private UILinearSwitcher m_GraphicQualitySwitcher;
-        [SerializeField] private UILinearSwitcher m_SoundVolSwitcher;
-        [SerializeField] private UILinearSwitcher m_MusicVolSwitcher;
-        [SerializeField] private UILinearSwitcher m_LanguageSwitcher;
-        [SerializeField] private UILinearSwitcher m_FPSLimitSwitcher;
+        [SerializeField] private TMP_Dropdown m_ResolutionSwitcher;
+        [SerializeField] private TMP_Dropdown m_GraphicQualitySwitcher;
+        [SerializeField] private UISlider m_SoundVolSwitcher;
+        [SerializeField] private UISlider m_MusicVolSwitcher;
+        [SerializeField] private TMP_Dropdown m_LanguageSwitcher;
+        [SerializeField] private TMP_Dropdown m_FPSLimitSwitcher;
         [SerializeField] private Button m_ApplyBtn;
         [SerializeField] private Button m_BackBtn;
         [SerializeField] private string m_PrevFrameId;
@@ -23,8 +22,8 @@
         private int _selectedLangIndex = 0;
         private int _selectedResolutionIndex = 0;
         private int _selectedQualityIndex = 0;
-        private int _selectedSoundIndex = 5;
-        private int _selectedMusicIndex = 5;
+        private float _sfxVolume = 5;
+        private float _bgmVolume = 5;
         private int _selectedFPSIndex = 0;
         private Resolution[] _resolutions;
 
@@ -32,21 +31,20 @@
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
-            m_ResolutionSwitcher.Enable();
-            m_GraphicQualitySwitcher.Enable();
             m_SoundVolSwitcher.Enable();
             m_MusicVolSwitcher.Enable();
-            m_LanguageSwitcher.Enable();
-            m_FPSLimitSwitcher.Enable();
+
             m_ApplyBtn.onClick.AddListener(Apply);
             m_BackBtn.onClick.AddListener(Back);
-            m_ResolutionSwitcher.OnChanged += OnResolutionChanged;
-            m_GraphicQualitySwitcher.OnChanged += OnQualityChanged;
-            m_SoundVolSwitcher.OnChanged += OnSoundChanged;
-            m_MusicVolSwitcher.OnChanged += OnMusicChanged;
-            m_FPSLimitSwitcher.OnChanged += OnFPSChanged;
 
-            m_LanguageSwitcher.OnChanged += OnLanguageIndexChanged;
+            m_ResolutionSwitcher.onValueChanged.AddListener(OnResolutionChanged);
+            m_GraphicQualitySwitcher.onValueChanged.AddListener(OnQualityChanged);
+            m_SoundVolSwitcher.onValueChanged += OnSoundChanged;
+            m_MusicVolSwitcher.onValueChanged += OnMusicChanged;
+            m_FPSLimitSwitcher.onValueChanged.AddListener(OnFPSChanged);
+
+            m_LanguageSwitcher.onValueChanged.AddListener(OnLanguageIndexChanged);
+
             LoadExistedSettings();
             LoadExistedLanguage();
             LoadLanguages();
@@ -55,21 +53,19 @@
         protected override void OnFrameHidden()
         {
             base.OnFrameHidden();
-            m_ResolutionSwitcher.Disable();
-            m_GraphicQualitySwitcher.Disable();
             m_SoundVolSwitcher.Disable();
             m_MusicVolSwitcher.Disable();
-            m_LanguageSwitcher.Disable();
-            m_FPSLimitSwitcher.Disable();
+
             m_ApplyBtn.onClick.RemoveListener(Apply);
             m_BackBtn.onClick.RemoveListener(Back);
 
-            m_LanguageSwitcher.OnChanged -= OnLanguageIndexChanged;
-            m_ResolutionSwitcher.OnChanged -= OnResolutionChanged;
-            m_GraphicQualitySwitcher.OnChanged -= OnQualityChanged;
-            m_SoundVolSwitcher.OnChanged -= OnSoundChanged;
-            m_MusicVolSwitcher.OnChanged -= OnMusicChanged;
-            m_FPSLimitSwitcher.OnChanged -= OnFPSChanged;
+            m_ResolutionSwitcher.onValueChanged.RemoveListener(OnResolutionChanged);
+            m_GraphicQualitySwitcher.onValueChanged.RemoveListener(OnQualityChanged);
+            m_SoundVolSwitcher.onValueChanged -= OnSoundChanged;
+            m_MusicVolSwitcher.onValueChanged -= OnMusicChanged;
+            m_FPSLimitSwitcher.onValueChanged.RemoveListener(OnFPSChanged);
+
+            m_LanguageSwitcher.onValueChanged.RemoveListener(OnLanguageIndexChanged);
         }
 
         private void Apply()
@@ -93,7 +89,15 @@
 
         private void LoadLanguages()
         {
-            m_LanguageSwitcher.SetContents(GameConstants.LANGUAGES.Select(e => e.ToString()).ToArray(), _selectedLangIndex);
+            m_LanguageSwitcher.ClearOptions();
+            foreach (var lang in GameConstants.LANGUAGES.Select(e => e.ToString()).ToArray())
+            {
+                TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData
+                {
+                    text = lang,
+                };
+                m_LanguageSwitcher.options.Add(option);
+            }
         }
 
         private void LoadExistedLanguage()
@@ -115,6 +119,7 @@
             Debug.Log($"Index: {index}");
             _selectedLangIndex = index;
         }
+
         private void OnResolutionChanged(int index)
         {
             _selectedResolutionIndex = index;
@@ -126,16 +131,16 @@
             _selectedQualityIndex = index;
         }
 
-        private void OnSoundChanged(int index)
+        private void OnSoundChanged(float index)
         {
-            Debug.Log($"Index: {index}");
-            _selectedSoundIndex = index;
+            _sfxVolume = index;
+            m_SoundVolSwitcher.SetValue(_sfxVolume, 1f);
         }
 
-        private void OnMusicChanged(int index)
+        private void OnMusicChanged(float index)
         {
-            Debug.Log($"Index: {index}");
-            _selectedMusicIndex = index;
+            _bgmVolume = index;
+            m_MusicVolSwitcher.SetValue(_sfxVolume, 1f);
         }
 
         private void OnFPSChanged(int index)
@@ -143,11 +148,12 @@
             Debug.Log($"Index: {index}");
             _selectedFPSIndex = index;
         }
+
         public void ConfirmLanguage()
         {
             ELocalizeLanguageType lang = GameConstants.LANGUAGES[_selectedLangIndex];
             LocalizeManager.SetLanguage(lang);
-            // Save language index to data here.
+
             PlayerPrefs.SetString(GameConstants.PREF_KEY_LANGUAGE, GameConstants.LANGUAGES[_selectedLangIndex].ToString());
         }
 
@@ -159,24 +165,49 @@
                 .Select(r => $"{r.width}x{r.height}")
                 .ToArray();
 
-            m_ResolutionSwitcher.SetContents(resolutionOptions, _selectedResolutionIndex);
+            m_ResolutionSwitcher.ClearOptions();
+
+            foreach (var res in resolutionOptions)
+            {
+                m_ResolutionSwitcher.options.Add(new TMP_Dropdown.OptionData
+                {
+                    text = res,
+                });
+            }
+            m_ResolutionSwitcher.value = _selectedResolutionIndex;
 
             // Graphic Quality
             string[] qualities = QualitySettings.names;
-            m_GraphicQualitySwitcher.SetContents(qualities, _selectedQualityIndex);
+            m_GraphicQualitySwitcher.ClearOptions();
+            foreach (var qual in qualities)
+            {
+                m_GraphicQualitySwitcher.options.Add(new TMP_Dropdown.OptionData
+                {
+                    text = qual,
+                });
+            }
+            m_GraphicQualitySwitcher.value = _selectedQualityIndex;
 
             // Sound & Music (0 → 10)
             string[] volumes = Enumerable.Range(0, 11).Select(v => v.ToString()).ToArray();
-            m_SoundVolSwitcher.SetContents(volumes, _selectedSoundIndex);
-            m_MusicVolSwitcher.SetContents(volumes, _selectedMusicIndex);
+            m_SoundVolSwitcher.SetValue(_sfxVolume, 1f);
+            m_MusicVolSwitcher.SetValue(_bgmVolume, 1f);
 
             // FPS Limit
             string[] fpsOptions = GameConstants.FPS_LIMITS
             .Select(f => f <= 0 ? "Unlimited" : f.ToString())
             .ToArray();
 
-            m_FPSLimitSwitcher.SetContents(fpsOptions, _selectedFPSIndex);
-            m_FPSLimitSwitcher.SetContents(fpsOptions, _selectedFPSIndex);
+            m_FPSLimitSwitcher.ClearOptions();
+
+            foreach (var fps in fpsOptions)
+            {
+                m_FPSLimitSwitcher.options.Add(new TMP_Dropdown.OptionData
+                {
+                    text = fps,
+                });
+            }
+            m_FPSLimitSwitcher.value = _selectedFPSIndex;
 
             // Language (keep your logic)
             LoadLanguages();
@@ -187,8 +218,8 @@
             _selectedResolutionIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_RESOLUTION, 0);
             Debug.Log($"Selected resolution: {_selectedResolutionIndex}");
             _selectedQualityIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_QUALITY, QualitySettings.GetQualityLevel());
-            _selectedSoundIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_SOUND, 5);
-            _selectedMusicIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_MUSIC, 5);
+            _sfxVolume = PlayerPrefs.GetFloat(GameConstants.PREF_KEY_SOUND, 1f);
+            _bgmVolume = PlayerPrefs.GetFloat(GameConstants.PREF_KEY_MUSIC, 1f);
             _selectedFPSIndex = PlayerPrefs.GetInt(GameConstants.PREF_KEY_FPS, 0);
 
             LoadExistedLanguage();
@@ -202,16 +233,16 @@
 
         private void ApplyAudio()
         {
-            float soundVolume = _selectedSoundIndex / 10f;
-            float musicVolume = _selectedMusicIndex / 10f;
+            float soundVolume = _sfxVolume;
+            float musicVolume = _bgmVolume;
 
             var audioManager = ContextManager.Singleton.ResolveGameContext<AudioManager>();
 
             audioManager.SetSFXVolume(soundVolume);
             audioManager.SetBGMVolume(musicVolume);
 
-            PlayerPrefs.SetInt(GameConstants.PREF_KEY_SOUND, _selectedSoundIndex);
-            PlayerPrefs.SetInt(GameConstants.PREF_KEY_MUSIC, _selectedMusicIndex);
+            PlayerPrefs.SetFloat(GameConstants.PREF_KEY_SOUND, _sfxVolume);
+            PlayerPrefs.SetFloat(GameConstants.PREF_KEY_MUSIC, _bgmVolume);
         }
 
         private void ApplyFPS()

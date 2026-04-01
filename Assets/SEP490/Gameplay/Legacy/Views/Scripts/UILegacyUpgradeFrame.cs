@@ -73,7 +73,7 @@ namespace SEP490G69.Legacy
         {
             ClearOldUIElements();
 
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty); //AuthManager.GetUserId();
             IReadOnlyList<LegacyStatDataHolder> holderUIs = LegacyController.GetAllPlayerLegacyStats(playerId);
             
             foreach (var holder in  holderUIs)
@@ -112,7 +112,13 @@ namespace SEP490G69.Legacy
 
         private void SelectDetails(string legacyStatId)
         {
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.LogError("[UILegacyUpgradeFrame.SelectDetails error] Player id is empty");
+                return;
+            }
 
             _selectedHolder = LegacyController.GetLegacyStatByRawId(playerId, legacyStatId);
 

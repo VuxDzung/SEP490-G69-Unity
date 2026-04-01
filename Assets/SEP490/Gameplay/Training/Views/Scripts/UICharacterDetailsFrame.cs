@@ -31,8 +31,8 @@ namespace SEP490G69.Training
 
         [SerializeField] private TextMeshProUGUI m_CharacterNameTmp;
 
-        private IMaxHPCalculator _hpCalculator = new MaxHPCalculator();
-        private IMaxStaminaCalculator _staminaCalculator = new MaxStaminaCalculator();
+        private ICombatHPCalculator _hpCalculator = new CombatHPCalculator();
+        private ICombatStaminaCalculator _staminaCalculator = new CombatStaminaCalculator();
         private ICritCalculator _critCalculator = new CombatCritCalculator();
 
         private GameTrainingController _trainingController;

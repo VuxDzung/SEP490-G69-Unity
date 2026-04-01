@@ -312,6 +312,7 @@
 
                 if (playerData != null)
                 {
+                    PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
                     if (string.IsNullOrEmpty(playerData.PlayerName))
                     {
                         GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_LOGIN);
@@ -321,7 +322,6 @@
                     {
                         SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_TITLE);
                     }
-                    PlayerPrefs.SetString(GameConstants.PREF_KEY_PLAYER_ID, playerData.PlayerId);
                     return true;
                 }
 

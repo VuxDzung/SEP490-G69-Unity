@@ -68,7 +68,7 @@ namespace SEP490G69.PlayerProfile
 
         public void LoadPlayerInfo()
         {
-            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
             m_PlayerId.text = playerId;
             m_PlayerNameTmp.text = ProfileController.GetPlayerName(playerId);
             m_Email.text = ProfileController.GetPlayerEmail(playerId);

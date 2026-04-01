@@ -5,6 +5,12 @@ namespace SEP490G69.Battle.Combat
     using System.Collections.Generic;
     using UnityEngine;
 
+    public interface ITurnState
+    {
+        public void OnTurnStarted();
+        public void OnTurnCompleted();
+    }
+
     public class CombatTurnProcessor : IDisposable
     {
         public event Action onPlayerEndTurn;
@@ -14,6 +20,8 @@ namespace SEP490G69.Battle.Combat
         private EnemyCombatController _enemy;
 
         private CardConfigSO _cardConfig;
+
+        private ITurnState _currentTurnState;
 
         public void Initialize(PlayerBattleCharaterController player, EnemyCombatController enemy)
         {
@@ -55,6 +63,11 @@ namespace SEP490G69.Battle.Combat
         {
             _player.UpdateActionGauge(dt);
             _enemy.UpdateActionGauge(dt);
+        }
+
+        public void ChangeTurn()
+        {
+
         }
 
         public void PlayerTurn()

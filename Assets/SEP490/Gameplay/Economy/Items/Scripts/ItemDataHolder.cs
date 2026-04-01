@@ -30,6 +30,12 @@ namespace SEP490G69.Economy
             return _data != null ? _data.SessionId : string.Empty;
         }
 
+
+        public ERarityType GetRarity()
+        {
+            return _dataSO != null ? _dataSO.Rarity : ERarityType.None;
+        }
+
         public Sprite GetIcon() => _dataSO == null ? null : _dataSO.ItemImage;
         public EItemType GetItemType() => _dataSO != null ? _dataSO.ItemType : EItemType.None;
         public string GetItemNameKey()
@@ -131,6 +137,11 @@ namespace SEP490G69.Economy
         public IReadOnlyList<StatusModifierSO> GetUsableModifiers()
         {
             return _dataSO.UsableModifiers;
+        }
+
+        public IReadOnlyList<StatusModifierSO> GetRelicModifiers()
+        {
+            return _dataSO.RelicModifiers;
         }
 
         public float CalculateRelicModValue(EStatusType statType, float baseValue)

@@ -35,5 +35,6 @@ namespace SEP490G69
         HP = 16,
         CriticalChance = 17,
         RelectedDmg = 18,
+        Block = 19,
     }
 }

@@ -1,7 +1,9 @@
 using SEP490G69.Addons.Localization.Enums;
 using SEP490G69.Economy;
 using SEP490G69.Exploration;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace SEP490G69
@@ -217,14 +219,14 @@ namespace SEP490G69
         public const int FACIILITY_MAX_LV = 5;
         public const float DELAY_PERFORM_ACTION = 1f;
 
-        public const int STARTER_MONEY_AMOUNT = 1000;
+        public const int STARTER_MONEY_AMOUNT = 10000;
 
         public const int EMPTY_RELIC_SLOT = -1;
         public const int MAX_RELIC_SLOTS = 3;
 
         public const int REFRESH_SHOP_BASE_COST = 10;
 
-        public const float REFRESH_SHOP_COST_STEP = 0.2f;
+        public const float REFRESH_SHOP_COST_STEP = 1.2f;
 
         public static readonly int[] RP_CHECKPOINTS =
         {
@@ -306,10 +308,10 @@ namespace SEP490G69
         {
             return itemType switch
             {
-                EItemType.None => string.Empty,
+                EItemType.None => "msg_all",
                 EItemType.Consumable => "msg_usable",
                 EItemType.Relic => "msg_relic",
-                _ => string.Empty,
+                _ => "msg_all",
             };
         }
 
@@ -408,6 +410,32 @@ namespace SEP490G69
         public static string GetCh0027Ending()
         {
             return "dt_0011";
+        }
+
+        public static long Generate64BitId()
+        {
+            byte[] buffer = new byte[8];
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(buffer);
+            }
+
+            return BitConverter.ToInt64(buffer, 0);
+        }
+
+        public static string ConvertRarityToImgId(ERarityType rarity)
+        {
+            return rarity switch
+            {
+                ERarityType.D => "rarity_D",
+                ERarityType.C => "rarity_C",
+                ERarityType.B => "rarity_B",
+                ERarityType.A => "rarity_A",
+                ERarityType.S => "rarity_S",
+                ERarityType.SS => "rarity_SS",
+                _ => "rarity_D",
+            };
         }
     }
     public enum ERectPivot

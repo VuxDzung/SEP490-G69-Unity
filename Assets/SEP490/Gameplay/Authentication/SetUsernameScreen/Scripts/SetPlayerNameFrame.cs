@@ -54,7 +54,7 @@ namespace SEP490G69.Shared
 
             if (string.IsNullOrEmpty(playerName)) return;
 
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             if (string.IsNullOrEmpty(playerId))
             {

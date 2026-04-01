@@ -327,3 +327,9 @@ MonoBehaviour:
       text: Save Deck success!
     - language: 1
       text: "B\u1ED9 b\xE0i \u0111\xE3 \u0111\u01B0\u1EE3c l\u01B0u!"
+  - id: msg_all
+    textList:
+    - language: 0
+      text: All
+    - language: 1
+      text: "T\u1EA5t c\u1EA3"

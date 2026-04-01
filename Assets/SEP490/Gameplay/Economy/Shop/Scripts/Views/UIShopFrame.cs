@@ -17,23 +17,72 @@ namespace SEP490G69.Economy
         [Header("Item Details")]
         [SerializeField] private TextMeshProUGUI m_ItemType;
         [SerializeField] private Image m_ItemIcon;
+        [SerializeField] private Image m_ItemRarityBorder;
         [SerializeField] private GameObject m_ItemDetailsGO;
         [SerializeField] private TextMeshProUGUI m_ItemNameTmp;
         [SerializeField] private TextMeshProUGUI m_ItemDescTmp;
         [SerializeField] private TextMeshProUGUI m_ItemCostTmp;
         [SerializeField] private TextMeshProUGUI m_RefreshCostTmp;
 
+        [Header("Item Stats Details")]
+        [Header("Flat Changes")]
+        [SerializeField] private UIStatInventory m_RelicFlatDEF;
+        [SerializeField] private UIStatInventory m_RelicFlatHP;
+        [SerializeField] private UIStatInventory m_RelicFlatVIT;
+        [SerializeField] private UIStatInventory m_RelicFlatPOW;
+        [SerializeField] private UIStatInventory m_RelicFlatINT;
+        [SerializeField] private UIStatInventory m_RelicFlatAGI;
+        [SerializeField] private UIStatInventory m_RelicFlatSTA;
+        [SerializeField] private UIStatInventory m_ItemFlatEnergy;
+        [SerializeField] private UIStatInventory m_ItemFlatMood;
+        [Header("Percent Changes")]
+        [SerializeField] private UIStatInventory m_RelicPercentHP;
+        [SerializeField] private UIStatInventory m_RelicPercentPOW;
+        [SerializeField] private UIStatInventory m_RelicPercentINT;
+        [SerializeField] private UIStatInventory m_RelicPercentAGI;
+        [SerializeField] private UIStatInventory m_RelicPercentSTA;
+        [SerializeField] private UIStatInventory m_ItemPercentEnergy;
+        [SerializeField] private UIStatInventory m_ItemPercentMood;
+        [SerializeField] private UIStatInventory m_RelicPercentDEF;
+        [SerializeField] private UIStatInventory m_RelicPercentVIT;
+
         [Header("Buttons")]
         [SerializeField] private Button m_BackBtn;
         [SerializeField] private Button m_BuyBtn;
         [SerializeField] private Button m_RefreshBtn;
 
-        private GameShopManager _shopManager;
 
         private List<UIShopItemElement> _slots = new();
+        private ImageMasterConfigSO _imgMasterConfig;
+        private ImageMasterConfigSO ImageMasterConfig
+        {
+            get
+            {
+                if (_imgMasterConfig == null)
+                {
+                    _imgMasterConfig = ContextManager.Singleton.GetDataSO<ImageMasterConfigSO>();
+                }
+                return _imgMasterConfig;
+            }
+        }
+        private ImageConfigSO _imgRarityConfig;
+        private ImageConfigSO ItemRarityImgConfig
+        {
+            get
+            {
+                if (_imgRarityConfig == null)
+                {
+                    _imgRarityConfig = ImageMasterConfig.GetCategoryConfig("item_rarity_icon");
+                }
+                return _imgRarityConfig;
+            }
+        }
+
 
         private string _selectedRawItemId;
 
+        private GameShopManager _shopManager;
+        private GameSessionDAO _sessionDAO;
         private GameShopManager ShopManager
         {
             get
@@ -45,8 +94,6 @@ namespace SEP490G69.Economy
                 return _shopManager;
             }
         }
-
-        private GameSessionDAO _sessionDAO;
         protected GameSessionDAO SessionDAO
         {
             get
@@ -62,6 +109,7 @@ namespace SEP490G69.Economy
             m_BuyBtn.onClick.AddListener(BuyItem);
             m_RefreshBtn.onClick.AddListener(RefreshShop);
             m_BackBtn.onClick.AddListener(Back);
+
             LoadShopItems();
             LoadRemainGold();
             ReloadRefreshCost();
@@ -110,8 +158,8 @@ namespace SEP490G69.Economy
         private void RefreshShop()
         {
             ShopManager.RefreshShop();
-
             LoadShopItems();
+            LoadRemainGold();
             ReloadRefreshCost();
         }
 
@@ -155,6 +203,8 @@ namespace SEP490G69.Economy
             var items = ShopManager.GetAllAvailableShopItems();
             var item = items.FirstOrDefault(x => x.GetRawItemId() == _selectedRawItemId);
 
+            Debug.Log($"Select shop item: {_selectedRawItemId}");
+
             if (item == null) return;
 
             m_ItemDetailsGO.SetActive(true);
@@ -163,9 +213,69 @@ namespace SEP490G69.Economy
             m_ItemIcon.sprite = item.GetIcon();
             m_ItemNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, item.GetItemName());
             m_ItemDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, item.GetItemDescription());
-            m_ItemCostTmp.text = $"{item.GetPrice().ToString()}G";
+            //m_ItemCostTmp.text = $"{item.GetPrice().ToString()}G";
 
             m_BuyBtn.interactable = item.GetRemainAmount() > 0;
+
+            m_ItemIcon.sprite = item.GetIcon();
+            Sprite rarityIcon = ItemRarityImgConfig.GetById(GameConstants.ConvertRarityToImgId(item.GetRarity()))?.image;
+            m_ItemRarityBorder.sprite = rarityIcon;
+
+            m_ItemNameTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_NAMES, item.GetItemName());
+            m_ItemDescTmp.text = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_ITEM_DESC, item.GetItemDescription());
+            bool isRelic = item.GetItemType() == EItemType.Relic;
+
+            DisableItemPreviewStats();
+
+            IReadOnlyList<StatusModifierSO> modifiers = isRelic ? item.GetRelicModifiers() : item.GetUsableModifiers();
+            
+            foreach (var modifier in modifiers)
+            {
+                switch (modifier.StatType)
+                {
+                    // Base stats
+                    case EStatusType.Power:
+                        DisplayRelicStatChanges(m_RelicFlatPOW, m_RelicPercentPOW, modifier.Value, modifier.Operator);
+                        break;
+                    case EStatusType.Intelligence:
+                        DisplayRelicStatChanges(m_RelicFlatINT, m_RelicPercentINT, modifier.Value, modifier.Operator);
+                        break;
+                    case EStatusType.Defense:
+                        DisplayRelicStatChanges(m_RelicFlatDEF, m_RelicPercentDEF, modifier.Value, modifier.Operator);
+                        break;
+                    case EStatusType.Agi:
+                        DisplayRelicStatChanges(m_RelicFlatAGI, m_RelicPercentAGI, modifier.Value, modifier.Operator);
+                        break;
+                    case EStatusType.Vitality:
+                        DisplayRelicStatChanges(m_RelicFlatVIT, m_RelicPercentVIT, modifier.Value, modifier.Operator);
+                        break;
+
+                    case EStatusType.HP:
+                        DisplayRelicStatChanges(m_RelicFlatHP, m_RelicPercentHP, modifier.Value, modifier.Operator);
+                        break;
+
+                    case EStatusType.Energy:
+                        DisplayRelicStatChanges(m_ItemFlatEnergy, m_ItemPercentEnergy, modifier.Value, modifier.Operator);
+                        break;
+                    case EStatusType.Mood:
+                        DisplayRelicStatChanges(m_ItemFlatMood, m_ItemPercentMood, modifier.Value, modifier.Operator);
+                        break;
+                }
+            }
+        }
+
+        private void DisplayRelicStatChanges(UIStatInventory statFlatUI, UIStatInventory statPercentUI, float value, EOperator op)
+        {
+            if (op == EOperator.PercentAdd || op == EOperator.PercentSub)
+            {
+                statPercentUI.Enable();
+                statPercentUI.SetPercentValue((op == EOperator.PercentSub ? -1 : 1) * value);
+            }
+            else if (op == EOperator.FlatAdd || op == EOperator.FlatSub) 
+            {
+                statFlatUI.Enable();
+                statFlatUI.SetFlatValue((op == EOperator.FlatSub ? -1 : 1) * value);
+            }
         }
 
         private void ClearSlots()
@@ -175,6 +285,33 @@ namespace SEP490G69.Economy
                 PoolManager.Pools[GameConstants.POOL_UI_SHOP_ITEM].DespawnObject(slot.transform);
             }
             _slots.Clear();
+        }
+
+        private void DisableItemPreviewStats()
+        {
+            // Flats
+            m_RelicFlatPOW.Disable();
+            m_RelicFlatINT.Disable();
+            m_RelicFlatDEF.Disable();
+            m_RelicFlatAGI.Disable();
+            m_RelicFlatVIT.Disable();
+            m_RelicFlatSTA.Disable();
+            m_RelicFlatHP.Disable();
+
+            m_ItemFlatEnergy.Disable();
+            m_ItemFlatMood.Disable();
+
+            // Percents
+            m_RelicPercentPOW.Disable();
+            m_RelicPercentINT.Disable();
+            m_RelicPercentDEF.Disable();
+            m_RelicPercentAGI.Disable();
+            m_RelicPercentVIT.Disable();
+            m_RelicPercentSTA.Disable();
+            m_RelicPercentHP.Disable();
+
+            m_ItemPercentEnergy.Disable();
+            m_ItemPercentMood.Disable();
         }
 
         private void LoadRemainGold()
@@ -193,7 +330,7 @@ namespace SEP490G69.Economy
                 return;
             }
             Debug.Log($"[UIShopFrame.LoadRemainGold] Gold: {sessionData.CurrentGoldAmount}");
-            m_RemainGoldTmp.text = NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
+            m_RemainGoldTmp.text = sessionData.CurrentGoldAmount.ToString();// NumberFormatter.FormatGold(sessionData.CurrentGoldAmount);
         }
 
         private void ReloadRefreshCost()

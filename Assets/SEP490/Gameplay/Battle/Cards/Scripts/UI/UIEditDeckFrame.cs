@@ -82,7 +82,7 @@
         {
             ClearSpawnedCards();
 
-            SessionPlayerDeck playerDeck = DeckController.GetCurrentDeck();
+            SessionPlayerDeck playerDeck = DeckController.GetCurrentDeck(refreshFromDB);
 
             if (refreshFromDB)
             {

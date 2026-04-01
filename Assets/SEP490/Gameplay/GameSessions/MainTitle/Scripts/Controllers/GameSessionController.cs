@@ -121,7 +121,6 @@ namespace SEP490G69.GameSessions
             _starterCardConfig = ContextManager.Singleton.GetDataSO<StarterCardConfigSO>();
 
             LoadDAOs();
-            //CheckPlayerProfile();
             InitLegacies();
         }
 
@@ -143,14 +142,21 @@ namespace SEP490G69.GameSessions
 
         public bool HasActiveSession()
         {
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (playerId == string.Empty)
+            {
+                Debug.LogError("[GameSessionController.HasActiveSession error] PLayer id cache is null");
+                return false;
+            }
 
             return _sessionCreator.GetAllSessions(playerId).Count > 0;
         }
 
         private void InitLegacies()
         {
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
             if (string.IsNullOrEmpty(playerId))
             {
                 Debug.LogError($"[GameSessionController.InitLegacies] Player id is null/empty");
@@ -185,7 +191,7 @@ namespace SEP490G69.GameSessions
                 return false;
             }
 
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             if (string.IsNullOrEmpty(playerId))
             {
@@ -293,7 +299,7 @@ namespace SEP490G69.GameSessions
 
         public void ContinueSession()
         {
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             List<PlayerTrainingSession> sessions = _sessionCreator.GetAllSessions(playerId);
             if (sessions.Count == 0)
@@ -324,7 +330,7 @@ namespace SEP490G69.GameSessions
 
             if (AuthManager == null) return false;
 
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             ClearAllPlayerPrefs();
 
@@ -342,7 +348,7 @@ namespace SEP490G69.GameSessions
 
             if (_playerDAO != null)
             {
-                string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID);
+                string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
                 PlayerData playerData = _playerDAO.GetById(playerId);
 
                 if (playerData == null)

@@ -1,6 +1,6 @@
 namespace SEP490G69.Economy
 {
-    using SEP490G69.Addons.Localization;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class ShopItemDataHolder 
@@ -48,27 +48,9 @@ namespace SEP490G69.Economy
         }
         #endregion
 
-        public bool TryDecreaseAmount(int amount)
+        public ERarityType GetRarity()
         {
-            if (_data == null)
-            {
-                return false;
-            }
-            if (_data.RemainAmount < amount)
-            {
-                return false;
-            }
-            _data.RemainAmount -= amount;
-            if (_data.RemainAmount < 0)
-            {
-                _data.RemainAmount = 0;
-            }
-            return true;
-        }
-
-        public void SetRemainAmount(int remainAmount)
-        {
-            _data.RemainAmount = remainAmount;
+            return _dataSO != null ? _dataSO.Rarity : ERarityType.None;
         }
 
         public EItemType GetItemType()
@@ -76,10 +58,15 @@ namespace SEP490G69.Economy
             return _dataSO != null ? _dataSO.ItemType : EItemType.None;
         }
 
-        public void UpdateChanges(GameShopDAO dao)
+        public IReadOnlyList<StatusModifierSO> GetRelicModifiers()
         {
-            dao.Update(_data);
+            return _dataSO.RelicModifiers;
         }
+        public IReadOnlyList<StatusModifierSO> GetUsableModifiers()
+        {
+            return _dataSO.UsableModifiers;
+        }
+
 
         #region Builder
         public class Builder

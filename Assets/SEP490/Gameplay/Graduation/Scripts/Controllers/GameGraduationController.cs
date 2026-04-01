@@ -86,9 +86,19 @@ namespace SEP490G69
 
         private void PerformGraduate()
         {
-            PlayerData playerData = _playerDAO.GetById(_authManager.GetUserId());
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.Log("[GameGraduationController.PerformGraduate error] Player id is empty!");
+                return;
+            }
+
+            PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
             {
+                Debug.Log($"[GameGraduationController.PerformGraduate error] Player data with id {playerId} is empty!");
+
                 return;
             }
 
@@ -163,9 +173,18 @@ namespace SEP490G69
 
         public List<EndGameRecordData> GetAllEndGameRecords()
         {
-            PlayerData playerData = _playerDAO.GetById(_authManager.GetUserId());
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.LogError("[GameGraduationController.GetAllEndGameRecords error] Player id is empty!");
+                return new List<EndGameRecordData>();
+            }
+
+            PlayerData playerData = _playerDAO.GetById(playerId);
             if (playerData == null)
             {
+                Debug.LogError($"[GameGraduationController.GetAllEndGameRecords error] Player data with id {playerId}!");
                 return new List<EndGameRecordData>();
             }
 
@@ -183,7 +202,13 @@ namespace SEP490G69
 
         private IEnumerator DelayLoadHallOfFrame()
         {
-            string playerId = _authManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+
+            if (string.IsNullOrEmpty(playerId))
+            {
+                Debug.LogError("[GameGraduationController.DelayLoadHallOfFame error] Player id is empty!");
+                yield return null;
+            }
 
             List<EndGameRecordData> playerRecords = _graduateDAO.GetAllByPlayerId(playerId);
             yield return new WaitForSeconds(0.5f);

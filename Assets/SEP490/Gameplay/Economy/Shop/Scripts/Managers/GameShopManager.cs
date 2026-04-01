@@ -18,6 +18,7 @@ namespace SEP490G69.Economy
     public class GameShopManager : MonoBehaviour, ISceneContext
     {
         public const int MAX_ITEMS_PER_SESSION = 6;
+        public const int MAX_ITEMS_PER_SLOT = 1;
 
         private GameShopDAO _shopDAO;
         private GameSessionDAO _sessionDAO;
@@ -31,8 +32,6 @@ namespace SEP490G69.Economy
 
         private PlayerTrainingSession _sessionData;
         private string _sessionId;
-
-        private List<ShopItemDataHolder> _shopItems = new List<ShopItemDataHolder>();
 
         private void Awake()
         {
@@ -90,26 +89,6 @@ namespace SEP490G69.Economy
         {
             _sessionId = sessionId;
         }
-        private void LoadShopItems()
-        {
-            _shopItems.Clear();
-
-            List<ShopItemData> items = _shopDAO.GetAll(_sessionId);
-
-            LocalizationManager localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
-
-            foreach (ShopItemData data in items)
-            {
-                ItemDataSO so = _itemConfig.GetItemById(data.RawItemId);
-
-                ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
-                                                                  .WithDBData(data)
-                                                                  .WithSOData(so)
-                                                                  .Build();
-
-                _shopItems.Add(holder);
-            }
-        }
 
         private void HandleNewWeekEvent(NextWeekEvent ev)
         {
@@ -130,14 +109,25 @@ namespace SEP490G69.Economy
         /// Get all current shop items.
         /// </summary>
         /// <returns></returns>
-        public ShopItemDataHolder[] GetAllAvailableShopItems()
+        public IReadOnlyList<ShopItemDataHolder> GetAllAvailableShopItems()
         {
-            if (_shopItems.Count == 0)
-            {
-                LoadShopItems();
-            }
+            List<ShopItemDataHolder> holderList = new List<ShopItemDataHolder>();
+            List<ShopItemData> items = _shopDAO.GetAll(_sessionId);
 
-            return _shopItems.ToArray();
+            LocalizationManager localization = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
+
+            foreach (ShopItemData data in items)
+            {
+                ItemDataSO so = _itemConfig.GetItemById(data.RawItemId);
+
+                ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
+                                                                  .WithDBData(data)
+                                                                  .WithSOData(so)
+                                                                  .Build();
+
+                holderList.Add(holder);
+            }
+            return holderList;
         }
 
         /// <summary>
@@ -147,16 +137,16 @@ namespace SEP490G69.Economy
         /// <param name="amount"></param>
         public void BuyItem(string rawItemId, int amount)
         {
-            ShopItemDataHolder shopItem = _shopItems.FirstOrDefault(x => x.GetRawItemId() == rawItemId);
+            ShopItemData shopItem = _shopDAO.Get(_sessionId, rawItemId);
 
             if (shopItem == null)
             {
                 Debug.LogError($"Shop item {rawItemId} does not exist!");
                 return;
             }
-            if (shopItem.GetRemainAmount() < amount)
+            if (shopItem.RemainAmount < amount)
             {
-                Debug.Log($"<color=red>[GameShopManager]</color> Not enough item {shopItem.GetRawItemId()}");
+                Debug.Log($"<color=red>[GameShopManager]</color> Not enough item {shopItem.RawItemId}");
                 return;
             }
 
@@ -181,10 +171,13 @@ namespace SEP490G69.Economy
 
             _inventoryManager.AddItem(rawItemId, amount);
 
-            shopItem.TryDecreaseAmount(amount);
+            shopItem.RemainAmount -= amount;
+            if (shopItem.RemainAmount < 0)
+            {
+                shopItem.RemainAmount = 0;
+            }
 
-            shopItem.UpdateChanges(_shopDAO);
-
+            _shopDAO.Update(shopItem);
             _sessionDAO.Update(session);
 
             LocalDBOrchestrator.UpdateDBChangeTime();
@@ -240,12 +233,19 @@ namespace SEP490G69.Economy
 
             _shopDAO.DeleteManyBySessionId(_sessionId);
 
-            _shopItems.Clear();
+            var consumables = _shopItemPool.Where(x => x.ItemType == EItemType.Consumable && x.IsShopItem()).ToList();
+            var relics = _shopItemPool.Where(x => x.ItemType == EItemType.Relic && x.IsShopItem()).ToList();
 
-            List<ItemDataSO> randomItems = _shopItemPool
-                .OrderBy(x => UnityEngine.Random.value)
-                .Take(MAX_ITEMS_PER_SESSION)
-                .ToList();
+            // Weight function from rarity
+            float Weight(ItemDataSO item) => EconomyUtils.ConvertRarityToPercent(item.Rarity);
+
+            var selectedConsumables = EconomyUtils.GetRandomUniqueByWeight(consumables, EconomyUtils.CONSUMABLE_COUNT, Weight);
+            var selectedRelics = EconomyUtils.GetRandomUniqueByWeight(relics, EconomyUtils.RELIC_COUNT, Weight);
+
+            List<ItemDataSO> randomItems = new List<ItemDataSO>();
+
+            randomItems.AddRange(selectedConsumables);
+            randomItems.AddRange(selectedRelics);
 
             foreach (ItemDataSO item in randomItems)
             {
@@ -254,21 +254,21 @@ namespace SEP490G69.Economy
                     SessionItemId = EntityIdConstructor.ConstructDBEntityId(_sessionId, item.ItemID),
                     SessionId = _sessionId,
                     RawItemId = item.ItemID,
-                    RemainAmount = UnityEngine.Random.Range(1, 5)
+                    RemainAmount = MAX_ITEMS_PER_SLOT,
                 };
 
                 _shopDAO.Insert(data);
                 ShopItemDataHolder holder = new ShopItemDataHolder.Builder()
                                                                   .WithDBData(data)
                                                                   .WithSOData(item).Build();
-                _shopItems.Add(holder);
             }
 
             PlayerTrainingSession sessionData = GetSessionData();
             if (sessionData != null)
             {
                 sessionData.RefreshShopCount++;
-                _sessionDAO.Upsert(sessionData);
+                _sessionDAO.Update(sessionData);
+                Debug.Log($"[GameShopManager.RefreshShop] RefreshCount: {sessionData.RefreshShopCount}");
             }
 
             LocalDBOrchestrator.UpdateDBChangeTime();
@@ -302,6 +302,13 @@ namespace SEP490G69.Economy
             refreshCost = (float)System.Math.Round(refreshCost, 0);
 
             return refreshCost;
+        }
+
+        private ShopItemDataHolder PackHolder(ShopItemData itemData)
+        {
+            ItemDataSO itemSO = _itemConfig.GetItemById(itemData.RawItemId);
+
+            return new ShopItemDataHolder.Builder().WithDBData(itemData).WithSOData(itemSO).Build();
         }
     }
 }

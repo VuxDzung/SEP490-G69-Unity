@@ -480,7 +480,14 @@ namespace SEP490G69.GameSessions
         {
             UIManager.HideFrame(FrameId);
 
-            PlayerData playerData = _playerDAO.GetById(AuthManager.GetUserId());
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
+            PlayerData playerData = _playerDAO.GetById(playerId);
+
+            if (playerData == null)
+            {
+                Debug.LogError($"[UICharacterSelectionFrame.Back error] Player data of {playerId} is null!");
+                return;
+            }
 
             if (playerData != null && playerData.LegacyPoints > 0)
             {

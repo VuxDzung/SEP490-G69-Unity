@@ -64,25 +64,29 @@ MonoBehaviour:
   - id: creditjob
     textList:
     - language: 0
-      text: 'Programming / Game design / Sound
+      text: 'Game design / Sound
+
 
 
         Programming / Game design
+
 
 
         Programming
         / Game design
 
 
-        Programming / Game design
+
+        Tester / Game design
 
 
-        Programming /
-        Game design'
+
+        Programming / Game
+        design / UI'
     - language: 1
-      text: "L\u1EADp tr\xECnh / H\xECnh \u1EA3nh / \xC2m Thanh\n\nL\u1EADp tr\xECnh
-        / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh
-        / H\xECnh \u1EA3nh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh"
+      text: "H\xECnh \u1EA3nh / \xC2m Thanh\n\nL\u1EADp tr\xECnh / H\xECnh \u1EA3nh\n\nL\u1EADp
+        tr\xECnh / H\xECnh \u1EA3nh\n\nKi\u1EC3m th\u1EED / H\xECnh \u1EA3nh\n\nL\u1EADp
+        tr\xECnh / H\xECnh \u1EA3nh / Giao di\u1EC7n"
   - id: txt_turn_left
     textList:
     - language: 0
@@ -143,3 +147,45 @@ MonoBehaviour:
       text: Expected Rewards
     - language: 1
       text: "Ph\u1EA7n th\u01B0\u1EDFng \u0111\u1EA1t \u0111\u01B0\u1EE3c"
+  - id: txt_settings
+    textList:
+    - language: 0
+      text: SETTINGS
+    - language: 1
+      text: "C\xC0I \u0110\u1EB6T"
+  - id: txt_resolution
+    textList:
+    - language: 0
+      text: Resolution
+    - language: 1
+      text: "\u0110\u1ED9 ph\xE2n gi\u1EA3i"
+  - id: txt_graphic_quality
+    textList:
+    - language: 0
+      text: Graphic Quality
+    - language: 1
+      text: "Ch\u1EA5t l\u01B0\u1EE3ng \u0111\u1ED3 h\u1ECDa"
+  - id: txt_sound
+    textList:
+    - language: 0
+      text: SFX Volume
+    - language: 1
+      text: "\xC2m l\u01B0\u1EE3ng hi\u1EC7u \u1EE9ng"
+  - id: txt_music_volume
+    textList:
+    - language: 0
+      text: Music volume
+    - language: 1
+      text: "\xC2m l\u01B0\u1EE3ng nh\u1EA1c n\u1EC1n"
+  - id: txt_lang
+    textList:
+    - language: 0
+      text: Language
+    - language: 1
+      text: "Ng\xF4n ng\u1EEF"
+  - id: txt_fps_limit
+    textList:
+    - language: 0
+      text: FPS Limit
+    - language: 1
+      text: "Gi\u1EDBi h\u1EA1n FPS"

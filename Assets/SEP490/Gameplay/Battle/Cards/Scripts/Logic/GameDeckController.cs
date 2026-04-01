@@ -76,7 +76,8 @@
         /// </summary>
         public List<SessionCardData> GetAllObtainedCards()
         {
-            return _cardsDAO.GetAllBySessionId(_currentSessionId);
+            List<SessionCardData> cards = _cardsDAO.GetAllBySessionId(_currentSessionId).OrderBy(x => x.RawCardId).ToList();
+            return cards;
         }
 
         /// <summary>
@@ -130,11 +131,6 @@
             return _cardsDAO.InsertMany(cardList);
         }
 
-        public void AddManyCardsToDeck(Dictionary<string, int> cards)
-        {
-
-        }
-
         public bool RemoveObtainedCard(string rawCardId, int amount)
         {
             SessionCardData card = _cardsDAO.GetById(_currentSessionId, rawCardId);
@@ -155,7 +151,6 @@
         }
         #endregion
 
-
         public bool IsCardInDeck(string deckCardId)
         {
             if (string.IsNullOrEmpty(deckCardId))
@@ -163,23 +158,6 @@
                 return false;
             }
             return _deck.CardIds.Contains(deckCardId);
-        }
-
-        private int CountDeckCardsByRawId(List<string> deckCards, string rawCardId)
-        {
-            int count = 0;
-
-            foreach (string id in deckCards)
-            {
-                string[] parts = id.Split(':');
-
-                if (parts.Length >= 2 && parts[1].Equals(rawCardId))
-                {
-                    count++;
-                }
-            }
-
-            return count;
         }
 
         public int GetDeckCardCount()
@@ -236,16 +214,7 @@
 
             List<string> deckCards = _deck.CardIds.ToList();
 
-            //int deckCount = CountDeckCardsByRawId(deckCards, rawCardId);
-
-            //if (deckCount >= ownedCard.ObtainedAmount)
-            //{
-            //    Debug.Log($"<color=yellow>Warning: </color>Cannot add {rawCardId} to deck. Not enough copies.");
-            //    return false;
-            //}
-
-            //int variant = GenerateVariantIndex(deckCards, rawCardId);
-            string variant = System.Guid.NewGuid().ToString();
+            string variant = GameConstants.Generate64BitId().ToString("X");
 
             string deckCardId = string.Format(
                 GameDeckDAO.FORMAT_IN_DECK_CARD_ID,
@@ -314,16 +283,28 @@
         /// <summary>
         /// Lấy thông tin Deck hiện tại của người chơi.
         /// </summary>
-        public SessionPlayerDeck GetCurrentDeck()
+        public SessionPlayerDeck GetCurrentDeck(bool refreshFromDB)
         {
+            if (refreshFromDB)
+            {
+                _deck = _deckDAO.GetById(_currentSessionId);
+                return _deck;
+            }
+
             if (_deck == null)
             {
                 Debug.LogError("Deck is null");
-                _deck = new SessionPlayerDeck
+
+                _deck = _deckDAO.GetById(_currentSessionId);
+
+                if (_deck == null)
                 {
-                    SessionId = _currentSessionId,
-                    CardIds = new string[0]
-                };
+                    _deck = new SessionPlayerDeck
+                    {
+                        SessionId = _currentSessionId,
+                        CardIds = new string[0]
+                    };
+                }
             }
 
             return _deck;

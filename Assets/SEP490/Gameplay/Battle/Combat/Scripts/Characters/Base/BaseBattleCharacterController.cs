@@ -64,6 +64,7 @@
         public InCombatStatus StatActionCost { get; private set; } = new InCombatStatus();
         public InCombatStatus StatEvadeRate { get; private set; } = new InCombatStatus();
         public InCombatStatus StatCritChance { get; private set; } = new InCombatStatus();
+        public InCombatStatus StatBlock { get; private set; } = new InCombatStatus();
 
 
         private readonly Dictionary<EStatusType, InCombatStatus> _statusContainer = new Dictionary<EStatusType, InCombatStatus>();
@@ -72,8 +73,8 @@
         private IActionGaugeProcessor _gaugeProcessor;
         private ICritCalculator _critCalculator;
         private IEvasionCalculator _evasionCalculator;
-        private IMaxHPCalculator _maxHPCalculator;
-        private IMaxStaminaCalculator _maxStaminaCalculator;
+        private ICombatHPCalculator _maxHPCalculator;
+        private ICombatStaminaCalculator _maxStaminaCalculator;
 
         private IDmgReductionCalculator _dmgReduceCalculator;
 
@@ -142,8 +143,8 @@
             }
             _gaugeProcessor.onEnergyFull += HandleActionGaugeFullEvent;
 
-            _maxHPCalculator = new MaxHPCalculator();
-            _maxStaminaCalculator = new MaxStaminaCalculator();
+            _maxHPCalculator = new CombatHPCalculator();
+            _maxStaminaCalculator = new CombatStaminaCalculator();
             _dmgReduceCalculator = new DmgReductionCalculator();
             _critCalculator = new CombatCritCalculator();
             _evasionCalculator = new EvasionCalculator(this);
@@ -233,6 +234,7 @@
             StatActionCost.SetCurrentValue(0f);
             StatEvadeRate.SetCurrentValue(0f);
             StatCritChance.SetCurrentValue(0f);
+            StatBlock.SetCurrentValue(0f);
 
             _statusContainer.Clear();
 
@@ -249,6 +251,7 @@
             _statusContainer.Add(EStatusType.ActionCost, StatActionCost);
             _statusContainer.Add(EStatusType.EvadeRate, StatEvadeRate);
             _statusContainer.Add(EStatusType.CriticalChance, StatCritChance);
+            _statusContainer.Add(EStatusType.Block, StatBlock);
         }
 
         public void SetReadonlyDataHolder(CharacterDataHolder holder)

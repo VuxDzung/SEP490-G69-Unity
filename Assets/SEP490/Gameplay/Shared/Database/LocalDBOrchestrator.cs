@@ -14,19 +14,6 @@ namespace SEP490G69
     {
         private static readonly object _dbLock = new object();
 
-        private GameAuthManager _authManager;
-        private GameAuthManager AuthManager
-        {
-            get
-            {
-                if (_authManager == null)
-                {
-                    _authManager = ContextManager.Singleton.ResolveGameContext<GameAuthManager>();
-                }
-                return _authManager;
-            }
-        }
-
         protected override void CreateNewInstance()
         {
             base.CreateNewInstance();
@@ -132,7 +119,7 @@ namespace SEP490G69
 
         public static bool UpdateDBChangeTime(LiteDatabase db)
         {
-            string playerId = Singleton.AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             try
             {

@@ -28,13 +28,13 @@ namespace SEP490G69
 
         public override void Execute(DialogEvent ev)
         {
-            string playerId = AuthManager.GetUserId();
+            string playerId = PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID, string.Empty);
 
             PlayerData playerData = _playerDAO.GetById(playerId); // Error here
 
             if (playerData == null)
             {
-                Debug.LogError($"[UITitleFrame.StartNew error] Player data of player {playerId}");
+                Debug.LogError($"[UITitleFrame.StartNew error] Player data of player {playerId} is null!");
                 return;
             }
 

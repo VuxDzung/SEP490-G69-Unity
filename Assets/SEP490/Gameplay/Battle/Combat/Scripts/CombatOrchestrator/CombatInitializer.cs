@@ -9,7 +9,7 @@ namespace SEP490G69.Battle.Combat
         private TournamentProgressDAO _tournamentDAO;
         private GameSessionDAO _sessionDAO;
 
-        public void Initialize(Transform playerParent, Transform enemyParent, string poolName, out PlayerBattleCharaterController player, out EnemyCombatController enemy)
+        public void Initialize(Transform playerParent, Transform enemyParent, string poolName, out PlayerActorController player, out EnemyActorController enemy)
         {
             player = null;
             enemy = null;
@@ -46,7 +46,7 @@ namespace SEP490G69.Battle.Combat
             enemy = SpawnEnemy(enemyId, enemyParent, poolName);
         }
 
-        private PlayerBattleCharaterController SpawnPlayer(Transform parent, string pool)
+        private PlayerActorController SpawnPlayer(Transform parent, string pool)
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -59,13 +59,13 @@ namespace SEP490G69.Battle.Combat
 
             Transform trans = PoolManager.Pools[pool].Spawn(charSO.CombatPrefab, parent);
 
-            var controller = trans.GetComponent<PlayerBattleCharaterController>();
+            var controller = trans.GetComponent<PlayerActorController>();
             controller.Initialize(charSO);
 
             return controller;
         }
 
-        private EnemyCombatController SpawnEnemy(string enemyId, Transform parent, string pool)
+        private EnemyActorController SpawnEnemy(string enemyId, Transform parent, string pool)
         {
             enemyId = enemyId.Trim();
             CharacterConfigSO config = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
@@ -84,7 +84,7 @@ namespace SEP490G69.Battle.Combat
 
             Transform trans = PoolManager.Pools[pool].Spawn(enemySO.CombatPrefab, parent);
 
-            var controller = trans.GetComponent<EnemyCombatController>();
+            var controller = trans.GetComponent<EnemyActorController>();
             controller.Initialize(enemySO);
 
             return controller;

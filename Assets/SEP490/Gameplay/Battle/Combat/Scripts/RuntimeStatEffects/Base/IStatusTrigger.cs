@@ -6,5 +6,5 @@ public interface IStatusTrigger
 
     void OnTurnEnd();
 
-    void OnAfterReceiveDamage(float dmg);
+    void OnAfterBeingAttacked(float dmg);
 }

@@ -16,6 +16,9 @@
         [SerializeField] private Button m_SettingBtn;
         [SerializeField] private Button m_RestBtn;
         [SerializeField] private Button m_ActionBtn;
+        [SerializeField] private Button m_EndTurnBtn;
+        [SerializeField] private Button m_DeckPoolBtn;
+        [SerializeField] private Button m_DiscardPoolBtn;
         [SerializeField] private Transform m_CardPrefab;
         [SerializeField] private Transform m_CardContainer;
         [SerializeField] private Transform m_PlayerStatEffectContainer;
@@ -40,6 +43,8 @@
 
         private Transform _enemySelectedCardTrans;
         private Transform _playerSelectedCardTrans;
+        private SceneCombatController _sceneController;
+        private SceneCombatController SceneController => _sceneController ??= ContextManager.Singleton.GetSceneContext<SceneCombatController>();
 
         protected override void OnFrameShown()
         {
@@ -47,6 +52,9 @@
             m_SettingBtn.onClick.AddListener(ShowSettings);
             m_RestBtn.onClick.AddListener(PerformRest);
             m_ActionBtn.onClick.AddListener(PerformSelectCard);
+            m_EndTurnBtn.onClick.AddListener(EndPlayerTurn);
+            m_DeckPoolBtn.onClick.AddListener(ShowDeckPool);
+            m_DiscardPoolBtn.onClick.AddListener(ShowDiscardPool);
         }
         protected override void OnFrameHidden()
         {
@@ -54,17 +62,20 @@
             m_SettingBtn.onClick.RemoveListener(ShowSettings);
             m_RestBtn.onClick.RemoveListener(PerformRest);
             m_ActionBtn.onClick.RemoveListener(PerformSelectCard);
+            m_EndTurnBtn.onClick.RemoveListener(EndPlayerTurn);
+            m_DeckPoolBtn.onClick.RemoveListener(ShowDeckPool);
+            m_DiscardPoolBtn.onClick.RemoveListener(ShowDiscardPool);
         }
 
         private void PerformRest()
         {
             CombatController.Player.SelectRest();
-            CombatController.TurnSystem.ExecutePlayerCard();
+            CombatController.TurnProcessor.ExecutePlayerCard();
         }
 
         private void PerformSelectCard()
         {
-            CombatController.TurnSystem.ExecutePlayerCard();
+            CombatController.TurnProcessor.ExecutePlayerCard();
         }
 
         private void ShowSettings()
@@ -77,7 +88,7 @@
             m_PlayerCharDetails.SetContent(id, avatar);
             return this;
         }
-        public UICombatFrame SetPlayerCharVit(float cur, float max)
+        public UICombatFrame SetPlayerCharHP(float cur, float max)
         {
             m_PlayerCharDetails.SetVit(cur, max);
             return this;
@@ -98,7 +109,7 @@
             m_EnemyCharDetails.SetContent(id, avatar);
             return this;
         }
-        public UICombatFrame SetEnemyCharVit(float cur, float max)
+        public UICombatFrame SetEnemyCharHP(float cur, float max)
         {
             m_EnemyCharDetails.SetVit(cur, max);
             return this;
@@ -124,6 +135,11 @@
         {
             LoadStatEffects("UIEnemyStatusEffect", effectList, false);
             return this;
+        }
+
+        private void EndPlayerTurn()
+        {
+            SceneController.ChangetoEnemyTurn();
         }
 
         private void LoadStatEffects(string poolName, IReadOnlyList<RuntimeStatusEffect> effectList, bool isPlayer)
@@ -154,24 +170,42 @@
         /// In m_CardContainer, there's a Horizontal Layout Group Component.
         /// </summary>
         /// <param name="cards"></param>
-        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor, float stamina)
+        public void DisplayDrawnCards(IReadOnlyList<CardSO> cards, ICombatCardsService cardsService, float stamina)
         {
             ClearAllCards();
-            StartCoroutine(CoDisplayCards(cards, cardProcessor, stamina));
+            StartCoroutine(CoDisplayCards(cards, cardsService, stamina));
             m_RestBtn.gameObject.SetActive(true);
         }
 
-        public void SpawnEnemyCard(CardSO card, ICombatCardsProcessor cardProcessor)
+        public void SpawnEnemyCard(CardSO card, ICombatCardsService cardsService)
         {
-            SpawnSelectedCard(card, true, cardProcessor);
+            SpawnSelectedCard(card, true, cardsService);
         }
 
-        public void SpawnPlayerAutoCard(CardSO card, ICombatCardsProcessor cardProcessor)
+        public void SpawnPlayerAutoCard(CardSO card, ICombatCardsService cardsService)
         {
-            SpawnSelectedCard(card, false, cardProcessor);
+            SpawnSelectedCard(card, false, cardsService);
         }
 
-        private void SpawnSelectedCard(CardSO card, bool isEnemy, ICombatCardsProcessor cardProcessor)
+        private void ShowDeckPool()
+        {
+            ICombatCardsService cardsService = SceneController.Player.CardsService;
+
+            UIManager.ShowFrame(GameConstants.FRAME_ID_COMBAT_POOL_CARD)
+                     .AsFrame<UICombatCardPoolFrame>()
+                     .LoadCards(cardsService.GetInDeckCards(), cardsService);
+        }
+
+        private void ShowDiscardPool()
+        {
+            ICombatCardsService cardsService = SceneController.Player.CardsService;
+
+            UIManager.ShowFrame(GameConstants.FRAME_ID_COMBAT_POOL_CARD)
+                     .AsFrame<UICombatCardPoolFrame>()
+                     .LoadCards(cardsService.GetDiscardedCards(), cardsService);
+        }
+
+        private void SpawnSelectedCard(CardSO card, bool isEnemy, ICombatCardsService cardsService)
         {
             Transform selectedCardTrans = isEnemy ? _enemySelectedCardTrans : _playerSelectedCardTrans;
 
@@ -211,7 +245,7 @@
             if (cardUI != null)
             {
                 string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
-                string cardDesc = cardProcessor.GetFinalCardDescription(card, LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription));
+                string cardDesc = cardsService.GetFinalCardDescription(card, LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription));
                 Debug.Log($"Card name: {cardName}");
                 cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon);
             }
@@ -249,7 +283,7 @@
             }
         }
 
-        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards, ICombatCardsProcessor cardProcessor, float currentStamina)
+        private IEnumerator CoDisplayCards(IReadOnlyList<CardSO> cards, ICombatCardsService cardProcessor, float currentStamina)
         {
             if (cards.Count == 0)
             {
@@ -284,14 +318,14 @@
                 {
                     string cardName = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_NAMES, card.CardName);
                     string cardDesc = cardProcessor.GetFinalCardDescription(card, LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_CARD_DESCS, card.CardDescription));
-
+                    int cardCost = cardProcessor.CalculateCardCost(card);
                     cardUI.SetOnSelectCallback(SelectCard)
                           .SetOnDragEnd(PerformCardAction)
                           .SetContent(card.CardId, cardName, cardDesc, card.Icon)
-                          .SetCost(card.Cost);
+                          .SetCost(cardCost);
+                    cardUI._onDragParent = m_DraggingArea;
 
-                    float cardCost = cardProcessor.CalculateCardCost(card);
-                    if (cardCost > currentStamina)
+                    if (cardCost > currentStamina || SceneController.IsCardUsable(card) == false)
                     {
                         cardUI.IsDraggable = false;
                     }
@@ -299,24 +333,25 @@
                     {
                         cardUI.IsDraggable = true;
                     }
-
-                    cardUI._onDragParent = m_DraggingArea;
                 }
 
                 // Offset spawn so animation visible
                 rect.position = m_UISpawnPoint.position;
 
-                rect.DOMove(targetPos, 0.35f)
+                rect.DOMove(targetPos, 0.5f)
                     .SetEase(Ease.OutCubic)
                     .OnComplete(() =>
                     {
                         if (layout != null)
+                        {
                             layout.ignoreLayout = false;
+                        }
+                        rect.localPosition = Vector3.zero;
                     });
 
-                rect.DOScale(1f, 0.35f);
+                rect.DOScale(1f, 0.4f);
 
-                yield return new WaitForSeconds(0.05f); // card draw delay
+                yield return new WaitForSeconds(0.1f); // card draw delay
             }
         }
 
@@ -373,7 +408,7 @@
             }
         }
 
-        private void PerformCardAction(string rawCardId, Transform currentParent)
+        private void PerformCardAction(string rawCardId, Transform currentParent, Transform draggableContent)
         {
             UIDropHandler handler = currentParent.GetComponent<UIDropHandler>();
             if (handler != null)
@@ -381,7 +416,8 @@
                 if (handler.HandlerName.Equals(m_CardTriggerArea.HandlerName))
                 {
                     CombatController.Player.SelectCardById(rawCardId);
-                    CombatController.TurnSystem.ExecutePlayerCard();
+                    CombatController.TurnProcessor.ExecutePlayerCard();
+                    PoolManager.Pools[GameConstants.POOL_UI_CARD].DespawnObject(draggableContent);
                 }
             }
         }
@@ -392,13 +428,13 @@
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.EffectsManager.ActiveStatEffects);
             }
             else
             {
                 UIManager.ShowFrame(GameConstants.FRAME_ID_STAT_EFFECT_DETAILS)
                          .AsFrame<UIStatusEffectListFrame>()
-                         .LoadStatusEffects(CombatController.Player.StatEffectManager.ActiveStatEffects);
+                         .LoadStatusEffects(CombatController.Player.EffectsManager.ActiveStatEffects);
             }
         }
     }

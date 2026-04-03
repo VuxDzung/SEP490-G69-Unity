@@ -15,14 +15,12 @@ namespace SEP490G69.Battle
         private float _currentValue;
         private float _maxValue;
         private List<InCombatStatModifier> _modifierPool = new List<InCombatStatModifier>();
+        private StatusEffectManager _effectsManager;
 
-        public InCombatStatus()
+        public InCombatStatus(StatusEffectManager effectManager)
         {
             _currentValue = 0f;
-        }
-        public InCombatStatus(float baseValue)
-        {
-            _currentValue = baseValue;
+            _effectsManager = effectManager;
         }
 
         public void SetCurrentValue(float value, bool clampMax = false)
@@ -51,7 +49,8 @@ namespace SEP490G69.Battle
                 {
                     if (mod.ModifierSO.ApplyValueType == EApplyValueType.GetterValue)
                     {
-                        value = mod.ModifierSO.GetModifiedStatus(value);
+                        int stack = mod.OwnerStack;
+                        value = mod.ModifierSO.GetModifiedStatus(value, stack);
                     }
                 }
 
@@ -78,13 +77,14 @@ namespace SEP490G69.Battle
             }
 
             InCombatStatModifier existed = GetRuntimeModifier(modifier.Id);
+
             if (existed != null)
             {
                 existed.AddOwner(ownerId);
             }
             else
             {
-                InCombatStatModifier runtimeModifier = new InCombatStatModifier(modifier);
+                InCombatStatModifier runtimeModifier = new InCombatStatModifier(modifier, _effectsManager);
                 runtimeModifier.AddOwner(ownerId);
 
                 _modifierPool.Add(runtimeModifier);
@@ -103,7 +103,7 @@ namespace SEP490G69.Battle
         public void RemoveModifiersByOwner(string ownerId)
         {
             // Step 1: Get all modifiers which belongs to the owner.
-            List<InCombatStatModifier> modifiers = _modifierPool.Where(mod => mod.OwnerIds.Contains(ownerId)).ToList();
+            List<InCombatStatModifier> modifiers = _modifierPool.Where(mod => mod.Owners.Contains(ownerId)).ToList();
 
             // Step 2: Remove the owner id in each modifier.
             foreach (InCombatStatModifier modifier in modifiers)
@@ -111,7 +111,7 @@ namespace SEP490G69.Battle
                 modifier.RemoveOwner(ownerId);
 
                 // Step 2.1: If the modifier owner list is empty, remove the modifier from the modifier pool.
-                if (modifier.OwnerIds.Count == 0)
+                if (modifier.Owners.Count == 0)
                 {
                     RemoveModifier(modifier.ModifierSO.Id);
                 }

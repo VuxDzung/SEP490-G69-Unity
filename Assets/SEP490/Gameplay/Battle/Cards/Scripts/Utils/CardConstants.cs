@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace SEP490G69.Battle
 {
     public class CardConstants 
@@ -9,9 +11,19 @@ namespace SEP490G69.Battle
         public const string CARD_ID_0000 = "card_0000";
 
         /// <summary>
-        /// Reckless Charge
+        /// Nature's Wrath
         /// </summary>
-        public const string CARD_ID_12 = "card_0012";
+        public const string CARD_ID_0007 = "card_0007";
+
+        /// <summary>
+        /// Purify
+        /// </summary>
+        public const string CARD_ID_0008 = "card_0008";
+
+        /// <summary>
+        /// Petal Counter
+        /// </summary>
+        public const string CARD_ID_0012 = "card_0012";
 
         /// <summary>
         /// Execute
@@ -52,6 +64,26 @@ namespace SEP490G69.Battle
         /// Nullify
         /// </summary>
         public const string CARD_ID_46 = "card_0046";
+
+        /// <summary>
+        /// Furioso
+        /// </summary>
+        public const string CARD_ID_0069 = "card_0069";
+        #endregion
+
+        #region Utils
+        public static string GetCardTypeIconId(EActionType type)
+        {
+            string id = string.Empty;
+
+            return type switch
+            {
+                EActionType.Attack => "ic_atk",
+                EActionType.Effect => "ic_effect",
+                EActionType.StatRecover => "ic_recover",
+                _ => string.Empty,
+            };
+        }
         #endregion
     }
 }

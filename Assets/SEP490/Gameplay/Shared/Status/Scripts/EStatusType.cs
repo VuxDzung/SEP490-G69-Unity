@@ -35,6 +35,12 @@ namespace SEP490G69
         HP = 16,
         CriticalChance = 17,
         RelectedDmg = 18,
-        Block = 19,
+        Shield = 19,
+        ReceivedShield = 20,
+
+        /// <summary>
+        /// Base damage scale stat (Enemy Stat Only)
+        /// </summary>
+        Attack = 21,
     }
 }

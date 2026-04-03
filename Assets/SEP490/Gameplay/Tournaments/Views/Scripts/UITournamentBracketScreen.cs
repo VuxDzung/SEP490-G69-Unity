@@ -1,6 +1,5 @@
 ﻿namespace SEP490G69.Tournament
 {
-    using SEP490G69.Addons.Localization;
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -35,7 +34,17 @@
         private GameTournamentController _controller;
 
         #region Properties (Lazy getters)
-        // ... (Giữ nguyên LocalizeManager)
+        private GameTournamentController TournamentController
+        {
+            get
+            {
+                if (_controller == null)
+                {
+                    _controller = ContextManager.Singleton.GetSceneContext<GameTournamentController>();
+                }
+                return _controller;
+            }
+        }
         #endregion
 
         protected override void OnFrameShown()
@@ -146,7 +155,7 @@
 
                 m_EndTournamentBtn.gameObject.SetActive(true);
 
-                IReadOnlyList<RewardDataSO> rewards = _controller.GetPlayerRewards();
+                IReadOnlyList<RewardDataSO> rewards = TournamentController.GetPlayerRewards();
 
                 if (rewards != null)
                 {
@@ -199,19 +208,19 @@
 
         private void OnContinueClicked()
         {
-            if (_controller != null)
+            if (TournamentController != null)
             {
-                _controller.RequestProgressTournament();
+                TournamentController.RequestProgressTournament();
             }
             else
             {
-                Debug.LogError("Tournament controller is null");
+                Debug.LogError("[UITournamentBracketScreen.OnContinueClicked fatal error] Tournament controller is null");
             }
         }
 
         private void EndTournament()
         {
-            _controller.GoBackToMainMenu();
+            TournamentController.GoBackToMainMenu();
         }
     }
 }

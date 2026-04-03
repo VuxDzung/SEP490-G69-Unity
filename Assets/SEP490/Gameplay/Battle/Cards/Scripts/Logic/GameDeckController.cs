@@ -15,7 +15,7 @@
     /// </summary>
     public class GameDeckController : MonoBehaviour, IGameContext
     {
-        public const int MAX_DECK_COUNT = 9;
+        public const int MAX_DECK_COUNT = 20;
 
         private ContextManager _contextManager;
 
@@ -31,9 +31,6 @@
         {
             _cardsDAO = new GameCardsDAO();
             _deckDAO = new GameDeckDAO();
-            _currentSessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
-
-            SetSessionId(_currentSessionId);
         }
 
         public void SetManager(ContextManager manager)
@@ -186,11 +183,17 @@
 
             if (_deck.CardIds.Length >= MAX_DECK_COUNT)
             {
-                Debug.LogError("Max cards amount in deck exceeded");
+                Debug.Log("<color=red>[GameDeckController.AddCardToDeck(rawCardId,autoUpdateDB)]</color> Max cards amount in deck exceeded");
                 return false;
             }
 
             CardSO cardSO = _cardConfig.GetCardById(rawCardId);
+
+            if (cardSO == null)
+            {
+                Debug.LogError($"[GameDeckController.AddCardToDeck(rawCardId,autoUpdateDB) fatal error] Card SO with id {rawCardId} is not configured");
+                return false;
+            }
 
             foreach (var cardId in _deck.CardIds)
             {

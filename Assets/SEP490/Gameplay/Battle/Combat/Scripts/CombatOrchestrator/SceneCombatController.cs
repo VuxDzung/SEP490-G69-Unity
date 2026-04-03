@@ -6,6 +6,7 @@
     using System;
     using UnityEngine;
     using System.Linq;
+    using SEP490G69.Battle.Cards;
 
     public enum EBattleState
     {
@@ -47,7 +48,6 @@
         [SerializeField] private Transform m_EnemyContainer;
         [SerializeField] private string m_CharacterPoolName = "CombatCharacter";
 
-        private BattleStateMachine _battleState;
         private CombatInitializer _initializer;
         private CombatTurnProcessor _turnProcessor;
         private CombatUIUpdater _uiUpdater;
@@ -55,24 +55,33 @@
         private GameSessionDAO _sessionDAO;
         private TournamentProgressDAO _tournamentDAO;
 
-        private PlayerBattleCharaterController _player;
-        private EnemyCombatController _enemy;
+        private PlayerActorController _player;
+        private EnemyActorController _enemy;
 
-        public PlayerBattleCharaterController Player => _player;
-        public EnemyCombatController Enemy => _enemy;
-        public CombatTurnProcessor TurnSystem => _turnProcessor;
+        private Dictionary<string, IFinishCombatHandler> _finishResultHandlers = new Dictionary<string, IFinishCombatHandler>();
+
+        public PlayerActorController Player => _player;
+        public EnemyActorController Enemy => _enemy;
+        public CombatTurnProcessor TurnProcessor => _turnProcessor;
+        public CombatUIUpdater CombatUI => _uiUpdater;
 
         private void Awake()
         {
             ContextManager.Singleton.AddSceneContext(this);
 
-            _battleState = new BattleStateMachine();
             _initializer = new CombatInitializer();
             _turnProcessor = new CombatTurnProcessor();
             _uiUpdater = new CombatUIUpdater();
 
             _sessionDAO = new GameSessionDAO();
             _tournamentDAO = new TournamentProgressDAO();
+
+            _finishResultHandlers = new Dictionary<string, IFinishCombatHandler>
+            {
+                { GameConstants.COMBAT_TYPE_TOURNAMENT, new FinishTournamentCombatHandler(_tournamentDAO) },
+                { GameConstants.COMBAT_TYPE_EXPLORATION, new FinishExploreCombatHandler() },
+                { GameConstants.COMBAT_TYPE_TESTING, new FinishTestingCombatHandler() },
+            };
         }
 
         private void Start()
@@ -80,18 +89,10 @@
             FadingController.Singleton.FadeOut(1f, Color.white);
             InitializeBattle();
             BindEvents();
-            _battleState.ChangeState(EBattleState.Pending);
         }
 
         private void Update()
         {
-            if (_battleState.CurrentState != EBattleState.InProgress)
-            {
-                return;
-            }
-
-            _turnProcessor.Update(Time.deltaTime);
-            _uiUpdater.UpdateEnergy(_player, _enemy);
             _uiUpdater.UpdateStats(_player, _enemy);
         }
 
@@ -112,8 +113,8 @@
                 return;
             }
 
-            PlayerCharacterDataSO playerSO = _player.CharacterConfig.GetCharacterById(_player.ReadonlyDataHolder.GetRawId()).ConvertAs<PlayerCharacterDataSO>();
-            EnemySO enemySO = _player.CharacterConfig.GetCharacterById(_enemy.ReadonlyDataHolder.GetRawId()).ConvertAs<EnemySO>();
+            PlayerCharacterDataSO playerSO = _player.CharacterSO;
+            EnemySO enemySO = _enemy.CharacterSO;
 
             if (playerSO == null || enemySO == null)
             {
@@ -129,39 +130,37 @@
             _player.AnimationController.SetCombatPosition(playerCombatPos);
             _enemy.AnimationController.SetCombatPosition(enemyCombatPos);
 
-            _turnProcessor.Initialize(_player, _enemy);
             _uiUpdater.ShowCombatPreview(_player, _enemy);
+
+            _turnProcessor.Initialize(this, _player, _enemy);
         }
 
         private void BindEvents()
         {
-            if (_player != null) _player.onEnergyFull += HandlePlayerTurn;
-            if (_player != null) _player.onDead += HandlePlayerDefeated;
-
-            if (_enemy != null) _enemy.onEnergyFull += HandleEnemyTurn;
-            if (_enemy != null) _enemy.onDead += HandleEnemyDefeated;
-
-            _battleState.OnStateChanged += state =>
+            if (_player != null)
             {
-                OnStateChanged?.Invoke(state);
-            };
-
-            _turnProcessor.onPlayerEndTurn += _turnProcessor_onPlayerEndTurn;
-            _turnProcessor.onEnemyEndTurn += _turnProcessor_onEnemyEndTurn;
-
-            OnStateChanged += SceneCombatController_OnStateChanged;
+                _player.onDead += HandlePlayerDefeated;
+                _player.onFlowEventChanged += _player_onFlowEventChanged;
+            }
+            if (_enemy != null)
+            {
+                _enemy.onDead += HandleEnemyDefeated;
+                _enemy.onFlowEventChanged += _enemy_onFlowEventChanged;
+            }
         }
 
         private void UnbindEvents()
         {
-            if (_player != null) _player.onEnergyFull -= HandlePlayerTurn;
-            if (_player != null) _player.onDead -= HandlePlayerDefeated;
-
-            if (_enemy != null) _enemy.onEnergyFull -= HandleEnemyTurn;
-            if (_enemy != null) _enemy.onDead -= HandleEnemyDefeated;
-
-            _turnProcessor.onPlayerEndTurn -= _turnProcessor_onPlayerEndTurn;
-            _turnProcessor.onEnemyEndTurn -= _turnProcessor_onEnemyEndTurn;
+            if (_player != null)
+            {
+                _player.onDead -= HandlePlayerDefeated;
+                _player.onFlowEventChanged -= _player_onFlowEventChanged;
+            }
+            if (_enemy != null)
+            {
+                _enemy.onDead -= HandleEnemyDefeated;
+                _enemy.onFlowEventChanged -= _enemy_onFlowEventChanged;
+            }
         }
 
         public void StartBattle(bool isAutoCombat = false)
@@ -172,51 +171,54 @@
                 return;
             }
 
-            _battleState.ChangeState(EBattleState.InProgress);
             _uiUpdater.ShowCombatHUD(_player, _enemy);
-            _player.SetCombatMode(isAutoCombat);
+            //_player.SetCombatMode(isAutoCombat);
+            _turnProcessor.ChangeToPlayerTurn();
         }
 
-        public void PauseBattle() => _battleState.ChangeState(EBattleState.Pause);
-        public void ResumeBattle() => _battleState.ChangeState(EBattleState.InProgress);
-
-        private void HandlePlayerTurn(BaseBattleCharacterController character)
+        private void _enemy_onFlowEventChanged(ETurnFlowEvent ev, BaseCombatActor arg2)
         {
-            _turnProcessor.PlayerTurn();
-            _uiUpdater.UpdateStats(_player, _enemy);
-            _uiUpdater.ShowPlayerStatusEffects(_player);
-            _uiUpdater.ShowEnemyStatusEffects(_enemy);
+            CombatUI.ShowPlayerStatusEffects(_player);
+            CombatUI.ShowEnemyStatusEffects(_enemy);
+
+            CombatUI.UpdateStats(_player, _enemy);
         }
 
-        private void HandleEnemyTurn(BaseBattleCharacterController character)
+        private void _player_onFlowEventChanged(ETurnFlowEvent ev, BaseCombatActor arg2)
         {
-            _turnProcessor.EnemyTurn();
-            _uiUpdater.UpdateStats(_player, _enemy);
-            _uiUpdater.ShowPlayerStatusEffects(_player);
-            _uiUpdater.ShowEnemyStatusEffects(_enemy);
+            if (ev == ETurnFlowEvent.AfterCardAction)
+            {
+                CombatUI.ClearAllUICards();
+                CombatUI.DisplayPlayerCards(_player.CardsService.GetInHandCards(), _player.CardsService, _player.StatsManager.GetValue(EStatusType.Stamina));
+            }
+            CombatUI.ShowPlayerStatusEffects(_player);
+            CombatUI.ShowEnemyStatusEffects(_enemy);
+
+            CombatUI.UpdateStats(_player, _enemy);
         }
 
         private void HandleEnemyDefeated()
         {
-            _battleState.ChangeState(EBattleState.Finish);
             OnVictorious();
         }
 
         private void HandlePlayerDefeated()
         {
-            _battleState.ChangeState(EBattleState.Finish);
             OnDefeated();
         }
 
-        private void SceneCombatController_OnStateChanged(EBattleState state)
+        public void ChangeToPlayerTurn()
         {
-            switch(state)
+            if (_turnProcessor != null)
             {
-                case EBattleState.Pause:
-                case EBattleState.Finish:
-                    _enemy.PauseBar();
-                    _player.PauseBar();
-                    break;
+                _turnProcessor.ChangeToPlayerTurn();
+            }
+        }
+        public void ChangetoEnemyTurn()
+        {
+            if (_turnProcessor != null)
+            {
+                _turnProcessor.ChangeToEnemyTurn();
             }
         }
 
@@ -230,7 +232,13 @@
                 return;
             }
 
-            _uiUpdater.ShowVictory(combatType);
+            if (_finishResultHandlers.TryGetValue(combatType, out var finishHandler) == false)
+            {
+                Debug.LogError($"[SceneCombatController.OnVictorious] Unsupported combat finish handler type {combatType}");
+                return;
+            }
+
+            _uiUpdater.ShowVictory(finishHandler);
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -248,16 +256,7 @@
                 return;
             }
 
-
-            switch (combatType)
-            {
-                case GameConstants.COMBAT_TYPE_TOURNAMENT:
-                    HandleCombatTournamentCompleted(sessionData, true);
-                    break;
-                case GameConstants.COMBAT_TYPE_EXPLORATION:
-                    HandleCombatExploreCompleted(sessionData, true);
-                    break;
-            }
+            finishHandler.HandleCombatResult(sessionData, true);
         }
         private void OnDefeated()
         {
@@ -267,8 +266,13 @@
                 Debug.LogError("[SceneCombatController.OnVictorious fatal error] Combat type value string is empty");
                 return;
             }
+            if (_finishResultHandlers.TryGetValue(combatType, out var finishHandler) == false)
+            {
+                Debug.LogError($"[SceneCombatController.OnDefeated] Unsupported combat finish handler type {combatType}");
+                return;
+            }
 
-            _uiUpdater.ShowDefeat(combatType);
+            _uiUpdater.ShowDefeat(finishHandler);
 
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -286,54 +290,14 @@
                 return;
             }
 
-            switch (combatType)
-            {
-                case GameConstants.COMBAT_TYPE_TOURNAMENT:
-                    HandleCombatTournamentCompleted(sessionData, false);
-                    break;
-                case GameConstants.COMBAT_TYPE_EXPLORATION:
-                    HandleCombatExploreCompleted(sessionData, false);
-                    break;
-            }
+            finishHandler.HandleCombatResult(sessionData, false);
         }
 
-        private void HandleCombatTournamentCompleted(PlayerTrainingSession sessionData, bool isPlayerWon)
+        #region APIs
+        public bool IsCardUsable(CardSO card)
         {
-            TournamentProgressData tournamentData = _tournamentDAO.GetById(sessionData.ActiveTournamentId);
-
-            if (string.IsNullOrEmpty(sessionData.ActiveTournamentId))
-            {
-                Debug.LogError($"[SceneCombatController.OnVictorious] Active tournament id in session {sessionData.SessionId} is null/empty");
-                return;
-            }
-
-            if (tournamentData == null)
-            {
-                Debug.LogError($"[SceneCombatController.OnVictorious] Tournament data with id {sessionData.ActiveTournamentId} does not exist in the database");
-                return;
-            }
-
-            tournamentData.IsBattleFinished = true;
-            tournamentData.IsPlayerWon = isPlayerWon;
-
-            _tournamentDAO.Upsert(tournamentData);
+            return _player.IsCardUsable(card, this);
         }
-
-        private void HandleCombatExploreCompleted(PlayerTrainingSession sessionData, bool isPlayerWon)
-        {
-            PlayerPrefs.SetInt(GameConstants.PREF_KEY_IS_BATTLE_WON, isPlayerWon ? 1 : 0);
-        }
-
-        private void _turnProcessor_onEnemyEndTurn()
-        {
-            _uiUpdater.ShowPlayerStatusEffects(_player);
-            _uiUpdater.ShowEnemyStatusEffects(_enemy);
-        }
-
-        private void _turnProcessor_onPlayerEndTurn()
-        {
-            _uiUpdater.ShowPlayerStatusEffects(_player);
-            _uiUpdater.ShowEnemyStatusEffects(_enemy);
-        }
+        #endregion
     }
 }

@@ -5,24 +5,19 @@ namespace SEP490G69.Battle
 
     public class EvasionCalculator : IEvasionCalculator
     {
-        private readonly BaseBattleCharacterController _defender;
+        private readonly BaseCombatActor _defender;
 
-        public EvasionCalculator(BaseBattleCharacterController attacker)
+        public EvasionCalculator(BaseCombatActor attacker)
         {
             _defender = attacker;
         }
 
-        public float CalculateEvasionRate(BaseBattleCharacterController attacker)
+        public float CalculateEvasionRate(BaseCombatActor attacker)
         {
-            InCombatStatus attackerAgi = attacker.GetCombatStatus(EStatusType.Agi);
-            InCombatStatus defenderAgi = _defender.GetCombatStatus(EStatusType.Agi);
+            float attackerAgi = attacker.StatsManager.GetValue(EStatusType.Agi);
+            float defenderAgi = _defender.StatsManager.GetValue(EStatusType.Agi);
 
-            if (defenderAgi == null || attackerAgi == null)
-            {
-                return 0f;
-            }
-
-            float deltaAgi = Mathf.Max(0, defenderAgi.Value - attackerAgi.Value);
+            float deltaAgi = Mathf.Max(0, attackerAgi - attackerAgi);
 
             return 0.05f + 0.5f * (deltaAgi / (deltaAgi + 100f));
         }

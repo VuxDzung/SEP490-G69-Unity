@@ -2,6 +2,7 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
+    using UnityEngine;
 
     /// <summary>
     /// Base attack card. Handle most of the attack card logic.
@@ -10,7 +11,7 @@ namespace SEP490G69.Battle
     {
         public BaseAttackCard(CardSO cardSO) : base(cardSO) { }
 
-        protected override void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected override void ExecuteAction(PlayerActorController source, BaseCombatActor target)
         {
             source.CalculateSelectedCardDmg(true);
 
@@ -18,10 +19,17 @@ namespace SEP490G69.Battle
             float critMul = source.CaculateCritMul();
             critMul = (float)System.Math.Round(critMul, 1);
 
-            float damage = source.GetCombatStatus(EStatusType.Damage).Value * (hasCrit ? critMul : 1f);
+            float damage = source.StatsManager.GetValue(EStatusType.Damage);// * (hasCrit ? critMul : 1f);
+
+            Debug.Log($"Raw damage of {source.CharacterSO.CharacterName}: {damage}");
+
             damage += CalculateExtraDmg(damage, source, target);
 
-            source.StatOutputDmg.SetCurrentValue(damage);
+            Debug.Log($"Damage after receive extra dmg of {source.CharacterSO.CharacterName}: {damage}");
+
+            source.StatsManager.SetCurrentValue(EStatusType.Damage, damage);
+
+            Debug.Log($"Final Damage of {source.CharacterSO.CharacterName}: {damage}");
 
             bool hasAttack = damage > 0;
 
@@ -34,12 +42,11 @@ namespace SEP490G69.Battle
             CombatCameraController.Singleton.ShakeCamera();
             CombatCameraController.Singleton.ZoomCamera(true);
 
-
             source.PlayAtkSfx();
 
             source.VFXController.PlayAtkVFX(0.15f);
 
-            if (hasCrit == true) source.SpawnCritToats(critMul);
+            if (hasCrit == true) source.SpawnCritToast(critMul);
 
             // Has animation -> create 2 barriers to wait for 2 animations.
             AnimationBarrier barrier = new AnimationBarrier(2, () =>
@@ -71,29 +78,29 @@ namespace SEP490G69.Battle
                 {
                     barrier.Signal();
                 });
+
                 // Damage apply
                 for (int i = 0; i < Data.AtkCount; i++)
                 {
-                    target.ReceiveDamage(source.StatOutputDmg.Value, source);
+                    target.ReceiveAttack(source.StatsManager.GetValue(EStatusType.Damage), source);
                 }
             }
         }
 
-        protected virtual void OnAfterAttack(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target) { }
+        protected virtual void OnAfterAttack(float curDmg, BaseCombatActor source, BaseCombatActor target) { }
 
-        protected override void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected override void OnAnimationCompleted(PlayerActorController source, BaseCombatActor target)
         {
-            OnAfterAttack(source.StatOutputDmg.Value, source, target);
+            OnAfterAttack(source.StatsManager.GetValue(EStatusType.Damage), source, target);
             base.OnAnimationCompleted(source, target);
         }
-        
 
         /// <summary>
         /// This method ensure to have 100% crit chance in a specific condition.
         /// By default, there's no 100% crit.
         /// </summary>
         /// <returns></returns>
-        protected virtual bool CheckForceCritCondition(BaseBattleCharacterController source)
+        protected virtual bool CheckForceCritCondition(BaseCombatActor source)
         {
             return false;
         }

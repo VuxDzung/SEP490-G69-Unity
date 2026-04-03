@@ -338,3 +338,9 @@ MonoBehaviour:
       text: Buy
     - language: 1
       text: Mua
+  - id: btn_end_turn
+    textList:
+    - language: 0
+      text: End turn
+    - language: 1
+      text: "K\u1EBFt th\xFAc l\u01B0\u1EE3t"

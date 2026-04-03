@@ -11,13 +11,28 @@ namespace SEP490G69
     {
         private readonly List<RuntimeStatusEffect> _statusEffects = new();
 
-        private BaseBattleCharacterController owner;
+        private BaseCombatActor _owner;
+        private StatusEffectConfigSO _effectsConfig;
 
         public IReadOnlyList<RuntimeStatusEffect> ActiveStatEffects => _statusEffects;
 
-        public StatusEffectManager(BaseBattleCharacterController owner)
+        public StatusEffectManager(BaseCombatActor owner, StatusEffectConfigSO effectsConfig)
         {
-            this.owner = owner;
+            this._owner = owner;
+            this._effectsConfig = effectsConfig;
+        }
+
+        public void AddStatusEffect(string effectId)
+        {
+            StatusEffectSO effectSO = _effectsConfig.GetById(effectId);
+            if (effectSO != null)
+            {
+                AddStatusEffect(effectSO);
+            }
+            else
+            {
+                Debug.LogError($"[StatusEffectManager.AddStatusEffect(effectId:string) error] Effect SO with id {effectId} is not configured!");
+            }
         }
 
         public void AddStatusEffect(StatusEffectSO effect)
@@ -26,7 +41,8 @@ namespace SEP490G69
 
             if (exist != null)
             {
-                if (exist.Data.ApplyType == EApplyDiscardType.Fovever)
+                if (exist.Data.DecayType == EDecayType.Fovever ||
+                    exist.Data.DecayType == EDecayType.None)
                 {
                     return;
                 }
@@ -34,7 +50,7 @@ namespace SEP490G69
                 return;
             }
 
-            RuntimeStatusEffect runtime = new RuntimeStatusEffect(effect, owner);
+            RuntimeStatusEffect runtime = new RuntimeStatusEffect(effect, _owner);
 
             runtime.onStackEmpty += Remove;
 
@@ -46,9 +62,7 @@ namespace SEP490G69
         public void StartTurn()
         {
             foreach (var s in _statusEffects.ToList())
-            {
                 s.OnTurnStart();
-            }
         }
 
         public void EndTurn()
@@ -57,17 +71,31 @@ namespace SEP490G69
                 s.OnTurnEnd();
         }
 
-        public void OnAfterReceiveDamage(float dmg)
+        public void OnAfterBeingAttacked(float dmg)
         {
             foreach (var s in _statusEffects.ToList())
+                s.OnAfterBeingAttacked(dmg);
+        }
+
+        public void OnHitTarget(BaseCombatActor opponent)
+        {
+            foreach (var s in _statusEffects.ToList())
+                s.OnHitTarget(opponent);
+        }
+
+        public void RemoveById(string effectId)
+        {
+            RuntimeStatusEffect effect = GetById(effectId);
+            if (effect != null)
             {
-                s.OnAfterReceiveDamage(dmg);
+                Remove(effect);
             }
         }
 
         public void Remove(RuntimeStatusEffect effect)
         {
             effect.onStackEmpty -= Remove;
+            effect.OnDiscard();
             _statusEffects.Remove(effect);
         }
 
@@ -96,20 +124,7 @@ namespace SEP490G69
             return _statusEffects.Where(e => e.Data.EffectType.Equals(type)).ToArray();
         }
 
-        public float ModifyStatDelta(EStatusType statType, float delta)
-        {
-            foreach (RuntimeStatusEffect effect in _statusEffects)
-            {
-                if (effect.SpecialEffect != null)
-                {
-                    delta = effect.SpecialEffect.ModifyStatDelta(statType, delta, owner);
-                }
-            }
-
-            return delta;
-        }
-
-        public void Trigger(ETurnFlowEvent flowEvent, BaseBattleCharacterController target)
+        public void Trigger(ETurnFlowEvent flowEvent, BaseCombatActor target)
         {
             foreach (var effect in _statusEffects)
             {
@@ -127,18 +142,18 @@ namespace SEP490G69
             }
         }
 
-        public void OnBeforeAction(BaseBattleCharacterController target)
+        public void OnBeforeAction(BaseCombatActor target)
         {
             foreach (var s in _statusEffects)
             {
-                s.SpecialEffect?.OnBeforeAction(owner, target);
+                s.SpecialEffect?.OnBeforeAction(_owner, target);
             }
         }
-        public void OnAfterAction(BaseBattleCharacterController target)
+        public void OnAfterAction(BaseCombatActor target)
         {
             foreach (var s in _statusEffects)
             {
-                s.SpecialEffect?.OnAfterAction(owner, target);
+                s.SpecialEffect?.OnAfterAction(_owner, target);
             }
         }
     }

@@ -17,45 +17,45 @@ MonoBehaviour:
   - id: card_0001_name
     textList:
     - language: 0
-      text: Quick Attack
+      text: Guard Stance
     - language: 1
-      text: "T\u1EA5n c\xF4ng nhanh"
+      text: "T\u1EA5n th\u1EE7"
   - id: card_0002_name
     textList:
     - language: 0
-      text: Normal Attack
+      text: Iron Wall
     - language: 1
-      text: "T\u1EA5n c\xF4ng th\u01B0\u1EDDng"
+      text: "T\u01B0\u1EDDng th\xE9p"
   - id: card_0003_name
     textList:
     - language: 0
-      text: Small Energy orb
+      text: Spiked Armor
     - language: 1
-      text: "Qu\u1EA3 c\u1EA7u n\u0103ng l\u01B0\u1EE3ng nh\u1ECF"
+      text: "Gi\xE1p gai"
   - id: card_0004_name
     textList:
     - language: 0
-      text: Energy orb
+      text: Fortify Stance
     - language: 1
-      text: "Qu\u1EA3 c\u1EA7u n\u0103ng l\u01B0\u1EE3ng"
+      text: Fortify Stance
   - id: card_0005_name
     textList:
     - language: 0
-      text: Tactical Rest
+      text: Regrowth
     - language: 1
-      text: "Ngh\u1EC9 ng\u01A1i chi\u1EBFn thu\u1EADt"
+      text: "M\u1ECDc l\u1EA1i"
   - id: card_0006_name
     textList:
     - language: 0
-      text: Deep Breath
+      text: Photosynthesis
     - language: 1
-      text: "Ngh\u1EC9 ng\u01A1i chi\u1EBFn thu\u1EADt"
+      text: "Quang h\u1EE3p"
   - id: card_0007_name
     textList:
     - language: 0
-      text: Analyze
+      text: Nature's Wrath
     - language: 1
-      text: "Ph\xE2n t\xEDch"
+      text: "Thi\xEAn nhi\xEAn cu\u1ED3ng n\u1ED9"
   - id: card_0008_name
     textList:
     - language: 0
@@ -77,21 +77,21 @@ MonoBehaviour:
   - id: card_0011_name
     textList:
     - language: 0
-      text: Heavy Slash
+      text: Immovable Root
     - language: 1
-      text: "Tr\u1ECDng Tr\u1EA3m"
+      text: "R\u1EC5 b\u1EA5t \u0111\u1ED9ng"
   - id: card_0012_name
     textList:
     - language: 0
-      text: Reckless Charge
+      text: Petal Counter
     - language: 1
-      text: "Xung Phong Li\u1EC1u L\u0129nh"
+      text: "M\xE1y \u0111\u1EBFm c\xE1nh hoa"
   - id: card_0013_name
     textList:
     - language: 0
-      text: Headbutt
+      text: Spring Bloom
     - language: 1
-      text: "H\xFAc \u0110\u1EA7u"
+      text: "Hoa xu\xE2n"
   - id: card_0014_name
     textList:
     - language: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
   - id: card_0017_name
     textList:
     - language: 0
-      text: War Cry
+      text: All Out Strike
     - language: 1
-      text: "Chi\u1EBFn H\u1ED1ng"
+      text: "To\xE0n L\u1EF1c Tr\u1EA3m"
   - id: card_0018_name
     textList:
     - language: 0
@@ -125,9 +125,9 @@ MonoBehaviour:
   - id: card_0019_name
     textList:
     - language: 0
-      text: All Out Strike
+      text: Execute
     - language: 1
-      text: "To\xE0n L\u1EF1c Tr\u1EA3m"
+      text: "H\xE0nh Quy\u1EBFt"
   - id: card_0020_name
     textList:
     - language: 0
@@ -137,15 +137,15 @@ MonoBehaviour:
   - id: card_0021_name
     textList:
     - language: 0
-      text: Shatter
+      text: Blood Rage
     - language: 1
-      text: "Ph\xE1 V\u1EE1"
+      text: "Cu\u1ED3ng Huy\u1EBFt"
   - id: card_0022_name
     textList:
     - language: 0
-      text: Tackle
+      text: War Cry
     - language: 1
-      text: "H\xFAc M\u1EA1nh"
+      text: "Chi\u1EBFn H\u1ED1ng"
   - id: card_0023_name
     textList:
     - language: 0
@@ -167,9 +167,9 @@ MonoBehaviour:
   - id: card_0026_name
     textList:
     - language: 0
-      text: Photosynthesis
+      text: Warlord's Oath
     - language: 1
-      text: "Quang H\u1EE3p"
+      text: "L\u1EDDi th\u1EC1 l\xE3nh ch\xFAa"
   - id: card_0027_name
     textList:
     - language: 0
@@ -215,15 +215,15 @@ MonoBehaviour:
   - id: card_0034_name
     textList:
     - language: 0
-      text: Mana Shock
+      text: Trap
     - language: 1
-      text: "Ch\u1EA5n \u0110\u1ED9ng Ma L\u1EF1c"
+      text: "B\u1EABy"
   - id: card_0035_name
     textList:
     - language: 0
-      text: Dark Blast
+      text: Shadow Bind
     - language: 1
-      text: "B\xF9ng N\u1ED5 B\xF3ng T\u1ED1i"
+      text: "Li\xEAn k\u1EBFt b\xF3ng t\u1ED1i"
   - id: card_0036_name
     textList:
     - language: 0
@@ -239,9 +239,9 @@ MonoBehaviour:
   - id: card_0038_name
     textList:
     - language: 0
-      text: Gravity Well
+      text: Sharpened Blade
     - language: 1
-      text: "H\u1ED1 Tr\u1ECDng L\u1EF1c"
+      text: "L\u01B0\u1EE1i dao s\u1EAFc"
   - id: card_0039_name
     textList:
     - language: 0
@@ -329,6 +329,36 @@ MonoBehaviour:
   - id: card_0053_name
     textList:
     - language: 0
-      text: Isolation
+      text: Decaying Bolt
     - language: 1
-      text: "Tuy\u1EC7t \u0110\u1ECBa C\xF4 L\u1EADp"
+      text: "Tia s\xE9t m\u1EE5c n\xE1t"
+  - id: card_0055_name
+    textList:
+    - language: 0
+      text: Epidemic
+    - language: 1
+      text: "B\u1EC7nh d\u1ECBch"
+  - id: card_0056_name
+    textList:
+    - language: 0
+      text: Decaying Catalyst
+    - language: 1
+      text: "Ch\u1EA5t x\xFAc t\xE1c ph\xE2n h\u1EE7y"
+  - id: card_0057_name
+    textList:
+    - language: 0
+      text: Decaying Blade
+    - language: 1
+      text: "L\u01B0\u1EE1i dao m\u1EE5c n\xE1t"
+  - id: card_0059_name
+    textList:
+    - language: 0
+      text: Mind Drain
+    - language: 1
+      text: "R\xFAt c\u1EA1n t\xE2m tr\xED"
+  - id: card_0069_name
+    textList:
+    - language: 0
+      text: Furioso
+    - language: 1
+      text: "Gi\u1EADn d\u1EEF"

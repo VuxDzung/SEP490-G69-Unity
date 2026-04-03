@@ -4,6 +4,6 @@ namespace SEP490G69.Battle
 {
     public interface IEvasionCalculator 
     {
-        public float CalculateEvasionRate(BaseBattleCharacterController attacker);
+        public float CalculateEvasionRate(BaseCombatActor attacker);
     }
 }

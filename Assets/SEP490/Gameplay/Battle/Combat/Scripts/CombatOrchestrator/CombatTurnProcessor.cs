@@ -1,9 +1,9 @@
 namespace SEP490G69.Battle.Combat
 {
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Combat.Battle;
     using System;
     using System.Collections.Generic;
-    using UnityEngine;
 
     public interface ITurnState
     {
@@ -13,158 +13,59 @@ namespace SEP490G69.Battle.Combat
 
     public class CombatTurnProcessor : IDisposable
     {
-        public event Action onPlayerEndTurn;
-        public event Action onEnemyEndTurn;
+        public event Action<ECharacterType> onTurnChanged;
 
-        private PlayerBattleCharaterController _player;
-        private EnemyCombatController _enemy;
+        private PlayerActorController _player;
+        private EnemyActorController _enemy;
 
         private CardConfigSO _cardConfig;
 
         private ITurnState _currentTurnState;
 
-        public void Initialize(PlayerBattleCharaterController player, EnemyCombatController enemy)
+        private PlayerTurnState _playerTurnState;
+        private EnemyTurnState _enemyTurnState;
+
+        public void Initialize(SceneCombatController sceneController, PlayerActorController player, EnemyActorController enemy)
         {
             _player = player;
             _enemy = enemy;
             _cardConfig = ContextManager.Singleton.GetDataSO<CardConfigSO>();
 
-            _player.onFlowEventChanged += _player_onFlowEventChanged;
-            _enemy.onFlowEventChanged += _enemy_onFlowEventChanged;
+            _playerTurnState = new PlayerTurnState(sceneController, player, _enemy);
+            _enemyTurnState = new EnemyTurnState(sceneController, _enemy, _player);
         }
 
         public void Dispose()
         {
-            _player.onFlowEventChanged -= _player_onFlowEventChanged;
-            _enemy.onFlowEventChanged -= _enemy_onFlowEventChanged;
+            _playerTurnState.Dispose();
+            _enemyTurnState.Dispose();
         }
 
-        private void _enemy_onFlowEventChanged(ETurnFlowEvent arg1, BaseBattleCharacterController arg2)
+        public void ChangeTurn(ITurnState newState)
         {
-            if (arg1 == ETurnFlowEvent.AfterResetActionGaugue)
+            if (_currentTurnState != null)
             {
-                onPlayerEndTurn?.Invoke();
-                _enemy.UnpauseBar();
-                _player.UnpauseBar();
+                _currentTurnState.OnTurnCompleted();
             }
+            _currentTurnState = newState;
+            _currentTurnState.OnTurnStarted();
         }
 
-        private void _player_onFlowEventChanged(ETurnFlowEvent ev, BaseBattleCharacterController owner)
+        public void ChangeToPlayerTurn()
         {
-            if (ev == ETurnFlowEvent.AfterResetActionGaugue)
-            {
-                onEnemyEndTurn?.Invoke();
-                _enemy.UnpauseBar();
-                _player.UnpauseBar();
-            }
+            ChangeTurn(_playerTurnState);
         }
 
-        public void Update(float dt)
+        public void ChangeToEnemyTurn()
         {
-            _player.UpdateActionGauge(dt);
-            _enemy.UpdateActionGauge(dt);
-        }
-
-        public void ChangeTurn()
-        {
-
-        }
-
-        public void PlayerTurn()
-        {
-            _enemy.PauseBar();
-            _player.PauseBar();
-
-            if (_player.IsAuto)
-            {
-                _player.DetermineCards(_enemy, (selectedCardId) =>
-                {
-                    if (selectedCardId.Equals("REST"))
-                    {
-                        GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
-                        {
-                            AliveTime = 0.5f,
-                            DelaySpawnTime = 0.05f,
-                            EndYDistance = 1f,
-                            Message = "Rest",
-                            SpawnPosition = _player.transform.position + new Vector3(0f, 1f, 0),
-                            TextSize = 40f,
-                            TextColor = Color.yellow,
-                        });
-                        Debug.Log("Player choose rest");
-                    }
-                    else
-                    {
-                        CardSO card = _cardConfig.GetCardById(selectedCardId);
-
-                        if (card == null)
-                        {
-                            return;
-                        }
-
-                        GameUIManager.Singleton
-                                     .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                                     .AsFrame<UICombatFrame>()
-                                     .SpawnPlayerAutoCard(card, _player.CombatCardsProcessor);
-                    }
-                });
-            }
-            else
-            {
-                _player.StartTurn();
-                _player.DrawThreeCards(out IReadOnlyList<CardSO> cards);
-
-                GameUIManager.Singleton
-                    .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                    .AsFrame<UICombatFrame>()
-                    .DisplayDrawnCards(cards, _player.CombatCardsProcessor, _player.GetCombatStatus(EStatusType.Stamina).Value);
-            }
-        }
-
-        public void EnemyTurn()
-        {
-            _player.PauseBar();
-            _enemy.PauseBar();
-
-            _enemy.DetermineCards(_player, (selectedCardId) =>
-            {
-                if (selectedCardId.Equals("REST"))
-                {
-                    Debug.Log("Enemy choose rest");
-                    GameToastManager.Singleton.SpawnToast(new SpawnToastSettingsData
-                    {
-                        AliveTime = 0.5f,
-                        DelaySpawnTime = 0.05f,
-                        EndYDistance = 1f,
-                        Message = "Rest",
-                        SpawnPosition = _enemy.transform.position + new Vector3(0f, 1f, 0),
-                        TextSize = 40f,
-                        TextColor = Color.yellow,
-                    });
-                }
-                else
-                {
-                    CardSO card = _cardConfig.GetCardById(selectedCardId);
-
-                    if (card == null)
-                    {
-                        return;
-                    }
-
-                    GameUIManager.Singleton
-                                 .GetFrame(GameConstants.FRAME_ID_COMBAT)
-                                 .AsFrame<UICombatFrame>()
-                                 .SpawnEnemyCard(card, _enemy.CombatCardsProcessor);
-                }
-            });
+            ChangeTurn(_enemyTurnState);
         }
 
         public void ExecutePlayerCard()
         {
             _player.ExecuteCard(_enemy);
-
-            GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
-                       .AsFrame<UICombatFrame>().ClearAllCards();
+            //GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_COMBAT)
+            //           .AsFrame<UICombatFrame>().ClearAllCards();
         }
     }
 }

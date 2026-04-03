@@ -15,10 +15,10 @@
         /// </summary>
         public EStatusType BaseStatys => m_BaseStatus;
 
-        public float GetFinalValue(BaseBattleCharacterController statusReader)
+        public float GetFinalValue(BaseCombatActor statusReader)
         {
             // 1. Base value from character
-            float baseValue = statusReader.GetCombatStatus(m_BaseStatus).Value;
+            float baseValue = statusReader.StatsManager.GetValue(m_BaseStatus);
 
             // 2. Config value from inspector
             float configValue = Convert.ToSingle(GetValue());
@@ -36,10 +36,10 @@
             };
         }
 
-        public float GetDeltaValue(BaseBattleCharacterController statusReader)
+        public float GetDeltaValue(BaseCombatActor statusReader)
         {
             // 1. Base value from character
-            float baseValue = statusReader.GetCombatStatus(m_BaseStatus).Value;
+            float baseValue = statusReader.StatsManager.GetValue(m_BaseStatus);
 
             // 2. Config value from inspector
             float configValue = Convert.ToSingle(GetValue());

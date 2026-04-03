@@ -17,17 +17,17 @@ namespace SEP490G69.Battle
 
         public int Stack { get; private set; }
 
-        private BaseBattleCharacterController owner;
-        private ICardSpecialEffect _specialEffect;
+        private BaseCombatActor _owner;
+        private ISpecialStatusEffect _specialEffect;
 
-        public ICardSpecialEffect SpecialEffect => _specialEffect;
+        public ISpecialStatusEffect SpecialEffect => _specialEffect;
 
-        public RuntimeStatusEffect(StatusEffectSO data,
-                                   BaseBattleCharacterController owner)
+        public RuntimeStatusEffect(StatusEffectSO data, BaseCombatActor owner)
         {
             Data = data;
-            this.owner = owner;
-            _specialEffect = SpecialStatusEffectFactory.GetById(Data.EffectId);
+            this._owner = owner;
+            _specialEffect = SpecialEffectFactory.GetById(Data.EffectId);
+            _specialEffect?.SetSO(data);
             Stack = STARTER_STACK;
         }
 
@@ -40,15 +40,33 @@ namespace SEP490G69.Battle
         {
             foreach (CombatStatModifierSO mod in Data.Modifiers)
             {
-                owner.AddEffectModifier(mod, Data.EffectId);
+                _owner.AddEffectModifier(mod, Data.EffectId);
             }
+            _specialEffect?.OnApplied(_owner);
+        }
+
+        public void OnDiscard()
+        {
+            _specialEffect?.OnDiscarded(_owner);
+            RemoveEffectModifiers();
         }
 
         public void OnTurnStart()
         {
-            _specialEffect?.OnTurnStart(owner);
+            _specialEffect?.OnTurnStart(_owner, _owner.LastAttacker);
 
-            if (Data.ApplyType == EApplyDiscardType.TurnStart)
+            if (Data.ApplyType == EEffectApplyType.TurnStart)
+            {
+                if (Data.EffectList.Count > 0)
+                {
+                    foreach (var effect in Data.EffectList)
+                    {
+                        _owner.EffectsManager.AddStatusEffect(effect);
+                    }
+                }
+            }
+
+            if (Data.DecayType == EDecayType.TurnStart)
             {
                 DecreaseStack();
             }
@@ -56,27 +74,66 @@ namespace SEP490G69.Battle
 
         public void OnTurnEnd()
         {
-            if (Data.ApplyType == EApplyDiscardType.DiscardAfterNthTurns ||
-                Data.ApplyType == EApplyDiscardType.TurnEnd)
+            _specialEffect?.OnTurnEnd(_owner, _owner.LastAttacker);
+            if (Data.ApplyType == EEffectApplyType.TurnEnd)
+            {
+                if (Data.EffectList.Count > 0)
+                {
+                    foreach (var effect in Data.EffectList)
+                    {
+                        _owner.EffectsManager.AddStatusEffect(effect);
+                    }
+                }
+            }
+            if (Data.DecayType == EDecayType.TurnEnd)
             {
                 DecreaseStack();
             }
         }
 
-        public void OnAfterReceiveDamage(float damage)
+        public void OnHitTarget(BaseCombatActor opponent)
         {
-            // Handle reflect dmg logic.
-            foreach (var modifier in Data.Modifiers)
+            if (Data.ApplyType == EEffectApplyType.OnHitTarget)
             {
-                if (modifier.StatType == EStatusType.RelectedDmg)
+                if (Data.EffectList.Count > 0)
                 {
-                    float reflect = modifier.GetModifiedStatus(damage);
-
-                    owner.LastAttacker.ReceiveDamage(reflect, owner);
+                    foreach (var effect in Data.EffectList)
+                    {
+                        _owner.EffectsManager.AddStatusEffect(effect);
+                    }
                 }
             }
 
-            if (Data.ApplyType == EApplyDiscardType.DiscardAfterBeingAtk)
+            _specialEffect?.OnHitTarget(_owner, opponent);
+        }
+
+        public void OnAfterBeingAttacked(float damage)
+        {
+            // Handle reflect dmg logic.
+            //foreach (var modifier in Data.Modifiers)
+            //{
+            //    if (modifier.StatType == EStatusType.RelectedDmg)
+            //    {
+            //        float reflect = modifier.GetModifiedStatus(damage);
+
+            //        _owner.LastAttacker.ReceiveDamage(reflect, _owner);
+            //    }
+            //}
+
+            if (Data.ApplyType == EEffectApplyType.OnBeingAttacked)
+            {
+                if (Data.EffectList.Count > 0)
+                {
+                    foreach (var effect in Data.EffectList)
+                    {
+                        _owner.EffectsManager.AddStatusEffect(effect);
+                    }
+                }
+            }
+
+            _specialEffect?.OnAfterBeingAttacked(damage, _owner, _owner.LastAttacker);
+
+            if (Data.DecayType == EDecayType.OnBeingAttacked)
             {
                 DecreaseStack();
             }
@@ -88,15 +145,13 @@ namespace SEP490G69.Battle
 
             if (Stack <= 0)
             {
-                RemoveEffectModifiers();
-
                 onStackEmpty?.Invoke(this);
             }
         }
 
         private void RemoveEffectModifiers()
         {
-            owner.RemoveStatusEffect(Data.EffectId);
+            _owner.RemoveEffectModifiers(Data.EffectId);
         }
     }
 }

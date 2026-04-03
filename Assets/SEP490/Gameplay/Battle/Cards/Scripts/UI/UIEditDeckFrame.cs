@@ -28,33 +28,12 @@
         [SerializeField] private RectTransform m_OnDragParent;
 
         private List<string> _currentDeckIds = new List<string>();
-        private int _maxDeckSize = 9;
 
         private ImageMasterConfigSO _imgMasterConfig;
-        private ImageMasterConfigSO ImgMasterConfig
-        {
-            get
-            {
-                if (_imgMasterConfig == null)
-                {
-                    _imgMasterConfig = Resources.Load<ImageMasterConfigSO>("Images/ImageMasterConfig");
-                }
-                return _imgMasterConfig;
-            }
-        }
+        private ImageMasterConfigSO ImgMasterConfig => _imgMasterConfig ??= Resources.Load<ImageMasterConfigSO>("Images/ImageMasterConfig");
 
         private GameDeckController _deckController;
-        protected GameDeckController DeckController
-        {
-            get
-            {
-                if (_deckController == null)
-                {
-                    _deckController = ContextManager.Singleton.ResolveGameContext<GameDeckController>();
-                }
-                return _deckController;
-            }
-        }
+        protected GameDeckController DeckController => _deckController ??= ContextManager.Singleton.ResolveGameContext<GameDeckController>();
 
         private List<SessionCardData> _obtainedCards = new List<SessionCardData>();
 
@@ -260,7 +239,7 @@
         {
             if (m_InDeckCountTmp != null)
             {
-                m_InDeckCountTmp.text = $"MY DECK: {_currentDeckIds.Count}/{_maxDeckSize} CARDS";
+                m_InDeckCountTmp.text = $"MY DECK: {_currentDeckIds.Count}/{GameDeckController.MAX_DECK_COUNT} CARDS";
             }
         }
 
@@ -354,23 +333,8 @@
 
         public Sprite GetCardTypeImg(EActionType type)
         {
-            string id = string.Empty;
-            switch (type)
-            {
-                case EActionType.Attack:
-                    id = "ic_atk";
-                    break;
-                case EActionType.Effect:
-                    id = "ic_effect";
-                    break;
-                case EActionType.StatRecover:
-                case EActionType.HPRecover:
-                    id = "ic_recover";
-                    break;
-                default:
-                    break;
-            }
-            
+            string id = CardConstants.GetCardTypeIconId(type);
+
             if (string.IsNullOrEmpty(id))
             {
                 return null;

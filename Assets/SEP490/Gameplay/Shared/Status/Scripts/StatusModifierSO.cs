@@ -11,6 +11,7 @@ namespace SEP490G69
         [SerializeField] private EStatusType m_StatType;
         [SerializeField] private EOperator m_Operator;
         [SerializeField] private float m_Value;
+
         [Header("Random number")]
         [SerializeField] private bool m_RandomNumber;
         [SerializeField] private float m_Min;
@@ -27,7 +28,7 @@ namespace SEP490G69
         public float Value => m_Value;
         public string Description => m_Description;
 
-        public float GetModifiedStatus(float targetValue)
+        public float GetModifiedStatus(float targetValue, int stack = 0)
         {
             float value = GetRandomNumber();
             switch (m_Operator)
@@ -44,10 +45,15 @@ namespace SEP490G69
                     return targetValue * value;
                 case EOperator.Set:
                     return value;
+                case EOperator.PercentAddPerStack:
+                    return targetValue + targetValue * stack * value;
+                case EOperator.PercentSubPerStack:
+                    return targetValue - targetValue * stack * value;
             }
             return targetValue;
         }
-        public float GetDelta(float targetValue)
+
+        public float GetDelta(float targetValue, int stack = 0)
         {
             float value = GetRandomNumber();
 
@@ -66,6 +72,10 @@ namespace SEP490G69
                     return -value;
                 case EOperator.Set:
                     return value;
+                case EOperator.PercentAddPerStack:
+                    return targetValue * stack * value;
+                case EOperator.PercentSubPerStack:
+                    return -(targetValue * stack * value);
             }
 
             return 0f;

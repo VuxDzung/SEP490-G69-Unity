@@ -13,11 +13,39 @@ MonoBehaviour:
   m_Name: StarterCardConfig
   m_EditorClassIdentifier: 
   m_StarterCards:
-  - cardId: card_0001
-    amount: 1
-  - cardId: card_0002
-    amount: 1
   - cardId: card_0003
     amount: 1
-  - cardId: card_0004
+  - cardId: card_0007
+    amount: 1
+  - cardId: card_0011
+    amount: 1
+  - cardId: card_0012
+    amount: 1
+  - cardId: card_0013
+    amount: 1
+  - cardId: card_0017
+    amount: 1
+  - cardId: card_0019
+    amount: 1
+  - cardId: card_0021
+    amount: 1
+  - cardId: card_0022
+    amount: 1
+  - cardId: card_0026
+    amount: 1
+  - cardId: card_0034
+    amount: 1
+  - cardId: card_0035
+    amount: 1
+  - cardId: card_0038
+    amount: 1
+  - cardId: card_0055
+    amount: 1
+  - cardId: card_0056
+    amount: 1
+  - cardId: card_0057
+    amount: 1
+  - cardId: card_0059
+    amount: 1
+  - cardId: card_0069
     amount: 1

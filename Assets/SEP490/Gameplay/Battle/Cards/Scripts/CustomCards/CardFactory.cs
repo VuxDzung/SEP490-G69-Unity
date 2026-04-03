@@ -1,6 +1,7 @@
 namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
+    using SEP490G69.Battle.Combat;
 
     public class CardFactory
     {
@@ -19,25 +20,15 @@ namespace SEP490G69.Battle
 
             switch (data.CardId)
             {
-                case CardConstants.CARD_ID_12:
-                    return new RecklessChargeCard(data);
-                case CardConstants.CARD_ID_16:
-                    return new ExecuteCard(data);
-                case CardConstants.CARD_ID_18:
-                    return new BerserkerSlashCard(data);
-                case CardConstants.CARD_ID_20:
-                    return new LastResortCard(data);
-                case CardConstants.CARD_ID_25:
-                case "card_0049":
-                    return new NatureWrathCard(data);
-                case CardConstants.CARD_ID_31:
-                    return new GuardianImpact(data);
-                case CardConstants.CARD_ID_32:
+                case CardConstants.CARD_ID_0007:
+                case CardConstants.CARD_ID_0012:
+                    return new ExtraDmgWithEffectConditionCard(data);
+
+                case CardConstants.CARD_ID_0008:
                     return new PurifyCard(data);
-                case CardConstants.CARD_ID_41:
-                    return new CursedWhisperCard(data);
-                case CardConstants.CARD_ID_46:
-                    return new NullifyCard(data);
+
+                case CardConstants.CARD_ID_0069:
+                    return new FuriosoCard(data);
             }
 
             if (data.ActionType == EActionType.Attack)

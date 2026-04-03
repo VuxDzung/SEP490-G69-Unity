@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2c0ccba0a43f4ab522fee079809e4, type: 3}
+  m_Name: card_0013
+  m_EditorClassIdentifier: 
+  cardId: card_0013
+  cardName: card_0013_name
+  cardDescription: card_0013_desc
+  icon: {fileID: 21300000, guid: eaece755391f9be4893851cc0fd8f79c, type: 3}
+  cost: 60
+  m_IsReady: 1
+  m_IsUnique: 1
+  m_IsExhaustCard: 1
+  m_ActionType: 2
+  m_BaseValue: 0
+  m_ModifyStatType: 0
+  m_DmgModOp: 0
+  dmgModifierValue: 0
+  m_AtkCount: 0
+  m_DamageType: 3
+  m_PreStatModifiers: []
+  m_PostStatModifiers:
+  - {fileID: 11400000, guid: 527c57e9257c16b4db383257ada9a3e6, type: 2}
+  m_StatusGains:
+  - {fileID: 11400000, guid: 9e3c5609f9685f044bede9601005500b, type: 2}
+  - {fileID: 11400000, guid: 9e3c5609f9685f044bede9601005500b, type: 2}
+  - {fileID: 11400000, guid: d694c2a36838b0e4babe29448be6c5a0, type: 2}
+  - {fileID: 11400000, guid: f693a8badbffbe44085e7029b487f915, type: 2}
+  m_StatusInflicts: []
+  m_ExtraActions: []
+  m_CustomVariables: []
+  m_VfxList: []

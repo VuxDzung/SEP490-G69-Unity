@@ -2,21 +2,18 @@ namespace SEP490G69.Battle
 {
     using SEP490G69.Battle.Cards;
     using SEP490G69.Battle.Combat;
-    using UnityEngine;
 
     public class PurifyCard : BaseCard
     {
-        public PurifyCard(CardSO data) : base(data)
-        {
-        }
+        public PurifyCard(CardSO data) : base(data) { }
 
-        protected override void ExecuteAction(BaseBattleCharacterController self, BaseBattleCharacterController target)
+        public override void Execute(PlayerActorController source, BaseCombatActor target)
         {
-            base.ExecuteAction(self, target);
-            RuntimeStatusEffect[] effects = self.StatEffectManager.GetEffectsByType(EEffectType.Debuff);
+            base.Execute(source, target);
+            var effects = source.EffectsManager.GetEffectsByType(EEffectType.Debuff);
             foreach (var effect in effects)
             {
-                self.StatEffectManager.Remove(effect);
+                source.EffectsManager.Remove(effect);
             }
         }
     }

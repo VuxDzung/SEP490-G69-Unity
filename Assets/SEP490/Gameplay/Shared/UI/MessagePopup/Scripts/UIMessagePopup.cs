@@ -50,7 +50,7 @@ namespace SEP490G69.Shared
         public UIMessagePopup SetOptionMessage(string confirmIdMsg = "", string cancelIdMsg = "")
         {
             string confirmMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, string.IsNullOrEmpty(confirmIdMsg) ? m_DefaultConfirmMsg : confirmIdMsg);
-            string cancelMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, string.IsNullOrEmpty(cancelIdMsg) ? m_DefaultConfirmMsg : cancelIdMsg);
+            string cancelMsg = LocalizeManager.GetText(GameConstants.LOCALIZE_UI_MESSAGE, string.IsNullOrEmpty(cancelIdMsg) ? m_DefaultCancelMsg : cancelIdMsg);
 
             m_ConfirmTmp.text = confirmMsg;
             m_CancelTmp.text = cancelMsg;

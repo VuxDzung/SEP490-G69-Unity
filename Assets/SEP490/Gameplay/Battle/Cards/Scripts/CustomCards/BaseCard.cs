@@ -20,7 +20,7 @@ namespace SEP490G69.Battle
             _vfxBarrier = new AnimationBarrier();
         }
 
-        public virtual void Execute(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        public virtual void Execute(PlayerActorController source, BaseCombatActor target)
         {
             if (!ExecuteCondition(source, target)) return;
 
@@ -29,9 +29,19 @@ namespace SEP490G69.Battle
             ApplyStatModifiers(source, target, Data.PreStatModifiers);
 
             ExecuteAction(source, target);
+
+            StackShield(source);
         }
 
-        protected virtual void ExecuteAction(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual void StackShield(PlayerActorController source)
+        {
+            if (Data.ActionType == EActionType.Shield)
+            {
+                source.StackShield(Data.BaseValue, Data.ModifierValue);
+            }
+        }
+
+        protected virtual void ExecuteAction(PlayerActorController source, BaseCombatActor target)
         {
             Debug.Log("Do nothing by defaut.");
 
@@ -39,7 +49,7 @@ namespace SEP490G69.Battle
             OnAnimationCompleted(source, target);
         }
 
-        protected void ApplyStatModifiers(BaseBattleCharacterController source, BaseBattleCharacterController target, CombatStatModifierSO[] modifiers)
+        protected void ApplyStatModifiers(PlayerActorController source, BaseCombatActor target, CombatStatModifierSO[] modifiers)
         {
             if (modifiers == null || modifiers.Length == 0)
             {
@@ -47,7 +57,7 @@ namespace SEP490G69.Battle
                 return;
             }
 
-            BaseBattleCharacterController receiver = null;
+            BaseCombatActor receiver = null;
 
             foreach (var mod in modifiers)
             {
@@ -57,7 +67,7 @@ namespace SEP490G69.Battle
             }
         }
 
-        protected void ApplyStatusEffects(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected void ApplyStatusEffects(PlayerActorController source, BaseCombatActor target)
         {
             if (Data.StatusGains != null &&
                 Data.StatusGains.Length > 0 &&
@@ -82,21 +92,21 @@ namespace SEP490G69.Battle
             }
         }
 
-        protected virtual bool ExecuteCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual bool ExecuteCondition(PlayerActorController source, BaseCombatActor target)
         {
             return true;
         }
 
-        public virtual float CalculateExtraDmg(float curDmg, BaseBattleCharacterController source, BaseBattleCharacterController target)
+        public virtual float CalculateExtraDmg(float curDmg, PlayerActorController source, BaseCombatActor target)
         {
             return 0;
         }
 
-        protected virtual bool CheckGainCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual bool CheckGainCondition(PlayerActorController source, BaseCombatActor target)
         {
             return true;
         }
-        protected virtual bool CheckInflictCondition(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual bool CheckInflictCondition(PlayerActorController source, BaseCombatActor target)
         {
             return true;
         }
@@ -106,7 +116,7 @@ namespace SEP490G69.Battle
             _vfxBarrier.Signal();
         }
 
-        protected virtual void ExecuteVfxs(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual void ExecuteVfxs(PlayerActorController source, BaseCombatActor target)
         {
             if (Data.VfxList == null || Data.VfxList.Count == 0)
             {
@@ -143,7 +153,7 @@ namespace SEP490G69.Battle
             }
         }
 
-        protected virtual void FinalizeCard(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual void FinalizeCard(PlayerActorController source, BaseCombatActor target)
         {
             ApplyStatModifiers(source, target, Data.PostStatModifiers);
             ApplyStatusEffects(source, target);
@@ -152,7 +162,7 @@ namespace SEP490G69.Battle
             target.CheckDeath();
         }
 
-        protected virtual void OnAnimationCompleted(BaseBattleCharacterController source, BaseBattleCharacterController target)
+        protected virtual void OnAnimationCompleted(PlayerActorController source, BaseCombatActor target)
         {
             ExecuteVfxs(source, target);
         }

@@ -17,111 +17,111 @@ MonoBehaviour:
   - id: ste_0001_name
     textList:
     - language: 0
-      text: Power Up
+      text: Damage Up
     - language: 0
-      text: "T\u0103ng Pow"
+      text: Damage Up
   - id: ste_0002_name
     textList:
     - language: 0
-      text: Greater Power Up
+      text: Fortify
     - language: 1
-      text: "T\u0103ng Pow \u0110\u1EA1i"
+      text: Fortify
   - id: ste_0003_name
-    textList:
-    - language: 0
-      text: Defense Up
-    - language: 1
-      text: "T\u0103ng Def"
-  - id: ste_0004_name
-    textList:
-    - language: 0
-      text: Greater Defense Up
-    - language: 1
-      text: "T\u0103ng Def \u0110\u1EA1i"
-  - id: ste_0005_name
-    textList:
-    - language: 0
-      text: Agi Up
-    - language: 1
-      text: "T\u0103ng Agi"
-  - id: ste_0006_name
-    textList:
-    - language: 0
-      text: Greater Agi Up
-    - language: 1
-      text: "T\u0103ng Agi \u0110\u1EA1i"
-  - id: ste_0007_name
-    textList:
-    - language: 0
-      text: Int Up
-    - language: 1
-      text: "T\u0103ng Int"
-  - id: ste_0008_name
-    textList:
-    - language: 0
-      text: Greater Int Up
-    - language: 1
-      text: "T\u0103ng Int \u0110\u1EA1i"
-  - id: ste_0009_name
-    textList:
-    - language: 0
-      text: Power Down
-    - language: 1
-      text: "Gi\u1EA3m Pow"
-  - id: ste_0010_name
-    textList:
-    - language: 0
-      text: Greater Power Down
-    - language: 1
-      text: "Gi\u1EA3m Pow \u0110\u1EA1i"
-  - id: ste_0011_name
-    textList:
-    - language: 0
-      text: Defense Down
-    - language: 1
-      text: "Gi\u1EA3m Def"
-  - id: ste_0012_name
-    textList:
-    - language: 0
-      text: Greater Defense Down
-    - language: 1
-      text: "Gi\u1EA3m Def \u0110\u1EA1i"
-  - id: ste_0013_name
-    textList:
-    - language: 0
-      text: Agi Down
-    - language: 1
-      text: "Gi\u1EA3m Agi"
-  - id: ste_0014_name
-    textList:
-    - language: 0
-      text: Greater Agi Down
-    - language: 1
-      text: "Gi\u1EA3m Agi \u0110\u1EA1i"
-  - id: ste_0015_name
-    textList:
-    - language: 0
-      text: Int Down
-    - language: 1
-      text: "Gi\u1EA3m Int"
-  - id: ste_0016_name
-    textList:
-    - language: 0
-      text: Greater Int Down
-    - language: 1
-      text: "Gi\u1EA3m Int \u0110\u1EA1i"
-  - id: ste_0017_name
-    textList:
-    - language: 0
-      text: Regeneration
-    - language: 1
-      text: "H\u1ED3i Ph\u1EE5c"
-  - id: ste_0018_name
     textList:
     - language: 0
       text: Vulnerable
     - language: 1
-      text: "D\u1EC5 B\u1ECB Th\u01B0\u01A1ng"
+      text: Vulnerable
+  - id: ste_0004_name
+    textList:
+    - language: 0
+      text: Weak
+    - language: 1
+      text: Weak
+  - id: ste_0005_name
+    textList:
+    - language: 0
+      text: Frail
+    - language: 1
+      text: Frail
+  - id: ste_0006_name
+    textList:
+    - language: 0
+      text: Stun
+    - language: 1
+      text: Stun
+  - id: ste_0007_name
+    textList:
+    - language: 0
+      text: Darkness
+    - language: 1
+      text: Darkness
+  - id: ste_0008_name
+    textList:
+    - language: 0
+      text: Fatigue
+    - language: 1
+      text: Fatigue
+  - id: ste_0009_name
+    textList:
+    - language: 0
+      text: Decay
+    - language: 1
+      text: Decay
+  - id: ste_0010_name
+    textList:
+    - language: 0
+      text: Bleed
+    - language: 1
+      text: Bleed
+  - id: ste_0011_name
+    textList:
+    - language: 0
+      text: Decay Aura
+    - language: 1
+      text: Decay Aura
+  - id: ste_0012_name
+    textList:
+    - language: 0
+      text: Razor Edge
+    - language: 1
+      text: Razor Edge
+  - id: ste_0013_name
+    textList:
+    - language: 0
+      text: Corruptor
+    - language: 1
+      text: Corruptor
+  - id: ste_0014_name
+    textList:
+    - language: 0
+      text: Strength
+    - language: 1
+      text: Strength
+  - id: ste_0015_name
+    textList:
+    - language: 0
+      text: Thorns
+    - language: 1
+      text: Thorns
+  - id: ste_0016_name
+    textList:
+    - language: 0
+      text: Barrier
+    - language: 1
+      text: Barrier
+  - id: ste_0017_name
+    textList:
+    - language: 0
+      text: Berserk
+    - language: 1
+      text: Berserk
+  - id: ste_0018_name
+    textList:
+    - language: 0
+      text: Regeneration
+    - language: 1
+      text: Regeneration
   - id: ste_0019_name
     textList:
     - language: 0
@@ -131,21 +131,21 @@ MonoBehaviour:
   - id: ste_0020_name
     textList:
     - language: 0
-      text: Stun
+      text: Rage
     - language: 1
-      text: "Cho\xE1ng"
+      text: Rage
   - id: ste_0021_name
     textList:
     - language: 0
-      text: Darkness
+      text: Persistent
     - language: 1
-      text: "B\xF3ng T\u1ED1i"
+      text: Persistent
   - id: ste_0022_name
     textList:
     - language: 0
-      text: Damage Up
+      text: Doom
     - language: 1
-      text: "T\u0103ng S\xE1t Th\u01B0\u01A1ng"
+      text: Doom
   - id: ste_0023_name
     textList:
     - language: 0

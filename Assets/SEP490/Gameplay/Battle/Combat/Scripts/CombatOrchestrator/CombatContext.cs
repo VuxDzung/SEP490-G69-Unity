@@ -6,8 +6,8 @@ namespace SEP490G69.Battle
 
     public class CombatContext
     {
-        public BaseBattleCharacterController Attacker;
-        public BaseBattleCharacterController Defender;
+        public BaseCombatActor Attacker;
+        public BaseCombatActor Defender;
 
         public CardSO Card;
 

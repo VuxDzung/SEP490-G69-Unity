@@ -75,12 +75,11 @@
             //    m_BgImage.enabled = false;
             //}
 
-            string playerName = ProfileController.GetPlayerName(PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID));
 
-            if (dialog.Contains("ch_0004"))
-            {
-                dialog = dialog.Replace("ch_0004", playerName);
-            }
+            //if (dialog.Contains("ch_0004"))
+            //{
+            //    dialog = dialog.Replace("ch_0004", playerName);
+            //}
 
             BaseCharacterSO character = _characterConfig.GetCharacterById(speakerID);
             if (character != null)
@@ -88,6 +87,8 @@
                 m_Image.enabled = true;
                 if (speakerID == "ch_0004")
                 {
+                    string playerName = ProfileController.GetPlayerName(PlayerPrefs.GetString(GameConstants.PREF_KEY_PLAYER_ID));
+
                     m_SpeakerNameTmp.text = playerName;
                 }
                 else

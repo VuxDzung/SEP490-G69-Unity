@@ -5,7 +5,7 @@ namespace SEP490G69.Battle.Cards
     using System.Linq;
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "CardSO_", menuName = OrganizationConstants.NAMESPACE + "/Cards/Card data")]
+    [CreateAssetMenu(fileName = "CardSO_", menuName = OrganizationConstants.NAMESPACE + "/Battle/Cards/Card data")]
     public class CardSO : ScriptableObject
     {
         [Header("Info")]
@@ -15,16 +15,23 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private Sprite icon;
         [SerializeField] private int cost;
         [SerializeField] private bool m_IsReady;
-        [SerializeField] private bool m_Stackable;
+        [SerializeField] private bool m_IsUnique;
+        [SerializeField] private bool m_IsExhaustCard;
 
         [Header("Dmg changer")]
         [SerializeField] private EActionType m_ActionType;
-        [SerializeField] private float m_BaseDmg;
+        [SerializeField] private float m_BaseValue;
         [SerializeField] private EStatusType m_ModifyStatType;
         [SerializeField] private EOperator m_DmgModOp;
         [SerializeField] private float dmgModifierValue;
         [SerializeField] private int m_AtkCount;
         [SerializeField] private EDamageType m_DamageType;
+
+        [Header("Usable conditon id")]
+        [SerializeField] private string m_UsableConditionId; 
+
+        [Header("Extra card draw")]
+        [SerializeField] private int m_DrawCardAmount;
 
         [Header("Stat modifiers")]
         [SerializeField] private List<CombatStatModifierSO> m_PreStatModifiers;
@@ -52,16 +59,19 @@ namespace SEP490G69.Battle.Cards
         public Sprite Icon => icon;
         public int Cost => cost;
         public bool IsReady => m_IsReady;
-        public bool Stackable => m_Stackable;
-
+        public bool Stackable => m_IsUnique;
+        public bool IsExhaustCard => m_IsExhaustCard;
+        public int DrawCardAmount => m_DrawCardAmount;
         public EActionType ActionType => m_ActionType;
-        public float BaseValue => m_BaseDmg;
+        public float BaseValue => m_BaseValue;
         public EStatusType ModifyStatType => m_ModifyStatType;
         public EOperator ModifyOp => m_DmgModOp;
         public float ModifierValue => dmgModifierValue;
         public int AtkCount => m_AtkCount;  
         public EDamageType DamageType => m_DamageType;
         public string[] ExtraActions => m_ExtraActions;
+
+        public string UsableConditionId => m_UsableConditionId;
 
         /// <summary>
         /// Get modifier(s) before performing the attack action.
@@ -106,7 +116,7 @@ namespace SEP490G69.Battle.Cards
             switch (m_DmgModOp)
             {
                 case EOperator.PercentAdd:
-                    return targetValue * m_BaseDmg;
+                    return targetValue * m_BaseValue;
 
                 case EOperator.PercentSub:
                     return -targetValue * dmgModifierValue;

@@ -9,5 +9,7 @@ namespace SEP490G69
         FlatSub = 4,
         Mul = 5,
         Set = 6,
+        PercentAddPerStack = 7,
+        PercentSubPerStack = 8,
     }
 }

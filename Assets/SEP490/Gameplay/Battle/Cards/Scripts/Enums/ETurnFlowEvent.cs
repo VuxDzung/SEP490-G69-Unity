@@ -13,6 +13,6 @@ namespace SEP490G69.Battle
         /// </summary>
         AfterCardAction = 3,
 
-        AfterResetActionGaugue = 4,
+        TurnFinished = 4,
     }
 }

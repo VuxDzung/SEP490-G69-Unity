@@ -19,7 +19,7 @@ namespace SEP490G69.Battle
             float critMul = source.CaculateCritMul();
             critMul = (float)System.Math.Round(critMul, 1);
 
-            float damage = source.StatsManager.GetValue(EStatusType.Damage);// * (hasCrit ? critMul : 1f);
+            float damage = source.StatsManager.GetValue(EStatusType.Damage) * (hasCrit ? critMul : 1f);
 
             Debug.Log($"Raw damage of {source.CharacterSO.CharacterName}: {damage}");
 

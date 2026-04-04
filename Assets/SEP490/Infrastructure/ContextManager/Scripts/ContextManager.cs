@@ -1,7 +1,6 @@
 namespace SEP490G69
 {
     using System.Collections.Generic;
-    using System.Collections;
     using UnityEngine;
 
     [DefaultExecutionOrder(-1000)]
@@ -9,7 +8,6 @@ namespace SEP490G69
     {
         [SerializeField] private GameContextConfigSO m_GameContextConfig;
 
-        
         private List<IGameContext> _gameContextList = new List<IGameContext>();
         private List<ISceneContext> _sceneContextList = new List<ISceneContext>();
 

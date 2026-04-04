@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef7ad938f8b4204e8050275bf6e4e08, type: 3}
+  m_Name: intent_0001_0001
+  m_EditorClassIdentifier: 
+  m_IntentAction: 5
+  m_BaseDamage: 10
+  m_AttackMultiplier: 1
+  m_DefendValue: 0
+  m_DefendMultiplier: 0
+  m_GainEffectId: 
+  m_GainAmount: 0
+  m_InflictEffectId: ste_0003
+  m_InflictAmount: 1

@@ -51,7 +51,7 @@ namespace SEP490G69.Battle.Combat
                     cardUI.SetContent(card.CardId, cardName, cardDesc, card.Icon)
                           .SetCost(cardCost);
                     cardUI.SetCardTypeSprite(cardTypeSprite);
-                    cardUI.IsDraggable = false;
+                    cardUI.DisableDrag();
                 }
             }
         }

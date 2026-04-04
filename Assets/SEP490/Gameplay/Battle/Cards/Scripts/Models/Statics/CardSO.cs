@@ -51,7 +51,7 @@ namespace SEP490G69.Battle.Cards
         [SerializeField] private string[] m_ExtraActions;
         [SerializeField] private List<CustomVariable> m_CustomVariables;
 
-        [SerializeField] private List<CardSpawnVfxData> m_VfxList;
+        [SerializeField] private List<SpawnVfxData> m_VfxList;
 
         public string CardId => cardId;
         public string CardName => cardName;
@@ -95,7 +95,7 @@ namespace SEP490G69.Battle.Cards
 
         public IReadOnlyList<CustomVariable> CustomVariables => m_CustomVariables;
 
-        public IReadOnlyList<CardSpawnVfxData> VfxList => m_VfxList;
+        public IReadOnlyList<SpawnVfxData> VfxList => m_VfxList;
 
         /// <summary>
         /// Get custom/external variable.
@@ -143,8 +143,8 @@ namespace SEP490G69.Battle.Cards
         }
     }
 
-    [System.Serializable]
-    public class CardSpawnVfxData
+    [Serializable]
+    public class SpawnVfxData
     {
         public string vfxId;
         public float delay;
@@ -153,7 +153,7 @@ namespace SEP490G69.Battle.Cards
 
     public class SpawnVfxSettings
     {
-        public CardSpawnVfxData data;
+        public SpawnVfxData data;
         public Action onCompleted;
     }
 

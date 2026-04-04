@@ -1,9 +1,11 @@
 namespace SEP490G69.Battle.Combat
 {
+    using SEP490G69.Battle.Cards;
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "intent_")]
+    [CreateAssetMenu(fileName = "intent_", menuName = OrganizationConstants.NAMESPACE + "/Battle/Enemy/Enemy Intent Action")]
     public class EnemyIntentSO : ScriptableObject
     {
         [SerializeField] private EIntentAction m_IntentAction;
@@ -24,6 +26,9 @@ namespace SEP490G69.Battle.Combat
         [SerializeField] private string m_InflictEffectId;
         [SerializeField] private int m_InflictAmount;
 
+        [Header("Vfx")]
+        [SerializeField] private List<SpawnVfxData> m_VfxList;
+
         public EIntentAction Intent => m_IntentAction;
 
         public float BaseDamage => m_BaseDamage;
@@ -37,17 +42,19 @@ namespace SEP490G69.Battle.Combat
 
         public string InflictEffectId => m_InflictEffectId;
         public int InflictAmount => m_InflictAmount;
+
+        public IReadOnlyList<SpawnVfxData> VfxList => m_VfxList;
     }
 
     [Flags]
     public enum EIntentAction
     {
         None = 0,
-        Attack = 1,
-        Shield = 2,
-        InflictEffect = 3,
-        GainEffect = 4,
-        AddCardToPlayer = 5,
-        Pierce = 6,
+        Attack = 1 << 0,          // 1
+        Shield = 1 << 1,          // 2
+        InflictEffect = 1 << 2,   // 4
+        GainEffect = 1 << 3,      // 8
+        AddCardToPlayer = 1 << 4, // 16
+        Pierce = 1 << 5,          // 32
     }
 }

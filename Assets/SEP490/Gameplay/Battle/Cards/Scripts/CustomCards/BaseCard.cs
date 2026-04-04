@@ -116,42 +116,42 @@ namespace SEP490G69.Battle
             _vfxBarrier.Signal();
         }
 
-        protected virtual void ExecuteVfxs(PlayerActorController source, BaseCombatActor target)
-        {
-            if (Data.VfxList == null || Data.VfxList.Count == 0)
-            {
-                FinalizeCard(source, target);
-                return;
-            }
+        //protected virtual void ExecuteVfxs(PlayerActorController source, BaseCombatActor target)
+        //{
+        //    if (Data.VfxList == null || Data.VfxList.Count == 0)
+        //    {
+        //        FinalizeCard(source, target);
+        //        return;
+        //    }
 
-            List<CardSpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
-            List<CardSpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
+        //    List<SpawnVfxData> selfVfxList = Data.VfxList.Where(x => x.target == ETargetType.Self).ToList();
+        //    List<SpawnVfxData> opponentVfxList = Data.VfxList.Where(x => x.target == ETargetType.Opponent).ToList();
 
-            _vfxBarrier = new AnimationBarrier();
-            _vfxBarrier.SetCount(Data.VfxList.Count);
-            _vfxBarrier.SetOnCompletedCallback(() =>
-            {
-                FinalizeCard(source, target);
-            });
+        //    _vfxBarrier = new AnimationBarrier();
+        //    _vfxBarrier.SetCount(Data.VfxList.Count);
+        //    _vfxBarrier.SetOnCompletedCallback(() =>
+        //    {
+        //        FinalizeCard(source, target);
+        //    });
 
-            if (selfVfxList.Count > 0)
-            {
-                source.VFXController.PlayVfxList(selfVfxList.Select(vfx => new SpawnVfxSettings
-                {
-                    data = vfx,
-                    onCompleted = OnVfxCompleted
-                }).ToList());
-            }
+        //    if (selfVfxList.Count > 0)
+        //    {
+        //        source.VFXController.PlayVfxList(selfVfxList.Select(vfx => new SpawnVfxSettings
+        //        {
+        //            data = vfx,
+        //            onCompleted = OnVfxCompleted
+        //        }).ToList());
+        //    }
 
-            if (opponentVfxList.Count > 0)
-            {
-                target.VFXController.PlayVfxList(opponentVfxList.Select(vfx => new SpawnVfxSettings
-                {
-                    data = vfx,
-                    onCompleted = OnVfxCompleted
-                }).ToList());
-            }
-        }
+        //    if (opponentVfxList.Count > 0)
+        //    {
+        //        target.VFXController.PlayVfxList(opponentVfxList.Select(vfx => new SpawnVfxSettings
+        //        {
+        //            data = vfx,
+        //            onCompleted = OnVfxCompleted
+        //        }).ToList());
+        //    }
+        //}
 
         protected virtual void FinalizeCard(PlayerActorController source, BaseCombatActor target)
         {
@@ -164,7 +164,10 @@ namespace SEP490G69.Battle
 
         protected virtual void OnAnimationCompleted(PlayerActorController source, BaseCombatActor target)
         {
-            ExecuteVfxs(source, target);
+            source.ExecuteVfxs(Data.VfxList, target, (opponent) =>
+            {
+                FinalizeCard(source, opponent);
+            });
         }
     }
 }

@@ -2,19 +2,30 @@ namespace SEP490G69.Battle.Combat
 {
     public static class EnemyIntentFactory
     {
-        public static IEnemyIntentStrategy CreateIntent(EnemyIntentSO data, EnemyActorController owner)
+        public static IEnemyIntentStrategy CreateIntent(EnemyIntentSO data, EnemyActorController owner, SceneCombatController battleManager)
         {
-            IEnemyIntentStrategy intent = data.Intent switch
-            {
-                EIntentAction.Attack => new AttackIntent(),
-                EIntentAction.Shield => new ShieldIntent(),
-                EIntentAction.InflictEffect => new InflictEffectIntent(),
-                EIntentAction.GainEffect => new GainEffectIntent(),
-                _ => null
-            };
+            var composite = new CompositeIntent();
 
-            intent?.Initialize(owner, data);
-            return intent;
+            if ((data.Intent & EIntentAction.Attack) != 0)
+                composite.Add(new AttackIntent());
+
+            if ((data.Intent & EIntentAction.Shield) != 0)
+                composite.Add(new ShieldIntent());
+
+            if ((data.Intent & EIntentAction.InflictEffect) != 0)
+                composite.Add(new InflictEffectIntent());
+
+            if ((data.Intent & EIntentAction.GainEffect) != 0)
+                composite.Add(new GainEffectIntent());
+
+            //if ((data.Intent & EIntentAction.AddCardToPlayer) != 0)
+            //    composite.Add(new AddCardIntent());
+
+            //if ((data.Intent & EIntentAction.Pierce) != 0)
+            //    composite.Add(new PierceIntent());
+
+            composite.Initialize(owner, data, battleManager);
+            return composite;
         }
     }
 }

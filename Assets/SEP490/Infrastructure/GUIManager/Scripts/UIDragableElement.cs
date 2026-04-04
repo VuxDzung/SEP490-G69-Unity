@@ -3,6 +3,7 @@
     using System;
     using UnityEngine;
     using UnityEngine.EventSystems;
+    using UnityEngine.UI;
 
     public class UIDragableElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
@@ -11,13 +12,17 @@
         public Transform _onDragParent;
 
         [SerializeField] private Transform _originalParent;
+        [SerializeField] private Image m_ImageTarget;
+        [SerializeField] private Color m_DraggableColor = Color.white;
+        [SerializeField] private Color m_UndragableColor = Color.grey;
+
         private Transform _dropParent;
 
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public bool IsDraggable { get; set; } = true;
+        private bool _isDraggable;
 
         private void Awake()
         {
@@ -28,12 +33,11 @@
 
         private void OnDisable()
         {
-            Debug.Log("<color=green>[UIDragableElement.OnDisable]</color>");
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (IsDraggable == false) return;
+            if (_isDraggable == false) return;
             _originalParent = transform.parent;
 
             _dropParent = null;
@@ -45,14 +49,14 @@
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (IsDraggable == false) return;
+            if (_isDraggable == false) return;
 
             _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (IsDraggable == false) return;
+            if (_isDraggable == false) return;
 
             _canvasGroup.blocksRaycasts = true;
 
@@ -66,6 +70,23 @@
         public void SetDropParent(Transform parent)
         {
             _dropParent = parent;
+        }
+
+        public virtual void EnableDrag()
+        {
+            _isDraggable = true;
+            if (m_ImageTarget != null)
+            {
+                m_ImageTarget.color = m_DraggableColor;
+            }
+        }
+        public virtual void DisableDrag()
+        {
+            _isDraggable = false;
+            if (m_ImageTarget != null)
+            {
+                m_ImageTarget.color = m_UndragableColor;
+            }
         }
     }
 }

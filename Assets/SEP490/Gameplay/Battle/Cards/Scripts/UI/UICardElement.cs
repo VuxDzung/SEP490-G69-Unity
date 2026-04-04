@@ -29,7 +29,7 @@ namespace SEP490G69.Battle.Cards
 
         public void Despawn()
         {
-            IsDraggable = true;
+            EnableDrag();
             onDropped -= Drop;
             _onSelect = null;
             _onDragEnd = null;
@@ -70,6 +70,17 @@ namespace SEP490G69.Battle.Cards
                 m_CostTmp.text = cost.ToString();
             }
             return this;
+        }
+
+        public override void EnableDrag()
+        {
+            base.EnableDrag();
+            if (m_CostTmp != null) m_CostTmp.color = Color.white;
+        }
+        public override void DisableDrag()
+        {
+            base.DisableDrag();
+            if (m_CostTmp != null) m_CostTmp.color = Color.red;
         }
 
         public UICardElement SetCardTypeSprite(Sprite sprite)

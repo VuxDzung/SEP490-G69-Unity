@@ -19,97 +19,97 @@ MonoBehaviour:
     - language: 0
       text: Guard Stance
     - language: 1
-      text: "T\u1EA5n th\u1EE7"
+      text: "Th\u1EBF Th\u1EE7"
   - id: card_0002_name
     textList:
     - language: 0
       text: Iron Wall
     - language: 1
-      text: "T\u01B0\u1EDDng th\xE9p"
+      text: "T\u01B0\u1EDDng Th\xE9p"
   - id: card_0003_name
     textList:
     - language: 0
       text: Spiked Armor
     - language: 1
-      text: "Gi\xE1p gai"
+      text: "Gi\xE1p Gai"
   - id: card_0004_name
     textList:
     - language: 0
       text: Fortify Stance
     - language: 1
-      text: Fortify Stance
+      text: "Th\u1EBF Th\u1EE7 V\u1EEFng Ch\xE3i"
   - id: card_0005_name
     textList:
     - language: 0
       text: Regrowth
     - language: 1
-      text: "M\u1ECDc l\u1EA1i"
+      text: "T\xE1i Sinh"
   - id: card_0006_name
     textList:
     - language: 0
       text: Photosynthesis
     - language: 1
-      text: "Quang h\u1EE3p"
+      text: "Quang H\u1EE3p"
   - id: card_0007_name
     textList:
     - language: 0
       text: Nature's Wrath
     - language: 1
-      text: "Thi\xEAn nhi\xEAn cu\u1ED3ng n\u1ED9"
+      text: "Thi\xEAn Nhi\xEAn Cu\u1ED3ng N\u1ED9"
   - id: card_0008_name
     textList:
     - language: 0
-      text: Intimidate
+      text: Purify
     - language: 1
-      text: "\u0110e d\u1ECDa"
+      text: "Thanh T\u1EA9y"
   - id: card_0009_name
     textList:
     - language: 0
-      text: Trap
+      text: Body Press
     - language: 1
-      text: "B\u1EABy"
+      text: "L\u1EA5y Th\u1ECBt \u0110\xE8 Ng\u01B0\u1EDDi"
   - id: card_0010_name
     textList:
     - language: 0
-      text: First Aid
+      text: Tackle
     - language: 1
-      text: "S\u01A1 c\u1EE9u"
+      text: "H\xFAc"
   - id: card_0011_name
     textList:
     - language: 0
       text: Immovable Root
     - language: 1
-      text: "R\u1EC5 b\u1EA5t \u0111\u1ED9ng"
+      text: "B\u1EA5t \u0110\u1ED9ng Th\u1EE5 C\u0103n"
   - id: card_0012_name
     textList:
     - language: 0
       text: Petal Counter
     - language: 1
-      text: "M\xE1y \u0111\u1EBFm c\xE1nh hoa"
+      text: "Phi Hoa Ph\u1EA3n K\xEDch"
   - id: card_0013_name
     textList:
     - language: 0
       text: Spring Bloom
     - language: 1
-      text: "Hoa xu\xE2n"
+      text: "V\u1EA1n V\u1EADt H\u1ED3i Xu\xE2n"
   - id: card_0014_name
     textList:
     - language: 0
-      text: Blood Rage
+      text: Quick Attack
     - language: 1
-      text: "Cu\u1ED3ng huy\u1EBFt"
+      text: "T\u1EA5n C\xF4ng Nhanh"
   - id: card_0015_name
     textList:
     - language: 0
-      text: Power Focus
+      text: Normal Attack
     - language: 1
-      text: "T\u1EE5 L\u1EF1c"
+      text: "T\u1EA5n C\xF4ng Th\u01B0\u1EDDng"
   - id: card_0016_name
     textList:
     - language: 0
-      text: Execute
+      text: Heavy Slash
     - language: 1
-      text: "H\xE0nh quy\u1EBFt"
+      text: "Tr\u1ECDng K\xEDch"
   - id: card_0017_name
     textList:
     - language: 0
@@ -119,9 +119,9 @@ MonoBehaviour:
   - id: card_0018_name
     textList:
     - language: 0
-      text: Berserker Slash
+      text: Reckless Charge
     - language: 1
-      text: "Cu\u1ED3ng Chi\u1EBFn Tr\u1EA3m"
+      text: "Xung Phong Li\u1EC1u L\u0129nh"
   - id: card_0019_name
     textList:
     - language: 0
@@ -131,9 +131,9 @@ MonoBehaviour:
   - id: card_0020_name
     textList:
     - language: 0
-      text: Last Resort
+      text: Shatter
     - language: 1
-      text: "\u0110\xF2n Tuy\u1EC7t M\u1EC7nh"
+      text: "Tan v\u1EE1"
   - id: card_0021_name
     textList:
     - language: 0
@@ -149,69 +149,69 @@ MonoBehaviour:
   - id: card_0023_name
     textList:
     - language: 0
-      text: Iron Guard
+      text: Berserker Slash
     - language: 1
-      text: "Th\u1EE7 S\u1EAFt"
+      text: "C\xFA Ch\xE9m Cu\u1ED3ng Chi\u1EBFn"
   - id: card_0024_name
     textList:
     - language: 0
-      text: Spiked Armor
+      text: Last Resort
     - language: 1
-      text: "Gi\xE1p Gai"
+      text: "Ph\u01B0\u01A1ng \xC1n Cu\u1ED1i C\xF9ng"
   - id: card_0025_name
     textList:
     - language: 0
-      text: Nature's Wrath
+      text: Intimidate
     - language: 1
-      text: "Thi\xEAn Nhi\xEAn Ph\u1EABn N\u1ED9"
+      text: "\xC1p \u0110\u1EA3o"
   - id: card_0026_name
     textList:
     - language: 0
       text: Warlord's Oath
     - language: 1
-      text: "L\u1EDDi th\u1EC1 l\xE3nh ch\xFAa"
+      text: "L\u1EDDi Th\u1EC1 Chi\u1EBFn T\u01B0\u1EDBng"
   - id: card_0027_name
     textList:
     - language: 0
-      text: Fortress Stance
+      text: Small Energy Orb
     - language: 1
-      text: "Th\u1EBF Ph\xE1o \u0110\xE0i"
+      text: "Qu\u1EA3 C\u1EA7u N\u0103ng L\u01B0\u1EE3ng Nh\u1ECF"
   - id: card_0028_name
     textList:
     - language: 0
-      text: Entangling Roots
+      text: Flurry
     - language: 1
-      text: "Qu\u1EA5n R\u1EC5"
+      text: "Li\xEAn Ho\xE0n K\xEDch"
   - id: card_0029_name
     textList:
     - language: 0
-      text: "Body Press\t"
+      text: Swift Combo
     - language: 1
-      text: "\xC1p Th\xE2n"
+      text: "Chu\u1ED7i \u0110\xF2n Ch\u1EDBp Nho\xE1ng"
   - id: card_0030_name
     textList:
     - language: 0
-      text: Regrowth
+      text: Phantom Step
     - language: 1
-      text: "T\xE1i Sinh"
+      text: "Qu\u1EF7 \u1EA2nh B\u1ED9"
   - id: card_0031_name
     textList:
     - language: 0
-      text: Guardian Impact
+      text: Deep Wound
     - language: 1
-      text: "\xC1p L\u1EF1c H\u1ED9 V\u1EC7"
+      text: "V\u1EBFt Th\u01B0\u01A1ng S\xE2u"
   - id: card_0032_name
     textList:
     - language: 0
-      text: Purify
+      text: Tactical Rest
     - language: 1
-      text: "Thanh T\u1EA9y"
+      text: "Ngh\u1EC9 Ng\u01A1i Chi\u1EBFn Thu\u1EADt"
   - id: card_0033_name
     textList:
     - language: 0
-      text: Explosive Armor
+      text: Deep Breath
     - language: 1
-      text: "Gi\xE1p B\xF9ng N\u1ED5"
+      text: "H\xEDt Th\u1EDF S\xE2u"
   - id: card_0034_name
     textList:
     - language: 0
@@ -223,121 +223,127 @@ MonoBehaviour:
     - language: 0
       text: Shadow Bind
     - language: 1
-      text: "Li\xEAn k\u1EBFt b\xF3ng t\u1ED1i"
+      text: "Tr\xF3i Bu\u1ED9c B\xF3ng T\u1ED1i"
   - id: card_0036_name
     textList:
     - language: 0
-      text: Mind Drain
+      text: Crimson Slash
     - language: 1
-      text: "R\xFAt C\u1EA1n T\xE2m Tr\xED"
+      text: "Nh\xE1t Ch\xE9m \u0110\u1ECF Th\u1EABm"
   - id: card_0037_name
     textList:
     - language: 0
-      text: Swift Step
+      text: Open Wound
     - language: 1
-      text: "L\u01B0\u1EDBt Nhanh"
+      text: "V\u1EBFt Th\u01B0\u01A1ng H\u1EDF"
   - id: card_0038_name
     textList:
     - language: 0
       text: Sharpened Blade
     - language: 1
-      text: "L\u01B0\u1EE1i dao s\u1EAFc"
+      text: "L\u01B0\u1EE1i \u0110ao S\u1EAFc B\xE9n"
   - id: card_0039_name
-    textList:
-    - language: 0
-      text: Concentration
-    - language: 1
-      text: "T\u1EADp Trung"
-  - id: card_0040_name
-    textList:
-    - language: 0
-      text: Flurry
-    - language: 1
-      text: "Li\xEAn K\xEDch"
-  - id: card_0041_name
-    textList:
-    - language: 0
-      text: Cursed Whisper
-    - language: 1
-      text: "Th\xEC Th\u1EA7m Nguy\u1EC1n R\u1EE7a"
-  - id: card_0042_name
-    textList:
-    - language: 0
-      text: Time Warp
-    - language: 1
-      text: "B\u1EBB Cong Th\u1EDDi Gian"
-  - id: card_0043_name
-    textList:
-    - language: 0
-      text: Overload
-    - language: 1
-      text: "Qu\xE1 T\u1EA3i"
-  - id: card_0044_name
-    textList:
-    - language: 0
-      text: Fix
-    - language: 1
-      text: Fix
-  - id: card_0045_name
-    textList:
-    - language: 0
-      text: Afterimage
-    - language: 1
-      text: "D\u01B0 \u1EA2nh"
-  - id: card_0046_name
-    textList:
-    - language: 0
-      text: Nullify
-    - language: 1
-      text: "V\xF4 Hi\u1EC7u H\xF3a"
-  - id: card_0047_name
-    textList:
-    - language: 0
-      text: Meteor Shower
-    - language: 1
-      text: "M\u01B0a Thi\xEAn Th\u1EA1ch"
-  - id: card_0048_name
-    textList:
-    - language: 0
-      text: Immovable Root
-    - language: 1
-      text: "B\u1EA5t \u0110\u1ED9ng Th\u1EE5 C\u0103n"
-  - id: card_0049_name
-    textList:
-    - language: 0
-      text: Petal Counter
-    - language: 1
-      text: "Phi Hoa Ph\u1EA3n K\xEDch"
-  - id: card_0050_name
-    textList:
-    - language: 0
-      text: Spring Bloom
-    - language: 1
-      text: "V\u1EA1n V\u1EADt H\u1ED3i Xu\xE2n"
-  - id: card_0051_name
-    textList:
-    - language: 0
-      text: Quiet Calculation
-    - language: 1
-      text: "T\u0129nh M\u1EB7c Th\u1EA7n To\xE1n"
-  - id: card_0052_name
     textList:
     - language: 0
       text: Phantom Strike
     - language: 1
       text: "Huy\u1EC5n \u1EA2nh Tr\u1ECDng Quy\u1EC1n"
+  - id: card_0040_name
+    textList:
+    - language: 0
+      text: Quiet Calculation
+    - language: 1
+      text: "T\u0129nh M\u1EB7c Th\u1EA7n To\xE1n"
+  - id: card_0041_name
+    textList:
+    - language: 0
+      text: Isolation
+    - language: 1
+      text: "C\xF4 L\u1EADp"
+  - id: card_0042_name
+    textList:
+    - language: 0
+      text: Energy Orb
+    - language: 1
+      text: "Qu\u1EA3 C\u1EA7u N\u0103ng L\u01B0\u1EE3ng"
+  - id: card_0043_name
+    textList:
+    - language: 0
+      text: Gravity Well
+    - language: 1
+      text: "Gi\u1EBFng Tr\u1ECDng L\u1EF1c"
+  - id: card_0044_name
+    textList:
+    - language: 0
+      text: Biden Blast
+    - language: 1
+      text: "Ch\u01B0\u1EDFng Biden"
+  - id: card_0045_name
+    textList:
+    - language: 0
+      text: Overload
+    - language: 1
+      text: "Qu\xE1 T\u1EA3i"
+  - id: card_0046_name
+    textList:
+    - language: 0
+      text: Entangling Roots
+    - language: 1
+      text: "R\u1EC5 Tr\xF3i Bu\u1ED9c"
+  - id: card_0047_name
+    textList:
+    - language: 0
+      text: Cursed Whisper
+    - language: 1
+      text: "L\u1EDDi Th\xEC Th\u1EA7m Nguy\u1EC1n R\u1EE7a"
+  - id: card_0048_name
+    textList:
+    - language: 0
+      text: Meteor Shower
+    - language: 1
+      text: "M\u01B0a Sao B\u0103ng"
+  - id: card_0049_name
+    textList:
+    - language: 0
+      text: Concentration
+    - language: 1
+      text: "T\u1EADp Trung"
+  - id: card_0050_name
+    textList:
+    - language: 0
+      text: Nullify
+    - language: 1
+      text: "V\xF4 Hi\u1EC7u H\xF3a"
+  - id: card_0051_name
+    textList:
+    - language: 0
+      text: Analyze
+    - language: 1
+      text: "Ph\xE2n T\xEDch"
+  - id: card_0052_name
+    textList:
+    - language: 0
+      text: Despair
+    - language: 1
+      text: "Tuy\u1EC7t V\u1ECDng"
   - id: card_0053_name
     textList:
     - language: 0
       text: Decaying Bolt
     - language: 1
-      text: "Tia s\xE9t m\u1EE5c n\xE1t"
+      text: "Tia Ph\xE2n H\u1EE7y"
+  - id: card_0054_name
+    textList:
+    - language: 0
+      text: Distorted Blade
+    - language: 1
+      text: "L\u01B0\u1EE1i Ki\u1EBFm M\xE9o M\xF3"
   - id: card_0055_name
     textList:
     - language: 0
       text: Epidemic
     - language: 1
-      text: "B\u1EC7nh d\u1ECBch"
+      text: "D\u1ECBch B\u1EC7nh"
   - id: card_0056_name
     textList:
     - language: 0
@@ -350,15 +356,69 @@ MonoBehaviour:
       text: Decaying Blade
     - language: 1
       text: "L\u01B0\u1EE1i dao m\u1EE5c n\xE1t"
+  - id: card_0058_name
+    textList:
+    - language: 0
+      text: Rip Space
+    - language: 1
+      text: "X\xE9 To\u1EA1c Kh\xF4ng Gian"
   - id: card_0059_name
     textList:
     - language: 0
       text: Mind Drain
     - language: 1
       text: "R\xFAt c\u1EA1n t\xE2m tr\xED"
+  - id: card_0060_name
+    textList:
+    - language: 0
+      text: First Aid
+    - language: 1
+      text: "S\u01A1 C\u1EE9u"
+  - id: card_0063_name
+    textList:
+    - language: 0
+      text: Gamble
+    - language: 1
+      text: "Canh B\u1EA1c"
+  - id: card_0064_name
+    textList:
+    - language: 0
+      text: Sacrifice
+    - language: 1
+      text: Hy Sinh
+  - id: card_0065_name
+    textList:
+    - language: 0
+      text: Reckless Fuel
+    - language: 1
+      text: "Nhi\xEAn Li\u1EC7u Li\u1EC1u L\u0129nh"
+  - id: card_0066_name
+    textList:
+    - language: 0
+      text: Doubt
+    - language: 1
+      text: "Ho\xE0i Nghi"
+  - id: card_0067_name
+    textList:
+    - language: 0
+      text: Burden
+    - language: 1
+      text: "G\xE1nh N\u1EB7ng"
+  - id: card_0068_name
+    textList:
+    - language: 0
+      text: Dread
+    - language: 1
+      text: "Kinh Ho\xE0ng"
   - id: card_0069_name
     textList:
     - language: 0
       text: Furioso
     - language: 1
-      text: "Gi\u1EADn d\u1EEF"
+      text: Furioso
+  - id: card_0070_name
+    textList:
+    - language: 0
+      text: Pea Shooter
+    - language: 1
+      text: "S\xFAng B\u1EAFn \u0110\u1EADu"

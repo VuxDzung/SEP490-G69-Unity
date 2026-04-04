@@ -27,6 +27,8 @@ MonoBehaviour:
   dmgModifierValue: 0.18
   m_AtkCount: 1
   m_DamageType: 3
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
   m_StatusGains:

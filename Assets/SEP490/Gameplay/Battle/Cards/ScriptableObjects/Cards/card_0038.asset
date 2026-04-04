@@ -15,11 +15,11 @@ MonoBehaviour:
   cardId: card_0038
   cardName: card_0038_name
   cardDescription: card_0038_desc
-  icon: {fileID: 21300000, guid: 9b6aa684e55cc2c4baa8a79673510bae, type: 3}
+  icon: {fileID: 21300000, guid: 6eb2073a513a77149890fab02eecdef5, type: 3}
   cost: 85
   m_IsReady: 1
   m_IsUnique: 0
-  m_IsExhaustCard: 0
+  m_IsExhaustCard: 1
   m_ActionType: 1
   m_BaseValue: 0
   m_ModifyStatType: 0
@@ -27,6 +27,8 @@ MonoBehaviour:
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 0
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
   m_StatusGains:

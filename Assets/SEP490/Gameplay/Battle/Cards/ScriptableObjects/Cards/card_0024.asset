@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0024
   cardName: card_0024_name
   cardDescription: card_0024_desc
-  icon: {fileID: 21300000, guid: 555e5dc666f49eb488ca3d768ceed314, type: 3}
+  icon: {fileID: 21300000, guid: 4e1bb79a10f76f8458fea190b65b4283, type: 3}
   cost: 20
   m_IsReady: 1
   m_IsUnique: 1
@@ -27,17 +27,19 @@ MonoBehaviour:
   dmgModifierValue: 2
   m_AtkCount: 1
   m_DamageType: 0
+  m_UsableConditionId: health_below_n_value
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
-  m_StatusGains:
-  - {fileID: 11400000, guid: 80b17c65266fad24eb2aff3fb5d99722, type: 2}
-  - {fileID: 11400000, guid: 80b17c65266fad24eb2aff3fb5d99722, type: 2}
-  - {fileID: 11400000, guid: 80b17c65266fad24eb2aff3fb5d99722, type: 2}
-  - {fileID: 11400000, guid: 78bf7dbb23a91674aafcafb2ec23c80a, type: 2}
-  - {fileID: 11400000, guid: 78bf7dbb23a91674aafcafb2ec23c80a, type: 2}
+  m_StatusGains: []
   m_StatusInflicts: []
   m_ExtraActions: []
-  m_CustomVariables: []
+  m_CustomVariables:
+  - m_VariableName: max_health_value
+    m_DataType: 3
+    m_StringValue: 0.25
+    m_BaseStatus: 0
+    m_Operator: 0
   m_VfxList:
   - vfxId: vfx_spikeArmor
     delay: 0.1

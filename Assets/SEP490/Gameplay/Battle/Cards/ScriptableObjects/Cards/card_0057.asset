@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0057
   cardName: card_0057_name
   cardDescription: card_0057_desc
-  icon: {fileID: 21300000, guid: 0f57de2013fe5b3459aca33377885a6b, type: 3}
+  icon: {fileID: 21300000, guid: b822172c538b85642abfcef50e509c2e, type: 3}
   cost: 70
   m_IsReady: 1
   m_IsUnique: 0
@@ -27,6 +27,8 @@ MonoBehaviour:
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 0
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
   m_StatusGains:

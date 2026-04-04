@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0059
   cardName: card_0059_name
   cardDescription: card_0059_desc
-  icon: {fileID: 21300000, guid: 0f57de2013fe5b3459aca33377885a6b, type: 3}
+  icon: {fileID: 21300000, guid: 205d57170898f714f971ed274d7fc9a0, type: 3}
   cost: 35
   m_IsReady: 1
   m_IsUnique: 0
@@ -32,6 +32,7 @@ MonoBehaviour:
   m_PreStatModifiers: []
   m_PostStatModifiers: []
   m_StatusGains:
+  - {fileID: 11400000, guid: 17d10681f00721648be3e9c626d6276f, type: 2}
   - {fileID: 11400000, guid: 17d10681f00721648be3e9c626d6276f, type: 2}
   m_StatusInflicts: []
   m_ExtraActions: []

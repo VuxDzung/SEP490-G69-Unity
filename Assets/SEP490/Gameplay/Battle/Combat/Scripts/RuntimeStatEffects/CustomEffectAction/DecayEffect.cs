@@ -21,8 +21,11 @@ namespace SEP490G69.Battle.Combat
 
         private void Trigger(BaseCombatActor self, BaseCombatActor opponent)
         {
-            RuntimeStatusEffect statusEffect = self.EffectsManager.GetById("ste_0009");
-            if (statusEffect != null && statusEffect.Data != null)
+            RuntimeStatusEffect statusEffect = self.EffectsManager.GetById(StatusEffectConstants.STATUS_EFFECT_ID_0009);
+
+            if (statusEffect != null && 
+                statusEffect.Data != null && 
+                opponent != null)
             {
                 float extraDamage = statusEffect.Stack * (1 + opponent.StatsManager.GetValue(EStatusType.Intelligence) * 0.01f);
                 self.ReceiveDamage(extraDamage, opponent);

@@ -191,6 +191,7 @@ namespace SEP490G69.Battle.Combat
         {
             // Discard cards.
             _cardsService.DiscardCurrentDraw();
+            _cardsService.ResetCardInTurnCount();
 
             base.EndTurn();
         }

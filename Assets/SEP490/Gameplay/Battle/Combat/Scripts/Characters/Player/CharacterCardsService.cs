@@ -347,6 +347,11 @@
             return _playedCardCountInTurn;
         }
 
+        public void ResetCardInTurnCount()
+        {
+            _playedCardCountInTurn = 0;
+        }
+
         public bool IsCardUsable(CardSO card, SceneCombatController sceneController)
         {
             IUsableCondition usableCondition = UsableConditionFactory.GetById(card.UsableConditionId);

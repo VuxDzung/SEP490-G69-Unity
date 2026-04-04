@@ -289,7 +289,7 @@
             if (string.IsNullOrEmpty(rawDesc)) return rawDesc;
 
             // Nếu là thẻ Attack và mô tả có chứa thẻ {{DMG}}
-            if (cardData.ActionType == EActionType.Attack && rawDesc.Contains("{{DMG}}"))
+            if (cardData.ActionType == EActionType.Attack && (rawDesc.Contains("{{DMG}}") || rawDesc.Contains("{{SHIELD}}")))
             {
                 string statColorHex = GetStatColorHex(cardData.ModifyStatType);
                 string statName = GetStatShortName(cardData.ModifyStatType);
@@ -313,6 +313,7 @@
                 case EStatusType.Intelligence: return "#007AFF"; // Xanh dương
                 case EStatusType.Vitality: return "#AF52DE"; // Tím
                 case EStatusType.Agi: return "#34C759"; // Xanh lá
+                case EStatusType.Shield: return "#0074FF";
 
                 default: return "#FFFFFF"; // Mặc định trắng
             }

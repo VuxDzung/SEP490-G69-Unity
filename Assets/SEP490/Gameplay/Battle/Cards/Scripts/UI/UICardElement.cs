@@ -24,6 +24,7 @@ namespace SEP490G69.Battle.Cards
 
         public void Spawn()
         {
+            EnableDrag();
             onDropped += Drop;
         }
 
@@ -75,8 +76,9 @@ namespace SEP490G69.Battle.Cards
         public override void EnableDrag()
         {
             base.EnableDrag();
-            if (m_CostTmp != null) m_CostTmp.color = Color.white;
+            if (m_CostTmp != null) m_CostTmp.color = Color.green;
         }
+
         public override void DisableDrag()
         {
             base.DisableDrag();
@@ -96,7 +98,6 @@ namespace SEP490G69.Battle.Cards
             }
             return this;
         }
-
 
         private void Select()
         {

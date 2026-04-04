@@ -47,5 +47,7 @@ namespace SEP490G69.Battle.Combat
         {
             
         }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { }
     }
 }

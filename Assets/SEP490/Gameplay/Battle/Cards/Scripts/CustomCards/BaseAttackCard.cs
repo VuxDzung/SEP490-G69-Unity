@@ -11,7 +11,7 @@ namespace SEP490G69.Battle
     {
         public BaseAttackCard(CardSO cardSO) : base(cardSO) { }
 
-        protected override void ExecuteAction(PlayerActorController source, BaseCombatActor target)
+        protected override void ExecuteAction(PlayerActorController source, BaseCombatActor opponent)
         {
             source.CalculateSelectedCardDmg(true);
 
@@ -23,7 +23,7 @@ namespace SEP490G69.Battle
 
             Debug.Log($"Raw damage of {source.CharacterSO.CharacterName}: {damage}");
 
-            damage += CalculateExtraDmg(damage, source, target);
+            damage += CalculateExtraDmg(damage, source, opponent);
 
             Debug.Log($"Damage after receive extra dmg of {source.CharacterSO.CharacterName}: {damage}");
 
@@ -35,7 +35,7 @@ namespace SEP490G69.Battle
 
             if (!hasAttack)
             {
-                OnAnimationCompleted(source, target);
+                OnAnimationCompleted(source, opponent);
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace SEP490G69.Battle
             AnimationBarrier barrier = new AnimationBarrier(2, () =>
             {
                 CombatCameraController.Singleton.ZoomCamera(false);
-                OnAnimationCompleted(source, target);
+                OnAnimationCompleted(source, opponent);
             });
 
             // Attacker animation
@@ -63,10 +63,10 @@ namespace SEP490G69.Battle
 
             source.VFXController.PlayVFXById("vfx_atk");
 
-            if (target.CanEvade(source))
+            if (opponent.CanEvade(source))
             {
-                target.SpawnDodgeToast();
-                target.AnimationController.PlayAnimation("dodge", (_) =>
+                opponent.SpawnDodgeToast();
+                opponent.AnimationController.PlayAnimation("dodge", (_) =>
                 {
                     barrier.Signal();
                 });
@@ -74,7 +74,7 @@ namespace SEP490G69.Battle
             else
             {
                 // Target animation
-                target.AnimationController.PlayAnimation("take_dmg", (_) =>
+                opponent.AnimationController.PlayAnimation("take_dmg", (_) =>
                 {
                     barrier.Signal();
                 });
@@ -82,17 +82,17 @@ namespace SEP490G69.Battle
                 // Damage apply
                 for (int i = 0; i < Data.AtkCount; i++)
                 {
-                    target.ReceiveAttack(source.StatsManager.GetValue(EStatusType.Damage), source);
+                    opponent.ReceiveAttack(source.StatsManager.GetValue(EStatusType.Damage), source);
                 }
             }
         }
 
-        protected virtual void OnAfterAttack(float curDmg, BaseCombatActor source, BaseCombatActor target) { }
+        protected virtual void OnAfterAttack(float curDmg, BaseCombatActor source, BaseCombatActor opponent) { }
 
-        protected override void OnAnimationCompleted(PlayerActorController source, BaseCombatActor target)
+        protected override void OnAnimationCompleted(PlayerActorController source, BaseCombatActor opponent)
         {
-            OnAfterAttack(source.StatsManager.GetValue(EStatusType.Damage), source, target);
-            base.OnAnimationCompleted(source, target);
+            OnAfterAttack(source.StatsManager.GetValue(EStatusType.Damage), source, opponent);
+            base.OnAnimationCompleted(source, opponent);
         }
 
         /// <summary>

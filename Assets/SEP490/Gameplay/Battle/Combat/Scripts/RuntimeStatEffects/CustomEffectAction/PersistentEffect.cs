@@ -51,5 +51,7 @@ namespace SEP490G69.Battle.Combat
         public void OnTurnStart(BaseCombatActor self, BaseCombatActor opponent)
         {
         }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { } 
     }
 }

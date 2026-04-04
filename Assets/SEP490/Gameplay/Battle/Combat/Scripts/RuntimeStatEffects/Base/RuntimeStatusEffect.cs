@@ -91,6 +91,11 @@ namespace SEP490G69.Battle
             }
         }
 
+        public void TriggerManually(BaseCombatActor attacker)
+        {
+            _specialEffect?.TriggerManually(_owner, attacker);
+        }
+
         public void OnHitTarget(BaseCombatActor opponent)
         {
             if (Data.ApplyType == EEffectApplyType.OnHitTarget)

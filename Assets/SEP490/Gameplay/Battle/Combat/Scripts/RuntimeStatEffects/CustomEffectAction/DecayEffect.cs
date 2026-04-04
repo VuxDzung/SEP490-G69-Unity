@@ -11,6 +11,16 @@ namespace SEP490G69.Battle.Combat
 
         public void OnTurnEnd(BaseCombatActor self, BaseCombatActor opponent)
         {
+            Trigger(self, opponent);
+        }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker)
+        {
+            Trigger(self, attacker);
+        }
+
+        private void Trigger(BaseCombatActor self, BaseCombatActor opponent)
+        {
             RuntimeStatusEffect statusEffect = self.EffectsManager.GetById("ste_0009");
             if (statusEffect != null && statusEffect.Data != null)
             {
@@ -53,6 +63,7 @@ namespace SEP490G69.Battle.Combat
         public void SetSO(StatusEffectSO effectSO)
         {
         }
+
         #endregion
     }
 }

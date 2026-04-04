@@ -37,5 +37,8 @@ namespace SEP490G69.Battle.Combat
         }
 
         public void SetSO(StatusEffectSO effectSO) { }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { }
+
     }
 }

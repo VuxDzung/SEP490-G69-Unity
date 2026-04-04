@@ -70,7 +70,7 @@
         {
             if (_selectedCard != null)
             {
-                BaseCard runtimeCard = GetRuntimeInstanceById(_selectedCard.CardId);
+                var runtimeCard = GetRuntimeInstanceById(_selectedCard.CardId);
 
                 if (runtimeCard == null)
                 {
@@ -105,6 +105,10 @@
         {
             foreach (CardSO card in _currentDrawPool)
             {
+                if (card.IsExhaustCard)
+                {
+                    continue;
+                }
                 _discardPool.Add(card);
             }
 

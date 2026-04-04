@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EffectId: ste_0008
   m_EffectName: ste_0008_name
   m_EffectDesc: ste_0008_desc
-  m_Icon: {fileID: 21300000, guid: 60bd4477216c1e142b5fce01f0d58f97, type: 3}
+  m_Icon: {fileID: 21300000, guid: 14e415a03b92e8e4c9d926eb17f59cce, type: 3}
   m_EffectType: 1
   m_DiscardType: 0
   m_ApplyType: 5
@@ -25,5 +25,6 @@ MonoBehaviour:
   m_EffectList: []
   m_Modifiers:
   - {fileID: 11400000, guid: e9996eb615562e74b9aae1c4a237b53c, type: 2}
+  m_CustomVariables: []
   m_DevNote: "Fatigue\nAction Cost +30% Stamina\nCost = base * (1 + 0.3*stack). (Ch\u1EC9
     \xE1p l\xEAn Player)"

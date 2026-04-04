@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EffectId: ste_0005
   m_EffectName: ste_0005_name
   m_EffectDesc: ste_0005_desc
-  m_Icon: {fileID: 21300000, guid: 8d89f0327f08e0c448d54677077f8555, type: 3}
+  m_Icon: {fileID: 21300000, guid: 23be7c1ce95184443b0da913f4aa79ee, type: 3}
   m_EffectType: 1
   m_DiscardType: 0
   m_ApplyType: 2
@@ -25,4 +25,5 @@ MonoBehaviour:
   m_EffectList: []
   m_Modifiers:
   - {fileID: 11400000, guid: de64153a78667fd48b3d538ec1150adc, type: 2}
+  m_CustomVariables: []
   m_DevNote: "Frail\nL\u01B0\u1EE3ng Shield nh\u1EADn v\xE0o gi\u1EA3m 40%"

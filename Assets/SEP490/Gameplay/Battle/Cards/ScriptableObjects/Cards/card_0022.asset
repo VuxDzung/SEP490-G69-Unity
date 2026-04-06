@@ -37,4 +37,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3a5d2a481a28634fba587ad6c4dc869, type: 2}
   m_ExtraActions: []
   m_CustomVariables: []
-  m_VfxList: []
+  m_VfxList:
+  - vfxId: vfx_powerUp
+    delay: 0.1
+    target: 0
+  - vfxId: vfx_powerDown
+    delay: 0.1
+    target: 1

@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: card_0006_name
   cardDescription: card_0006_desc
   icon: {fileID: 21300000, guid: 8dfe694047051c844a0d05a1659fc70b, type: 3}
-  cost: 25
+  cost: 45
   m_IsReady: 1
   m_IsUnique: 0
   m_IsExhaustCard: 0
@@ -37,9 +37,6 @@ MonoBehaviour:
   m_ExtraActions: []
   m_CustomVariables: []
   m_VfxList:
-  - vfxId: vfx_staminaUp
-    delay: 0.1
-    target: 0
   - vfxId: vfx_healing
     delay: 0.1
     target: 0

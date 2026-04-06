@@ -18,10 +18,12 @@ namespace SEP490G69.Battle.Combat
                                                .AsFrame<UICombatFrame>();
 
             frame.SetPlayerCharHP(player.StatsManager.GetValue(EStatusType.HP), player.StatsManager.GetMaxValue(EStatusType.HP))
-                 .SetPlayerCharStamina(player.StatsManager.GetValue(EStatusType.Stamina), player.StatsManager.GetMaxValue(EStatusType.Stamina));
+                 .SetPlayerCharStamina(player.StatsManager.GetValue(EStatusType.Stamina), player.StatsManager.GetMaxValue(EStatusType.Stamina))
+                 .SetPlayerShield(player.StatsManager.GetValue(EStatusType.Shield));
 
             frame.SetEnemyCharHP(enemy.StatsManager.GetValue(EStatusType.HP), enemy.StatsManager.GetMaxValue(EStatusType.HP))
-                 .SetEnemyCharStamina(enemy.StatsManager.GetValue(EStatusType.Stamina), enemy.StatsManager.GetMaxValue(EStatusType.Stamina));
+                 .SetEnemyCharStamina(enemy.StatsManager.GetValue(EStatusType.Stamina), enemy.StatsManager.GetMaxValue(EStatusType.Stamina))
+                 .SetEnemyShield(enemy.StatsManager.GetValue(EStatusType.Shield));
         }
 
         public void ShowCombatPreview(PlayerActorController player, EnemyActorController enemy)
@@ -47,10 +49,12 @@ namespace SEP490G69.Battle.Combat
             GameUIManager.Singleton.HideFrame(GameConstants.FRAME_ID_COMBAT_DETAILS);
             GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_COMBAT)
                          .AsFrame<UICombatFrame>()
-                         .SetPlayerCharContent(player.CharacterSO.CharacterId, player.CharacterSO.Thumbnail)
+                         .SetPlayerCharContent(player.CharacterSO.CharacterId, player.CharacterSO.CharacterName, player.CharacterSO.Thumbnail)
                          .SetPlayerCharHP(player.StatsManager.GetValue(EStatusType.HP), player.StatsManager.GetMaxValue(EStatusType.HP))
                          .SetPlayerCharStamina(player.StatsManager.GetValue(EStatusType.Stamina), player.StatsManager.GetMaxValue(EStatusType.Stamina))
-                         .SetEnemyCharContent(enemy.CharacterSO.CharacterId, enemy.CharacterSO.Thumbnail)
+                         .SetInDeckPoolCount(player.CardsService.GetInDeckCards().Count)
+                         .SetDiscardPoolCount(player.CardsService.GetDiscardedCards().Count)
+                         .SetEnemyCharContent(enemy.CharacterSO.CharacterId, enemy.CharacterSO.CharacterName, enemy.CharacterSO.Thumbnail)
                          .SetEnemyCharHP(enemy.StatsManager.GetValue(EStatusType.HP), player.StatsManager.GetMaxValue(EStatusType.HP))
                          .SetEnemyCharStamina(enemy.StatsManager.GetValue(EStatusType.Stamina), player.StatsManager.GetMaxValue(EStatusType.Stamina));
         }

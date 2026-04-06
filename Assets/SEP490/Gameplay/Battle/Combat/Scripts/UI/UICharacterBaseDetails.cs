@@ -1,11 +1,13 @@
 namespace SEP490G69.Battle.Combat
 {
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
 
     public class UICharacterBaseDetails : MonoBehaviour
     {
         [SerializeField] private Image m_CharImg;
+        [SerializeField] private TextMeshProUGUI m_CharacterName;
         [SerializeField] private UITextSlider m_VitSlider;
         [SerializeField] private UITextSlider m_DefSlider;
         [SerializeField] private UITextSlider m_SpeedSlider;
@@ -13,9 +15,10 @@ namespace SEP490G69.Battle.Combat
 
         private string _characterId;
 
-        public void SetContent(string characterId, Sprite avatar)
+        public void SetContent(string characterId, string characterName, Sprite avatar)
         {
             _characterId = characterId;
+            m_CharacterName.text = characterName;
             m_CharImg.sprite = avatar;
         }
 

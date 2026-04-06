@@ -4,6 +4,7 @@
     using SEP490G69.Battle.Cards;
     using System.Collections;
     using System.Collections.Generic;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -30,6 +31,9 @@
         [SerializeField] private Transform m_UIDiscardPoint;
         [SerializeField] private Transform m_DraggingArea;
 
+        [SerializeField] private TextMeshProUGUI m_PlayerMaxStaminaTmp;
+        [SerializeField] private TextMeshProUGUI m_PlayerCurrentStaminaTmp;
+
         [SerializeField] private Transform[] m_CardSlots;
 
         [Header("Auto-combat")]
@@ -39,6 +43,15 @@
         [SerializeField] private Transform m_EnemyCardActiveSpawnPoint;
         [SerializeField] private float m_CardMoveTime = 0.5f;
         [SerializeField] private float m_DelayCardDespawnTime = 0.3f;
+
+        [SerializeField] private TextMeshProUGUI m_InDeckPoolCountTmp;
+        [SerializeField] private TextMeshProUGUI m_DiscardPoolCountTmp;
+
+        [SerializeField] private GameObject m_PlayerShieldGO;
+        [SerializeField] private TextMeshProUGUI m_PlayerShieldCountTmp;
+
+        [SerializeField] private GameObject m_EnemyShieldGO;
+        [SerializeField] private TextMeshProUGUI m_EnemyShieldCountTmp;
 
         private Transform _enemySelectedCardTrans;
         private Transform _playerSelectedCardTrans;
@@ -82,9 +95,9 @@
 
         }
 
-        public UICombatFrame SetPlayerCharContent(string id, Sprite avatar)
+        public UICombatFrame SetPlayerCharContent(string id, string characterName, Sprite avatar)
         {
-            m_PlayerCharDetails.SetContent(id, avatar);
+            m_PlayerCharDetails.SetContent(id, characterName, avatar);
             return this;
         }
         public UICombatFrame SetPlayerCharHP(float cur, float max)
@@ -92,20 +105,43 @@
             m_PlayerCharDetails.SetVit(cur, max);
             return this;
         }
+
         public UICombatFrame SetPlayerCharStamina(float cur, float max)
         {
-            m_PlayerCharDetails.SetStamina(cur, max);
+            //m_PlayerCharDetails.SetStamina(cur, max);
+            m_PlayerCurrentStaminaTmp.text = Mathf.Round(cur).ToString();
+            m_PlayerMaxStaminaTmp.text = Mathf.Round(max).ToString();
             return this;
         }
+
         public UICombatFrame SetPlayerCharGauge(float cur, float max)
         {
             m_PlayerCharDetails.SetSpeed(cur, max);
             return this;
         }
 
-        public UICombatFrame SetEnemyCharContent(string id, Sprite avatar)
+        public UICombatFrame SetInDeckPoolCount(int count)
         {
-            m_EnemyCharDetails.SetContent(id, avatar);
+            m_InDeckPoolCountTmp.text = count.ToString();
+            return this;
+        }
+
+        public UICombatFrame SetDiscardPoolCount(int count)
+        {
+            m_DiscardPoolCountTmp.text = count.ToString();
+            return this;
+        }
+
+        public UICombatFrame SetPlayerShield(float statShield)
+        {
+            m_PlayerShieldGO.SetActive(statShield > 0.01f);
+            m_PlayerShieldCountTmp.text = statShield.ToString();
+            return this;
+        }
+
+        public UICombatFrame SetEnemyCharContent(string id, string characterName, Sprite avatar)
+        {
+            m_EnemyCharDetails.SetContent(id, characterName, avatar);
             return this;
         }
         public UICombatFrame SetEnemyCharHP(float cur, float max)
@@ -121,6 +157,12 @@
         public UICombatFrame SetEnemyCharGauge(float cur, float max)
         {
             m_EnemyCharDetails.SetSpeed(cur, max);
+            return this;
+        }
+        public UICombatFrame SetEnemyShield(float statShield)
+        {
+            m_EnemyShieldGO.SetActive(statShield > 0.01f);
+            m_EnemyShieldCountTmp.text = statShield.ToString();
             return this;
         }
 

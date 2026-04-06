@@ -105,3 +105,23 @@ MonoBehaviour:
     vfxTransform: {fileID: 448139946424847599, guid: 0cd5c5f185e39c940a87093e28c7ec4e, type: 3}
     spawnOffset: {x: 0, y: -1, z: 0}
     spawnParent: vfx_effect
+  - vfxId: vfx_persistent
+    vfxTransform: {fileID: 3379686671138103520, guid: 9e0f1222b8bef4241aec3e86c4feac7b, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_bleed
+    vfxTransform: {fileID: 2269315908965645, guid: d90214de79caa5f409dc9e05e29a89c3, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_damageUp
+    vfxTransform: {fileID: 675516400520799210, guid: b7eee1eb03bdef847a36e17a8a53d711, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_weak
+    vfxTransform: {fileID: 4226891973527429172, guid: 6c1929333c4096f458b565327566510e, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_razorEdge
+    vfxTransform: {fileID: 316710666965042964, guid: d57126b2687bcc145b55027cfad13ff7, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect

@@ -85,3 +85,23 @@ MonoBehaviour:
     vfxTransform: {fileID: 1454263123737588113, guid: 328f8b9a062ca224293527cac9518fbc, type: 3}
     spawnOffset: {x: 0, y: -1, z: 0}
     spawnParent: vfx_effect
+  - vfxId: vfx_frail
+    vfxTransform: {fileID: 13137232788831782, guid: 6fa2c71a934ccba4385d357f1ec0a067, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_gainShield
+    vfxTransform: {fileID: 4930942950125690589, guid: aab1b53fa1f42574f9fcb3c69c30b776, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_gainThorn
+    vfxTransform: {fileID: 3395522847600361548, guid: 0a4252e87d0d36b48af2e363e214ccd2, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_vulnerable
+    vfxTransform: {fileID: 4725632562471048731, guid: 78ebf6fd27b8a314496ca1fd55d6825f, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect
+  - vfxId: vfx_fortify
+    vfxTransform: {fileID: 448139946424847599, guid: 0cd5c5f185e39c940a87093e28c7ec4e, type: 3}
+    spawnOffset: {x: 0, y: -1, z: 0}
+    spawnParent: vfx_effect

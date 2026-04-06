@@ -36,6 +36,6 @@ MonoBehaviour:
   m_ExtraActions: []
   m_CustomVariables: []
   m_VfxList:
-  - vfxId: vfx_powerDown
+  - vfxId: vfx_purify
     delay: 0.1
-    target: 1
+    target: 0

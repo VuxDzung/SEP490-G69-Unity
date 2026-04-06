@@ -250,10 +250,9 @@ MonoBehaviour:
   - id: card_0037_desc
     textList:
     - language: 0
-      text: 'Unique. If enemy has Bleed: Apply 3 more Bleed.'
+      text: Unique. Apply 3 Bleed.
     - language: 1
-      text: "Duy nh\u1EA5t. N\u1EBFu k\u1EBB \u0111\u1ECBch b\u1ECB Ch\u1EA3y M\xE1u:
-        \xC1p d\u1EE5ng th\xEAm 3 Ch\u1EA3y M\xE1u"
+      text: "Duy nh\u1EA5t. \xC1p d\u1EE5ng 3 Ch\u1EA3y M\xE1u"
   - id: card_0038_desc
     textList:
     - language: 0

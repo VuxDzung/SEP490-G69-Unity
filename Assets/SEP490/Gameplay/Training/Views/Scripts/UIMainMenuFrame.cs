@@ -51,6 +51,10 @@ namespace SEP490G69.Training
         [SerializeField] private Button m_TestCombatBtn;
         [SerializeField] private Button m_TestGraduateBt;
         [SerializeField] private Button m_TestTournamentBtn;
+
+        // [THÊM MỚI] Nút để test Gacha Card
+        [SerializeField] private Button m_TestGachaCardBtn;
+
         [SerializeField] private TestEnemyIdSO m_TestEnemySO;
 
         private GameTrainingController _trainingController;
@@ -123,7 +127,7 @@ namespace SEP490G69.Training
             }
         }
 
-        private bool _isMandatoryThisWeek = false; 
+        private bool _isMandatoryThisWeek = false;
 
         protected override void OnFrameShown()
         {
@@ -150,6 +154,9 @@ namespace SEP490G69.Training
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.AddListener(TestShowCombat);
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.AddListener(TestTournament);
             if (m_TestGraduateBt) m_TestGraduateBt.onClick.AddListener(TestGraduate);
+
+            // [THÊM MỚI] Đăng ký sự kiện
+            if (m_TestGachaCardBtn) m_TestGachaCardBtn.onClick.AddListener(TestGachaCard);
 
             LoadCharacterStats();
             LoadCalendarTime();
@@ -180,6 +187,9 @@ namespace SEP490G69.Training
 
             if (m_TestCombatBtn) m_TestCombatBtn.onClick.RemoveListener(TestShowCombat);
             if (m_TestTournamentBtn) m_TestTournamentBtn.onClick.RemoveListener(TestTournament);
+
+            // [THÊM MỚI] Gỡ đăng ký sự kiện
+            if (m_TestGachaCardBtn) m_TestGachaCardBtn.onClick.RemoveListener(TestGachaCard);
         }
 
         private void UpdateButtonsInteractability()
@@ -191,29 +201,22 @@ namespace SEP490G69.Training
             m_CharacterDetailsBtn.interactable = !hasActiveTournament;
             m_InventoryBtn.interactable = !hasActiveTournament;
 
-            // NẾU đang kẹt trong một giải đấu HOẶC tuần này bắt buộc phải thi đấu
-            // -> Vô hiệu hóa và làm mờ Training, Rest, Explore
             bool blockActivities = hasActiveTournament || _isMandatoryThisWeek;
-            
+
             SetButtonState(m_TrainingBtn, !blockActivities);
             SetButtonState(m_RestBtn, !blockActivities);
             SetButtonState(m_ExploreBtn, !blockActivities);
         }
 
-        // =========================================================
-        // HÀM HỖ TRỢ: ÉP LÀM MỜ NÚT KHI DÙNG SPRITE SWAP
-        // =========================================================
         private void SetButtonState(Button btn, bool isInteractable)
         {
             if (btn == null) return;
 
             btn.interactable = isInteractable;
 
-            // Tìm component Image của nút
             Image btnImage = btn.GetComponent<Image>();
             if (btnImage != null)
             {
-                // Nếu vô hiệu hóa -> Chuyển màu xám. Nếu bình thường -> Trở lại màu trắng sáng.
                 btnImage.color = isInteractable ? Color.white : Color.gray;
             }
         }
@@ -234,9 +237,7 @@ namespace SEP490G69.Training
         private void LoadCalendarTime()
         {
             m_CalendarTimeTmp.text = CalendarController.GetCalendarTime();
-
             string turnStr = LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_UI_TEXT, "txt_turn");
-
             m_CurrentTurnTmp.text = $"{turnStr}: {CalendarController.GetCurrentWeek()}";
         }
 
@@ -244,7 +245,6 @@ namespace SEP490G69.Training
         {
             CalendarController.GetNextObjective(out TournamentObjectiveSO objective, out TournamentConditionSO condition, out int remainWeeks);
 
-            // Kiểm tra xem có giải Mandatory vào tuần này không (remainWeeks <= 0)
             _isMandatoryThisWeek = (objective != null && remainWeeks <= 0);
 
             if (objective == null && condition == null)
@@ -261,7 +261,7 @@ namespace SEP490G69.Training
             m_RemainTimeTmp.text = remainWeeks.ToString();
 
             m_TournamentOjtTmp.text = objective != null ? LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOURNAMENT_OBJECTIVES, objective.ObjectiveDesc) : string.Empty;
-            m_TournamentEntryTmp.text = condition != null ? LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_DESCS, condition.ConditionDesc) : string.Empty;            
+            m_TournamentEntryTmp.text = condition != null ? LocalizeManager.GetText(GameConstants.LOCALIZE_CATEGORY_TOURNAMENT_ENTRY_CONDITION_DESCS, condition.ConditionDesc) : string.Empty;
         }
 
         public void SetEnergy(float cur, float max)
@@ -333,7 +333,6 @@ namespace SEP490G69.Training
 
         private void ShowTrainingMenu()
         {
-            // Bổ sung chặn nếu đang là tuần bắt buộc
             if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             TooltipController.Hide();
@@ -346,16 +345,15 @@ namespace SEP490G69.Training
 
         private void PerformRest()
         {
-            // Bổ sung chặn nếu đang là tuần bắt buộc
             if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             TooltipController.Hide();
             TrainingController.StartTraining(ETrainingType.Rest, "", 0);
-            
+
             LoadCharacterStats();
             LoadCalendarTime();
             LoadObjectivesWithConditon();
-            UpdateButtonsInteractability(); // Cập nhật lại UI lỡ tuần mới có giải Mandatory
+            UpdateButtonsInteractability();
         }
 
         private void ShowCalendar()
@@ -389,12 +387,22 @@ namespace SEP490G69.Training
 
         private void ShowExploration()
         {
-            // Bổ sung chặn nếu đang là tuần bắt buộc
             if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             SceneLoader.Singleton.StartLoadScene(GameConstants.SCENE_EXPLORATION);
         }
         #endregion
+
+        // [THÊM MỚI] Hàm gọi mở UI Gacha
+        private void TestGachaCard()
+        {
+            // Thay "Frame_GachaCardResult" bằng đúng string ID mà bạn đã set cho prefab này
+            // trong ContextManager / UI Manager. Thường nó được định nghĩa trong GameConstants.
+            // Ví dụ: UIManager.ShowFrame(GameConstants.FRAME_ID_GACHA_RESULT);
+
+            GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_GACHA_CARD_RESULT)
+                                               .AsFrame<UIGachaCardResultFrame>();
+        }
 
         private void TestShowCombat()
         {

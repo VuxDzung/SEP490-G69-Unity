@@ -45,6 +45,8 @@ namespace SEP490G69.Battle.Combat
             _effectSO = effectSO;
         }
 
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { }
+
         #endregion
     }
 }

@@ -25,6 +25,12 @@ namespace SEP490G69.Battle.Combat
         {
             _shieldController.AddShield(scalingStat, baseValue, modifierValue);
         }
+
+        public float CalculateReceivedShield(EStatusType scalingStat, float baseValue, float modifierValue)
+        {
+            return _shieldController.CalculateStackShieldValue(scalingStat, baseValue, modifierValue);
+        }
+
         public void ResetShield()
         {
             _shieldController.ResetShield();

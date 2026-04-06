@@ -37,8 +37,8 @@ namespace SEP490G69.Battle.Combat
 
         public void Dispose()
         {
-            _playerTurnState.Dispose();
-            _enemyTurnState.Dispose();
+            if (_playerTurnState != null) _playerTurnState.Dispose();
+            if (_enemyTurnState != null) _enemyTurnState.Dispose();
         }
 
         public void ChangeTurn(ITurnState newState)

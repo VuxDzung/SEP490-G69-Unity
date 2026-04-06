@@ -11,8 +11,21 @@ namespace SEP490G69.Battle.Combat
 
         public void OnTurnEnd(BaseCombatActor self, BaseCombatActor opponent)
         {
-            RuntimeStatusEffect statusEffect = self.EffectsManager.GetById("ste_0009");
-            if (statusEffect != null && statusEffect.Data != null)
+            Trigger(self, opponent);
+        }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker)
+        {
+            Trigger(self, attacker);
+        }
+
+        private void Trigger(BaseCombatActor self, BaseCombatActor opponent)
+        {
+            RuntimeStatusEffect statusEffect = self.EffectsManager.GetById(StatusEffectConstants.STATUS_EFFECT_ID_0009);
+
+            if (statusEffect != null && 
+                statusEffect.Data != null && 
+                opponent != null)
             {
                 float extraDamage = statusEffect.Stack * (1 + opponent.StatsManager.GetValue(EStatusType.Intelligence) * 0.01f);
                 self.ReceiveDamage(extraDamage, opponent);
@@ -53,6 +66,7 @@ namespace SEP490G69.Battle.Combat
         public void SetSO(StatusEffectSO effectSO)
         {
         }
+
         #endregion
     }
 }

@@ -14,11 +14,12 @@
         [SerializeField] private float m_EnemyINT;
         [SerializeField] private float m_EnemyDEF;
 
-        [Header("Combat Deck")]
-        //[SerializeField] private List<string> m_Deck;
-        [SerializeField] private EnemyDeckSO m_EnemyDeck;
+        [Header("Enemy Intent Pattern")]
+        [SerializeField] private EnemyIntentPatternSO m_IntentPattern;
 
-        [SerializeField] private List<EnemyIntentSO> m_IntentList;
+        [Header("Deprecated Fields")]
+        [Header("Combat Deck")]
+        [SerializeField] private EnemyDeckSO m_EnemyDeck;
 
         public IReadOnlyList<string> Deck => m_EnemyDeck.CardIdList;
 
@@ -29,6 +30,6 @@
         public float EnemyINT => m_EnemyINT;
         public float EnemyDEF => m_EnemyDEF;
 
-        public IReadOnlyList<EnemyIntentSO> IntentList => m_IntentList;
+        public IReadOnlyList<EnemyIntentSO> IntentList => m_IntentPattern.Intents;
     }
 }

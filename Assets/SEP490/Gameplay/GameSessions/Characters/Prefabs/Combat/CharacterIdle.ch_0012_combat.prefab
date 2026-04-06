@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8889218005920277764}
+    - targetCorrespondingSourceObject: {fileID: 1647430779239574558, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7524532911303016428}
   m_SourcePrefab: {fileID: 100100000, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
 --- !u!4 &1209096901404363404 stripped
 Transform:
@@ -120,8 +123,6 @@ MonoBehaviour:
   m_VfxConfig: {fileID: 11400000, guid: df112ac8590e9174aae305370f4cee95, type: 2}
   m_VfxParentList: []
   m_AtkVFX: {fileID: 5103347985682826749}
-  m_StunVFX: {fileID: 0}
-  m_BuffEffectVFX: {fileID: 0}
 --- !u!114 &8889218005920277764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5c3451fb03bfa4785636f3904eacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DelayPerfomAction: 1
+  m_IntentUIUpdater: {fileID: 0}
+--- !u!114 &7524532911303016428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554301435424827168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5cde9547e43854da38ef39ebb536b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &2911637050172407579 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3108912023163548709, guid: bc58bf938f9bb1b45babc5fabf2c9879, type: 3}
@@ -220,6 +233,10 @@ PrefabInstance:
     - target: {fileID: 2537258915806502715, guid: 8ab43712f71948e4286e7976e1b2d697, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648634165335607255, guid: 8ab43712f71948e4286e7976e1b2d697, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.87058824
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -28,6 +28,9 @@
         public void OnTurnStart(BaseCombatActor self, BaseCombatActor opponent) { }
 
         public void SetSO(StatusEffectSO effectSO) { }
+
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { }
+
         #endregion
     }
 }

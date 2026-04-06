@@ -4,7 +4,7 @@ namespace SEP490G69.Battle.Cards
     using System.Linq;
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "CardConfig", menuName = OrganizationConstants.NAMESPACE + "/Cards/Card config")]
+    [CreateAssetMenu(fileName = "CardConfig", menuName = OrganizationConstants.NAMESPACE + "/Battle/Cards/Card config")]
     public class CardConfigSO : ScriptableObject
     {
         [SerializeField] private List<CardSO> m_Cards;

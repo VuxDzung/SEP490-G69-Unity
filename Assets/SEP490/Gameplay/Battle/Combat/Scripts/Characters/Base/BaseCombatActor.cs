@@ -2,6 +2,8 @@
 {
     using SEP490G69.Battle.Cards;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 
     [RequireComponent(typeof(CharacterVFXController))]
@@ -74,6 +76,8 @@
         public ICombatStaminaCalculator StaminaCalculator => _maxStaminaCalculator;
 
         public bool IsSkippingTurn => _isTurnSkipped;
+
+        public bool IsDead => StatsManager.GetValue(EStatusType.HP) <= 0;
         #endregion
 
         #region Properties
@@ -136,7 +140,7 @@
             CreateStat(EStatusType.ReceivedShield);
         }
 
-        public abstract void Initialize(BaseCharacterSO characterSO);
+        public abstract void Initialize(BaseCharacterSO characterSO, SceneCombatController battleController);
 
         protected void InitializeStats()
         {
@@ -234,6 +238,10 @@
         {
             _combatController.StackShield(scalingStat,baseShield, modifierValue);
         }
+        protected float CalculateReceivedShield(EStatusType scalingStat, float baseShield, float modifierValue)
+        {
+            return _combatController.CalculateReceivedShield(scalingStat, baseShield, modifierValue);
+        }
         public void ResetShield()
         {
             _combatController.ResetShield();
@@ -308,28 +316,31 @@
         #endregion
 
         #region Turn flow methods
-        public void StartTurn()
+        public virtual void StartTurn()
         {
             TriggerTurnFlowEvent(ETurnFlowEvent.TurnStarted);
 
             EffectsManager.Trigger(ETurnFlowEvent.TurnStarted, LastAttacker);
 
             EffectsManager.StartTurn();
+        }
+
+        public virtual void EndTurn()
+        {
+            ResetShield();
+
+            TriggerTurnFlowEvent(ETurnFlowEvent.TurnFinished);
+
+            EffectsManager.EndTurn();
 
             StaminaManager.RefillStatmina();
         }
 
-        public virtual void EndCurrentTurn()
-        {
-            ResetShield();
-            TriggerTurnFlowEvent(ETurnFlowEvent.TurnFinished);
-            EffectsManager.EndTurn();
-        }
-
-        public void TriggerAfterCardResolved(BaseCombatActor target)
+        public void TriggerAfterCardResolved(BaseCombatActor opponent)
         {
             TriggerTurnFlowEvent(ETurnFlowEvent.AfterCardAction);
-            EffectsManager.Trigger(ETurnFlowEvent.AfterCardAction, target);
+
+            EffectsManager.Trigger(ETurnFlowEvent.AfterCardAction, opponent);
 
             CheckDeath();
         }
@@ -362,7 +373,7 @@
         #region Sfx
         public void PlayAtkSfx()
         {
-            switch (_readonlyDataHolder.GetAtkType())
+            switch (_baseDataSO.AtkType)
             {
                 case EAttackType.Melee:
                     PlayMeleeSfx();
@@ -377,16 +388,17 @@
 
         public void PlayMeleeSfx()
         {
-            if (!string.IsNullOrEmpty(_readonlyDataHolder.GetMeleeSfxId()))
+            if (!string.IsNullOrEmpty(_baseDataSO.MeleeSfxId))
             {
-                AudioManager.PlaySFX(_readonlyDataHolder.GetMeleeSfxId());
+                AudioManager.PlaySFX(_baseDataSO.MeleeSfxId);
             }
         }
+
         public void PlayRangedSfx()
         {
-            if (!string.IsNullOrEmpty(_readonlyDataHolder.GetMeleeSfxId()))
+            if (!string.IsNullOrEmpty(_baseDataSO.RangedSfxId))
             {
-                AudioManager.PlaySFX(_readonlyDataHolder.GetRangedSfxId());
+                AudioManager.PlaySFX(_baseDataSO.RangedSfxId);
             }
         }
         #endregion
@@ -400,6 +412,46 @@
         {
             _isTurnSkipped = false;
         }
+        #endregion
+
+        #region Vfx Methods
+        public void ExecuteVfxs(IReadOnlyList<SpawnVfxData> vfxList, BaseCombatActor opponent, Action<BaseCombatActor> onCompleted)
+        {
+            if (vfxList == null || vfxList.Count == 0)
+            {
+                onCompleted?.Invoke(opponent);
+                return;
+            }
+
+            List<SpawnVfxData> selfVfxList = vfxList.Where(x => x.target == ETargetType.Self).ToList();
+            List<SpawnVfxData> opponentVfxList = vfxList.Where(x => x.target == ETargetType.Opponent).ToList();
+
+            AnimationBarrier _vfxBarrier = new AnimationBarrier();
+            _vfxBarrier.SetCount(vfxList.Count);
+            _vfxBarrier.SetOnCompletedCallback(() =>
+            {
+                onCompleted?.Invoke(opponent);
+            });
+
+            if (selfVfxList.Count > 0)
+            {
+                this.VFXController.PlayVfxList(selfVfxList.Select(vfx => new SpawnVfxSettings
+                {
+                    data = vfx,
+                    onCompleted = _vfxBarrier.Signal
+                }).ToList());
+            }
+
+            if (opponentVfxList.Count > 0)
+            {
+                opponent.VFXController.PlayVfxList(opponentVfxList.Select(vfx => new SpawnVfxSettings
+                {
+                    data = vfx,
+                    onCompleted = _vfxBarrier.Signal
+                }).ToList());
+            }
+        }
+
         #endregion
     }
 }

@@ -7,6 +7,7 @@ namespace SEP490G69.Battle.Combat
         private static readonly Dictionary<string, IUsableCondition> _conditionals = new Dictionary<string, IUsableCondition>
         {
             { "play_nth_cards_in_one_turn", new UseCardCountInTurnCondition() },
+            { "health_below_n_value", new HealthBelowNthValueCondition() },
         };
 
         public static IUsableCondition GetById(string conditionId)

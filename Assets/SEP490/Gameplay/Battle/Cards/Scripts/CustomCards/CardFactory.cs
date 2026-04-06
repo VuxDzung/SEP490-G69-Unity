@@ -22,10 +22,23 @@ namespace SEP490G69.Battle
             {
                 case CardConstants.CARD_ID_0007:
                 case CardConstants.CARD_ID_0012:
+                case CardConstants.CARD_ID_0047:
                     return new ExtraDmgWithEffectConditionCard(data);
 
                 case CardConstants.CARD_ID_0008:
                     return new PurifyCard(data);
+
+                case CardConstants.CARD_ID_0023:
+                    return new BerserkerSlashCard(data);
+
+                case CardConstants.CARD_ID_0040:
+                    return new QuietCalculationCard(data);
+
+                case CardConstants.CARD_ID_0050:
+                    return new NullifyCard(data);
+
+                case CardConstants.CARD_ID_0055:
+                    return new EpidemicCard(data);
 
                 case CardConstants.CARD_ID_0069:
                     return new FuriosoCard(data);

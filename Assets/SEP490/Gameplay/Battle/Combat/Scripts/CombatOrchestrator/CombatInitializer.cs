@@ -9,7 +9,7 @@ namespace SEP490G69.Battle.Combat
         private TournamentProgressDAO _tournamentDAO;
         private GameSessionDAO _sessionDAO;
 
-        public void Initialize(Transform playerParent, Transform enemyParent, string poolName, out PlayerActorController player, out EnemyActorController enemy)
+        public void Initialize(SceneCombatController battleController, Transform playerParent, Transform enemyParent, string poolName, out PlayerActorController player, out EnemyActorController enemy)
         {
             player = null;
             enemy = null;
@@ -42,11 +42,11 @@ namespace SEP490G69.Battle.Combat
                 return;
             }
 
-            player = SpawnPlayer(playerParent, poolName);
-            enemy = SpawnEnemy(enemyId, enemyParent, poolName);
+            player = SpawnPlayer(battleController, playerParent, poolName);
+            enemy = SpawnEnemy(battleController, enemyId, enemyParent, poolName);
         }
 
-        private PlayerActorController SpawnPlayer(Transform parent, string pool)
+        private PlayerActorController SpawnPlayer(SceneCombatController battleController, Transform parent, string pool)
         {
             string sessionId = PlayerPrefs.GetString(GameConstants.PREF_KEY_CURRENT_SESSION_ID);
 
@@ -60,12 +60,12 @@ namespace SEP490G69.Battle.Combat
             Transform trans = PoolManager.Pools[pool].Spawn(charSO.CombatPrefab, parent);
 
             var controller = trans.GetComponent<PlayerActorController>();
-            controller.Initialize(charSO);
+            controller.Initialize(charSO, battleController);
 
             return controller;
         }
 
-        private EnemyActorController SpawnEnemy(string enemyId, Transform parent, string pool)
+        private EnemyActorController SpawnEnemy(SceneCombatController battleController, string enemyId, Transform parent, string pool)
         {
             enemyId = enemyId.Trim();
             CharacterConfigSO config = ContextManager.Singleton.GetDataSO<CharacterConfigSO>();
@@ -85,7 +85,7 @@ namespace SEP490G69.Battle.Combat
             Transform trans = PoolManager.Pools[pool].Spawn(enemySO.CombatPrefab, parent);
 
             var controller = trans.GetComponent<EnemyActorController>();
-            controller.Initialize(enemySO);
+            controller.Initialize(enemySO, battleController);
 
             return controller;
         }

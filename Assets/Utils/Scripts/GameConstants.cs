@@ -206,6 +206,8 @@ namespace SEP490G69
         public const string POOL_COMBAT_VFX = "CombatVFX";
 
         public const string POOL_TOAST = "Toast";
+
+        public const string POOL_ENEMY_UI_INTENT = "UIEnemyIntent";
         #endregion
 
         public const string COMBAT_TYPE_TESTING = "TestCombat";

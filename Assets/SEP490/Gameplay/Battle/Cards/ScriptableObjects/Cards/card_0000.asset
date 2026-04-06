@@ -18,14 +18,17 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 0
   m_IsReady: 1
-  m_Stackable: 0
+  m_IsUnique: 0
+  m_IsExhaustCard: 0
   m_ActionType: 4
-  m_BaseDmg: 0
+  m_BaseValue: 0
   m_ModifyStatType: 0
   m_DmgModOp: 0
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 0
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers:
   - {fileID: 11400000, guid: 47d0853151943f24bab1d051778a1a7f, type: 2}

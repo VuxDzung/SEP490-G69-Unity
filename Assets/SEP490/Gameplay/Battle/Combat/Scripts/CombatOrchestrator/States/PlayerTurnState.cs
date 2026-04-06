@@ -6,7 +6,7 @@ namespace SEP490G69.Combat.Battle
 
     public class PlayerTurnState : ITurnState, IDisposable
     {
-        private readonly SceneCombatController _sceneController;
+        private readonly SceneCombatController _battleManager;
         private PlayerActorController _source;
         private EnemyActorController _opponent;
 
@@ -14,7 +14,7 @@ namespace SEP490G69.Combat.Battle
 
         public PlayerTurnState(SceneCombatController sceneController, PlayerActorController playerActor, EnemyActorController opponent)
         {
-            _sceneController = sceneController;
+            _battleManager = sceneController;
             _source = playerActor;
             _opponent = opponent;
             TimerManager.AddTimer(_delayEndTurnTimer);
@@ -28,13 +28,14 @@ namespace SEP490G69.Combat.Battle
         public void OnTurnStarted()
         {
             Debug.Log("<color=green>[PlayerTurnState.OnTurnStarted]</color> Start turn");
+
             if (_source.IsSkippingTurn == true)
             {
                 Debug.Log("<color=green>[PlayerTurnState.OnTurnStarted]</color> Cannot enter current turn because you're stunned!");
                 _delayEndTurnTimer.StartTimer(0.5f);
                 _delayEndTurnTimer.OnExpired = (timer) =>
                 {
-                    _sceneController.TurnProcessor.ChangeToEnemyTurn();
+                    _battleManager.TurnProcessor.ChangeToEnemyTurn();
                 };
                 _source.StartTurn();
             }
@@ -42,15 +43,18 @@ namespace SEP490G69.Combat.Battle
             {
                 _source.StartTurn();
                 _source.DrawCards(out var cards);
-                _sceneController.CombatUI.DisplayPlayerCards(cards, _source.CardsService, _source.StatsManager.GetValue(EStatusType.Stamina));
+                _battleManager.CombatUI.DisplayPlayerCards(cards, _source.CardsService, _source.StatsManager.GetValue(EStatusType.Stamina));
             }
+
+            // Show the possible intent(s) of the enemy in next turn.
+            _battleManager.Enemy.PreviewNextIntent();
         }
 
         public void OnTurnCompleted()
         {
             Debug.Log("<color=green>[PlayerTurnState.OnTurnStarted]</color> End turn");
-            _sceneController.CombatUI.ClearAllUICards();
-            _source.EndCurrentTurn();
+            _battleManager.CombatUI.ClearAllUICards();
+            _source.EndTurn();
         }
     }
 }

@@ -5,7 +5,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.Purchasing;
     using UnityEngine.UI;
 
     public class UICombatFrame : BaseCombatFrame
@@ -139,7 +138,7 @@
 
         private void EndPlayerTurn()
         {
-            SceneController.ChangetoEnemyTurn();
+            SceneController.ChangeToEnemyTurn();
         }
 
         private void LoadStatEffects(string poolName, IReadOnlyList<RuntimeStatusEffect> effectList, bool isPlayer)
@@ -327,11 +326,11 @@
 
                     if (cardCost > currentStamina || SceneController.IsCardUsable(card) == false)
                     {
-                        cardUI.IsDraggable = false;
+                        cardUI.DisableDrag();
                     }
                     else
                     {
-                        cardUI.IsDraggable = true;
+                        cardUI.EnableDrag();
                     }
                 }
 
@@ -357,7 +356,7 @@
 
         public void ClearAllCards()
         {
-            Debug.Log("ClearAllCards");
+            Debug.Log("<color=green>[UICombatFrame.ClearAllCards]</color> Clear all player's UI cards!");
             m_RestBtn.gameObject.SetActive(false);
 
             if (PoolManager.Pools[GameConstants.POOL_UI_CARD].Count > 0)

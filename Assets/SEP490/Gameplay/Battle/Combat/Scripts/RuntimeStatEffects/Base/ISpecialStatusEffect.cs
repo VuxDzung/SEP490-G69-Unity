@@ -18,5 +18,7 @@ namespace SEP490G69
 
         void OnApplied(BaseCombatActor self);
         void OnDiscarded(BaseCombatActor source);
+
+        void TriggerManually(BaseCombatActor self, BaseCombatActor attacker);
     }
 }

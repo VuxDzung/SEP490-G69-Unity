@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0005
   cardName: card_0005_name
   cardDescription: card_0005_desc
-  icon: {fileID: 21300000, guid: 354bebe672c72f742a02ae7ac1922f8a, type: 3}
+  icon: {fileID: 21300000, guid: 2cc93db0b527c9f4eb764616d79c920e, type: 3}
   cost: 45
   m_IsReady: 1
   m_IsUnique: 0
@@ -27,9 +27,14 @@ MonoBehaviour:
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 3
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
-  m_StatusGains: []
+  m_StatusGains:
+  - {fileID: 11400000, guid: 9e3c5609f9685f044bede9601005500b, type: 2}
+  - {fileID: 11400000, guid: 9e3c5609f9685f044bede9601005500b, type: 2}
+  - {fileID: 11400000, guid: 9e3c5609f9685f044bede9601005500b, type: 2}
   m_StatusInflicts: []
   m_ExtraActions: []
   m_CustomVariables: []

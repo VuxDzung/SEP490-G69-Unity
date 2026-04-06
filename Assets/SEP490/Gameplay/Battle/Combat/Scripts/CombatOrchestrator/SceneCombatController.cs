@@ -105,7 +105,7 @@
 
         private void InitializeBattle()
         {
-            _initializer.Initialize(m_PlayerContainer, m_EnemyContainer, m_CharacterPoolName, out _player, out _enemy);
+            _initializer.Initialize(this, m_PlayerContainer, m_EnemyContainer, m_CharacterPoolName, out _player, out _enemy);
 
             if (_player == null || _enemy == null)
             {
@@ -173,7 +173,7 @@
 
             _uiUpdater.ShowCombatHUD(_player, _enemy);
             //_player.SetCombatMode(isAutoCombat);
-            _turnProcessor.ChangeToPlayerTurn();
+            ChangeToPlayerTurn();
         }
 
         private void _enemy_onFlowEventChanged(ETurnFlowEvent ev, BaseCombatActor arg2)
@@ -191,6 +191,7 @@
                 CombatUI.ClearAllUICards();
                 CombatUI.DisplayPlayerCards(_player.CardsService.GetInHandCards(), _player.CardsService, _player.StatsManager.GetValue(EStatusType.Stamina));
             }
+
             CombatUI.ShowPlayerStatusEffects(_player);
             CombatUI.ShowEnemyStatusEffects(_enemy);
 
@@ -214,7 +215,7 @@
                 _turnProcessor.ChangeToPlayerTurn();
             }
         }
-        public void ChangetoEnemyTurn()
+        public void ChangeToEnemyTurn()
         {
             if (_turnProcessor != null)
             {

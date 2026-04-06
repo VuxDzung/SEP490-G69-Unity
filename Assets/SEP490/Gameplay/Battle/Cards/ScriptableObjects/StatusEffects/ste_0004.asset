@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EffectId: ste_0004
   m_EffectName: ste_0004_name
   m_EffectDesc: ste_0004_desc
-  m_Icon: {fileID: 21300000, guid: f2fbaf8002b9247448482831cb90e407, type: 3}
+  m_Icon: {fileID: 21300000, guid: 6577cf90b058c904bab168bcfa9961d3, type: 3}
   m_EffectType: 1
   m_DiscardType: 0
   m_ApplyType: 2
@@ -25,4 +25,5 @@ MonoBehaviour:
   m_EffectList: []
   m_Modifiers:
   - {fileID: 11400000, guid: e3365fe3d1fa7f946a64a6960ba06d66, type: 2}
+  m_CustomVariables: []
   m_DevNote: "Weak\nG\xE2y s\xE1t th\u01B0\u01A1ng gi\u1EA3m 25%"

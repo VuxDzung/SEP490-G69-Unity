@@ -16,6 +16,13 @@ namespace SEP490G69.Battle.Combat
         public override float CalculateExtraDmg(float curDmg, PlayerActorController source, BaseCombatActor target)
         {
             string effectId = _varEffectId.GetValue<string>();
+
+            if (_varEffectId.GetValue<string>() == "debuff" &&
+                target.EffectsManager.GetEffectsByType(EEffectType.Debuff).Length > 0)
+            {
+                return _varExtraDmg.GetDeltaValue(source);
+            }
+
             if (source.EffectsManager.GetById(effectId) != null)
             {
                 return _varExtraDmg.GetDeltaValue(source);

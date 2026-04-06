@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: card_0018
   cardName: card_0018_name
   cardDescription: card_0018_desc
-  icon: {fileID: 21300000, guid: c1f78ec307059964c8e636708f6f6afb, type: 3}
+  icon: {fileID: 21300000, guid: abd5318b36bb4254590fe920bc3c3a96, type: 3}
   cost: 40
   m_IsReady: 1
   m_IsUnique: 1
@@ -27,19 +27,13 @@ MonoBehaviour:
   dmgModifierValue: 1.6
   m_AtkCount: 1
   m_DamageType: 0
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers: []
   m_StatusGains:
-  - {fileID: 11400000, guid: 48590b5d09208564ca42f16f03f3288e, type: 2}
-  - {fileID: 11400000, guid: 48590b5d09208564ca42f16f03f3288e, type: 2}
-  m_StatusInflicts:
-  - {fileID: 11400000, guid: 242dfd045f5e90646b80e3fb7f0e453d, type: 2}
-  - {fileID: 11400000, guid: 242dfd045f5e90646b80e3fb7f0e453d, type: 2}
+  - {fileID: 11400000, guid: 434f8116c35407d4db1cfe15282640f6, type: 2}
+  m_StatusInflicts: []
   m_ExtraActions: []
-  m_CustomVariables:
-  - m_VariableName: crit_chance
-    m_DataType: 3
-    m_StringValue: 1
-    m_BaseStatus: 17
-    m_Operator: 6
+  m_CustomVariables: []
   m_VfxList: []

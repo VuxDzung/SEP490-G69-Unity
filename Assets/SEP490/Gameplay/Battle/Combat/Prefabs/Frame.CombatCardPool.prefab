@@ -522,6 +522,8 @@ GameObject:
   m_Component:
   - component: {fileID: 835084554771520126}
   - component: {fileID: 1335614454676790971}
+  - component: {fileID: 1084145036564300260}
+  - component: {fileID: 7139996206639379301}
   m_Layer: 0
   m_Name: Frame.CombatCardPool
   m_TagString: Untagged
@@ -565,6 +567,44 @@ MonoBehaviour:
   m_CardUIPrefab: {fileID: 5880420539340702264, guid: 7f75f4b30217d304ab1cd115c2ec4224, type: 3}
   m_CardContainer: {fileID: 3889494559569639605}
   m_CloseBtn: {fileID: 2676286153801095246}
+--- !u!222 &1084145036564300260
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8701470824129912290}
+  m_CullTransparentMesh: 1
+--- !u!114 &7139996206639379301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8701470824129912290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7058824}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8830518659821971663
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,11 +714,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 175
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -714,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1440422697611557850, guid: a53d30a5321825b4a835a01ad012be16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

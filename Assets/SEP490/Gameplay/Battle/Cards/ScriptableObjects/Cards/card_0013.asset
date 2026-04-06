@@ -27,6 +27,8 @@ MonoBehaviour:
   dmgModifierValue: 0
   m_AtkCount: 0
   m_DamageType: 3
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
   m_PreStatModifiers: []
   m_PostStatModifiers:
   - {fileID: 11400000, guid: 527c57e9257c16b4db383257ada9a3e6, type: 2}

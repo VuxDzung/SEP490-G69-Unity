@@ -36,6 +36,7 @@ namespace SEP490G69.Battle.Combat
         public int CalculateCardCost(CardSO cardSO);
 
         public int GetPlayedCardInTurn();
+        public void ResetCardInTurnCount();
 
         public IReadOnlyList<CardSO> GetInHandCards();
         public IReadOnlyList<CardSO> GetInDeckCards();

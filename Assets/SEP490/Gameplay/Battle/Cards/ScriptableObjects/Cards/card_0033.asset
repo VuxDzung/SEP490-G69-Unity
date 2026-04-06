@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2c0ccba0a43f4ab522fee079809e4, type: 3}
+  m_Name: card_0033
+  m_EditorClassIdentifier: 
+  cardId: card_0033
+  cardName: card_0033_name
+  cardDescription: card_0033_desc
+  icon: {fileID: 21300000, guid: 7343caa1f51ea7b4d8bdb708f5be0d1a, type: 3}
+  cost: 0
+  m_IsReady: 1
+  m_IsUnique: 0
+  m_IsExhaustCard: 0
+  m_ActionType: 2
+  m_BaseValue: 0
+  m_ModifyStatType: 0
+  m_DmgModOp: 0
+  dmgModifierValue: 0
+  m_AtkCount: 0
+  m_DamageType: 0
+  m_UsableConditionId: 
+  m_DrawCardAmount: 0
+  m_PreStatModifiers: []
+  m_PostStatModifiers:
+  - {fileID: 11400000, guid: 96f0a59c4ad6b6f49a5c4bbf04908966, type: 2}
+  - {fileID: 11400000, guid: d799a2c276ea1b741a8d177ec4c48bd8, type: 2}
+  m_StatusGains: []
+  m_StatusInflicts: []
+  m_ExtraActions: []
+  m_CustomVariables: []
+  m_VfxList: []

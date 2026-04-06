@@ -1,10 +1,12 @@
+using System;
+
 namespace SEP490G69.Battle.Combat
 {
     public interface IEnemyIntentStrategy
     {
         EIntentAction IntentType { get; }
 
-        void Initialize(EnemyActorController owner, EnemyIntentSO data);
+        void Initialize(EnemyActorController owner, EnemyIntentSO data, SceneCombatController battleManager);
 
         /// Decide target (player, self...)
         BaseCombatActor SelectTarget();
@@ -13,6 +15,6 @@ namespace SEP490G69.Battle.Combat
         void Preview();
 
         /// Execute logic
-        void Execute();
+        void Execute(Action onCompleted);
     }
 }

@@ -99,6 +99,15 @@ namespace SEP490G69
             _statusEffects.Remove(effect);
         }
 
+        public void ManualTriggerEffect(string effectId, BaseCombatActor attacker)
+        {
+            RuntimeStatusEffect effect =GetById(effectId);
+            if (effect != null )
+            {
+                effect.TriggerManually(attacker);
+            }
+        }
+
         public int Count(EEffectType effectType = EEffectType.Both)
         {
             return effectType switch 

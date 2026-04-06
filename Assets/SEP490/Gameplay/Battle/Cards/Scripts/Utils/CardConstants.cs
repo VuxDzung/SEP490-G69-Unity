@@ -5,9 +5,7 @@ namespace SEP490G69.Battle
     public class CardConstants 
     {
         #region Special cards
-        /// <summary>
-        /// Card 0: default rest.
-        /// </summary>
+
         public const string CARD_ID_0000 = "card_0000";
 
         /// <summary>
@@ -36,34 +34,35 @@ namespace SEP490G69.Battle
         public const string CARD_ID_18 = "card_0018";
 
         /// <summary>
-        /// Last Resort
+        /// Shatter
         /// </summary>
         public const string CARD_ID_20 = "card_0020";
 
-        /// <summary>
-        /// Nature's Wrath
-        /// </summary>
-        public const string CARD_ID_25 = "card_0025";
 
         /// <summary>
-        /// Guardian Impact
+        /// Berserker Slash
         /// </summary>
-        public const string CARD_ID_31 = "card_0031";
+        public const string CARD_ID_0023 = "card_0023";
 
         /// <summary>
-        /// Purify
+        /// Quiet Calculation
         /// </summary>
-        public const string CARD_ID_32 = "card_0032";
+        public const string CARD_ID_0040 = "card_0040";
 
         /// <summary>
         /// Cursed Whisper
         /// </summary>
-        public const string CARD_ID_41 = "card_0041";
+        public const string CARD_ID_0047 = "card_0047";
 
         /// <summary>
         /// Nullify
         /// </summary>
-        public const string CARD_ID_46 = "card_0046";
+        public const string CARD_ID_0050 = "card_0050";
+
+        /// <summary>
+        /// Epidemic
+        /// </summary>
+        public const string CARD_ID_0055 = "card_0055";
 
         /// <summary>
         /// Furioso

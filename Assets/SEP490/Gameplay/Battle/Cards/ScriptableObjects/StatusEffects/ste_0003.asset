@@ -15,7 +15,7 @@ MonoBehaviour:
   m_EffectId: ste_0003
   m_EffectName: ste_0003_name
   m_EffectDesc: ste_0003_desc
-  m_Icon: {fileID: 21300000, guid: 3cbfbdecd3f0c3c4fb8559a5770d1a02, type: 3}
+  m_Icon: {fileID: 21300000, guid: 7b371b0f014427d45887c3ef0ca88321, type: 3}
   m_EffectType: 1
   m_DiscardType: 0
   m_ApplyType: 2
@@ -25,4 +25,5 @@ MonoBehaviour:
   m_EffectList: []
   m_Modifiers:
   - {fileID: 11400000, guid: 948abc76ba9f6c7448067a582e47daf1, type: 2}
+  m_CustomVariables: []
   m_DevNote: "Vulnerable\nNh\u1EADn th\xEAm +25% DMG"

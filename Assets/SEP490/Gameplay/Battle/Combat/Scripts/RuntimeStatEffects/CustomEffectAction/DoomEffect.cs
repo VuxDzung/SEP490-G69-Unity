@@ -52,6 +52,8 @@ namespace SEP490G69.Battle.Combat
 
         public void OnHitTarget(BaseCombatActor self, BaseCombatActor target) { }
 
+        public void TriggerManually(BaseCombatActor self, BaseCombatActor attacker) { }
+
         #endregion
     }
 }

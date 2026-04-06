@@ -39,4 +39,4 @@ MonoBehaviour:
   m_EnemyINT: 20
   m_EnemyDEF: 20
   m_EnemyDeck: {fileID: 11400000, guid: d26eab238ef38cc42b4681cd86e7dc0d, type: 2}
-  m_IntentList: []
+  m_IntentPattern: {fileID: 11400000, guid: b6b6cc2b110048b4ba52cfea00ba2d4f, type: 2}

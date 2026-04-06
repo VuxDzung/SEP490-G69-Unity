@@ -75,6 +75,7 @@ namespace SEP490G69.Battle
         public void OnTurnEnd()
         {
             _specialEffect?.OnTurnEnd(_owner, _owner.LastAttacker);
+
             if (Data.ApplyType == EEffectApplyType.TurnEnd)
             {
                 if (Data.EffectList.Count > 0)
@@ -85,10 +86,16 @@ namespace SEP490G69.Battle
                     }
                 }
             }
+
             if (Data.DecayType == EDecayType.TurnEnd)
             {
                 DecreaseStack();
             }
+        }
+
+        public void TriggerManually(BaseCombatActor attacker)
+        {
+            _specialEffect?.TriggerManually(_owner, attacker);
         }
 
         public void OnHitTarget(BaseCombatActor opponent)

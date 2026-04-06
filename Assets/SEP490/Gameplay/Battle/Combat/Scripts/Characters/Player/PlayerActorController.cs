@@ -71,7 +71,7 @@ namespace SEP490G69.Battle.Combat
             _cardsService.SetOwner(this);
         }
 
-        public override void Initialize(BaseCharacterSO characterSO)
+        public override void Initialize(BaseCharacterSO characterSO, SceneCombatController battleController)
         {
             _baseDataSO = characterSO;
             _playerSO = _baseDataSO.ConvertAs<PlayerCharacterDataSO>();
@@ -187,12 +187,13 @@ namespace SEP490G69.Battle.Combat
 
         #endregion
 
-        public override void EndCurrentTurn()
+        public override void EndTurn()
         {
             // Discard cards.
             _cardsService.DiscardCurrentDraw();
+            _cardsService.ResetCardInTurnCount();
 
-            base.EndCurrentTurn();
+            base.EndTurn();
         }
     }
 }

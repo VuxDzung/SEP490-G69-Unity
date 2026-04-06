@@ -252,7 +252,7 @@ namespace SEP490G69.Training
                 string statColorHex = GetStatColorHex(cardData.ModifyStatType);
                 string statName = GetStatShortName(cardData.ModifyStatType);
                 float scalePercent = cardData.ModifierValue * 100f;
-                string dynamicDmgString = $"<color={statColorHex}> {cardData.BaseValue} + ({scalePercent}% {statName})</color>";
+                string dynamicDmgString = $"<color={statColorHex}>{cardData.BaseValue} + ({scalePercent}% {statName})</color>";
                 return rawDesc.Replace("{{DMG}}", dynamicDmgString);
             }
 
@@ -261,7 +261,7 @@ namespace SEP490G69.Training
                 string statColorHex = GetStatColorHex(cardData.ModifyStatType);
                 string statName = GetStatShortName(cardData.ModifyStatType);
                 float scalePercent = cardData.ModifierValue * 100f;
-                string dynamicShieldString = $"<color={statColorHex}> {cardData.BaseValue} + ({scalePercent}% {statName})</color>";
+                string dynamicShieldString = $"<color={statColorHex}>{cardData.BaseValue} + ({scalePercent}% {statName})</color>";
                 return rawDesc.Replace("{{SHIELD}}", dynamicShieldString);
             }
 

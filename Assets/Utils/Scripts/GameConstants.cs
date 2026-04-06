@@ -64,6 +64,8 @@ namespace SEP490G69
         public const string FRAME_ID_HALL_OF_FAME = "Frame.HallOfFrame";
 
         public const string FRAME_ID_COMBAT_POOL_CARD = "Frame.CombatCardPool";
+
+        public const string FRAME_ID_GACHA_CARD_RESULT = "Frame.GachaCardResult";
         #endregion
 
         #region Scene names

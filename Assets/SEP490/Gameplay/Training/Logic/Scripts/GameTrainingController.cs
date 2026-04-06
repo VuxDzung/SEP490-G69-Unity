@@ -259,6 +259,8 @@ namespace SEP490G69.Training
                     if (Random.Range(0f, 1f) < cardDropRate)
                     {
                         // Show received card here.
+                        GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_GACHA_CARD_RESULT)
+                                               .AsFrame<UIGachaCardResultFrame>();
                     }
 
                     InventoryManager.RemoveItem(bindedItemId, bindedItemAmount);

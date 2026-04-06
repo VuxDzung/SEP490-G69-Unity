@@ -19,17 +19,7 @@ namespace SEP490G69.Training
         private string _id;
 
         private LocalizationManager _localizeManager;
-        private LocalizationManager LocalizeManager
-        {
-            get
-            {
-                if (_localizeManager == null)
-                {
-                    _localizeManager = ContextManager.Singleton.ResolveGameContext<LocalizationManager>();  
-                }
-                return _localizeManager;
-            }
-        }
+        private LocalizationManager LocalizeManager => _localizeManager ??= ContextManager.Singleton.ResolveGameContext<LocalizationManager>();
 
         public void Spawn()
         {

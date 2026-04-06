@@ -60,9 +60,9 @@
                                   .Build();
         }
 
-        public abstract TrainingResult StartTraining(CharacterDataHolder character);
+        public abstract TrainingResult StartTraining(CharacterDataHolder character, int bindedItemAmount);
 
-        public List<StatChange> SimulateTrainingRewards(CharacterDataHolder character)
+        public List<StatChange> SimulateTrainingRewards(CharacterDataHolder character, int bindedItemAmount)
         {
             List<StatChange> simulatedChanges = new List<StatChange>();
             float currentMood = character.GetStatus(EStatusType.Mood);
@@ -71,18 +71,27 @@
 
             var rewards = _exerciseDataHolder.GetSuccessRewards();
 
+            string bindedItemId = _exerciseDataHolder.GetBindedItemId();
+
             foreach (var reward in rewards)
             {
                 EStatusType statType = reward.Modifier.StatType;
-                float finalDelta = CalculateStatDelta(character, reward, true, moodMultiplier, facilityLevel);
+                float finalDelta = CalculateStatDelta(character, reward, true, moodMultiplier, facilityLevel, bindedItemAmount);
                 simulatedChanges.Add(new StatChange(statType, character.GetStatus(statType), finalDelta));
             }
 
             return simulatedChanges;
         }
 
-        protected float CalculateStatDelta(CharacterDataHolder character, TrainingRewardConfig reward, bool isSuccess, float moodMultiplier, int facilityLevel)
+        protected float CalculateStatDelta(CharacterDataHolder character, TrainingRewardConfig reward, bool isSuccess, float moodMultiplier, int facilityLevel, int bindedItemAmount)
         {
+            if (bindedItemAmount == 0)
+            {
+                return 0f;
+            }
+
+            float extraMultiplier = GameConstants.TRAINING_ITEM_AMOUNT_MULTIPLIERS[bindedItemAmount];
+
             EStatusType statType = reward.Modifier.StatType;
             float before = character.GetStatus(statType);
 
@@ -106,18 +115,20 @@
                 delta += modifierDelta;
             }
 
+            delta = Mathf.RoundToInt(delta);
+
             // Làm tròn số tại bước cuối cùng
-            return Mathf.RoundToInt(delta);
+            return delta * extraMultiplier;
         }
 
-        protected void ApplyRewards(CharacterDataHolder character, List<TrainingRewardConfig> rewards, bool isSuccess, float moodMultiplier, int facilityLevel, TrainingResult result)
+        protected void ApplyRewards(CharacterDataHolder character, List<TrainingRewardConfig> rewards, bool isSuccess, float moodMultiplier, int facilityLevel, TrainingResult result, int bindedItemId)
         {
             foreach (var reward in rewards)
             {
                 EStatusType statType = reward.Modifier.StatType;
                 float before = character.GetStatus(statType);
 
-                float finalDelta = CalculateStatDelta(character, reward, isSuccess, moodMultiplier, facilityLevel);
+                float finalDelta = CalculateStatDelta(character, reward, isSuccess, moodMultiplier, facilityLevel, bindedItemId);
 
                 float after = before + finalDelta;
 

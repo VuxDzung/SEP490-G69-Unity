@@ -4,7 +4,7 @@ namespace SEP490G69.Training
 
     public class RestStrategy : BaseTrainingStrategy
     {
-        public override TrainingResult StartTraining(CharacterDataHolder character)
+        public override TrainingResult StartTraining(CharacterDataHolder character, int bindedItemAmount)
         {
             float currentEnergy = character.GetEnergy();
             float currentMood = character.GetMood();

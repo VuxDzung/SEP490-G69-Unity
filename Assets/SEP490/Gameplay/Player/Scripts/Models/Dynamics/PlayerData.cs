@@ -1,8 +1,8 @@
-using LiteDB;
-using System;
-
 namespace SEP490G69
 {
+    using LiteDB;
+    using System;
+
     public class PlayerData 
     {
         [BsonId]
@@ -28,5 +28,10 @@ namespace SEP490G69
         /// How many runs has the player played.
         /// </summary>
         public int CurrentRun { get; set; }
+
+        /// <summary>
+        /// Check whether the full game is unlocked or not.
+        /// </summary>
+        public bool IsFullGameUnlocked { get; set; }
     }
 }

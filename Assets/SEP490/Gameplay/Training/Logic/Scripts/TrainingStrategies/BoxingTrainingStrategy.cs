@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="character"></param>
         /// <returns></returns>
-        public override TrainingResult StartTraining(CharacterDataHolder character)
+        public override TrainingResult StartTraining(CharacterDataHolder character, int bindedItemAmount)
         {
             TrainingResult result = new TrainingResult();
 
@@ -39,7 +39,8 @@
                 isSuccess,
                 moodMultiplier,
                 facilityLevel,
-                result
+                result,
+                bindedItemAmount
             );
 
             return result;

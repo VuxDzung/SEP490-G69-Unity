@@ -57,6 +57,8 @@ namespace SEP490G69.Training
         private List<ITrainingStrategy> _exerciseList = new List<ITrainingStrategy>();
 
         public CharacterDataHolder CharacterData => _characterHolder;
+        private GameInventoryManager _inventoryManager;
+        private GameInventoryManager InventoryManager => _inventoryManager ??= ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
 
         private void Awake()
         {
@@ -160,33 +162,33 @@ namespace SEP490G69.Training
             m_TrainingMenuBG.SetActive(false);
         }
 
-        public void StartTraining(ETrainingType trainingType)
+        public void StartTraining(ETrainingType trainingType, string bindedItemId, int bindedItemAmount)
         {
             ITrainingStrategy strategy = GetExerciseByType(trainingType);
             if (strategy == null) return;
-            ProcessTrainingLogic(strategy);
+            ProcessTrainingLogic(strategy, bindedItemId, bindedItemAmount);
         }
 
-        public void StartTraining(string id)
+        public void StartTraining(string id, string bindedItemId, int bindedItemAmount)
         {
             ITrainingStrategy strategy = GetExerciseById(id);
             if (strategy == null) return;
-            ProcessTrainingLogic(strategy);
+            ProcessTrainingLogic(strategy, bindedItemId, bindedItemAmount);
         }
 
-        public List<StatChange> GetSimulatedStatChanges(string id)
+        public List<StatChange> GetSimulatedStatChanges(string id, int bindedItemAmount)
         {
             ITrainingStrategy strategy = GetExerciseById(id);
             if (strategy != null)
             {
-                return strategy.SimulateTrainingRewards(_characterHolder);
+                return strategy.SimulateTrainingRewards(_characterHolder, bindedItemAmount);
             }
             return null;
         }
 
-        private void ProcessTrainingLogic(ITrainingStrategy strategy)
+        private void ProcessTrainingLogic(ITrainingStrategy strategy, string bindedItemId, int bindedItemAmount)
         {
-            TrainingResult result = strategy.StartTraining(_characterHolder);
+            TrainingResult result = strategy.StartTraining(_characterHolder, bindedItemAmount);
             UITrainingMenuFrame menuFrame = GameUIManager.Singleton.GetFrame(GameConstants.FRAME_ID_TRAINING_MENU).AsFrame<UITrainingMenuFrame>();
 
             // ========================================================================
@@ -247,6 +249,19 @@ namespace SEP490G69.Training
 
                     var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
                     frame.SetResult(strategy.DataHolder.GetName(), result);
+
+                    if (bindedItemAmount == 0 || string.IsNullOrEmpty(bindedItemId))
+                    {
+                        return;
+                    }
+
+                    float cardDropRate = GameConstants.CARD_DROP_RATES[bindedItemAmount];
+                    if (Random.Range(0f, 1f) < cardDropRate)
+                    {
+                        // Show received card here.
+                    }
+
+                    InventoryManager.RemoveItem(bindedItemId, bindedItemAmount);
                 });
             }
             else
@@ -288,7 +303,7 @@ namespace SEP490G69.Training
             return _exerciseList.FirstOrDefault(ex => ex.TrainingType == trainingType);
         }
 
-        private ITrainingStrategy GetExerciseById(string id)
+        public ITrainingStrategy GetExerciseById(string id)
         {
             return _exerciseList.FirstOrDefault(ex => ex.ExerciseId.Equals(id));
         }

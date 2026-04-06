@@ -1,5 +1,6 @@
 namespace SEP490G69.Training
 {
+    using SEP490G69.Economy;
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -8,6 +9,7 @@ namespace SEP490G69.Training
     public class UITrainingMenuFrame : GameUIFrame
     {
         public const string FORMAT_FAIL_RATE = "Failure rate: {0}%";
+        public const int MAX_USABLE_ITEM_FOR_EXERCISE = 4;
 
         [SerializeField] private Button m_BackBtn;
         [SerializeField] private Button m_UpgradeFacilityBtn;
@@ -24,9 +26,21 @@ namespace SEP490G69.Training
         [Header("Bottom")]
         [SerializeField] private TextMeshProUGUI m_FailRateTmp;
 
+        [Header("Card drop UI")]
+        [SerializeField] private TextMeshProUGUI m_CardDropRateTmp;
+
+        [Header("Required item UI")]
+        [SerializeField] private GameObject m_BindedItemGO;
+        [SerializeField] private TextMeshProUGUI m_AmountTmp;
+        [SerializeField] private Button m_IncreaseAmountBtn;
+        [SerializeField] private Button m_DecreaseAmountBtn;
+        [SerializeField] private Image m_ItemIcon;
+
         [SerializeField] private List<UIExerciseElement> m_ExercisesUI;
         [SerializeField] private Transform m_ExerciseUIPrefab;
         [SerializeField] private Transform m_Container;
+
+        [SerializeField] private Button m_TrainingBtn;
 
         [Header("UI Control")]
         [SerializeField] private CanvasGroup m_MenuCanvasGroup;
@@ -50,27 +64,26 @@ namespace SEP490G69.Training
         private string _currentPreviewId = string.Empty;
 
         private GameTrainingController _trainingController;
-        private GameTrainingController TrainingController
-        {
-            get
-            {
-                if (_trainingController == null)
-                {
-                    bool exist = ContextManager.Singleton.TryResolveSceneContext(out _trainingController);
-                }
-                return _trainingController;
-            }
-        }
+        private GameTrainingController TrainingController => _trainingController ??= ContextManager.Singleton.GetSceneContext<GameTrainingController>();
+
+        private GameInventoryManager _inventoryManager;
+        private GameInventoryManager InventoryManager => _inventoryManager ??= ContextManager.Singleton.ResolveGameContext<GameInventoryManager>();
 
         protected override void OnFrameShown()
         {
             base.OnFrameShown();
             m_BackBtn.onClick.AddListener(Back);
             m_UpgradeFacilityBtn.onClick.AddListener(UpgradeFacilityNav);
+            m_IncreaseAmountBtn.onClick.AddListener(IncreaseItemAmount);
+            m_DecreaseAmountBtn.onClick.AddListener(DecreaseItemAmount);
+            m_TrainingBtn.onClick.AddListener(EnterTraining);
 
+            m_BindedItemGO.SetActive(false);
             _currentPreviewId = string.Empty;
-            HideAllPreviews();
+            m_TrainingBtn.interactable = false;
 
+            HideAllPreviews();
+            CloseItemAmountChanger();
             LoadStats();
             LoadExercisesUI();
         }
@@ -80,8 +93,15 @@ namespace SEP490G69.Training
             base.OnFrameHidden();
             m_BackBtn.onClick.RemoveListener(Back);
             m_UpgradeFacilityBtn.onClick.RemoveListener(UpgradeFacilityNav);
+            m_IncreaseAmountBtn.onClick.RemoveListener(IncreaseItemAmount);
+            m_DecreaseAmountBtn.onClick.RemoveListener(DecreaseItemAmount);
+            m_TrainingBtn.onClick.RemoveListener(EnterTraining);
 
             _currentPreviewId = string.Empty;
+            m_TrainingBtn.interactable = false;
+            m_BindedItemGO.SetActive(false);
+
+            CloseItemAmountChanger();
             HideAllPreviews();
             ClearAllExercisesUI();
         }
@@ -107,6 +127,7 @@ namespace SEP490G69.Training
 
             // Xoá preview sau khi tập xong
             _currentPreviewId = string.Empty;
+            CloseItemAmountChanger();
             HideAllPreviews();
         }
 
@@ -123,9 +144,10 @@ namespace SEP490G69.Training
             for (int i = 1; i < strategies.Length; i++)
             {
                 ITrainingStrategy strategy = strategies[i];
-                m_ExercisesUI[i - 1].SetOnClick(PerformExercise)
-                                .SetContent(strategy.DataHolder.GetRawId(), strategy.DataHolder.GetImage(),
-                                strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel());
+                ItemDataHolder bindedItem = InventoryManager.GetItemByRawId(strategy.DataHolder.GetBindedItemId());
+                m_ExercisesUI[i - 1].SetOnClick(SelectExercise)
+                                    .SetContent(strategy.DataHolder.GetRawId(), strategy.DataHolder.GetImage(),
+                                                strategy.DataHolder.GetName(), strategy.DataHolder.GetLevel(), bindedItem?.GetIcon());
                 m_ExercisesUI[i - 1].Spawn();
             }
         }
@@ -172,33 +194,54 @@ namespace SEP490G69.Training
 
         private void UpgradeFacilityNav()
         {
-            UIManager.ShowFrame(GameConstants.FRAME_ID_UPGRADE_FACILITY);
             UIManager.HideFrame(FrameId);
+            UIManager.ShowFrame(GameConstants.FRAME_ID_UPGRADE_FACILITY);
         }
 
-        private void PerformExercise(string id)
+        private void SelectExercise(string id)
         {
             if (!TrainingController.CanJoinTraining()) return;
 
             if (_currentPreviewId != id)
             {
                 // Bước 1: Hiện Preview
-                _currentPreviewId = id;
-                ShowPreviewForExercise(id);
+
             }
-            else
-            {
-                // Bước 2: Thực hiện Training
-                _currentPreviewId = string.Empty;
-                HideAllPreviews();
-                TrainingController.StartTraining(id);
-            }
+            //else
+            //{
+            //    // Bước 2: Thực hiện Training
+
+            //}
+
+            _currentPreviewId = id;
+
+            // Show binded item.
+
+            ITrainingStrategy exerciseStrategy = TrainingController.GetExerciseById(_currentPreviewId);
+
+            SetCurrentExerciseItem(exerciseStrategy.DataHolder.GetBindedItemId());
+
+            ShowPreviewForExercise(_currentPreviewId, _currentItemAmount);
         }
-        private void ShowPreviewForExercise(string id)
+
+        private void EnterTraining()
+        { 
+            if (string.IsNullOrEmpty(_currentPreviewId))
+            {
+                return;
+            }
+
+            HideAllPreviews();
+            TrainingController.StartTraining(_currentPreviewId, _curremtItemId, _currentItemAmount);
+            _currentPreviewId = string.Empty;
+            CloseItemAmountChanger();
+        }
+
+        private void ShowPreviewForExercise(string id, int bindedItemAmount)
         {
             HideAllPreviews(); // Reset state
 
-            List<StatChange> simulatedChanges = TrainingController.GetSimulatedStatChanges(id);
+            List<StatChange> simulatedChanges = TrainingController.GetSimulatedStatChanges(id, bindedItemAmount);
             if (simulatedChanges == null) return;
 
             foreach (var change in simulatedChanges)
@@ -235,6 +278,7 @@ namespace SEP490G69.Training
                         break;
                 }
             }
+
         }
 
         private void HideAllPreviews()
@@ -244,6 +288,90 @@ namespace SEP490G69.Training
             if (m_StatsPreviewAgiObj) m_StatsPreviewAgiObj.SetActive(false);
             if (m_StatsPreviewIntObj) m_StatsPreviewIntObj.SetActive(false);
             if (m_StatsPreviewStaObj) m_StatsPreviewStaObj.SetActive(false);
+        }
+
+        private int _currentItemAmount;
+        private string _curremtItemId;
+        ItemDataHolder _itemData;
+        public UITrainingMenuFrame SetCardDropRate(float percent)
+        {
+            m_CardDropRateTmp.text = Mathf.Round(percent * 100f).ToString();
+            return this;
+        }
+
+        public UITrainingMenuFrame SetCurrentExerciseItem(string rawItemId)
+        {
+            m_BindedItemGO.SetActive(true);
+
+            _curremtItemId = rawItemId;
+            _itemData = InventoryManager.GetItemByRawId(rawItemId);
+            _currentItemAmount = Mathf.Min(MAX_USABLE_ITEM_FOR_EXERCISE, _itemData.GetRemainAmount());
+
+            m_ItemIcon.sprite = _itemData.GetIcon();
+            m_AmountTmp.text = _currentItemAmount.ToString();
+            m_TrainingBtn.interactable = _currentItemAmount > 0;
+
+            if (_currentItemAmount > 0)
+            {
+                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString();
+            }
+            else
+            {
+                m_CardDropRateTmp.text = "0%";
+            }
+
+            return this;
+        }
+
+        private void IncreaseItemAmount()
+        {
+            if (_itemData == null || _itemData.GetRemainAmount() == 0)
+            {
+                return;
+            }
+
+            _currentItemAmount++;
+            if (_currentItemAmount > MAX_USABLE_ITEM_FOR_EXERCISE)
+            {
+                _currentItemAmount = MAX_USABLE_ITEM_FOR_EXERCISE;
+            }
+            UpdateItemChanges();
+        }
+
+        private void DecreaseItemAmount()
+        {
+            if (_currentItemAmount < 0)
+            {
+                _currentItemAmount = 0;
+            }
+            UpdateItemChanges();
+        }
+
+        private void UpdateItemChanges()
+        {
+            if (string.IsNullOrEmpty(_curremtItemId) || string.IsNullOrEmpty(_curremtItemId))
+            {
+                return;
+            }
+            ShowPreviewForExercise(_currentPreviewId, _currentItemAmount);
+            m_TrainingBtn.interactable = (_currentItemAmount > 0);
+            m_AmountTmp.text = _currentItemAmount.ToString();
+            if (_currentItemAmount > 0)
+            {
+                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString();
+            }
+            else
+            {
+                m_CardDropRateTmp.text = "0%";
+            }
+        }
+
+        private void CloseItemAmountChanger()
+        {
+            m_ItemIcon.sprite = null;
+            m_TrainingBtn.interactable = false;
+            m_AmountTmp.text = string.Empty;
+            m_CardDropRateTmp.text = "0%";
         }
     }
 }

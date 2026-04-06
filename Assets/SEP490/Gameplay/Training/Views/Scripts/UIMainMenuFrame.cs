@@ -350,7 +350,7 @@ namespace SEP490G69.Training
             if (HasAnyActiveTournament() || _isMandatoryThisWeek) return;
 
             TooltipController.Hide();
-            TrainingController.StartTraining(ETrainingType.Rest);
+            TrainingController.StartTraining(ETrainingType.Rest, "", 0);
             
             LoadCharacterStats();
             LoadCalendarTime();

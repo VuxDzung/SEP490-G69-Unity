@@ -441,6 +441,22 @@ namespace SEP490G69
                 _ => "rarity_D",
             };
         }
+
+        public static Dictionary<int, float> TRAINING_ITEM_AMOUNT_MULTIPLIERS = new Dictionary<int, float>
+        {
+            { 1, 1f },
+            { 2, 1.5f },
+            { 3, 1.8f },
+            { 4, 2.0f },
+        };
+
+        public static Dictionary<int, float> CARD_DROP_RATES = new Dictionary<int, float>
+        {
+            { 1, 0.1f },
+            { 2, 0.2f },
+            { 3, 0.35f },
+            { 4, 0.5f },
+        };
     }
     public enum ERectPivot
     {

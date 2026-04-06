@@ -202,10 +202,10 @@ namespace SEP490G69
         /// <summary>
         /// Remove item from database.
         /// </summary>
-        /// <param name="itemId"></param>
+        /// <param name="rawItemId"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool RemoveItem(string itemId, int amount)
+        public bool RemoveItem(string rawItemId, int amount)
         {
             if (string.IsNullOrEmpty(_sessionId))
             {
@@ -213,11 +213,11 @@ namespace SEP490G69
                 return false;
             }
 
-            ItemData itemData = _inventoryDAO.GetItem(_sessionId, itemId);
+            ItemData itemData = _inventoryDAO.GetItem(_sessionId, rawItemId);
 
             if (itemData == null)
             {
-                Debug.LogError($"[GameInventoryManager.GetItemBy error] Item with id {itemId} is null");
+                Debug.LogError($"[GameInventoryManager.GetItemBy error] Item with id {rawItemId} is null");
                 return false;
             }
 

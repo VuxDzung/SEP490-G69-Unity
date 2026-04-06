@@ -14,6 +14,7 @@ namespace SEP490G69.Training
         [SerializeField] private TextMeshProUGUI m_LevelTmp;
         [SerializeField] private TextMeshProUGUI m_ExerciseNameTmp;
         [SerializeField] private Button m_Btn;
+        [SerializeField] private Image m_BindedItemImage;
 
         private string _id;
 
@@ -39,6 +40,7 @@ namespace SEP490G69.Training
         {
             m_Btn.onClick.RemoveListener(Click);
             _onClick = null;
+            m_BindedItemImage.sprite = null;
         }
 
         public UIExerciseElement SetOnClick(Action<string> onClick)
@@ -48,13 +50,14 @@ namespace SEP490G69.Training
             return this;
         }
 
-        public void SetContent(string id, Sprite image, string nameKey, int level)
+        public void SetContent(string id, Sprite image, string nameKey, int level, Sprite bindedItemSprite)
         {
             _id  = id;
             m_Image.sprite = image;
             m_LevelTmp.text = $"LV: {level}";
             Debug.Log(nameKey);
             m_ExerciseNameTmp.text = LocalizeManager.GetText("ExerciseNames", nameKey);
+            m_BindedItemImage.sprite = bindedItemSprite;
         }
 
         private void Click()

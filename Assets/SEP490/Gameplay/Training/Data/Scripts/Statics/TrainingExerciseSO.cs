@@ -18,6 +18,7 @@ namespace SEP490G69
         [SerializeField] private string exerciseDescription;
         [SerializeField] private Sprite exerciseIcon;
         [SerializeField] private bool canShowOnUI = true;
+        [SerializeField] private string m_BindedItemId;
 
         [SerializeField] private List<TrainingRewardConfig> m_SuccessModifiers;
         [SerializeField] private List<TrainingRewardConfig> m_FailedModifiers;
@@ -28,6 +29,7 @@ namespace SEP490G69
         public Sprite ExerciseIcon => exerciseIcon;
         public List<TrainingRewardConfig> SuccessModifiers => m_SuccessModifiers;
         public List<TrainingRewardConfig> FailedModifiers => m_FailedModifiers;
-        public bool CanShowOnUI => canShowOnUI; 
+        public bool CanShowOnUI => canShowOnUI;
+        public string BindedItemId => m_BindedItemId;
     }
 }

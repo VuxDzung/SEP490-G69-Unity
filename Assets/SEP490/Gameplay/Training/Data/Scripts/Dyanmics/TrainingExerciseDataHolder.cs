@@ -42,6 +42,8 @@ namespace SEP490G69.Training
             return _trainingData;
         }
 
+        public string GetBindedItemId() => _so.BindedItemId;
+
         public List<TrainingRewardConfig> GetSuccessRewards()
         {
             return _so.SuccessModifiers;

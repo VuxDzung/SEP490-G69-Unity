@@ -4,7 +4,7 @@ namespace SEP490G69.Training
 
     public class SwimTrainingStrategy : BaseTrainingStrategy
     {
-        public override TrainingResult StartTraining(CharacterDataHolder character)
+        public override TrainingResult StartTraining(CharacterDataHolder character, int bindedItemAmount)
         {
             TrainingResult result = new TrainingResult();
 
@@ -29,7 +29,8 @@ namespace SEP490G69.Training
                 isSuccess,
                 moodMultiplier,
                 facilityLevel,
-                result
+                result,
+                bindedItemAmount
             );
 
             return result;

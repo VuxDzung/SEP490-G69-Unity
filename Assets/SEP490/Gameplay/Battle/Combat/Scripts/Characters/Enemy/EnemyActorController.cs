@@ -13,12 +13,10 @@ namespace SEP490G69.Battle.Combat
         private EnemySO _enemySO;
 
         private IReadOnlyList<EnemyIntentSO> _intents = new List<EnemyIntentSO>();
-        private Queue<IEnemyIntentStrategy> _intentQueue = new();
+        private Queue<IEnemyIntentStrategy> _intentQueue = new Queue<IEnemyIntentStrategy>();
         private IEnemyIntentStrategy _currentIntent;
 
         private SceneCombatController _battleManager;
-
-        private int _currentIntentIndex = 0;
 
         public EnemySO CharacterSO => _enemySO ??= _baseDataSO.ConvertAs<EnemySO>();
 

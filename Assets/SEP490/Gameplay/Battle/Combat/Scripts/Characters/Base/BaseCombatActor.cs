@@ -125,7 +125,6 @@
 
             _combatController = new CharacterCombatController.Builder().WithStatsManager(StatsManager)
                                                                        .WithDamageHandler(DmgReductionCalculator)
-                                                                       .WithStatusEffectManager(EffectsManager)
                                                                        .WithEvadeCalculator(EvasionCalculator)
                                                                        .WithCritCalculator(CritCalculator)
                                                                        .WithShield(shield)

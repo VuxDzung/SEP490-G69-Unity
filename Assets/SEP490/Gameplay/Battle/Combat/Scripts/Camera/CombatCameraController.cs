@@ -7,13 +7,6 @@ namespace SEP490G69.Battle.Combat
     {
         [SerializeField] private Camera m_Camera;
         [SerializeField] private CombatCameraConfigSO m_Config;
-        [SerializeField] private float m_InCombatSize = 4f;
-        [SerializeField] private float m_DefaultSize = 6f;
-
-        [SerializeField] private Vector3 m_CombatShake = new Vector3(0.15f, 0.15f, 0f);
-        [SerializeField] private float m_ShakeDuration = 0.15f;
-
-        [SerializeField] private float m_ZoomSpeed = 5f;
 
         private Vector3 _defaultPos;
 

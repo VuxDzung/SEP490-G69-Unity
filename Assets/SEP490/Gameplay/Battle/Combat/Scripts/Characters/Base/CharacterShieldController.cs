@@ -56,6 +56,11 @@ namespace SEP490G69.Battle.Combat
 
         public void ResetShield()
         {
+            if (_hasBarrier == true)
+            {
+                return;
+            }
+
             float maxVit = _statsManager.GetMaxValue(EStatusType.Vitality);
             _statsManager.SetMaxValue(EStatusType.Shield, maxVit * 0.75f);
         }

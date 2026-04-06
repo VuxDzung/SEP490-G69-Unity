@@ -39,8 +39,6 @@
         public const bool IS_AUTO_COMBAT = true;
         public const bool IS_MANUAL_COMBAT = false;
 
-        public event Action<EBattleState> OnStateChanged;
-
         [Header("Scene References")]
         [SerializeField] private List<CharacterCombatPosition> m_EnemyCombatPositions;
         [SerializeField] private List<CharacterCombatPosition> m_PlayerCombatPositions;

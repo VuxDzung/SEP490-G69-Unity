@@ -7,16 +7,16 @@ namespace SEP490G69.Battle.Combat
 
     public class CardContextWeightStrategy : ISelectCardStrategy
     {
-        private readonly int BASE_CONTEXT_VALUE_MIN = 10;
-        private readonly int BASE_CONTEXT_VALUE_MAX = 20;
+        //private readonly int BASE_CONTEXT_VALUE_MIN = 10;
+        //private readonly int BASE_CONTEXT_VALUE_MAX = 20;
 
-        private readonly int MAX_STATUS_EFFECT_STACK = 10;
+        //private readonly int MAX_STATUS_EFFECT_STACK = 10;
 
-        private readonly BaseCombatActor _owner;
+        //private readonly BaseCombatActor _owner;
 
         public CardContextWeightStrategy(BaseCombatActor owner)
         {
-            _owner = owner;
+            //_owner = owner;
         }
 
         /// <summary>

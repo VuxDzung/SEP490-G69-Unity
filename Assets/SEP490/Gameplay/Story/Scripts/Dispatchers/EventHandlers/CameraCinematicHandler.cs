@@ -20,12 +20,13 @@ namespace SEP490G69
         private const string VAR_ORTH_SIZE = "orthSize";
         private const string VAR_X_POSITION = "xPosition";
 
-        private readonly ContextManager _contextManager;
+        //private readonly ContextManager _contextManager;
+
         private readonly Queue<PendingCinematicData> _pendingCinematics;
         private bool _isPlaying;
         public CameraCinematicHandler(ContextManager contextManager) : base(contextManager)
         {
-            _contextManager = contextManager;
+            //_contextManager = contextManager;
             _pendingCinematics = new Queue<PendingCinematicData>();
         }
 

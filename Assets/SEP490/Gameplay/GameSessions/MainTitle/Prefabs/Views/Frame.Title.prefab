@@ -111,7 +111,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2678258150783456759
 CanvasRenderer:
@@ -399,7 +399,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6194932417902447482
 CanvasRenderer:
@@ -874,7 +874,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2218654861609332428
 CanvasRenderer:
@@ -1118,6 +1118,12 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 7226793700273905292}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7254902, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}
 --- !u!1 &2426984597352297883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,6 +1373,12 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 2242540657834899677}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7251561, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.61384207, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.4943396, g: 0.4943396, b: 0.4943396, a: 1}
 --- !u!1 &3243878921640839179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1507,12 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 7794467205099381312}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7254902, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}
 --- !u!1 &3573834249275023549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,7 +2759,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3057614217360478257
 CanvasRenderer:
@@ -3156,6 +3174,12 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 1858610581616945628}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7254902, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}
 --- !u!1 &7456623953349339939
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,7 +3216,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &971192873977740090
 CanvasRenderer:
@@ -3436,6 +3460,12 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 4961365722035218838}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7254902, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}
 --- !u!1 &8335631477496179267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3714,7 +3744,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -70, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5638493249113433794
 CanvasRenderer:
@@ -3958,3 +3988,9 @@ MonoBehaviour:
   m_PressedScale: {x: 0.95, y: 0.95}
   m_SelectedScale: {x: 1, y: 1}
   m_DisabledScale: {x: 1, y: 1}
+  m_Text: {fileID: 6518383314428212579}
+  m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HighlightedColor: {r: 1, g: 0.7254902, b: 0, a: 1}
+  m_PressedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_SelectedColor: {r: 1, g: 0.6156863, b: 0, a: 1}
+  m_DisabledColor: {r: 0.49411765, g: 0.49411765, b: 0.49411765, a: 1}

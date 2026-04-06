@@ -95,6 +95,7 @@
 
         }
 
+        #region Player
         public UICombatFrame SetPlayerCharContent(string id, string characterName, Sprite avatar)
         {
             m_PlayerCharDetails.SetContent(id, characterName, avatar);
@@ -139,6 +140,14 @@
             return this;
         }
 
+        public UICombatFrame LoadPlayerStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
+        {
+            LoadStatEffects("UIPlayerStatusEffect", effectList, true);
+            return this;
+        }
+#endregion
+
+        #region Enemy
         public UICombatFrame SetEnemyCharContent(string id, string characterName, Sprite avatar)
         {
             m_EnemyCharDetails.SetContent(id, characterName, avatar);
@@ -154,29 +163,27 @@
             m_EnemyCharDetails.SetStamina(cur, max);
             return this;
         }
+
         public UICombatFrame SetEnemyCharGauge(float cur, float max)
         {
             m_EnemyCharDetails.SetSpeed(cur, max);
             return this;
         }
+
         public UICombatFrame SetEnemyShield(float statShield)
         {
             m_EnemyShieldGO.SetActive(statShield > 0.01f);
             m_EnemyShieldCountTmp.text = statShield.ToString();
             return this;
         }
-
-        public UICombatFrame LoadPlayerStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
-        {
-            LoadStatEffects("UIPlayerStatusEffect", effectList, true);
-            return this;
-        }
-
         public UICombatFrame LoadEnemyStatEffects(IReadOnlyList<RuntimeStatusEffect> effectList)
         {
             LoadStatEffects("UIEnemyStatusEffect", effectList, false);
             return this;
         }
+
+        #endregion
+
 
         private void EndPlayerTurn()
         {

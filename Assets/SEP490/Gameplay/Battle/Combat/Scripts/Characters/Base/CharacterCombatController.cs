@@ -6,7 +6,6 @@ namespace SEP490G69.Battle.Combat
     {
         private CharacterStatsManager _statsManager;
         private CharacterDamageHandler _damageHandler;
-        private StatusEffectManager _effectManager;
         private CharacterShieldController _shieldController;
 
         private IEvasionCalculator _evasionCalculator;
@@ -100,7 +99,6 @@ namespace SEP490G69.Battle.Combat
         {
             private CharacterStatsManager _statsManager;
             private IDmgReductionCalculator _dmgReductionHandler;
-            private StatusEffectManager _effectManager;
             private IEvasionCalculator _evasionCalculator;
             private ICritCalculator _critHandler;
             private CharacterShieldController _shield;
@@ -114,12 +112,6 @@ namespace SEP490G69.Battle.Combat
             public Builder WithDamageHandler(IDmgReductionCalculator dmgReductor)
             {
                 _dmgReductionHandler = dmgReductor;
-                return this;
-            }
-
-            public Builder WithStatusEffectManager(StatusEffectManager effectManager)
-            {
-                _effectManager = effectManager;
                 return this;
             }
 
@@ -147,7 +139,6 @@ namespace SEP490G69.Battle.Combat
                 {
                     _statsManager = _statsManager,
                     _damageHandler = new CharacterDamageHandler(_dmgReductionHandler),
-                    _effectManager = _effectManager,
                     _evasionCalculator = _evasionCalculator,
                     _critCalculator = _critHandler,
                     _shieldController = _shield,

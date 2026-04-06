@@ -3,7 +3,6 @@ namespace SEP490G69.Battle.Combat
     using SEP490G69.Battle.Cards;
     using SEP490G69.Combat.Battle;
     using System;
-    using System.Collections.Generic;
 
     public interface ITurnState
     {
@@ -13,8 +12,6 @@ namespace SEP490G69.Battle.Combat
 
     public class CombatTurnProcessor : IDisposable
     {
-        public event Action<ECharacterType> onTurnChanged;
-
         private PlayerActorController _player;
         private EnemyActorController _enemy;
 

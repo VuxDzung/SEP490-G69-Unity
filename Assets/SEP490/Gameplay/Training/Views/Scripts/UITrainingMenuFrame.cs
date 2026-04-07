@@ -125,7 +125,6 @@ namespace SEP490G69.Training
                 m_MenuCanvasGroup.interactable = true;
             }
 
-            // Xoá preview sau khi tập xong
             _currentPreviewId = string.Empty;
             CloseItemAmountChanger();
             HideAllPreviews();
@@ -205,27 +204,17 @@ namespace SEP490G69.Training
             if (_currentPreviewId != id)
             {
                 // Bước 1: Hiện Preview
-
             }
-            //else
-            //{
-            //    // Bước 2: Thực hiện Training
-
-            //}
 
             _currentPreviewId = id;
 
-            // Show binded item.
-
             ITrainingStrategy exerciseStrategy = TrainingController.GetExerciseById(_currentPreviewId);
-
             SetCurrentExerciseItem(exerciseStrategy.DataHolder.GetBindedItemId());
-
             ShowPreviewForExercise(_currentPreviewId, _currentItemAmount);
         }
 
         private void EnterTraining()
-        { 
+        {
             if (string.IsNullOrEmpty(_currentPreviewId))
             {
                 return;
@@ -252,8 +241,6 @@ namespace SEP490G69.Training
                 string colorHex = change.Delta > 0 ? "#00FF00" : "#FF4444"; // Xanh lục nếu tăng, Đỏ nếu giảm
                 string formattedText = $"<color={colorHex}><b>{prefix}{change.Delta}</b></color>";
 
-                // Đã sửa change.StatType thành change.StatusType
-                // Đã sửa VIT, POW... thành tên đầy đủ tương ứng với Enum của bạn
                 switch (change.StatusType)
                 {
                     case EStatusType.Vitality:
@@ -278,7 +265,6 @@ namespace SEP490G69.Training
                         break;
                 }
             }
-
         }
 
         private void HideAllPreviews()
@@ -293,9 +279,10 @@ namespace SEP490G69.Training
         private int _currentItemAmount;
         private string _curremtItemId;
         ItemDataHolder _itemData;
+
         public UITrainingMenuFrame SetCardDropRate(float percent)
         {
-            m_CardDropRateTmp.text = Mathf.Round(percent * 100f).ToString();
+            m_CardDropRateTmp.text = Mathf.Round(percent * 100f).ToString() + "%";
             return this;
         }
 
@@ -305,15 +292,20 @@ namespace SEP490G69.Training
 
             _curremtItemId = rawItemId;
             _itemData = InventoryManager.GetItemByRawId(rawItemId);
-            _currentItemAmount = Mathf.Min(MAX_USABLE_ITEM_FOR_EXERCISE, _itemData.GetRemainAmount());
 
-            m_ItemIcon.sprite = _itemData.GetIcon();
+            // ==================================================
+            // --- HACK FOR DEMO --- (Luôn set = 1 để cho phép tập)
+            _currentItemAmount = 1;
+            // ==================================================
+
+            if (m_ItemIcon != null && _itemData != null) m_ItemIcon.sprite = _itemData.GetIcon();
+
             m_AmountTmp.text = _currentItemAmount.ToString();
             m_TrainingBtn.interactable = _currentItemAmount > 0;
 
             if (_currentItemAmount > 0)
             {
-                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString();
+                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString() + "%";
             }
             else
             {
@@ -325,40 +317,48 @@ namespace SEP490G69.Training
 
         private void IncreaseItemAmount()
         {
-            if (_itemData == null || _itemData.GetRemainAmount() == 0)
-            {
-                return;
-            }
-
+            // ==================================================
+            // --- HACK FOR DEMO --- (Bỏ qua check kho, cho tăng lên kịch trần MAX = 4)
             _currentItemAmount++;
             if (_currentItemAmount > MAX_USABLE_ITEM_FOR_EXERCISE)
             {
                 _currentItemAmount = MAX_USABLE_ITEM_FOR_EXERCISE;
             }
+            // ==================================================
+
             UpdateItemChanges();
         }
 
         private void DecreaseItemAmount()
         {
-            if (_currentItemAmount < 0)
+            // ==================================================
+            // --- HACK FOR DEMO --- (Ép min = 1 để lúc nào nút Training cũng ấn được)
+            _currentItemAmount--;
+            int minAllowed = 1;
+
+            if (_currentItemAmount < minAllowed)
             {
-                _currentItemAmount = 0;
+                _currentItemAmount = minAllowed;
             }
+            // ==================================================
+
             UpdateItemChanges();
         }
 
         private void UpdateItemChanges()
         {
-            if (string.IsNullOrEmpty(_curremtItemId) || string.IsNullOrEmpty(_curremtItemId))
+            if (string.IsNullOrEmpty(_curremtItemId))
             {
                 return;
             }
+
             ShowPreviewForExercise(_currentPreviewId, _currentItemAmount);
             m_TrainingBtn.interactable = (_currentItemAmount > 0);
             m_AmountTmp.text = _currentItemAmount.ToString();
+
             if (_currentItemAmount > 0)
             {
-                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString();
+                m_CardDropRateTmp.text = (GameConstants.CARD_DROP_RATES[_currentItemAmount] * 100f).ToString() + "%";
             }
             else
             {

@@ -201,7 +201,6 @@ namespace SEP490G69.Training
                     menuFrame.LoadStats();
                 }
 
-
                 if (_eventManager != null)
                 {
                     _eventManager.Publish(new TrainingCompletedEvent());
@@ -250,20 +249,26 @@ namespace SEP490G69.Training
                     var frame = GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_TRAINING_RESULT).AsFrame<UITrainingResultFrame>();
                     frame.SetResult(strategy.DataHolder.GetName(), result);
 
-                    if (bindedItemAmount == 0 || string.IsNullOrEmpty(bindedItemId))
+                    // ==================================================
+                    // --- HACK FOR DEMO --- 
+                    // ==================================================
+                    Debug.Log("<color=yellow>[DEMO MODE]</color> Đã bỏ qua Check đồ và Trừ đồ. Đang Roll thẻ...");
+
+                    float cardDropRate = 0f;
+                    // Lấy tỷ lệ rơi rớt theo số lượng item mà người dùng đã ấn (+) trên UI
+                    if (bindedItemAmount > 0 && GameConstants.CARD_DROP_RATES.ContainsKey(bindedItemAmount))
                     {
-                        return;
+                        cardDropRate = GameConstants.CARD_DROP_RATES[bindedItemAmount];
                     }
 
-                    float cardDropRate = GameConstants.CARD_DROP_RATES[bindedItemAmount];
-                    if (Random.Range(0f, 1f) < cardDropRate)
+                    // Gọi UI Gacha nếu roll trúng (Random từ 0 -> 1 nhỏ hơn DropRate)
+                    if (Random.Range(0f, 1f) <= cardDropRate)
                     {
-                        // Show received card here.
                         GameUIManager.Singleton.ShowFrame(GameConstants.FRAME_ID_GACHA_CARD_RESULT)
                                                .AsFrame<UIGachaCardResultFrame>();
                     }
-
-                    InventoryManager.RemoveItem(bindedItemId, bindedItemAmount);
+                    // KHÔNG TRỪ ĐỒ NỮA: InventoryManager.RemoveItem(bindedItemId, bindedItemAmount);
+                    // ==================================================
                 });
             }
             else
